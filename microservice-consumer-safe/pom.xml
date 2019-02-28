@@ -112,10 +112,10 @@
 		    <version>0.9.1</version>
 		</dependency>
 		
-        <!-- 通用工具类 -->
+         <!-- 通用工具类 -->
         <dependency>
-            <groupId>com.ochain</groupId>
-            <artifactId>ochain-common</artifactId>
+            <groupId>com.cloud</groupId>
+            <artifactId>safe-common</artifactId>
             <version>0.0.1-RELEASE</version>
         </dependency>
     </dependencies>
