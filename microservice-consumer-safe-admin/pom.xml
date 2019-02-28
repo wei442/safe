@@ -7,12 +7,12 @@
 		<artifactId>safe</artifactId>
 		<version>${project.version}</version>
 	</parent>
-	<artifactId>microservice-provider-safe-admin</artifactId>
+	<artifactId>microservice-consumer-safe-admin</artifactId>
 	<!-- 开发版本 -->
 	<!-- 正式版本 
 	<version>0.0.1-RELEASE</version>
 	-->
-	<name>microservice-provider-safe-admin</name>
+	<name>microservice-consumer-safe-admin</name>
 
     <dependencies>
 		<!-- spring cloud start -->
@@ -114,8 +114,8 @@
 		
         <!-- 通用工具类 -->
         <dependency>
-            <groupId>com.ochain</groupId>
-            <artifactId>ochain-common</artifactId>
+            <groupId>com.cloud</groupId>
+            <artifactId>safe-common</artifactId>
             <version>0.0.1-RELEASE</version>
         </dependency>
     </dependencies>
