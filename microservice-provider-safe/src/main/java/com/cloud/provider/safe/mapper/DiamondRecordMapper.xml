@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ochain.provider.wheel.dao.DiamondRecordMapper">
+  <resultMap id="BaseResultMap" type="com.ochain.provider.wheel.po.DiamondRecord">
+    <id column="id" jdbcType="BIGINT" property="diamondRecordId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="diamond_code" jdbcType="VARCHAR" property="diamondCode" />
+    <result column="diamond_name" jdbcType="VARCHAR" property="diamondName" />
+    <result column="diamond_type" jdbcType="INTEGER" property="diamondType" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="diamond" jdbcType="DECIMAL" property="diamond" />
+    <result column="use_time" jdbcType="TIMESTAMP" property="useTime" />
+    <result column="is_use" jdbcType="INTEGER" property="isUse" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="registry_no" jdbcType="BIGINT" property="registryNo" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, diamond_code, diamond_name, diamond_type, location, diamond, use_time, 
+    is_use, status, registry_no, create_time, update_time, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.ochain.provider.wheel.po.DiamondRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from diamond_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from diamond_record
+    where id = #{diamondRecordId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from diamond_record
+    where id = #{diamondRecordId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ochain.provider.wheel.po.DiamondRecordExample">
+    delete from diamond_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ochain.provider.wheel.po.DiamondRecord" useGeneratedKeys="true" keyProperty="diamondRecordId">
+    insert into diamond_record (id, user_id, diamond_code, 
+      diamond_name, diamond_type, location, 
+      diamond, use_time, is_use, 
+      status, registry_no, create_time, 
+      update_time, remark)
+    values (#{diamondRecordId,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, #{diamondCode,jdbcType=VARCHAR}, 
+      #{diamondName,jdbcType=VARCHAR}, #{diamondType,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, 
+      #{diamond,jdbcType=DECIMAL}, #{useTime,jdbcType=TIMESTAMP}, #{isUse,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{registryNo,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ochain.provider.wheel.po.DiamondRecord" useGeneratedKeys="true" keyProperty="diamondRecordId">
+    insert into diamond_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="diamondRecordId != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="diamondCode != null">
+        diamond_code,
+      </if>
+      <if test="diamondName != null">
+        diamond_name,
+      </if>
+      <if test="diamondType != null">
+        diamond_type,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="diamond != null">
+        diamond,
+      </if>
+      <if test="useTime != null">
+        use_time,
+      </if>
+      <if test="isUse != null">
+        is_use,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="registryNo != null">
+        registry_no,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="diamondRecordId != null">
+        #{diamondRecordId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="diamondCode != null">
+        #{diamondCode,jdbcType=VARCHAR},
+      </if>
+      <if test="diamondName != null">
+        #{diamondName,jdbcType=VARCHAR},
+      </if>
+      <if test="diamondType != null">
+        #{diamondType,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="diamond != null">
+        #{diamond,jdbcType=DECIMAL},
+      </if>
+      <if test="useTime != null">
+        #{useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUse != null">
+        #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="registryNo != null">
+        #{registryNo,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ochain.provider.wheel.po.DiamondRecordExample" resultType="java.lang.Long">
+    select count(*) from diamond_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update diamond_record
+    <set>
+      <if test="record.diamondRecordId != null">
+        id = #{record.diamondRecordId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.diamondCode != null">
+        diamond_code = #{record.diamondCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diamondName != null">
+        diamond_name = #{record.diamondName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diamondType != null">
+        diamond_type = #{record.diamondType,jdbcType=INTEGER},
+      </if>
+      <if test="record.location != null">
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diamond != null">
+        diamond = #{record.diamond,jdbcType=DECIMAL},
+      </if>
+      <if test="record.useTime != null">
+        use_time = #{record.useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isUse != null">
+        is_use = #{record.isUse,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.registryNo != null">
+        registry_no = #{record.registryNo,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update diamond_record
+    set id = #{record.diamondRecordId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      diamond_code = #{record.diamondCode,jdbcType=VARCHAR},
+      diamond_name = #{record.diamondName,jdbcType=VARCHAR},
+      diamond_type = #{record.diamondType,jdbcType=INTEGER},
+      location = #{record.location,jdbcType=VARCHAR},
+      diamond = #{record.diamond,jdbcType=DECIMAL},
+      use_time = #{record.useTime,jdbcType=TIMESTAMP},
+      is_use = #{record.isUse,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      registry_no = #{record.registryNo,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ochain.provider.wheel.po.DiamondRecord">
+    update diamond_record
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="diamondCode != null">
+        diamond_code = #{diamondCode,jdbcType=VARCHAR},
+      </if>
+      <if test="diamondName != null">
+        diamond_name = #{diamondName,jdbcType=VARCHAR},
+      </if>
+      <if test="diamondType != null">
+        diamond_type = #{diamondType,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="diamond != null">
+        diamond = #{diamond,jdbcType=DECIMAL},
+      </if>
+      <if test="useTime != null">
+        use_time = #{useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUse != null">
+        is_use = #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="registryNo != null">
+        registry_no = #{registryNo,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{diamondRecordId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ochain.provider.wheel.po.DiamondRecord">
+    update diamond_record
+    set user_id = #{userId,jdbcType=INTEGER},
+      diamond_code = #{diamondCode,jdbcType=VARCHAR},
+      diamond_name = #{diamondName,jdbcType=VARCHAR},
+      diamond_type = #{diamondType,jdbcType=INTEGER},
+      location = #{location,jdbcType=VARCHAR},
+      diamond = #{diamond,jdbcType=DECIMAL},
+      use_time = #{useTime,jdbcType=TIMESTAMP},
+      is_use = #{isUse,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      registry_no = #{registryNo,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{diamondRecordId,jdbcType=BIGINT}
+  </update>
+    
+    <!-- 根据领用时间查询已领取的能量数量  -->
+    <select id="selectDrawDiamondListByUseTime" parameterType="com.ochain.provider.wheel.param.DiamondRecordParam" resultType="com.ochain.provider.wheel.vo.diamond.DiamondRecordVo">
+		select 
+		sum(diamond) as totalDrawDiamond
+        from diamond_record 
+        where
+        is_use = 1 
+        and status = 1 
+        and use_time BETWEEN #{useTimeStartStr,jdbcType=VARCHAR} AND #{useTimeEndStr,jdbcType=VARCHAR} 
+    </select>
+    
+    <!-- 根据创建时间查询未领取的能量数量  -->
+    <select id="selectNotDrawDiamondListByCreateTime" parameterType="com.ochain.provider.wheel.param.DiamondRecordParam" resultType="com.ochain.provider.wheel.vo.diamond.DiamondRecordVo">
+		select 
+		sum(diamond) as totalDiamond
+        from diamond_record 
+        where
+        is_use = 0 
+        and status = 1 
+        and create_time BETWEEN #{createTimeStartStr,jdbcType=VARCHAR} AND #{createTimeEndStr,jdbcType=VARCHAR} 
+    </select>
+    
+</mapper>

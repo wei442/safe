@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ochain.provider.wheel.dao.UserCalculateConfigMapper">
+  <resultMap id="BaseResultMap" type="com.ochain.provider.wheel.po.UserCalculateConfig">
+    <id column="id" jdbcType="BIGINT" property="userCalculateConfigId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="calculate_code" jdbcType="VARCHAR" property="calculateCode" />
+    <result column="is_complete" jdbcType="INTEGER" property="isComplete" />
+    <result column="complete_time" jdbcType="TIMESTAMP" property="completeTime" />
+    <result column="is_add" jdbcType="INTEGER" property="isAdd" />
+    <result column="times" jdbcType="INTEGER" property="times" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, calculate_code, is_complete, complete_time, is_add, times, amount, create_time, 
+    update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.ochain.provider.wheel.po.UserCalculateConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_calculate_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_calculate_config
+    where id = #{userCalculateConfigId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_calculate_config
+    where id = #{userCalculateConfigId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ochain.provider.wheel.po.UserCalculateConfigExample">
+    delete from user_calculate_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ochain.provider.wheel.po.UserCalculateConfig" useGeneratedKeys="true" keyProperty="userCalculateConfigId">
+    insert into user_calculate_config (id, user_id, calculate_code, 
+      is_complete, complete_time, is_add, 
+      times, amount, create_time, 
+      update_time)
+    values (#{userCalculateConfigId,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, #{calculateCode,jdbcType=VARCHAR}, 
+      #{isComplete,jdbcType=INTEGER}, #{completeTime,jdbcType=TIMESTAMP}, #{isAdd,jdbcType=INTEGER}, 
+      #{times,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ochain.provider.wheel.po.UserCalculateConfig" useGeneratedKeys="true" keyProperty="userCalculateConfigId">
+    insert into user_calculate_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userCalculateConfigId != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="calculateCode != null">
+        calculate_code,
+      </if>
+      <if test="isComplete != null">
+        is_complete,
+      </if>
+      <if test="completeTime != null">
+        complete_time,
+      </if>
+      <if test="isAdd != null">
+        is_add,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userCalculateConfigId != null">
+        #{userCalculateConfigId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="calculateCode != null">
+        #{calculateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isComplete != null">
+        #{isComplete,jdbcType=INTEGER},
+      </if>
+      <if test="completeTime != null">
+        #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAdd != null">
+        #{isAdd,jdbcType=INTEGER},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ochain.provider.wheel.po.UserCalculateConfigExample" resultType="java.lang.Long">
+    select count(*) from user_calculate_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_calculate_config
+    <set>
+      <if test="record.userCalculateConfigId != null">
+        id = #{record.userCalculateConfigId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.calculateCode != null">
+        calculate_code = #{record.calculateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isComplete != null">
+        is_complete = #{record.isComplete,jdbcType=INTEGER},
+      </if>
+      <if test="record.completeTime != null">
+        complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isAdd != null">
+        is_add = #{record.isAdd,jdbcType=INTEGER},
+      </if>
+      <if test="record.times != null">
+        times = #{record.times,jdbcType=INTEGER},
+      </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_calculate_config
+    set id = #{record.userCalculateConfigId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      calculate_code = #{record.calculateCode,jdbcType=VARCHAR},
+      is_complete = #{record.isComplete,jdbcType=INTEGER},
+      complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
+      is_add = #{record.isAdd,jdbcType=INTEGER},
+      times = #{record.times,jdbcType=INTEGER},
+      amount = #{record.amount,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ochain.provider.wheel.po.UserCalculateConfig">
+    update user_calculate_config
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="calculateCode != null">
+        calculate_code = #{calculateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isComplete != null">
+        is_complete = #{isComplete,jdbcType=INTEGER},
+      </if>
+      <if test="completeTime != null">
+        complete_time = #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAdd != null">
+        is_add = #{isAdd,jdbcType=INTEGER},
+      </if>
+      <if test="times != null">
+        times = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{userCalculateConfigId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ochain.provider.wheel.po.UserCalculateConfig">
+    update user_calculate_config
+    set user_id = #{userId,jdbcType=INTEGER},
+      calculate_code = #{calculateCode,jdbcType=VARCHAR},
+      is_complete = #{isComplete,jdbcType=INTEGER},
+      complete_time = #{completeTime,jdbcType=TIMESTAMP},
+      is_add = #{isAdd,jdbcType=INTEGER},
+      times = #{times,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{userCalculateConfigId,jdbcType=BIGINT}
+  </update>
+  
+  	<!-- 根据userId查询用户配置列表  -->
+    <select id="selectUserCalculateConfigContentListByUserId" parameterType="com.ochain.provider.wheel.param.UserCalculateConfigParam" resultType="com.ochain.provider.wheel.vo.user.UserCalculateConfigContentVo">
+        select 
+        t1.id as calculateConfigId, t1.calculate_code as calculateCode, t1.calculate_name as calculateName, t1.calculate_type as calculateType, t1.content as content, 
+      	t1.is_use as isUse, t1.url as url, t1.is_skip as isSkip, t1.is_delete as isDelete, t1.remark as remark, 
+      	t2.id as userCalculateConfigId, t2.complete_time as complete_time, IFNULL(t2.is_complete, 0)
+        from calculate_config t1 left join user_calculate_config t2 on t1.calculate_code = t2.calculate_code 
+        where t1.is_use = 1 
+        and t1.is_delete = 0
+        <if test="userId != null and userId != ''">
+        	and t2.user_id = #{userId,jdbcType=INTEGER} 
+      	</if>
+        <if test="calculateType != null and calculateType != ''">
+        	and t1.calculate_type = #{calculateType,jdbcType=INTEGER} 
+      	</if>
+   		<if test="orderByClause != null and orderByClause != ''">
+      		order by ${orderByClause}
+      	</if>
+    </select>
+</mapper>
