@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -7,7 +8,7 @@
  		<version>2.1.3.RELEASE</version>
 	</parent>
 
-	<groupId>com.ochain.safe</groupId>
+	<groupId>com.cloud</groupId>
 	<artifactId>safe</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -35,14 +36,14 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
 		<!-- 配置指数信息 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -62,6 +63,11 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.54</version>
@@ -70,6 +76,14 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
 		<dependency>
@@ -84,8 +98,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.ochain.mall</groupId>
-			<artifactId>mall-common</artifactId>
+			<groupId>com.cloud</groupId>
+			<artifactId>safe-common</artifactId>
 			<version>0.0.1.RELEASE</version>
 		</dependency>
 	</dependencies>
@@ -121,11 +135,10 @@
 	</build>
 
 	<modules>
-		<module>microservice-eureka</module>
-		<module>microservice-provider-redis</module>
 		<module>microservice-api-gateway-safe</module>
+		<module>microservice-api-gateway-safe-admin</module>
 		<module>microservice-consumer-safe</module>
-		<module>microservice-consumer-safe-manage</module>
+		<module>microservice-consumer-safe-admin</module>
 		<module>microservice-provider-safe</module>
 		<module>safe-common</module>
 	</modules>

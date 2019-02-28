@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ochain.provider.wheel.dao.RankMapper">
+  <resultMap id="BaseResultMap" type="com.ochain.provider.wheel.po.Rank">
+    <id column="id" jdbcType="INTEGER" property="rankId" />
+    <result column="total_diamond" jdbcType="DECIMAL" property="totalDiamond" />
+    <result column="plan_diamond" jdbcType="DECIMAL" property="planDiamond" />
+    <result column="real_diamond" jdbcType="DECIMAL" property="realDiamond" />
+    <result column="total_calculate" jdbcType="BIGINT" property="totalCalculate" />
+    <result column="total_civilize_calculate" jdbcType="BIGINT" property="totalCivilizeCalculate" />
+    <result column="total_task_calculate" jdbcType="BIGINT" property="totalTaskCalculate" />
+    <result column="rank_time" jdbcType="TIMESTAMP" property="rankTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, total_diamond, plan_diamond, real_diamond, total_calculate, total_civilize_calculate, 
+    total_task_calculate, rank_time, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.ochain.provider.wheel.po.RankExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rank
+    where id = #{rankId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rank
+    where id = #{rankId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ochain.provider.wheel.po.RankExample">
+    delete from rank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ochain.provider.wheel.po.Rank" useGeneratedKeys="true" keyProperty="rankId">
+    insert into rank (id, total_diamond, plan_diamond, 
+      real_diamond, total_calculate, total_civilize_calculate, 
+      total_task_calculate, rank_time, create_time, 
+      update_time)
+    values (#{rankId,jdbcType=INTEGER}, #{totalDiamond,jdbcType=DECIMAL}, #{planDiamond,jdbcType=DECIMAL}, 
+      #{realDiamond,jdbcType=DECIMAL}, #{totalCalculate,jdbcType=BIGINT}, #{totalCivilizeCalculate,jdbcType=BIGINT}, 
+      #{totalTaskCalculate,jdbcType=BIGINT}, #{rankTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ochain.provider.wheel.po.Rank" useGeneratedKeys="true" keyProperty="rankId">
+    insert into rank
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rankId != null">
+        id,
+      </if>
+      <if test="totalDiamond != null">
+        total_diamond,
+      </if>
+      <if test="planDiamond != null">
+        plan_diamond,
+      </if>
+      <if test="realDiamond != null">
+        real_diamond,
+      </if>
+      <if test="totalCalculate != null">
+        total_calculate,
+      </if>
+      <if test="totalCivilizeCalculate != null">
+        total_civilize_calculate,
+      </if>
+      <if test="totalTaskCalculate != null">
+        total_task_calculate,
+      </if>
+      <if test="rankTime != null">
+        rank_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rankId != null">
+        #{rankId,jdbcType=INTEGER},
+      </if>
+      <if test="totalDiamond != null">
+        #{totalDiamond,jdbcType=DECIMAL},
+      </if>
+      <if test="planDiamond != null">
+        #{planDiamond,jdbcType=DECIMAL},
+      </if>
+      <if test="realDiamond != null">
+        #{realDiamond,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCalculate != null">
+        #{totalCalculate,jdbcType=BIGINT},
+      </if>
+      <if test="totalCivilizeCalculate != null">
+        #{totalCivilizeCalculate,jdbcType=BIGINT},
+      </if>
+      <if test="totalTaskCalculate != null">
+        #{totalTaskCalculate,jdbcType=BIGINT},
+      </if>
+      <if test="rankTime != null">
+        #{rankTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ochain.provider.wheel.po.RankExample" resultType="java.lang.Long">
+    select count(*) from rank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update rank
+    <set>
+      <if test="record.rankId != null">
+        id = #{record.rankId,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalDiamond != null">
+        total_diamond = #{record.totalDiamond,jdbcType=DECIMAL},
+      </if>
+      <if test="record.planDiamond != null">
+        plan_diamond = #{record.planDiamond,jdbcType=DECIMAL},
+      </if>
+      <if test="record.realDiamond != null">
+        real_diamond = #{record.realDiamond,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalCalculate != null">
+        total_calculate = #{record.totalCalculate,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalCivilizeCalculate != null">
+        total_civilize_calculate = #{record.totalCivilizeCalculate,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalTaskCalculate != null">
+        total_task_calculate = #{record.totalTaskCalculate,jdbcType=BIGINT},
+      </if>
+      <if test="record.rankTime != null">
+        rank_time = #{record.rankTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update rank
+    set id = #{record.rankId,jdbcType=INTEGER},
+      total_diamond = #{record.totalDiamond,jdbcType=DECIMAL},
+      plan_diamond = #{record.planDiamond,jdbcType=DECIMAL},
+      real_diamond = #{record.realDiamond,jdbcType=DECIMAL},
+      total_calculate = #{record.totalCalculate,jdbcType=BIGINT},
+      total_civilize_calculate = #{record.totalCivilizeCalculate,jdbcType=BIGINT},
+      total_task_calculate = #{record.totalTaskCalculate,jdbcType=BIGINT},
+      rank_time = #{record.rankTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ochain.provider.wheel.po.Rank">
+    update rank
+    <set>
+      <if test="totalDiamond != null">
+        total_diamond = #{totalDiamond,jdbcType=DECIMAL},
+      </if>
+      <if test="planDiamond != null">
+        plan_diamond = #{planDiamond,jdbcType=DECIMAL},
+      </if>
+      <if test="realDiamond != null">
+        real_diamond = #{realDiamond,jdbcType=DECIMAL},
+      </if>
+      <if test="totalCalculate != null">
+        total_calculate = #{totalCalculate,jdbcType=BIGINT},
+      </if>
+      <if test="totalCivilizeCalculate != null">
+        total_civilize_calculate = #{totalCivilizeCalculate,jdbcType=BIGINT},
+      </if>
+      <if test="totalTaskCalculate != null">
+        total_task_calculate = #{totalTaskCalculate,jdbcType=BIGINT},
+      </if>
+      <if test="rankTime != null">
+        rank_time = #{rankTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{rankId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ochain.provider.wheel.po.Rank">
+    update rank
+    set total_diamond = #{totalDiamond,jdbcType=DECIMAL},
+      plan_diamond = #{planDiamond,jdbcType=DECIMAL},
+      real_diamond = #{realDiamond,jdbcType=DECIMAL},
+      total_calculate = #{totalCalculate,jdbcType=BIGINT},
+      total_civilize_calculate = #{totalCivilizeCalculate,jdbcType=BIGINT},
+      total_task_calculate = #{totalTaskCalculate,jdbcType=BIGINT},
+      rank_time = #{rankTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{rankId,jdbcType=INTEGER}
+  </update>
+  
+  	<!-- 根据排名时间查询排名列表  -->
+    <select id="selectRankListByRankTime" parameterType="com.ochain.provider.wheel.param.RankParam" resultType="com.ochain.provider.wheel.po.Rank">
+		select 
+   		id as rankId, total_diamond as totalDiamond, total_calculate as totalCalculate, 
+      	total_civilize_calculate as totalCivilizeCalculate, total_task_calculate as totalTaskCalculate, 
+      	rank_time as rankTime, create_time as createTime, update_time as updateTime
+        from rank 
+        where
+        rank_time BETWEEN #{rankTimeStartStr,jdbcType=VARCHAR} AND #{rankTimeEndStr,jdbcType=VARCHAR} 
+        order by id desc 
+    </select>
+    
+	<!-- 根据排名时间删除排名 -->
+	<delete id="deleteRankByRankTime" parameterType="com.ochain.provider.wheel.param.RankParam">
+	    delete from rank
+	    where rank_time BETWEEN #{rankTimeStartStr,jdbcType=VARCHAR} AND #{rankTimeEndStr,jdbcType=VARCHAR} 
+  	</delete>
+  
+</mapper>

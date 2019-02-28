@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ochain.provider.wheel.dao.GCouponMapper" >
+  <resultMap id="BaseResultMap" type="com.ochain.provider.wheel.po.GCoupon" >
+    <id column="id" property="gCouponId" jdbcType="VARCHAR" />
+    <result column="g_name" property="gName" jdbcType="VARCHAR" />
+    <result column="g_money" property="gMoney" jdbcType="INTEGER" />
+    <result column="g_city_name" property="gCityName" jdbcType="VARCHAR" />
+    <result column="g_price_type" property="gPriceType" jdbcType="INTEGER" />
+    <result column="g_area_info" property="gAreaInfo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, g_name, g_money, g_city_name, g_price_type, g_area_info, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ochain.provider.wheel.po.GCouponExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from g_coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from g_coupon
+    where id = #{gCouponId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from g_coupon
+    where id = #{gCouponId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ochain.provider.wheel.po.GCouponExample" >
+    delete from g_coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ochain.provider.wheel.po.GCoupon" useGeneratedKeys="true" keyProperty="gCouponId">
+    insert into g_coupon (id, g_name, g_money, 
+      g_city_name, g_price_type, g_area_info, 
+      create_time, update_time)
+    values (#{gCouponId,jdbcType=VARCHAR}, #{gName,jdbcType=VARCHAR}, #{gMoney,jdbcType=INTEGER}, 
+      #{gCityName,jdbcType=VARCHAR}, #{gPriceType,jdbcType=INTEGER}, #{gAreaInfo,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ochain.provider.wheel.po.GCoupon" useGeneratedKeys="true" keyProperty="gCouponId">
+    insert into g_coupon
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gCouponId != null" >
+        id,
+      </if>
+      <if test="gName != null" >
+        g_name,
+      </if>
+      <if test="gMoney != null" >
+        g_money,
+      </if>
+      <if test="gCityName != null" >
+        g_city_name,
+      </if>
+      <if test="gPriceType != null" >
+        g_price_type,
+      </if>
+      <if test="gAreaInfo != null" >
+        g_area_info,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gCouponId != null" >
+        #{gCouponId,jdbcType=VARCHAR},
+      </if>
+      <if test="gName != null" >
+        #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="gMoney != null" >
+        #{gMoney,jdbcType=INTEGER},
+      </if>
+      <if test="gCityName != null" >
+        #{gCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="gPriceType != null" >
+        #{gPriceType,jdbcType=INTEGER},
+      </if>
+      <if test="gAreaInfo != null" >
+        #{gAreaInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ochain.provider.wheel.po.GCouponExample" resultType="java.lang.Integer" >
+    select count(*) from g_coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update g_coupon
+    <set >
+      <if test="record.gCouponId != null" >
+        id = #{record.gCouponId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gName != null" >
+        g_name = #{record.gName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gMoney != null" >
+        g_money = #{record.gMoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.gCityName != null" >
+        g_city_name = #{record.gCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gPriceType != null" >
+        g_price_type = #{record.gPriceType,jdbcType=INTEGER},
+      </if>
+      <if test="record.gAreaInfo != null" >
+        g_area_info = #{record.gAreaInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update g_coupon
+    set id = #{record.gCouponId,jdbcType=VARCHAR},
+      g_name = #{record.gName,jdbcType=VARCHAR},
+      g_money = #{record.gMoney,jdbcType=INTEGER},
+      g_city_name = #{record.gCityName,jdbcType=VARCHAR},
+      g_price_type = #{record.gPriceType,jdbcType=INTEGER},
+      g_area_info = #{record.gAreaInfo,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ochain.provider.wheel.po.GCoupon" >
+    update g_coupon
+    <set >
+      <if test="gName != null" >
+        g_name = #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="gMoney != null" >
+        g_money = #{gMoney,jdbcType=INTEGER},
+      </if>
+      <if test="gCityName != null" >
+        g_city_name = #{gCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="gPriceType != null" >
+        g_price_type = #{gPriceType,jdbcType=INTEGER},
+      </if>
+      <if test="gAreaInfo != null" >
+        g_area_info = #{gAreaInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{gCouponId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ochain.provider.wheel.po.GCoupon" >
+    update g_coupon
+    set g_name = #{gName,jdbcType=VARCHAR},
+      g_money = #{gMoney,jdbcType=INTEGER},
+      g_city_name = #{gCityName,jdbcType=VARCHAR},
+      g_price_type = #{gPriceType,jdbcType=INTEGER},
+      g_area_info = #{gAreaInfo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{gCouponId,jdbcType=VARCHAR}
+  </update>
+</mapper>
