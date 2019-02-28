@@ -7,20 +7,14 @@
 		<artifactId>safe</artifactId>
 		<version>${project.version}</version>
 	</parent>
-	<artifactId>microservice-consumer-safe</artifactId>
+	<artifactId>microservice-provider-safe</artifactId>
 	<!-- 开发版本 -->
 	<!-- 正式版本 
 	<version>0.0.1-RELEASE</version>
 	-->
-	<name>microservice-consumer-safe</name>
+	<name>microservice-provider-safe</name>
 
     <dependencies>
-   		<!-- spring boot start -->
-   		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <!-- 安全 -->
    		<dependency>  
 	        <groupId>org.springframework.boot</groupId>
