@@ -1,8 +1,8 @@
-package com.ochain.provider.wheel.boot;
+package com.cloud.provider.safe.boot;
 
 import java.io.Serializable;
 
-import com.ochain.common.constants.BootConstants;
+import com.cloud.common.constants.BootConstants;
 
 /**
  * boot返回

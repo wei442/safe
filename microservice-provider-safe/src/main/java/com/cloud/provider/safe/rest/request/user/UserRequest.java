@@ -1,6 +1,6 @@
-package com.ochain.provider.wheel.rest.request.user;
+package com.cloud.provider.safe.rest.request.user;
 
-import com.ochain.provider.wheel.boot.BootRestRequest;
+import com.cloud.provider.safe.boot.BootRestRequest;
 
 public class UserRequest extends BootRestRequest {
 

@@ -1,22 +1,19 @@
-package com.ochain.provider.wheel.po;
+package com.cloud.provider.safe.po;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class UserInfo implements Serializable {
+public class UserInfo {
+    private Integer id;
 
-    /**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-
-	private Integer userId;
-
-    private String gId;
+    private Integer enterpriseId;
 
     private String userAccount;
 
+    private String userPassword;
+
     private String userName;
+
+    private String userNameEn;
 
     private String nickName;
 
@@ -24,36 +21,40 @@ public class UserInfo implements Serializable {
 
     private Integer gender;
 
-    private Integer status;
+    private Integer userStatus;
 
-    private String cityCode;
+    private String userEmail;
 
-    private String cityName;
+    private String headImage;
 
     private Integer isDelete;
 
-    private Integer loginCount;
+    private String remark;
+
+    private Integer sort;
+
+    private String created;
+
+    private String updated;
 
     private Date createTime;
 
     private Date updateTime;
 
-    private String headImage;
-
-    public Integer getUserId() {
-        return userId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getgId() {
-        return gId;
+    public Integer getEnterpriseId() {
+        return enterpriseId;
     }
 
-    public void setgId(String gId) {
-        this.gId = gId == null ? null : gId.trim();
+    public void setEnterpriseId(Integer enterpriseId) {
+        this.enterpriseId = enterpriseId;
     }
 
     public String getUserAccount() {
@@ -64,12 +65,28 @@ public class UserInfo implements Serializable {
         this.userAccount = userAccount == null ? null : userAccount.trim();
     }
 
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword == null ? null : userPassword.trim();
+    }
+
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
+    }
+
+    public String getUserNameEn() {
+        return userNameEn;
+    }
+
+    public void setUserNameEn(String userNameEn) {
+        this.userNameEn = userNameEn == null ? null : userNameEn.trim();
     }
 
     public String getNickName() {
@@ -96,28 +113,28 @@ public class UserInfo implements Serializable {
         this.gender = gender;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getUserStatus() {
+        return userStatus;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setUserStatus(Integer userStatus) {
+        this.userStatus = userStatus;
     }
 
-    public String getCityCode() {
-        return cityCode;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setCityCode(String cityCode) {
-        this.cityCode = cityCode == null ? null : cityCode.trim();
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail == null ? null : userEmail.trim();
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getHeadImage() {
+        return headImage;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName == null ? null : cityName.trim();
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage == null ? null : headImage.trim();
     }
 
     public Integer getIsDelete() {
@@ -128,12 +145,36 @@ public class UserInfo implements Serializable {
         this.isDelete = isDelete;
     }
 
-    public Integer getLoginCount() {
-        return loginCount;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setLoginCount(Integer loginCount) {
-        this.loginCount = loginCount;
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created == null ? null : created.trim();
+    }
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated == null ? null : updated.trim();
     }
 
     public Date getCreateTime() {
@@ -151,22 +192,4 @@ public class UserInfo implements Serializable {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
-    public String getHeadImage() {
-        return headImage;
-    }
-
-    public void setHeadImage(String headImage) {
-        this.headImage = headImage == null ? null : headImage.trim();
-    }
-
-	@Override
-	public String toString() {
-		return "UserInfo [userId=" + userId + ", gId=" + gId + ", userAccount=" + userAccount + ", userName=" + userName
-				+ ", nickName=" + nickName + ", userType=" + userType + ", gender=" + gender + ", status=" + status
-				+ ", cityCode=" + cityCode + ", cityName=" + cityName + ", isDelete=" + isDelete + ", loginCount="
-				+ loginCount + ", createTime=" + createTime + ", updateTime=" + updateTime + ", headImage=" + headImage
-				+ "]";
-	}
-
 }

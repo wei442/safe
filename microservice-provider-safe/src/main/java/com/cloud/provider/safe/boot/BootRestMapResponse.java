@@ -1,9 +1,10 @@
-package com.ochain.provider.wheel.boot;
+package com.cloud.provider.safe.boot;
 
 import java.io.Serializable;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ochain.common.constants.BootConstants;
+import com.cloud.common.constants.RetConstants;
+import com.cloud.common.enums.ResultEnum;
 
 /**
  * boot map返回
@@ -17,13 +18,18 @@ public class BootRestMapResponse extends JSONObject implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public BootRestMapResponse() {
-		this.put(BootConstants.BOOT_CODE, BootConstants.OK);
-		this.put(BootConstants.BOOT_MSG, BootConstants.OK_MSG);
+		this.put(RetConstants.RET_CODE, RetConstants.OK);
+		this.put(RetConstants.RET_MSG, RetConstants.OK_MSG);
 	}
 
 	public BootRestMapResponse(String code,String msg) {
-		this.put(BootConstants.BOOT_CODE, code);
-		this.put(BootConstants.BOOT_MSG, msg);
+		this.put(RetConstants.RET_CODE, code);
+		this.put(RetConstants.RET_MSG, msg);
+	}
+
+	public BootRestMapResponse(ResultEnum enums) {
+		this.put(RetConstants.RET_CODE, enums.getCode());
+		this.put(RetConstants.RET_MSG, enums.getMsg());
 	}
 
 }

@@ -1,8 +1,8 @@
-package com.ochain.provider.wheel.rest.request.feeConfig;
+package com.cloud.provider.safe.rest.request.feeConfig;
 
 import java.math.BigDecimal;
 
-import com.ochain.provider.wheel.boot.BootRestRequest;
+import com.cloud.provider.safe.boot.BootRestRequest;
 
 /**
  * 手续费配置请求

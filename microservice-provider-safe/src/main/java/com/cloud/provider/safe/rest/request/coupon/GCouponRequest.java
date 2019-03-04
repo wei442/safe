@@ -1,6 +1,6 @@
-package com.ochain.provider.wheel.rest.request.coupon;
+package com.cloud.provider.safe.rest.request.coupon;
 
-import com.ochain.provider.wheel.boot.BootRestRequest;
+import com.cloud.provider.safe.boot.BootRestRequest;
 
 public class GCouponRequest extends BootRestRequest {
 

@@ -1,8 +1,8 @@
-package com.ochain.provider.wheel.rest.request.coupon;
+package com.cloud.provider.safe.rest.request.coupon;
 
 import java.util.Date;
 
-import com.ochain.provider.wheel.boot.BootRestRequest;
+import com.cloud.provider.safe.boot.BootRestRequest;
 
 public class CouponLogRequest extends BootRestRequest {
 

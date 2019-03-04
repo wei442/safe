@@ -1,8 +1,8 @@
-package com.ochain.provider.wheel.rest.request.user;
+package com.cloud.provider.safe.rest.request.user;
 
 import java.util.Date;
 
-import com.ochain.provider.wheel.boot.BootRestRequest;
+import com.cloud.provider.safe.boot.BootRestRequest;
 
 public class UserSignRequest extends BootRestRequest {
 

@@ -1,8 +1,8 @@
-package com.ochain.provider.wheel.rest.request.order;
+package com.cloud.provider.safe.rest.request.order;
 
 import java.util.Date;
 
-import com.ochain.provider.wheel.boot.BootRestRequest;
+import com.cloud.provider.safe.boot.BootRestRequest;
 
 /**
  * 充币订单请求

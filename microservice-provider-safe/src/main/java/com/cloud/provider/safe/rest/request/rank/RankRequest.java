@@ -1,9 +1,9 @@
-package com.ochain.provider.wheel.rest.request.rank;
+package com.cloud.provider.safe.rest.request.rank;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.ochain.provider.wheel.boot.BootRestRequest;
+import com.cloud.provider.safe.boot.BootRestRequest;
 
 public class RankRequest extends BootRestRequest {
 

@@ -1,6 +1,6 @@
-package com.ochain.provider.wheel.rest.request.account;
+package com.cloud.provider.safe.rest.request.account;
 
-import com.ochain.provider.wheel.boot.BootRestRequest;
+import com.cloud.provider.safe.boot.BootRestRequest;
 
 /**
  * 账户算力请求

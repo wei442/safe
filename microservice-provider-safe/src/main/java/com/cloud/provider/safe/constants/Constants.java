@@ -1,4 +1,4 @@
-package com.ochain.provider.wheel.constants;
+package com.cloud.provider.safe.constants;
 
 /**
  * 常量类

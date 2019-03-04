@@ -1,4 +1,4 @@
-package com.ochain.provider.wheel.param;
+package com.cloud.provider.safe.param;
 
 import java.io.Serializable;
 

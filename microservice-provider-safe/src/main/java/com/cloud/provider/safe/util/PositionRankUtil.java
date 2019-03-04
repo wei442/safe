@@ -1,4 +1,4 @@
-package com.ochain.provider.wheel.util;
+package com.cloud.provider.safe.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 功能描述：json_search结果处理函数
- * @Package: com.ochain.provider.wheel.util
+ * @Package: com.cloud.provider.safe.util
  * @author: TM.WANG
  * @date: 2018年7月20日
  */

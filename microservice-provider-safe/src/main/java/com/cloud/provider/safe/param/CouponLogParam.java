@@ -1,10 +1,10 @@
-package com.ochain.provider.wheel.param;
+package com.cloud.provider.safe.param;
 
 import java.io.Serializable;
 
 /**
  * 功能描述：优惠券日志查询
- * @Package: com.ochain.provider.wheel.param
+ * @Package: com.cloud.provider.safe.param
  * @author: TM.WANG
  * @date: 2018年7月26日
  */

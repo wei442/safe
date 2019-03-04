@@ -1,6 +1,6 @@
-package com.ochain.provider.wheel.rest.request.calculate;
+package com.cloud.provider.safe.rest.request.calculate;
 
-import com.ochain.provider.wheel.boot.BootRestRequest;
+import com.cloud.provider.safe.boot.BootRestRequest;
 
 public class CalculateRecordRequest extends BootRestRequest {
 

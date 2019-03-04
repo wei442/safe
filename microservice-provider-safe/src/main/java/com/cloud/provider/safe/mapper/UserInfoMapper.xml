@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ochain.provider.wheel.dao.UserInfoMapper">
-  <resultMap id="BaseResultMap" type="com.ochain.provider.wheel.po.UserInfo">
-    <id column="id" jdbcType="INTEGER" property="userId" />
-    <result column="g_id" jdbcType="VARCHAR" property="gId" />
+<mapper namespace="com.cloud.provider.safe.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
     <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_name_en" jdbcType="VARCHAR" property="userNameEn" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="user_type" jdbcType="INTEGER" property="userType" />
     <result column="gender" jdbcType="INTEGER" property="gender" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
-    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="user_status" jdbcType="INTEGER" property="userStatus" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="head_image" jdbcType="VARCHAR" property="headImage" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
-    <result column="login_count" jdbcType="INTEGER" property="loginCount" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="created" jdbcType="VARCHAR" property="created" />
+    <result column="updated" jdbcType="VARCHAR" property="updated" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="head_image" jdbcType="VARCHAR" property="headImage" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -77,10 +81,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, g_id, user_account, user_name, nick_name, user_type, gender, status, city_code, 
-    city_name, is_delete, login_count, create_time, update_time, head_image
+    id, enterprise_id, user_account, user_password, user_name, user_name_en, nick_name, 
+    user_type, gender, user_status, user_email, head_image, is_delete, remark, sort, 
+    created, updated, create_time, update_time
   </sql>
-  <select id="selectByExample" parameterType="com.ochain.provider.wheel.po.UserInfoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cloud.provider.safe.po.UserInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -98,46 +103,54 @@
     select 
     <include refid="Base_Column_List" />
     from user_info
-    where id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_info
-    where id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.ochain.provider.wheel.po.UserInfoExample">
+  <delete id="deleteByExample" parameterType="com.cloud.provider.safe.po.UserInfoExample">
     delete from user_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ochain.provider.wheel.po.UserInfo" useGeneratedKeys="true" keyProperty="userId">
-    insert into user_info (id, g_id, user_account, 
-      user_name, nick_name, user_type, 
-      gender, status, city_code, 
-      city_name, is_delete, login_count, 
-      create_time, update_time, head_image
-      )
-    values (#{userId,jdbcType=INTEGER}, #{gId,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR}, 
-      #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER}, 
-      #{gender,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{cityCode,jdbcType=VARCHAR}, 
-      #{cityName,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, #{loginCount,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{headImage,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.UserInfo">
+    insert into user_info (id, enterprise_id, user_account, 
+      user_password, user_name, user_name_en, 
+      nick_name, user_type, gender, 
+      user_status, user_email, head_image, 
+      is_delete, remark, sort, 
+      created, updated, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{userAccount,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userNameEn,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, 
+      #{userStatus,jdbcType=INTEGER}, #{userEmail,jdbcType=VARCHAR}, #{headImage,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.ochain.provider.wheel.po.UserInfo" useGeneratedKeys="true" keyProperty="userId">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.UserInfo">
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
+      <if test="id != null">
         id,
       </if>
-      <if test="gId != null">
-        g_id,
+      <if test="enterpriseId != null">
+        enterprise_id,
       </if>
       <if test="userAccount != null">
         user_account,
       </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
       <if test="userName != null">
         user_name,
+      </if>
+      <if test="userNameEn != null">
+        user_name_en,
       </if>
       <if test="nickName != null">
         nick_name,
@@ -148,20 +161,29 @@
       <if test="gender != null">
         gender,
       </if>
-      <if test="status != null">
-        status,
+      <if test="userStatus != null">
+        user_status,
       </if>
-      <if test="cityCode != null">
-        city_code,
+      <if test="userEmail != null">
+        user_email,
       </if>
-      <if test="cityName != null">
-        city_name,
+      <if test="headImage != null">
+        head_image,
       </if>
       <if test="isDelete != null">
         is_delete,
       </if>
-      <if test="loginCount != null">
-        login_count,
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="updated != null">
+        updated,
       </if>
       <if test="createTime != null">
         create_time,
@@ -169,22 +191,25 @@
       <if test="updateTime != null">
         update_time,
       </if>
-      <if test="headImage != null">
-        head_image,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="gId != null">
-        #{gId,jdbcType=VARCHAR},
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=INTEGER},
       </if>
       <if test="userAccount != null">
         #{userAccount,jdbcType=VARCHAR},
       </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userNameEn != null">
+        #{userNameEn,jdbcType=VARCHAR},
       </if>
       <if test="nickName != null">
         #{nickName,jdbcType=VARCHAR},
@@ -195,20 +220,29 @@
       <if test="gender != null">
         #{gender,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=INTEGER},
       </if>
-      <if test="cityCode != null">
-        #{cityCode,jdbcType=VARCHAR},
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
       </if>
-      <if test="cityName != null">
-        #{cityName,jdbcType=VARCHAR},
+      <if test="headImage != null">
+        #{headImage,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=INTEGER},
       </if>
-      <if test="loginCount != null">
-        #{loginCount,jdbcType=INTEGER},
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -216,12 +250,9 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="headImage != null">
-        #{headImage,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ochain.provider.wheel.po.UserInfoExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.cloud.provider.safe.po.UserInfoExample" resultType="java.lang.Long">
     select count(*) from user_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -230,17 +261,23 @@
   <update id="updateByExampleSelective" parameterType="map">
     update user_info
     <set>
-      <if test="record.userId != null">
-        id = #{record.userId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.gId != null">
-        g_id = #{record.gId,jdbcType=VARCHAR},
+      <if test="record.enterpriseId != null">
+        enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
       </if>
       <if test="record.userAccount != null">
         user_account = #{record.userAccount,jdbcType=VARCHAR},
       </if>
+      <if test="record.userPassword != null">
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
       <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNameEn != null">
+        user_name_en = #{record.userNameEn,jdbcType=VARCHAR},
       </if>
       <if test="record.nickName != null">
         nick_name = #{record.nickName,jdbcType=VARCHAR},
@@ -251,29 +288,35 @@
       <if test="record.gender != null">
         gender = #{record.gender,jdbcType=INTEGER},
       </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
+      <if test="record.userStatus != null">
+        user_status = #{record.userStatus,jdbcType=INTEGER},
       </if>
-      <if test="record.cityCode != null">
-        city_code = #{record.cityCode,jdbcType=VARCHAR},
+      <if test="record.userEmail != null">
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
       </if>
-      <if test="record.cityName != null">
-        city_name = #{record.cityName,jdbcType=VARCHAR},
+      <if test="record.headImage != null">
+        head_image = #{record.headImage,jdbcType=VARCHAR},
       </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=INTEGER},
       </if>
-      <if test="record.loginCount != null">
-        login_count = #{record.loginCount,jdbcType=INTEGER},
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.created != null">
+        created = #{record.created,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updated != null">
+        updated = #{record.updated,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.headImage != null">
-        head_image = #{record.headImage,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -282,36 +325,46 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update user_info
-    set id = #{record.userId,jdbcType=INTEGER},
-      g_id = #{record.gId,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=INTEGER},
+      enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
       user_account = #{record.userAccount,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
+      user_name_en = #{record.userNameEn,jdbcType=VARCHAR},
       nick_name = #{record.nickName,jdbcType=VARCHAR},
       user_type = #{record.userType,jdbcType=INTEGER},
       gender = #{record.gender,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
-      city_code = #{record.cityCode,jdbcType=VARCHAR},
-      city_name = #{record.cityName,jdbcType=VARCHAR},
+      user_status = #{record.userStatus,jdbcType=INTEGER},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      head_image = #{record.headImage,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
-      login_count = #{record.loginCount,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=VARCHAR},
+      updated = #{record.updated,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      head_image = #{record.headImage,jdbcType=VARCHAR}
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ochain.provider.wheel.po.UserInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cloud.provider.safe.po.UserInfo">
     update user_info
     <set>
-      <if test="gId != null">
-        g_id = #{gId,jdbcType=VARCHAR},
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=INTEGER},
       </if>
       <if test="userAccount != null">
         user_account = #{userAccount,jdbcType=VARCHAR},
       </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userNameEn != null">
+        user_name_en = #{userNameEn,jdbcType=VARCHAR},
       </if>
       <if test="nickName != null">
         nick_name = #{nickName,jdbcType=VARCHAR},
@@ -322,20 +375,29 @@
       <if test="gender != null">
         gender = #{gender,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=INTEGER},
       </if>
-      <if test="cityCode != null">
-        city_code = #{cityCode,jdbcType=VARCHAR},
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
       </if>
-      <if test="cityName != null">
-        city_name = #{cityName,jdbcType=VARCHAR},
+      <if test="headImage != null">
+        head_image = #{headImage,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=INTEGER},
       </if>
-      <if test="loginCount != null">
-        login_count = #{loginCount,jdbcType=INTEGER},
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -343,142 +405,29 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="headImage != null">
-        head_image = #{headImage,jdbcType=VARCHAR},
-      </if>
     </set>
-    where id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ochain.provider.wheel.po.UserInfo">
+  <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.UserInfo">
     update user_info
-    set g_id = #{gId,jdbcType=VARCHAR},
+    set enterprise_id = #{enterpriseId,jdbcType=INTEGER},
       user_account = #{userAccount,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
+      user_name_en = #{userNameEn,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
       user_type = #{userType,jdbcType=INTEGER},
       gender = #{gender,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      city_code = #{cityCode,jdbcType=VARCHAR},
-      city_name = #{cityName,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=INTEGER},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      head_image = #{headImage,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=INTEGER},
-      login_count = #{loginCount,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      created = #{created,jdbcType=VARCHAR},
+      updated = #{updated,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      head_image = #{headImage,jdbcType=VARCHAR}
-    where id = #{userId,jdbcType=INTEGER}
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  
-  
-  	<!-- 根据参数查询用户信息/账户/账户日志列表  -->
-    <select id="selectUserAccountVoListByParam" parameterType="com.ochain.provider.wheel.param.UserParam" resultType="com.ochain.provider.wheel.vo.user.UserAccountVo">
-		select 
-      	t1.id as userId, t1.g_id as gId, t1.user_account as userAccount, 
-      	t1.user_name as userName, t1.nick_name as nickName, t1.user_type as userType, 
-      	t1.gender as gender, t1.status as status, t1.city_code as cityCode, 
-      	t1.city_name as cityName, t1.is_delete as isDelete, t1.login_count as loginCount, 
-      	t2.id as accountId, t2.diamond as totalDiamond, 
-      	t3.id as accountLogId, t3.diamond as diamond, t3.create_time as createTime, t3.source as source, 
-      	t3.content as content, t3.type as accountLogType, t3.balance as balance 
-        from user_info t1, account t2, account_log t3 
-        where t1.id = t2.user_id 
-        and t2.id = t3.account_id 
-        and t1.is_delete = 0 
-        and t3.status = 1 
-        <if test="userId != null">
-            and t1.id = #{userId,jdbcType=INTEGER}
-        </if>
-        <if test="userAccount != null and userAccount != ''">
-            and t1.user_account = #{userAccount,jdbcType=VARCHAR}
-        </if>
-        <if test="userName != null and userName != ''">
-            and t1.user_name = #{userName,jdbcType=VARCHAR}
-        </if>
-        <if test="nickName != null and nickName != ''">
-            and t1.nick_name = #{nickName,jdbcType=VARCHAR}
-        </if>
-        <if test="accountLogType != null">
-            and t3.type = #{accountLogType,jdbcType=INTEGER}
-        </if>
-        <if test="timeStartStr != null and timeStartStr != '' and timeEndStr != null and timeEndStr != ''">
-            and t3.create_time BETWEEN #{timeStartStr,jdbcType=VARCHAR} AND #{timeEndStr,jdbcType=VARCHAR} 
-        </if>
-      	<if test="orderByClause != null and orderByClause != ''">
-            order by ${orderByClause}
-        </if>
-    </select>
-    
- 	<!-- 根据参数查询用户信息/账户算力/账户算力日志列表  -->
-    <select id="selectUserAccountCalcluateVoListByParam" parameterType="com.ochain.provider.wheel.param.UserParam" resultType="com.ochain.provider.wheel.vo.user.UserAccountCalcluateVo">
-		select 
-      	t1.id as userId, t1.g_id as gId, t1.user_account as userAccount, 
-      	t1.user_name as userName, t1.nick_name as nickName, t1.user_type as userType, 
-      	t1.gender as gender, t1.status as status, t1.city_code as cityCode, 
-      	t1.city_name as cityName, t1.is_delete as isDelete, t1.login_count as loginCount, 
-      	t2.id as accountCalculateId, t2.calculate as totalCalculate, 
-      	t2.civilize_calculate as civilizeCalculate, t2.task_calculate as taskCalculate,
-      	t3.id as accountCalculateLogId , 
-      	t3.calculate as calculate, t3.content as content, t3.type as accountCalculateLogType, 
-      	t3.calculate_type as calculateType, t3.balance as balance, t3.create_time as createTime 
-        from user_info t1, account_calculate t2, account_calculate_log t3 
-        where t1.id = t2.user_id 
-        and t2.id = t3.account_calculate_id
-        and t1.is_delete = 0 
-        and t3.status = 1 
-        <if test="userId != null">
-            and t1.id = #{userId,jdbcType=INTEGER}
-        </if>
-        <if test="userAccount != null and userAccount != ''">
-            and t1.user_account = #{userAccount,jdbcType=VARCHAR}
-        </if>
-        <if test="userName != null and userName != ''">
-            and t1.user_name = #{userName,jdbcType=VARCHAR}
-        </if>
-        <if test="nickName != null and nickName != ''">
-            and t1.nick_name = #{nickName,jdbcType=VARCHAR}
-        </if>
-        <if test="accountCalculateLogType != null">
-            and t3.type = #{accountCalculateLogType,jdbcType=INTEGER}
-        </if>
-        <if test="calculateType != null">
-            and t3.calculate_type = #{calculateType,jdbcType=INTEGER}
-        </if>
-         <if test="timeStartStr != null and timeStartStr != '' and timeEndStr != null and timeEndStr != ''">
-            and t3.create_time BETWEEN #{timeStartStr,jdbcType=VARCHAR} AND #{timeEndStr,jdbcType=VARCHAR} 
-        </if>
-      	<if test="orderByClause != null and orderByClause != ''">
-            order by ${orderByClause}
-        </if>
-    </select>
-    
-    <!-- 根据参数查询用户信息/账户算力列表  -->
-    <select id="selectUserCalcluateListByParam" parameterType="com.ochain.provider.wheel.param.UserParam" resultType="com.ochain.provider.wheel.vo.user.UserCalcluateListVo">
-		select 
-      	t1.id as userId, t1.user_account as userAccount, t1.nick_name as nickName,
-      	t1.gender as gender, t1.status as status, t1.city_code as cityCode, 
-      	t1.city_name as cityName, t1.login_count as loginCount, 
-      	t2.id as accountCalculateId, t2.calculate as totalCalculate, 
-      	t2.civilize_calculate as civilizeCalculate, t2.task_calculate as taskCalculate, t2.update_time as updateTime 
-        from user_info t1, account_calculate t2
-        where t1.id = t2.user_id 
-        and t1.is_delete = 0 
-        and t3.status = 1 
-        <if test="userId != null">
-            and t1.id = #{userId,jdbcType=INTEGER}
-        </if>
-        <if test="userAccount != null and userAccount != ''">
-            and t1.user_account = #{userAccount,jdbcType=VARCHAR}
-        </if>
-        <if test="userName != null and userName != ''">
-            and t1.user_name = #{userName,jdbcType=VARCHAR}
-        </if>
-        <if test="nickName != null and nickName != ''">
-            and t1.nick_name = #{nickName,jdbcType=VARCHAR}
-        </if>
-         <if test="timeStartStr != null and timeStartStr != '' and timeEndStr != null and timeEndStr != ''">
-            and t2.update_time BETWEEN #{timeStartStr,jdbcType=VARCHAR} AND #{timeEndStr,jdbcType=VARCHAR} 
-        </if>
-      	<if test="orderByClause != null and orderByClause != ''">
-            order by ${orderByClause}
-        </if>
-    </select>
 </mapper>

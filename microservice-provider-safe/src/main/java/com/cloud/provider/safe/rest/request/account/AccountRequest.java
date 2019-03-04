@@ -1,8 +1,8 @@
-package com.ochain.provider.wheel.rest.request.account;
+package com.cloud.provider.safe.rest.request.account;
 
 import java.math.BigDecimal;
 
-import com.ochain.provider.wheel.boot.BootRestRequest;
+import com.cloud.provider.safe.boot.BootRestRequest;
 
 /**
  * 账户请求

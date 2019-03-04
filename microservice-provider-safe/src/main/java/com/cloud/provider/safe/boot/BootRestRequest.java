@@ -1,4 +1,4 @@
-package com.ochain.provider.wheel.boot;
+package com.cloud.provider.safe.boot;
 
 import java.io.Serializable;
 
