@@ -36,6 +36,13 @@ public interface IBootUserInfoService {
      */
 	public Integer insertUserInfo(UserInfo userInfo);
 
+ 	/**
+  	 * 根据id删除用户信息
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteUserInfoById(Integer id);
+
     /**
      * 修改用户信息
      * @param userInfo

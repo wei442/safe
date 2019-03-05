@@ -120,17 +120,17 @@ public class BootEnterpriseServiceImpl implements IBootEnterpriseService {
     }
 
  	/**
-  	 * 根据id删除用户职务
+  	 * 根据id删除企业
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserTitleById(Integer id) {
-  		logger.info("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--传入参数, id:{}", id);
+	public Integer deleteEnterpriseById(Integer id) {
+  		logger.info("(BootEnterpriseService-deleteEnterpriseById)-根据id删除企业-传入参数, id:{}", id);
   		int i = 0;
   		try {
-  			i = userTitleMapper.deleteByPrimaryKey(id);
+  			i = enterpriseMapper.deleteByPrimaryKey(id);
   		} catch (Exception e) {
-  			logger.error("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--事务性异常, Exception = {}, message = {}", e, e.getMessage());
+  			logger.error("(BootEnterpriseService-deleteEnterpriseById)-根据id删除企业-事务性异常, Exception = {}, message = {}", e, e.getMessage());
   			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
   		}
   		if(i<=0) {

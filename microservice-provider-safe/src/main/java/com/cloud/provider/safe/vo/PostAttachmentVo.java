@@ -1,10 +1,27 @@
 package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.springframework.beans.BeanUtils;
+
+import com.cloud.provider.safe.po.PostAttachment;
+import com.google.common.base.Converter;
+
+import lombok.Data;
+
+@Data
 public class PostAttachmentVo implements Serializable {
-    private Integer Id;
+
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer postAttachmentId;
 
     private Integer postId;
 
@@ -22,75 +39,61 @@ public class PostAttachmentVo implements Serializable {
 
     private Date updateTime;
 
-    public Integer getId() {
-        return Id;
+    /**
+     * 实体转换
+     * @param postAttachment
+     * @return PostAttachmentVo
+     */
+    public PostAttachmentVo convertToPostAttachmentVo(PostAttachment postAttachment) {
+    	PostAttachmentVoConvert convert = new PostAttachmentVoConvert();
+    	return convert.doBackward(postAttachment);
+	}
+
+    /**
+     * 实体列表转换
+     * @param list
+     * @return List<PostAttachmentVo>
+     */
+    public List<PostAttachmentVo> convertToPostAttachmentVoList(List<PostAttachment> list) {
+    	PostAttachmentVoConvert convert = new PostAttachmentVoConvert();
+    	List<PostAttachmentVo> postAttachmentVoList = null;
+    	PostAttachmentVo postAttachmentVo = null;
+    	if(list != null && !list.isEmpty()) {
+    		postAttachmentVoList = new ArrayList<PostAttachmentVo>(list.size());
+    		ListIterator<PostAttachment> it = list.listIterator();
+    		while(it.hasNext()) {
+    			PostAttachment postAttachment = it.next();
+    			postAttachmentVo = convert.doBackward(postAttachment);
+    			postAttachmentVoList.add(postAttachmentVo);
+    		}
+    	}
+    	return postAttachmentVoList;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+	/**
+	 * 实体转换
+	 * @author wei.yong
+	 */
+    private class PostAttachmentVoConvert extends Converter<PostAttachmentVo, PostAttachment> {
+
+    	@Override
+    	protected PostAttachment doForward(PostAttachmentVo postAttachmentVo) {
+    		return null;
+    	}
+
+    	/**
+    	 * 实体转换vo
+    	 * @param postAttachment
+    	 * @return PostAttachmentVo
+    	 */
+		@Override
+		protected PostAttachmentVo doBackward(PostAttachment postAttachment) {
+			PostAttachmentVo postAttachmentVo = new PostAttachmentVo();
+			BeanUtils.copyProperties(postAttachment, postAttachmentVo);
+			postAttachmentVo.setPostAttachmentId(postAttachment.getId());
+			return postAttachmentVo;
+		}
+
     }
 
-    public Integer getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Integer postId) {
-        this.postId = postId;
-    }
-
-    public Integer getAttachmentId() {
-        return attachmentId;
-    }
-
-    public void setAttachmentId(Integer attachmentId) {
-        this.attachmentId = attachmentId;
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

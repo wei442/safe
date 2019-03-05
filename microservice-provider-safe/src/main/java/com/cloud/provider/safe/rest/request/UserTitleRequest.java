@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserTitleRequest  extends BootRestRequest {
+public class UserTitleRequest extends BootRestRequest {
 
     /**
 	 *

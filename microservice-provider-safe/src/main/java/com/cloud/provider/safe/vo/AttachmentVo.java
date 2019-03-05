@@ -1,8 +1,19 @@
 package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.springframework.beans.BeanUtils;
+
+import com.cloud.provider.safe.po.Attachment;
+import com.google.common.base.Converter;
+
+import lombok.Data;
+
+@Data
 public class AttachmentVo implements Serializable {
 
     /**
@@ -10,7 +21,7 @@ public class AttachmentVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer Id;
+	private Integer attachmentId;
 
     private String attachmentUrl;
 
@@ -28,75 +39,61 @@ public class AttachmentVo implements Serializable {
 
     private Date updateTime;
 
-    public Integer getId() {
-        return Id;
+    /**
+     * 实体转换
+     * @param attachment
+     * @return AttachmentVo
+     */
+    public AttachmentVo convertToAttachmentVo(Attachment attachment) {
+    	AttachmentVoConvert convert = new AttachmentVoConvert();
+    	return convert.doBackward(attachment);
+	}
+
+    /**
+     * 实体列表转换
+     * @param list
+     * @return List<AttachmentVo>
+     */
+    public List<AttachmentVo> convertToAttachmentVoList(List<Attachment> list) {
+    	AttachmentVoConvert convert = new AttachmentVoConvert();
+    	List<AttachmentVo> attachmentVoList = null;
+    	AttachmentVo attachmentVo = null;
+    	if(list != null && !list.isEmpty()) {
+    		attachmentVoList = new ArrayList<AttachmentVo>(list.size());
+    		ListIterator<Attachment> it = list.listIterator();
+    		while(it.hasNext()) {
+    			Attachment attachment = it.next();
+    			attachmentVo = convert.doBackward(attachment);
+    			attachmentVoList.add(attachmentVo);
+    		}
+    	}
+    	return attachmentVoList;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+	/**
+	 * 实体转换
+	 * @author wei.yong
+	 */
+    private class AttachmentVoConvert extends Converter<AttachmentVo, Attachment> {
+
+    	@Override
+    	protected Attachment doForward(AttachmentVo attachmentVo) {
+    		return null;
+    	}
+
+    	/**
+    	 * 实体转换vo
+    	 * @param attachment
+    	 * @return AttachmentVo
+    	 */
+		@Override
+		protected AttachmentVo doBackward(Attachment attachment) {
+			AttachmentVo attachmentVo = new AttachmentVo();
+			BeanUtils.copyProperties(attachment, attachmentVo);
+			attachmentVo.setAttachmentId(attachment.getId());
+			return attachmentVo;
+		}
+
     }
 
-    public String getAttachmentUrl() {
-        return attachmentUrl;
-    }
-
-    public void setAttachmentUrl(String attachmentUrl) {
-        this.attachmentUrl = attachmentUrl == null ? null : attachmentUrl.trim();
-    }
-
-    public Integer getAttachmentType() {
-        return attachmentType;
-    }
-
-    public void setAttachmentType(Integer attachmentType) {
-        this.attachmentType = attachmentType;
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

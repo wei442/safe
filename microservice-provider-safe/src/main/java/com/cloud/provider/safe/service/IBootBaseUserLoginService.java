@@ -36,6 +36,13 @@ public interface IBootBaseUserLoginService {
      */
 	public Integer insertBaseUserLogin(BaseUserLogin baseUserLogin);
 
+ 	/**
+  	 * 根据id删除基础用户登录
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteBaseUserLoginById(Integer id);
+
     /**
      * 修改基础用户登录
      * @param baseUserLogin

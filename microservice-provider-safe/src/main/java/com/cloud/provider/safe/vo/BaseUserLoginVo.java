@@ -1,10 +1,27 @@
 package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.springframework.beans.BeanUtils;
+
+import com.cloud.provider.safe.po.BaseUserLogin;
+import com.google.common.base.Converter;
+
+import lombok.Data;
+
+@Data
 public class BaseUserLoginVo implements Serializable {
-    private Integer Id;
+
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer baseUserLoginId;
 
     private Integer baseUserId;
 
@@ -20,67 +37,61 @@ public class BaseUserLoginVo implements Serializable {
 
     private Date updateTime;
 
-    public Integer getId() {
-        return Id;
+    /**
+     * 实体转换
+     * @param baseUserLogin
+     * @return BaseUserLoginVo
+     */
+    public BaseUserLoginVo convertToBaseUserLoginVo(BaseUserLogin baseUserLogin) {
+    	BaseUserLoginVoConvert convert = new BaseUserLoginVoConvert();
+    	return convert.doBackward(baseUserLogin);
+	}
+
+    /**
+     * 实体列表转换
+     * @param list
+     * @return List<BaseUserLoginVo>
+     */
+    public List<BaseUserLoginVo> convertToBaseUserLoginVoList(List<BaseUserLogin> list) {
+    	BaseUserLoginVoConvert convert = new BaseUserLoginVoConvert();
+    	List<BaseUserLoginVo> baseUserLoginVoList = null;
+    	BaseUserLoginVo baseUserLoginVo = null;
+    	if(list != null && !list.isEmpty()) {
+    		baseUserLoginVoList = new ArrayList<BaseUserLoginVo>(list.size());
+    		ListIterator<BaseUserLogin> it = list.listIterator();
+    		while(it.hasNext()) {
+    			BaseUserLogin baseUserLogin = it.next();
+    			baseUserLoginVo = convert.doBackward(baseUserLogin);
+    			baseUserLoginVoList.add(baseUserLoginVo);
+    		}
+    	}
+    	return baseUserLoginVoList;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+	/**
+	 * 实体转换
+	 * @author wei.yong
+	 */
+    private class BaseUserLoginVoConvert extends Converter<BaseUserLoginVo, BaseUserLogin> {
+
+    	@Override
+    	protected BaseUserLogin doForward(BaseUserLoginVo baseUserLoginVo) {
+    		return null;
+    	}
+
+    	/**
+    	 * 实体转换vo
+    	 * @param baseUserLogin
+    	 * @return BaseUserLoginVo
+    	 */
+		@Override
+		protected BaseUserLoginVo doBackward(BaseUserLogin baseUserLogin) {
+			BaseUserLoginVo baseUserLoginVo = new BaseUserLoginVo();
+			BeanUtils.copyProperties(baseUserLogin, baseUserLoginVo);
+			baseUserLoginVo.setBaseUserLoginId(baseUserLogin.getId());
+			return baseUserLoginVo;
+		}
+
     }
 
-    public Integer getBaseUserId() {
-        return baseUserId;
-    }
-
-    public void setBaseUserId(Integer baseUserId) {
-        this.baseUserId = baseUserId;
-    }
-
-    public Integer getLoginCount() {
-        return loginCount;
-    }
-
-    public void setLoginCount(Integer loginCount) {
-        this.loginCount = loginCount;
-    }
-
-    public Date getLastPassTime() {
-        return lastPassTime;
-    }
-
-    public void setLastPassTime(Date lastPassTime) {
-        this.lastPassTime = lastPassTime;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

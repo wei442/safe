@@ -36,6 +36,13 @@ public interface IBootTitleService {
      */
 	public Integer insertTitle(Title title);
 
+ 	/**
+  	 * 根据id删除职务
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteTitleById(Integer id);
+
     /**
      * 修改职务
      * @param title

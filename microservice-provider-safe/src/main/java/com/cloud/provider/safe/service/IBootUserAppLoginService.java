@@ -36,6 +36,13 @@ public interface IBootUserAppLoginService {
      */
 	public Integer insertUserAppLogin(UserAppLogin userAppLogin);
 
+	/**
+  	 * 根据id删除用户应用登录
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteUserAppLoginById(Integer id);
+
     /**
      * 修改用户应用登录
      * @param userAppLogin

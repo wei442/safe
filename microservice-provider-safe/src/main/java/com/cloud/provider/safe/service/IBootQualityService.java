@@ -36,6 +36,13 @@ public interface IBootQualityService {
      */
 	public Integer insertQuality(Quality quality);
 
+ 	/**
+  	 * 根据id删除资质
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteQualityById(Integer id);
+
     /**
      * 修改资质
      * @param quality

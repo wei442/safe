@@ -1,10 +1,27 @@
 package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.springframework.beans.BeanUtils;
+
+import com.cloud.provider.safe.po.Post;
+import com.google.common.base.Converter;
+
+import lombok.Data;
+
+@Data
 public class PostVo implements Serializable {
-    private Integer Id;
+
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer postId;
 
     private Integer enterpriseId;
 
@@ -28,99 +45,61 @@ public class PostVo implements Serializable {
 
     private Date updateTime;
 
-    public Integer getId() {
-        return Id;
+    /**
+     * 实体转换
+     * @param post
+     * @return PostVo
+     */
+    public PostVo convertToPostVo(Post post) {
+    	PostVoConvert convert = new PostVoConvert();
+    	return convert.doBackward(post);
+	}
+
+    /**
+     * 实体列表转换
+     * @param list
+     * @return List<PostVo>
+     */
+    public List<PostVo> convertToPostVoList(List<Post> list) {
+    	PostVoConvert convert = new PostVoConvert();
+    	List<PostVo> postVoList = null;
+    	PostVo postVo = null;
+    	if(list != null && !list.isEmpty()) {
+    		postVoList = new ArrayList<PostVo>(list.size());
+    		ListIterator<Post> it = list.listIterator();
+    		while(it.hasNext()) {
+    			Post post = it.next();
+    			postVo = convert.doBackward(post);
+    			postVoList.add(postVo);
+    		}
+    	}
+    	return postVoList;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+	/**
+	 * 实体转换
+	 * @author wei.yong
+	 */
+    private class PostVoConvert extends Converter<PostVo, Post> {
+
+    	@Override
+    	protected Post doForward(PostVo postVo) {
+    		return null;
+    	}
+
+    	/**
+    	 * 实体转换vo
+    	 * @param post
+    	 * @return PostVo
+    	 */
+		@Override
+		protected PostVo doBackward(Post post) {
+			PostVo postVo = new PostVo();
+			BeanUtils.copyProperties(post, postVo);
+			postVo.setPostId(post.getId());
+			return postVo;
+		}
+
     }
 
-    public Integer getEnterpriseId() {
-        return enterpriseId;
-    }
-
-    public void setEnterpriseId(Integer enterpriseId) {
-        this.enterpriseId = enterpriseId;
-    }
-
-    public String getPostName() {
-        return postName;
-    }
-
-    public void setPostName(String postName) {
-        this.postName = postName == null ? null : postName.trim();
-    }
-
-    public Integer getIsSpecial() {
-        return isSpecial;
-    }
-
-    public void setIsSpecial(Integer isSpecial) {
-        this.isSpecial = isSpecial;
-    }
-
-    public String getSpecialRemark() {
-        return specialRemark;
-    }
-
-    public void setSpecialRemark(String specialRemark) {
-        this.specialRemark = specialRemark == null ? null : specialRemark.trim();
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

@@ -23,21 +23,28 @@ public interface IBootOrgService {
 	public List<Org> selectOrgList(Org org);
 
     /**
-     * 根据id查询组织机构表
+     * 根据id查询组织机构
      * @param id
      * @return Org
      */
 	public Org selectOrgById(Integer id);
 
     /**
-     * 插入组织机构表
+     * 插入组织机构
      * @param org
      * @return Integer
      */
 	public Integer insertOrg(Org org);
 
+ 	/**
+  	 * 根据id删除组织机构
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteOrgById(Integer id);
+
     /**
-     * 修改组织机构表
+     * 修改组织机构
      * @param org
      * @return Integer
      */

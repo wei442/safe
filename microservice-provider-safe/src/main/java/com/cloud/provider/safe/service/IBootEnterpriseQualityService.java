@@ -36,6 +36,13 @@ public interface IBootEnterpriseQualityService {
      */
 	public Integer insertEnterpriseQuality(EnterpriseQuality enterpriseQuality);
 
+	/**
+  	 * 根据id删除企业资质
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteEnterpriseQualityById(Integer id);
+
     /**
      * 修改企业资质
      * @param enterpriseQuality

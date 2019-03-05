@@ -36,6 +36,13 @@ public interface IBootUserAdminLoginService {
      */
 	public Integer insertUserAdminLogin(UserAdminLogin userAdminLogin);
 
+ 	/**
+  	 * 根据id删除用户管理登录
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteUserAdminLoginById(Integer id);
+
     /**
      * 修改用户管理登录
      * @param userAdminLogin

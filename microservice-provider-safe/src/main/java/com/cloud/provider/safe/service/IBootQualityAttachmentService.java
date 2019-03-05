@@ -36,6 +36,13 @@ public interface IBootQualityAttachmentService {
      */
 	public Integer insertQualityAttachment(QualityAttachment qualityAttachment);
 
+ 	/**
+  	 * 根据id删除资质附件
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteQualityAttachmentById(Integer id);
+
     /**
      * 修改资质附件
      * @param qualityAttachment

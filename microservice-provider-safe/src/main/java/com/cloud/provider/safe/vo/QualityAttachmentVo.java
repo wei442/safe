@@ -1,10 +1,27 @@
 package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.springframework.beans.BeanUtils;
+
+import com.cloud.provider.safe.po.QualityAttachment;
+import com.google.common.base.Converter;
+
+import lombok.Data;
+
+@Data
 public class QualityAttachmentVo implements Serializable {
-    private Integer Id;
+
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer qualityAttachmentId;
 
     private Integer qualityId;
 
@@ -22,75 +39,61 @@ public class QualityAttachmentVo implements Serializable {
 
     private Date updateTime;
 
-    public Integer getId() {
-        return Id;
+    /**
+     * 实体转换
+     * @param qualityAttachment
+     * @return QualityAttachmentVo
+     */
+    public QualityAttachmentVo convertToQualityAttachmentVo(QualityAttachment qualityAttachment) {
+    	QualityAttachmentVoConvert convert = new QualityAttachmentVoConvert();
+    	return convert.doBackward(qualityAttachment);
+	}
+
+    /**
+     * 实体列表转换
+     * @param list
+     * @return List<QualityAttachmentVo>
+     */
+    public List<QualityAttachmentVo> convertToQualityAttachmentVoList(List<QualityAttachment> list) {
+    	QualityAttachmentVoConvert convert = new QualityAttachmentVoConvert();
+    	List<QualityAttachmentVo> qualityAttachmentVoList = null;
+    	QualityAttachmentVo qualityAttachmentVo = null;
+    	if(list != null && !list.isEmpty()) {
+    		qualityAttachmentVoList = new ArrayList<QualityAttachmentVo>(list.size());
+    		ListIterator<QualityAttachment> it = list.listIterator();
+    		while(it.hasNext()) {
+    			QualityAttachment qualityAttachment = it.next();
+    			qualityAttachmentVo = convert.doBackward(qualityAttachment);
+    			qualityAttachmentVoList.add(qualityAttachmentVo);
+    		}
+    	}
+    	return qualityAttachmentVoList;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+	/**
+	 * 实体转换
+	 * @author wei.yong
+	 */
+    private class QualityAttachmentVoConvert extends Converter<QualityAttachmentVo, QualityAttachment> {
+
+    	@Override
+    	protected QualityAttachment doForward(QualityAttachmentVo qualityAttachmentVo) {
+    		return null;
+    	}
+
+    	/**
+    	 * 实体转换vo
+    	 * @param qualityAttachment
+    	 * @return QualityAttachmentVo
+    	 */
+		@Override
+		protected QualityAttachmentVo doBackward(QualityAttachment qualityAttachment) {
+			QualityAttachmentVo qualityAttachmentVo = new QualityAttachmentVo();
+			BeanUtils.copyProperties(qualityAttachment, qualityAttachmentVo);
+			qualityAttachmentVo.setQualityAttachmentId(qualityAttachment.getId());
+			return qualityAttachmentVo;
+		}
+
     }
 
-    public Integer getQualityId() {
-        return qualityId;
-    }
-
-    public void setQualityId(Integer qualityId) {
-        this.qualityId = qualityId;
-    }
-
-    public Integer getAttachmentId() {
-        return attachmentId;
-    }
-
-    public void setAttachmentId(Integer attachmentId) {
-        this.attachmentId = attachmentId;
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

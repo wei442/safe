@@ -125,12 +125,12 @@ public class BootUserOrgServiceImpl implements IBootUserOrgService {
   	 * @return Integer
   	 */
 	public Integer deleteUserOrgById(Integer id) {
-  		logger.info("(BootUserOrgService-deleteUserOrgById)-根据id删除用户机构--传入参数, id:{}", id);
+  		logger.info("(BootUserOrgService-deleteUserOrgById)-根据id删除用户机构-传入参数, id:{}", id);
   		int i = 0;
   		try {
   			i = userOrgMapper.deleteByPrimaryKey(id);
   		} catch (Exception e) {
-  			logger.error("(BootUserOrgService-deleteUserOrgById)-根据id删除用户机构--事务性异常, Exception = {}, message = {}", e, e.getMessage());
+  			logger.error("(BootUserOrgService-deleteUserOrgById)-根据id删除用户机构-事务性异常, Exception = {}, message = {}", e, e.getMessage());
   			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
   		}
   		if(i<=0) {

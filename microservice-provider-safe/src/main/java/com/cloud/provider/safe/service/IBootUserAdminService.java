@@ -36,6 +36,13 @@ public interface IBootUserAdminService {
      */
 	public Integer insertUserAdmin(UserAdmin userAdmin);
 
+ 	/**
+  	 * 根据id删除用户管理
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteUserAdminById(Integer id);
+
     /**
      * 修改用户管理
      * @param userAdmin

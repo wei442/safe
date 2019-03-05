@@ -18,7 +18,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
 /**
- * 用户附件 BootPostAttachmentService
+ * 岗位附件 BootPostAttachmentService
  * @author wei.yong
  */
 @Service
@@ -26,7 +26,7 @@ public class BootPostAttachmentServiceImpl implements IBootPostAttachmentService
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    //用户附件 Mapper
+    //岗位附件 Mapper
     @Autowired
     private PostAttachmentMapper postAttachmentMapper;
 
@@ -78,18 +78,18 @@ public class BootPostAttachmentServiceImpl implements IBootPostAttachmentService
 	}
 
     /**
-     * 根据id查询用户附件
+     * 根据id查询岗位附件
      * @param id
      * @return PostAttachment
      */
 	@Override
 	public PostAttachment selectPostAttachmentById(Integer id) {
-    	logger.info("(BootPostAttachmentService-selectPostAttachmentById)-根据id查询用户附件-传入参数, id:{}", id);
+    	logger.info("(BootPostAttachmentService-selectPostAttachmentById)-根据id查询岗位附件-传入参数, id:{}", id);
     	PostAttachment postAttachment = null;
     	try {
     		postAttachment = postAttachmentMapper.selectByPrimaryKey(id);
 		} catch (Exception e) {
-			logger.error("(BootPostAttachmentService-selectPostAttachmentById)-根据id查询用户附件-事务性异常, Exception = {}, message = {}", e, e.getMessage());
+			logger.error("(BootPostAttachmentService-selectPostAttachmentById)-根据id查询岗位附件-事务性异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
 		}
 
@@ -97,20 +97,20 @@ public class BootPostAttachmentServiceImpl implements IBootPostAttachmentService
     }
 
     /**
-     * 插入用户附件
+     * 插入岗位附件
      * @param postAttachment
      * @return Integer
      */
 	@Override
 	public Integer insertPostAttachment(PostAttachment postAttachment) {
-    	logger.info("(BootPostAttachmentService-insertPostAttachment)-插入用户附件-传入参数, postAttachment:{}", postAttachment);
+    	logger.info("(BootPostAttachmentService-insertPostAttachment)-插入岗位附件-传入参数, postAttachment:{}", postAttachment);
     	postAttachment.setCreateTime(new Date());
     	postAttachment.setUpdateTime(new Date());
     	int i = 0;
     	try {
     		i = postAttachmentMapper.insertSelective(postAttachment);
     	} catch (Exception e) {
-    		logger.error("(BootPostAttachmentService-insertPostAttachment)-插入用户附件-事务性异常, Exception = {}, message = {}", e, e.getMessage());
+    		logger.error("(BootPostAttachmentService-insertPostAttachment)-插入岗位附件-事务性异常, Exception = {}, message = {}", e, e.getMessage());
     		throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
     	}
     	if(i<=0) {
@@ -120,17 +120,17 @@ public class BootPostAttachmentServiceImpl implements IBootPostAttachmentService
     }
 
  	/**
-  	 * 根据id删除用户职务
+  	 * 根据id删除岗位附件
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserTitleById(Integer id) {
-  		logger.info("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--传入参数, id:{}", id);
+	public Integer deletePostAttachmentById(Integer id) {
+  		logger.info("(BootPostAttachmentService-deletePostAttachmentById)-根据id删除岗位附件-传入参数, id:{}", id);
   		int i = 0;
   		try {
-  			i = userTitleMapper.deleteByPrimaryKey(id);
+  			i = postAttachmentMapper.deleteByPrimaryKey(id);
   		} catch (Exception e) {
-  			logger.error("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--事务性异常, Exception = {}, message = {}", e, e.getMessage());
+  			logger.error("(BootPostAttachmentService-deletePostAttachmentById)-根据id删除岗位附件-事务性异常, Exception = {}, message = {}", e, e.getMessage());
   			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
   		}
   		if(i<=0) {
@@ -140,19 +140,19 @@ public class BootPostAttachmentServiceImpl implements IBootPostAttachmentService
   	}
 
     /**
-     * 修改用户附件
+     * 修改岗位附件
      * @param postAttachment
      * @return Integer
      */
 	@Override
 	public Integer modifyPostAttachment(PostAttachment postAttachment) {
-    	logger.info("(BootPostAttachmentService-modifyPostAttachment)-修改用户附件-传入参数, postAttachment:{}", postAttachment);
+    	logger.info("(BootPostAttachmentService-modifyPostAttachment)-修改岗位附件-传入参数, postAttachment:{}", postAttachment);
     	postAttachment.setUpdateTime(new Date());
     	int i = 0;
     	try {
     		i = postAttachmentMapper.updateByPrimaryKeySelective(postAttachment);
     	} catch (Exception e) {
-    		logger.error("(BootPostAttachmentService-modifyPostAttachment)-修改用户附件-事务性异常, Exception = {}, message = {}", e, e.getMessage());
+    		logger.error("(BootPostAttachmentService-modifyPostAttachment)-修改岗位附件-事务性异常, Exception = {}, message = {}", e, e.getMessage());
     		throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
     	}
     	if(i<=0) {

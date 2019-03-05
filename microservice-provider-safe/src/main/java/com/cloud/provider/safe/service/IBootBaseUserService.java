@@ -36,6 +36,13 @@ public interface IBootBaseUserService {
      */
 	public Integer insertBaseUser(BaseUser baseUser);
 
+ 	/**
+  	 * 根据id删除基础用户
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteBaseUserById(Integer id);
+
     /**
      * 修改用户信息
      * @param baseUser

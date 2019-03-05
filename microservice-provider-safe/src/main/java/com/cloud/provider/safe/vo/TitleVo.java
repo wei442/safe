@@ -1,10 +1,27 @@
 package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.springframework.beans.BeanUtils;
+
+import com.cloud.provider.safe.po.Title;
+import com.google.common.base.Converter;
+
+import lombok.Data;
+
+@Data
 public class TitleVo implements Serializable {
-    private Integer Id;
+
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer titleId;
 
     private Integer enterpriseId;
 
@@ -24,83 +41,61 @@ public class TitleVo implements Serializable {
 
     private Date updateTime;
 
-    public Integer getId() {
-        return Id;
+    /**
+     * 实体转换
+     * @param title
+     * @return TitleVo
+     */
+    public TitleVo convertToTitleVo(Title title) {
+    	TitleVoConvert convert = new TitleVoConvert();
+    	return convert.doBackward(title);
+	}
+
+    /**
+     * 实体列表转换
+     * @param list
+     * @return List<TitleVo>
+     */
+    public List<TitleVo> convertToTitleVoList(List<Title> list) {
+    	TitleVoConvert convert = new TitleVoConvert();
+    	List<TitleVo> titleVoList = null;
+    	TitleVo titleVo = null;
+    	if(list != null && !list.isEmpty()) {
+    		titleVoList = new ArrayList<TitleVo>(list.size());
+    		ListIterator<Title> it = list.listIterator();
+    		while(it.hasNext()) {
+    			Title title = it.next();
+    			titleVo = convert.doBackward(title);
+    			titleVoList.add(titleVo);
+    		}
+    	}
+    	return titleVoList;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+	/**
+	 * 实体转换
+	 * @author wei.yong
+	 */
+    private class TitleVoConvert extends Converter<TitleVo, Title> {
+
+    	@Override
+    	protected Title doForward(TitleVo titleVo) {
+    		return null;
+    	}
+
+    	/**
+    	 * 实体转换vo
+    	 * @param title
+    	 * @return TitleVo
+    	 */
+		@Override
+		protected TitleVo doBackward(Title title) {
+			TitleVo titleVo = new TitleVo();
+			BeanUtils.copyProperties(title, titleVo);
+			titleVo.setTitleId(title.getId());
+			return titleVo;
+		}
+
     }
 
-    public Integer getEnterpriseId() {
-        return enterpriseId;
-    }
-
-    public void setEnterpriseId(Integer enterpriseId) {
-        this.enterpriseId = enterpriseId;
-    }
-
-    public String getTitleName() {
-        return titleName;
-    }
-
-    public void setTitleName(String titleName) {
-        this.titleName = titleName == null ? null : titleName.trim();
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

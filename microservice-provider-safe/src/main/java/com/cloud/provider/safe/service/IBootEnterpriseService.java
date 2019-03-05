@@ -36,6 +36,13 @@ public interface IBootEnterpriseService {
      */
 	public Integer insertEnterprise(Enterprise enterprise);
 
+ 	/**
+  	 * 根据id删除企业
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteEnterpriseById(Integer id);
+
     /**
      * 修改企业
      * @param enterprise

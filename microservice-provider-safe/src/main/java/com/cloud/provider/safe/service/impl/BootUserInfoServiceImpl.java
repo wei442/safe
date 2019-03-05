@@ -120,17 +120,17 @@ public class BootUserInfoServiceImpl implements IBootUserInfoService {
     }
 
  	/**
-  	 * 根据id删除用户职务
+  	 * 根据id删除用户信息
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserTitleById(Integer id) {
-  		logger.info("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--传入参数, id:{}", id);
+	public Integer deleteUserInfoById(Integer id) {
+  		logger.info("(BootUserInfoService-deleteUserInfoById)-根据id删除用户信息-传入参数, id:{}", id);
   		int i = 0;
   		try {
-  			i = userTitleMapper.deleteByPrimaryKey(id);
+  			i = userInfoMapper.deleteByPrimaryKey(id);
   		} catch (Exception e) {
-  			logger.error("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--事务性异常, Exception = {}, message = {}", e, e.getMessage());
+  			logger.error("(BootUserInfoService-deleteUserInfoById)-根据id删除用户信息-事务性异常, Exception = {}, message = {}", e, e.getMessage());
   			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
   		}
   		if(i<=0) {

@@ -1,10 +1,27 @@
 package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.springframework.beans.BeanUtils;
+
+import com.cloud.provider.safe.po.UserAdmin;
+import com.google.common.base.Converter;
+
+import lombok.Data;
+
+@Data
 public class UserAdminVo implements Serializable {
-    private Integer Id;
+
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer userAdminId;
 
     private Integer enterpriseId;
 
@@ -28,99 +45,61 @@ public class UserAdminVo implements Serializable {
 
     private Date updateTime;
 
-    public Integer getId() {
-        return Id;
+    /**
+     * 实体转换
+     * @param userAdmin
+     * @return UserAdminVo
+     */
+    public UserAdminVo convertToUserAdminVo(UserAdmin userAdmin) {
+    	UserAdminVoConvert convert = new UserAdminVoConvert();
+    	return convert.doBackward(userAdmin);
+	}
+
+    /**
+     * 实体列表转换
+     * @param list
+     * @return List<UserAdminVo>
+     */
+    public List<UserAdminVo> convertToUserAdminVoList(List<UserAdmin> list) {
+    	UserAdminVoConvert convert = new UserAdminVoConvert();
+    	List<UserAdminVo> userAdminVoList = null;
+    	UserAdminVo userAdminVo = null;
+    	if(list != null && !list.isEmpty()) {
+    		userAdminVoList = new ArrayList<UserAdminVo>(list.size());
+    		ListIterator<UserAdmin> it = list.listIterator();
+    		while(it.hasNext()) {
+    			UserAdmin userAdmin = it.next();
+    			userAdminVo = convert.doBackward(userAdmin);
+    			userAdminVoList.add(userAdminVo);
+    		}
+    	}
+    	return userAdminVoList;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+	/**
+	 * 实体转换
+	 * @author wei.yong
+	 */
+    private class UserAdminVoConvert extends Converter<UserAdminVo, UserAdmin> {
+
+    	@Override
+    	protected UserAdmin doForward(UserAdminVo userAdminVo) {
+    		return null;
+    	}
+
+    	/**
+    	 * 实体转换vo
+    	 * @param userAdmin
+    	 * @return UserAdminVo
+    	 */
+		@Override
+		protected UserAdminVo doBackward(UserAdmin userAdmin) {
+			UserAdminVo userAdminVo = new UserAdminVo();
+			BeanUtils.copyProperties(userAdmin, userAdminVo);
+			userAdminVo.setUserAdminId(userAdmin.getId());
+			return userAdminVo;
+		}
+
     }
 
-    public Integer getEnterpriseId() {
-        return enterpriseId;
-    }
-
-    public void setEnterpriseId(Integer enterpriseId) {
-        this.enterpriseId = enterpriseId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getAdminName() {
-        return adminName;
-    }
-
-    public void setAdminName(String adminName) {
-        this.adminName = adminName == null ? null : adminName.trim();
-    }
-
-    public Integer getAdminType() {
-        return adminType;
-    }
-
-    public void setAdminType(Integer adminType) {
-        this.adminType = adminType;
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

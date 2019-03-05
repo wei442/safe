@@ -36,6 +36,13 @@ public interface IBootAttachmentService {
      */
 	public Integer insertAttachment(Attachment attachment);
 
+ 	/**
+  	 * 根据id删除附件
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteAttachmentById(Integer id);
+
     /**
      * 修改附件
      * @param attachment

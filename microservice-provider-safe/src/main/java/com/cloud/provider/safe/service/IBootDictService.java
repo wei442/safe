@@ -36,6 +36,13 @@ public interface IBootDictService {
      */
 	public Integer insertDict(Dict dict);
 
+ 	/**
+  	 * 根据id删除字典
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteDictById(Integer id);
+
     /**
      * 修改字典
      * @param dict

@@ -125,12 +125,12 @@ public class BootUserQualityServiceImpl implements IBootUserQualityService {
   	 * @return Integer
   	 */
 	public Integer deleteUserQualityById(Integer id) {
-  		logger.info("(BootUserQualityService-deleteUserQualityById)-根据id删除用户资质--传入参数, id:{}", id);
+  		logger.info("(BootUserQualityService-deleteUserQualityById)-根据id删除用户资质-传入参数, id:{}", id);
   		int i = 0;
   		try {
   			i = userQualityMapper.deleteByPrimaryKey(id);
   		} catch (Exception e) {
-  			logger.error("(BootUserQualityService-deleteUserQualityById)-根据id删除用户资质--事务性异常, Exception = {}, message = {}", e, e.getMessage());
+  			logger.error("(BootUserQualityService-deleteUserQualityById)-根据id删除用户资质-事务性异常, Exception = {}, message = {}", e, e.getMessage());
   			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
   		}
   		if(i<=0) {

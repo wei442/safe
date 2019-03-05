@@ -36,6 +36,13 @@ public interface IBootPostService {
      */
 	public Integer insertPost(Post Post);
 
+ 	/**
+  	 * 根据id删除岗位
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deletePostById(Integer id);
+
     /**
      * 修改岗位
      * @param Post

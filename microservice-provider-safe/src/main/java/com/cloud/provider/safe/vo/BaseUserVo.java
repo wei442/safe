@@ -1,10 +1,27 @@
 package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.springframework.beans.BeanUtils;
+
+import com.cloud.provider.safe.po.BaseUser;
+import com.google.common.base.Converter;
+
+import lombok.Data;
+
+@Data
 public class BaseUserVo implements Serializable {
-    private Integer Id;
+
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer baseUserId;
 
     private String userAccount;
 
@@ -34,123 +51,61 @@ public class BaseUserVo implements Serializable {
 
     private Date updateTime;
 
-    public Integer getId() {
-        return Id;
+    /**
+     * 实体转换
+     * @param baseUser
+     * @return BaseUserVo
+     */
+    public BaseUserVo convertToBaseUserVo(BaseUser baseUser) {
+    	BaseUserVoConvert convert = new BaseUserVoConvert();
+    	return convert.doBackward(baseUser);
+	}
+
+    /**
+     * 实体列表转换
+     * @param list
+     * @return List<BaseUserVo>
+     */
+    public List<BaseUserVo> convertToBaseUserVoList(List<BaseUser> list) {
+    	BaseUserVoConvert convert = new BaseUserVoConvert();
+    	List<BaseUserVo> baseUserVoList = null;
+    	BaseUserVo baseUserVo = null;
+    	if(list != null && !list.isEmpty()) {
+    		baseUserVoList = new ArrayList<BaseUserVo>(list.size());
+    		ListIterator<BaseUser> it = list.listIterator();
+    		while(it.hasNext()) {
+    			BaseUser baseUser = it.next();
+    			baseUserVo = convert.doBackward(baseUser);
+    			baseUserVoList.add(baseUserVo);
+    		}
+    	}
+    	return baseUserVoList;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+	/**
+	 * 实体转换
+	 * @author wei.yong
+	 */
+    private class BaseUserVoConvert extends Converter<BaseUserVo, BaseUser> {
+
+    	@Override
+    	protected BaseUser doForward(BaseUserVo baseUserVo) {
+    		return null;
+    	}
+
+    	/**
+    	 * 实体转换vo
+    	 * @param baseUser
+    	 * @return BaseUserVo
+    	 */
+		@Override
+		protected BaseUserVo doBackward(BaseUser baseUser) {
+			BaseUserVo baseUserVo = new BaseUserVo();
+			BeanUtils.copyProperties(baseUser, baseUserVo);
+			baseUserVo.setBaseUserId(baseUser.getId());
+			return baseUserVo;
+		}
+
     }
 
-    public String getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount == null ? null : userAccount.trim();
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getUserNameEn() {
-        return userNameEn;
-    }
-
-    public void setUserNameEn(String userNameEn) {
-        this.userNameEn = userNameEn == null ? null : userNameEn.trim();
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword == null ? null : userPassword.trim();
-    }
-
-    public Integer getUserType() {
-        return userType;
-    }
-
-    public void setUserType(Integer userType) {
-        this.userType = userType;
-    }
-
-    public Integer getUserStatus() {
-        return userStatus;
-    }
-
-    public void setUserStatus(Integer userStatus) {
-        this.userStatus = userStatus;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail == null ? null : userEmail.trim();
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

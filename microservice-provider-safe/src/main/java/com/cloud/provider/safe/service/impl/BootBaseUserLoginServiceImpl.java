@@ -120,17 +120,17 @@ public class BootBaseUserLoginServiceImpl implements IBootBaseUserLoginService {
     }
 
  	/**
-  	 * 根据id删除用户职务
+  	 * 根据id删除基础用户登录
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserTitleById(Integer id) {
-  		logger.info("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--传入参数, id:{}", id);
+	public Integer deleteBaseUserLoginById(Integer id) {
+  		logger.info("(BootBaseUserLoginService-deleteBaseUserLoginById)-根据id删除基础用户登录-传入参数, id:{}", id);
   		int i = 0;
   		try {
-  			i = userTitleMapper.deleteByPrimaryKey(id);
+  			i = baseUserLoginMapper.deleteByPrimaryKey(id);
   		} catch (Exception e) {
-  			logger.error("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--事务性异常, Exception = {}, message = {}", e, e.getMessage());
+  			logger.error("(BootBaseUserLoginService-deleteBaseUserLoginById)-根据id删除基础用户登录-事务性异常, Exception = {}, message = {}", e, e.getMessage());
   			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
   		}
   		if(i<=0) {

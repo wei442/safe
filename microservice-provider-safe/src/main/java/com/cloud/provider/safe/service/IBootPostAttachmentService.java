@@ -36,6 +36,13 @@ public interface IBootPostAttachmentService {
      */
 	public Integer insertPostAttachment(PostAttachment postAttachment);
 
+ 	/**
+  	 * 根据id删除岗位附件
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deletePostAttachmentById(Integer id);
+
     /**
      * 修改用户附件
      * @param postAttachment

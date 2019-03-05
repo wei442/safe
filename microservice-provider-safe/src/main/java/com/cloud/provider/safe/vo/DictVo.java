@@ -1,10 +1,27 @@
 package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.springframework.beans.BeanUtils;
+
+import com.cloud.provider.safe.po.Dict;
+import com.google.common.base.Converter;
+
+import lombok.Data;
+
+@Data
 public class DictVo implements Serializable {
-    private Integer Id;
+
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer dictId;
 
     private Integer enterpriseId;
 
@@ -28,99 +45,61 @@ public class DictVo implements Serializable {
 
     private Date updateTime;
 
-    public Integer getId() {
-        return Id;
+    /**
+     * 实体转换
+     * @param dict
+     * @return DictVo
+     */
+    public DictVo convertToDictVo(Dict dict) {
+    	DictVoConvert convert = new DictVoConvert();
+    	return convert.doBackward(dict);
+	}
+
+    /**
+     * 实体列表转换
+     * @param list
+     * @return List<DictVo>
+     */
+    public List<DictVo> convertToDictVoList(List<Dict> list) {
+    	DictVoConvert convert = new DictVoConvert();
+    	List<DictVo> dictVoList = null;
+    	DictVo dictVo = null;
+    	if(list != null && !list.isEmpty()) {
+    		dictVoList = new ArrayList<DictVo>(list.size());
+    		ListIterator<Dict> it = list.listIterator();
+    		while(it.hasNext()) {
+    			Dict dict = it.next();
+    			dictVo = convert.doBackward(dict);
+    			dictVoList.add(dictVo);
+    		}
+    	}
+    	return dictVoList;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+	/**
+	 * 实体转换
+	 * @author wei.yong
+	 */
+    private class DictVoConvert extends Converter<DictVo, Dict> {
+
+    	@Override
+    	protected Dict doForward(DictVo dictVo) {
+    		return null;
+    	}
+
+    	/**
+    	 * 实体转换vo
+    	 * @param dict
+    	 * @return DictVo
+    	 */
+		@Override
+		protected DictVo doBackward(Dict dict) {
+			DictVo dictVo = new DictVo();
+			BeanUtils.copyProperties(dict, dictVo);
+			dictVo.setDictId(dict.getId());
+			return dictVo;
+		}
+
     }
 
-    public Integer getEnterpriseId() {
-        return enterpriseId;
-    }
-
-    public void setEnterpriseId(Integer enterpriseId) {
-        this.enterpriseId = enterpriseId;
-    }
-
-    public String getDictName() {
-        return dictName;
-    }
-
-    public void setDictName(String dictName) {
-        this.dictName = dictName == null ? null : dictName.trim();
-    }
-
-    public Integer getDictType() {
-        return dictType;
-    }
-
-    public void setDictType(Integer dictType) {
-        this.dictType = dictType;
-    }
-
-    public Integer getDictStatus() {
-        return dictStatus;
-    }
-
-    public void setDictStatus(Integer dictStatus) {
-        this.dictStatus = dictStatus;
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

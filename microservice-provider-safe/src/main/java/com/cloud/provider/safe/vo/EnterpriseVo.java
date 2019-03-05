@@ -1,10 +1,27 @@
 package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.springframework.beans.BeanUtils;
+
+import com.cloud.provider.safe.po.Enterprise;
+import com.google.common.base.Converter;
+
+import lombok.Data;
+
+@Data
 public class EnterpriseVo implements Serializable {
-    private Integer Id;
+
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer enterpriseId;
 
     private String enterpriseName;
 
@@ -44,163 +61,61 @@ public class EnterpriseVo implements Serializable {
 
     private Date updateTime;
 
-    public Integer getId() {
-        return Id;
+    /**
+     * 实体转换
+     * @param enterprise
+     * @return EnterpriseVo
+     */
+    public EnterpriseVo convertToEnterpriseVo(Enterprise enterprise) {
+    	EnterpriseVoConvert convert = new EnterpriseVoConvert();
+    	return convert.doBackward(enterprise);
+	}
+
+    /**
+     * 实体列表转换
+     * @param list
+     * @return List<EnterpriseVo>
+     */
+    public List<EnterpriseVo> convertToEnterpriseVoList(List<Enterprise> list) {
+    	EnterpriseVoConvert convert = new EnterpriseVoConvert();
+    	List<EnterpriseVo> enterpriseVoList = null;
+    	EnterpriseVo enterpriseVo = null;
+    	if(list != null && !list.isEmpty()) {
+    		enterpriseVoList = new ArrayList<EnterpriseVo>(list.size());
+    		ListIterator<Enterprise> it = list.listIterator();
+    		while(it.hasNext()) {
+    			Enterprise enterprise = it.next();
+    			enterpriseVo = convert.doBackward(enterprise);
+    			enterpriseVoList.add(enterpriseVo);
+    		}
+    	}
+    	return enterpriseVoList;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+	/**
+	 * 实体转换
+	 * @author wei.yong
+	 */
+    private class EnterpriseVoConvert extends Converter<EnterpriseVo, Enterprise> {
+
+    	@Override
+    	protected Enterprise doForward(EnterpriseVo enterpriseVo) {
+    		return null;
+    	}
+
+    	/**
+    	 * 实体转换vo
+    	 * @param enterprise
+    	 * @return EnterpriseVo
+    	 */
+		@Override
+		protected EnterpriseVo doBackward(Enterprise enterprise) {
+			EnterpriseVo enterpriseVo = new EnterpriseVo();
+			BeanUtils.copyProperties(enterprise, enterpriseVo);
+			enterpriseVo.setEnterpriseId(enterprise.getId());
+			return enterpriseVo;
+		}
+
     }
 
-    public String getEnterpriseName() {
-        return enterpriseName;
-    }
-
-    public void setEnterpriseName(String enterpriseName) {
-        this.enterpriseName = enterpriseName == null ? null : enterpriseName.trim();
-    }
-
-    public Integer getEnterpriseType() {
-        return enterpriseType;
-    }
-
-    public void setEnterpriseType(Integer enterpriseType) {
-        this.enterpriseType = enterpriseType;
-    }
-
-    public Integer getEnterpriseNature() {
-        return enterpriseNature;
-    }
-
-    public void setEnterpriseNature(Integer enterpriseNature) {
-        this.enterpriseNature = enterpriseNature;
-    }
-
-    public Integer getEnterpriseStatus() {
-        return enterpriseStatus;
-    }
-
-    public void setEnterpriseStatus(Integer enterpriseStatus) {
-        this.enterpriseStatus = enterpriseStatus;
-    }
-
-    public String getEnterpriseAlias() {
-        return enterpriseAlias;
-    }
-
-    public void setEnterpriseAlias(String enterpriseAlias) {
-        this.enterpriseAlias = enterpriseAlias == null ? null : enterpriseAlias.trim();
-    }
-
-    public String getEnterpriseTelphone() {
-        return enterpriseTelphone;
-    }
-
-    public void setEnterpriseTelphone(String enterpriseTelphone) {
-        this.enterpriseTelphone = enterpriseTelphone == null ? null : enterpriseTelphone.trim();
-    }
-
-    public Integer getEnterpriseLevel() {
-        return enterpriseLevel;
-    }
-
-    public void setEnterpriseLevel(Integer enterpriseLevel) {
-        this.enterpriseLevel = enterpriseLevel;
-    }
-
-    public String getEnterpriseFax() {
-        return enterpriseFax;
-    }
-
-    public void setEnterpriseFax(String enterpriseFax) {
-        this.enterpriseFax = enterpriseFax == null ? null : enterpriseFax.trim();
-    }
-
-    public String getEnterpriseEmail() {
-        return enterpriseEmail;
-    }
-
-    public void setEnterpriseEmail(String enterpriseEmail) {
-        this.enterpriseEmail = enterpriseEmail == null ? null : enterpriseEmail.trim();
-    }
-
-    public String getEnterprisePostCode() {
-        return enterprisePostCode;
-    }
-
-    public void setEnterprisePostCode(String enterprisePostCode) {
-        this.enterprisePostCode = enterprisePostCode == null ? null : enterprisePostCode.trim();
-    }
-
-    public String getEnterpriseAddr() {
-        return enterpriseAddr;
-    }
-
-    public void setEnterpriseAddr(String enterpriseAddr) {
-        this.enterpriseAddr = enterpriseAddr == null ? null : enterpriseAddr.trim();
-    }
-
-    public String getEnterpriseWebside() {
-        return enterpriseWebside;
-    }
-
-    public void setEnterpriseWebside(String enterpriseWebside) {
-        this.enterpriseWebside = enterpriseWebside == null ? null : enterpriseWebside.trim();
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

@@ -1,10 +1,27 @@
 package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.springframework.beans.BeanUtils;
+
+import com.cloud.provider.safe.po.DictItem;
+import com.google.common.base.Converter;
+
+import lombok.Data;
+
+@Data
 public class DictItemVo implements Serializable {
-    private Integer Id;
+
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer dictItemId;
 
     private Integer enterpriseId;
 
@@ -32,115 +49,61 @@ public class DictItemVo implements Serializable {
 
     private Date updateTime;
 
-    public Integer getId() {
-        return Id;
+    /**
+     * 实体转换
+     * @param dictItem
+     * @return DictItemVo
+     */
+    public DictItemVo convertToDictItemVo(DictItem dictItem) {
+    	DictItemVoConvert convert = new DictItemVoConvert();
+    	return convert.doBackward(dictItem);
+	}
+
+    /**
+     * 实体列表转换
+     * @param list
+     * @return List<DictItemVo>
+     */
+    public List<DictItemVo> convertToDictItemVoList(List<DictItem> list) {
+    	DictItemVoConvert convert = new DictItemVoConvert();
+    	List<DictItemVo> dictItemVoList = null;
+    	DictItemVo dictItemVo = null;
+    	if(list != null && !list.isEmpty()) {
+    		dictItemVoList = new ArrayList<DictItemVo>(list.size());
+    		ListIterator<DictItem> it = list.listIterator();
+    		while(it.hasNext()) {
+    			DictItem dictItem = it.next();
+    			dictItemVo = convert.doBackward(dictItem);
+    			dictItemVoList.add(dictItemVo);
+    		}
+    	}
+    	return dictItemVoList;
     }
 
-    public void setId(Integer Id) {
-        this.Id = Id;
+	/**
+	 * 实体转换
+	 * @author wei.yong
+	 */
+    private class DictItemVoConvert extends Converter<DictItemVo, DictItem> {
+
+    	@Override
+    	protected DictItem doForward(DictItemVo dictItemVo) {
+    		return null;
+    	}
+
+    	/**
+    	 * 实体转换vo
+    	 * @param dictItem
+    	 * @return DictItemVo
+    	 */
+		@Override
+		protected DictItemVo doBackward(DictItem dictItem) {
+			DictItemVo dictItemVo = new DictItemVo();
+			BeanUtils.copyProperties(dictItem, dictItemVo);
+			dictItemVo.setDictItemId(dictItem.getId());
+			return dictItemVo;
+		}
+
     }
 
-    public Integer getEnterpriseId() {
-        return enterpriseId;
-    }
-
-    public void setEnterpriseId(Integer enterpriseId) {
-        this.enterpriseId = enterpriseId;
-    }
-
-    public Integer getDictId() {
-        return dictId;
-    }
-
-    public void setDictId(Integer dictId) {
-        this.dictId = dictId;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName == null ? null : itemName.trim();
-    }
-
-    public String getItemAlias() {
-        return itemAlias;
-    }
-
-    public void setItemAlias(String itemAlias) {
-        this.itemAlias = itemAlias == null ? null : itemAlias.trim();
-    }
-
-    public Integer getItemLevel() {
-        return itemLevel;
-    }
-
-    public void setItemLevel(Integer itemLevel) {
-        this.itemLevel = itemLevel;
-    }
-
-    public Integer getItemStatus() {
-        return itemStatus;
-    }
-
-    public void setItemStatus(Integer itemStatus) {
-        this.itemStatus = itemStatus;
-    }
-
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

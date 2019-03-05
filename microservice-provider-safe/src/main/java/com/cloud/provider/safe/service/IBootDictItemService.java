@@ -36,6 +36,13 @@ public interface IBootDictItemService {
      */
 	public Integer insertDictItem(DictItem dictItem);
 
+ 	/**
+  	 * 根据id删除字典子项
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deleteDictItemById(Integer id);
+
     /**
      * 修改字典子项
      * @param dictItem

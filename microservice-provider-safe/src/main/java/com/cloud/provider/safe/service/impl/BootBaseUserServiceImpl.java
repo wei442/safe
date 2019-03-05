@@ -28,26 +28,26 @@ public class BootBaseUserServiceImpl implements IBootBaseUserService {
 
     //基础用户 Mapper
     @Autowired
-    private BaseUserMapper userInfoMapper;
+    private BaseUserMapper baseUserMapper;
 
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userInfo
+	 * @param baseUser
 	 * @return List<BaseUser>
 	 */
 	@Override
-	public List<BaseUser> selectBaseUserListByPage(Page<?> page, BaseUser userInfo) {
-		logger.info("(BootBaseUserService-selectBaseUserListByPage)-分页查询-传入参数, page:{}, userInfo:{}", page, userInfo);
+	public List<BaseUser> selectBaseUserListByPage(Page<?> page, BaseUser baseUser) {
+		logger.info("(BootBaseUserService-selectBaseUserListByPage)-分页查询-传入参数, page:{}, baseUser:{}", page, baseUser);
 		PageHelper.startPage(page);
 		BaseUserExample example = new BaseUserExample();
 		example.setOrderByClause(" id desc ");
 		BaseUserExample.Criteria criteria = example.createCriteria();
-		if(userInfo != null) {
+		if(baseUser != null) {
 		}
 		List<BaseUser> list = null;
 		try {
-			list = userInfoMapper.selectByExample(example);
+			list = baseUserMapper.selectByExample(example);
 		} catch (Exception e) {
 			logger.error("(BootBaseUserService-selectBaseUserListByPage)-分页查询-事务性异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
@@ -57,19 +57,19 @@ public class BootBaseUserServiceImpl implements IBootBaseUserService {
 
 	/**
 	 * 不分页查询
-	 * @param userInfo
+	 * @param baseUser
 	 * @return List<BaseUser>
 	 */
 	@Override
-	public List<BaseUser> selectBaseUserList(BaseUser userInfo) {
-		logger.info("(BootBaseUserService-selectBaseUserList)-不分页查询-传入参数, userInfo:{}", userInfo);
+	public List<BaseUser> selectBaseUserList(BaseUser baseUser) {
+		logger.info("(BootBaseUserService-selectBaseUserList)-不分页查询-传入参数, baseUser:{}", baseUser);
 		BaseUserExample example = new BaseUserExample();
 		BaseUserExample.Criteria criteria = example.createCriteria();
-		if(userInfo != null) {
+		if(baseUser != null) {
 		}
 		List<BaseUser> list = null;
 		try {
-			list = userInfoMapper.selectByExample(example);
+			list = baseUserMapper.selectByExample(example);
 		} catch (Exception e) {
 			logger.error("(BootBaseUserService-selectBaseUserList)-不分页查询-事务性异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
@@ -85,30 +85,30 @@ public class BootBaseUserServiceImpl implements IBootBaseUserService {
 	@Override
 	public BaseUser selectBaseUserById(Integer id) {
     	logger.info("(BootBaseUserService-selectBaseUserById)-根据id查询基础用户-传入参数, id:{}", id);
-    	BaseUser userInfo = null;
+    	BaseUser baseUser = null;
     	try {
-    		userInfo = userInfoMapper.selectByPrimaryKey(id);
+    		baseUser = baseUserMapper.selectByPrimaryKey(id);
 		} catch (Exception e) {
 			logger.error("(BootBaseUserService-selectBaseUserById)-根据id查询基础用户-事务性异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
 		}
 
-		return userInfo;
+		return baseUser;
     }
 
     /**
      * 插入基础用户
-     * @param userInfo
+     * @param baseUser
      * @return Integer
      */
 	@Override
-	public Integer insertBaseUser(BaseUser userInfo) {
-    	logger.info("(BootBaseUserService-insertBaseUser)-插入基础用户-传入参数, userInfo:{}", userInfo);
-    	userInfo.setCreateTime(new Date());
-    	userInfo.setUpdateTime(new Date());
+	public Integer insertBaseUser(BaseUser baseUser) {
+    	logger.info("(BootBaseUserService-insertBaseUser)-插入基础用户-传入参数, baseUser:{}", baseUser);
+    	baseUser.setCreateTime(new Date());
+    	baseUser.setUpdateTime(new Date());
     	int i = 0;
     	try {
-    		i = userInfoMapper.insertSelective(userInfo);
+    		i = baseUserMapper.insertSelective(baseUser);
     	} catch (Exception e) {
     		logger.error("(BootBaseUserService-insertBaseUser)-插入基础用户-事务性异常, Exception = {}, message = {}", e, e.getMessage());
     		throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
@@ -120,17 +120,17 @@ public class BootBaseUserServiceImpl implements IBootBaseUserService {
     }
 
  	/**
-  	 * 根据id删除用户职务
+  	 * 根据id删除基础用户
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserTitleById(Integer id) {
-  		logger.info("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--传入参数, id:{}", id);
+	public Integer deleteBaseUserById(Integer id) {
+  		logger.info("(BootBaseUserService-deleteBaseUserById)-根据id删除基础用户-传入参数, id:{}", id);
   		int i = 0;
   		try {
-  			i = userTitleMapper.deleteByPrimaryKey(id);
+  			i = baseUserMapper.deleteByPrimaryKey(id);
   		} catch (Exception e) {
-  			logger.error("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--事务性异常, Exception = {}, message = {}", e, e.getMessage());
+  			logger.error("(BootBaseUserService-deleteBaseUserById)-根据id删除基础用户-事务性异常, Exception = {}, message = {}", e, e.getMessage());
   			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
   		}
   		if(i<=0) {
@@ -141,16 +141,16 @@ public class BootBaseUserServiceImpl implements IBootBaseUserService {
 
     /**
      * 修改基础用户
-     * @param userInfo
+     * @param baseUser
      * @return Integer
      */
 	@Override
-	public Integer modifyBaseUser(BaseUser userInfo) {
-    	logger.info("(BootBaseUserService-modifyBaseUser)-修改基础用户-传入参数, userInfo:{}", userInfo);
-    	userInfo.setUpdateTime(new Date());
+	public Integer modifyBaseUser(BaseUser baseUser) {
+    	logger.info("(BootBaseUserService-modifyBaseUser)-修改基础用户-传入参数, baseUser:{}", baseUser);
+    	baseUser.setUpdateTime(new Date());
     	int i = 0;
     	try {
-    		i = userInfoMapper.updateByPrimaryKeySelective(userInfo);
+    		i = baseUserMapper.updateByPrimaryKeySelective(baseUser);
     	} catch (Exception e) {
     		logger.error("(BootBaseUserService-modifyBaseUser)-修改基础用户-事务性异常, Exception = {}, message = {}", e, e.getMessage());
     		throw new SafeException(SafeResultEnum.SYSTEM_ERROR);

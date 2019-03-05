@@ -28,7 +28,7 @@ public class BootPostServiceImpl implements IBootPostService {
 
     //岗位 Mapper
     @Autowired
-    private PostMapper PostMapper;
+    private PostMapper postMapper;
 
     /**
 	 * 分页查询
@@ -47,7 +47,7 @@ public class BootPostServiceImpl implements IBootPostService {
 		}
 		List<Post> list = null;
 		try {
-			list = PostMapper.selectByExample(example);
+			list = postMapper.selectByExample(example);
 		} catch (Exception e) {
 			logger.error("(BootPostService-selectPostListByPage)-分页查询-事务性异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
@@ -69,7 +69,7 @@ public class BootPostServiceImpl implements IBootPostService {
 		}
 		List<Post> list = null;
 		try {
-			list = PostMapper.selectByExample(example);
+			list = postMapper.selectByExample(example);
 		} catch (Exception e) {
 			logger.error("(BootPostService-selectPostList)-不分页查询-事务性异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
@@ -87,7 +87,7 @@ public class BootPostServiceImpl implements IBootPostService {
     	logger.info("(BootPostService-selectPostById)-根据id查询岗位-传入参数, id:{}", id);
     	Post Post = null;
     	try {
-    		Post = PostMapper.selectByPrimaryKey(id);
+    		Post = postMapper.selectByPrimaryKey(id);
 		} catch (Exception e) {
 			logger.error("(BootPostService-selectPostById)-根据id查询岗位-事务性异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
@@ -108,7 +108,7 @@ public class BootPostServiceImpl implements IBootPostService {
     	Post.setUpdateTime(new Date());
     	int i = 0;
     	try {
-    		i = PostMapper.insertSelective(Post);
+    		i = postMapper.insertSelective(Post);
     	} catch (Exception e) {
     		logger.error("(BootPostService-insertPost)-插入岗位-事务性异常, Exception = {}, message = {}", e, e.getMessage());
     		throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
@@ -120,17 +120,17 @@ public class BootPostServiceImpl implements IBootPostService {
     }
 
  	/**
-  	 * 根据id删除用户职务
+  	 * 根据id删除岗位
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserTitleById(Integer id) {
-  		logger.info("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--传入参数, id:{}", id);
+	public Integer deletePostById(Integer id) {
+  		logger.info("(BootPostService-deletePostById)-根据id删除岗位-传入参数, id:{}", id);
   		int i = 0;
   		try {
-  			i = userTitleMapper.deleteByPrimaryKey(id);
+  			i = postMapper.deleteByPrimaryKey(id);
   		} catch (Exception e) {
-  			logger.error("(BootUserTitleService-deleteUserTitleById)-根据id删除用户职务--事务性异常, Exception = {}, message = {}", e, e.getMessage());
+  			logger.error("(BootPostService-deletePostById)-根据id删除岗位-事务性异常, Exception = {}, message = {}", e, e.getMessage());
   			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
   		}
   		if(i<=0) {
@@ -150,7 +150,7 @@ public class BootPostServiceImpl implements IBootPostService {
     	Post.setUpdateTime(new Date());
     	int i = 0;
     	try {
-    		i = PostMapper.updateByPrimaryKeySelective(Post);
+    		i = postMapper.updateByPrimaryKeySelective(Post);
     	} catch (Exception e) {
     		logger.error("(BootPostService-modifyPost)-修改岗位-事务性异常, Exception = {}, message = {}", e, e.getMessage());
     		throw new SafeException(SafeResultEnum.SYSTEM_ERROR);

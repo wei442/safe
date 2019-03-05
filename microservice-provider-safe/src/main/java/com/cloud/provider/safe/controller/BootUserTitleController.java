@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户职务")
 @RestController
-@RequestMapping(value="/boot/oms/orderReturnReason")
+@RequestMapping(value="/boot/userTitle")
 public class BootUserTitleController extends BootBaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
