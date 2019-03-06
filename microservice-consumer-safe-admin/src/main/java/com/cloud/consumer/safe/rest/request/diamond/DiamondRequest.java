@@ -1,8 +1,8 @@
-package com.ochain.consumer.wheel.rest.request.diamond;
+package com.cloud.consumer.safe.rest.request.diamond;
 
 import java.io.Serializable;
 
-import com.ochain.consumer.wheel.base.BaseRestRequest;
+import com.cloud.consumer.safe.base.BaseRestRequest;
 
 /**
  * 能量请求

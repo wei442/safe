@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.core.aspectj;
+package com.cloud.consumer.safe.core.aspectj;
 
 import java.lang.reflect.Method;
 
@@ -23,7 +23,7 @@ public class ControllerParamAspectj {
 //	@Autowired
 //	private ObjectMapper objectMapper;
 
-	@Around("execution(* com.ochain.consumer.wheel.controllers.*.*(..))")
+	@Around("execution(* com.cloud.consumer.safe.controllers.*.*(..))")
 	public Object myAroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
 
 		long begintime = System.currentTimeMillis();

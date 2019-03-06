@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.vo.sign;
+package com.cloud.consumer.safe.vo.sign;
 
 import java.io.Serializable;
 import java.util.Date;

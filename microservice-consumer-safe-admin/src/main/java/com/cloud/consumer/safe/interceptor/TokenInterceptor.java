@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.interceptor;
+package com.cloud.consumer.safe.interceptor;
 
 import java.nio.charset.StandardCharsets;
 import java.security.PublicKey;
@@ -27,8 +27,8 @@ import com.ochain.common.security.KeyFactoryUtil;
 import com.ochain.common.sign.security.AESUtils;
 import com.ochain.common.util.AjaxUtil;
 import com.ochain.common.util.IpUtil;
-import com.ochain.consumer.wheel.service.IRedisService;
-import com.ochain.consumer.wheel.service.third.IGoFunService;
+import com.cloud.consumer.safe.service.IRedisService;
+import com.cloud.consumer.safe.service.third.IGoFunService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.MalformedJwtException;

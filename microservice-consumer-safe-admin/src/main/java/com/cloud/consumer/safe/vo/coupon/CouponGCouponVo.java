@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.vo.coupon;
+package com.cloud.consumer.safe.vo.coupon;
 
 import java.io.Serializable;
 

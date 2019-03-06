@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.controllers;
+package com.cloud.consumer.safe.controller;
 
 import java.util.Map;
 import java.util.Objects;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ochain.common.util.IpUtil;
-import com.ochain.consumer.wheel.base.BaseRestMapResponse;
+import com.cloud.common.util.IpUtil;
+import com.cloud.consumer.safe.base.BaseRestMapResponse;
 
 /**
  * 错误返回 BaseErrorController

@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.vo.account;
+package com.cloud.consumer.safe.vo.account;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.service.impl;
+package com.cloud.consumer.safe.service.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ochain.common.constants.BootConstants;
 import com.ochain.common.constants.RedisConstants;
 import com.ochain.common.constants.RetHttpUrlConstants;
-import com.ochain.consumer.wheel.service.IRedisLockService;
+import com.cloud.consumer.safe.service.IRedisLockService;
 
 /**
  * redis lock Service (microservice-provider-redis)

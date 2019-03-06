@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.controllers;
+package com.cloud.consumer.safe.controller;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -28,18 +28,18 @@ import com.ochain.common.constants.wheel.BootWheelConstants;
 import com.ochain.common.constants.wheel.RetWheelConstants;
 import com.ochain.common.constants.wheel.SqlWheelConstants;
 import com.ochain.common.redis.keys.RedisKeysUtil;
-import com.ochain.consumer.wheel.base.BaseRestMapResponse;
-import com.ochain.consumer.wheel.rest.request.coupon.CouponRequest;
-import com.ochain.consumer.wheel.service.ICouponGCouponService;
-import com.ochain.consumer.wheel.service.ICouponService;
-import com.ochain.consumer.wheel.service.IGCouponService;
-import com.ochain.consumer.wheel.service.IUserService;
-import com.ochain.consumer.wheel.service.third.IGoFunService;
-import com.ochain.consumer.wheel.vo.account.AccountDiamondVo;
-import com.ochain.consumer.wheel.vo.coupon.CouponGCouponVo;
-import com.ochain.consumer.wheel.vo.coupon.CouponVo;
-import com.ochain.consumer.wheel.vo.coupon.GCouponVo;
-import com.ochain.consumer.wheel.vo.user.UserVo;
+import com.cloud.consumer.safe.base.BaseRestMapResponse;
+import com.cloud.consumer.safe.rest.request.coupon.CouponRequest;
+import com.cloud.consumer.safe.service.ICouponGCouponService;
+import com.cloud.consumer.safe.service.ICouponService;
+import com.cloud.consumer.safe.service.IGCouponService;
+import com.cloud.consumer.safe.service.IUserService;
+import com.cloud.consumer.safe.service.third.IGoFunService;
+import com.cloud.consumer.safe.vo.account.AccountDiamondVo;
+import com.cloud.consumer.safe.vo.coupon.CouponGCouponVo;
+import com.cloud.consumer.safe.vo.coupon.CouponVo;
+import com.cloud.consumer.safe.vo.coupon.GCouponVo;
+import com.cloud.consumer.safe.vo.user.UserVo;
 
 /**
  * 优惠券管理 UserCouponController

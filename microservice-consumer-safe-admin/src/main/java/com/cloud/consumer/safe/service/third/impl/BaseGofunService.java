@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.service.third.impl;
+package com.cloud.consumer.safe.service.third.impl;
 
 import java.util.Date;
 import java.util.Objects;

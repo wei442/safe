@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.service.impl;
+package com.cloud.consumer.safe.service.impl;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ochain.common.constants.RetHttpUrlConstants;
-import com.ochain.consumer.wheel.service.ICalculateConfigService;
+import com.cloud.consumer.safe.service.ICalculateConfigService;
 
 /**
  * 算力配置 CalculateConfigService (microservice-provider-wheel)

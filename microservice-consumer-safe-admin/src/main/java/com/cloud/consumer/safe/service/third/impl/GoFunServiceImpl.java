@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.service.third.impl;
+package com.cloud.consumer.safe.service.third.impl;
 
 import java.util.Map;
 
@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ochain.consumer.wheel.service.third.IGoFunService;
+import com.cloud.consumer.safe.service.third.IGoFunService;
 
 /**
  * gofun Service

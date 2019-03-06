@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.controllers;
+package com.cloud.consumer.safe.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,13 +25,13 @@ import com.ochain.common.constants.PageConstants;
 import com.ochain.common.constants.wheel.BootWheelConstants;
 import com.ochain.common.constants.wheel.RetWheelConstants;
 import com.ochain.common.constants.wheel.SqlWheelConstants;
-import com.ochain.consumer.wheel.base.BaseRestMapResponse;
-import com.ochain.consumer.wheel.rest.request.calculate.CalculateRequest;
-import com.ochain.consumer.wheel.service.IUserCalculateConfigService;
-import com.ochain.consumer.wheel.util.PageUtil;
-import com.ochain.consumer.wheel.vo.calculate.CalculateRankContentVo;
-import com.ochain.consumer.wheel.vo.calculate.CalculateVo;
-import com.ochain.consumer.wheel.vo.calculate.CalculateYesterdayRankContentVo;
+import com.cloud.consumer.safe.base.BaseRestMapResponse;
+import com.cloud.consumer.safe.rest.request.calculate.CalculateRequest;
+import com.cloud.consumer.safe.service.IUserCalculateConfigService;
+import com.cloud.consumer.safe.util.PageUtil;
+import com.cloud.consumer.safe.vo.calculate.CalculateRankContentVo;
+import com.cloud.consumer.safe.vo.calculate.CalculateVo;
+import com.cloud.consumer.safe.vo.calculate.CalculateYesterdayRankContentVo;
 
 /**
  * 算力管理 UserCalculateController

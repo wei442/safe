@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.start;
+package com.cloud.consumer.safe.start;
 
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -38,7 +38,7 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
 @SpringBootApplication
-@ComponentScan(basePackages={"com.ochain.consumer.wheel"})
+@ComponentScan(basePackages={"com.cloud.consumer.safe"})
 //服务发现
 @EnableEurekaClient
 //熔断器

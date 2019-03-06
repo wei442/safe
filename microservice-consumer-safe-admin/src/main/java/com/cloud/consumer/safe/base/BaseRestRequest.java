@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.base;
+package com.cloud.consumer.safe.base;
 
 import java.io.Serializable;
 

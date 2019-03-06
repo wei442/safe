@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.vo.gofun;
+package com.cloud.consumer.safe.vo.gofun;
 
 import java.io.Serializable;
 import java.util.List;

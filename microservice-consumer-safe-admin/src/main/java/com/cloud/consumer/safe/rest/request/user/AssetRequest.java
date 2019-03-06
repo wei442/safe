@@ -1,8 +1,8 @@
-package com.ochain.consumer.wheel.rest.request.user;
+package com.cloud.consumer.safe.rest.request.user;
 
 import java.io.Serializable;
 
-import com.ochain.consumer.wheel.base.BaseRestRequest;
+import com.cloud.consumer.safe.base.BaseRestRequest;
 
 /**
  * 资产请求
