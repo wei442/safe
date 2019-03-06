@@ -1,4 +1,4 @@
-package com.cloud.provider.safe.boot;
+package com.cloud.provider.safe.base;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
  * boot基础请求
  * @author wei.yong
  */
-public class BootRestRequest implements Serializable {
+public class BaseRestRequest implements Serializable {
 
 	/**
 	 *

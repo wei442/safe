@@ -5,7 +5,7 @@ import java.util.List;
 import com.cloud.provider.safe.po.UserTitle;
 import com.github.pagehelper.Page;
 
-public interface IBootUserTitleService {
+public interface IUserTitleService {
 
     /**
 	 * 分页查询

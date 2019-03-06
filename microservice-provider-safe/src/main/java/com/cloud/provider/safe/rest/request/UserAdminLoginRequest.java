@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 
-import com.cloud.provider.safe.boot.BootRestRequest;
+import com.cloud.provider.safe.base.BaseRestRequest;
 import com.cloud.provider.safe.po.UserAdminLogin;
 import com.google.common.base.Converter;
 
@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserAdminLoginRequest extends BootRestRequest {
+public class UserAdminLoginRequest extends BaseRestRequest {
 
     /**
 	 *

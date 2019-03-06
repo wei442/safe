@@ -1,14 +1,14 @@
-package com.cloud.provider.safe.boot;
+package com.cloud.provider.safe.base;
 
 import java.io.Serializable;
 
 import com.cloud.common.constants.BootConstants;
 
 /**
- * boot返回
+ * base返回
  * @author wei.yong
  */
-public class BootRestResponse implements Serializable {
+public class BaseRestResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,12 +22,12 @@ public class BootRestResponse implements Serializable {
      */
 	protected String bootMsg;
 
-	public BootRestResponse() {
+	public BaseRestResponse() {
 		this.bootCode = BootConstants.OK;
 		this.bootMsg = BootConstants.OK_MSG;
 	}
 
-	public BootRestResponse(String code,String msg) {
+	public BaseRestResponse(String code,String msg) {
 		this.bootCode = code;
 		this.bootMsg = msg;
 	}

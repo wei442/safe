@@ -18,7 +18,7 @@ import com.cloud.common.exception.SafeException;
  * @date 2017-11-16
  */
 @RestController
-public class BootBaseController {
+public class BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -28,6 +28,10 @@ public class BootBaseController {
 	@Autowired
 	protected HttpServletResponse response;
 
+	/**
+	 * 校验参数
+	 * @param bindingResult
+	 */
 	protected void bindingResult(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
         	logger.info(">>>>>> {}.{}() valid params is error msg = {}", this.getClass().getSimpleName(), this.getRequestMethodName(), bindingResult.getFieldError().getDefaultMessage());

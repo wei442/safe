@@ -5,7 +5,7 @@ import java.util.List;
 import com.cloud.provider.safe.po.UserQuality;
 import com.github.pagehelper.Page;
 
-public interface IBootUserQualityService {
+public interface IUserQualityService {
 
 	 /**
 	 * 分页查询
