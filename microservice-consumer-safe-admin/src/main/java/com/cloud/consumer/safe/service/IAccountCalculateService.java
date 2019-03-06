@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.service;
+package com.cloud.consumer.safe.service;
 
 import java.util.Map;
 

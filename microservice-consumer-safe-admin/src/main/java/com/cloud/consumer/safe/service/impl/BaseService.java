@@ -49,7 +49,7 @@ public class BaseService extends BaseUrlService {
      * Add HTTP Authorization header, using Basic-Authentication to send user-credentials.
 	 * @return HttpHeaders
 	 */
-	protected HttpHeaders getProviderWheelHeaders() {
+	protected HttpHeaders getProviderSafeHeaders() {
 		//格式: 用户名+英文冒号+密码
     	String plainCredentials = providerWheelUserName+":"+providerWheelUserPassword;
     	String base64Credentials = new String(Base64.encodeBase64(plainCredentials.getBytes(StandardCharsets.UTF_8)),StandardCharsets.UTF_8);
