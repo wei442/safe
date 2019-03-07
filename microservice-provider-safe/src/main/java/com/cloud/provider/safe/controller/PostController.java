@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Post;
 import com.cloud.provider.safe.rest.request.PostRequest;
+import com.cloud.provider.safe.rest.request.page.PostPageRequest;
 import com.cloud.provider.safe.service.IPostService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.PostVo;
@@ -54,7 +54,7 @@ public class PostController extends BaseController {
 	@RequestMapping(value="/selectPostListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectPostListByPage(
-		@RequestBody PostRequest req) {
+		@RequestBody PostPageRequest req) {
 		logger.info("===step1:【分页查询岗位列表】(PostController-selectPostListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class PostController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<PostVo> postVoList = new PostVo().convertToPostVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.putAll(pageListMap);
+		postResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(postVoList));
 		logger.info("===step3:【分页查询岗位列表】(PostController-selectPostListByPage)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}
@@ -84,7 +84,7 @@ public class PostController extends BaseController {
 	@RequestMapping(value="/selectPostList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectPostList(
-		@RequestBody PostRequest req) {
+		@RequestBody PostPageRequest req) {
 		logger.info("===step1:【不分页查询岗位列表】(PostController-selectPostList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Post post = new Post();
 		List<Post> list = null;
@@ -93,9 +93,10 @@ public class PostController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<PostVo> postVoList = new PostVo().convertToPostVoList(list);
 
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(PageConstants.DATA_LIST, list);
+		postResponse.put(PageConstants.DATA_LIST, postVoList);
 		logger.info("===step3:【不分页查询岗位列表】(PostController-selectPostList)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}

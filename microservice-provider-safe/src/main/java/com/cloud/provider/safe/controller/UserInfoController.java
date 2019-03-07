@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.rest.request.UserInfoRequest;
+import com.cloud.provider.safe.rest.request.page.UserInfoPageRequest;
 import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.UserInfoVo;
@@ -54,7 +54,7 @@ public class UserInfoController extends BaseController {
 	@RequestMapping(value="/selectUserInfoListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserInfoListByPage(
-		@RequestBody UserInfoRequest req) {
+		@RequestBody UserInfoPageRequest req) {
 		logger.info("===step1:【分页查询用户信息列表】(UserInfoController-selectUserInfoListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class UserInfoController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserInfoVo> userInfoVoList = new UserInfoVo().convertToUserInfoVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.putAll(pageListMap);
+		userInfoResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userInfoVoList));
 		logger.info("===step3:【分页查询用户信息列表】(UserInfoController-selectUserInfoListByPage)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
@@ -84,7 +84,7 @@ public class UserInfoController extends BaseController {
 	@RequestMapping(value="/selectUserInfoList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserInfoList(
-		@RequestBody UserInfoRequest req) {
+		@RequestBody UserInfoPageRequest req) {
 		logger.info("===step1:【不分页查询用户信息列表】(UserInfoController-selectUserInfoList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		UserInfo userInfo = new UserInfo();
 		List<UserInfo> list = null;
@@ -93,9 +93,10 @@ public class UserInfoController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserInfoVo> userInfoVoList = new UserInfoVo().convertToUserInfoVoList(list);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(PageConstants.DATA_LIST, list);
+		userInfoResponse.put(PageConstants.DATA_LIST, userInfoVoList);
 		logger.info("===step3:【不分页查询用户信息列表】(UserInfoController-selectUserInfoList)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}

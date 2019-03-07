@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.BaseUserLogin;
 import com.cloud.provider.safe.rest.request.BaseUserLoginRequest;
+import com.cloud.provider.safe.rest.request.page.BaseUserLoginPageRequest;
 import com.cloud.provider.safe.service.IBaseUserLoginService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.BaseUserLoginVo;
@@ -54,7 +54,7 @@ public class BaseUserLoginController extends BaseController {
 	@RequestMapping(value="/selectBaseUserLoginListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectBaseUserLoginListByPage(
-		@RequestBody BaseUserLoginRequest req) {
+		@RequestBody BaseUserLoginPageRequest req) {
 		logger.info("===step1:【分页查询基础用户登录列表】(BaseUserLoginController-selectBaseUserLoginListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class BaseUserLoginController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<BaseUserLoginVo> baseUserLoginVoList = new BaseUserLoginVo().convertToBaseUserLoginVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.putAll(pageListMap);
+		baseUserLoginResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(baseUserLoginVoList));
 		logger.info("===step3:【分页查询基础用户登录列表】(BaseUserLoginController-selectBaseUserLoginListByPage)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}
@@ -84,7 +84,7 @@ public class BaseUserLoginController extends BaseController {
 	@RequestMapping(value="/selectBaseUserLoginList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectBaseUserLoginList(
-		@RequestBody BaseUserLoginRequest req) {
+		@RequestBody BaseUserLoginPageRequest req) {
 		logger.info("===step1:【不分页查询基础用户登录列表】(BaseUserLoginController-selectBaseUserLoginList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		BaseUserLogin baseUserLogin = new BaseUserLogin();
 		List<BaseUserLogin> list = null;
@@ -93,9 +93,10 @@ public class BaseUserLoginController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<BaseUserLoginVo> baseUserLoginVoList = new BaseUserLoginVo().convertToBaseUserLoginVoList(list);
 
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(PageConstants.DATA_LIST, list);
+		baseUserLoginResponse.put(PageConstants.DATA_LIST, baseUserLoginVoList);
 		logger.info("===step3:【不分页查询基础用户登录列表】(BaseUserLoginController-selectBaseUserLoginList)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}

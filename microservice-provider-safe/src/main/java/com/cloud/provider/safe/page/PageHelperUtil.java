@@ -15,7 +15,7 @@ public enum PageHelperUtil {
 
 	INSTANCE;
 
-	private Page page = null;
+	private PageVo page = null;
 
 	private Map<String, Object> map = null;
 
@@ -26,7 +26,7 @@ public enum PageHelperUtil {
 	 */
 	public Map<String, Object> getPageListMap(List<?> list) {
 		PageInfo<?> pageInfo = new PageInfo<>(list);
-		page = new Page();
+		page = new PageVo();
 		page.setPageNum(pageInfo.getPageNum());
 		page.setPageSize(pageInfo.getPageSize());
 		page.setSize(pageInfo.getSize());

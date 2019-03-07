@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Dict;
 import com.cloud.provider.safe.rest.request.DictRequest;
+import com.cloud.provider.safe.rest.request.page.DictPageRequest;
 import com.cloud.provider.safe.service.IDictService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.DictVo;
@@ -54,7 +54,7 @@ public class DictController extends BaseController {
 	@RequestMapping(value="/selectDictListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectDictListByPage(
-		@RequestBody DictRequest req) {
+		@RequestBody DictPageRequest req) {
 		logger.info("===step1:【分页查询字典列表】(DictController-selectDictListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class DictController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<DictVo> dictVoList = new DictVo().convertToDictVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.putAll(pageListMap);
+		dictResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(dictVoList));
 		logger.info("===step3:【分页查询字典列表】(DictController-selectDictListByPage)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
@@ -84,7 +84,7 @@ public class DictController extends BaseController {
 	@RequestMapping(value="/selectDictList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectDictList(
-		@RequestBody DictRequest req) {
+		@RequestBody DictPageRequest req) {
 		logger.info("===step1:【不分页查询字典列表】(DictController-selectDictList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Dict dict = new Dict();
 		List<Dict> list = null;
@@ -93,9 +93,10 @@ public class DictController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<DictVo> dictVoList = new DictVo().convertToDictVoList(list);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(PageConstants.DATA_LIST, list);
+		dictResponse.put(PageConstants.DATA_LIST, dictVoList);
 		logger.info("===step3:【不分页查询字典列表】(DictController-selectDictList)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}

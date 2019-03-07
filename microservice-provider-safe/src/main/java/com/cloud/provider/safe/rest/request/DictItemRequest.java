@@ -1,19 +1,17 @@
 package com.cloud.provider.safe.rest.request;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 
-import com.cloud.provider.safe.base.BaseRestRequest;
 import com.cloud.provider.safe.po.DictItem;
 import com.google.common.base.Converter;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class DictItemRequest extends BaseRestRequest {
+public class DictItemRequest implements Serializable {
 
     /**
 	 *

@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.rest.request.OrgRequest;
+import com.cloud.provider.safe.rest.request.page.OrgPageRequest;
 import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.OrgVo;
@@ -54,7 +54,7 @@ public class OrgController extends BaseController {
 	@RequestMapping(value="/selectOrgListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectOrgListByPage(
-		@RequestBody OrgRequest req) {
+		@RequestBody OrgPageRequest req) {
 		logger.info("===step1:【分页查询组织机构列表】(OrgController-selectOrgListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class OrgController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.putAll(pageListMap);
+		orgResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(orgVoList));
 		logger.info("===step3:【分页查询组织机构列表】(OrgController-selectOrgListByPage)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}
@@ -84,7 +84,7 @@ public class OrgController extends BaseController {
 	@RequestMapping(value="/selectOrgList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectOrgList(
-		@RequestBody OrgRequest req) {
+		@RequestBody OrgPageRequest req) {
 		logger.info("===step1:【不分页查询组织机构列表】(OrgController-selectOrgList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Org org = new Org();
 		List<Org> list = null;
@@ -93,9 +93,10 @@ public class OrgController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(PageConstants.DATA_LIST, list);
+		orgResponse.put(PageConstants.DATA_LIST, orgVoList);
 		logger.info("===step3:【不分页查询组织机构列表】(OrgController-selectOrgList)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}

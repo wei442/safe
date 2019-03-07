@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.EnterpriseQuality;
 import com.cloud.provider.safe.rest.request.EnterpriseQualityRequest;
+import com.cloud.provider.safe.rest.request.page.EnterpriseQualityPageRequest;
 import com.cloud.provider.safe.service.IEnterpriseQualityService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.EnterpriseQualityVo;
@@ -54,7 +54,7 @@ public class EnterpriseQualityController extends BaseController {
 	@RequestMapping(value="/selectEnterpriseQualityListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectEnterpriseQualityListByPage(
-		@RequestBody EnterpriseQualityRequest req) {
+		@RequestBody EnterpriseQualityPageRequest req) {
 		logger.info("===step1:【分页查询企业资质列表】(EnterpriseQualityController-selectEnterpriseQualityListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class EnterpriseQualityController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<EnterpriseQualityVo> enterpriseQualityVoList = new EnterpriseQualityVo().convertToEnterpriseQualityVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse enterpriseQualityResponse = new BaseRestMapResponse();
-		enterpriseQualityResponse.putAll(pageListMap);
+		enterpriseQualityResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(enterpriseQualityVoList));
 		logger.info("===step3:【分页查询企业资质列表】(EnterpriseQualityController-selectEnterpriseQualityListByPage)-返回信息, enterpriseQualityResponse:{}", enterpriseQualityResponse);
 		return enterpriseQualityResponse;
 	}
@@ -84,7 +84,7 @@ public class EnterpriseQualityController extends BaseController {
 	@RequestMapping(value="/selectEnterpriseQualityList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectEnterpriseQualityList(
-		@RequestBody EnterpriseQualityRequest req) {
+		@RequestBody EnterpriseQualityPageRequest req) {
 		logger.info("===step1:【不分页查询企业资质列表】(EnterpriseQualityController-selectEnterpriseQualityList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		EnterpriseQuality enterpriseQuality = new EnterpriseQuality();
 		List<EnterpriseQuality> list = null;
@@ -93,9 +93,10 @@ public class EnterpriseQualityController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<EnterpriseQualityVo> enterpriseQualityVoList = new EnterpriseQualityVo().convertToEnterpriseQualityVoList(list);
 
 		BaseRestMapResponse enterpriseQualityResponse = new BaseRestMapResponse();
-		enterpriseQualityResponse.put(PageConstants.DATA_LIST, list);
+		enterpriseQualityResponse.put(PageConstants.DATA_LIST, enterpriseQualityVoList);
 		logger.info("===step3:【不分页查询企业资质列表】(EnterpriseQualityController-selectEnterpriseQualityList)-返回信息, enterpriseQualityResponse:{}", enterpriseQualityResponse);
 		return enterpriseQualityResponse;
 	}

@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.QualityAttachment;
 import com.cloud.provider.safe.rest.request.QualityAttachmentRequest;
+import com.cloud.provider.safe.rest.request.page.QualityAttachmentPageRequest;
 import com.cloud.provider.safe.service.IQualityAttachmentService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.QualityAttachmentVo;
@@ -54,7 +54,7 @@ public class QualityAttachmentController extends BaseController {
 	@RequestMapping(value="/selectQualityAttachmentListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectQualityAttachmentListByPage(
-		@RequestBody QualityAttachmentRequest req) {
+		@RequestBody QualityAttachmentPageRequest req) {
 		logger.info("===step1:【分页查询资质附件列表】(QualityAttachmentController-selectQualityAttachmentListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class QualityAttachmentController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<QualityAttachmentVo> qualityAttachmentVoList = new QualityAttachmentVo().convertToQualityAttachmentVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();
-		qualityAttachmentResponse.putAll(pageListMap);
+		qualityAttachmentResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(qualityAttachmentVoList));
 		logger.info("===step3:【分页查询资质附件列表】(QualityAttachmentController-selectQualityAttachmentListByPage)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
 		return qualityAttachmentResponse;
 	}
@@ -84,7 +84,7 @@ public class QualityAttachmentController extends BaseController {
 	@RequestMapping(value="/selectQualityAttachmentList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectQualityAttachmentList(
-		@RequestBody QualityAttachmentRequest req) {
+		@RequestBody QualityAttachmentPageRequest req) {
 		logger.info("===step1:【不分页查询资质附件列表】(QualityAttachmentController-selectQualityAttachmentList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		QualityAttachment qualityAttachment = new QualityAttachment();
 		List<QualityAttachment> list = null;
@@ -93,9 +93,10 @@ public class QualityAttachmentController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<QualityAttachmentVo> qualityAttachmentVoList = new QualityAttachmentVo().convertToQualityAttachmentVoList(list);
 
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();
-		qualityAttachmentResponse.put(PageConstants.DATA_LIST, list);
+		qualityAttachmentResponse.put(PageConstants.DATA_LIST, qualityAttachmentVoList);
 		logger.info("===step3:【不分页查询资质附件列表】(QualityAttachmentController-selectQualityAttachmentList)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
 		return qualityAttachmentResponse;
 	}

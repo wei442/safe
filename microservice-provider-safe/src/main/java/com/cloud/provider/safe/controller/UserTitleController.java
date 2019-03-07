@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserTitle;
 import com.cloud.provider.safe.rest.request.UserTitleRequest;
+import com.cloud.provider.safe.rest.request.page.UserTitlePageRequest;
 import com.cloud.provider.safe.service.IUserTitleService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.UserTitleVo;
@@ -54,7 +54,7 @@ public class UserTitleController extends BaseController {
 	@RequestMapping(value="/selectUserTitleListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserTitleListByPage(
-		@RequestBody UserTitleRequest req) {
+		@RequestBody UserTitlePageRequest req) {
 		logger.info("===step1:【分页查询用户职务列表】(UserTitleController-selectUserTitleListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class UserTitleController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserTitleVo> userTitleVoList = new UserTitleVo().convertToUserTitleVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.putAll(pageListMap);
+		userTitleResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userTitleVoList));
 		logger.info("===step3:【分页查询用户职务列表】(UserTitleController-selectUserTitleListByPage)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
@@ -84,7 +84,7 @@ public class UserTitleController extends BaseController {
 	@RequestMapping(value="/selectUserTitleList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserTitleList(
-		@RequestBody UserTitleRequest req) {
+		@RequestBody UserTitlePageRequest req) {
 		logger.info("===step1:【不分页查询用户职务列表】(UserTitleController-selectUserTitleList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		UserTitle userTitle = new UserTitle();
 		List<UserTitle> list = null;
@@ -93,9 +93,10 @@ public class UserTitleController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserTitleVo> userTitleVoList = new UserTitleVo().convertToUserTitleVoList(list);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.put(PageConstants.DATA_LIST, list);
+		userTitleResponse.put(PageConstants.DATA_LIST, userTitleVoList);
 		logger.info("===step3:【不分页查询用户职务列表】(UserTitleController-selectUserTitleList)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}

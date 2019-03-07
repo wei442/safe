@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Attachment;
 import com.cloud.provider.safe.rest.request.AttachmentRequest;
+import com.cloud.provider.safe.rest.request.page.AttachmentPageRequest;
 import com.cloud.provider.safe.service.IAttachmentService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.AttachmentVo;
@@ -54,7 +54,7 @@ public class AttachmentController extends BaseController {
 	@RequestMapping(value="/selectAttachmentListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectAttachmentListByPage(
-		@RequestBody AttachmentRequest req) {
+		@RequestBody AttachmentPageRequest req) {
 		logger.info("===step1:【分页查询附件列表】(AttachmentController-selectAttachmentListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class AttachmentController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<AttachmentVo> attachmentVoList = new AttachmentVo().convertToAttachmentVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
-		attachmentResponse.putAll(pageListMap);
+		attachmentResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(attachmentVoList));
 		logger.info("===step3:【分页查询附件列表】(AttachmentController-selectAttachmentListByPage)-返回信息, attachmentResponse:{}", attachmentResponse);
 		return attachmentResponse;
 	}
@@ -84,7 +84,7 @@ public class AttachmentController extends BaseController {
 	@RequestMapping(value="/selectAttachmentList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectAttachmentList(
-		@RequestBody AttachmentRequest req) {
+		@RequestBody AttachmentPageRequest req) {
 		logger.info("===step1:【不分页查询附件列表】(AttachmentController-selectAttachmentList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Attachment attachment = new Attachment();
 		List<Attachment> list = null;
@@ -93,9 +93,10 @@ public class AttachmentController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<AttachmentVo> attachmentVoList = new AttachmentVo().convertToAttachmentVoList(list);
 
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
-		attachmentResponse.put(PageConstants.DATA_LIST, list);
+		attachmentResponse.put(PageConstants.DATA_LIST, attachmentVoList);
 		logger.info("===step3:【不分页查询附件列表】(AttachmentController-selectAttachmentList)-返回信息, attachmentResponse:{}", attachmentResponse);
 		return attachmentResponse;
 	}

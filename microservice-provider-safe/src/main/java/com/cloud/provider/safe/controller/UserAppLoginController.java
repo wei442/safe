@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserAppLogin;
 import com.cloud.provider.safe.rest.request.UserAppLoginRequest;
+import com.cloud.provider.safe.rest.request.page.UserAppLoginPageRequest;
 import com.cloud.provider.safe.service.IUserAppLoginService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.UserAppLoginVo;
@@ -54,7 +54,7 @@ public class UserAppLoginController extends BaseController {
 	@RequestMapping(value="/selectUserAppLoginListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserAppLoginListByPage(
-		@RequestBody UserAppLoginRequest req) {
+		@RequestBody UserAppLoginPageRequest req) {
 		logger.info("===step1:【分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class UserAppLoginController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserAppLoginVo> userAppLoginVoList = new UserAppLoginVo().convertToUserAppLoginVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
-		userAppLoginResponse.putAll(pageListMap);
+		userAppLoginResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userAppLoginVoList));
 		logger.info("===step3:【分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginListByPage)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}
@@ -84,7 +84,7 @@ public class UserAppLoginController extends BaseController {
 	@RequestMapping(value="/selectUserAppLoginList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserAppLoginList(
-		@RequestBody UserAppLoginRequest req) {
+		@RequestBody UserAppLoginPageRequest req) {
 		logger.info("===step1:【不分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		UserAppLogin userAppLogin = new UserAppLogin();
 		List<UserAppLogin> list = null;
@@ -93,9 +93,10 @@ public class UserAppLoginController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserAppLoginVo> userAppLoginVoList = new UserAppLoginVo().convertToUserAppLoginVoList(list);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
-		userAppLoginResponse.put(PageConstants.DATA_LIST, list);
+		userAppLoginResponse.put(PageConstants.DATA_LIST, userAppLoginVoList);
 		logger.info("===step3:【不分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginList)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}

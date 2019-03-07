@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.BaseUser;
 import com.cloud.provider.safe.rest.request.BaseUserRequest;
+import com.cloud.provider.safe.rest.request.page.BaseUserPageRequest;
 import com.cloud.provider.safe.service.IBaseUserService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.BaseUserVo;
@@ -54,7 +54,7 @@ public class BaseUserController extends BaseController {
 	@RequestMapping(value="/selectBaseUserListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectBaseUserListByPage(
-		@RequestBody BaseUserRequest req) {
+		@RequestBody BaseUserPageRequest req) {
 		logger.info("===step1:【分页查询基础用户列表】(BaseUserController-selectBaseUserListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class BaseUserController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<BaseUserVo> baseUserVoList = new BaseUserVo().convertToBaseUserVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse baseUserResponse = new BaseRestMapResponse();
-		baseUserResponse.putAll(pageListMap);
+		baseUserResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(baseUserVoList));
 		logger.info("===step3:【分页查询基础用户列表】(BaseUserController-selectBaseUserListByPage)-返回信息, baseUserResponse:{}", baseUserResponse);
 		return baseUserResponse;
 	}
@@ -84,7 +84,7 @@ public class BaseUserController extends BaseController {
 	@RequestMapping(value="/selectBaseUserList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectBaseUserList(
-		@RequestBody BaseUserRequest req) {
+		@RequestBody BaseUserPageRequest req) {
 		logger.info("===step1:【不分页查询基础用户列表】(BaseUserController-selectBaseUserList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		BaseUser baseUser = new BaseUser();
 		List<BaseUser> list = null;
@@ -93,9 +93,10 @@ public class BaseUserController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<BaseUserVo> baseUserVoList = new BaseUserVo().convertToBaseUserVoList(list);
 
 		BaseRestMapResponse baseUserResponse = new BaseRestMapResponse();
-		baseUserResponse.put(PageConstants.DATA_LIST, list);
+		baseUserResponse.put(PageConstants.DATA_LIST, baseUserVoList);
 		logger.info("===step3:【不分页查询基础用户列表】(BaseUserController-selectBaseUserList)-返回信息, baseUserResponse:{}", baseUserResponse);
 		return baseUserResponse;
 	}

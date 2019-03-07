@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserQuality;
 import com.cloud.provider.safe.rest.request.UserQualityRequest;
+import com.cloud.provider.safe.rest.request.page.UserQualityPageRequest;
 import com.cloud.provider.safe.service.IUserQualityService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.UserQualityVo;
@@ -54,7 +54,7 @@ public class UserQualityController extends BaseController {
 	@RequestMapping(value="/selectUserQualityListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserQualityListByPage(
-		@RequestBody UserQualityRequest req) {
+		@RequestBody UserQualityPageRequest req) {
 		logger.info("===step1:【分页查询用户资质列表】(UserQualityController-selectUserQualityListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class UserQualityController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserQualityVo> userQualityVoList = new UserQualityVo().convertToUserQualityVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
-		userQualityResponse.putAll(pageListMap);
+		userQualityResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userQualityVoList));
 		logger.info("===step3:【分页查询用户资质列表】(UserQualityController-selectUserQualityListByPage)-返回信息, userQualityResponse:{}", userQualityResponse);
 		return userQualityResponse;
 	}
@@ -84,7 +84,7 @@ public class UserQualityController extends BaseController {
 	@RequestMapping(value="/selectUserQualityList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserQualityList(
-		@RequestBody UserQualityRequest req) {
+		@RequestBody UserQualityPageRequest req) {
 		logger.info("===step1:【不分页查询用户资质列表】(UserQualityController-selectUserQualityList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		UserQuality userQuality = new UserQuality();
 		List<UserQuality> list = null;
@@ -93,9 +93,10 @@ public class UserQualityController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserQualityVo> userQualityVoList = new UserQualityVo().convertToUserQualityVoList(list);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
-		userQualityResponse.put(PageConstants.DATA_LIST, list);
+		userQualityResponse.put(PageConstants.DATA_LIST, userQualityVoList);
 		logger.info("===step3:【不分页查询用户资质列表】(UserQualityController-selectUserQualityList)-返回信息, userQualityResponse:{}", userQualityResponse);
 		return userQualityResponse;
 	}

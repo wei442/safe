@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Enterprise;
 import com.cloud.provider.safe.rest.request.EnterpriseRequest;
+import com.cloud.provider.safe.rest.request.page.EnterprisePageRequest;
 import com.cloud.provider.safe.service.IEnterpriseService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.EnterpriseVo;
@@ -54,7 +54,7 @@ public class EnterpriseController extends BaseController {
 	@RequestMapping(value="/selectEnterpriseListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectEnterpriseListByPage(
-		@RequestBody EnterpriseRequest req) {
+		@RequestBody EnterprisePageRequest req) {
 		logger.info("===step1:【分页查询资质列表】(EnterpriseController-selectEnterpriseListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class EnterpriseController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<EnterpriseVo> enterpriseVoList = new EnterpriseVo().convertToEnterpriseVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.putAll(pageListMap);
+		enterpriseResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(enterpriseVoList));
 		logger.info("===step3:【分页查询资质列表】(EnterpriseController-selectEnterpriseListByPage)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
@@ -84,7 +84,7 @@ public class EnterpriseController extends BaseController {
 	@RequestMapping(value="/selectEnterpriseList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectEnterpriseList(
-		@RequestBody EnterpriseRequest req) {
+		@RequestBody EnterprisePageRequest req) {
 		logger.info("===step1:【不分页查询资质列表】(EnterpriseController-selectEnterpriseList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Enterprise enterprise = new Enterprise();
 		List<Enterprise> list = null;
@@ -93,9 +93,10 @@ public class EnterpriseController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<EnterpriseVo> enterpriseVoList = new EnterpriseVo().convertToEnterpriseVoList(list);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(PageConstants.DATA_LIST, list);
+		enterpriseResponse.put(PageConstants.DATA_LIST, enterpriseVoList);
 		logger.info("===step3:【不分页查询资质列表】(EnterpriseController-selectEnterpriseList)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}

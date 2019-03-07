@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Title;
 import com.cloud.provider.safe.rest.request.TitleRequest;
+import com.cloud.provider.safe.rest.request.page.TitlePageRequest;
 import com.cloud.provider.safe.service.ITitleService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.TitleVo;
@@ -54,7 +54,7 @@ public class TitleController extends BaseController {
 	@RequestMapping(value="/selectTitleListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectTitleListByPage(
-		@RequestBody TitleRequest req) {
+		@RequestBody TitlePageRequest req) {
 		logger.info("===step1:【分页查询职务列表】(TitleController-selectTitleListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,12 +67,12 @@ public class TitleController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<TitleVo> titleVoList = new TitleVo().convertToTitleVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
-		BaseRestMapResponse TitleResponse = new BaseRestMapResponse();
-		TitleResponse.putAll(pageListMap);
-		logger.info("===step3:【分页查询职务列表】(TitleController-selectTitleListByPage)-返回信息, TitleResponse:{}", TitleResponse);
-		return TitleResponse;
+		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
+		titleResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(titleVoList));
+		logger.info("===step3:【分页查询职务列表】(TitleController-selectTitleListByPage)-返回信息, titleResponse:{}", titleResponse);
+		return titleResponse;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class TitleController extends BaseController {
 	@RequestMapping(value="/selectTitleList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectTitleList(
-		@RequestBody TitleRequest req) {
+		@RequestBody TitlePageRequest req) {
 		logger.info("===step1:【不分页查询职务列表】(TitleController-selectTitleList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Title Title = new Title();
 		List<Title> list = null;
@@ -93,9 +93,10 @@ public class TitleController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<TitleVo> titleVoList = new TitleVo().convertToTitleVoList(list);
 
 		BaseRestMapResponse TitleResponse = new BaseRestMapResponse();
-		TitleResponse.put(PageConstants.DATA_LIST, list);
+		TitleResponse.put(PageConstants.DATA_LIST, titleVoList);
 		logger.info("===step3:【不分页查询职务列表】(TitleController-selectTitleList)-返回信息, TitleResponse:{}", TitleResponse);
 		return TitleResponse;
 	}

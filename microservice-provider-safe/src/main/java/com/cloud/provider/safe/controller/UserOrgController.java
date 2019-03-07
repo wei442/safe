@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.rest.request.UserOrgRequest;
+import com.cloud.provider.safe.rest.request.page.UserOrgPageRequest;
 import com.cloud.provider.safe.service.IUserOrgService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.UserOrgVo;
@@ -54,7 +54,7 @@ public class UserOrgController extends BaseController {
 	@RequestMapping(value="/selectUserOrgListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserOrgListByPage(
-		@RequestBody UserOrgRequest req) {
+		@RequestBody UserOrgPageRequest req) {
 		logger.info("===step1:【分页查询用户机构列表】(UserOrgController-selectUserOrgListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class UserOrgController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserOrgVo> userOrgVoList = new UserOrgVo().convertToUserOrgVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.putAll(pageListMap);
+		userOrgResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userOrgVoList));
 		logger.info("===step3:【分页查询用户机构列表】(UserOrgController-selectUserOrgListByPage)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
@@ -84,7 +84,7 @@ public class UserOrgController extends BaseController {
 	@RequestMapping(value="/selectUserOrgList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserOrgList(
-		@RequestBody UserOrgRequest req) {
+		@RequestBody UserOrgPageRequest req) {
 		logger.info("===step1:【不分页查询用户机构列表】(UserOrgController-selectUserOrgList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		UserOrg userOrg = new UserOrg();
 		List<UserOrg> list = null;
@@ -93,9 +93,10 @@ public class UserOrgController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserOrgVo> userOrgVoList = new UserOrgVo().convertToUserOrgVoList(list);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.put(PageConstants.DATA_LIST, list);
+		userOrgResponse.put(PageConstants.DATA_LIST, userOrgVoList);
 		logger.info("===step3:【不分页查询用户机构列表】(UserOrgController-selectUserOrgList)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}

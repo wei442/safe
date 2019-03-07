@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserAdminLogin;
 import com.cloud.provider.safe.rest.request.UserAdminLoginRequest;
+import com.cloud.provider.safe.rest.request.page.UserAdminLoginPageRequest;
 import com.cloud.provider.safe.service.IUserAdminLoginService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.UserAdminLoginVo;
@@ -54,7 +54,7 @@ public class UserAdminLoginController extends BaseController {
 	@RequestMapping(value="/selectUserAdminLoginListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserAdminLoginListByPage(
-		@RequestBody UserAdminLoginRequest req) {
+		@RequestBody UserAdminLoginPageRequest req) {
 		logger.info("===step1:【分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class UserAdminLoginController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserAdminLoginVo> userAdminLoginVoList = new UserAdminLoginVo().convertToUserAdminLoginVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.putAll(pageListMap);
+		userAdminLoginResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userAdminLoginVoList));
 		logger.info("===step3:【分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginListByPage)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
@@ -84,7 +84,7 @@ public class UserAdminLoginController extends BaseController {
 	@RequestMapping(value="/selectUserAdminLoginList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserAdminLoginList(
-		@RequestBody UserAdminLoginRequest req) {
+		@RequestBody UserAdminLoginPageRequest req) {
 		logger.info("===step1:【不分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		UserAdminLogin userAdminLogin = new UserAdminLogin();
 		List<UserAdminLogin> list = null;
@@ -93,9 +93,10 @@ public class UserAdminLoginController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<UserAdminLoginVo> userAdminLoginVoList = new UserAdminLoginVo().convertToUserAdminLoginVoList(list);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(PageConstants.DATA_LIST, list);
+		userAdminLoginResponse.put(PageConstants.DATA_LIST, userAdminLoginVoList);
 		logger.info("===step3:【不分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginList)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}

@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Quality;
 import com.cloud.provider.safe.rest.request.QualityRequest;
+import com.cloud.provider.safe.rest.request.page.QualityPageRequest;
 import com.cloud.provider.safe.service.IQualityService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.QualityVo;
@@ -54,7 +54,7 @@ public class QualityController extends BaseController {
 	@RequestMapping(value="/selectQualityListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectQualityListByPage(
-		@RequestBody QualityRequest req) {
+		@RequestBody QualityPageRequest req) {
 		logger.info("===step1:【分页查询资质列表】(QualityController-selectQualityListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -67,10 +67,10 @@ public class QualityController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<QualityVo> qualityVoList = new QualityVo().convertToQualityVoList(list);
 
-		Map<String, Object> pageListMap = PageHelperUtil.INSTANCE.getPageListMap(list);
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();
-		qualityResponse.putAll(pageListMap);
+		qualityResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(qualityVoList));
 		logger.info("===step3:【分页查询资质列表】(QualityController-selectQualityListByPage)-返回信息, qualityResponse:{}", qualityResponse);
 		return qualityResponse;
 	}
@@ -84,7 +84,7 @@ public class QualityController extends BaseController {
 	@RequestMapping(value="/selectQualityList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectQualityList(
-		@RequestBody QualityRequest req) {
+		@RequestBody QualityPageRequest req) {
 		logger.info("===step1:【不分页查询资质列表】(QualityController-selectQualityList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Quality quality = new Quality();
 		List<Quality> list = null;
@@ -93,9 +93,10 @@ public class QualityController extends BaseController {
 //		if(list == null || list.isEmpty()) {
 //			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
 //		}
+		List<QualityVo> qualityVoList = new QualityVo().convertToQualityVoList(list);
 
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();
-		qualityResponse.put(PageConstants.DATA_LIST, list);
+		qualityResponse.put(PageConstants.DATA_LIST, qualityVoList);
 		logger.info("===step3:【不分页查询资质列表】(QualityController-selectQualityList)-返回信息, qualityResponse:{}", qualityResponse);
 		return qualityResponse;
 	}
