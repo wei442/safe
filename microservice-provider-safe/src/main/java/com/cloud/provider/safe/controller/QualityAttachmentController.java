@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "资质附件")
 @RestController
-@RequestMapping(value="/qualityAttachment")
+@RequestMapping(value="/quality/attachment")
 public class QualityAttachmentController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());

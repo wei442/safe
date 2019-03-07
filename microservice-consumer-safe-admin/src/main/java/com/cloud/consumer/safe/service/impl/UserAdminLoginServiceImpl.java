@@ -31,7 +31,7 @@ public class UserAdminLoginServiceImpl extends BaseService implements IUserAdmin
 		logger.info("(UserAdminLoginService-getUserAdminLoginListByPage)-分页获取用户管理登录列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdminLogin+"/selectUserAdminLoginListByPage", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_adminLogin+"/selectUserAdminLoginListByPage", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -45,7 +45,7 @@ public class UserAdminLoginServiceImpl extends BaseService implements IUserAdmin
 		logger.info("(UserAdminLoginService-getUserAdminLoginList)-获取用户管理登录列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdminLogin+"/selectUserAdminLoginList", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_adminLogin+"/selectUserAdminLoginList", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -59,7 +59,7 @@ public class UserAdminLoginServiceImpl extends BaseService implements IUserAdmin
 		logger.info("(UserAdminLoginService-getUserAdminLoginById)-根据id获取用户管理登录-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdminLogin+"/selectUserAdminLoginById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_adminLogin+"/selectUserAdminLoginById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -73,7 +73,7 @@ public class UserAdminLoginServiceImpl extends BaseService implements IUserAdmin
 		logger.info("(UserAdminLoginService-addUserAdminLogin)-新增用户管理登录-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdminLogin+"/insertUserAdminLogin", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_adminLogin+"/insertUserAdminLogin", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -87,7 +87,7 @@ public class UserAdminLoginServiceImpl extends BaseService implements IUserAdmin
 		logger.info("(UserAdminLoginService-deleteUserAdminLoginById)-根据id获取用户管理登录-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdminLogin+"/deleteUserAdminLoginById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_adminLogin+"/deleteUserAdminLoginById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -101,7 +101,7 @@ public class UserAdminLoginServiceImpl extends BaseService implements IUserAdmin
 		logger.info("(UserAdminLoginService-updateUserAdminLogin)-修改用户管理登录-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdminLogin+"/modifyUserAdminLogin", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_adminLogin+"/modifyUserAdminLogin", httpEntity, JSONObject.class);
 		return response;
 	}
 

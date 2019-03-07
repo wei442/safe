@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户职务")
 @RestController
-@RequestMapping(value="/userTitle")
+@RequestMapping(value="/user/title")
 public class UserTitleController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());

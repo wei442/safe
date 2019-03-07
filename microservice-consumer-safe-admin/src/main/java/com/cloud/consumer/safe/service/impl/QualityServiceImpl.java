@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.safe.SafeUrlConstants;
-import com.cloud.consumer.safe.service.IUserTitleService;
+import com.cloud.consumer.safe.service.IQualityService;
 
 /**
- * 用户职务 UserTitleService (microservice-provider-safe)
+ * 用户职务 QualityService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
-public class UserTitleServiceImpl extends BaseService implements IUserTitleService {
+public class QualityServiceImpl extends BaseService implements IQualityService {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -27,11 +27,11 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserTitleListByPage(Map<String, Object> params) {
-		logger.info("(UserTitleService-getUserTitleListByPage)-分页获取用户职务列表-传入参数, params:{}", params);
+	public JSONObject getQualityListByPage(Map<String, Object> params) {
+		logger.info("(QualityService-getQualityListByPage)-分页获取用户职务列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/selectUserTitleListByPage", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/selectQualityListByPage", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -41,11 +41,11 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserTitleList(Map<String, Object> params) {
-		logger.info("(UserTitleService-getUserTitleList)-获取用户职务列表-传入参数, params:{}", params);
+	public JSONObject getQualityList(Map<String, Object> params) {
+		logger.info("(QualityService-getQualityList)-获取用户职务列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/selectUserTitleList", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/selectQualityList", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -55,11 +55,11 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserTitleById(Integer id) {
-		logger.info("(UserTitleService-getUserTitleById)-根据id获取用户职务-传入参数, id:{}", id);
+	public JSONObject getQualityById(Integer id) {
+		logger.info("(QualityService-getQualityById)-根据id获取用户职务-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/selectUserTitleById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/selectQualityById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -69,11 +69,11 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addUserTitle(Map<String, Object> params) {
-		logger.info("(UserTitleService-addUserTitle)-新增用户职务-传入参数, params:{}", params);
+	public JSONObject addQuality(Map<String, Object> params) {
+		logger.info("(QualityService-addQuality)-新增用户职务-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/insertUserTitle", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/insertQuality", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -83,11 +83,11 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteUserTitleById(Integer id) {
-		logger.info("(UserTitleService-deleteUserTitleById)-根据id获取用户职务-传入参数, id:{}", id);
+	public JSONObject deleteQualityById(Integer id) {
+		logger.info("(QualityService-deleteQualityById)-根据id获取用户职务-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/deleteUserTitleById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/deleteQualityById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -97,11 +97,11 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject updateUserTitle(Map<String, Object> params) {
-		logger.info("(UserTitleService-updateUserTitle)-修改用户职务-传入参数, params:{}", params);
+	public JSONObject updateQuality(Map<String, Object> params) {
+		logger.info("(QualityService-updateQuality)-修改用户职务-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/modifyUserTitle", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/modifyQuality", httpEntity, JSONObject.class);
 		return response;
 	}
 

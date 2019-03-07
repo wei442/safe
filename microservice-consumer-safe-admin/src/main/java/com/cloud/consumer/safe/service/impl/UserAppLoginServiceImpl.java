@@ -31,7 +31,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 		logger.info("(UserAppLoginService-getUserAppLoginListByPage)-分页获取用户应用登录列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAppLogin+"/selectUserAppLoginListByPage", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginListByPage", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -45,7 +45,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 		logger.info("(UserAppLoginService-getUserAppLoginList)-获取用户应用登录列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAppLogin+"/selectUserAppLoginList", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginList", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -59,7 +59,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 		logger.info("(UserAppLoginService-getUserAppLoginById)-根据id获取用户应用登录-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAppLogin+"/selectUserAppLoginById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -73,7 +73,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 		logger.info("(UserAppLoginService-addUserAppLogin)-新增用户应用登录-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAppLogin+"/insertUserAppLogin", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/insertUserAppLogin", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -87,7 +87,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 		logger.info("(UserAppLoginService-deleteUserAppLoginById)-根据id获取用户应用登录-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAppLogin+"/deleteUserAppLoginById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/deleteUserAppLoginById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -101,7 +101,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 		logger.info("(UserAppLoginService-updateUserAppLogin)-修改用户应用登录-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAppLogin+"/modifyUserAppLogin", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/modifyUserAppLogin", httpEntity, JSONObject.class);
 		return response;
 	}
 

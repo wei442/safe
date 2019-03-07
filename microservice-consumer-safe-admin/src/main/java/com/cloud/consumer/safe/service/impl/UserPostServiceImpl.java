@@ -31,7 +31,7 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 		logger.info("(UserPostService-getUserPostListByPage)-分页获取用户岗位列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userPost+"/selectUserPostListByPage", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_post+"/selectUserPostListByPage", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -45,7 +45,7 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 		logger.info("(UserPostService-getUserPostList)-获取用户岗位列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userPost+"/selectUserPostList", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_post+"/selectUserPostList", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -59,7 +59,7 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 		logger.info("(UserPostService-getUserPostById)-根据id获取用户岗位-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userPost+"/selectUserPostById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_post+"/selectUserPostById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -73,7 +73,7 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 		logger.info("(UserPostService-addUserPost)-新增用户岗位-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userPost+"/insertUserPost", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_post+"/insertUserPost", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -87,7 +87,7 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 		logger.info("(UserPostService-deleteUserPostById)-根据id获取用户岗位-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userPost+"/deleteUserPostById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_post+"/deleteUserPostById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -101,7 +101,7 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 		logger.info("(UserPostService-updateUserPost)-修改用户岗位-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userPost+"/modifyUserPost", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_post+"/modifyUserPost", httpEntity, JSONObject.class);
 		return response;
 	}
 

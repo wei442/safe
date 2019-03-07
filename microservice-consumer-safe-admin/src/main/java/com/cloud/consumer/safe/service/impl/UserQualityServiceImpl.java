@@ -31,7 +31,7 @@ public class UserQualityServiceImpl extends BaseService implements IUserQualityS
 		logger.info("(UserQualityService-getUserQualityListByPage)-分页获取用户职务列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userQuality+"/selectUserQualityListByPage", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_quality+"/selectUserQualityListByPage", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -45,7 +45,7 @@ public class UserQualityServiceImpl extends BaseService implements IUserQualityS
 		logger.info("(UserQualityService-getUserQualityList)-获取用户职务列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userQuality+"/selectUserQualityList", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_quality+"/selectUserQualityList", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -59,7 +59,7 @@ public class UserQualityServiceImpl extends BaseService implements IUserQualityS
 		logger.info("(UserQualityService-getUserQualityById)-根据id获取用户职务-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userQuality+"/selectUserQualityById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_quality+"/selectUserQualityById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -73,7 +73,7 @@ public class UserQualityServiceImpl extends BaseService implements IUserQualityS
 		logger.info("(UserQualityService-addUserQuality)-新增用户职务-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userQuality+"/insertUserQuality", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_quality+"/insertUserQuality", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -87,7 +87,7 @@ public class UserQualityServiceImpl extends BaseService implements IUserQualityS
 		logger.info("(UserQualityService-deleteUserQualityById)-根据id获取用户职务-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userQuality+"/deleteUserQualityById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_quality+"/deleteUserQualityById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -101,7 +101,7 @@ public class UserQualityServiceImpl extends BaseService implements IUserQualityS
 		logger.info("(UserQualityService-updateUserQuality)-修改用户职务-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userQuality+"/modifyUserQuality", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_quality+"/modifyUserQuality", httpEntity, JSONObject.class);
 		return response;
 	}
 

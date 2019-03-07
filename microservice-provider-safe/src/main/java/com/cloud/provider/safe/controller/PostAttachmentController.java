@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "岗位附件")
 @RestController
-@RequestMapping(value="/postAttachment")
+@RequestMapping(value="/post/attachment")
 public class PostAttachmentController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());

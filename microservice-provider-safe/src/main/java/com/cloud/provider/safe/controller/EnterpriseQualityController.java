@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "企业资质")
 @RestController
-@RequestMapping(value="/enterpriseQuality")
+@RequestMapping(value="/enterprise/quality")
 public class EnterpriseQualityController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());

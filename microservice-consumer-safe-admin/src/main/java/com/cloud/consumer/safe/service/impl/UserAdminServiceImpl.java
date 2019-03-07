@@ -31,7 +31,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 		logger.info("(UserAdminService-getUserAdminListByPage)-分页获取用户职务列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdmin+"/selectUserAdminListByPage", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_admin+"/selectUserAdminListByPage", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -45,7 +45,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 		logger.info("(UserAdminService-getUserAdminList)-获取用户职务列表-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdmin+"/selectUserAdminList", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_admin+"/selectUserAdminList", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -59,7 +59,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 		logger.info("(UserAdminService-getUserAdminById)-根据id获取用户职务-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdmin+"/selectUserAdminById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_admin+"/selectUserAdminById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -73,7 +73,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 		logger.info("(UserAdminService-addUserAdmin)-新增用户职务-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdmin+"/insertUserAdmin", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_admin+"/insertUserAdmin", httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -87,7 +87,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 		logger.info("(UserAdminService-deleteUserAdminById)-根据id获取用户职务-传入参数, id:{}", id);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdmin+"/deleteUserAdminById/"+id, httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_admin+"/deleteUserAdminById/"+id, httpEntity, JSONObject.class);
 		return response;
 	}
 
@@ -101,7 +101,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 		logger.info("(UserAdminService-updateUserAdmin)-修改用户职务-传入参数, params:{}", params);
 		HttpHeaders headers = this.getProviderSafeHeaders();
 		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.safe_userAdmin+"/modifyUserAdmin", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_admin+"/modifyUserAdmin", httpEntity, JSONObject.class);
 		return response;
 	}
 
