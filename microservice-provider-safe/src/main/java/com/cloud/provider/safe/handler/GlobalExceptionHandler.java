@@ -1,4 +1,4 @@
-package com.cloud.provider.safe.exception;
+package com.cloud.provider.safe.handler;
 
 import java.sql.SQLException;
 
