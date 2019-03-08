@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.UserPost;
+import com.cloud.provider.safe.rest.request.page.UserPostPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IUserPostService {
@@ -10,17 +11,17 @@ public interface IUserPostService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userPost
+	 * @param param
 	 * @return List<UserPost>
 	 */
-	public List<UserPost> selectUserPostListByPage(Page<?> page, UserPost userPost);
+	public List<UserPost> selectUserPostListByPage(Page<?> page, UserPostPageRequest param);
 
 	/**
 	 * 不分页查询
-	 * @param userPost
+	 * @param param
 	 * @return List<UserPost>
 	 */
-	public List<UserPost> selectUserPostList(UserPost userPost);
+	public List<UserPost> selectUserPostList(UserPostPageRequest param);
 
     /**
      * 根据id查询用户岗位

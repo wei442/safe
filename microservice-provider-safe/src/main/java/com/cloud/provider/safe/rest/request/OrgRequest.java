@@ -51,15 +51,9 @@ public class OrgRequest implements Serializable {
 
     private String orgWebside;
 
-    private Integer isDelete;
-
     private String remark;
 
     private Integer sort;
-
-    private String created;
-
-    private String updated;
 
     /**
 	 * 实体转换

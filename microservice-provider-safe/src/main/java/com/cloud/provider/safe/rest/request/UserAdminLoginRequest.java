@@ -25,10 +25,6 @@ public class UserAdminLoginRequest implements Serializable {
 
     private Integer loginCount;
 
-    private String created;
-
-    private String updated;
-
     /**
 	 * 实体转换
 	 * @return UserAdminLogin

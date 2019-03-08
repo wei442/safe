@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.EnterpriseQuality;
+import com.cloud.provider.safe.rest.request.page.EnterpriseQualityPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IEnterpriseQualityService {
@@ -10,17 +11,17 @@ public interface IEnterpriseQualityService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param enterpriseQuality
+	 * @param param
 	 * @return List<EnterpriseQuality>
 	 */
-	public List<EnterpriseQuality> selectEnterpriseQualityListByPage(Page<?> page, EnterpriseQuality enterpriseQuality);
+	public List<EnterpriseQuality> selectEnterpriseQualityListByPage(Page<?> page, EnterpriseQualityPageRequest param);
 
 	/**
 	 * 不分页查询
-	 * @param enterpriseQuality
+	 * @param param
 	 * @return List<EnterpriseQuality>
 	 */
-	public List<EnterpriseQuality> selectEnterpriseQualityList(EnterpriseQuality enterpriseQuality);
+	public List<EnterpriseQuality> selectEnterpriseQualityList(EnterpriseQualityPageRequest param);
 
     /**
      * 根据id查询企业资质

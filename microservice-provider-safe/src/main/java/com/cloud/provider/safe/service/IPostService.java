@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.Post;
+import com.cloud.provider.safe.rest.request.page.PostPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IPostService {
@@ -10,17 +11,17 @@ public interface IPostService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param Post
+	 * @param param
 	 * @return List<Post>
 	 */
-	public List<Post> selectPostListByPage(Page<?> page, Post Post);
+	public List<Post> selectPostListByPage(Page<?> page, PostPageRequest param);
 
 	/**
 	 * 不分页查询
-	 * @param Post
+	 * @param param
 	 * @return List<Post>
 	 */
-	public List<Post> selectPostList(Post Post);
+	public List<Post> selectPostList(PostPageRequest param);
 
     /**
      * 根据id查询岗位
@@ -34,7 +35,7 @@ public interface IPostService {
      * @param Post
      * @return Integer
      */
-	public Integer insertPost(Post Post);
+	public Integer insertPost(Post post);
 
  	/**
   	 * 根据id删除岗位
@@ -48,6 +49,6 @@ public interface IPostService {
      * @param Post
      * @return Integer
      */
-	public Integer modifyPost(Post Post);
+	public Integer modifyPost(Post post);
 
 }

@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.OrgMapper;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.po.OrgExample;
+import com.cloud.provider.safe.rest.request.page.OrgPageRequest;
 import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class OrgServiceImpl implements IOrgService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param org
+	 * @param param
 	 * @return List<Org>
 	 */
-	@Override
-	public List<Org> selectOrgListByPage(Page<?> page, Org org) {
-		logger.info("(OrgService-selectOrgListByPage)-分页查询-传入参数, page:{}, org:{}", page, org);
+	public List<Org> selectOrgListByPage(Page<?> page, OrgPageRequest param) {
+		logger.info("(OrgService-selectOrgListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		OrgExample example = new OrgExample();
 		example.setOrderByClause(" id desc ");
 		OrgExample.Criteria criteria = example.createCriteria();
-		if(org != null) {
+		if(param != null) {
 		}
 		List<Org> list = orgMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class OrgServiceImpl implements IOrgService {
 
 	/**
 	 * 不分页查询
-	 * @param org
+	 * @param param
 	 * @return List<Org>
 	 */
-	@Override
-	public List<Org> selectOrgList(Org org) {
-		logger.info("(OrgService-selectOrgList)-不分页查询-传入参数, org:{}", org);
+	public List<Org> selectOrgList(OrgPageRequest param) {
+		logger.info("(OrgService-selectOrgList)-不分页查询-传入参数, param:{}", param);
 		OrgExample example = new OrgExample();
 		OrgExample.Criteria criteria = example.createCriteria();
-		if(org != null) {
+		if(param != null) {
 		}
 		List<Org> list = orgMapper.selectByExample(example);
 		return list;

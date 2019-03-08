@@ -13,6 +13,7 @@ import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.DictMapper;
 import com.cloud.provider.safe.po.Dict;
 import com.cloud.provider.safe.po.DictExample;
+import com.cloud.provider.safe.rest.request.page.DictPageRequest;
 import com.cloud.provider.safe.service.IDictService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -34,17 +35,16 @@ public class DictServiceImpl implements IDictService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param dict
+	 * @param param
 	 * @return List<Dict>
 	 */
-	@Override
-	public List<Dict> selectDictListByPage(Page<?> page, Dict dict) {
-		logger.info("(DictService-selectDictListByPage)-分页查询-传入参数, page:{}, dict:{}", page, dict);
+	public List<Dict> selectDictListByPage(Page<?> page, DictPageRequest param) {
+		logger.info("(DictService-selectDictListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		DictExample example = new DictExample();
 		example.setOrderByClause(" id desc ");
 		DictExample.Criteria criteria = example.createCriteria();
-		if(dict != null) {
+		if(param != null) {
 		}
 		List<Dict> list = dictMapper.selectByExample(example);
 		return list;
@@ -52,15 +52,14 @@ public class DictServiceImpl implements IDictService {
 
 	/**
 	 * 不分页查询
-	 * @param dict
+	 * @param param
 	 * @return List<Dict>
 	 */
-	@Override
-	public List<Dict> selectDictList(Dict dict) {
-		logger.info("(DictService-selectDictList)-不分页查询-传入参数, dict:{}", dict);
+	public List<Dict> selectDictList(DictPageRequest param) {
+		logger.info("(DictService-selectDictList)-不分页查询-传入参数, param:{}", param);
 		DictExample example = new DictExample();
 		DictExample.Criteria criteria = example.createCriteria();
-		if(dict != null) {
+		if(param != null) {
 		}
 		List<Dict> list = dictMapper.selectByExample(example);
 		return list;

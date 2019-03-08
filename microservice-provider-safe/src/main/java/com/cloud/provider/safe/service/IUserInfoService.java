@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.UserInfo;
+import com.cloud.provider.safe.rest.request.page.UserInfoPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IUserInfoService {
@@ -10,17 +11,17 @@ public interface IUserInfoService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userInfo
+	 * @param param
 	 * @return List<UserInfo>
 	 */
-	public List<UserInfo> selectUserInfoListByPage(Page<?> page, UserInfo userInfo);
+	public List<UserInfo> selectUserInfoListByPage(Page<?> page, UserInfoPageRequest param);
 
 	/**
 	 * 不分页查询
-	 * @param userInfo
+	 * @param param
 	 * @return List<UserInfo>
 	 */
-	public List<UserInfo> selectUserInfoList(UserInfo userInfo);
+	public List<UserInfo> selectUserInfoList(UserInfoPageRequest param);
 
     /**
      * 根据id查询用户信息

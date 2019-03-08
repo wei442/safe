@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.QualityMapper;
 import com.cloud.provider.safe.po.Quality;
 import com.cloud.provider.safe.po.QualityExample;
+import com.cloud.provider.safe.rest.request.page.QualityPageRequest;
 import com.cloud.provider.safe.service.IQualityService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class QualityServiceImpl implements IQualityService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param quality
+	 * @param param
 	 * @return List<Quality>
 	 */
-	@Override
-	public List<Quality> selectQualityListByPage(Page<?> page, Quality quality) {
-		logger.info("(QualityService-selectQualityListByPage)-分页查询-传入参数, page:{}, quality:{}", page, quality);
+	public List<Quality> selectQualityListByPage(Page<?> page, QualityPageRequest param) {
+		logger.info("(QualityService-selectQualityListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		QualityExample example = new QualityExample();
 		example.setOrderByClause(" id desc ");
 		QualityExample.Criteria criteria = example.createCriteria();
-		if(quality != null) {
+		if(param != null) {
 		}
 		List<Quality> list = qualityMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class QualityServiceImpl implements IQualityService {
 
 	/**
 	 * 不分页查询
-	 * @param quality
+	 * @param param
 	 * @return List<Quality>
 	 */
-	@Override
-	public List<Quality> selectQualityList(Quality quality) {
-		logger.info("(QualityService-selectQualityList)-不分页查询-传入参数, quality:{}", quality);
+	public List<Quality> selectQualityList(QualityPageRequest param) {
+		logger.info("(QualityService-selectQualityList)-不分页查询-传入参数, param:{}", param);
 		QualityExample example = new QualityExample();
 		QualityExample.Criteria criteria = example.createCriteria();
-		if(quality != null) {
+		if(param != null) {
 		}
 		List<Quality> list = qualityMapper.selectByExample(example);
 		return list;

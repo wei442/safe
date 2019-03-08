@@ -3,24 +3,25 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.UserQuality;
+import com.cloud.provider.safe.rest.request.page.UserQualityPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IUserQualityService {
 
-	 /**
+    /**
 	 * 分页查询
 	 * @param page
-	 * @param userQuality
+	 * @param param
 	 * @return List<UserQuality>
 	 */
-	public List<UserQuality> selectUserQualityListByPage(Page<?> page, UserQuality userQuality);
+	public List<UserQuality> selectUserQualityListByPage(Page<?> page, UserQualityPageRequest param);
 
 	/**
 	 * 不分页查询
-	 * @param userQuality
+	 * @param param
 	 * @return List<UserQuality>
 	 */
-	public List<UserQuality> selectUserQualityList(UserQuality userQuality);
+	public List<UserQuality> selectUserQualityList(UserQualityPageRequest param);
 
     /**
      * 根据id查询用户资质

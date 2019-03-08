@@ -23,10 +23,6 @@ public class UserOrgRequest implements Serializable {
 
     private Integer orgId;
 
-    private String created;
-
-    private String updated;
-
     /**
 	 * 实体转换
 	 * @return UserOrg

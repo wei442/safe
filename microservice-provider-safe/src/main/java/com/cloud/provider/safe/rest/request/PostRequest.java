@@ -27,15 +27,9 @@ public class PostRequest implements Serializable {
 
     private String specialRemark;
 
-    private Integer isDelete;
-
     private String remark;
 
     private Integer sort;
-
-    private String created;
-
-    private String updated;
 
     /**
 	 * 实体转换

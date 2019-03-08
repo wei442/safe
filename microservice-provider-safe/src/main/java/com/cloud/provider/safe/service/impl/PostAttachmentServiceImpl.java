@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.PostAttachmentMapper;
 import com.cloud.provider.safe.po.PostAttachment;
 import com.cloud.provider.safe.po.PostAttachmentExample;
+import com.cloud.provider.safe.rest.request.page.PostAttachmentPageRequest;
 import com.cloud.provider.safe.service.IPostAttachmentService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param postAttachment
+	 * @param param
 	 * @return List<PostAttachment>
 	 */
-	@Override
-	public List<PostAttachment> selectPostAttachmentListByPage(Page<?> page, PostAttachment postAttachment) {
-		logger.info("(PostAttachmentService-selectPostAttachmentListByPage)-分页查询-传入参数, page:{}, postAttachment:{}", page, postAttachment);
+	public List<PostAttachment> selectPostAttachmentListByPage(Page<?> page, PostAttachmentPageRequest param) {
+		logger.info("(PostAttachmentService-selectPostAttachmentListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		PostAttachmentExample example = new PostAttachmentExample();
 		example.setOrderByClause(" id desc ");
 		PostAttachmentExample.Criteria criteria = example.createCriteria();
-		if(postAttachment != null) {
+		if(param != null) {
 		}
 		List<PostAttachment> list = postAttachmentMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 
 	/**
 	 * 不分页查询
-	 * @param postAttachment
+	 * @param param
 	 * @return List<PostAttachment>
 	 */
-	@Override
-	public List<PostAttachment> selectPostAttachmentList(PostAttachment postAttachment) {
-		logger.info("(PostAttachmentService-selectPostAttachmentList)-不分页查询-传入参数, postAttachment:{}", postAttachment);
+	public List<PostAttachment> selectPostAttachmentList(PostAttachmentPageRequest param) {
+		logger.info("(PostAttachmentService-selectPostAttachmentList)-不分页查询-传入参数, param:{}", param);
 		PostAttachmentExample example = new PostAttachmentExample();
 		PostAttachmentExample.Criteria criteria = example.createCriteria();
-		if(postAttachment != null) {
+		if(param != null) {
 		}
 		List<PostAttachment> list = postAttachmentMapper.selectByExample(example);
 		return list;

@@ -23,10 +23,6 @@ public class UserTitleRequest implements Serializable {
 
     private Integer postId;
 
-    private String created;
-
-    private String updated;
-
     /**
 	 * 实体转换
 	 * @return UserTitle

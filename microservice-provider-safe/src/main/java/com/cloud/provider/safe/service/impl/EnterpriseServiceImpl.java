@@ -13,6 +13,7 @@ import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.EnterpriseMapper;
 import com.cloud.provider.safe.po.Enterprise;
 import com.cloud.provider.safe.po.EnterpriseExample;
+import com.cloud.provider.safe.rest.request.page.EnterprisePageRequest;
 import com.cloud.provider.safe.service.IEnterpriseService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -34,17 +35,17 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param enterprise
+	 * @param param
 	 * @return List<Enterprise>
 	 */
 	@Override
-	public List<Enterprise> selectEnterpriseListByPage(Page<?> page, Enterprise enterprise) {
-		logger.info("(EnterpriseService-selectEnterpriseListByPage)-分页查询-传入参数, page:{}, enterprise:{}", page, enterprise);
+	public List<Enterprise> selectEnterpriseListByPage(Page<?> page, EnterprisePageRequest param) {
+		logger.info("(EnterpriseService-selectEnterpriseListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		EnterpriseExample example = new EnterpriseExample();
 		example.setOrderByClause(" id desc ");
 		EnterpriseExample.Criteria criteria = example.createCriteria();
-		if(enterprise != null) {
+		if(param != null) {
 		}
 		List<Enterprise> list = enterpriseMapper.selectByExample(example);
 		return list;
@@ -56,11 +57,11 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 	 * @return List<Enterprise>
 	 */
 	@Override
-	public List<Enterprise> selectEnterpriseList(Enterprise enterprise) {
-		logger.info("(EnterpriseService-selectEnterpriseList)-不分页查询-传入参数, enterprise:{}", enterprise);
+	public List<Enterprise> selectEnterpriseList(EnterprisePageRequest param) {
+		logger.info("(EnterpriseService-selectEnterpriseList)-不分页查询-传入参数, param:{}", param);
 		EnterpriseExample example = new EnterpriseExample();
 		EnterpriseExample.Criteria criteria = example.createCriteria();
-		if(enterprise != null) {
+		if(param != null) {
 		}
 		List<Enterprise> list = enterpriseMapper.selectByExample(example);
 		return list;

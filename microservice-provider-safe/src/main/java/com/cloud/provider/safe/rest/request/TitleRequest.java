@@ -23,15 +23,9 @@ public class TitleRequest implements Serializable {
 
     private String titleName;
 
-    private Integer isDelete;
-
     private String remark;
 
     private Integer sort;
-
-    private String created;
-
-    private String updated;
 
     /**
 	 * 实体转换

@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.AttachmentMapper;
 import com.cloud.provider.safe.po.Attachment;
 import com.cloud.provider.safe.po.AttachmentExample;
+import com.cloud.provider.safe.rest.request.page.AttachmentPageRequest;
 import com.cloud.provider.safe.service.IAttachmentService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class AttachmentServiceImpl implements IAttachmentService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param attachment
+	 * @param param
 	 * @return List<Attachment>
 	 */
-	@Override
-	public List<Attachment> selectAttachmentListByPage(Page<?> page, Attachment attachment) {
-		logger.info("(AttachmentService-selectAttachmentListByPage)-分页查询-传入参数, page:{}, attachment:{}", page, attachment);
+	public List<Attachment> selectAttachmentListByPage(Page<?> page, AttachmentPageRequest param) {
+		logger.info("(AttachmentService-selectAttachmentListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		AttachmentExample example = new AttachmentExample();
 		example.setOrderByClause(" id desc ");
 		AttachmentExample.Criteria criteria = example.createCriteria();
-		if(attachment != null) {
+		if(param != null) {
 		}
 		List<Attachment> list = attachmentMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class AttachmentServiceImpl implements IAttachmentService {
 
 	/**
 	 * 不分页查询
-	 * @param attachment
+	 * @param param
 	 * @return List<Attachment>
 	 */
-	@Override
-	public List<Attachment> selectAttachmentList(Attachment attachment) {
-		logger.info("(AttachmentService-selectAttachmentList)-不分页查询-传入参数, attachment:{}", attachment);
+	public List<Attachment> selectAttachmentList(AttachmentPageRequest param) {
+		logger.info("(AttachmentService-selectAttachmentList)-不分页查询-传入参数, param:{}", param);
 		AttachmentExample example = new AttachmentExample();
 		AttachmentExample.Criteria criteria = example.createCriteria();
-		if(attachment != null) {
+		if(param != null) {
 		}
 		List<Attachment> list = attachmentMapper.selectByExample(example);
 		return list;

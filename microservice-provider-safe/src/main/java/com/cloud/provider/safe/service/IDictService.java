@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.Dict;
+import com.cloud.provider.safe.rest.request.page.DictPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IDictService {
@@ -10,17 +11,17 @@ public interface IDictService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param dict
+	 * @param param
 	 * @return List<Dict>
 	 */
-	public List<Dict> selectDictListByPage(Page<?> page, Dict dict);
+	public List<Dict> selectDictListByPage(Page<?> page, DictPageRequest param);
 
 	/**
 	 * 不分页查询
-	 * @param dict
+	 * @param param
 	 * @return List<Dict>
 	 */
-	public List<Dict> selectDictList(Dict dict);
+	public List<Dict> selectDictList(DictPageRequest param);
 
     /**
      * 根据id查询字典

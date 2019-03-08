@@ -31,15 +31,9 @@ public class DictItemRequest implements Serializable {
 
     private Integer itemStatus;
 
-    private Integer isDelete;
-
     private String remark;
 
     private Integer sort;
-
-    private String created;
-
-    private String updated;
 
     /**
 	 * 实体转换

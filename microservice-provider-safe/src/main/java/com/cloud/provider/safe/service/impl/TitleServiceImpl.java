@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.TitleMapper;
 import com.cloud.provider.safe.po.Title;
 import com.cloud.provider.safe.po.TitleExample;
+import com.cloud.provider.safe.rest.request.page.TitlePageRequest;
 import com.cloud.provider.safe.service.ITitleService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class TitleServiceImpl implements ITitleService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param title
+	 * @param param
 	 * @return List<Title>
 	 */
-	@Override
-	public List<Title> selectTitleListByPage(Page<?> page, Title title) {
-		logger.info("(TitleService-selectTitleListByPage)-分页查询-传入参数, page:{}, title:{}", page, title);
+	public List<Title> selectTitleListByPage(Page<?> page, TitlePageRequest param) {
+		logger.info("(TitleService-selectTitleListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		TitleExample example = new TitleExample();
 		example.setOrderByClause(" id desc ");
 		TitleExample.Criteria criteria = example.createCriteria();
-		if(title != null) {
+		if(param != null) {
 		}
 		List<Title> list = titleMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class TitleServiceImpl implements ITitleService {
 
 	/**
 	 * 不分页查询
-	 * @param title
+	 * @param param
 	 * @return List<Title>
 	 */
-	@Override
-	public List<Title> selectTitleList(Title title) {
-		logger.info("(TitleService-selectTitleList)-不分页查询-传入参数, title:{}", title);
+	public List<Title> selectTitleList(TitlePageRequest param) {
+		logger.info("(TitleService-selectTitleList)-不分页查询-传入参数, param:{}", param);
 		TitleExample example = new TitleExample();
 		TitleExample.Criteria criteria = example.createCriteria();
-		if(title != null) {
+		if(param != null) {
 		}
 		List<Title> list = titleMapper.selectByExample(example);
 		return list;

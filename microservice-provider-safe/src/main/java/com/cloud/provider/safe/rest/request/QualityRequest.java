@@ -21,13 +21,7 @@ public class QualityRequest implements Serializable {
 
     private String qualityName;
 
-    private Integer isDelete;
-
     private String remark;
-
-    private String created;
-
-    private String updated;
 
     /**
 	 * 实体转换

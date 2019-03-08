@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserTitleMapper;
 import com.cloud.provider.safe.po.UserTitle;
 import com.cloud.provider.safe.po.UserTitleExample;
+import com.cloud.provider.safe.rest.request.page.UserTitlePageRequest;
 import com.cloud.provider.safe.service.IUserTitleService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class UserTitleServiceImpl implements IUserTitleService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userTitle
+	 * @param param
 	 * @return List<UserTitle>
 	 */
-	@Override
-	public List<UserTitle> selectUserTitleListByPage(Page<?> page, UserTitle userTitle) {
-		logger.info("(UserTitleService-selectUserTitleListByPage)-分页查询-传入参数, page:{}, userTitle:{}", page, userTitle);
+	public List<UserTitle> selectUserTitleListByPage(Page<?> page, UserTitlePageRequest param) {
+		logger.info("(UserTitleService-selectUserTitleListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserTitleExample example = new UserTitleExample();
 		example.setOrderByClause(" id desc ");
 		UserTitleExample.Criteria criteria = example.createCriteria();
-		if(userTitle != null) {
+		if(param != null) {
 		}
 		List<UserTitle> list = userTitleMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class UserTitleServiceImpl implements IUserTitleService {
 
 	/**
 	 * 不分页查询
-	 * @param userTitle
+	 * @param param
 	 * @return List<UserTitle>
 	 */
-	@Override
-	public List<UserTitle> selectUserTitleList(UserTitle userTitle) {
-		logger.info("(UserTitleService-selectUserTitleList)-不分页查询-传入参数, userTitle:{}", userTitle);
+	public List<UserTitle> selectUserTitleList(UserTitlePageRequest param) {
+		logger.info("(UserTitleService-selectUserTitleList)-不分页查询-传入参数, param:{}", param);
 		UserTitleExample example = new UserTitleExample();
 		UserTitleExample.Criteria criteria = example.createCriteria();
-		if(userTitle != null) {
+		if(param != null) {
 		}
 		List<UserTitle> list = userTitleMapper.selectByExample(example);
 		return list;

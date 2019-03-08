@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.Attachment;
+import com.cloud.provider.safe.rest.request.page.AttachmentPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IAttachmentService {
@@ -10,17 +11,17 @@ public interface IAttachmentService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param attachment
+	 * @param param
 	 * @return List<Attachment>
 	 */
-	public List<Attachment> selectAttachmentListByPage(Page<?> page, Attachment attachment);
+	public List<Attachment> selectAttachmentListByPage(Page<?> page, AttachmentPageRequest param);
 
 	/**
 	 * 不分页查询
-	 * @param attachment
+	 * @param param
 	 * @return List<Attachment>
 	 */
-	public List<Attachment> selectAttachmentList(Attachment attachment);
+	public List<Attachment> selectAttachmentList(AttachmentPageRequest param);
 
     /**
      * 根据id查询附件

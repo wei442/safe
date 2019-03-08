@@ -13,6 +13,7 @@ import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.UserAppLoginLogMapper;
 import com.cloud.provider.safe.po.UserAppLoginLog;
 import com.cloud.provider.safe.po.UserAppLoginLogExample;
+import com.cloud.provider.safe.rest.request.page.UserAppLoginLogPageRequest;
 import com.cloud.provider.safe.service.IUserAppLoginLogService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -33,16 +34,16 @@ public class UserAppLoginLogServiceImpl implements IUserAppLoginLogService {
 	/**
 	 * 分页查询
 	 * @param page
-	 * @param userAppLoginLog
+	 * @param param
 	 * @return List<UserAppLoginLog>
 	 */
-	public List<UserAppLoginLog> selectUserAppLoginLogListByPage(Page<?> page, UserAppLoginLog userAppLoginLog) {
-		logger.info("(UserAppLoginLogService-selectUserAppLoginLogListByPage)-分页查询-传入参数, page:{}, userAppLoginLog:{}", page, userAppLoginLog);
+	public List<UserAppLoginLog> selectUserAppLoginLogListByPage(Page<?> page, UserAppLoginLogPageRequest param) {
+		logger.info("(UserAppLoginLogService-selectUserAppLoginLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserAppLoginLogExample example = new UserAppLoginLogExample();
 		example.setOrderByClause(" id desc ");
 		UserAppLoginLogExample.Criteria criteria = example.createCriteria();
-		if(userAppLoginLog != null) {
+		if(param != null) {
 		}
 		List<UserAppLoginLog> list = null;
 		try {

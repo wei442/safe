@@ -2,11 +2,7 @@ package com.cloud.provider.safe.rest.request.page;
 
 import java.util.Date;
 
-import org.springframework.beans.BeanUtils;
-
 import com.cloud.provider.safe.base.BaseRestRequest;
-import com.cloud.provider.safe.po.UserAppLoginLog;
-import com.google.common.base.Converter;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,38 +33,5 @@ public class UserAppLoginLogPageRequest extends BaseRestRequest {
     private Integer logType;
 
     private String loginIp;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    /**
-	 * 实体转换
-	 * @return UserAppLoginLog
-	 */
-	public UserAppLoginLog convertToUserAppLoginLog() {
-		UserAppLoginLogConvert convert = new UserAppLoginLogConvert();
-		return convert.doForward(this);
-	}
-
-	/**
-	 * req转换实体
-	 * @author wei.yong
-	 */
-	private static class UserAppLoginLogConvert extends Converter<UserAppLoginLogPageRequest, UserAppLoginLog> {
-
-		@Override
-		protected UserAppLoginLog doForward(UserAppLoginLogPageRequest userAppLoginLogRequest) {
-			UserAppLoginLog userAppLoginLog = new UserAppLoginLog();
-			BeanUtils.copyProperties(userAppLoginLogRequest, userAppLoginLog);
-			return userAppLoginLog;
-		}
-
-		@Override
-		protected UserAppLoginLogPageRequest doBackward(UserAppLoginLog b) {
-			return null;
-		}
-
-	}
 
 }

@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserInfoMapper;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserInfoExample;
+import com.cloud.provider.safe.rest.request.page.UserInfoPageRequest;
 import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class UserInfoServiceImpl implements IUserInfoService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userInfo
+	 * @param param
 	 * @return List<UserInfo>
 	 */
-	@Override
-	public List<UserInfo> selectUserInfoListByPage(Page<?> page, UserInfo userInfo) {
-		logger.info("(UserInfoService-selectUserInfoListByPage)-分页查询-传入参数, page:{}, userInfo:{}", page, userInfo);
+	public List<UserInfo> selectUserInfoListByPage(Page<?> page, UserInfoPageRequest param) {
+		logger.info("(UserInfoService-selectUserInfoListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserInfoExample example = new UserInfoExample();
 		example.setOrderByClause(" id desc ");
 		UserInfoExample.Criteria criteria = example.createCriteria();
-		if(userInfo != null) {
+		if(param != null) {
 		}
 		List<UserInfo> list = userInfoMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class UserInfoServiceImpl implements IUserInfoService {
 
 	/**
 	 * 不分页查询
-	 * @param userInfo
+	 * @param param
 	 * @return List<UserInfo>
 	 */
-	@Override
-	public List<UserInfo> selectUserInfoList(UserInfo userInfo) {
-		logger.info("(UserInfoService-selectUserInfoList)-不分页查询-传入参数, userInfo:{}", userInfo);
+	public List<UserInfo> selectUserInfoList(UserInfoPageRequest param) {
+		logger.info("(UserInfoService-selectUserInfoList)-不分页查询-传入参数, param:{}", param);
 		UserInfoExample example = new UserInfoExample();
 		UserInfoExample.Criteria criteria = example.createCriteria();
-		if(userInfo != null) {
+		if(param != null) {
 		}
 		List<UserInfo> list = userInfoMapper.selectByExample(example);
 		return list;

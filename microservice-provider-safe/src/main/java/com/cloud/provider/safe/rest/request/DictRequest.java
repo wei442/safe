@@ -27,15 +27,9 @@ public class DictRequest implements Serializable {
 
     private Integer dictStatus;
 
-    private Integer isDelete;
-
     private String remark;
 
     private Integer sort;
-
-    private String created;
-
-    private String updated;
 
     /**
 	 * 实体转换

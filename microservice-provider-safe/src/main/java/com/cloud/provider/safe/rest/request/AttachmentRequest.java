@@ -23,13 +23,7 @@ public class AttachmentRequest implements Serializable {
 
     private Integer attachmentType;
 
-    private Integer isDelete;
-
     private String remark;
-
-    private String created;
-
-    private String updated;
 
     /**
 	 * 实体转换

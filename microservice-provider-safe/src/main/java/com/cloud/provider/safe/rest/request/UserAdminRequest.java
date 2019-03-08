@@ -27,15 +27,9 @@ public class UserAdminRequest implements Serializable {
 
     private Integer adminType;
 
-    private Integer isDelete;
-
     private String remark;
 
     private Integer sort;
-
-    private String created;
-
-    private String updated;
 
     /**
 	 * 实体转换

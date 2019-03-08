@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.BaseUser;
+import com.cloud.provider.safe.rest.request.page.BaseUserPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IBaseUserService {
@@ -10,17 +11,17 @@ public interface IBaseUserService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param baseUser
+	 * @param param
 	 * @return List<BaseUser>
 	 */
-	public List<BaseUser> selectBaseUserListByPage(Page<?> page, BaseUser baseUser);
+	public List<BaseUser> selectBaseUserListByPage(Page<?> page, BaseUserPageRequest param);
 
 	/**
 	 * 不分页查询
-	 * @param baseUser
+	 * @param param
 	 * @return List<BaseUser>
 	 */
-	public List<BaseUser> selectBaseUserList(BaseUser baseUser);
+	public List<BaseUser> selectBaseUserList(BaseUserPageRequest param);
 
     /**
      * 根据id查询用户信息

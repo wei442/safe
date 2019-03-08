@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.EnterpriseQualityMapper;
 import com.cloud.provider.safe.po.EnterpriseQuality;
 import com.cloud.provider.safe.po.EnterpriseQualityExample;
+import com.cloud.provider.safe.rest.request.page.EnterpriseQualityPageRequest;
 import com.cloud.provider.safe.service.IEnterpriseQualityService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param enterpriseQuality
+	 * @param param
 	 * @return List<EnterpriseQuality>
 	 */
-	@Override
-	public List<EnterpriseQuality> selectEnterpriseQualityListByPage(Page<?> page, EnterpriseQuality enterpriseQuality) {
-		logger.info("(EnterpriseQualityService-selectEnterpriseQualityListByPage)-分页查询-传入参数, page:{}, enterpriseQuality:{}", page, enterpriseQuality);
+	public List<EnterpriseQuality> selectEnterpriseQualityListByPage(Page<?> page, EnterpriseQualityPageRequest param) {
+		logger.info("(EnterpriseQualityService-selectEnterpriseQualityListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		EnterpriseQualityExample example = new EnterpriseQualityExample();
 		example.setOrderByClause(" id desc ");
 		EnterpriseQualityExample.Criteria criteria = example.createCriteria();
-		if(enterpriseQuality != null) {
+		if(param != null) {
 		}
 		List<EnterpriseQuality> list = enterpriseQualityMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 
 	/**
 	 * 不分页查询
-	 * @param enterpriseQuality
+	 * @param param
 	 * @return List<EnterpriseQuality>
 	 */
-	@Override
-	public List<EnterpriseQuality> selectEnterpriseQualityList(EnterpriseQuality enterpriseQuality) {
-		logger.info("(EnterpriseQualityService-selectEnterpriseQualityList)-不分页查询-传入参数, enterpriseQuality:{}", enterpriseQuality);
+	public List<EnterpriseQuality> selectEnterpriseQualityList(EnterpriseQualityPageRequest param) {
+		logger.info("(EnterpriseQualityService-selectEnterpriseQualityList)-不分页查询-传入参数, param:{}", param);
 		EnterpriseQualityExample example = new EnterpriseQualityExample();
 		EnterpriseQualityExample.Criteria criteria = example.createCriteria();
-		if(enterpriseQuality != null) {
+		if(param != null) {
 		}
 		List<EnterpriseQuality> list = enterpriseQualityMapper.selectByExample(example);
 		return list;

@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserAdminMapper;
 import com.cloud.provider.safe.po.UserAdmin;
 import com.cloud.provider.safe.po.UserAdminExample;
+import com.cloud.provider.safe.rest.request.page.UserAdminPageRequest;
 import com.cloud.provider.safe.service.IUserAdminService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class UserAdminServiceImpl implements IUserAdminService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userAdmin
+	 * @param param
 	 * @return List<UserAdmin>
 	 */
-	@Override
-	public List<UserAdmin> selectUserAdminListByPage(Page<?> page, UserAdmin userAdmin) {
-		logger.info("(UserAdminService-selectUserAdminListByPage)-分页查询-传入参数, page:{}, userAdmin:{}", page, userAdmin);
+	public List<UserAdmin> selectUserAdminListByPage(Page<?> page, UserAdminPageRequest param) {
+		logger.info("(UserAdminService-selectUserAdminListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserAdminExample example = new UserAdminExample();
 		example.setOrderByClause(" id desc ");
 		UserAdminExample.Criteria criteria = example.createCriteria();
-		if(userAdmin != null) {
+		if(param != null) {
 		}
 		List<UserAdmin> list = userAdminMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class UserAdminServiceImpl implements IUserAdminService {
 
 	/**
 	 * 不分页查询
-	 * @param userAdmin
+	 * @param param
 	 * @return List<UserAdmin>
 	 */
-	@Override
-	public List<UserAdmin> selectUserAdminList(UserAdmin userAdmin) {
-		logger.info("(UserAdminService-selectUserAdminList)-不分页查询-传入参数, userAdmin:{}", userAdmin);
+	public List<UserAdmin> selectUserAdminList(UserAdminPageRequest param) {
+		logger.info("(UserAdminService-selectUserAdminList)-不分页查询-传入参数, param:{}", param);
 		UserAdminExample example = new UserAdminExample();
 		UserAdminExample.Criteria criteria = example.createCriteria();
-		if(userAdmin != null) {
+		if(param != null) {
 		}
 		List<UserAdmin> list = userAdminMapper.selectByExample(example);
 		return list;

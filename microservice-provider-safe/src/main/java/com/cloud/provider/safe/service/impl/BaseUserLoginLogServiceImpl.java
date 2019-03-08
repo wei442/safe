@@ -13,6 +13,7 @@ import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.BaseUserLoginLogMapper;
 import com.cloud.provider.safe.po.BaseUserLoginLog;
 import com.cloud.provider.safe.po.BaseUserLoginLogExample;
+import com.cloud.provider.safe.rest.request.page.BaseUserLoginLogPageRequest;
 import com.cloud.provider.safe.service.IBaseUserLoginLogService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -33,16 +34,16 @@ public class BaseUserLoginLogServiceImpl implements IBaseUserLoginLogService {
 	/**
 	 * 分页查询
 	 * @param page
-	 * @param baseUserLoginLog
+	 * @param param
 	 * @return List<BaseUserLoginLog>
 	 */
-	public List<BaseUserLoginLog> selectBaseUserLoginLogListByPage(Page<?> page, BaseUserLoginLog baseUserLoginLog) {
-		logger.info("(BaseUserLoginLogService-selectBaseUserLoginLogListByPage)-分页查询-传入参数, page:{}, baseUserLoginLog:{}", page, baseUserLoginLog);
+	public List<BaseUserLoginLog> selectBaseUserLoginLogListByPage(Page<?> page, BaseUserLoginLogPageRequest param) {
+		logger.info("(BaseUserLoginLogService-selectBaseUserLoginLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		BaseUserLoginLogExample example = new BaseUserLoginLogExample();
 		example.setOrderByClause(" id desc ");
 		BaseUserLoginLogExample.Criteria criteria = example.createCriteria();
-		if(baseUserLoginLog != null) {
+		if(param != null) {
 		}
 		List<BaseUserLoginLog> list = null;
 		try {
@@ -59,6 +60,7 @@ public class BaseUserLoginLogServiceImpl implements IBaseUserLoginLogService {
 	 * @param baseUserLoginLog
 	 * @return Integer
 	 */
+	@Override
 	public Integer insertBaseUserLoginLog(BaseUserLoginLog baseUserLoginLog) {
 		if(logger.isInfoEnabled())logger.info("(BaseUserLoginLogService-insertBaseUserLoginLog)-插入基础用户登录日志-传入参数, baseUserLoginLog:{}", baseUserLoginLog);
 		baseUserLoginLog.setCreateTime(new Date());

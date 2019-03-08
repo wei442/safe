@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.Enterprise;
+import com.cloud.provider.safe.rest.request.page.EnterprisePageRequest;
 import com.github.pagehelper.Page;
 
 public interface IEnterpriseService {
@@ -10,17 +11,17 @@ public interface IEnterpriseService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param enterprise
+	 * @param param
 	 * @return List<Enterprise>
 	 */
-	public List<Enterprise> selectEnterpriseListByPage(Page<?> page, Enterprise enterprise);
+	public List<Enterprise> selectEnterpriseListByPage(Page<?> page, EnterprisePageRequest enterprise);
 
 	/**
 	 * 不分页查询
 	 * @param enterprise
 	 * @return List<Enterprise>
 	 */
-	public List<Enterprise> selectEnterpriseList(Enterprise enterprise);
+	public List<Enterprise> selectEnterpriseList(EnterprisePageRequest param);
 
     /**
      * 根据id查询企业

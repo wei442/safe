@@ -34,10 +34,6 @@ public class BaseUserLoginLogRequest implements Serializable {
 
     private String loginIp;
 
-    private String created;
-
-    private String updated;
-
     /**
 	 * 实体转换
 	 * @return BaseUserLoginLog

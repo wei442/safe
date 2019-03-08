@@ -23,13 +23,7 @@ public class EnterpriseQualityRequest implements Serializable {
 
     private Integer qualityId;
 
-    private Integer isDelete;
-
     private String remark;
-
-    private String created;
-
-    private String updated;
 
     /**
 	 * 实体转换

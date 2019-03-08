@@ -23,13 +23,7 @@ public class QualityAttachmentRequest implements Serializable {
 
     private Integer attachmentId;
 
-    private Integer isDelete;
-
     private String remark;
-
-    private String created;
-
-    private String updated;
 
     /**
 	 * 实体转换

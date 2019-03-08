@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.Org;
+import com.cloud.provider.safe.rest.request.page.OrgPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IOrgService {
@@ -10,17 +11,17 @@ public interface IOrgService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param org
+	 * @param param
 	 * @return List<Org>
 	 */
-	public List<Org> selectOrgListByPage(Page<?> page, Org org);
+	public List<Org> selectOrgListByPage(Page<?> page, OrgPageRequest param);
 
 	/**
 	 * 不分页查询
-	 * @param org
+	 * @param param
 	 * @return List<Org>
 	 */
-	public List<Org> selectOrgList(Org org);
+	public List<Org> selectOrgList(OrgPageRequest param);
 
     /**
      * 根据id查询组织机构

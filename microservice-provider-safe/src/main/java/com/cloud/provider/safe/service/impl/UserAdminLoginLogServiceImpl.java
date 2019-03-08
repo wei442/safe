@@ -13,6 +13,7 @@ import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.UserAdminLoginLogMapper;
 import com.cloud.provider.safe.po.UserAdminLoginLog;
 import com.cloud.provider.safe.po.UserAdminLoginLogExample;
+import com.cloud.provider.safe.rest.request.page.UserAdminLoginLogPageRequest;
 import com.cloud.provider.safe.service.IUserAdminLoginLogService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -33,16 +34,16 @@ public class UserAdminLoginLogServiceImpl implements IUserAdminLoginLogService {
 	/**
 	 * 分页查询
 	 * @param page
-	 * @param userAdminLoginLog
+	 * @param param
 	 * @return List<UserAdminLoginLog>
 	 */
-	public List<UserAdminLoginLog> selectUserAdminLoginLogListByPage(Page<?> page, UserAdminLoginLog userAdminLoginLog) {
-		logger.info("(UserAdminLoginLogService-selectUserAdminLoginLogListByPage)-分页查询-传入参数, page:{}, userAdminLoginLog:{}", page, userAdminLoginLog);
+	public List<UserAdminLoginLog> selectUserAdminLoginLogListByPage(Page<?> page, UserAdminLoginLogPageRequest param) {
+		logger.info("(UserAdminLoginLogService-selectUserAdminLoginLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserAdminLoginLogExample example = new UserAdminLoginLogExample();
 		example.setOrderByClause(" id desc ");
 		UserAdminLoginLogExample.Criteria criteria = example.createCriteria();
-		if(userAdminLoginLog != null) {
+		if(param != null) {
 		}
 		List<UserAdminLoginLog> list = null;
 		try {
@@ -59,6 +60,7 @@ public class UserAdminLoginLogServiceImpl implements IUserAdminLoginLogService {
 	 * @param userAdminLoginLog
 	 * @return Integer
 	 */
+	@Override
 	public Integer insertUserAdminLoginLog(UserAdminLoginLog userAdminLoginLog) {
 		if(logger.isInfoEnabled())logger.info("(UserAdminLoginLogService-insertUserAdminLoginLog)-插入用户管理登录日志-传入参数, userAdminLoginLog:{}", userAdminLoginLog);
 		userAdminLoginLog.setCreateTime(new Date());

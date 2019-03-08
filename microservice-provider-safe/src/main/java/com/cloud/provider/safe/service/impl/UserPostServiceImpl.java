@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserPostMapper;
 import com.cloud.provider.safe.po.UserPost;
 import com.cloud.provider.safe.po.UserPostExample;
+import com.cloud.provider.safe.rest.request.page.UserPostPageRequest;
 import com.cloud.provider.safe.service.IUserPostService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class UserPostServiceImpl implements IUserPostService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userPost
+	 * @param param
 	 * @return List<UserPost>
 	 */
-	@Override
-	public List<UserPost> selectUserPostListByPage(Page<?> page, UserPost userPost) {
-		logger.info("(UserPostService-selectUserPostListByPage)-分页查询-传入参数, page:{}, userPost:{}", page, userPost);
+	public List<UserPost> selectUserPostListByPage(Page<?> page, UserPostPageRequest param) {
+		logger.info("(UserPostService-selectUserPostListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserPostExample example = new UserPostExample();
 		example.setOrderByClause(" id desc ");
 		UserPostExample.Criteria criteria = example.createCriteria();
-		if(userPost != null) {
+		if(param != null) {
 		}
 		List<UserPost>list = userPostMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class UserPostServiceImpl implements IUserPostService {
 
 	/**
 	 * 不分页查询
-	 * @param userPost
+	 * @param param
 	 * @return List<UserPost>
 	 */
-	@Override
-	public List<UserPost> selectUserPostList(UserPost userPost) {
-		logger.info("(UserPostService-selectUserPostList)-不分页查询-传入参数, userPost:{}", userPost);
+	public List<UserPost> selectUserPostList(UserPostPageRequest param) {
+		logger.info("(UserPostService-selectUserPostList)-不分页查询-传入参数, param:{}", param);
 		UserPostExample example = new UserPostExample();
 		UserPostExample.Criteria criteria = example.createCriteria();
-		if(userPost != null) {
+		if(param != null) {
 		}
 		List<UserPost>list = userPostMapper.selectByExample(example);
 		return list;

@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserAdminLoginMapper;
 import com.cloud.provider.safe.po.UserAdminLogin;
 import com.cloud.provider.safe.po.UserAdminLoginExample;
+import com.cloud.provider.safe.rest.request.page.UserAdminLoginPageRequest;
 import com.cloud.provider.safe.service.IUserAdminLoginService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,17 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userAdminLogin
+	 * @param param
 	 * @return List<UserAdminLogin>
 	 */
 	@Override
-	public List<UserAdminLogin> selectUserAdminLoginListByPage(Page<?> page, UserAdminLogin userAdminLogin) {
-		logger.info("(UserAdminLoginService-selectUserAdminLoginListByPage)-分页查询-传入参数, page:{}, userAdminLogin:{}", page, userAdminLogin);
+	public List<UserAdminLogin> selectUserAdminLoginListByPage(Page<?> page, UserAdminLoginPageRequest param) {
+		logger.info("(UserAdminLoginService-selectUserAdminLoginListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserAdminLoginExample example = new UserAdminLoginExample();
 		example.setOrderByClause(" id desc ");
 		UserAdminLoginExample.Criteria criteria = example.createCriteria();
-		if(userAdminLogin != null) {
+		if(param != null) {
 		}
 		List<UserAdminLogin> list = userAdminLoginMapper.selectByExample(example);
 		return list;
@@ -51,15 +52,15 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
 
 	/**
 	 * 不分页查询
-	 * @param userAdminLogin
+	 * @param param
 	 * @return List<UserAdminLogin>
 	 */
 	@Override
-	public List<UserAdminLogin> selectUserAdminLoginList(UserAdminLogin userAdminLogin) {
-		logger.info("(UserAdminLoginService-selectUserAdminLoginList)-不分页查询-传入参数, userAdminLogin:{}", userAdminLogin);
+	public List<UserAdminLogin> selectUserAdminLoginList(UserAdminLoginPageRequest param) {
+		logger.info("(UserAdminLoginService-selectUserAdminLoginList)-不分页查询-传入参数, param:{}", param);
 		UserAdminLoginExample example = new UserAdminLoginExample();
 		UserAdminLoginExample.Criteria criteria = example.createCriteria();
-		if(userAdminLogin != null) {
+		if(param != null) {
 		}
 		List<UserAdminLogin> list = userAdminLoginMapper.selectByExample(example);
 		return list;

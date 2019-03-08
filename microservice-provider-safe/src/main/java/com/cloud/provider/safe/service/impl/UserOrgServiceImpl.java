@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserOrgMapper;
 import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.po.UserOrgExample;
+import com.cloud.provider.safe.rest.request.page.UserOrgPageRequest;
 import com.cloud.provider.safe.service.IUserOrgService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class UserOrgServiceImpl implements IUserOrgService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userOrg
+	 * @param param
 	 * @return List<UserOrg>
 	 */
-	@Override
-	public List<UserOrg> selectUserOrgListByPage(Page<?> page, UserOrg userOrg) {
-		logger.info("(UserOrgService-selectUserOrgListByPage)-分页查询-传入参数, page:{}, userOrg:{}", page, userOrg);
+	public List<UserOrg> selectUserOrgListByPage(Page<?> page, UserOrgPageRequest param) {
+		logger.info("(UserOrgService-selectUserOrgListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserOrgExample example = new UserOrgExample();
 		example.setOrderByClause(" id desc ");
 		UserOrgExample.Criteria criteria = example.createCriteria();
-		if(userOrg != null) {
+		if(param != null) {
 		}
 		List<UserOrg> list = userOrgMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class UserOrgServiceImpl implements IUserOrgService {
 
 	/**
 	 * 不分页查询
-	 * @param userOrg
+	 * @param param
 	 * @return List<UserOrg>
 	 */
-	@Override
-	public List<UserOrg> selectUserOrgList(UserOrg userOrg) {
-		logger.info("(UserOrgService-selectUserOrgList)-不分页查询-传入参数, userOrg:{}", userOrg);
+	public List<UserOrg> selectUserOrgList(UserOrgPageRequest param) {
+		logger.info("(UserOrgService-selectUserOrgList)-不分页查询-传入参数, param:{}", param);
 		UserOrgExample example = new UserOrgExample();
 		UserOrgExample.Criteria criteria = example.createCriteria();
-		if(userOrg != null) {
+		if(param != null) {
 		}
 		List<UserOrg> list = userOrgMapper.selectByExample(example);
 		return list;

@@ -27,10 +27,6 @@ public class UserQualityRequest implements Serializable {
 
     private String remark;
 
-    private String created;
-
-    private String updated;
-
     /**
 	 * 实体转换
 	 * @return UserQuality

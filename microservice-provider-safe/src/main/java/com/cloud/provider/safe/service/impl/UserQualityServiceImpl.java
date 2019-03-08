@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserQualityMapper;
 import com.cloud.provider.safe.po.UserQuality;
 import com.cloud.provider.safe.po.UserQualityExample;
+import com.cloud.provider.safe.rest.request.page.UserQualityPageRequest;
 import com.cloud.provider.safe.service.IUserQualityService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class UserQualityServiceImpl implements IUserQualityService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userQuality
+	 * @param param
 	 * @return List<UserQuality>
 	 */
-	@Override
-	public List<UserQuality> selectUserQualityListByPage(Page<?> page, UserQuality userQuality) {
-		logger.info("(UserQualityService-selectUserQualityListByPage)-分页查询-传入参数, page:{}, userQuality:{}", page, userQuality);
+	public List<UserQuality> selectUserQualityListByPage(Page<?> page, UserQualityPageRequest param) {
+		logger.info("(UserQualityService-selectUserQualityListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserQualityExample example = new UserQualityExample();
 		example.setOrderByClause(" id desc ");
 		UserQualityExample.Criteria criteria = example.createCriteria();
-		if(userQuality != null) {
+		if(param != null) {
 		}
 		List<UserQuality> list = userQualityMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class UserQualityServiceImpl implements IUserQualityService {
 
 	/**
 	 * 不分页查询
-	 * @param userQuality
+	 * @param param
 	 * @return List<UserQuality>
 	 */
-	@Override
-	public List<UserQuality> selectUserQualityList(UserQuality userQuality) {
-		logger.info("(UserQualityService-selectUserQualityList)-不分页查询-传入参数, userQuality:{}", userQuality);
+	public List<UserQuality> selectUserQualityList(UserQualityPageRequest param) {
+		logger.info("(UserQualityService-selectUserQualityList)-不分页查询-传入参数, param:{}", param);
 		UserQualityExample example = new UserQualityExample();
 		UserQualityExample.Criteria criteria = example.createCriteria();
-		if(userQuality != null) {
+		if(param != null) {
 		}
 		List<UserQuality> list = userQualityMapper.selectByExample(example);
 		return list;

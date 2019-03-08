@@ -13,6 +13,7 @@ import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.DictItemMapper;
 import com.cloud.provider.safe.po.DictItem;
 import com.cloud.provider.safe.po.DictItemExample;
+import com.cloud.provider.safe.rest.request.page.DictItemPageRequest;
 import com.cloud.provider.safe.service.IDictItemService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -34,17 +35,16 @@ public class DictItemServiceImpl implements IDictItemService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param dictItem
+	 * @param param
 	 * @return List<DictItem>
 	 */
-	@Override
-	public List<DictItem> selectDictItemListByPage(Page<?> page, DictItem dictItem) {
-		logger.info("(DictItemService-selectDictItemListByPage)-分页查询-传入参数, page:{}, dictItem:{}", page, dictItem);
+	public List<DictItem> selectDictItemListByPage(Page<?> page, DictItemPageRequest param) {
+		logger.info("(DictItemService-selectDictItemListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		DictItemExample example = new DictItemExample();
 		example.setOrderByClause(" id desc ");
 		DictItemExample.Criteria criteria = example.createCriteria();
-		if(dictItem != null) {
+		if(param != null) {
 		}
 		List<DictItem> list = dictItemMapper.selectByExample(example);
 		return list;
@@ -52,15 +52,14 @@ public class DictItemServiceImpl implements IDictItemService {
 
 	/**
 	 * 不分页查询
-	 * @param dictItem
+	 * @param param
 	 * @return List<DictItem>
 	 */
-	@Override
-	public List<DictItem> selectDictItemList(DictItem dictItem) {
-		logger.info("(DictItemService-selectDictItemList)-不分页查询-传入参数, dictItem:{}", dictItem);
+	public List<DictItem> selectDictItemList(DictItemPageRequest param) {
+		logger.info("(DictItemService-selectDictItemList)-不分页查询-传入参数, dictItem:{}", param);
 		DictItemExample example = new DictItemExample();
 		DictItemExample.Criteria criteria = example.createCriteria();
-		if(dictItem != null) {
+		if(param != null) {
 		}
 		List<DictItem> list = dictItemMapper.selectByExample(example);
 		return list;

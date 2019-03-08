@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.QualityAttachment;
+import com.cloud.provider.safe.rest.request.page.QualityAttachmentPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IQualityAttachmentService {
@@ -10,17 +11,17 @@ public interface IQualityAttachmentService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param qualityAttachment
+	 * @param param
 	 * @return List<QualityAttachment>
 	 */
-	public List<QualityAttachment> selectQualityAttachmentListByPage(Page<?> page, QualityAttachment qualityAttachment);
+	public List<QualityAttachment> selectQualityAttachmentListByPage(Page<?> page, QualityAttachmentPageRequest param);
 
 	/**
 	 * 不分页查询
-	 * @param qualityAttachment
+	 * @param param
 	 * @return List<QualityAttachment>
 	 */
-	public List<QualityAttachment> selectQualityAttachmentList(QualityAttachment qualityAttachment);
+	public List<QualityAttachment> selectQualityAttachmentList(QualityAttachmentPageRequest param);
 
     /**
      * 根据id查询资质附件

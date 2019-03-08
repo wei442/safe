@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.BaseUserLoginMapper;
 import com.cloud.provider.safe.po.BaseUserLogin;
 import com.cloud.provider.safe.po.BaseUserLoginExample;
+import com.cloud.provider.safe.rest.request.page.BaseUserLoginPageRequest;
 import com.cloud.provider.safe.service.IBaseUserLoginService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param baseUserLogin
+	 * @param param
 	 * @return List<BaseUserLogin>
 	 */
-	@Override
-	public List<BaseUserLogin> selectBaseUserLoginListByPage(Page<?> page, BaseUserLogin baseUserLogin) {
-		logger.info("(BaseUserLoginService-selectBaseUserLoginListByPage)-分页查询-传入参数, page:{}, baseUserLogin:{}", page, baseUserLogin);
+	public List<BaseUserLogin> selectBaseUserLoginListByPage(Page<?> page, BaseUserLoginPageRequest param) {
+		logger.info("(BaseUserLoginService-selectBaseUserLoginListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		BaseUserLoginExample example = new BaseUserLoginExample();
 		example.setOrderByClause(" id desc ");
 		BaseUserLoginExample.Criteria criteria = example.createCriteria();
-		if(baseUserLogin != null) {
+		if(param != null) {
 		}
 		List<BaseUserLogin> list = baseUserLoginMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
 
 	/**
 	 * 不分页查询
-	 * @param baseUserLogin
+	 * @param param
 	 * @return List<BaseUserLogin>
 	 */
-	@Override
-	public List<BaseUserLogin> selectBaseUserLoginList(BaseUserLogin baseUserLogin) {
-		logger.info("(BaseUserLoginService-selectBaseUserLoginList)-不分页查询-传入参数, baseUserLogin:{}", baseUserLogin);
+	public List<BaseUserLogin> selectBaseUserLoginList(BaseUserLoginPageRequest param) {
+		logger.info("(BaseUserLoginService-selectBaseUserLoginList)-不分页查询-传入参数, param:{}", param);
 		BaseUserLoginExample example = new BaseUserLoginExample();
 		BaseUserLoginExample.Criteria criteria = example.createCriteria();
-		if(baseUserLogin != null) {
+		if(param != null) {
 		}
 		List<BaseUserLogin> list = baseUserLoginMapper.selectByExample(example);
 		return list;

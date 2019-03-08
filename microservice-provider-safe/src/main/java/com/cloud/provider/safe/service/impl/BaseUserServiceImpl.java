@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.BaseUserMapper;
 import com.cloud.provider.safe.po.BaseUser;
 import com.cloud.provider.safe.po.BaseUserExample;
+import com.cloud.provider.safe.rest.request.page.BaseUserPageRequest;
 import com.cloud.provider.safe.service.IBaseUserService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class BaseUserServiceImpl implements IBaseUserService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param baseUser
+	 * @param param
 	 * @return List<BaseUser>
 	 */
-	@Override
-	public List<BaseUser> selectBaseUserListByPage(Page<?> page, BaseUser baseUser) {
-		logger.info("(BaseUserService-selectBaseUserListByPage)-分页查询-传入参数, page:{}, baseUser:{}", page, baseUser);
+	public List<BaseUser> selectBaseUserListByPage(Page<?> page, BaseUserPageRequest param) {
+		logger.info("(BaseUserService-selectBaseUserListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		BaseUserExample example = new BaseUserExample();
 		example.setOrderByClause(" id desc ");
 		BaseUserExample.Criteria criteria = example.createCriteria();
-		if(baseUser != null) {
+		if(param != null) {
 		}
 		List<BaseUser> list = baseUserMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class BaseUserServiceImpl implements IBaseUserService {
 
 	/**
 	 * 不分页查询
-	 * @param baseUser
+	 * @param param
 	 * @return List<BaseUser>
 	 */
-	@Override
-	public List<BaseUser> selectBaseUserList(BaseUser baseUser) {
-		logger.info("(BaseUserService-selectBaseUserList)-不分页查询-传入参数, baseUser:{}", baseUser);
+	public List<BaseUser> selectBaseUserList(BaseUserPageRequest param) {
+		logger.info("(BaseUserService-selectBaseUserList)-不分页查询-传入参数, param:{}", param);
 		BaseUserExample example = new BaseUserExample();
 		BaseUserExample.Criteria criteria = example.createCriteria();
-		if(baseUser != null) {
+		if(param != null) {
 		}
 		List<BaseUser> list = baseUserMapper.selectByExample(example);
 		return list;
@@ -88,9 +87,6 @@ public class BaseUserServiceImpl implements IBaseUserService {
     	baseUser.setCreateTime(new Date());
     	baseUser.setUpdateTime(new Date());
     	int i = baseUserMapper.insertSelective(baseUser);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -104,9 +100,6 @@ public class BaseUserServiceImpl implements IBaseUserService {
 	public Integer deleteBaseUserById(Integer id) {
   		logger.info("(BaseUserService-deleteBaseUserById)-根据id删除基础用户-传入参数, id:{}", id);
   		int i = baseUserMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -121,9 +114,6 @@ public class BaseUserServiceImpl implements IBaseUserService {
     	logger.info("(BaseUserService-modifyBaseUser)-修改基础用户-传入参数, baseUser:{}", baseUser);
     	baseUser.setUpdateTime(new Date());
     	int i = baseUserMapper.updateByPrimaryKeySelective(baseUser);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

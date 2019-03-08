@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserAppLoginMapper;
 import com.cloud.provider.safe.po.UserAppLogin;
 import com.cloud.provider.safe.po.UserAppLoginExample;
+import com.cloud.provider.safe.rest.request.page.UserAppLoginPageRequest;
 import com.cloud.provider.safe.service.IUserAppLoginService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userAppLogin
+	 * @param param
 	 * @return List<UserAppLogin>
 	 */
-	@Override
-	public List<UserAppLogin> selectUserAppLoginListByPage(Page<?> page, UserAppLogin userAppLogin) {
-		logger.info("(UserAppLoginService-selectUserAppLoginListByPage)-分页查询-传入参数, page:{}, userAppLogin:{}", page, userAppLogin);
+	public List<UserAppLogin> selectUserAppLoginListByPage(Page<?> page, UserAppLoginPageRequest param) {
+		logger.info("(UserAppLoginService-selectUserAppLoginListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserAppLoginExample example = new UserAppLoginExample();
 		example.setOrderByClause(" id desc ");
 		UserAppLoginExample.Criteria criteria = example.createCriteria();
-		if(userAppLogin != null) {
+		if(param != null) {
 		}
 		List<UserAppLogin> list = userAppLoginMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
 
 	/**
 	 * 不分页查询
-	 * @param userAppLogin
+	 * @param param
 	 * @return List<UserAppLogin>
 	 */
-	@Override
-	public List<UserAppLogin> selectUserAppLoginList(UserAppLogin userAppLogin) {
-		logger.info("(UserAppLoginService-selectUserAppLoginList)-不分页查询-传入参数, userAppLogin:{}", userAppLogin);
+	public List<UserAppLogin> selectUserAppLoginList(UserAppLoginPageRequest param) {
+		logger.info("(UserAppLoginService-selectUserAppLoginList)-不分页查询-传入参数, param:{}", param);
 		UserAppLoginExample example = new UserAppLoginExample();
 		UserAppLoginExample.Criteria criteria = example.createCriteria();
-		if(userAppLogin != null) {
+		if(param != null) {
 		}
 		List<UserAppLogin> list = userAppLoginMapper.selectByExample(example);
 		return list;

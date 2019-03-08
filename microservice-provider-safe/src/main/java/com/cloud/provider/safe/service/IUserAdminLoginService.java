@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.UserAdminLogin;
+import com.cloud.provider.safe.rest.request.page.UserAdminLoginPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IUserAdminLoginService {
@@ -10,17 +11,17 @@ public interface IUserAdminLoginService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param userAdminLogin
+	 * @param param
 	 * @return List<UserAdminLogin>
 	 */
-	public List<UserAdminLogin> selectUserAdminLoginListByPage(Page<?> page, UserAdminLogin userAdminLogin);
+	public List<UserAdminLogin> selectUserAdminLoginListByPage(Page<?> page, UserAdminLoginPageRequest param);
 
 	/**
 	 * 不分页查询
-	 * @param userAdminLogin
+	 * @param param
 	 * @return List<UserAdminLogin>
 	 */
-	public List<UserAdminLogin> selectUserAdminLoginList(UserAdminLogin userAdminLogin);
+	public List<UserAdminLogin> selectUserAdminLoginList(UserAdminLoginPageRequest param);
 
     /**
      * 根据id查询用户管理登录

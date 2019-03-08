@@ -12,6 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.QualityAttachmentMapper;
 import com.cloud.provider.safe.po.QualityAttachment;
 import com.cloud.provider.safe.po.QualityAttachmentExample;
+import com.cloud.provider.safe.rest.request.page.QualityAttachmentPageRequest;
 import com.cloud.provider.safe.service.IQualityAttachmentService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
@@ -33,17 +34,16 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
     /**
 	 * 分页查询
 	 * @param page
-	 * @param qualityAttachment
+	 * @param param
 	 * @return List<QualityAttachment>
 	 */
-	@Override
-	public List<QualityAttachment> selectQualityAttachmentListByPage(Page<?> page, QualityAttachment qualityAttachment) {
-		logger.info("(QualityAttachmentService-selectQualityAttachmentListByPage)-分页查询-传入参数, page:{}, qualityAttachment:{}", page, qualityAttachment);
+	public List<QualityAttachment> selectQualityAttachmentListByPage(Page<?> page, QualityAttachmentPageRequest param) {
+		logger.info("(QualityAttachmentService-selectQualityAttachmentListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		QualityAttachmentExample example = new QualityAttachmentExample();
 		example.setOrderByClause(" id desc ");
 		QualityAttachmentExample.Criteria criteria = example.createCriteria();
-		if(qualityAttachment != null) {
+		if(param != null) {
 		}
 		List<QualityAttachment> list = qualityAttachmentMapper.selectByExample(example);
 		return list;
@@ -51,15 +51,14 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
 
 	/**
 	 * 不分页查询
-	 * @param qualityAttachment
+	 * @param param
 	 * @return List<QualityAttachment>
 	 */
-	@Override
-	public List<QualityAttachment> selectQualityAttachmentList(QualityAttachment qualityAttachment) {
-		logger.info("(QualityAttachmentService-selectQualityAttachmentList)-不分页查询-传入参数, qualityAttachment:{}", qualityAttachment);
+	public List<QualityAttachment> selectQualityAttachmentList(QualityAttachmentPageRequest param) {
+		logger.info("(QualityAttachmentService-selectQualityAttachmentList)-不分页查询-传入参数, param:{}", param);
 		QualityAttachmentExample example = new QualityAttachmentExample();
 		QualityAttachmentExample.Criteria criteria = example.createCriteria();
-		if(qualityAttachment != null) {
+		if(param != null) {
 		}
 		List<QualityAttachment> list = qualityAttachmentMapper.selectByExample(example);
 		return list;
@@ -88,9 +87,6 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
     	qualityAttachment.setCreateTime(new Date());
     	qualityAttachment.setUpdateTime(new Date());
     	int i = qualityAttachmentMapper.insertSelective(qualityAttachment);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -104,9 +100,6 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
 	public Integer deleteQualityAttachmentById(Integer id) {
   		logger.info("(QualityAttachmentService-deleteQualityAttachmentById)-根据id删除资质附件-传入参数, id:{}", id);
   		int i = qualityAttachmentMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -121,9 +114,6 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
     	logger.info("(QualityAttachmentService-modifyQualityAttachment)-修改资质附件-传入参数, qualityAttachment:{}", qualityAttachment);
     	qualityAttachment.setUpdateTime(new Date());
     	int i = qualityAttachmentMapper.updateByPrimaryKeySelective(qualityAttachment);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
