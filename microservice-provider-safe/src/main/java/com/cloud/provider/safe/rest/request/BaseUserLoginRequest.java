@@ -30,10 +30,6 @@ public class BaseUserLoginRequest implements Serializable {
 
     private String updated;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     /**
 	 * 实体转换
 	 * @return BaseUserLogin

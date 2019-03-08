@@ -36,10 +36,6 @@ public class UserAdminLoginLogRequest implements Serializable {
 
     private String loginIp;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     /**
 	 * 实体转换
 	 * @return UserAdminLoginLog

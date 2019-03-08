@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.rest.request;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 
@@ -33,10 +32,6 @@ public class TitleRequest implements Serializable {
     private String created;
 
     private String updated;
-
-    private Date createTime;
-
-    private Date updateTime;
 
     /**
 	 * 实体转换

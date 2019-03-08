@@ -22,24 +22,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ochain.common.constants.gofun.GoFunConstants;
-import com.ochain.common.constants.wheel.BootWheelConstants;
-import com.ochain.common.constants.wheel.RetWheelConstants;
-import com.ochain.common.constants.wheel.SqlWheelConstants;
-import com.ochain.common.constants.wheel.WheelConstants;
-import com.ochain.common.dateformat.DateFormatConstants;
-import com.ochain.common.redis.keys.RedisKeysUtil;
+import com.cloud.common.constants.gofun.GoFunConstants;
+import com.cloud.common.constants.wheel.BootWheelConstants;
+import com.cloud.common.constants.wheel.RetWheelConstants;
+import com.cloud.common.constants.wheel.SqlWheelConstants;
+import com.cloud.common.constants.wheel.WheelConstants;
+import com.cloud.common.dateformat.DateFormatConstants;
+import com.cloud.common.redis.keys.RedisKeysUtil;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.rest.request.user.UserRequest;
-import com.cloud.consumer.safe.service.IUserService;
-import com.cloud.consumer.safe.service.IUserSignService;
-import com.cloud.consumer.safe.service.third.IGoFunService;
+import com.cloud.consumer.safe.service.IUserInfoService;
 import com.cloud.consumer.safe.vo.gofun.ValidateUserVo;
 import com.cloud.consumer.safe.vo.user.NewUserLoginVo;
 import com.cloud.consumer.safe.vo.user.UserLoginLogVo;
 import com.cloud.consumer.safe.vo.user.UserLoginVo;
 import com.cloud.consumer.safe.vo.user.UserSignVo;
 import com.cloud.consumer.safe.vo.user.UserVo;
+
+import io.swagger.annotations.Api;
 
 /**
  * 用户信息管理 UserController
@@ -48,23 +48,16 @@ import com.cloud.consumer.safe.vo.user.UserVo;
  * @Description:
  * @date 2016年10月12日 下午 14:30:56
  */
+@Api(tags = "用户")
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	//goFun Service
-	@Autowired
-	private IGoFunService goFunService;
-
 	//用户 Service
 	@Autowired
-	private IUserService userService;
-
-	//用户签到 Service
-	@Autowired
-	private IUserSignService userSignService;
+	private IUserInfoService userInfoService;
 
 	/**
 	 * 4.1.2.1	用户登录接口
