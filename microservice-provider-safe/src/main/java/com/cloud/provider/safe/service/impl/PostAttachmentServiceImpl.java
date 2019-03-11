@@ -37,6 +37,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 	 * @param param
 	 * @return List<PostAttachment>
 	 */
+	@Override
 	public List<PostAttachment> selectPostAttachmentListByPage(Page<?> page, PostAttachmentPageRequest param) {
 		logger.info("(PostAttachmentService-selectPostAttachmentListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 	 * @param param
 	 * @return List<PostAttachment>
 	 */
+	@Override
 	public List<PostAttachment> selectPostAttachmentList(PostAttachmentPageRequest param) {
 		logger.info("(PostAttachmentService-selectPostAttachmentList)-不分页查询-传入参数, param:{}", param);
 		PostAttachmentExample example = new PostAttachmentExample();
@@ -87,9 +89,6 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
     	postAttachment.setCreateTime(new Date());
     	postAttachment.setUpdateTime(new Date());
     	int i = postAttachmentMapper.insertSelective(postAttachment);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 	public Integer deletePostAttachmentById(Integer id) {
   		logger.info("(PostAttachmentService-deletePostAttachmentById)-根据id删除岗位附件-传入参数, id:{}", id);
   		int i = postAttachmentMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
     	logger.info("(PostAttachmentService-modifyPostAttachment)-修改岗位附件-传入参数, postAttachment:{}", postAttachment);
     	postAttachment.setUpdateTime(new Date());
     	int i = postAttachmentMapper.updateByPrimaryKeySelective(postAttachment);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

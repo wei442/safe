@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.service.impl;
+package com.cloud.consumer.safe.service.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +12,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ochain.common.constants.BootConstants;
-import com.ochain.common.constants.RedisConstants;
-import com.ochain.common.constants.RetHttpUrlConstants;
-import com.ochain.consumer.wheel.service.IRedisLockService;
+import com.cloud.common.constants.BootConstants;
+import com.cloud.common.constants.HttpUrlConstants;
+import com.cloud.common.constants.RedisConstants;
+import com.cloud.consumer.safe.service.IRedisLockService;
 
 /**
  * redis lock Service (microservice-provider-redis)
@@ -37,8 +37,8 @@ public class RedisLockServiceImpl extends BaseService implements IRedisLockServi
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("key", key);
 		HttpHeaders headers = this.getProviderRedisHeaders();
-		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(RetHttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/boot/redis/distributedLock/lock", httpEntity, JSONObject.class);
+		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
+		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/boot/redis/distributedLock/lock", httpEntity, JSONObject.class);
 		logger.info("(RedisLockService-lock)-锁定-boot返回信息, response:{}", JSONObject.toJSONString(response));
 		String bootCode = Objects.toString(response.get(BootConstants.BOOT_CODE), "");
 		boolean result = false;
@@ -59,8 +59,8 @@ public class RedisLockServiceImpl extends BaseService implements IRedisLockServi
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("key", key);
 		HttpHeaders headers = this.getProviderRedisHeaders();
-		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(RetHttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/boot/redis/distributedLock/unlock", httpEntity, JSONObject.class);
+		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
+		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/boot/redis/distributedLock/unlock", httpEntity, JSONObject.class);
 		logger.info("(RedisLockService-unlock)-解锁-boot返回信息, response:{}", JSONObject.toJSONString(response));
 		String bootCode = Objects.toString(response.get(BootConstants.BOOT_CODE), "");
 		boolean result = false;

@@ -112,9 +112,6 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 	public Integer deleteEnterpriseById(Integer id) {
   		logger.info("(EnterpriseService-deleteEnterpriseById)-根据id删除企业-传入参数, id:{}", id);
   		int i = enterpriseMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}

@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.core.aspectj;
+package com.cloud.consumer.safe.core.aspectj;
 
 import java.lang.reflect.Method;
 
@@ -11,8 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.ochain.common.exception.BootServiceException;
-
 @Component
 @Aspect
 public class ControllerParamAspectj {
@@ -23,7 +21,7 @@ public class ControllerParamAspectj {
 //	@Autowired
 //	private ObjectMapper objectMapper;
 
-	@Around("execution(* com.ochain.consumer.wheel.controllers.*.*(..))")
+	@Around("execution(* com.cloud.consumer.safe.controller.*.*(..))")
 	public Object myAroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
 
 		long begintime = System.currentTimeMillis();
@@ -39,13 +37,7 @@ public class ControllerParamAspectj {
 		String methodName = method.getName();
 
 		long endValtime = System.currentTimeMillis();
-		Object result = null;
-		try {
-			result = pjp.proceed(objs);
-		} catch(BootServiceException e) {
-			logger.error("Exception ErrorCode :" + e.getErrorCode());
-			logger.error("Exception Message :" + e.getMessage());
-		}
+		Object result = pjp.proceed(objs);
 
 //		objectMapper.setDateFormat(new SimpleDateFormat(JSON.DEFFAULT_DATE_FORMAT));
 		long endtime = System.currentTimeMillis();

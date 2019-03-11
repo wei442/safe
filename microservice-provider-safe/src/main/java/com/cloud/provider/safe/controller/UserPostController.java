@@ -60,13 +60,9 @@ public class UserPostController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		UserPost userPost = new UserPost();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserPost> list = userPostService.selectUserPostListByPage(page, userPost);
+		List<UserPost> list = userPostService.selectUserPostListByPage(page, req);
 		logger.info("===step2:【分页查询用户岗位列表】(UserPostController-selectUserPostListByPage)-分页查询用户岗位列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserPostVo> userPostVoList = new UserPostVo().convertToUserPostVoList(list);
 
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class UserPostController extends BaseController {
 	public BaseRestMapResponse selectUserPostList(
 		@RequestBody UserPostPageRequest req) {
 		logger.info("===step1:【不分页查询用户岗位列表】(UserPostController-selectUserPostList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		UserPost userPost = new UserPost();
-		List<UserPost> list = null;
-		list = userPostService.selectUserPostList(userPost);
+		List<UserPost> list = userPostService.selectUserPostList(req);
 		logger.info("===step2:【不分页查询用户岗位列表】(UserPostController-selectUserPostList)-不分页查询用户岗位列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserPostVo> userPostVoList = new UserPostVo().convertToUserPostVoList(list);
 
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();

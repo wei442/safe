@@ -89,9 +89,6 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
     	userAdminLogin.setCreateTime(new Date());
     	userAdminLogin.setUpdateTime(new Date());
     	int i = userAdminLoginMapper.insertSelective(userAdminLogin);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -105,9 +102,6 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
 	public Integer deleteUserAdminLoginById(Integer id) {
   		logger.info("(UserAdminLoginService-deleteUserAdminLoginById)-根据id删除用户管理登录-传入参数, id:{}", id);
   		int i = userAdminLoginMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -122,9 +116,6 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
     	logger.info("(UserAdminLoginService-modifyUserAdminLogin)-修改用户管理登录-传入参数, userAdminLogin:{}", userAdminLogin);
     	userAdminLogin.setUpdateTime(new Date());
     	int i = userAdminLoginMapper.updateByPrimaryKeySelective(userAdminLogin);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

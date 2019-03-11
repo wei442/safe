@@ -35,7 +35,7 @@ public class Org {
 
     private String orgAddr;
 
-    private String orgWebside;
+    private String orgWebsite;
 
     private Integer isDelete;
 
@@ -179,12 +179,12 @@ public class Org {
         this.orgAddr = orgAddr == null ? null : orgAddr.trim();
     }
 
-    public String getOrgWebside() {
-        return orgWebside;
+    public String getOrgWebsite() {
+        return orgWebsite;
     }
 
-    public void setOrgWebside(String orgWebside) {
-        this.orgWebside = orgWebside == null ? null : orgWebside.trim();
+    public void setOrgWebsite(String orgWebsite) {
+        this.orgWebsite = orgWebsite == null ? null : orgWebsite.trim();
     }
 
     public Integer getIsDelete() {

@@ -19,7 +19,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<maven.test.skip>true</maven.test.skip>
-		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
 		<project.version>0.0.1-SNAPSHOT</project.version>
 	</properties>
 
@@ -141,6 +141,8 @@
 		<module>microservice-consumer-safe</module>
 		<module>microservice-consumer-safe-admin</module>
 		<module>microservice-provider-safe</module>
+		<module>microservice-provider-safe-log</module>
+		<module>microservice-provider-safe-attachment</module>
 		<module>safe-common</module>
 	</modules>
 </project>

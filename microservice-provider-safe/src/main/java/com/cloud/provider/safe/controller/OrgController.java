@@ -60,13 +60,9 @@ public class OrgController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		Org org = new Org();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<Org> list = orgService.selectOrgListByPage(page, org);
+		List<Org> list = orgService.selectOrgListByPage(page, req);
 		logger.info("===step2:【分页查询组织机构列表】(OrgController-selectOrgListByPage)-分页查询组织机构列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class OrgController extends BaseController {
 	public BaseRestMapResponse selectOrgList(
 		@RequestBody OrgPageRequest req) {
 		logger.info("===step1:【不分页查询组织机构列表】(OrgController-selectOrgList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Org org = new Org();
-		List<Org> list = null;
-		list = orgService.selectOrgList(org);
+		List<Org> list = orgService.selectOrgList(req);
 		logger.info("===step2:【不分页查询组织机构列表】(OrgController-selectOrgList)-不分页查询组织机构列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();

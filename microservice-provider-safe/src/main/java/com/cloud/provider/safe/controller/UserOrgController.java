@@ -60,13 +60,9 @@ public class UserOrgController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		UserOrg userOrg = new UserOrg();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserOrg> list = userOrgService.selectUserOrgListByPage(page, userOrg);
+		List<UserOrg> list = userOrgService.selectUserOrgListByPage(page, req);
 		logger.info("===step2:【分页查询用户机构列表】(UserOrgController-selectUserOrgListByPage)-分页查询用户机构列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserOrgVo> userOrgVoList = new UserOrgVo().convertToUserOrgVoList(list);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class UserOrgController extends BaseController {
 	public BaseRestMapResponse selectUserOrgList(
 		@RequestBody UserOrgPageRequest req) {
 		logger.info("===step1:【不分页查询用户机构列表】(UserOrgController-selectUserOrgList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		UserOrg userOrg = new UserOrg();
-		List<UserOrg> list = null;
-		list = userOrgService.selectUserOrgList(userOrg);
+		List<UserOrg> list = userOrgService.selectUserOrgList(req);
 		logger.info("===step2:【不分页查询用户机构列表】(UserOrgController-selectUserOrgList)-不分页查询用户机构列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserOrgVo> userOrgVoList = new UserOrgVo().convertToUserOrgVoList(list);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();

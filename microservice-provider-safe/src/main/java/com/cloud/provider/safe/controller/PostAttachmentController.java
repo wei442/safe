@@ -60,13 +60,9 @@ public class PostAttachmentController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		PostAttachment postAttachment = new PostAttachment();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<PostAttachment> list = postAttachmentService.selectPostAttachmentListByPage(page, postAttachment);
+		List<PostAttachment> list = postAttachmentService.selectPostAttachmentListByPage(page, req);
 		logger.info("===step2:【分页查询岗位附件列表】(PostAttachmentController-selectPostAttachmentListByPage)-分页查询岗位附件列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<PostAttachmentVo> postAttachmentVoList = new PostAttachmentVo().convertToPostAttachmentVoList(list);
 
 		BaseRestMapResponse postAttachmentResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class PostAttachmentController extends BaseController {
 	public BaseRestMapResponse selectPostAttachmentList(
 		@RequestBody PostAttachmentPageRequest req) {
 		logger.info("===step1:【不分页查询岗位附件列表】(PostAttachmentController-selectPostAttachmentList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		PostAttachment postAttachment = new PostAttachment();
-		List<PostAttachment> list = null;
-		list = postAttachmentService.selectPostAttachmentList(postAttachment);
+		List<PostAttachment> list = postAttachmentService.selectPostAttachmentList(req);
 		logger.info("===step2:【不分页查询岗位附件列表】(PostAttachmentController-selectPostAttachmentList)-不分页查询岗位附件列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<PostAttachmentVo> postAttachmentVoList = new PostAttachmentVo().convertToPostAttachmentVoList(list);
 
 		BaseRestMapResponse postAttachmentResponse = new BaseRestMapResponse();

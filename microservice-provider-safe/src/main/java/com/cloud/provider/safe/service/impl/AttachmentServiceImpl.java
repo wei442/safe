@@ -37,6 +37,7 @@ public class AttachmentServiceImpl implements IAttachmentService {
 	 * @param param
 	 * @return List<Attachment>
 	 */
+	@Override
 	public List<Attachment> selectAttachmentListByPage(Page<?> page, AttachmentPageRequest param) {
 		logger.info("(AttachmentService-selectAttachmentListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class AttachmentServiceImpl implements IAttachmentService {
 	 * @param param
 	 * @return List<Attachment>
 	 */
+	@Override
 	public List<Attachment> selectAttachmentList(AttachmentPageRequest param) {
 		logger.info("(AttachmentService-selectAttachmentList)-不分页查询-传入参数, param:{}", param);
 		AttachmentExample example = new AttachmentExample();
@@ -87,9 +89,6 @@ public class AttachmentServiceImpl implements IAttachmentService {
     	attachment.setCreateTime(new Date());
     	attachment.setUpdateTime(new Date());
     	int i = attachmentMapper.insertSelective(attachment);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class AttachmentServiceImpl implements IAttachmentService {
 	public Integer deleteAttachmentById(Integer id) {
   		logger.info("(AttachmentService-deleteAttachmentById)-根据id删除附件-传入参数, id:{}", id);
   		int i = attachmentMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class AttachmentServiceImpl implements IAttachmentService {
     	logger.info("(AttachmentService-modifyAttachment)-修改附件-传入参数, attachment:{}", attachment);
     	attachment.setUpdateTime(new Date());
 		int i = attachmentMapper.updateByPrimaryKeySelective(attachment);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

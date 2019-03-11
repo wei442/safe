@@ -60,13 +60,9 @@ public class DictController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		Dict dict = new Dict();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<Dict> list = dictService.selectDictListByPage(page, dict);
+		List<Dict> list = dictService.selectDictListByPage(page, req);
 		logger.info("===step2:【分页查询字典列表】(DictController-selectDictListByPage)-分页查询字典列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<DictVo> dictVoList = new DictVo().convertToDictVoList(list);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class DictController extends BaseController {
 	public BaseRestMapResponse selectDictList(
 		@RequestBody DictPageRequest req) {
 		logger.info("===step1:【不分页查询字典列表】(DictController-selectDictList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Dict dict = new Dict();
-		List<Dict> list = null;
-		list = dictService.selectDictList(dict);
+		List<Dict> list = dictService.selectDictList(req);
 		logger.info("===step2:【不分页查询字典列表】(DictController-selectDictList)-不分页查询字典列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<DictVo> dictVoList = new DictVo().convertToDictVoList(list);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();

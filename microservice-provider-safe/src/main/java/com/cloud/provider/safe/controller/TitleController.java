@@ -60,13 +60,9 @@ public class TitleController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		Title Title = new Title();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<Title> list = TitleService.selectTitleListByPage(page, Title);
+		List<Title> list = TitleService.selectTitleListByPage(page, req);
 		logger.info("===step2:【分页查询职务列表】(TitleController-selectTitleListByPage)-分页查询职务列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<TitleVo> titleVoList = new TitleVo().convertToTitleVoList(list);
 
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class TitleController extends BaseController {
 	public BaseRestMapResponse selectTitleList(
 		@RequestBody TitlePageRequest req) {
 		logger.info("===step1:【不分页查询职务列表】(TitleController-selectTitleList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Title Title = new Title();
-		List<Title> list = null;
-		list = TitleService.selectTitleList(Title);
+		List<Title> list = TitleService.selectTitleList(req);
 		logger.info("===step2:【不分页查询职务列表】(TitleController-selectTitleList)-不分页查询职务列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<TitleVo> titleVoList = new TitleVo().convertToTitleVoList(list);
 
 		BaseRestMapResponse TitleResponse = new BaseRestMapResponse();

@@ -60,13 +60,9 @@ public class AttachmentController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		Attachment attachment = new Attachment();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<Attachment> list = attachmentService.selectAttachmentListByPage(page, attachment);
+		List<Attachment> list = attachmentService.selectAttachmentListByPage(page, req);
 		logger.info("===step2:【分页查询附件列表】(AttachmentController-selectAttachmentListByPage)-分页查询附件列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<AttachmentVo> attachmentVoList = new AttachmentVo().convertToAttachmentVoList(list);
 
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class AttachmentController extends BaseController {
 	public BaseRestMapResponse selectAttachmentList(
 		@RequestBody AttachmentPageRequest req) {
 		logger.info("===step1:【不分页查询附件列表】(AttachmentController-selectAttachmentList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Attachment attachment = new Attachment();
-		List<Attachment> list = null;
-		list = attachmentService.selectAttachmentList(attachment);
+		List<Attachment> list = attachmentService.selectAttachmentList(req);
 		logger.info("===step2:【不分页查询附件列表】(AttachmentController-selectAttachmentList)-不分页查询附件列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<AttachmentVo> attachmentVoList = new AttachmentVo().convertToAttachmentVoList(list);
 
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();

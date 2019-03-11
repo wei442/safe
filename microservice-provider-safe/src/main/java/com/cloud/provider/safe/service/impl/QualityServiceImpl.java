@@ -37,6 +37,7 @@ public class QualityServiceImpl implements IQualityService {
 	 * @param param
 	 * @return List<Quality>
 	 */
+	@Override
 	public List<Quality> selectQualityListByPage(Page<?> page, QualityPageRequest param) {
 		logger.info("(QualityService-selectQualityListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class QualityServiceImpl implements IQualityService {
 	 * @param param
 	 * @return List<Quality>
 	 */
+	@Override
 	public List<Quality> selectQualityList(QualityPageRequest param) {
 		logger.info("(QualityService-selectQualityList)-不分页查询-传入参数, param:{}", param);
 		QualityExample example = new QualityExample();
@@ -87,9 +89,6 @@ public class QualityServiceImpl implements IQualityService {
     	quality.setCreateTime(new Date());
     	quality.setUpdateTime(new Date());
     	int i = qualityMapper.insertSelective(quality);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class QualityServiceImpl implements IQualityService {
 	public Integer deleteQualityById(Integer id) {
   		logger.info("(QualityService-deleteQualityById)-根据id删除资质-传入参数, id:{}", id);
   		int i = qualityMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class QualityServiceImpl implements IQualityService {
     	logger.info("(QualityService-modifyQuality)-修改资质-传入参数, quality:{}", quality);
     	quality.setUpdateTime(new Date());
     	int i = qualityMapper.updateByPrimaryKeySelective(quality);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

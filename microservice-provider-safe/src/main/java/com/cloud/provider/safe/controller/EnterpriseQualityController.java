@@ -62,11 +62,8 @@ public class EnterpriseQualityController extends BaseController {
 
 		EnterpriseQuality enterpriseQuality = new EnterpriseQuality();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<EnterpriseQuality> list = enterpriseQualityService.selectEnterpriseQualityListByPage(page, enterpriseQuality);
+		List<EnterpriseQuality> list = enterpriseQualityService.selectEnterpriseQualityListByPage(page, req);
 		logger.info("===step2:【分页查询企业资质列表】(EnterpriseQualityController-selectEnterpriseQualityListByPage)-分页查询企业资质列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<EnterpriseQualityVo> enterpriseQualityVoList = new EnterpriseQualityVo().convertToEnterpriseQualityVoList(list);
 
 		BaseRestMapResponse enterpriseQualityResponse = new BaseRestMapResponse();
@@ -86,13 +83,8 @@ public class EnterpriseQualityController extends BaseController {
 	public BaseRestMapResponse selectEnterpriseQualityList(
 		@RequestBody EnterpriseQualityPageRequest req) {
 		logger.info("===step1:【不分页查询企业资质列表】(EnterpriseQualityController-selectEnterpriseQualityList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		EnterpriseQuality enterpriseQuality = new EnterpriseQuality();
-		List<EnterpriseQuality> list = null;
-		list = enterpriseQualityService.selectEnterpriseQualityList(enterpriseQuality);
+		List<EnterpriseQuality> list = enterpriseQualityService.selectEnterpriseQualityList(req);
 		logger.info("===step2:【不分页查询企业资质列表】(EnterpriseQualityController-selectEnterpriseQualityList)-不分页查询企业资质列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<EnterpriseQualityVo> enterpriseQualityVoList = new EnterpriseQualityVo().convertToEnterpriseQualityVoList(list);
 
 		BaseRestMapResponse enterpriseQualityResponse = new BaseRestMapResponse();

@@ -1165,73 +1165,73 @@ public class OrgExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideIsNull() {
-            addCriterion("org_webside is null");
+        public Criteria andOrgWebsiteIsNull() {
+            addCriterion("org_website is null");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideIsNotNull() {
-            addCriterion("org_webside is not null");
+        public Criteria andOrgWebsiteIsNotNull() {
+            addCriterion("org_website is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideEqualTo(String value) {
-            addCriterion("org_webside =", value, "orgWebside");
+        public Criteria andOrgWebsiteEqualTo(String value) {
+            addCriterion("org_website =", value, "orgWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideNotEqualTo(String value) {
-            addCriterion("org_webside <>", value, "orgWebside");
+        public Criteria andOrgWebsiteNotEqualTo(String value) {
+            addCriterion("org_website <>", value, "orgWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideGreaterThan(String value) {
-            addCriterion("org_webside >", value, "orgWebside");
+        public Criteria andOrgWebsiteGreaterThan(String value) {
+            addCriterion("org_website >", value, "orgWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideGreaterThanOrEqualTo(String value) {
-            addCriterion("org_webside >=", value, "orgWebside");
+        public Criteria andOrgWebsiteGreaterThanOrEqualTo(String value) {
+            addCriterion("org_website >=", value, "orgWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideLessThan(String value) {
-            addCriterion("org_webside <", value, "orgWebside");
+        public Criteria andOrgWebsiteLessThan(String value) {
+            addCriterion("org_website <", value, "orgWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideLessThanOrEqualTo(String value) {
-            addCriterion("org_webside <=", value, "orgWebside");
+        public Criteria andOrgWebsiteLessThanOrEqualTo(String value) {
+            addCriterion("org_website <=", value, "orgWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideLike(String value) {
-            addCriterion("org_webside like", value, "orgWebside");
+        public Criteria andOrgWebsiteLike(String value) {
+            addCriterion("org_website like", value, "orgWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideNotLike(String value) {
-            addCriterion("org_webside not like", value, "orgWebside");
+        public Criteria andOrgWebsiteNotLike(String value) {
+            addCriterion("org_website not like", value, "orgWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideIn(List<String> values) {
-            addCriterion("org_webside in", values, "orgWebside");
+        public Criteria andOrgWebsiteIn(List<String> values) {
+            addCriterion("org_website in", values, "orgWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideNotIn(List<String> values) {
-            addCriterion("org_webside not in", values, "orgWebside");
+        public Criteria andOrgWebsiteNotIn(List<String> values) {
+            addCriterion("org_website not in", values, "orgWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideBetween(String value1, String value2) {
-            addCriterion("org_webside between", value1, value2, "orgWebside");
+        public Criteria andOrgWebsiteBetween(String value1, String value2) {
+            addCriterion("org_website between", value1, value2, "orgWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andOrgWebsideNotBetween(String value1, String value2) {
-            addCriterion("org_webside not between", value1, value2, "orgWebside");
+        public Criteria andOrgWebsiteNotBetween(String value1, String value2) {
+            addCriterion("org_website not between", value1, value2, "orgWebsite");
             return (Criteria) this;
         }
 

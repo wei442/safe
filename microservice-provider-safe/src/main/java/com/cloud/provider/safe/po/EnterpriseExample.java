@@ -895,73 +895,73 @@ public class EnterpriseExample {
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideIsNull() {
-            addCriterion("enterprise_webside is null");
+        public Criteria andEnterpriseWebsiteIsNull() {
+            addCriterion("enterprise_website is null");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideIsNotNull() {
-            addCriterion("enterprise_webside is not null");
+        public Criteria andEnterpriseWebsiteIsNotNull() {
+            addCriterion("enterprise_website is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideEqualTo(String value) {
-            addCriterion("enterprise_webside =", value, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteEqualTo(String value) {
+            addCriterion("enterprise_website =", value, "enterpriseWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideNotEqualTo(String value) {
-            addCriterion("enterprise_webside <>", value, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteNotEqualTo(String value) {
+            addCriterion("enterprise_website <>", value, "enterpriseWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideGreaterThan(String value) {
-            addCriterion("enterprise_webside >", value, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteGreaterThan(String value) {
+            addCriterion("enterprise_website >", value, "enterpriseWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideGreaterThanOrEqualTo(String value) {
-            addCriterion("enterprise_webside >=", value, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteGreaterThanOrEqualTo(String value) {
+            addCriterion("enterprise_website >=", value, "enterpriseWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideLessThan(String value) {
-            addCriterion("enterprise_webside <", value, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteLessThan(String value) {
+            addCriterion("enterprise_website <", value, "enterpriseWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideLessThanOrEqualTo(String value) {
-            addCriterion("enterprise_webside <=", value, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteLessThanOrEqualTo(String value) {
+            addCriterion("enterprise_website <=", value, "enterpriseWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideLike(String value) {
-            addCriterion("enterprise_webside like", value, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteLike(String value) {
+            addCriterion("enterprise_website like", value, "enterpriseWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideNotLike(String value) {
-            addCriterion("enterprise_webside not like", value, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteNotLike(String value) {
+            addCriterion("enterprise_website not like", value, "enterpriseWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideIn(List<String> values) {
-            addCriterion("enterprise_webside in", values, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteIn(List<String> values) {
+            addCriterion("enterprise_website in", values, "enterpriseWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideNotIn(List<String> values) {
-            addCriterion("enterprise_webside not in", values, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteNotIn(List<String> values) {
+            addCriterion("enterprise_website not in", values, "enterpriseWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideBetween(String value1, String value2) {
-            addCriterion("enterprise_webside between", value1, value2, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteBetween(String value1, String value2) {
+            addCriterion("enterprise_website between", value1, value2, "enterpriseWebsite");
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseWebsideNotBetween(String value1, String value2) {
-            addCriterion("enterprise_webside not between", value1, value2, "enterpriseWebside");
+        public Criteria andEnterpriseWebsiteNotBetween(String value1, String value2) {
+            addCriterion("enterprise_website not between", value1, value2, "enterpriseWebsite");
             return (Criteria) this;
         }
 

@@ -38,6 +38,7 @@ public class DictItemServiceImpl implements IDictItemService {
 	 * @param param
 	 * @return List<DictItem>
 	 */
+	@Override
 	public List<DictItem> selectDictItemListByPage(Page<?> page, DictItemPageRequest param) {
 		logger.info("(DictItemService-selectDictItemListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -55,6 +56,7 @@ public class DictItemServiceImpl implements IDictItemService {
 	 * @param param
 	 * @return List<DictItem>
 	 */
+	@Override
 	public List<DictItem> selectDictItemList(DictItemPageRequest param) {
 		logger.info("(DictItemService-selectDictItemList)-不分页查询-传入参数, dictItem:{}", param);
 		DictItemExample example = new DictItemExample();
@@ -94,9 +96,6 @@ public class DictItemServiceImpl implements IDictItemService {
     	dictItem.setCreateTime(new Date());
     	dictItem.setUpdateTime(new Date());
     	int i = dictItemMapper.insertSelective(dictItem);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -110,9 +109,6 @@ public class DictItemServiceImpl implements IDictItemService {
 	public Integer deleteDictItemById(Integer id) {
   		logger.info("(DictItemService-deleteDictItemById)-根据id删除字典子项-传入参数, id:{}", id);
   		int i = dictItemMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -127,9 +123,6 @@ public class DictItemServiceImpl implements IDictItemService {
     	logger.info("(DictItemService-modifyDictItem)-修改字典子项-传入参数, dictItem:{}", dictItem);
     	dictItem.setUpdateTime(new Date());
     	int i = dictItemMapper.updateByPrimaryKeySelective(dictItem);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

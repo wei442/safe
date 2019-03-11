@@ -62,11 +62,8 @@ public class UserAdminController extends BaseController {
 
 		UserAdmin userAdmin = new UserAdmin();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserAdmin> list = userAdminService.selectUserAdminListByPage(page, userAdmin);
+		List<UserAdmin> list = userAdminService.selectUserAdminListByPage(page, req);
 		logger.info("===step2:【分页查询用户管理列表】(UserAdminController-selectUserAdminListByPage)-分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserAdminVo> userAdminVoList = new UserAdminVo().convertToUserAdminVoList(list);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
@@ -86,13 +83,8 @@ public class UserAdminController extends BaseController {
 	public BaseRestMapResponse selectUserAdminList(
 		@RequestBody UserAdminPageRequest req) {
 		logger.info("===step1:【不分页查询用户管理列表】(UserAdminController-selectUserAdminList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		UserAdmin userAdmin = new UserAdmin();
-		List<UserAdmin> list = null;
-		list = userAdminService.selectUserAdminList(userAdmin);
+		List<UserAdmin> list = userAdminService.selectUserAdminList(req);
 		logger.info("===step2:【不分页查询用户管理列表】(UserAdminController-selectUserAdminList)-不分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserAdminVo> userAdminVoList = new UserAdminVo().convertToUserAdminVoList(list);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();

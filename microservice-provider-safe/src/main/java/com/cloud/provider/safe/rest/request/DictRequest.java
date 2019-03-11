@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import com.cloud.provider.safe.po.Dict;
 import com.google.common.base.Converter;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -27,8 +28,10 @@ public class DictRequest implements Serializable {
 
     private Integer dictStatus;
 
+	@ApiModelProperty(value = "备注")
     private String remark;
 
+	@ApiModelProperty(value = "排序")
     private Integer sort;
 
     /**

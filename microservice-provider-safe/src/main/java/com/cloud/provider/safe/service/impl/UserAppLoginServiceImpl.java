@@ -37,6 +37,7 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
 	 * @param param
 	 * @return List<UserAppLogin>
 	 */
+	@Override
 	public List<UserAppLogin> selectUserAppLoginListByPage(Page<?> page, UserAppLoginPageRequest param) {
 		logger.info("(UserAppLoginService-selectUserAppLoginListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
 	 * @param param
 	 * @return List<UserAppLogin>
 	 */
+	@Override
 	public List<UserAppLogin> selectUserAppLoginList(UserAppLoginPageRequest param) {
 		logger.info("(UserAppLoginService-selectUserAppLoginList)-不分页查询-传入参数, param:{}", param);
 		UserAppLoginExample example = new UserAppLoginExample();
@@ -87,9 +89,6 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
     	userAppLogin.setCreateTime(new Date());
     	userAppLogin.setUpdateTime(new Date());
     	int i = userAppLoginMapper.insertSelective(userAppLogin);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
 	public Integer deleteUserAppLoginById(Integer id) {
   		logger.info("(UserAppLoginService-deleteUserAppLoginById)-根据id删除用户应用登录-传入参数, id:{}", id);
   		int i = userAppLoginMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
     	logger.info("(UserAppLoginService-modifyUserAppLogin)-修改用户应用登录-传入参数, userAppLogin:{}", userAppLogin);
     	userAppLogin.setUpdateTime(new Date());
     	int i = userAppLoginMapper.updateByPrimaryKeySelective(userAppLogin);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

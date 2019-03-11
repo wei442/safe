@@ -2,7 +2,7 @@ package com.cloud.consumer.safe.base;
 
 import java.io.Serializable;
 
-import com.ochain.common.constants.RetConstants;
+import com.cloud.common.constants.CommConstants;
 
 /**
  * 基础返回
@@ -23,13 +23,13 @@ public class BaseRestResponse implements Serializable {
 	protected String retMsg;
 
 	public BaseRestResponse() {
-		this.retCode = RetConstants.OK;
-		this.retMsg = RetConstants.OK_MSG;
+		this.retCode = CommConstants.OK;
+		this.retMsg = CommConstants.OK_MSG;
 	}
 
-	public BaseRestResponse(String code,String info) {
+	public BaseRestResponse(String code,String msg) {
 		this.retCode = code;
-		this.retMsg = info;
+		this.retMsg = msg;
 	}
 
 	public String getRetCode() {

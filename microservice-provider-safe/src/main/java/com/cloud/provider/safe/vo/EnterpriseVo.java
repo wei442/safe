@@ -45,7 +45,7 @@ public class EnterpriseVo implements Serializable {
 
     private String enterpriseAddr;
 
-    private String enterpriseWebside;
+    private String enterpriseWebsite;
 
     private Integer isDelete;
 

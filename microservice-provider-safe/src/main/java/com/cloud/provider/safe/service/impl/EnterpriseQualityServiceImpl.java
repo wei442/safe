@@ -37,6 +37,7 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 	 * @param param
 	 * @return List<EnterpriseQuality>
 	 */
+	@Override
 	public List<EnterpriseQuality> selectEnterpriseQualityListByPage(Page<?> page, EnterpriseQualityPageRequest param) {
 		logger.info("(EnterpriseQualityService-selectEnterpriseQualityListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 	 * @param param
 	 * @return List<EnterpriseQuality>
 	 */
+	@Override
 	public List<EnterpriseQuality> selectEnterpriseQualityList(EnterpriseQualityPageRequest param) {
 		logger.info("(EnterpriseQualityService-selectEnterpriseQualityList)-不分页查询-传入参数, param:{}", param);
 		EnterpriseQualityExample example = new EnterpriseQualityExample();
@@ -87,9 +89,6 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
     	enterpriseQuality.setCreateTime(new Date());
     	enterpriseQuality.setUpdateTime(new Date());
     	int i = enterpriseQualityMapper.insertSelective(enterpriseQuality);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 	public Integer deleteEnterpriseQualityById(Integer id) {
   		logger.info("(EnterpriseQualityService-deleteEnterpriseQualityById)-根据id删除企业资质-传入参数, id:{}", id);
   		int i = enterpriseQualityMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
     	logger.info("(EnterpriseQualityService-modifyEnterpriseQuality)-修改企业资质-传入参数, enterpriseQuality:{}", enterpriseQuality);
     	enterpriseQuality.setUpdateTime(new Date());
 		int i = enterpriseQualityMapper.updateByPrimaryKeySelective(enterpriseQuality);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

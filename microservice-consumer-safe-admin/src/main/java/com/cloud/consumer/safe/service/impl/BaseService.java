@@ -1,23 +1,30 @@
 package com.cloud.consumer.safe.service.impl;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.CommConstants;
+import com.cloud.common.exception.SafeException;
 
 /**
  * 基础超类 Service，其他Service需要继承
  * @author wei.yong
  */
 @Service
-public class BaseService extends BaseUrlService {
+public class BaseService {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -77,5 +84,46 @@ public class BaseService extends BaseUrlService {
 		headers.setContentType(MediaType.parseMediaType(MediaType.APPLICATION_JSON_UTF8_VALUE));
 		return headers;
 	}
+
+	/**
+	 * 参数校验
+	 *
+	 * @Title verifyResponseParameters
+	 * @param postForObject
+	 *            void
+	 * @author yueli
+	 * @date Mar 4, 2019 4:35:13 PM
+	 */
+	protected <T> void verifyResponse(T t) {
+		if (null == t) {
+			logger.error("remote http response null --> {}", t);
+			throw new SafeException("0000001", "请求响应结果为空");
+		}
+		if (t instanceof JSONObject) {
+			JSONObject response = (JSONObject) t;
+			String retCode = Objects.toString(response.get(CommConstants.RET_CODE));
+			String retMsg = Objects.toString(response.get(CommConstants.RET_MSG));
+			if(!StringUtils.equals(CommConstants.OK, retCode)) {
+				throw new SafeException(retCode, retMsg);
+			}
+		}
+	}
+
+	/**
+	 * 封装post方法
+	 * @param url
+	 * @param request
+	 * @param responseType
+	 * @param uriVariables
+	 * @return T
+	 */
+	protected <T> T safePostForObject(String url, Object request, Class<T> responseType, Object... uriVariables) {
+		HttpHeaders headers = this.getProviderSafeHeaders();
+		HttpEntity<Object> httpEntity = new HttpEntity<>(request, headers);
+		T t = this.restTemplate.postForObject(url, httpEntity, responseType, uriVariables);
+		this.verifyResponse(t);
+		return t;
+	}
+
 
 }

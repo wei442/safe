@@ -21,7 +21,7 @@ public class ControllerParamAspectj {
 //	@Autowired
 //	private ObjectMapper objectMapper;
 
-	@Around("execution(* com.cloud.consumer.safe.controllers.*.*(..))")
+	@Around("execution(* com.cloud.consumer.safe.controller.*.*(..))")
 	public Object myAroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
 
 		long begintime = System.currentTimeMillis();

@@ -60,13 +60,9 @@ public class QualityAttachmentController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		QualityAttachment qualityAttachment = new QualityAttachment();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<QualityAttachment> list = qualityAttachmentService.selectQualityAttachmentListByPage(page, qualityAttachment);
+		List<QualityAttachment> list = qualityAttachmentService.selectQualityAttachmentListByPage(page, req);
 		logger.info("===step2:【分页查询资质附件列表】(QualityAttachmentController-selectQualityAttachmentListByPage)-分页查询资质附件列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<QualityAttachmentVo> qualityAttachmentVoList = new QualityAttachmentVo().convertToQualityAttachmentVoList(list);
 
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class QualityAttachmentController extends BaseController {
 	public BaseRestMapResponse selectQualityAttachmentList(
 		@RequestBody QualityAttachmentPageRequest req) {
 		logger.info("===step1:【不分页查询资质附件列表】(QualityAttachmentController-selectQualityAttachmentList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		QualityAttachment qualityAttachment = new QualityAttachment();
-		List<QualityAttachment> list = null;
-		list = qualityAttachmentService.selectQualityAttachmentList(qualityAttachment);
+		List<QualityAttachment> list = qualityAttachmentService.selectQualityAttachmentList(req);
 		logger.info("===step2:【不分页查询资质附件列表】(QualityAttachmentController-selectQualityAttachmentList)-不分页查询资质附件列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<QualityAttachmentVo> qualityAttachmentVoList = new QualityAttachmentVo().convertToQualityAttachmentVoList(list);
 
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();

@@ -18,7 +18,7 @@
     <result column="org_email" jdbcType="VARCHAR" property="orgEmail" />
     <result column="org_post_code" jdbcType="VARCHAR" property="orgPostCode" />
     <result column="org_addr" jdbcType="VARCHAR" property="orgAddr" />
-    <result column="org_webside" jdbcType="VARCHAR" property="orgWebside" />
+    <result column="org_website" jdbcType="VARCHAR" property="orgWebsite" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
@@ -88,7 +88,7 @@
   <sql id="Base_Column_List">
     id, enterprise_id, parent_org_id, parent_org_name, parent_org_name_en, org_name, 
     org_name_en, org_alias, org_telphone, org_type, org_status, org_level, org_fax, org_email, 
-    org_post_code, org_addr, org_webside, is_delete, remark, sort, created, updated, 
+    org_post_code, org_addr, org_website, is_delete, remark, sort, created, updated, 
     create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.OrgExample" resultMap="BaseResultMap">
@@ -127,7 +127,7 @@
       org_name_en, org_alias, org_telphone, 
       org_type, org_status, org_level, 
       org_fax, org_email, org_post_code, 
-      org_addr, org_webside, is_delete, 
+      org_addr, org_website, is_delete, 
       remark, sort, created, 
       updated, create_time, update_time
       )
@@ -136,7 +136,7 @@
       #{orgNameEn,jdbcType=VARCHAR}, #{orgAlias,jdbcType=VARCHAR}, #{orgTelphone,jdbcType=VARCHAR}, 
       #{orgType,jdbcType=INTEGER}, #{orgStatus,jdbcType=INTEGER}, #{orgLevel,jdbcType=INTEGER}, 
       #{orgFax,jdbcType=VARCHAR}, #{orgEmail,jdbcType=VARCHAR}, #{orgPostCode,jdbcType=VARCHAR}, 
-      #{orgAddr,jdbcType=VARCHAR}, #{orgWebside,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, 
+      #{orgAddr,jdbcType=VARCHAR}, #{orgWebsite,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, 
       #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, 
       #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
@@ -192,8 +192,8 @@
       <if test="orgAddr != null">
         org_addr,
       </if>
-      <if test="orgWebside != null">
-        org_webside,
+      <if test="orgWebsite != null">
+        org_website,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -266,8 +266,8 @@
       <if test="orgAddr != null">
         #{orgAddr,jdbcType=VARCHAR},
       </if>
-      <if test="orgWebside != null">
-        #{orgWebside,jdbcType=VARCHAR},
+      <if test="orgWebsite != null">
+        #{orgWebsite,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=INTEGER},
@@ -349,8 +349,8 @@
       <if test="record.orgAddr != null">
         org_addr = #{record.orgAddr,jdbcType=VARCHAR},
       </if>
-      <if test="record.orgWebside != null">
-        org_webside = #{record.orgWebside,jdbcType=VARCHAR},
+      <if test="record.orgWebsite != null">
+        org_website = #{record.orgWebsite,jdbcType=VARCHAR},
       </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=INTEGER},
@@ -396,7 +396,7 @@
       org_email = #{record.orgEmail,jdbcType=VARCHAR},
       org_post_code = #{record.orgPostCode,jdbcType=VARCHAR},
       org_addr = #{record.orgAddr,jdbcType=VARCHAR},
-      org_webside = #{record.orgWebside,jdbcType=VARCHAR},
+      org_website = #{record.orgWebsite,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
       sort = #{record.sort,jdbcType=INTEGER},
@@ -456,8 +456,8 @@
       <if test="orgAddr != null">
         org_addr = #{orgAddr,jdbcType=VARCHAR},
       </if>
-      <if test="orgWebside != null">
-        org_webside = #{orgWebside,jdbcType=VARCHAR},
+      <if test="orgWebsite != null">
+        org_website = #{orgWebsite,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=INTEGER},
@@ -500,7 +500,7 @@
       org_email = #{orgEmail,jdbcType=VARCHAR},
       org_post_code = #{orgPostCode,jdbcType=VARCHAR},
       org_addr = #{orgAddr,jdbcType=VARCHAR},
-      org_webside = #{orgWebside,jdbcType=VARCHAR},
+      org_website = #{orgWebsite,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       sort = #{sort,jdbcType=INTEGER},

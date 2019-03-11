@@ -60,13 +60,9 @@ public class UserInfoController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		UserInfo userInfo = new UserInfo();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserInfo> list = userInfoService.selectUserInfoListByPage(page, userInfo);
+		List<UserInfo> list = userInfoService.selectUserInfoListByPage(page, req);
 		logger.info("===step2:【分页查询用户信息列表】(UserInfoController-selectUserInfoListByPage)-分页查询用户信息列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserInfoVo> userInfoVoList = new UserInfoVo().convertToUserInfoVoList(list);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class UserInfoController extends BaseController {
 	public BaseRestMapResponse selectUserInfoList(
 		@RequestBody UserInfoPageRequest req) {
 		logger.info("===step1:【不分页查询用户信息列表】(UserInfoController-selectUserInfoList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		UserInfo userInfo = new UserInfo();
-		List<UserInfo> list = null;
-		list = userInfoService.selectUserInfoList(userInfo);
+		List<UserInfo> list = userInfoService.selectUserInfoList(req);
 		logger.info("===step2:【不分页查询用户信息列表】(UserInfoController-selectUserInfoList)-不分页查询用户信息列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserInfoVo> userInfoVoList = new UserInfoVo().convertToUserInfoVoList(list);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();

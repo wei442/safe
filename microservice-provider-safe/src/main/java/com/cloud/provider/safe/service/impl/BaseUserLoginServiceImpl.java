@@ -37,6 +37,7 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
 	 * @param param
 	 * @return List<BaseUserLogin>
 	 */
+	@Override
 	public List<BaseUserLogin> selectBaseUserLoginListByPage(Page<?> page, BaseUserLoginPageRequest param) {
 		logger.info("(BaseUserLoginService-selectBaseUserLoginListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
 	 * @param param
 	 * @return List<BaseUserLogin>
 	 */
+	@Override
 	public List<BaseUserLogin> selectBaseUserLoginList(BaseUserLoginPageRequest param) {
 		logger.info("(BaseUserLoginService-selectBaseUserLoginList)-不分页查询-传入参数, param:{}", param);
 		BaseUserLoginExample example = new BaseUserLoginExample();
@@ -87,9 +89,6 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
     	baseUserLogin.setCreateTime(new Date());
     	baseUserLogin.setUpdateTime(new Date());
     	int i = baseUserLoginMapper.insertSelective(baseUserLogin);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
 	public Integer deleteBaseUserLoginById(Integer id) {
   		logger.info("(BaseUserLoginService-deleteBaseUserLoginById)-根据id删除基础用户登录-传入参数, id:{}", id);
   		int i = baseUserLoginMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
     	logger.info("(BaseUserLoginService-modifyBaseUserLogin)-修改基础用户登录-传入参数, baseUserLogin:{}", baseUserLogin);
     	baseUserLogin.setUpdateTime(new Date());
 		int i = baseUserLoginMapper.updateByPrimaryKeySelective(baseUserLogin);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

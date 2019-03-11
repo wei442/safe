@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import com.cloud.provider.safe.po.BaseUser;
 import com.google.common.base.Converter;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -33,8 +34,10 @@ public class BaseUserRequest implements Serializable {
 
     private String userEmail;
 
+	@ApiModelProperty(value = "备注")
     private String remark;
 
+	@ApiModelProperty(value = "排序")
     private Integer sort;
 
     /**

@@ -46,6 +46,6 @@ public class OrgPageRequest extends BaseRestRequest {
 
     private String orgAddr;
 
-    private String orgWebside;
+    private String orgWebsite;
 
 }

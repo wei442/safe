@@ -60,13 +60,9 @@ public class UserTitleController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		UserTitle userTitle = new UserTitle();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserTitle> list = userTitleService.selectUserTitleListByPage(page, userTitle);
+		List<UserTitle> list = userTitleService.selectUserTitleListByPage(page, req);
 		logger.info("===step2:【分页查询用户职务列表】(UserTitleController-selectUserTitleListByPage)-分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserTitleVo> userTitleVoList = new UserTitleVo().convertToUserTitleVoList(list);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class UserTitleController extends BaseController {
 	public BaseRestMapResponse selectUserTitleList(
 		@RequestBody UserTitlePageRequest req) {
 		logger.info("===step1:【不分页查询用户职务列表】(UserTitleController-selectUserTitleList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		UserTitle userTitle = new UserTitle();
-		List<UserTitle> list = null;
-		list = userTitleService.selectUserTitleList(userTitle);
+		List<UserTitle> list = userTitleService.selectUserTitleList(req);
 		logger.info("===step2:【不分页查询用户职务列表】(UserTitleController-selectUserTitleList)-不分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserTitleVo> userTitleVoList = new UserTitleVo().convertToUserTitleVoList(list);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();

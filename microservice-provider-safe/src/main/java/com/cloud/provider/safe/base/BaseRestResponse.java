@@ -2,7 +2,7 @@ package com.cloud.provider.safe.base;
 
 import java.io.Serializable;
 
-import com.cloud.common.constants.BootConstants;
+import com.cloud.common.constants.CommConstants;
 
 /**
  * base返回
@@ -15,42 +15,42 @@ public class BaseRestResponse implements Serializable {
 	/**
      * 响应码
      */
-	protected String bootCode;
+	protected String retCode;
 
     /**
      * 响应信息
      */
-	protected String bootMsg;
+	protected String retMsg;
 
 	public BaseRestResponse() {
-		this.bootCode = BootConstants.OK;
-		this.bootMsg = BootConstants.OK_MSG;
+		this.retCode = CommConstants.OK;
+		this.retMsg = CommConstants.OK_MSG;
 	}
 
 	public BaseRestResponse(String code,String msg) {
-		this.bootCode = code;
-		this.bootMsg = msg;
+		this.retCode = code;
+		this.retMsg = msg;
 	}
 
-	public String getBootCode() {
-		return this.bootCode;
+	public String getRetCode() {
+		return this.retCode;
 	}
 
-	public void setBootCode(String bootCode) {
-		this.bootCode = bootCode;
+	public void setRetCode(String retCode) {
+		this.retCode = retCode;
 	}
 
-	public String getBootMsg() {
-		return this.bootMsg;
+	public String getRetMsg() {
+		return this.retMsg;
 	}
 
-	public void setBootMsg(String bootMsg) {
-		this.bootMsg = bootMsg;
+	public void setRetMsg(String retMsg) {
+		this.retMsg = retMsg;
 	}
 
 	@Override
 	public String toString() {
-		return "BootRestResponse [bootCode=" + bootCode + ", bootMsg=" + bootMsg + "]";
+		return "BaseRestResponse [retCode=" + retCode + ", retMsg=" + retMsg + "]";
 	}
 
 }

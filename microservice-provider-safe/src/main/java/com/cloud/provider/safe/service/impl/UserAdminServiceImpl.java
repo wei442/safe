@@ -37,6 +37,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	 * @param param
 	 * @return List<UserAdmin>
 	 */
+	@Override
 	public List<UserAdmin> selectUserAdminListByPage(Page<?> page, UserAdminPageRequest param) {
 		logger.info("(UserAdminService-selectUserAdminListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	 * @param param
 	 * @return List<UserAdmin>
 	 */
+	@Override
 	public List<UserAdmin> selectUserAdminList(UserAdminPageRequest param) {
 		logger.info("(UserAdminService-selectUserAdminList)-不分页查询-传入参数, param:{}", param);
 		UserAdminExample example = new UserAdminExample();
@@ -87,9 +89,6 @@ public class UserAdminServiceImpl implements IUserAdminService {
     	userAdmin.setCreateTime(new Date());
     	userAdmin.setUpdateTime(new Date());
     	int i = userAdminMapper.insertSelective(userAdmin);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	public Integer deleteUserAdminById(Integer id) {
   		logger.info("(UserAdminService-deleteUserAdminById)-根据id删除用户管理-传入参数, id:{}", id);
   		int i = userAdminMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class UserAdminServiceImpl implements IUserAdminService {
     	logger.info("(UserAdminService-modifyUserAdmin)-修改用户管理-传入参数, userAdmin:{}", userAdmin);
     	userAdmin.setUpdateTime(new Date());
     	int i = userAdminMapper.updateByPrimaryKeySelective(userAdmin);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

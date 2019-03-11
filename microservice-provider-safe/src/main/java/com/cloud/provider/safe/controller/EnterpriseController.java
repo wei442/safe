@@ -29,19 +29,20 @@ import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
- * 资质 EnterpriseController
+ * 企业 EnterpriseController
  * @author wei.yong
  */
-@Api(tags = "资质")
+@Api(tags = "企业")
 @RestController
 @RequestMapping(value="/enterprise")
 public class EnterpriseController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	//资质Service
+	//企业Service
 	@Autowired
 	private IEnterpriseService enterpriseService;
 
@@ -50,28 +51,24 @@ public class EnterpriseController extends BaseController {
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "分页查询资质列表")
+	@ApiOperation(value = "分页查询企业列表")
 	@RequestMapping(value="/selectEnterpriseListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectEnterpriseListByPage(
 		@RequestBody EnterprisePageRequest req) {
-		logger.info("===step1:【分页查询资质列表】(EnterpriseController-selectEnterpriseListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询企业列表】(EnterpriseController-selectEnterpriseListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		Enterprise enterprise = new Enterprise();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<Enterprise> list = enterpriseService.selectEnterpriseListByPage(page, enterprise);
-		logger.info("===step2:【分页查询资质列表】(EnterpriseController-selectEnterpriseListByPage)-分页查询资质列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
+		List<Enterprise> list = enterpriseService.selectEnterpriseListByPage(page, req);
+		logger.info("===step2:【分页查询企业列表】(EnterpriseController-selectEnterpriseListByPage)-分页查询企业列表, list.size:{}", list == null ? null : list.size());
 		List<EnterpriseVo> enterpriseVoList = new EnterpriseVo().convertToEnterpriseVoList(list);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
 		enterpriseResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(enterpriseVoList));
-		logger.info("===step3:【分页查询资质列表】(EnterpriseController-selectEnterpriseListByPage)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【分页查询企业列表】(EnterpriseController-selectEnterpriseListByPage)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 
@@ -80,45 +77,41 @@ public class EnterpriseController extends BaseController {
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "不分页查询资质列表")
+	@ApiOperation(value = "不分页查询企业列表")
 	@RequestMapping(value="/selectEnterpriseList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectEnterpriseList(
 		@RequestBody EnterprisePageRequest req) {
-		logger.info("===step1:【不分页查询资质列表】(EnterpriseController-selectEnterpriseList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Enterprise enterprise = new Enterprise();
-		List<Enterprise> list = null;
-		list = enterpriseService.selectEnterpriseList(enterprise);
-		logger.info("===step2:【不分页查询资质列表】(EnterpriseController-selectEnterpriseList)-不分页查询资质列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
+		logger.info("===step1:【不分页查询企业列表】(EnterpriseController-selectEnterpriseList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<Enterprise> list = enterpriseService.selectEnterpriseList(req);
+		logger.info("===step2:【不分页查询企业列表】(EnterpriseController-selectEnterpriseList)-不分页查询企业列表, list.size:{}", list == null ? null : list.size());
 		List<EnterpriseVo> enterpriseVoList = new EnterpriseVo().convertToEnterpriseVoList(list);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
 		enterpriseResponse.put(PageConstants.DATA_LIST, enterpriseVoList);
-		logger.info("===step3:【不分页查询资质列表】(EnterpriseController-selectEnterpriseList)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【不分页查询企业列表】(EnterpriseController-selectEnterpriseList)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 
 	/**
-	 * 据id查询资质
+	 * 据id查询企业
 	 * @param enterpriseId
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据id查询资质")
+	@ApiOperation(value = "根据id查询企业")
+	@ApiParam(name="id", value="企业id", required=true)
 	@RequestMapping(value="/selectEnterpriseById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectEnterpriseById(
 		@PathVariable(value="id",required=false) Integer enterpriseId) {
-		logger.info("===step1:【据id查询资质】(selectEnterpriseById-selectEnterpriseById)-传入参数, enterpriseId:{}", enterpriseId);
+		logger.info("===step1:【据id查询企业】(selectEnterpriseById-selectEnterpriseById)-传入参数, enterpriseId:{}", enterpriseId);
 
 		if(enterpriseId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseId为空");
 		}
 
 		Enterprise enterprise = enterpriseService.selectEnterpriseById(enterpriseId);
-		logger.info("===step2:【据id查询资质】(EnterpriseController-selectEnterpriseById)-根据id查询资质, enterprise:{}", enterprise);
+		logger.info("===step2:【据id查询企业】(EnterpriseController-selectEnterpriseById)-根据id查询企业, enterprise:{}", enterprise);
 		if(enterprise == null) {
 			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
 		}
@@ -126,72 +119,73 @@ public class EnterpriseController extends BaseController {
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
 		enterpriseResponse.putAll((JSONObject) JSONObject.toJSON(enterpriseVo));
-		logger.info("===step3:【据id查询资质】(EnterpriseController-selectEnterpriseById)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【据id查询企业】(EnterpriseController-selectEnterpriseById)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 
 	/**
-	 * 添加资质
+	 * 添加企业
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "添加资质")
+	@ApiOperation(value = "添加企业")
 	@RequestMapping(value="/insertEnterprise",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insertEnterprise(
 		@Validated @RequestBody EnterpriseRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加资质】(EnterpriseController-insertEnterprise)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加企业】(EnterpriseController-insertEnterprise)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Enterprise enterprise = req.convertToEnterprise();
 		int i = enterpriseService.insertEnterprise(enterprise);
-		logger.info("===step2:【添加资质】(EnterpriseController-insertEnterprise)-插入资质, i:{}", i);
+		logger.info("===step2:【添加企业】(EnterpriseController-insertEnterprise)-插入企业, i:{}", i);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加资质】(EnterpriseController-insertEnterprise)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【添加企业】(EnterpriseController-insertEnterprise)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 
 	/**
-	 * 根据id删除资质
+	 * 根据id删除企业
 	 * @param enterpriseId
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据id删除资质")
+	@ApiOperation(value = "根据id删除企业")
+	@ApiParam(name="id", value="企业id", required=true)
 	@RequestMapping(value="/deleteEnterpriseById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteEnterpriseById(
 		@PathVariable(value="id",required=false) Integer enterpriseId) {
-		logger.info("===step1:【根据id删除资质】(selectEnterpriseById-deleteEnterpriseById)-传入参数, enterpriseId:{}", enterpriseId);
+		logger.info("===step1:【根据id删除企业】(selectEnterpriseById-deleteEnterpriseById)-传入参数, enterpriseId:{}", enterpriseId);
 
 		if(enterpriseId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseId为空");
 		}
 
 		int i = enterpriseService.deleteEnterpriseById(enterpriseId);
-		logger.info("===step2:【根据id删除资质】(EnterpriseController-deleteEnterpriseById)-根据id查询资质, i:{}", i);
+		logger.info("===step2:【根据id删除企业】(EnterpriseController-deleteEnterpriseById)-根据id查询企业, i:{}", i);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除资质】(EnterpriseController-deleteEnterpriseById)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【根据id删除企业】(EnterpriseController-deleteEnterpriseById)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 
 	/**
-	 * 修改资质
+	 * 修改企业
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "修改资质")
+	@ApiOperation(value = "修改企业")
 	@RequestMapping(value="/modifyEnterprise",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse modifyEnterprise(
 		@Validated({ ModifyGroup.class }) @RequestBody EnterpriseRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改资质】(EnterpriseController-modifyEnterprise)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改企业】(EnterpriseController-modifyEnterprise)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
@@ -199,10 +193,10 @@ public class EnterpriseController extends BaseController {
 		Enterprise enterprise = req.convertToEnterprise();
 		enterprise.setId(enterpriseId);
 		int i = enterpriseService.modifyEnterprise(enterprise);
-		logger.info("===step2:【修改资质】(EnterpriseController-modifyEnterprise)-修改资质, i:{}", i);
+		logger.info("===step2:【修改企业】(EnterpriseController-modifyEnterprise)-修改企业, i:{}", i);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改资质】(EnterpriseController-modifyEnterprise)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【修改企业】(EnterpriseController-modifyEnterprise)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 

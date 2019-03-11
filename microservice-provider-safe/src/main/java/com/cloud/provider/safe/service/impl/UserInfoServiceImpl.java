@@ -37,6 +37,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	 * @param param
 	 * @return List<UserInfo>
 	 */
+	@Override
 	public List<UserInfo> selectUserInfoListByPage(Page<?> page, UserInfoPageRequest param) {
 		logger.info("(UserInfoService-selectUserInfoListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	 * @param param
 	 * @return List<UserInfo>
 	 */
+	@Override
 	public List<UserInfo> selectUserInfoList(UserInfoPageRequest param) {
 		logger.info("(UserInfoService-selectUserInfoList)-不分页查询-传入参数, param:{}", param);
 		UserInfoExample example = new UserInfoExample();
@@ -87,9 +89,6 @@ public class UserInfoServiceImpl implements IUserInfoService {
     	userInfo.setCreateTime(new Date());
     	userInfo.setUpdateTime(new Date());
     	int i = userInfoMapper.insertSelective(userInfo);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	public Integer deleteUserInfoById(Integer id) {
   		logger.info("(UserInfoService-deleteUserInfoById)-根据id删除用户信息-传入参数, id:{}", id);
   		int i = userInfoMapper.deleteByPrimaryKey(id);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}

@@ -37,6 +37,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
 	 * @param param
 	 * @return List<UserTitle>
 	 */
+	@Override
 	public List<UserTitle> selectUserTitleListByPage(Page<?> page, UserTitlePageRequest param) {
 		logger.info("(UserTitleService-selectUserTitleListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
 	 * @param param
 	 * @return List<UserTitle>
 	 */
+	@Override
 	public List<UserTitle> selectUserTitleList(UserTitlePageRequest param) {
 		logger.info("(UserTitleService-selectUserTitleList)-不分页查询-传入参数, param:{}", param);
 		UserTitleExample example = new UserTitleExample();
@@ -87,9 +89,6 @@ public class UserTitleServiceImpl implements IUserTitleService {
     	userTitle.setCreateTime(new Date());
     	userTitle.setUpdateTime(new Date());
     	int i = userTitleMapper.insertSelective(userTitle);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -117,9 +116,6 @@ public class UserTitleServiceImpl implements IUserTitleService {
     	logger.info("(UserTitleService-modifyUserTitle)-修改用户职务-传入参数, userTitle:{}", userTitle);
     	userTitle.setUpdateTime(new Date());
 		int i = userTitleMapper.updateByPrimaryKeySelective(userTitle);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

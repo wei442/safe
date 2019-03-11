@@ -37,6 +37,7 @@ public class UserOrgServiceImpl implements IUserOrgService {
 	 * @param param
 	 * @return List<UserOrg>
 	 */
+	@Override
 	public List<UserOrg> selectUserOrgListByPage(Page<?> page, UserOrgPageRequest param) {
 		logger.info("(UserOrgService-selectUserOrgListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class UserOrgServiceImpl implements IUserOrgService {
 	 * @param param
 	 * @return List<UserOrg>
 	 */
+	@Override
 	public List<UserOrg> selectUserOrgList(UserOrgPageRequest param) {
 		logger.info("(UserOrgService-selectUserOrgList)-不分页查询-传入参数, param:{}", param);
 		UserOrgExample example = new UserOrgExample();
@@ -87,9 +89,6 @@ public class UserOrgServiceImpl implements IUserOrgService {
     	userOrg.setCreateTime(new Date());
     	userOrg.setUpdateTime(new Date());
     	int i = userOrgMapper.insertSelective(userOrg);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class UserOrgServiceImpl implements IUserOrgService {
 	public Integer deleteUserOrgById(Integer id) {
   		logger.info("(UserOrgService-deleteUserOrgById)-根据id删除用户机构-传入参数, id:{}", id);
   		int i = userOrgMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class UserOrgServiceImpl implements IUserOrgService {
     	logger.info("(UserOrgService-modifyUserOrg)-修改用户机构-传入参数, userOrg:{}", userOrg);
     	userOrg.setUpdateTime(new Date());
     	int i = userOrgMapper.updateByPrimaryKeySelective(userOrg);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

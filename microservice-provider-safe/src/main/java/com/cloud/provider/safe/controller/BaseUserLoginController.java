@@ -60,13 +60,9 @@ public class BaseUserLoginController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		BaseUserLogin baseUserLogin = new BaseUserLogin();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<BaseUserLogin> list = baseUserLoginService.selectBaseUserLoginListByPage(page, baseUserLogin);
+		List<BaseUserLogin> list = baseUserLoginService.selectBaseUserLoginListByPage(page, req);
 		logger.info("===step2:【分页查询基础用户登录列表】(BaseUserLoginController-selectBaseUserLoginListByPage)-分页查询基础用户登录列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<BaseUserLoginVo> baseUserLoginVoList = new BaseUserLoginVo().convertToBaseUserLoginVoList(list);
 
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class BaseUserLoginController extends BaseController {
 	public BaseRestMapResponse selectBaseUserLoginList(
 		@RequestBody BaseUserLoginPageRequest req) {
 		logger.info("===step1:【不分页查询基础用户登录列表】(BaseUserLoginController-selectBaseUserLoginList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		BaseUserLogin baseUserLogin = new BaseUserLogin();
-		List<BaseUserLogin> list = null;
-		list = baseUserLoginService.selectBaseUserLoginList(baseUserLogin);
+		List<BaseUserLogin> list = baseUserLoginService.selectBaseUserLoginList(req);
 		logger.info("===step2:【不分页查询基础用户登录列表】(BaseUserLoginController-selectBaseUserLoginList)-不分页查询基础用户登录列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<BaseUserLoginVo> baseUserLoginVoList = new BaseUserLoginVo().convertToBaseUserLoginVoList(list);
 
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();

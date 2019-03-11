@@ -60,13 +60,9 @@ public class DictItemController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		DictItem dictItem = new DictItem();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<DictItem> list = dictItemService.selectDictItemListByPage(page, dictItem);
+		List<DictItem> list = dictItemService.selectDictItemListByPage(page, req);
 		logger.info("===step2:【分页查询字典子项列表】(DictItemController-selectDictItemListByPage)-分页查询字典子项列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<DictItemVo> dictItemVoList = new DictItemVo().convertToDictItemVoList(list);
 
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class DictItemController extends BaseController {
 	public BaseRestMapResponse selectDictItemList(
 		@RequestBody DictItemPageRequest req) {
 		logger.info("===step1:【不分页查询字典子项列表】(DictItemController-selectDictItemList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		DictItem dictItem = new DictItem();
-		List<DictItem> list = null;
-		list = dictItemService.selectDictItemList(dictItem);
+		List<DictItem> list = dictItemService.selectDictItemList(req);
 		logger.info("===step2:【不分页查询字典子项列表】(DictItemController-selectDictItemList)-不分页查询字典子项列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<DictItemVo> dictItemVoList = new DictItemVo().convertToDictItemVoList(list);
 
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();

@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import com.cloud.provider.safe.po.QualityAttachment;
 import com.google.common.base.Converter;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -23,6 +24,7 @@ public class QualityAttachmentRequest implements Serializable {
 
     private Integer attachmentId;
 
+	@ApiModelProperty(value = "备注")
     private String remark;
 
     /**

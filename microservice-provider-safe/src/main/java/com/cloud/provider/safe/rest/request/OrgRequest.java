@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import com.cloud.provider.safe.po.Org;
 import com.google.common.base.Converter;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -49,10 +50,12 @@ public class OrgRequest implements Serializable {
 
     private String orgAddr;
 
-    private String orgWebside;
+    private String orgWebsite;
 
+	@ApiModelProperty(value = "备注")
     private String remark;
 
+	@ApiModelProperty(value = "排序")
     private Integer sort;
 
     /**

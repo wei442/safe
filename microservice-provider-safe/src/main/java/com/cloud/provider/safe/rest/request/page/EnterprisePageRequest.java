@@ -38,6 +38,6 @@ public class EnterprisePageRequest extends BaseRestRequest {
 
     private String enterpriseAddr;
 
-    private String enterpriseWebside;
+    private String enterpriseWebsite;
 
 }

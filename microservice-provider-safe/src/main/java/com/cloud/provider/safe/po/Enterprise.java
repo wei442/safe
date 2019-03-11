@@ -27,7 +27,7 @@ public class Enterprise {
 
     private String enterpriseAddr;
 
-    private String enterpriseWebside;
+    private String enterpriseWebsite;
 
     private Integer isDelete;
 
@@ -139,12 +139,12 @@ public class Enterprise {
         this.enterpriseAddr = enterpriseAddr == null ? null : enterpriseAddr.trim();
     }
 
-    public String getEnterpriseWebside() {
-        return enterpriseWebside;
+    public String getEnterpriseWebsite() {
+        return enterpriseWebsite;
     }
 
-    public void setEnterpriseWebside(String enterpriseWebside) {
-        this.enterpriseWebside = enterpriseWebside == null ? null : enterpriseWebside.trim();
+    public void setEnterpriseWebsite(String enterpriseWebsite) {
+        this.enterpriseWebsite = enterpriseWebsite == null ? null : enterpriseWebsite.trim();
     }
 
     public Integer getIsDelete() {

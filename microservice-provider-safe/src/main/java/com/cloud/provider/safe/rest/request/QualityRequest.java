@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import com.cloud.provider.safe.po.Quality;
 import com.google.common.base.Converter;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -21,6 +22,7 @@ public class QualityRequest implements Serializable {
 
     private String qualityName;
 
+	@ApiModelProperty(value = "备注")
     private String remark;
 
     /**

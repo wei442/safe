@@ -37,6 +37,7 @@ public class UserQualityServiceImpl implements IUserQualityService {
 	 * @param param
 	 * @return List<UserQuality>
 	 */
+	@Override
 	public List<UserQuality> selectUserQualityListByPage(Page<?> page, UserQualityPageRequest param) {
 		logger.info("(UserQualityService-selectUserQualityListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class UserQualityServiceImpl implements IUserQualityService {
 	 * @param param
 	 * @return List<UserQuality>
 	 */
+	@Override
 	public List<UserQuality> selectUserQualityList(UserQualityPageRequest param) {
 		logger.info("(UserQualityService-selectUserQualityList)-不分页查询-传入参数, param:{}", param);
 		UserQualityExample example = new UserQualityExample();
@@ -87,9 +89,6 @@ public class UserQualityServiceImpl implements IUserQualityService {
     	userQuality.setCreateTime(new Date());
     	userQuality.setUpdateTime(new Date());
     	int i = userQualityMapper.insertSelective(userQuality);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class UserQualityServiceImpl implements IUserQualityService {
 	public Integer deleteUserQualityById(Integer id) {
   		logger.info("(UserQualityService-deleteUserQualityById)-根据id删除用户资质-传入参数, id:{}", id);
 		int i = userQualityMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class UserQualityServiceImpl implements IUserQualityService {
     	logger.info("(UserQualityService-modifyUserQuality)-修改用户资质-传入参数, userQuality:{}", userQuality);
     	userQuality.setUpdateTime(new Date());
 		int i = userQualityMapper.updateByPrimaryKeySelective(userQuality);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

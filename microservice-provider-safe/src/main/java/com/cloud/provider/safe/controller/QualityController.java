@@ -60,13 +60,9 @@ public class QualityController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		Quality quality = new Quality();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<Quality> list = qualityService.selectQualityListByPage(page, quality);
+		List<Quality> list = qualityService.selectQualityListByPage(page, req);
 		logger.info("===step2:【分页查询资质列表】(QualityController-selectQualityListByPage)-分页查询资质列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<QualityVo> qualityVoList = new QualityVo().convertToQualityVoList(list);
 
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class QualityController extends BaseController {
 	public BaseRestMapResponse selectQualityList(
 		@RequestBody QualityPageRequest req) {
 		logger.info("===step1:【不分页查询资质列表】(QualityController-selectQualityList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Quality quality = new Quality();
-		List<Quality> list = null;
-		list = qualityService.selectQualityList(quality);
+		List<Quality> list = qualityService.selectQualityList(req);
 		logger.info("===step2:【不分页查询资质列表】(QualityController-selectQualityList)-不分页查询资质列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<QualityVo> qualityVoList = new QualityVo().convertToQualityVoList(list);
 
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();

@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import com.cloud.provider.safe.po.UserQuality;
 import com.google.common.base.Converter;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -23,8 +24,7 @@ public class UserQualityRequest implements Serializable {
 
     private Integer qualityId;
 
-    private Integer isDelete;
-
+	@ApiModelProperty(value = "备注")
     private String remark;
 
     /**

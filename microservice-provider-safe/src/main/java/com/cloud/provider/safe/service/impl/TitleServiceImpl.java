@@ -37,6 +37,7 @@ public class TitleServiceImpl implements ITitleService {
 	 * @param param
 	 * @return List<Title>
 	 */
+	@Override
 	public List<Title> selectTitleListByPage(Page<?> page, TitlePageRequest param) {
 		logger.info("(TitleService-selectTitleListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class TitleServiceImpl implements ITitleService {
 	 * @param param
 	 * @return List<Title>
 	 */
+	@Override
 	public List<Title> selectTitleList(TitlePageRequest param) {
 		logger.info("(TitleService-selectTitleList)-不分页查询-传入参数, param:{}", param);
 		TitleExample example = new TitleExample();
@@ -87,9 +89,6 @@ public class TitleServiceImpl implements ITitleService {
     	title.setCreateTime(new Date());
     	title.setUpdateTime(new Date());
     	int i = titleMapper.insertSelective(title);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class TitleServiceImpl implements ITitleService {
 	public Integer deleteTitleById(Integer id) {
   		logger.info("(TitleService-deleteTitleById)-根据id删除职务-传入参数, id:{}", id);
   		int i = titleMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class TitleServiceImpl implements ITitleService {
     	logger.info("(TitleService-modifyTitle)-修改职务-传入参数, title:{}", title);
     	title.setUpdateTime(new Date());
     	int i = titleMapper.updateByPrimaryKeySelective(title);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

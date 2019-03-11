@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.vo.diamond;
+package com.cloud.consumer.safe.vo.diamond;
 
 import java.io.Serializable;
 

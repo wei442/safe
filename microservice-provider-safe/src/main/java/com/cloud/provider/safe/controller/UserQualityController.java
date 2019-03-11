@@ -60,13 +60,9 @@ public class UserQualityController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		UserQuality userQuality = new UserQuality();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserQuality> list = userQualityService.selectUserQualityListByPage(page, userQuality);
+		List<UserQuality> list = userQualityService.selectUserQualityListByPage(page, req);
 		logger.info("===step2:【分页查询用户资质列表】(UserQualityController-selectUserQualityListByPage)-分页查询用户资质列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserQualityVo> userQualityVoList = new UserQualityVo().convertToUserQualityVoList(list);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class UserQualityController extends BaseController {
 	public BaseRestMapResponse selectUserQualityList(
 		@RequestBody UserQualityPageRequest req) {
 		logger.info("===step1:【不分页查询用户资质列表】(UserQualityController-selectUserQualityList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		UserQuality userQuality = new UserQuality();
-		List<UserQuality> list = null;
-		list = userQualityService.selectUserQualityList(userQuality);
+		List<UserQuality> list = userQualityService.selectUserQualityList(req);
 		logger.info("===step2:【不分页查询用户资质列表】(UserQualityController-selectUserQualityList)-不分页查询用户资质列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserQualityVo> userQualityVoList = new UserQualityVo().convertToUserQualityVoList(list);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();

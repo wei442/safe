@@ -60,13 +60,9 @@ public class UserAdminLoginController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		UserAdminLogin userAdminLogin = new UserAdminLogin();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserAdminLogin> list = userAdminLoginService.selectUserAdminLoginListByPage(page, userAdminLogin);
+		List<UserAdminLogin> list = userAdminLoginService.selectUserAdminLoginListByPage(page, req);
 		logger.info("===step2:【分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginListByPage)-分页查询用户管理登录列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserAdminLoginVo> userAdminLoginVoList = new UserAdminLoginVo().convertToUserAdminLoginVoList(list);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class UserAdminLoginController extends BaseController {
 	public BaseRestMapResponse selectUserAdminLoginList(
 		@RequestBody UserAdminLoginPageRequest req) {
 		logger.info("===step1:【不分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		UserAdminLogin userAdminLogin = new UserAdminLogin();
-		List<UserAdminLogin> list = null;
-		list = userAdminLoginService.selectUserAdminLoginList(userAdminLogin);
+		List<UserAdminLogin> list = userAdminLoginService.selectUserAdminLoginList(req);
 		logger.info("===step2:【不分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginList)-不分页查询用户管理登录列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserAdminLoginVo> userAdminLoginVoList = new UserAdminLoginVo().convertToUserAdminLoginVoList(list);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();

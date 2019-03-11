@@ -37,6 +37,7 @@ public class UserPostServiceImpl implements IUserPostService {
 	 * @param param
 	 * @return List<UserPost>
 	 */
+	@Override
 	public List<UserPost> selectUserPostListByPage(Page<?> page, UserPostPageRequest param) {
 		logger.info("(UserPostService-selectUserPostListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class UserPostServiceImpl implements IUserPostService {
 	 * @param param
 	 * @return List<UserPost>
 	 */
+	@Override
 	public List<UserPost> selectUserPostList(UserPostPageRequest param) {
 		logger.info("(UserPostService-selectUserPostList)-不分页查询-传入参数, param:{}", param);
 		UserPostExample example = new UserPostExample();
@@ -87,9 +89,6 @@ public class UserPostServiceImpl implements IUserPostService {
     	userPost.setCreateTime(new Date());
     	userPost.setUpdateTime(new Date());
 		int i = userPostMapper.insertSelective(userPost);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class UserPostServiceImpl implements IUserPostService {
 	public Integer deleteUserPostById(Integer id) {
   		logger.info("(UserPostService-deleteUserPostById)-根据id删除用户岗位-传入参数, id:{}", id);
 		int i = userPostMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class UserPostServiceImpl implements IUserPostService {
     	logger.info("(UserPostService-modifyUserPost)-修改用户岗位-传入参数, userPost:{}", userPost);
     	userPost.setUpdateTime(new Date());
 		int i = userPostMapper.updateByPrimaryKeySelective(userPost);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

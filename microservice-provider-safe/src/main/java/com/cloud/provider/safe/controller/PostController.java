@@ -60,13 +60,9 @@ public class PostController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		Post post = new Post();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<Post> list = postService.selectPostListByPage(page, post);
+		List<Post> list = postService.selectPostListByPage(page, req);
 		logger.info("===step2:【分页查询岗位列表】(PostController-selectPostListByPage)-分页查询岗位列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<PostVo> postVoList = new PostVo().convertToPostVoList(list);
 
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class PostController extends BaseController {
 	public BaseRestMapResponse selectPostList(
 		@RequestBody PostPageRequest req) {
 		logger.info("===step1:【不分页查询岗位列表】(PostController-selectPostList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Post post = new Post();
-		List<Post> list = null;
-		list = postService.selectPostList(post);
+		List<Post> list = postService.selectPostList(req);
 		logger.info("===step2:【不分页查询岗位列表】(PostController-selectPostList)-不分页查询岗位列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<PostVo> postVoList = new PostVo().convertToPostVoList(list);
 
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();

@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.vo.calculate;
+package com.cloud.consumer.safe.vo.calculate;
 
 import java.io.Serializable;
 

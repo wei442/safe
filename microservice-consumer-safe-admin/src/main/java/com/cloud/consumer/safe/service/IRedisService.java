@@ -986,7 +986,7 @@ public interface IRedisService {
 	 * @param end
 	 * @return JSONObject
 	 */
-	public List<Map<String, Object>> zrangeWithScores(String key,long start,long end) ;
+	public List<Object> zrangeWithScores(String key,long start,long end) ;
 
 	/**
 	 * 根据分数值范围查询存储有序集合
@@ -1004,7 +1004,7 @@ public interface IRedisService {
 	 * @param max
 	 * @return JSONObject
 	 */
-	public List<Map<String, Object>> zrangeByScoreWithScores(String key,double min,double max);
+	public List<Object> zrangeByScoreWithScores(String key,double min,double max);
 
 	/**
 	 * 有序集合成员分数增加增量
@@ -1064,7 +1064,7 @@ public interface IRedisService {
 	 * @param end
 	 * @return JSONObject
 	 */
-	public List<Map<String, Object>> zrevrangeWithScores(String key,long start,long end);
+	public List<Object> zrevrangeWithScores(String key,long start,long end);
 
 	/**
 	 * 有序集key中max和min之间所有的成员
@@ -1082,7 +1082,7 @@ public interface IRedisService {
 	 * @param max
 	 * @return JSONObject
 	 */
-	public List<Map<String, Object>> zrevrangeByScoreWithScores(String key,double min,double max);
+	public List<Object> zrevrangeByScoreWithScores(String key,double min,double max);
 
 	/**
 	 * 有序集key中成员member从大到小的排名

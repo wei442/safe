@@ -60,13 +60,9 @@ public class UserAppLoginController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		UserAppLogin userAppLogin = new UserAppLogin();
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserAppLogin> list = userAppLoginService.selectUserAppLoginListByPage(page, userAppLogin);
+		List<UserAppLogin> list = userAppLoginService.selectUserAppLoginListByPage(page, req);
 		logger.info("===step2:【分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginListByPage)-分页查询用户应用登录列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserAppLoginVo> userAppLoginVoList = new UserAppLoginVo().convertToUserAppLoginVoList(list);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
@@ -86,13 +82,8 @@ public class UserAppLoginController extends BaseController {
 	public BaseRestMapResponse selectUserAppLoginList(
 		@RequestBody UserAppLoginPageRequest req) {
 		logger.info("===step1:【不分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		UserAppLogin userAppLogin = new UserAppLogin();
-		List<UserAppLogin> list = null;
-		list = userAppLoginService.selectUserAppLoginList(userAppLogin);
+		List<UserAppLogin> list = userAppLoginService.selectUserAppLoginList(req);
 		logger.info("===step2:【不分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginList)-不分页查询用户应用登录列表, list.size:{}", list == null ? null : list.size());
-//		if(list == null || list.isEmpty()) {
-//			return new BaseRestMapResponse(SafeResultEnum.ORDER_LIST_NOTEXIST);
-//		}
 		List<UserAppLoginVo> userAppLoginVoList = new UserAppLoginVo().convertToUserAppLoginVoList(list);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();

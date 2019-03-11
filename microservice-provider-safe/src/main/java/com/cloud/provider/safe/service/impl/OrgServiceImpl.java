@@ -37,6 +37,7 @@ public class OrgServiceImpl implements IOrgService {
 	 * @param param
 	 * @return List<Org>
 	 */
+	@Override
 	public List<Org> selectOrgListByPage(Page<?> page, OrgPageRequest param) {
 		logger.info("(OrgService-selectOrgListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -54,6 +55,7 @@ public class OrgServiceImpl implements IOrgService {
 	 * @param param
 	 * @return List<Org>
 	 */
+	@Override
 	public List<Org> selectOrgList(OrgPageRequest param) {
 		logger.info("(OrgService-selectOrgList)-不分页查询-传入参数, param:{}", param);
 		OrgExample example = new OrgExample();
@@ -87,9 +89,6 @@ public class OrgServiceImpl implements IOrgService {
     	org.setCreateTime(new Date());
     	org.setUpdateTime(new Date());
     	int i = orgMapper.insertSelective(org);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -103,9 +102,6 @@ public class OrgServiceImpl implements IOrgService {
 	public Integer deleteOrgById(Integer id) {
   		logger.info("(OrgService-deleteOrgById)-根据id删除组织机构-传入参数, id:{}", id);
   		int i = orgMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
@@ -120,9 +116,6 @@ public class OrgServiceImpl implements IOrgService {
     	logger.info("(OrgService-modifyOrg)-修改组织机构-传入参数, org:{}", org);
     	org.setUpdateTime(new Date());
     	int i = orgMapper.updateByPrimaryKeySelective(org);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.constants;
+package com.cloud.consumer.safe.constants;
 
 /**
  * 常量类

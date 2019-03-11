@@ -1,4 +1,4 @@
-package com.ochain.consumer.wheel.vo.account;
+package com.cloud.consumer.safe.vo.account;
 
 public class AccountCalculateVo {
 

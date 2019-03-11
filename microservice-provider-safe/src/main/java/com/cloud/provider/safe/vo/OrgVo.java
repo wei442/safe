@@ -53,7 +53,7 @@ public class OrgVo implements Serializable {
 
     private String orgAddr;
 
-    private String orgWebside;
+    private String orgWebsite;
 
     private Integer isDelete;
 

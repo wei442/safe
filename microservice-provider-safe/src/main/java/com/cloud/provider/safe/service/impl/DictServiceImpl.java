@@ -38,6 +38,7 @@ public class DictServiceImpl implements IDictService {
 	 * @param param
 	 * @return List<Dict>
 	 */
+	@Override
 	public List<Dict> selectDictListByPage(Page<?> page, DictPageRequest param) {
 		logger.info("(DictService-selectDictListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
@@ -55,6 +56,7 @@ public class DictServiceImpl implements IDictService {
 	 * @param param
 	 * @return List<Dict>
 	 */
+	@Override
 	public List<Dict> selectDictList(DictPageRequest param) {
 		logger.info("(DictService-selectDictList)-不分页查询-传入参数, param:{}", param);
 		DictExample example = new DictExample();
@@ -94,9 +96,6 @@ public class DictServiceImpl implements IDictService {
     	dict.setCreateTime(new Date());
     	dict.setUpdateTime(new Date());
     	int i = dictMapper.insertSelective(dict);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -110,9 +109,6 @@ public class DictServiceImpl implements IDictService {
 	public Integer deleteDictById(Integer id) {
   		logger.info("(DictService-deleteDictById)-根据id删除字典-传入参数, id:{}", id);
   		int i = dictMapper.deleteByPrimaryKey(id);
-//  		if(i<=0) {
-//  			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//  		}
   		return i;
   	}
 
@@ -126,9 +122,6 @@ public class DictServiceImpl implements IDictService {
     	logger.info("(DictService-modifyDict)-修改字典-传入参数, dict:{}", dict);
     	dict.setUpdateTime(new Date());
     	int i = dictMapper.updateByPrimaryKeySelective(dict);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
