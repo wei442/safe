@@ -1,4 +1,4 @@
-package com.ochain.api.wheel.filter;
+package com.cloud.api.wheel.filter;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,11 +14,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.ZuulConstants;
+import com.cloud.common.constants.wheel.RetWheelConstants;
+import com.cloud.common.util.IpUtil;
 import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
-import com.ochain.common.constants.ZuulConstants;
-import com.ochain.common.constants.wheel.RetWheelConstants;
-import com.ochain.common.util.IpUtil;
 
 /**
  * tokenZuul请求过滤 TokenZuulFilter

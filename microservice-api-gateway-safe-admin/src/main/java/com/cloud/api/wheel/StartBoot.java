@@ -1,4 +1,4 @@
-package com.ochain.api.wheel.start;
+package com.cloud.api.wheel;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,8 +8,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import com.ochain.api.wheel.filter.ResponseZuulFilter;
-import com.ochain.api.wheel.filter.TokenZuulFilter;
+import com.cloud.api.wheel.filter.ResponseZuulFilter;
+import com.cloud.api.wheel.filter.TokenZuulFilter;
 
 @SpringBootApplication
 //服务网关

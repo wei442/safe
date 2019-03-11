@@ -1,4 +1,4 @@
-package com.cloud.api.safe.start;
+package com.cloud.api.safe;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
