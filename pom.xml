@@ -142,7 +142,6 @@
 		<module>microservice-consumer-safe-admin</module>
 		<module>microservice-provider-safe</module>
 		<module>microservice-provider-safe-log</module>
-		<module>microservice-provider-safe-attachment</module>
 		<module>safe-common</module>
 	</modules>
 </project>

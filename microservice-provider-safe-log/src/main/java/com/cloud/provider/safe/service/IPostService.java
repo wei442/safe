@@ -1,0 +1,54 @@
+package com.cloud.provider.safe.service;
+
+import java.util.List;
+
+import com.cloud.provider.safe.po.Post;
+import com.cloud.provider.safe.rest.request.page.PostPageRequest;
+import com.github.pagehelper.Page;
+
+public interface IPostService {
+
+    /**
+	 * 分页查询
+	 * @param page
+	 * @param param
+	 * @return List<Post>
+	 */
+	public List<Post> selectPostListByPage(Page<?> page, PostPageRequest param);
+
+	/**
+	 * 不分页查询
+	 * @param param
+	 * @return List<Post>
+	 */
+	public List<Post> selectPostList(PostPageRequest param);
+
+    /**
+     * 根据id查询岗位
+     * @param id
+     * @return Post
+     */
+	public Post selectPostById(Integer id);
+
+    /**
+     * 插入岗位
+     * @param Post
+     * @return Integer
+     */
+	public Integer insertPost(Post post);
+
+ 	/**
+  	 * 根据id删除岗位
+  	 * @param id
+  	 * @return Integer
+  	 */
+	public Integer deletePostById(Integer id);
+
+    /**
+     * 修改岗位
+     * @param Post
+     * @return Integer
+     */
+	public Integer modifyPost(Post post);
+
+}
