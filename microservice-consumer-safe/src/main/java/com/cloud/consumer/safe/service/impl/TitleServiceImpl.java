@@ -2,8 +2,6 @@ package com.cloud.consumer.safe.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -27,10 +25,7 @@ public class TitleServiceImpl extends BaseService implements ITitleService {
 	@Override
 	public JSONObject getTitleListByPage(Object params) {
 		logger.info("(TitleService-getTitleListByPage)-分页获取职务列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.post+"/selectTitleListByPage", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectTitleListByPage", null, JSONObject.class);
 		return response;
 	}
 
@@ -42,10 +37,7 @@ public class TitleServiceImpl extends BaseService implements ITitleService {
 	@Override
 	public JSONObject getTitleList(Object params) {
 		logger.info("(TitleService-getTitleList)-获取职务列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.post+"/selectTitleList", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectTitleList", null, JSONObject.class);
 		return response;
 	}
 
@@ -57,10 +49,7 @@ public class TitleServiceImpl extends BaseService implements ITitleService {
 	@Override
 	public JSONObject getTitleById(Integer id) {
 		logger.info("(TitleService-getTitleById)-根据id获取职务-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.post+"/selectTitleById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectTitleById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -72,10 +61,7 @@ public class TitleServiceImpl extends BaseService implements ITitleService {
 	@Override
 	public JSONObject addTitle(Object params) {
 		logger.info("(TitleService-addTitle)-新增职务-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.post+"/insertTitle", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/insertTitle", null, JSONObject.class);
 		return response;
 	}
 
@@ -87,10 +73,7 @@ public class TitleServiceImpl extends BaseService implements ITitleService {
 	@Override
 	public JSONObject deleteTitleById(Integer id) {
 		logger.info("(TitleService-deleteTitleById)-根据id获取职务-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.post+"/deleteTitleById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/deleteTitleById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -102,10 +85,7 @@ public class TitleServiceImpl extends BaseService implements ITitleService {
 	@Override
 	public JSONObject updateTitle(Object params) {
 		logger.info("(TitleService-updateTitle)-修改职务-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.post+"/modifyTitle", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/modifyTitle", null, JSONObject.class);
 		return response;
 	}
 

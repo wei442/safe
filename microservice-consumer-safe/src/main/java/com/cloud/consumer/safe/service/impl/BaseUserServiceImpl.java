@@ -1,11 +1,7 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -29,10 +25,7 @@ public class BaseUserServiceImpl extends BaseService implements IBaseUserService
 	@Override
 	public JSONObject getBaseUserListByPage(Object params) {
 		logger.info("(BaseUserService-getBaseUserListByPage)-分页获取基础用户列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_user+"/selectBaseUserListByPage", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/selectBaseUserListByPage", null, JSONObject.class);
 		return response;
 	}
 
@@ -44,10 +37,7 @@ public class BaseUserServiceImpl extends BaseService implements IBaseUserService
 	@Override
 	public JSONObject getBaseUserList(Object params) {
 		logger.info("(BaseUserService-getBaseUserList)-获取基础用户列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_user+"/selectBaseUserList", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/selectBaseUserList", null, JSONObject.class);
 		return response;
 	}
 
@@ -59,10 +49,7 @@ public class BaseUserServiceImpl extends BaseService implements IBaseUserService
 	@Override
 	public JSONObject getBaseUserById(Integer id) {
 		logger.info("(BaseUserService-getBaseUserById)-根据id获取基础用户-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_user+"/selectBaseUserById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/selectBaseUserById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -74,10 +61,7 @@ public class BaseUserServiceImpl extends BaseService implements IBaseUserService
 	@Override
 	public JSONObject addBaseUser(Object params) {
 		logger.info("(BaseUserService-addBaseUser)-新增基础用户-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_user+"/insertBaseUser", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/insertBaseUser", null, JSONObject.class);
 		return response;
 	}
 
@@ -89,10 +73,10 @@ public class BaseUserServiceImpl extends BaseService implements IBaseUserService
 	@Override
 	public JSONObject deleteBaseUserById(Integer id) {
 		logger.info("(BaseUserService-deleteBaseUserById)-根据id获取基础用户-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_user+"/deleteBaseUserById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+
+
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/deleteBaseUserById/"+id, null, JSONObject.class);
+
 		return response;
 	}
 
@@ -104,10 +88,7 @@ public class BaseUserServiceImpl extends BaseService implements IBaseUserService
 	@Override
 	public JSONObject updateBaseUser(Object params) {
 		logger.info("(BaseUserService-updateBaseUser)-修改基础用户-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_user+"/modifyBaseUser", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/modifyBaseUser", null, JSONObject.class);
 		return response;
 	}
 

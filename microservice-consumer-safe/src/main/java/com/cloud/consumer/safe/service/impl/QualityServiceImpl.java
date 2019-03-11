@@ -1,11 +1,7 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -29,10 +25,7 @@ public class QualityServiceImpl extends BaseService implements IQualityService {
 	@Override
 	public JSONObject getQualityListByPage(Object params) {
 		logger.info("(QualityService-getQualityListByPage)-分页获取用户职务列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/selectQualityListByPage", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/selectQualityListByPage", null, JSONObject.class);
 		return response;
 	}
 
@@ -44,10 +37,7 @@ public class QualityServiceImpl extends BaseService implements IQualityService {
 	@Override
 	public JSONObject getQualityList(Object params) {
 		logger.info("(QualityService-getQualityList)-获取用户职务列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/selectQualityList", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/selectQualityList", null, JSONObject.class);
 		return response;
 	}
 
@@ -59,10 +49,7 @@ public class QualityServiceImpl extends BaseService implements IQualityService {
 	@Override
 	public JSONObject getQualityById(Integer id) {
 		logger.info("(QualityService-getQualityById)-根据id获取用户职务-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/selectQualityById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/selectQualityById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -74,10 +61,7 @@ public class QualityServiceImpl extends BaseService implements IQualityService {
 	@Override
 	public JSONObject addQuality(Object params) {
 		logger.info("(QualityService-addQuality)-新增用户职务-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/insertQuality", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/insertQuality", null, JSONObject.class);
 		return response;
 	}
 
@@ -89,10 +73,7 @@ public class QualityServiceImpl extends BaseService implements IQualityService {
 	@Override
 	public JSONObject deleteQualityById(Integer id) {
 		logger.info("(QualityService-deleteQualityById)-根据id获取用户职务-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/deleteQualityById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/deleteQualityById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -104,10 +85,7 @@ public class QualityServiceImpl extends BaseService implements IQualityService {
 	@Override
 	public JSONObject updateQuality(Object params) {
 		logger.info("(QualityService-updateQuality)-修改用户职务-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality+"/modifyQuality", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/modifyQuality", null, JSONObject.class);
 		return response;
 	}
 

@@ -1,11 +1,7 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -29,10 +25,7 @@ public class BaseUserLoginServiceImpl extends BaseService implements IBaseUserLo
 	@Override
 	public JSONObject getBaseUserLoginListByPage(Object params) {
 		logger.info("(BaseUserLoginService-getBaseUserLoginListByPage)-分页获取基础用户登录列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_userLogin+"/selectBaseUserLoginListByPage", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/selectBaseUserLoginListByPage", null, JSONObject.class);
 		return response;
 	}
 
@@ -44,10 +37,7 @@ public class BaseUserLoginServiceImpl extends BaseService implements IBaseUserLo
 	@Override
 	public JSONObject getBaseUserLoginList(Object params) {
 		logger.info("(BaseUserLoginService-getBaseUserLoginList)-获取基础用户登录列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_userLogin+"/selectBaseUserLoginList", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/selectBaseUserLoginList", null, JSONObject.class);
 		return response;
 	}
 
@@ -59,10 +49,7 @@ public class BaseUserLoginServiceImpl extends BaseService implements IBaseUserLo
 	@Override
 	public JSONObject getBaseUserLoginById(Integer id) {
 		logger.info("(BaseUserLoginService-getBaseUserLoginById)-根据id获取基础用户登录-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_userLogin+"/selectBaseUserLoginById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/selectBaseUserLoginById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -74,10 +61,7 @@ public class BaseUserLoginServiceImpl extends BaseService implements IBaseUserLo
 	@Override
 	public JSONObject addBaseUserLogin(Object params) {
 		logger.info("(BaseUserLoginService-addBaseUserLogin)-新增基础用户登录-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_userLogin+"/insertBaseUserLogin", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/insertBaseUserLogin", null, JSONObject.class);
 		return response;
 	}
 
@@ -89,10 +73,7 @@ public class BaseUserLoginServiceImpl extends BaseService implements IBaseUserLo
 	@Override
 	public JSONObject deleteBaseUserLoginById(Integer id) {
 		logger.info("(BaseUserLoginService-deleteBaseUserLoginById)-根据id获取基础用户登录-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_userLogin+"/deleteBaseUserLoginById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/deleteBaseUserLoginById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -104,10 +85,7 @@ public class BaseUserLoginServiceImpl extends BaseService implements IBaseUserLo
 	@Override
 	public JSONObject updateBaseUserLogin(Object params) {
 		logger.info("(BaseUserLoginService-updateBaseUserLogin)-修改基础用户登录-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.base_userLogin+"/modifyBaseUserLogin", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/modifyBaseUserLogin", null, JSONObject.class);
 		return response;
 	}
 

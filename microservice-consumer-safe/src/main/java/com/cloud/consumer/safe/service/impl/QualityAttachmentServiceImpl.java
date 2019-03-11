@@ -1,11 +1,7 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -29,10 +25,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	@Override
 	public JSONObject getQualityAttachmentListByPage(Object params) {
 		logger.info("(QualityAttachmentService-getQualityAttachmentListByPage)-分页获取资质附件列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentListByPage", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentListByPage", null, JSONObject.class);
 		return response;
 	}
 
@@ -44,10 +37,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	@Override
 	public JSONObject getQualityAttachmentList(Object params) {
 		logger.info("(QualityAttachmentService-getQualityAttachmentList)-获取资质附件列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentList", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentList", null, JSONObject.class);
 		return response;
 	}
 
@@ -59,10 +49,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	@Override
 	public JSONObject getQualityAttachmentById(Integer id) {
 		logger.info("(QualityAttachmentService-getQualityAttachmentById)-根据id获取资质附件-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -74,10 +61,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	@Override
 	public JSONObject addQualityAttachment(Object params) {
 		logger.info("(QualityAttachmentService-addQualityAttachment)-新增资质附件-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality_attachment+"/insertQualityAttachment", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/insertQualityAttachment", null, JSONObject.class);
 		return response;
 	}
 
@@ -89,10 +73,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	@Override
 	public JSONObject deleteQualityAttachmentById(Integer id) {
 		logger.info("(QualityAttachmentService-deleteQualityAttachmentById)-根据id获取资质附件-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality_attachment+"/deleteQualityAttachmentById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/deleteQualityAttachmentById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -104,10 +85,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	@Override
 	public JSONObject updateQualityAttachment(Object params) {
 		logger.info("(QualityAttachmentService-updateQualityAttachment)-修改资质附件-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.quality_attachment+"/modifyQualityAttachment", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/modifyQualityAttachment", null, JSONObject.class);
 		return response;
 	}
 

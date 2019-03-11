@@ -1,11 +1,7 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -29,10 +25,7 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	@Override
 	public JSONObject getUserTitleListByPage(Object params) {
 		logger.info("(UserTitleService-getUserTitleListByPage)-分页获取用户职务列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/selectUserTitleListByPage", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserTitleListByPage", null, JSONObject.class);
 		return response;
 	}
 
@@ -44,10 +37,7 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	@Override
 	public JSONObject getUserTitleList(Object params) {
 		logger.info("(UserTitleService-getUserTitleList)-获取用户职务列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/selectUserTitleList", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserTitleList", null, JSONObject.class);
 		return response;
 	}
 
@@ -59,10 +49,7 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	@Override
 	public JSONObject getUserTitleById(Integer id) {
 		logger.info("(UserTitleService-getUserTitleById)-根据id获取用户职务-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/selectUserTitleById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserTitleById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -74,10 +61,7 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	@Override
 	public JSONObject addUserTitle(Object params) {
 		logger.info("(UserTitleService-addUserTitle)-新增用户职务-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/insertUserTitle", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/insertUserTitle", null, JSONObject.class);
 		return response;
 	}
 
@@ -89,10 +73,7 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	@Override
 	public JSONObject deleteUserTitleById(Integer id) {
 		logger.info("(UserTitleService-deleteUserTitleById)-根据id获取用户职务-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/deleteUserTitleById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/deleteUserTitleById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -104,10 +85,7 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	@Override
 	public JSONObject updateUserTitle(Object params) {
 		logger.info("(UserTitleService-updateUserTitle)-修改用户职务-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_title+"/modifyUserTitle", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/modifyUserTitle", null, JSONObject.class);
 		return response;
 	}
 

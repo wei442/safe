@@ -3,12 +3,10 @@ package com.cloud.consumer.safe.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.cloud.consumer.safe.base.BaseResult;
-
 import lombok.Data;
 
 @Data
-public class EnterpriseVo extends BaseResult implements Serializable {
+public class EnterpriseVo implements Serializable {
 
     /**
 	 *

@@ -104,7 +104,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.EnterpriseQuality">
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.EnterpriseQuality" useGeneratedKeys="true" keyProperty="id">
     insert into enterprise_quality (id, enterprise_id, quality_id, 
       is_delete, remark, created, 
       updated, create_time, update_time
@@ -114,7 +114,7 @@
       #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.EnterpriseQuality">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.EnterpriseQuality" useGeneratedKeys="true" keyProperty="id">
     insert into enterprise_quality
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

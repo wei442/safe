@@ -1,11 +1,7 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -29,10 +25,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject getUserAppLoginListByPage(Object params) {
 		logger.info("(UserAppLoginService-getUserAppLoginListByPage)-分页获取用户应用登录列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginListByPage", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginListByPage", null, JSONObject.class);
 		return response;
 	}
 
@@ -44,10 +37,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject getUserAppLoginList(Object params) {
 		logger.info("(UserAppLoginService-getUserAppLoginList)-获取用户应用登录列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginList", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginList", null, JSONObject.class);
 		return response;
 	}
 
@@ -59,10 +49,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject getUserAppLoginById(Integer id) {
 		logger.info("(UserAppLoginService-getUserAppLoginById)-根据id获取用户应用登录-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -74,10 +61,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject addUserAppLogin(Object params) {
 		logger.info("(UserAppLoginService-addUserAppLogin)-新增用户应用登录-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/insertUserAppLogin", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/insertUserAppLogin", null, JSONObject.class);
 		return response;
 	}
 
@@ -89,10 +73,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject deleteUserAppLoginById(Integer id) {
 		logger.info("(UserAppLoginService-deleteUserAppLoginById)-根据id获取用户应用登录-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/deleteUserAppLoginById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/deleteUserAppLoginById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -104,10 +85,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject updateUserAppLogin(Object params) {
 		logger.info("(UserAppLoginService-updateUserAppLogin)-修改用户应用登录-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.user_appLogin+"/modifyUserAppLogin", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/modifyUserAppLogin", null, JSONObject.class);
 		return response;
 	}
 

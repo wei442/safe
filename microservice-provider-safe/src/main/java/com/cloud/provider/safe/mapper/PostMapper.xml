@@ -107,7 +107,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.Post">
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.Post" useGeneratedKeys="true" keyProperty="id">
     insert into post (id, enterprise_id, post_name, 
       is_special, special_remark, is_delete, 
       remark, sort, created, 
@@ -119,7 +119,7 @@
       #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Post">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Post" useGeneratedKeys="true" keyProperty="id">
     insert into post
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

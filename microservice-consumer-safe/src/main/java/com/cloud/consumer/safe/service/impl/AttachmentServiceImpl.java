@@ -1,11 +1,7 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -29,10 +25,7 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	@Override
 	public JSONObject getAttachmentListByPage(Object params) {
 		logger.info("(AttachmentService-getAttachmentListByPage)-分页获取附件列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.attachment+"/selectAttachmentListByPage", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/selectAttachmentListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -44,10 +37,7 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	@Override
 	public JSONObject getAttachmentList(Object params) {
 		logger.info("(AttachmentService-getAttachmentList)-获取附件列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.attachment+"/selectAttachmentList", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/selectAttachmentList", params, JSONObject.class);
 		return response;
 	}
 
@@ -59,10 +49,7 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	@Override
 	public JSONObject getAttachmentById(Integer id) {
 		logger.info("(AttachmentService-getAttachmentById)-根据id获取附件-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.attachment+"/selectAttachmentById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/selectAttachmentById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -74,10 +61,7 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	@Override
 	public JSONObject addAttachment(Object params) {
 		logger.info("(AttachmentService-addAttachment)-新增附件-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.attachment+"/insertAttachment", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/insertAttachment", params, JSONObject.class);
 		return response;
 	}
 
@@ -89,10 +73,7 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	@Override
 	public JSONObject deleteAttachmentById(Integer id) {
 		logger.info("(AttachmentService-deleteAttachmentById)-根据id获取附件-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.attachment+"/deleteAttachmentById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/deleteAttachmentById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -104,10 +85,7 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	@Override
 	public JSONObject updateAttachment(Object params) {
 		logger.info("(AttachmentService-updateAttachment)-修改附件-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.attachment+"/modifyAttachment", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/modifyAttachment", params, JSONObject.class);
 		return response;
 	}
 

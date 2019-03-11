@@ -2,8 +2,6 @@ package com.cloud.consumer.safe.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -27,10 +25,7 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	@Override
 	public JSONObject getDictItemListByPage(Object params) {
 		logger.info("(DictItemService-getDictItemListByPage)-分页获取字典子项列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.dict+"/selectDictItemListByPage", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectDictItemListByPage", null, JSONObject.class);
 		return response;
 	}
 
@@ -42,10 +37,7 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	@Override
 	public JSONObject getDictItemList(Object params) {
 		logger.info("(DictItemService-getDictItemList)-获取字典子项列表-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.dict+"/selectDictItemList", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectDictItemList", null, JSONObject.class);
 		return response;
 	}
 
@@ -57,10 +49,7 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	@Override
 	public JSONObject getDictItemById(Integer id) {
 		logger.info("(DictItemService-getDictItemById)-根据id获取字典子项-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.dict+"/selectDictItemById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectDictItemById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -72,10 +61,7 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	@Override
 	public JSONObject addDictItem(Object params) {
 		logger.info("(DictItemService-addDictItem)-新增字典子项-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.dict+"/insertDictItem", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/insertDictItem", null, JSONObject.class);
 		return response;
 	}
 
@@ -87,10 +73,7 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	@Override
 	public JSONObject deleteDictItemById(Integer id) {
 		logger.info("(DictItemService-deleteDictItemById)-根据id获取字典子项-传入参数, id:{}", id);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.dict+"/deleteDictItemById/"+id, httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/deleteDictItemById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -102,10 +85,7 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	@Override
 	public JSONObject updateDictItem(Object params) {
 		logger.info("(DictItemService-updateDictItem)-修改字典子项-传入参数, params:{}", params);
-		HttpHeaders headers = this.getProviderSafeHeaders();
-		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(SafeUrlConstants.dict+"/modifyDictItem", httpEntity, JSONObject.class);
-		this.verifyResponse(response);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/modifyDictItem", null, JSONObject.class);
 		return response;
 	}
 
