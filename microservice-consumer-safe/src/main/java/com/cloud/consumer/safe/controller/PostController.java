@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.PostIdRequest;
 import com.cloud.consumer.safe.rest.request.PostRequest;
 import com.cloud.consumer.safe.rest.request.page.PostPageRequest;
 import com.cloud.consumer.safe.service.IPostService;
@@ -56,10 +57,6 @@ public class PostController extends BaseController {
 	public BaseRestMapResponse getPostListByPage(
 		@RequestBody PostPageRequest req) {
 		logger.info("===step1:【分页查询】(PostController-getPostListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		String postName = req.getPostName();
-		Integer pageNum = req.getPageNum();
-		Integer pageSize = req.getPageSize();
 
 		JSONObject jsonPost = postService.getPostListByPage(req);
 		logger.info("===step2:【分页查询】(PostController-getPostListByPage)-分页查询岗位列表, jsonPost:{}", jsonPost);
@@ -111,7 +108,7 @@ public class PostController extends BaseController {
 	@RequestMapping(value="/getPost",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getPost(
-		@RequestBody PostRequest req,
+		@Validated @RequestBody PostIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取岗位】(PostController-getPost)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -145,9 +142,6 @@ public class PostController extends BaseController {
 
 		this.bindingResult(bindingResult);
 
-		String postName = req.getPostName();
-		String remark = req.getRemark();
-
 		JSONObject jsonPost = postService.addPost(req);
 		logger.info("===step2:【新增岗位】(PostController-addPost)-分页查询岗位列表, jsonPost:{}", jsonPost);
 		PostVo postVo = JSONObject.toJavaObject(jsonPost, PostVo.class);
@@ -165,11 +159,11 @@ public class PostController extends BaseController {
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "新增岗位")
+	@ApiOperation(value = "删除岗位")
 	@RequestMapping(value="/deletePost",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deletePost(
-		@RequestBody PostRequest req,
+		@Validated @RequestBody PostIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除岗位】(PostController-deletePost)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

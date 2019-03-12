@@ -2,6 +2,7 @@ package com.cloud.provider.safe.rest.request;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.BeanUtils;
@@ -25,10 +26,16 @@ public class QualityAttachmentRequest implements Serializable {
 	@NotNull(message = "岗位id", groups = {ModifyGroup.class})
 	private Integer qualityAttachmentId;
 
+	@ApiModelProperty(value = "资质id", required = true)
+    @NotNull(message = "资质id")
     private Integer qualityId;
 
+	@ApiModelProperty(value = "附件id", required = true)
+    @NotNull(message = "附件id")
     private Integer attachmentId;
 
+	@ApiModelProperty(value = "附件url", required = true)
+	@NotBlank(message = "附件url")
     private String attachmentUrl;
 
 	@ApiModelProperty(value = "备注")

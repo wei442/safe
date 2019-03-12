@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.AttachmentIdRequest;
 import com.cloud.consumer.safe.rest.request.AttachmentRequest;
 import com.cloud.consumer.safe.rest.request.page.AttachmentPageRequest;
 import com.cloud.consumer.safe.service.IAttachmentService;
@@ -107,7 +108,7 @@ public class AttachmentController extends BaseController {
 	@RequestMapping(value="/getAttachment",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getAttachment(
-		@RequestBody AttachmentRequest req,
+		@Validated @RequestBody AttachmentIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取附件】(AttachmentController-getAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class AttachmentController extends BaseController {
 	@RequestMapping(value="/deleteAttachment",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteAttachment(
-		@RequestBody AttachmentRequest req,
+		@Validated @RequestBody AttachmentIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除附件】(AttachmentController-deleteAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

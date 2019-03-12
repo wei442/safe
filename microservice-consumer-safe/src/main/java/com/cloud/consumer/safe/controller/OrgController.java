@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.OrgIdRequest;
 import com.cloud.consumer.safe.rest.request.OrgRequest;
 import com.cloud.consumer.safe.rest.request.page.OrgPageRequest;
 import com.cloud.consumer.safe.service.IOrgService;
@@ -107,7 +108,7 @@ public class OrgController extends BaseController {
 	@RequestMapping(value="/getOrg",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getOrg(
-		@RequestBody OrgRequest req,
+		@Validated @RequestBody OrgIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取组织机构】(OrgController-getOrg)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class OrgController extends BaseController {
 	@RequestMapping(value="/deleteOrg",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteOrg(
-		@RequestBody OrgRequest req,
+		@Validated @RequestBody OrgIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除组织机构】(OrgController-deleteOrg)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

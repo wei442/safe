@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.UserQualityIdRequest;
 import com.cloud.consumer.safe.rest.request.UserQualityRequest;
 import com.cloud.consumer.safe.rest.request.page.UserQualityPageRequest;
 import com.cloud.consumer.safe.service.IUserQualityService;
@@ -107,7 +108,7 @@ public class UserQualityController extends BaseController {
 	@RequestMapping(value="/getUserQuality",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getUserQuality(
-		@RequestBody UserQualityRequest req,
+		@Validated @RequestBody UserQualityIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户资质】(UserQualityController-getUserQuality)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class UserQualityController extends BaseController {
 	@RequestMapping(value="/deleteUserQuality",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteUserQuality(
-		@RequestBody UserQualityRequest req,
+		@Validated @RequestBody UserQualityIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户资质】(UserQualityController-deleteUserQuality)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

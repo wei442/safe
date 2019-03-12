@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.QualityAttachmentIdRequest;
 import com.cloud.consumer.safe.rest.request.QualityAttachmentRequest;
 import com.cloud.consumer.safe.rest.request.page.QualityAttachmentPageRequest;
 import com.cloud.consumer.safe.service.IQualityAttachmentService;
@@ -107,7 +108,7 @@ public class QualityAttachmentController extends BaseController {
 	@RequestMapping(value="/getQualityAttachment",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getQualityAttachment(
-		@RequestBody QualityAttachmentRequest req,
+		@Validated @RequestBody QualityAttachmentIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取资质附件】(QualityAttachmentController-getQualityAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class QualityAttachmentController extends BaseController {
 	@RequestMapping(value="/deleteQualityAttachment",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteQualityAttachment(
-		@RequestBody QualityAttachmentRequest req,
+		@Validated @RequestBody QualityAttachmentIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除资质附件】(QualityAttachmentController-deleteQualityAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

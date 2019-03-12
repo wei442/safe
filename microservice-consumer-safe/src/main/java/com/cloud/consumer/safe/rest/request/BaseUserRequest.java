@@ -2,6 +2,12 @@ package com.cloud.consumer.safe.rest.request;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import com.cloud.consumer.safe.validator.group.UpdateGroup;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -12,24 +18,32 @@ public class BaseUserRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "基础用户id", required = true)
+    @NotNull(message = "基础用户id", groups = {UpdateGroup.class})
 	private Integer baseUserId;
 
+	@ApiModelProperty(value = "用户账户", required = true)
+	@NotBlank(message = "用户账户", groups = {UpdateGroup.class})
     private String userAccount;
 
-    private String userName;
-
-    private String userNameEn;
-
+    @ApiModelProperty(value = "用户密码", required = true)
+	@NotBlank(message = "用户密码", groups = {UpdateGroup.class})
     private String userPassword;
 
-    private Integer userType;
+    @ApiModelProperty(value = "用户名称", required = true)
+	@NotBlank(message = "用户名称")
+    private String userName;
 
-    private Integer userStatus;
+    @ApiModelProperty(value = "用户英文名称")
+    private String userNameEn;
 
+    @ApiModelProperty(value = "用户邮箱")
     private String userEmail;
 
+	@ApiModelProperty(value = "备注")
     private String remark;
 
+	@ApiModelProperty(value = "排序")
     private Integer sort;
 
 }

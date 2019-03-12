@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.UserAdminLoginIdRequest;
 import com.cloud.consumer.safe.rest.request.UserAdminLoginRequest;
 import com.cloud.consumer.safe.rest.request.page.UserAdminLoginPageRequest;
 import com.cloud.consumer.safe.service.IUserAdminLoginService;
@@ -107,7 +108,7 @@ public class UserAdminLoginController extends BaseController {
 	@RequestMapping(value="/getUserAdminLogin",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getUserAdminLogin(
-		@RequestBody UserAdminLoginRequest req,
+		@Validated @RequestBody UserAdminLoginIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户管理登录】(UserAdminLoginController-getUserAdminLogin)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -158,11 +159,11 @@ public class UserAdminLoginController extends BaseController {
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "新增用户管理登录")
+	@ApiOperation(value = "新删除用户管理登录")
 	@RequestMapping(value="/deleteUserAdminLogin",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteUserAdminLogin(
-		@RequestBody UserAdminLoginRequest req,
+		@Validated @RequestBody UserAdminLoginIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户管理登录】(UserAdminLoginController-deleteUserAdminLogin)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

@@ -2,6 +2,7 @@ package com.cloud.provider.safe.rest.request;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.BeanUtils;
@@ -21,10 +22,12 @@ public class QualityRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "用户id", required = true)
-    @NotNull(message = "用户id", groups = {ModifyGroup.class})
+	@ApiModelProperty(value = "资质id", required = true)
+    @NotNull(message = "资质id", groups = {ModifyGroup.class})
 	private Integer qualityId;
 
+	@ApiModelProperty(value = "资质名称")
+	@NotBlank(message = "资质名称")
     private String qualityName;
 
 	@ApiModelProperty(value = "备注")

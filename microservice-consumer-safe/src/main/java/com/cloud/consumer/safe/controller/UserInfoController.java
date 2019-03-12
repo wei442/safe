@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.UserInfoIdRequest;
 import com.cloud.consumer.safe.rest.request.UserInfoRequest;
 import com.cloud.consumer.safe.rest.request.page.UserInfoPageRequest;
 import com.cloud.consumer.safe.service.IUserInfoService;
@@ -107,7 +108,7 @@ public class UserInfoController extends BaseController {
 	@RequestMapping(value="/getUserInfo",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getUserInfo(
-		@RequestBody UserInfoRequest req,
+		@Validated @RequestBody UserInfoIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户信息】(UserInfoController-getUserInfo)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class UserInfoController extends BaseController {
 	@RequestMapping(value="/deleteUserInfo",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteUserInfo(
-		@RequestBody UserInfoRequest req,
+		@Validated @RequestBody UserInfoIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户信息】(UserInfoController-deleteUserInfo)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

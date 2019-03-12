@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.EnterpriseQualityIdRequest;
 import com.cloud.consumer.safe.rest.request.EnterpriseQualityRequest;
 import com.cloud.consumer.safe.rest.request.page.EnterpriseQualityPageRequest;
 import com.cloud.consumer.safe.service.IEnterpriseQualityService;
@@ -107,7 +108,7 @@ public class EnterpriseQualityController extends BaseController {
 	@RequestMapping(value="/getEnterpriseQuality",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getEnterpriseQuality(
-		@RequestBody EnterpriseQualityRequest req,
+		@Validated @RequestBody EnterpriseQualityIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取企业资质】(EnterpriseQualityController-getEnterpriseQuality)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class EnterpriseQualityController extends BaseController {
 	@RequestMapping(value="/deleteEnterpriseQuality",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteEnterpriseQuality(
-		@RequestBody EnterpriseQualityRequest req,
+		@Validated @RequestBody EnterpriseQualityIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除企业资质】(EnterpriseQualityController-deleteEnterpriseQuality)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

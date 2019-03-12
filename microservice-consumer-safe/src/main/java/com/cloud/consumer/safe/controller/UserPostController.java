@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.UserPostIdRequest;
 import com.cloud.consumer.safe.rest.request.UserPostRequest;
 import com.cloud.consumer.safe.rest.request.page.UserPostPageRequest;
 import com.cloud.consumer.safe.service.IUserPostService;
@@ -107,7 +108,7 @@ public class UserPostController extends BaseController {
 	@RequestMapping(value="/getUserPost",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getUserPost(
-		@RequestBody UserPostRequest req,
+		@Validated @RequestBody UserPostIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户岗位】(UserPostController-getUserPost)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class UserPostController extends BaseController {
 	@RequestMapping(value="/deleteUserPost",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteUserPost(
-		@RequestBody UserPostRequest req,
+		@Validated @RequestBody UserPostIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户岗位】(UserPostController-deleteUserPost)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

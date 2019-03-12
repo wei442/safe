@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.QualityIdRequest;
 import com.cloud.consumer.safe.rest.request.QualityRequest;
 import com.cloud.consumer.safe.rest.request.page.QualityPageRequest;
 import com.cloud.consumer.safe.service.IQualityService;
@@ -107,7 +108,7 @@ public class QualityController extends BaseController {
 	@RequestMapping(value="/getQuality",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getQuality(
-		@RequestBody QualityRequest req,
+		@Validated @RequestBody QualityIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取资质】(QualityController-getQuality)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class QualityController extends BaseController {
 	@RequestMapping(value="/deleteQuality",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteQuality(
-		@RequestBody QualityRequest req,
+		@Validated @RequestBody QualityIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除资质】(QualityController-deleteQuality)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

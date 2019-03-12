@@ -2,9 +2,13 @@ package com.cloud.provider.safe.rest.request;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.BeanUtils;
 
 import com.cloud.provider.safe.po.Attachment;
+import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.google.common.base.Converter;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -18,10 +22,16 @@ public class AttachmentRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "附件id", required = true)
+    @NotNull(message = "附件id", groups = {ModifyGroup.class})
 	private Integer attachmentId;
 
+	@ApiModelProperty(value = "附件url", required = true)
+	@NotBlank(message = "附件url")
     private String attachmentUrl;
 
+	@ApiModelProperty(value = "附件类型", required = true)
+    @NotNull(message = "附件类型")
     private Integer attachmentType;
 
 	@ApiModelProperty(value = "备注")

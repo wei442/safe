@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.DictItemIdRequest;
 import com.cloud.consumer.safe.rest.request.DictItemRequest;
 import com.cloud.consumer.safe.rest.request.page.DictItemPageRequest;
 import com.cloud.consumer.safe.service.IDictItemService;
@@ -107,7 +108,7 @@ public class DictItemController extends BaseController {
 	@RequestMapping(value="/getDictItem",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getDictItem(
-		@RequestBody DictItemRequest req,
+		@Validated @RequestBody DictItemIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取字典子项】(DictItemController-getDictItem)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class DictItemController extends BaseController {
 	@RequestMapping(value="/deleteDictItem",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteDictItem(
-		@RequestBody DictItemRequest req,
+		@Validated @RequestBody DictItemIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除字典子项】(DictItemController-deleteDictItem)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

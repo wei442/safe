@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.UserOrgIdRequest;
 import com.cloud.consumer.safe.rest.request.UserOrgRequest;
 import com.cloud.consumer.safe.rest.request.page.UserOrgPageRequest;
 import com.cloud.consumer.safe.service.IUserOrgService;
@@ -107,7 +108,7 @@ public class UserOrgController extends BaseController {
 	@RequestMapping(value="/getUserOrg",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getUserOrg(
-		@RequestBody UserOrgRequest req,
+		@Validated @RequestBody UserOrgIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户机构】(UserOrgController-getUserOrg)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class UserOrgController extends BaseController {
 	@RequestMapping(value="/deleteUserOrg",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteUserOrg(
-		@RequestBody UserOrgRequest req,
+		@Validated @RequestBody UserOrgIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户机构】(UserOrgController-deleteUserOrg)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

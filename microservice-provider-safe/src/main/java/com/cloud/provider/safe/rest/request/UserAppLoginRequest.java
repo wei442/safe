@@ -30,10 +30,10 @@ public class UserAppLoginRequest implements Serializable {
     @NotNull(message = "用户id")
     private Integer userId;
 
-    private Integer firstLogin;
-
+	@ApiModelProperty(value = "登录次数")
     private Integer loginCount;
 
+	@ApiModelProperty(value = "过期时间")
     private Date lastPassTime;
 
     /**

@@ -2,6 +2,12 @@ package com.cloud.consumer.safe.rest.request;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import com.cloud.consumer.safe.validator.group.UpdateGroup;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -12,42 +18,45 @@ public class OrgRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "机构id")
+	@NotNull(message = "机构id", groups = {UpdateGroup.class})
 	private Integer orgId;
 
+	@ApiModelProperty(value = "企业id")
+	@NotNull(message = "企业id")
     private Integer enterpriseId;
 
+    @ApiModelProperty(value = "机构父id")
+    @NotNull(message = "机构父id")
     private Integer parentOrgId;
 
+    @ApiModelProperty(value = "机构父名称")
+    @NotBlank(message = "机构父名称")
     private String parentOrgName;
 
+    @ApiModelProperty(value = "机构父英文名称")
     private String parentOrgNameEn;
 
+    @ApiModelProperty(value = "机构名称")
+    @NotBlank(message = "机构名称")
     private String orgName;
 
+    @ApiModelProperty(value = "机构英文名称")
     private String orgNameEn;
 
+    @ApiModelProperty(value = "机构别名")
     private String orgAlias;
 
+    @ApiModelProperty(value = "机构电话")
     private String orgTelphone;
 
-    private Integer orgType;
-
-    private Integer orgStatus;
-
-    private Integer orgLevel;
-
+    @ApiModelProperty(value = "机构传真")
     private String orgFax;
 
-    private String orgEmail;
-
-    private String orgPostCode;
-
-    private String orgAddr;
-
-    private String orgWebsite;
-
+	@ApiModelProperty(value = "备注")
     private String remark;
 
+	@ApiModelProperty(value = "排序")
     private Integer sort;
 
 }

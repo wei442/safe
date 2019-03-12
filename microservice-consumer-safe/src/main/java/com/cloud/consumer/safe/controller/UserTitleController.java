@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.UserTitleIdRequest;
 import com.cloud.consumer.safe.rest.request.UserTitleRequest;
 import com.cloud.consumer.safe.rest.request.page.UserTitlePageRequest;
 import com.cloud.consumer.safe.service.IUserTitleService;
@@ -107,7 +108,7 @@ public class UserTitleController extends BaseController {
 	@RequestMapping(value="/getUserTitle",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getUserTitle(
-		@RequestBody UserTitleRequest req,
+		@Validated @RequestBody UserTitleIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户职务】(UserTitleController-getUserTitle)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class UserTitleController extends BaseController {
 	@RequestMapping(value="/deleteUserTitle",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteUserTitle(
-		@RequestBody UserTitleRequest req,
+		@Validated @RequestBody UserTitleIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户职务】(UserTitleController-deleteUserTitle)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

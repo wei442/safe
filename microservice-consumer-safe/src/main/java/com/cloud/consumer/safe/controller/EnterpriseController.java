@@ -108,7 +108,7 @@ public class EnterpriseController extends BaseController {
 	@RequestMapping(value="/getEnterprise",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getEnterprise(
-		@RequestBody EnterpriseIdRequest req,
+		@Validated @RequestBody EnterpriseIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取企业】(EnterpriseController-getEnterprise)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -163,7 +163,7 @@ public class EnterpriseController extends BaseController {
 	@RequestMapping(value="/deleteEnterprise",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteEnterprise(
-		@RequestBody EnterpriseIdRequest req,
+		@Validated @RequestBody EnterpriseIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除企业】(EnterpriseController-deleteEnterprise)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

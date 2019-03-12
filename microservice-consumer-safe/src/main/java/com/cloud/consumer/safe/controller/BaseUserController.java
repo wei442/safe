@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.BaseUserIdRequest;
 import com.cloud.consumer.safe.rest.request.BaseUserRequest;
 import com.cloud.consumer.safe.rest.request.page.BaseUserPageRequest;
 import com.cloud.consumer.safe.service.IBaseUserService;
@@ -107,7 +108,7 @@ public class BaseUserController extends BaseController {
 	@RequestMapping(value="/getBaseUser",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getBaseUser(
-		@RequestBody BaseUserRequest req,
+		@Validated @RequestBody BaseUserIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取基础用户】(BaseUserController-getBaseUser)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class BaseUserController extends BaseController {
 	@RequestMapping(value="/deleteBaseUser",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteBaseUser(
-		@RequestBody BaseUserRequest req,
+		@Validated @RequestBody BaseUserIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除基础用户】(BaseUserController-deleteBaseUser)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

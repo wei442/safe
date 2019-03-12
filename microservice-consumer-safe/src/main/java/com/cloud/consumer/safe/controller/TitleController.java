@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.TitleIdRequest;
 import com.cloud.consumer.safe.rest.request.TitleRequest;
 import com.cloud.consumer.safe.rest.request.page.TitlePageRequest;
 import com.cloud.consumer.safe.service.ITitleService;
@@ -107,7 +108,7 @@ public class TitleController extends BaseController {
 	@RequestMapping(value="/getTitle",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getTitle(
-		@RequestBody TitleRequest req,
+		@Validated @RequestBody TitleIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取职务】(TitleController-getTitle)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -158,11 +159,11 @@ public class TitleController extends BaseController {
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "新增职务")
+	@ApiOperation(value = "删除职务")
 	@RequestMapping(value="/deleteTitle",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteTitle(
-		@RequestBody TitleRequest req,
+		@Validated @RequestBody TitleIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除职务】(TitleController-deleteTitle)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

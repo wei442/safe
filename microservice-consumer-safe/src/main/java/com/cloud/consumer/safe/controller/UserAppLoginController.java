@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.UserAppLoginIdRequest;
 import com.cloud.consumer.safe.rest.request.UserAppLoginRequest;
 import com.cloud.consumer.safe.rest.request.page.UserAppLoginPageRequest;
 import com.cloud.consumer.safe.service.IUserAppLoginService;
@@ -107,7 +108,7 @@ public class UserAppLoginController extends BaseController {
 	@RequestMapping(value="/getUserAppLogin",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getUserAppLogin(
-		@RequestBody UserAppLoginRequest req,
+		@Validated @RequestBody UserAppLoginIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户应用登录】(UserAppLoginController-getUserAppLogin)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class UserAppLoginController extends BaseController {
 	@RequestMapping(value="/deleteUserAppLogin",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteUserAppLogin(
-		@RequestBody UserAppLoginRequest req,
+		@Validated @RequestBody UserAppLoginIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户应用登录】(UserAppLoginController-deleteUserAppLogin)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
