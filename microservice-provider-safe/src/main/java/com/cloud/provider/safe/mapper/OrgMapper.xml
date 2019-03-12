@@ -13,12 +13,7 @@
     <result column="org_telphone" jdbcType="VARCHAR" property="orgTelphone" />
     <result column="org_type" jdbcType="INTEGER" property="orgType" />
     <result column="org_status" jdbcType="INTEGER" property="orgStatus" />
-    <result column="org_level" jdbcType="INTEGER" property="orgLevel" />
     <result column="org_fax" jdbcType="VARCHAR" property="orgFax" />
-    <result column="org_email" jdbcType="VARCHAR" property="orgEmail" />
-    <result column="org_post_code" jdbcType="VARCHAR" property="orgPostCode" />
-    <result column="org_addr" jdbcType="VARCHAR" property="orgAddr" />
-    <result column="org_website" jdbcType="VARCHAR" property="orgWebsite" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
@@ -87,9 +82,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, enterprise_id, parent_org_id, parent_org_name, parent_org_name_en, org_name, 
-    org_name_en, org_alias, org_telphone, org_type, org_status, org_level, org_fax, org_email, 
-    org_post_code, org_addr, org_website, is_delete, remark, sort, created, updated, 
-    create_time, update_time
+    org_name_en, org_alias, org_telphone, org_type, org_status, org_fax, is_delete, remark, 
+    sort, created, updated, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.OrgExample" resultMap="BaseResultMap">
     select
@@ -121,27 +115,23 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.Org" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.Org">
     insert into org (id, enterprise_id, parent_org_id, 
       parent_org_name, parent_org_name_en, org_name, 
       org_name_en, org_alias, org_telphone, 
-      org_type, org_status, org_level, 
-      org_fax, org_email, org_post_code, 
-      org_addr, org_website, is_delete, 
-      remark, sort, created, 
-      updated, create_time, update_time
-      )
+      org_type, org_status, org_fax, 
+      is_delete, remark, sort, 
+      created, updated, create_time, 
+      update_time)
     values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{parentOrgId,jdbcType=INTEGER}, 
       #{parentOrgName,jdbcType=VARCHAR}, #{parentOrgNameEn,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, 
       #{orgNameEn,jdbcType=VARCHAR}, #{orgAlias,jdbcType=VARCHAR}, #{orgTelphone,jdbcType=VARCHAR}, 
-      #{orgType,jdbcType=INTEGER}, #{orgStatus,jdbcType=INTEGER}, #{orgLevel,jdbcType=INTEGER}, 
-      #{orgFax,jdbcType=VARCHAR}, #{orgEmail,jdbcType=VARCHAR}, #{orgPostCode,jdbcType=VARCHAR}, 
-      #{orgAddr,jdbcType=VARCHAR}, #{orgWebsite,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, 
-      #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, 
-      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{orgType,jdbcType=INTEGER}, #{orgStatus,jdbcType=INTEGER}, #{orgFax,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Org" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Org">
     insert into org
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -177,23 +167,8 @@
       <if test="orgStatus != null">
         org_status,
       </if>
-      <if test="orgLevel != null">
-        org_level,
-      </if>
       <if test="orgFax != null">
         org_fax,
-      </if>
-      <if test="orgEmail != null">
-        org_email,
-      </if>
-      <if test="orgPostCode != null">
-        org_post_code,
-      </if>
-      <if test="orgAddr != null">
-        org_addr,
-      </if>
-      <if test="orgWebsite != null">
-        org_website,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -251,23 +226,8 @@
       <if test="orgStatus != null">
         #{orgStatus,jdbcType=INTEGER},
       </if>
-      <if test="orgLevel != null">
-        #{orgLevel,jdbcType=INTEGER},
-      </if>
       <if test="orgFax != null">
         #{orgFax,jdbcType=VARCHAR},
-      </if>
-      <if test="orgEmail != null">
-        #{orgEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="orgPostCode != null">
-        #{orgPostCode,jdbcType=VARCHAR},
-      </if>
-      <if test="orgAddr != null">
-        #{orgAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="orgWebsite != null">
-        #{orgWebsite,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=INTEGER},
@@ -334,23 +294,8 @@
       <if test="record.orgStatus != null">
         org_status = #{record.orgStatus,jdbcType=INTEGER},
       </if>
-      <if test="record.orgLevel != null">
-        org_level = #{record.orgLevel,jdbcType=INTEGER},
-      </if>
       <if test="record.orgFax != null">
         org_fax = #{record.orgFax,jdbcType=VARCHAR},
-      </if>
-      <if test="record.orgEmail != null">
-        org_email = #{record.orgEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="record.orgPostCode != null">
-        org_post_code = #{record.orgPostCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.orgAddr != null">
-        org_addr = #{record.orgAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="record.orgWebsite != null">
-        org_website = #{record.orgWebsite,jdbcType=VARCHAR},
       </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=INTEGER},
@@ -391,12 +336,7 @@
       org_telphone = #{record.orgTelphone,jdbcType=VARCHAR},
       org_type = #{record.orgType,jdbcType=INTEGER},
       org_status = #{record.orgStatus,jdbcType=INTEGER},
-      org_level = #{record.orgLevel,jdbcType=INTEGER},
       org_fax = #{record.orgFax,jdbcType=VARCHAR},
-      org_email = #{record.orgEmail,jdbcType=VARCHAR},
-      org_post_code = #{record.orgPostCode,jdbcType=VARCHAR},
-      org_addr = #{record.orgAddr,jdbcType=VARCHAR},
-      org_website = #{record.orgWebsite,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
       sort = #{record.sort,jdbcType=INTEGER},
@@ -441,23 +381,8 @@
       <if test="orgStatus != null">
         org_status = #{orgStatus,jdbcType=INTEGER},
       </if>
-      <if test="orgLevel != null">
-        org_level = #{orgLevel,jdbcType=INTEGER},
-      </if>
       <if test="orgFax != null">
         org_fax = #{orgFax,jdbcType=VARCHAR},
-      </if>
-      <if test="orgEmail != null">
-        org_email = #{orgEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="orgPostCode != null">
-        org_post_code = #{orgPostCode,jdbcType=VARCHAR},
-      </if>
-      <if test="orgAddr != null">
-        org_addr = #{orgAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="orgWebsite != null">
-        org_website = #{orgWebsite,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=INTEGER},
@@ -495,12 +420,7 @@
       org_telphone = #{orgTelphone,jdbcType=VARCHAR},
       org_type = #{orgType,jdbcType=INTEGER},
       org_status = #{orgStatus,jdbcType=INTEGER},
-      org_level = #{orgLevel,jdbcType=INTEGER},
       org_fax = #{orgFax,jdbcType=VARCHAR},
-      org_email = #{orgEmail,jdbcType=VARCHAR},
-      org_post_code = #{orgPostCode,jdbcType=VARCHAR},
-      org_addr = #{orgAddr,jdbcType=VARCHAR},
-      org_website = #{orgWebsite,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       sort = #{sort,jdbcType=INTEGER},

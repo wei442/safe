@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.QualityMapper;
 import com.cloud.provider.safe.po.Quality;
@@ -44,6 +45,7 @@ public class QualityServiceImpl implements IQualityService {
 		QualityExample example = new QualityExample();
 		example.setOrderByClause(" id desc ");
 		QualityExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_QUALITY_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Quality> list = qualityMapper.selectByExample(example);
@@ -60,6 +62,7 @@ public class QualityServiceImpl implements IQualityService {
 		logger.info("(QualityService-selectQualityList)-不分页查询-传入参数, param:{}", param);
 		QualityExample example = new QualityExample();
 		QualityExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_QUALITY_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Quality> list = qualityMapper.selectByExample(example);
@@ -86,6 +89,7 @@ public class QualityServiceImpl implements IQualityService {
 	@Override
 	public Integer insertQuality(Quality quality) {
     	logger.info("(QualityService-insertQuality)-插入资质-传入参数, quality:{}", quality);
+    	quality.setIsDelete(SqlSafeConstants.SQL_QUALITY_IS_DELETE_NO);
     	quality.setCreateTime(new Date());
     	quality.setUpdateTime(new Date());
     	int i = qualityMapper.insertSelective(quality);

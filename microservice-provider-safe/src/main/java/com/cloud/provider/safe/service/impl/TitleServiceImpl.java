@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.TitleMapper;
 import com.cloud.provider.safe.po.Title;
@@ -44,6 +45,7 @@ public class TitleServiceImpl implements ITitleService {
 		TitleExample example = new TitleExample();
 		example.setOrderByClause(" id desc ");
 		TitleExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_TITLE_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Title> list = titleMapper.selectByExample(example);
@@ -59,7 +61,9 @@ public class TitleServiceImpl implements ITitleService {
 	public List<Title> selectTitleList(TitlePageRequest param) {
 		logger.info("(TitleService-selectTitleList)-不分页查询-传入参数, param:{}", param);
 		TitleExample example = new TitleExample();
+		example.setOrderByClause(" id desc ");
 		TitleExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_TITLE_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Title> list = titleMapper.selectByExample(example);
@@ -86,6 +90,7 @@ public class TitleServiceImpl implements ITitleService {
 	@Override
 	public Integer insertTitle(Title title) {
     	logger.info("(TitleService-insertTitle)-插入职务-传入参数, title:{}", title);
+    	title.setIsDelete(SqlSafeConstants.SQL_TITLE_IS_DELETE_NO);
     	title.setCreateTime(new Date());
     	title.setUpdateTime(new Date());
     	int i = titleMapper.insertSelective(title);

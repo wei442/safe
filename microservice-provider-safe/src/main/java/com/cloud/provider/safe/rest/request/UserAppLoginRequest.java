@@ -3,11 +3,15 @@ package com.cloud.provider.safe.rest.request;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.BeanUtils;
 
 import com.cloud.provider.safe.po.UserAppLogin;
+import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.google.common.base.Converter;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -18,8 +22,12 @@ public class UserAppLoginRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "用户id", required = true)
+    @NotNull(message = "用户id", groups = {ModifyGroup.class})
 	private Integer userAppLoginId;
 
+	@ApiModelProperty(value = "用户id", required = true)
+    @NotNull(message = "用户id")
     private Integer userId;
 
     private Integer firstLogin;

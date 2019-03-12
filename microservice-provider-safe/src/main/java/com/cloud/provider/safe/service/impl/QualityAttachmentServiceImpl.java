@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.QualityAttachmentMapper;
 import com.cloud.provider.safe.po.QualityAttachment;
@@ -37,12 +38,14 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
 	 * @param param
 	 * @return List<QualityAttachment>
 	 */
+	@Override
 	public List<QualityAttachment> selectQualityAttachmentListByPage(Page<?> page, QualityAttachmentPageRequest param) {
 		logger.info("(QualityAttachmentService-selectQualityAttachmentListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		QualityAttachmentExample example = new QualityAttachmentExample();
 		example.setOrderByClause(" id desc ");
 		QualityAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_QUALITY_ATTACHMENT_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<QualityAttachment> list = qualityAttachmentMapper.selectByExample(example);
@@ -54,10 +57,12 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
 	 * @param param
 	 * @return List<QualityAttachment>
 	 */
+	@Override
 	public List<QualityAttachment> selectQualityAttachmentList(QualityAttachmentPageRequest param) {
 		logger.info("(QualityAttachmentService-selectQualityAttachmentList)-不分页查询-传入参数, param:{}", param);
 		QualityAttachmentExample example = new QualityAttachmentExample();
 		QualityAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_QUALITY_ATTACHMENT_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<QualityAttachment> list = qualityAttachmentMapper.selectByExample(example);
@@ -84,6 +89,7 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
 	@Override
 	public Integer insertQualityAttachment(QualityAttachment qualityAttachment) {
     	logger.info("(QualityAttachmentService-insertQualityAttachment)-插入资质附件-传入参数, qualityAttachment:{}", qualityAttachment);
+    	qualityAttachment.setIsDelete(SqlSafeConstants.SQL_QUALITY_ATTACHMENT_IS_DELETE_NO);
     	qualityAttachment.setCreateTime(new Date());
     	qualityAttachment.setUpdateTime(new Date());
     	int i = qualityAttachmentMapper.insertSelective(qualityAttachment);

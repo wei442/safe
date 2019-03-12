@@ -14,14 +14,6 @@ public class UserAdminPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer userAdminId;
-
     private Integer enterpriseId;
-
-    private Integer userId;
-
-    private String adminName;
-
-    private Integer adminType;
 
 }

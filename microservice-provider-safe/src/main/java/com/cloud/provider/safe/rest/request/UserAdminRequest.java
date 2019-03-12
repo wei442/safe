@@ -2,9 +2,13 @@ package com.cloud.provider.safe.rest.request;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.BeanUtils;
 
 import com.cloud.provider.safe.po.UserAdmin;
+import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.google.common.base.Converter;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -18,14 +22,24 @@ public class UserAdminRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "用户管理id")
+	@NotNull(message = "用户管理id", groups = {ModifyGroup.class})
 	private Integer userAdminId;
 
+	@ApiModelProperty(value = "企业id", required = true)
+	@NotNull(message = "企业id")
     private Integer enterpriseId;
 
+	@ApiModelProperty(value = "用户id", required = true)
+    @NotNull(message = "用户id")
     private Integer userId;
 
+	@ApiModelProperty(value = "管理名称")
+	@NotBlank(message = "管理名称")
     private String adminName;
 
+	@ApiModelProperty(value = "管理类型")
+	@NotNull(message = "管理类型")
     private Integer adminType;
 
 	@ApiModelProperty(value = "备注")

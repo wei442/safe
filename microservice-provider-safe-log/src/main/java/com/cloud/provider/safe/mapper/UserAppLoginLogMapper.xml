@@ -106,7 +106,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.UserAppLoginLog" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.UserAppLoginLog">
     insert into user_app_login_log (id, user_id, user_account, 
       user_name, user_name_en, login_type, 
       login_time, log_type, login_ip, 
@@ -116,7 +116,7 @@
       #{loginTime,jdbcType=TIMESTAMP}, #{logType,jdbcType=INTEGER}, #{loginIp,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.UserAppLoginLog" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.UserAppLoginLog">
     insert into user_app_login_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

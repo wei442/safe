@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.AttachmentMapper;
 import com.cloud.provider.safe.po.Attachment;
@@ -44,6 +45,7 @@ public class AttachmentServiceImpl implements IAttachmentService {
 		AttachmentExample example = new AttachmentExample();
 		example.setOrderByClause(" id desc ");
 		AttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ATTACHMENT_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Attachment> list = attachmentMapper.selectByExample(example);
@@ -60,6 +62,8 @@ public class AttachmentServiceImpl implements IAttachmentService {
 		logger.info("(AttachmentService-selectAttachmentList)-不分页查询-传入参数, param:{}", param);
 		AttachmentExample example = new AttachmentExample();
 		AttachmentExample.Criteria criteria = example.createCriteria();
+		example.setOrderByClause(" id desc ");
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ATTACHMENT_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Attachment> list = attachmentMapper.selectByExample(example);

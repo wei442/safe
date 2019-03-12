@@ -9,6 +9,8 @@ public class QualityAttachment {
 
     private Integer attachmentId;
 
+    private String attachmentUrl;
+
     private Integer isDelete;
 
     private String remark;
@@ -43,6 +45,14 @@ public class QualityAttachment {
 
     public void setAttachmentId(Integer attachmentId) {
         this.attachmentId = attachmentId;
+    }
+
+    public String getAttachmentUrl() {
+        return attachmentUrl;
+    }
+
+    public void setAttachmentUrl(String attachmentUrl) {
+        this.attachmentUrl = attachmentUrl == null ? null : attachmentUrl.trim();
     }
 
     public Integer getIsDelete() {

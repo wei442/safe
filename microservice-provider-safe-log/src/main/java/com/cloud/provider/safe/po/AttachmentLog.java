@@ -2,12 +2,12 @@ package com.cloud.provider.safe.po;
 
 import java.util.Date;
 
-public class UserTitle {
-    private Integer id;
+public class AttachmentLog {
+    private Long id;
 
-    private Integer userId;
+    private Integer attachmentId;
 
-    private Integer titleId;
+    private String content;
 
     private String created;
 
@@ -17,28 +17,28 @@ public class UserTitle {
 
     private Date updateTime;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getAttachmentId() {
+        return attachmentId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setAttachmentId(Integer attachmentId) {
+        this.attachmentId = attachmentId;
     }
 
-    public Integer getTitleId() {
-        return titleId;
+    public String getContent() {
+        return content;
     }
 
-    public void setTitleId(Integer titleId) {
-        this.titleId = titleId;
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public String getCreated() {

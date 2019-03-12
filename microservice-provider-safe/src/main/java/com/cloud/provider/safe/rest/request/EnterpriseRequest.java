@@ -2,7 +2,7 @@ package com.cloud.provider.safe.rest.request;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.BeanUtils;
@@ -27,7 +27,7 @@ public class EnterpriseRequest implements Serializable {
 	private Integer enterpriseId;
 
 	@ApiModelProperty(value = "企业名称", required = true)
-	@NotEmpty(message = "企业名称")
+	@NotBlank(message = "企业名称")
     private String enterpriseName;
 
 	@ApiModelProperty(value = "企业类型")
@@ -42,7 +42,7 @@ public class EnterpriseRequest implements Serializable {
 	@ApiModelProperty(value = "企业别名")
     private String enterpriseAlias;
 
-	@ApiModelProperty(value = "企业点好")
+	@ApiModelProperty(value = "企业电话")
     private String enterpriseTelphone;
 
 	@ApiModelProperty(value = "企业级别")
@@ -60,7 +60,7 @@ public class EnterpriseRequest implements Serializable {
 	@ApiModelProperty(value = "企业地址")
     private String enterpriseAddr;
 
-	@ApiModelProperty(value = "企网站")
+	@ApiModelProperty(value = "企网网站")
     private String enterpriseWebsite;
 
 	@ApiModelProperty(value = "企业备注")

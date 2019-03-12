@@ -37,6 +37,7 @@ public class BaseUserLoginLogServiceImpl implements IBaseUserLoginLogService {
 	 * @param param
 	 * @return List<BaseUserLoginLog>
 	 */
+	@Override
 	public List<BaseUserLoginLog> selectBaseUserLoginLogListByPage(Page<?> page, BaseUserLoginLogPageRequest param) {
 		logger.info("(BaseUserLoginLogService-selectBaseUserLoginLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.PostMapper;
 import com.cloud.provider.safe.po.Post;
@@ -44,6 +45,7 @@ public class PostServiceImpl implements IPostService {
 		PostExample example = new PostExample();
 		example.setOrderByClause(" id desc ");
 		PostExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_POST_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Post> list = postMapper.selectByExample(example);
@@ -59,7 +61,9 @@ public class PostServiceImpl implements IPostService {
 	public List<Post> selectPostList(PostPageRequest param) {
 		logger.info("(PostService-selectPostList)-不分页查询-传入参数, param:{}", param);
 		PostExample example = new PostExample();
+		example.setOrderByClause(" id desc ");
 		PostExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_POST_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Post> list = postMapper.selectByExample(example);
@@ -86,6 +90,7 @@ public class PostServiceImpl implements IPostService {
 	@Override
 	public Integer insertPost(Post post) {
     	logger.info("(PostService-insertPost)-插入岗位-传入参数, post:{}", post);
+    	post.setIsDelete(SqlSafeConstants.SQL_POST_IS_DELETE_NO);
     	post.setCreateTime(new Date());
     	post.setUpdateTime(new Date());
     	int i = postMapper.insertSelective(post);

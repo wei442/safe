@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.EnterpriseMapper;
@@ -45,6 +46,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 		EnterpriseExample example = new EnterpriseExample();
 		example.setOrderByClause(" id desc ");
 		EnterpriseExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Enterprise> list = enterpriseMapper.selectByExample(example);
@@ -61,6 +63,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 		logger.info("(EnterpriseService-selectEnterpriseList)-不分页查询-传入参数, param:{}", param);
 		EnterpriseExample example = new EnterpriseExample();
 		EnterpriseExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Enterprise> list = enterpriseMapper.selectByExample(example);
@@ -87,6 +90,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 	@Override
 	public Integer insertEnterprise(Enterprise enterprise) {
     	logger.info("(EnterpriseService-insertEnterprise)-插入企业-传入参数, enterprise:{}", enterprise);
+    	enterprise.setEnterpriseStatus(SqlSafeConstants.SQL_ENTERPRISE_STATUS_NORMAL);
     	enterprise.setCreateTime(new Date());
     	enterprise.setUpdateTime(new Date());
     	int i = 0;
@@ -126,9 +130,6 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
     	logger.info("(EnterpriseService-modifyEnterprise)-修改企业-传入参数, enterprise:{}", enterprise);
     	enterprise.setUpdateTime(new Date());
     	int i = enterpriseMapper.updateByPrimaryKeySelective(enterprise);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

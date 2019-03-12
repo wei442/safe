@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.EnterpriseQualityMapper;
 import com.cloud.provider.safe.po.EnterpriseQuality;
@@ -44,6 +45,7 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 		EnterpriseQualityExample example = new EnterpriseQualityExample();
 		example.setOrderByClause(" id desc ");
 		EnterpriseQualityExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_QUALITY_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<EnterpriseQuality> list = enterpriseQualityMapper.selectByExample(example);
@@ -60,6 +62,7 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 		logger.info("(EnterpriseQualityService-selectEnterpriseQualityList)-不分页查询-传入参数, param:{}", param);
 		EnterpriseQualityExample example = new EnterpriseQualityExample();
 		EnterpriseQualityExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_QUALITY_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<EnterpriseQuality> list = enterpriseQualityMapper.selectByExample(example);

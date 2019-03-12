@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserAdminMapper;
 import com.cloud.provider.safe.po.UserAdmin;
@@ -44,6 +45,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		UserAdminExample example = new UserAdminExample();
 		example.setOrderByClause(" id desc ");
 		UserAdminExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<UserAdmin> list = userAdminMapper.selectByExample(example);
@@ -59,7 +61,9 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	public List<UserAdmin> selectUserAdminList(UserAdminPageRequest param) {
 		logger.info("(UserAdminService-selectUserAdminList)-不分页查询-传入参数, param:{}", param);
 		UserAdminExample example = new UserAdminExample();
+		example.setOrderByClause(" id desc ");
 		UserAdminExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<UserAdmin> list = userAdminMapper.selectByExample(example);
@@ -86,6 +90,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	@Override
 	public Integer insertUserAdmin(UserAdmin userAdmin) {
     	logger.info("(UserAdminService-insertUserAdmin)-插入用户管理-传入参数, userAdmin:{}", userAdmin);
+    	userAdmin.setIsDelete(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
     	userAdmin.setCreateTime(new Date());
     	userAdmin.setUpdateTime(new Date());
     	int i = userAdminMapper.insertSelective(userAdmin);

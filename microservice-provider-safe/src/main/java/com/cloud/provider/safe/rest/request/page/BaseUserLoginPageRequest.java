@@ -1,7 +1,5 @@
 package com.cloud.provider.safe.rest.request.page;
 
-import java.util.Date;
-
 import com.cloud.provider.safe.base.BaseRestRequest;
 
 import lombok.Data;
@@ -15,13 +13,5 @@ public class BaseUserLoginPageRequest extends BaseRestRequest {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private Integer baseUserLoginId;
-
-    private Integer baseUserId;
-
-    private Integer loginCount;
-
-    private Date lastPassTime;
 
 }

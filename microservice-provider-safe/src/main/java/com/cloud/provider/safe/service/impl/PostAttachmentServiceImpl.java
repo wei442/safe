@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.PostAttachmentMapper;
 import com.cloud.provider.safe.po.PostAttachment;
@@ -44,6 +45,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 		PostAttachmentExample example = new PostAttachmentExample();
 		example.setOrderByClause(" id desc ");
 		PostAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_POST_ATTACHMENT_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<PostAttachment> list = postAttachmentMapper.selectByExample(example);
@@ -60,6 +62,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 		logger.info("(PostAttachmentService-selectPostAttachmentList)-不分页查询-传入参数, param:{}", param);
 		PostAttachmentExample example = new PostAttachmentExample();
 		PostAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_POST_ATTACHMENT_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<PostAttachment> list = postAttachmentMapper.selectByExample(example);
@@ -86,6 +89,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 	@Override
 	public Integer insertPostAttachment(PostAttachment postAttachment) {
     	logger.info("(PostAttachmentService-insertPostAttachment)-插入岗位附件-传入参数, postAttachment:{}", postAttachment);
+    	postAttachment.setIsDelete(SqlSafeConstants.SQL_POST_ATTACHMENT_IS_DELETE_NO);
     	postAttachment.setCreateTime(new Date());
     	postAttachment.setUpdateTime(new Date());
     	int i = postAttachmentMapper.insertSelective(postAttachment);

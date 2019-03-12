@@ -25,17 +25,7 @@ public class Org {
 
     private Integer orgStatus;
 
-    private Integer orgLevel;
-
     private String orgFax;
-
-    private String orgEmail;
-
-    private String orgPostCode;
-
-    private String orgAddr;
-
-    private String orgWebsite;
 
     private Integer isDelete;
 
@@ -139,52 +129,12 @@ public class Org {
         this.orgStatus = orgStatus;
     }
 
-    public Integer getOrgLevel() {
-        return orgLevel;
-    }
-
-    public void setOrgLevel(Integer orgLevel) {
-        this.orgLevel = orgLevel;
-    }
-
     public String getOrgFax() {
         return orgFax;
     }
 
     public void setOrgFax(String orgFax) {
         this.orgFax = orgFax == null ? null : orgFax.trim();
-    }
-
-    public String getOrgEmail() {
-        return orgEmail;
-    }
-
-    public void setOrgEmail(String orgEmail) {
-        this.orgEmail = orgEmail == null ? null : orgEmail.trim();
-    }
-
-    public String getOrgPostCode() {
-        return orgPostCode;
-    }
-
-    public void setOrgPostCode(String orgPostCode) {
-        this.orgPostCode = orgPostCode == null ? null : orgPostCode.trim();
-    }
-
-    public String getOrgAddr() {
-        return orgAddr;
-    }
-
-    public void setOrgAddr(String orgAddr) {
-        this.orgAddr = orgAddr == null ? null : orgAddr.trim();
-    }
-
-    public String getOrgWebsite() {
-        return orgWebsite;
-    }
-
-    public void setOrgWebsite(String orgWebsite) {
-        this.orgWebsite = orgWebsite == null ? null : orgWebsite.trim();
     }
 
     public Integer getIsDelete() {

@@ -2,9 +2,12 @@ package com.cloud.provider.safe.rest.request;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.BeanUtils;
 
 import com.cloud.provider.safe.po.UserQuality;
+import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.google.common.base.Converter;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -18,10 +21,16 @@ public class UserQualityRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "用户资质id", required = true)
+    @NotNull(message = "用户资质id", groups = {ModifyGroup.class})
 	private Integer userQualityId;
 
+	@ApiModelProperty(value = "用户id", required = true)
+    @NotNull(message = "用户id")
     private Integer userId;
 
+	@ApiModelProperty(value = "资质id", required = true)
+    @NotNull(message = "资质id")
     private Integer qualityId;
 
 	@ApiModelProperty(value = "备注")

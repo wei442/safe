@@ -2,7 +2,7 @@ package com.cloud.provider.safe.rest.request;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.BeanUtils;
@@ -31,7 +31,7 @@ public class PostRequest implements Serializable {
     private Integer enterpriseId;
 
 	@ApiModelProperty(value = "岗位名称")
-	@NotEmpty(message = "岗位名称")
+	@NotBlank(message = "岗位名称")
     private String postName;
 
 	@ApiModelProperty(value = "是否特殊岗位 0-否, 1-是")

@@ -36,6 +36,16 @@ public class SqlSafeConstants {
 	public static final Integer SQL_BASE_USER_LOGIN_LOG_LOGOUT = 2;
 	/**********************************基础用户登录日志常量**********************************/
 
+	/**********************************组织机构常量**********************************/
+	//字典状态 0-无效, 1-有效
+	public static final Integer SQL_ORG_STATUS_VALID = 0;
+	public static final Integer SQL_ORG_STATUS_INVALID = 1;
+
+	//删除标识 0-未删除，1-已删除
+	public static final Integer SQL_ORG_IS_DELETE_NO = 0;
+	public static final Integer SQL_ORG_IS_DELETE_YES = 1;
+	/**********************************组织机构常量**********************************/
+
 	/**********************************字典常量**********************************/
 	//字典状态 0-无效, 1-有效
 	public static final Integer SQL_DICT_STATUS_VALID = 0;

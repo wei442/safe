@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.DictMapper;
@@ -45,6 +46,7 @@ public class DictServiceImpl implements IDictService {
 		DictExample example = new DictExample();
 		example.setOrderByClause(" id desc ");
 		DictExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Dict> list = dictMapper.selectByExample(example);
@@ -61,6 +63,7 @@ public class DictServiceImpl implements IDictService {
 		logger.info("(DictService-selectDictList)-不分页查询-传入参数, param:{}", param);
 		DictExample example = new DictExample();
 		DictExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Dict> list = dictMapper.selectByExample(example);
@@ -93,6 +96,7 @@ public class DictServiceImpl implements IDictService {
 	@Override
 	public Integer insertDict(Dict dict) {
     	logger.info("(DictService-insertDict)-插入字典-传入参数, dict:{}", dict);
+    	dict.setIsDelete(SqlSafeConstants.SQL_DICT_IS_DELETE_NO);
     	dict.setCreateTime(new Date());
     	dict.setUpdateTime(new Date());
     	int i = dictMapper.insertSelective(dict);

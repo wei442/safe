@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.DictItemMapper;
@@ -45,6 +46,7 @@ public class DictItemServiceImpl implements IDictItemService {
 		DictItemExample example = new DictItemExample();
 		example.setOrderByClause(" id desc ");
 		DictItemExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_ITEM_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<DictItem> list = dictItemMapper.selectByExample(example);
@@ -60,7 +62,9 @@ public class DictItemServiceImpl implements IDictItemService {
 	public List<DictItem> selectDictItemList(DictItemPageRequest param) {
 		logger.info("(DictItemService-selectDictItemList)-不分页查询-传入参数, dictItem:{}", param);
 		DictItemExample example = new DictItemExample();
+		example.setOrderByClause(" id desc ");
 		DictItemExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_ITEM_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<DictItem> list = dictItemMapper.selectByExample(example);
@@ -93,6 +97,7 @@ public class DictItemServiceImpl implements IDictItemService {
 	@Override
 	public Integer insertDictItem(DictItem dictItem) {
     	logger.info("(DictItemService-insertDictItem)-插入字典子项-传入参数, dictItem:{}", dictItem);
+    	dictItem.setIsDelete(SqlSafeConstants.SQL_DICT_ITEM_IS_DELETE_NO);
     	dictItem.setCreateTime(new Date());
     	dictItem.setUpdateTime(new Date());
     	int i = dictItemMapper.insertSelective(dictItem);

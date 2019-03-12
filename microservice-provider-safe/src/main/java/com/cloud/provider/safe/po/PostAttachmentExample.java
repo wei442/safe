@@ -285,6 +285,76 @@ public class PostAttachmentExample {
             return (Criteria) this;
         }
 
+        public Criteria andAttachmentUrlIsNull() {
+            addCriterion("attachment_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlIsNotNull() {
+            addCriterion("attachment_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlEqualTo(String value) {
+            addCriterion("attachment_url =", value, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlNotEqualTo(String value) {
+            addCriterion("attachment_url <>", value, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlGreaterThan(String value) {
+            addCriterion("attachment_url >", value, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("attachment_url >=", value, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlLessThan(String value) {
+            addCriterion("attachment_url <", value, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlLessThanOrEqualTo(String value) {
+            addCriterion("attachment_url <=", value, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlLike(String value) {
+            addCriterion("attachment_url like", value, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlNotLike(String value) {
+            addCriterion("attachment_url not like", value, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlIn(List<String> values) {
+            addCriterion("attachment_url in", values, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlNotIn(List<String> values) {
+            addCriterion("attachment_url not in", values, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlBetween(String value1, String value2) {
+            addCriterion("attachment_url between", value1, value2, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlNotBetween(String value1, String value2) {
+            addCriterion("attachment_url not between", value1, value2, "attachmentUrl");
+            return (Criteria) this;
+        }
+
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;

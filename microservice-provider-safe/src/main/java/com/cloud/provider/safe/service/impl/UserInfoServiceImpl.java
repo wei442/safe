@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserInfoMapper;
 import com.cloud.provider.safe.po.UserInfo;
@@ -44,6 +45,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		UserInfoExample example = new UserInfoExample();
 		example.setOrderByClause(" id desc ");
 		UserInfoExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<UserInfo> list = userInfoMapper.selectByExample(example);
@@ -60,6 +62,8 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		logger.info("(UserInfoService-selectUserInfoList)-不分页查询-传入参数, param:{}", param);
 		UserInfoExample example = new UserInfoExample();
 		UserInfoExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
+		example.setOrderByClause(" id desc ");
 		if(param != null) {
 		}
 		List<UserInfo> list = userInfoMapper.selectByExample(example);
@@ -86,6 +90,8 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	@Override
 	public Integer insertUserInfo(UserInfo userInfo) {
     	logger.info("(UserInfoService-insertUserInfo)-插入用户信息-传入参数, userInfo:{}", userInfo);
+    	userInfo.setUserStatus(SqlSafeConstants.SQL_USER_STATUS_NORMAL);
+    	userInfo.setIsDelete(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
     	userInfo.setCreateTime(new Date());
     	userInfo.setUpdateTime(new Date());
     	int i = userInfoMapper.insertSelective(userInfo);

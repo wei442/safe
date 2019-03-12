@@ -5,8 +5,6 @@ import java.util.Date;
 public class DictItem {
     private Integer id;
 
-    private Integer enterpriseId;
-
     private Integer dictId;
 
     private String itemName;
@@ -37,14 +35,6 @@ public class DictItem {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getEnterpriseId() {
-        return enterpriseId;
-    }
-
-    public void setEnterpriseId(Integer enterpriseId) {
-        this.enterpriseId = enterpriseId;
     }
 
     public Integer getDictId() {

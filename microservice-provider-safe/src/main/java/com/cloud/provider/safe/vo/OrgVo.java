@@ -23,7 +23,7 @@ public class OrgVo implements Serializable {
 
 	private Integer orgId;
 
-    private Integer enterpriseId;
+	private Integer enterpriseId;
 
     private Integer parentOrgId;
 
@@ -43,17 +43,7 @@ public class OrgVo implements Serializable {
 
     private Integer orgStatus;
 
-    private Integer orgLevel;
-
     private String orgFax;
-
-    private String orgEmail;
-
-    private String orgPostCode;
-
-    private String orgAddr;
-
-    private String orgWebsite;
 
     private Integer isDelete;
 

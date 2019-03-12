@@ -25,7 +25,7 @@ public class UserTitleVo implements Serializable {
 
     private Integer userId;
 
-    private Integer postId;
+    private Integer titleId;
 
     private String created;
 

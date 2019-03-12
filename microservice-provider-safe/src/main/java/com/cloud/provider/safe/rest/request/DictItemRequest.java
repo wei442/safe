@@ -2,9 +2,13 @@ package com.cloud.provider.safe.rest.request;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.BeanUtils;
 
 import com.cloud.provider.safe.po.DictItem;
+import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.google.common.base.Converter;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -18,19 +22,16 @@ public class DictItemRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "字典子项id", required = true)
+    @NotNull(message = "字典子项id", groups = {ModifyGroup.class})
 	private Integer dictItemId;
 
-    private Integer enterpriseId;
-
+	@ApiModelProperty(value = "字典id", required = true)
+    @NotNull(message = "字典id")
     private Integer dictId;
 
+	@NotBlank(message = "字典子项名称")
     private String itemName;
-
-    private String itemAlias;
-
-    private Integer itemLevel;
-
-    private Integer itemStatus;
 
 	@ApiModelProperty(value = "备注")
     private String remark;

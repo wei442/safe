@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.OrgMapper;
 import com.cloud.provider.safe.po.Org;
@@ -44,6 +45,7 @@ public class OrgServiceImpl implements IOrgService {
 		OrgExample example = new OrgExample();
 		example.setOrderByClause(" id desc ");
 		OrgExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Org> list = orgMapper.selectByExample(example);
@@ -59,7 +61,9 @@ public class OrgServiceImpl implements IOrgService {
 	public List<Org> selectOrgList(OrgPageRequest param) {
 		logger.info("(OrgService-selectOrgList)-不分页查询-传入参数, param:{}", param);
 		OrgExample example = new OrgExample();
+		example.setOrderByClause(" id desc ");
 		OrgExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
 		if(param != null) {
 		}
 		List<Org> list = orgMapper.selectByExample(example);
@@ -86,6 +90,7 @@ public class OrgServiceImpl implements IOrgService {
 	@Override
 	public Integer insertOrg(Org org) {
     	logger.info("(OrgService-insertOrg)-插入组织机构-传入参数, org:{}", org);
+    	org.setIsDelete(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
     	org.setCreateTime(new Date());
     	org.setUpdateTime(new Date());
     	int i = orgMapper.insertSelective(org);

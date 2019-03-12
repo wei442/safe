@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.EnterpriseIdRequest;
 import com.cloud.consumer.safe.rest.request.EnterpriseRequest;
 import com.cloud.consumer.safe.rest.request.page.EnterprisePageRequest;
 import com.cloud.consumer.safe.service.IEnterpriseService;
@@ -107,7 +108,7 @@ public class EnterpriseController extends BaseController {
 	@RequestMapping(value="/getEnterprise",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getEnterprise(
-		@RequestBody EnterpriseRequest req,
+		@RequestBody EnterpriseIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取企业】(EnterpriseController-getEnterprise)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -162,7 +163,7 @@ public class EnterpriseController extends BaseController {
 	@RequestMapping(value="/deleteEnterprise",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteEnterprise(
-		@RequestBody EnterpriseRequest req,
+		@RequestBody EnterpriseIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除企业】(EnterpriseController-deleteEnterprise)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

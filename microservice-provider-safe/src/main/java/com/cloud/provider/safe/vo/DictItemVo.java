@@ -23,8 +23,6 @@ public class DictItemVo implements Serializable {
 
 	private Integer dictItemId;
 
-    private Integer enterpriseId;
-
     private Integer dictId;
 
     private String itemName;

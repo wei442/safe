@@ -27,6 +27,8 @@ public class QualityAttachmentVo implements Serializable {
 
     private Integer attachmentId;
 
+    private String attachmentUrl;
+
     private Integer isDelete;
 
     private String remark;
