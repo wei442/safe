@@ -92,5 +92,4 @@ public class UserAppLoginLogController extends BaseController {
 		return userAppLoginLogResponse;
 	}
 
-
 }

@@ -92,5 +92,4 @@ public class AttachmentLogController extends BaseController {
 		return attachmentLogResponse;
 	}
 
-
 }
