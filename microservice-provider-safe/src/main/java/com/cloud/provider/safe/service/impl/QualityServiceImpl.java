@@ -47,6 +47,10 @@ public class QualityServiceImpl implements IQualityService {
 		QualityExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_QUALITY_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
+
 		}
 		List<Quality> list = qualityMapper.selectByExample(example);
 		return list;
@@ -64,7 +68,11 @@ public class QualityServiceImpl implements IQualityService {
 		QualityExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_QUALITY_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
+
 		List<Quality> list = qualityMapper.selectByExample(example);
 		return list;
 	}

@@ -47,6 +47,9 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		UserAdminExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserAdmin> list = userAdminMapper.selectByExample(example);
 		return list;
@@ -65,6 +68,9 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		UserAdminExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserAdmin> list = userAdminMapper.selectByExample(example);
 		return list;

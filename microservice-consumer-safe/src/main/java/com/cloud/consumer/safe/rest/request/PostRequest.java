@@ -22,8 +22,6 @@ public class PostRequest implements Serializable {
 	@NotNull(message = "岗位id", groups = {UpdateGroup.class})
 	private Integer postId;
 
-	@ApiModelProperty(value = "企业id")
-	@NotNull(message = "企业id")
     private Integer enterpriseId;
 
 	@ApiModelProperty(value = "岗位名称")

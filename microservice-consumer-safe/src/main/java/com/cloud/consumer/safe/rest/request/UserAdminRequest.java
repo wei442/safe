@@ -22,8 +22,6 @@ public class UserAdminRequest implements Serializable {
 	@NotNull(message = "用户管理id", groups = {UpdateGroup.class})
 	private Integer userAdminId;
 
-	@ApiModelProperty(value = "企业id", required = true)
-	@NotNull(message = "企业id")
     private Integer enterpriseId;
 
 	@ApiModelProperty(value = "用户id", required = true)

@@ -26,7 +26,7 @@ public class AttachmentRequest implements Serializable {
 	@NotBlank(message = "附件url")
     private String attachmentUrl;
 
-	@ApiModelProperty(value = "附件类型", required = true)
+	@ApiModelProperty(value = "附件类型")
     @NotNull(message = "附件类型")
     private Integer attachmentType;
 

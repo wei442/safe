@@ -7,6 +7,8 @@ public class BaseUserLogin {
 
     private Integer baseUserId;
 
+    private Integer firstLogin;
+
     private Integer loginCount;
 
     private Date lastPassTime;
@@ -33,6 +35,14 @@ public class BaseUserLogin {
 
     public void setBaseUserId(Integer baseUserId) {
         this.baseUserId = baseUserId;
+    }
+
+    public Integer getFirstLogin() {
+        return firstLogin;
+    }
+
+    public void setFirstLogin(Integer firstLogin) {
+        this.firstLogin = firstLogin;
     }
 
     public Integer getLoginCount() {

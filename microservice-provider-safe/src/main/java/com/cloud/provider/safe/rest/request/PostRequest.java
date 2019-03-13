@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.BeanUtils;
 
 import com.cloud.provider.safe.po.Post;
+import com.cloud.provider.safe.validator.FlagValidator;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.google.common.base.Converter;
 
@@ -22,19 +23,20 @@ public class PostRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "岗位id")
+	@ApiModelProperty(value = "岗位id", required = true)
 	@NotNull(message = "岗位id", groups = {ModifyGroup.class})
 	private Integer postId;
 
-	@ApiModelProperty(value = "企业id")
+	@ApiModelProperty(value = "企业id", required = true)
 	@NotNull(message = "企业id")
     private Integer enterpriseId;
 
-	@ApiModelProperty(value = "岗位名称")
+	@ApiModelProperty(value = "岗位名称", required = true)
 	@NotBlank(message = "岗位名称")
     private String postName;
 
 	@ApiModelProperty(value = "是否特殊岗位 0-否, 1-是")
+	@FlagValidator(value = { "0", "1" }, message = "是否特殊岗位不正确")
     private Integer isSpecial;
 
 	@ApiModelProperty(value = "特殊岗位备注")

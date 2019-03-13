@@ -47,6 +47,9 @@ public class TitleServiceImpl implements ITitleService {
 		TitleExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_TITLE_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<Title> list = titleMapper.selectByExample(example);
 		return list;

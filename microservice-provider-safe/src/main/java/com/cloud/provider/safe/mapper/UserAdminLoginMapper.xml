@@ -6,6 +6,7 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="first_login" jdbcType="INTEGER" property="firstLogin" />
     <result column="login_count" jdbcType="INTEGER" property="loginCount" />
+    <result column="last_pass_time" jdbcType="TIMESTAMP" property="lastPassTime" />
     <result column="created" jdbcType="VARCHAR" property="created" />
     <result column="updated" jdbcType="VARCHAR" property="updated" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -70,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, first_login, login_count, created, updated, create_time, update_time
+    id, user_id, first_login, login_count, last_pass_time, created, updated, create_time, 
+    update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.UserAdminLoginExample" resultMap="BaseResultMap">
     select
@@ -102,15 +104,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.UserAdminLogin" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.UserAdminLogin">
     insert into user_admin_login (id, user_id, first_login, 
-      login_count, created, updated, 
-      create_time, update_time)
+      login_count, last_pass_time, created, 
+      updated, create_time, update_time
+      )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{firstLogin,jdbcType=INTEGER}, 
-      #{loginCount,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{loginCount,jdbcType=INTEGER}, #{lastPassTime,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR}, 
+      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.UserAdminLogin" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.UserAdminLogin">
     insert into user_admin_login
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -124,6 +128,9 @@
       </if>
       <if test="loginCount != null">
         login_count,
+      </if>
+      <if test="lastPassTime != null">
+        last_pass_time,
       </if>
       <if test="created != null">
         created,
@@ -150,6 +157,9 @@
       </if>
       <if test="loginCount != null">
         #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastPassTime != null">
+        #{lastPassTime,jdbcType=TIMESTAMP},
       </if>
       <if test="created != null">
         #{created,jdbcType=VARCHAR},
@@ -186,6 +196,9 @@
       <if test="record.loginCount != null">
         login_count = #{record.loginCount,jdbcType=INTEGER},
       </if>
+      <if test="record.lastPassTime != null">
+        last_pass_time = #{record.lastPassTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.created != null">
         created = #{record.created,jdbcType=VARCHAR},
       </if>
@@ -209,6 +222,7 @@
       user_id = #{record.userId,jdbcType=INTEGER},
       first_login = #{record.firstLogin,jdbcType=INTEGER},
       login_count = #{record.loginCount,jdbcType=INTEGER},
+      last_pass_time = #{record.lastPassTime,jdbcType=TIMESTAMP},
       created = #{record.created,jdbcType=VARCHAR},
       updated = #{record.updated,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -228,6 +242,9 @@
       </if>
       <if test="loginCount != null">
         login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastPassTime != null">
+        last_pass_time = #{lastPassTime,jdbcType=TIMESTAMP},
       </if>
       <if test="created != null">
         created = #{created,jdbcType=VARCHAR},
@@ -249,6 +266,7 @@
     set user_id = #{userId,jdbcType=INTEGER},
       first_login = #{firstLogin,jdbcType=INTEGER},
       login_count = #{loginCount,jdbcType=INTEGER},
+      last_pass_time = #{lastPassTime,jdbcType=TIMESTAMP},
       created = #{created,jdbcType=VARCHAR},
       updated = #{updated,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

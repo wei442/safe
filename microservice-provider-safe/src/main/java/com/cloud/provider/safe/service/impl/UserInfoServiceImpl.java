@@ -47,6 +47,9 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		UserInfoExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserInfo> list = userInfoMapper.selectByExample(example);
 		return list;
@@ -65,6 +68,9 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
 		example.setOrderByClause(" id desc ");
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserInfo> list = userInfoMapper.selectByExample(example);
 		return list;

@@ -48,6 +48,9 @@ public class DictItemServiceImpl implements IDictItemService {
 		DictItemExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_ITEM_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getDictId() != null) {
+				criteria.andDictIdEqualTo(param.getDictId());
+			}
 		}
 		List<DictItem> list = dictItemMapper.selectByExample(example);
 		return list;
@@ -66,6 +69,9 @@ public class DictItemServiceImpl implements IDictItemService {
 		DictItemExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_ITEM_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getDictId() != null) {
+				criteria.andDictIdEqualTo(param.getDictId());
+			}
 		}
 		List<DictItem> list = dictItemMapper.selectByExample(example);
 		return list;

@@ -22,6 +22,8 @@ public class QualityRequest implements Serializable {
     @NotNull(message = "资质id", groups = {UpdateGroup.class})
 	private Integer qualityId;
 
+	private Integer enterpriseId;
+
 	@ApiModelProperty(value = "资质名称")
 	@NotBlank(message = "资质名称")
     private String qualityName;

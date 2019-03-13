@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.BaseUserLogin">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="base_user_id" jdbcType="INTEGER" property="baseUserId" />
+    <result column="first_login" jdbcType="INTEGER" property="firstLogin" />
     <result column="login_count" jdbcType="INTEGER" property="loginCount" />
     <result column="last_pass_time" jdbcType="TIMESTAMP" property="lastPassTime" />
     <result column="created" jdbcType="VARCHAR" property="created" />
@@ -70,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, base_user_id, login_count, last_pass_time, created, updated, create_time, update_time
+    id, base_user_id, first_login, login_count, last_pass_time, created, updated, create_time, 
+    update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.BaseUserLoginExample" resultMap="BaseResultMap">
     select
@@ -102,15 +104,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.BaseUserLogin" useGeneratedKeys="true" keyProperty="id">
-    insert into base_user_login (id, base_user_id, login_count, 
-      last_pass_time, created, updated, 
-      create_time, update_time)
-    values (#{id,jdbcType=INTEGER}, #{baseUserId,jdbcType=INTEGER}, #{loginCount,jdbcType=INTEGER}, 
-      #{lastPassTime,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.BaseUserLogin">
+    insert into base_user_login (id, base_user_id, first_login, 
+      login_count, last_pass_time, created, 
+      updated, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{baseUserId,jdbcType=INTEGER}, #{firstLogin,jdbcType=INTEGER}, 
+      #{loginCount,jdbcType=INTEGER}, #{lastPassTime,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR}, 
+      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.BaseUserLogin" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.BaseUserLogin">
     insert into base_user_login
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -118,6 +122,9 @@
       </if>
       <if test="baseUserId != null">
         base_user_id,
+      </if>
+      <if test="firstLogin != null">
+        first_login,
       </if>
       <if test="loginCount != null">
         login_count,
@@ -144,6 +151,9 @@
       </if>
       <if test="baseUserId != null">
         #{baseUserId,jdbcType=INTEGER},
+      </if>
+      <if test="firstLogin != null">
+        #{firstLogin,jdbcType=INTEGER},
       </if>
       <if test="loginCount != null">
         #{loginCount,jdbcType=INTEGER},
@@ -180,6 +190,9 @@
       <if test="record.baseUserId != null">
         base_user_id = #{record.baseUserId,jdbcType=INTEGER},
       </if>
+      <if test="record.firstLogin != null">
+        first_login = #{record.firstLogin,jdbcType=INTEGER},
+      </if>
       <if test="record.loginCount != null">
         login_count = #{record.loginCount,jdbcType=INTEGER},
       </if>
@@ -207,6 +220,7 @@
     update base_user_login
     set id = #{record.id,jdbcType=INTEGER},
       base_user_id = #{record.baseUserId,jdbcType=INTEGER},
+      first_login = #{record.firstLogin,jdbcType=INTEGER},
       login_count = #{record.loginCount,jdbcType=INTEGER},
       last_pass_time = #{record.lastPassTime,jdbcType=TIMESTAMP},
       created = #{record.created,jdbcType=VARCHAR},
@@ -222,6 +236,9 @@
     <set>
       <if test="baseUserId != null">
         base_user_id = #{baseUserId,jdbcType=INTEGER},
+      </if>
+      <if test="firstLogin != null">
+        first_login = #{firstLogin,jdbcType=INTEGER},
       </if>
       <if test="loginCount != null">
         login_count = #{loginCount,jdbcType=INTEGER},
@@ -247,6 +264,7 @@
   <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.BaseUserLogin">
     update base_user_login
     set base_user_id = #{baseUserId,jdbcType=INTEGER},
+      first_login = #{firstLogin,jdbcType=INTEGER},
       login_count = #{loginCount,jdbcType=INTEGER},
       last_pass_time = #{lastPassTime,jdbcType=TIMESTAMP},
       created = #{created,jdbcType=VARCHAR},

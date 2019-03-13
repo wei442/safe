@@ -47,6 +47,9 @@ public class OrgServiceImpl implements IOrgService {
 		OrgExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<Org> list = orgMapper.selectByExample(example);
 		return list;

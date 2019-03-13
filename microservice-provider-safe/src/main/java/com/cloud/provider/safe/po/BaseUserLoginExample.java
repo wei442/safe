@@ -225,6 +225,66 @@ public class BaseUserLoginExample {
             return (Criteria) this;
         }
 
+        public Criteria andFirstLoginIsNull() {
+            addCriterion("first_login is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginIsNotNull() {
+            addCriterion("first_login is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginEqualTo(Integer value) {
+            addCriterion("first_login =", value, "firstLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginNotEqualTo(Integer value) {
+            addCriterion("first_login <>", value, "firstLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginGreaterThan(Integer value) {
+            addCriterion("first_login >", value, "firstLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginGreaterThanOrEqualTo(Integer value) {
+            addCriterion("first_login >=", value, "firstLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginLessThan(Integer value) {
+            addCriterion("first_login <", value, "firstLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginLessThanOrEqualTo(Integer value) {
+            addCriterion("first_login <=", value, "firstLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginIn(List<Integer> values) {
+            addCriterion("first_login in", values, "firstLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginNotIn(List<Integer> values) {
+            addCriterion("first_login not in", values, "firstLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginBetween(Integer value1, Integer value2) {
+            addCriterion("first_login between", value1, value2, "firstLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andFirstLoginNotBetween(Integer value1, Integer value2) {
+            addCriterion("first_login not between", value1, value2, "firstLogin");
+            return (Criteria) this;
+        }
+
         public Criteria andLoginCountIsNull() {
             addCriterion("login_count is null");
             return (Criteria) this;

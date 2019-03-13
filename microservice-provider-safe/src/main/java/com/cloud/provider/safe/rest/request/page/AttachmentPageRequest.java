@@ -14,8 +14,6 @@ public class AttachmentPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer attachmentId;
-
     private String attachmentUrl;
 
     private Integer attachmentType;

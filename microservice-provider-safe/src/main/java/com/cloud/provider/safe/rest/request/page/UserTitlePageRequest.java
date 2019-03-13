@@ -14,10 +14,4 @@ public class UserTitlePageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer userTitleId;
-
-    private Integer userId;
-
-    private Integer postId;
-
 }

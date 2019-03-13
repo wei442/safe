@@ -14,10 +14,4 @@ public class QualityAttachmentPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer qualityAttachmentId;
-
-    private Integer qualityId;
-
-    private Integer attachmentId;
-
 }

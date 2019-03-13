@@ -18,6 +18,7 @@ public class OrgPageRequest extends BaseRestRequest {
 	@ApiModelProperty(value = "企业id")
     private Integer enterpriseId;
 
+	@ApiModelProperty(value = "机构名称")
     private String orgName;
 
 }

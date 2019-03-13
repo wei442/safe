@@ -2,6 +2,7 @@ package com.cloud.provider.safe.rest.request.page;
 
 import com.cloud.provider.safe.base.BaseRestRequest;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,10 +15,7 @@ public class EnterpriseQualityPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer enterpriseQualityId;
-
+	@ApiModelProperty(value = "企业id")
     private Integer enterpriseId;
-
-    private Integer qualityId;
 
 }

@@ -48,6 +48,9 @@ public class DictServiceImpl implements IDictService {
 		DictExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<Dict> list = dictMapper.selectByExample(example);
 		return list;
@@ -65,6 +68,9 @@ public class DictServiceImpl implements IDictService {
 		DictExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<Dict> list = dictMapper.selectByExample(example);
 		return list;

@@ -22,8 +22,6 @@ public class OrgRequest implements Serializable {
 	@NotNull(message = "机构id", groups = {UpdateGroup.class})
 	private Integer orgId;
 
-	@ApiModelProperty(value = "企业id")
-	@NotNull(message = "企业id")
     private Integer enterpriseId;
 
     @ApiModelProperty(value = "机构父id")

@@ -111,7 +111,7 @@ public class DictController extends BaseController {
 		Dict dict = dictService.selectDictById(dictId);
 		logger.info("===step2:【据id查询字典】(DictController-selectDictById)-根据id查询字典, dict:{}", dict);
 		if(dict == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
+			return new BaseRestMapResponse(SafeResultEnum.DICT_ENTITY_NOTEXIST);
 		}
 		DictVo dictVo = new DictVo().convertToDictVo(dict);
 

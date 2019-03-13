@@ -18,6 +18,7 @@ public class DictPageRequest extends BaseRestRequest {
 	@ApiModelProperty(value = "企业id")
     private Integer enterpriseId;
 
+	@ApiModelProperty(value = "字典名称")
     private String dictName;
 
 }

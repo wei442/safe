@@ -3,6 +3,7 @@
 <mapper namespace="com.cloud.provider.safe.dao.QualityMapper">
   <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.Quality">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
     <result column="quality_name" jdbcType="VARCHAR" property="qualityName" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -70,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, quality_name, is_delete, remark, created, updated, create_time, update_time
+    id, enterprise_id, quality_name, is_delete, remark, created, updated, create_time, 
+    update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.QualityExample" resultMap="BaseResultMap">
     select
@@ -102,19 +104,24 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.Quality" useGeneratedKeys="true" keyProperty="id">
-    insert into quality (id, quality_name, is_delete, 
-      remark, created, updated, 
-      create_time, update_time)
-    values (#{id,jdbcType=INTEGER}, #{qualityName,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, 
-      #{remark,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.Quality">
+    insert into quality (id, enterprise_id, quality_name, 
+      is_delete, remark, created, 
+      updated, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{qualityName,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, 
+      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Quality" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Quality">
     insert into quality
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id,
       </if>
       <if test="qualityName != null">
         quality_name,
@@ -141,6 +148,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=INTEGER},
       </if>
       <if test="qualityName != null">
         #{qualityName,jdbcType=VARCHAR},
@@ -177,6 +187,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.enterpriseId != null">
+        enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
+      </if>
       <if test="record.qualityName != null">
         quality_name = #{record.qualityName,jdbcType=VARCHAR},
       </if>
@@ -206,6 +219,7 @@
   <update id="updateByExample" parameterType="map">
     update quality
     set id = #{record.id,jdbcType=INTEGER},
+      enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
       quality_name = #{record.qualityName,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
@@ -220,6 +234,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cloud.provider.safe.po.Quality">
     update quality
     <set>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=INTEGER},
+      </if>
       <if test="qualityName != null">
         quality_name = #{qualityName,jdbcType=VARCHAR},
       </if>
@@ -246,7 +263,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.Quality">
     update quality
-    set quality_name = #{qualityName,jdbcType=VARCHAR},
+    set enterprise_id = #{enterpriseId,jdbcType=INTEGER},
+      quality_name = #{qualityName,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       created = #{created,jdbcType=VARCHAR},

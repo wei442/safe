@@ -5,6 +5,8 @@ import java.util.Date;
 public class Quality {
     private Integer id;
 
+    private Integer enterpriseId;
+
     private String qualityName;
 
     private Integer isDelete;
@@ -25,6 +27,14 @@ public class Quality {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(Integer enterpriseId) {
+        this.enterpriseId = enterpriseId;
     }
 
     public String getQualityName() {

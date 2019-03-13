@@ -3,7 +3,7 @@ package com.cloud.consumer.safe.base;
 import java.io.Serializable;
 
 /**
- * 基础请求
+ * 基础分页请求
  * @author wei.yong
  */
 public class BaseRestRequest implements Serializable {
@@ -18,6 +18,9 @@ public class BaseRestRequest implements Serializable {
 
     //每页的数量
     private int pageSize = 10;
+
+    //企业id
+    private Integer enterpriseId;
 
 	public int getPageNum() {
 		return this.pageNum;
@@ -35,9 +38,18 @@ public class BaseRestRequest implements Serializable {
 		this.pageSize = pageSize;
 	}
 
+	public Integer getEnterpriseId() {
+		return this.enterpriseId;
+	}
+
+	public void setEnterpriseId(Integer enterpriseId) {
+		this.enterpriseId = enterpriseId;
+	}
+
 	@Override
 	public String toString() {
-		return "BaseRestRequest [pageNum=" + pageNum + ", pageSize=" + pageSize + "]";
+		return "BaseRestRequest [pageNum=" + pageNum + ", pageSize=" + pageSize + ", enterpriseId=" + enterpriseId
+				+ "]";
 	}
 
 }

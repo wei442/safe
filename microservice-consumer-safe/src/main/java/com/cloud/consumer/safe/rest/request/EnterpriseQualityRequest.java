@@ -21,8 +21,6 @@ public class EnterpriseQualityRequest implements Serializable {
     @NotNull(message = "用户id", groups = {UpdateGroup.class})
 	private Integer enterpriseQualityId;
 
-	@ApiModelProperty(value = "企业id", required = true)
-    @NotNull(message = "企业id")
     private Integer enterpriseId;
 
 	@ApiModelProperty(value = "附件id", required = true)

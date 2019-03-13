@@ -14,13 +14,5 @@ public class UserAdminLoginPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer userAdminLoginId;
-
-    private Integer userId;
-
-    private Integer firstLogin;
-
-    private Integer loginCount;
-
 
 }

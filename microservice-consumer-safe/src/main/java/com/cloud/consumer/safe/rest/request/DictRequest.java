@@ -22,8 +22,6 @@ public class DictRequest implements Serializable {
     @NotNull(message = "字典id", groups = {UpdateGroup.class})
 	private Integer dictId;
 
-	@ApiModelProperty(value = "企业id", required = true)
-    @NotNull(message = "企业id")
     private Integer enterpriseId;
 
 	@ApiModelProperty(value = "字典名称", required = true)

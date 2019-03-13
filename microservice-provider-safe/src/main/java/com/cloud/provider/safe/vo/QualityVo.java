@@ -23,6 +23,8 @@ public class QualityVo implements Serializable {
 
 	private Integer qualityId;
 
+    private Integer enterpriseId;
+
     private String qualityName;
 
     private Integer isDelete;
