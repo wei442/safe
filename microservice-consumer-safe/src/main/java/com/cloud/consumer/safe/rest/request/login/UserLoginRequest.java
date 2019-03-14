@@ -1,4 +1,4 @@
-package com.cloud.consumer.safe.rest.request.user;
+package com.cloud.consumer.safe.rest.request.login;
 
 import java.io.Serializable;
 
