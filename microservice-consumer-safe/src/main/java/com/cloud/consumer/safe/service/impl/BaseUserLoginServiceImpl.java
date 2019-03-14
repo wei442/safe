@@ -25,7 +25,7 @@ public class BaseUserLoginServiceImpl extends BaseService implements IBaseUserLo
 	@Override
 	public JSONObject getBaseUserLoginListByPage(Object params) {
 		logger.info("(BaseUserLoginService-getBaseUserLoginListByPage)-分页获取基础用户登录列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/selectBaseUserLoginListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/selectBaseUserLoginListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class BaseUserLoginServiceImpl extends BaseService implements IBaseUserLo
 	@Override
 	public JSONObject getBaseUserLoginList(Object params) {
 		logger.info("(BaseUserLoginService-getBaseUserLoginList)-获取基础用户登录列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/selectBaseUserLoginList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/selectBaseUserLoginList", params, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class BaseUserLoginServiceImpl extends BaseService implements IBaseUserLo
 	@Override
 	public JSONObject addBaseUserLogin(Object params) {
 		logger.info("(BaseUserLoginService-addBaseUserLogin)-新增基础用户登录-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/insertBaseUserLogin", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/insertBaseUserLogin", params, JSONObject.class);
 		return response;
 	}
 
@@ -85,7 +85,7 @@ public class BaseUserLoginServiceImpl extends BaseService implements IBaseUserLo
 	@Override
 	public JSONObject updateBaseUserLogin(Object params) {
 		logger.info("(BaseUserLoginService-updateBaseUserLogin)-修改基础用户登录-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/modifyBaseUserLogin", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_userLogin+"/modifyBaseUserLogin", params, JSONObject.class);
 		return response;
 	}
 

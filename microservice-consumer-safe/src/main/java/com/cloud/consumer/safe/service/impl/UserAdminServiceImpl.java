@@ -25,7 +25,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	@Override
 	public JSONObject getUserAdminListByPage(Object params) {
 		logger.info("(UserAdminService-getUserAdminListByPage)-分页获取用户职务列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectUserAdminListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectUserAdminListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	@Override
 	public JSONObject getUserAdminList(Object params) {
 		logger.info("(UserAdminService-getUserAdminList)-获取用户职务列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectUserAdminList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectUserAdminList", params, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	@Override
 	public JSONObject addUserAdmin(Object params) {
 		logger.info("(UserAdminService-addUserAdmin)-新增用户职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/insertUserAdmin", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/insertUserAdmin", params, JSONObject.class);
 		return response;
 	}
 
@@ -85,7 +85,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	@Override
 	public JSONObject updateUserAdmin(Object params) {
 		logger.info("(UserAdminService-updateUserAdmin)-修改用户职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/modifyUserAdmin", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/modifyUserAdmin", params, JSONObject.class);
 		return response;
 	}
 

@@ -25,7 +25,7 @@ public class TitleServiceImpl extends BaseService implements ITitleService {
 	@Override
 	public JSONObject getTitleListByPage(Object params) {
 		logger.info("(TitleService-getTitleListByPage)-分页获取职务列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectTitleListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectTitleListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class TitleServiceImpl extends BaseService implements ITitleService {
 	@Override
 	public JSONObject getTitleList(Object params) {
 		logger.info("(TitleService-getTitleList)-获取职务列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectTitleList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectTitleList", params, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class TitleServiceImpl extends BaseService implements ITitleService {
 	@Override
 	public JSONObject addTitle(Object params) {
 		logger.info("(TitleService-addTitle)-新增职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/insertTitle", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/insertTitle", params, JSONObject.class);
 		return response;
 	}
 
@@ -85,7 +85,7 @@ public class TitleServiceImpl extends BaseService implements ITitleService {
 	@Override
 	public JSONObject updateTitle(Object params) {
 		logger.info("(TitleService-updateTitle)-修改职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/modifyTitle", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/modifyTitle", params, JSONObject.class);
 		return response;
 	}
 

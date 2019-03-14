@@ -25,7 +25,7 @@ public class EnterpriseQualityServiceImpl extends BaseService implements IEnterp
 	@Override
 	public JSONObject getEnterpriseQualityListByPage(Object params) {
 		logger.info("(EnterpriseQualityService-getEnterpriseQualityListByPage)-分页获取企业资质列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/selectEnterpriseQualityListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/selectEnterpriseQualityListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class EnterpriseQualityServiceImpl extends BaseService implements IEnterp
 	@Override
 	public JSONObject getEnterpriseQualityList(Object params) {
 		logger.info("(EnterpriseQualityService-getEnterpriseQualityList)-获取企业资质列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/selectEnterpriseQualityList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/selectEnterpriseQualityList", params, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class EnterpriseQualityServiceImpl extends BaseService implements IEnterp
 	@Override
 	public JSONObject addEnterpriseQuality(Object params) {
 		logger.info("(EnterpriseQualityService-addEnterpriseQuality)-新增企业资质-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/insertEnterpriseQuality", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/insertEnterpriseQuality", params, JSONObject.class);
 		return response;
 	}
 
@@ -85,7 +85,7 @@ public class EnterpriseQualityServiceImpl extends BaseService implements IEnterp
 	@Override
 	public JSONObject updateEnterpriseQuality(Object params) {
 		logger.info("(EnterpriseQualityService-updateEnterpriseQuality)-修改企业资质-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/modifyEnterpriseQuality", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/modifyEnterpriseQuality", params, JSONObject.class);
 		return response;
 	}
 

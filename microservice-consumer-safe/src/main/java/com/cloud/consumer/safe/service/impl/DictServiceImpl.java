@@ -25,7 +25,7 @@ public class DictServiceImpl extends BaseService implements IDictService {
 	@Override
 	public JSONObject getDictListByPage(Object params) {
 		logger.info("(DictService-getDictListByPage)-分页获取字典列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectDictListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectDictListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -39,7 +39,7 @@ public class DictServiceImpl extends BaseService implements IDictService {
 		logger.info("(DictService-getDictList)-获取字典列表-传入参数, params:{}", params);
 
 
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectDictList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectDictList", params, JSONObject.class);
 
 		return response;
 	}
@@ -64,7 +64,7 @@ public class DictServiceImpl extends BaseService implements IDictService {
 	@Override
 	public JSONObject addDict(Object params) {
 		logger.info("(DictService-addDict)-新增字典-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/insertDict", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/insertDict", params, JSONObject.class);
 		return response;
 	}
 
@@ -88,7 +88,7 @@ public class DictServiceImpl extends BaseService implements IDictService {
 	@Override
 	public JSONObject updateDict(Object params) {
 		logger.info("(DictService-updateDict)-修改字典-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/modifyDict", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/modifyDict", params, JSONObject.class);
 		return response;
 	}
 

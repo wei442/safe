@@ -25,7 +25,7 @@ public class UserQualityServiceImpl extends BaseService implements IUserQualityS
 	@Override
 	public JSONObject getUserQualityListByPage(Object params) {
 		logger.info("(UserQualityService-getUserQualityListByPage)-分页获取用户职务列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_quality+"/selectUserQualityListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_quality+"/selectUserQualityListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -39,7 +39,7 @@ public class UserQualityServiceImpl extends BaseService implements IUserQualityS
 		logger.info("(UserQualityService-getUserQualityList)-获取用户职务列表-传入参数, params:{}", params);
 
 
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_quality+"/selectUserQualityList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_quality+"/selectUserQualityList", params, JSONObject.class);
 
 		return response;
 	}
@@ -64,7 +64,7 @@ public class UserQualityServiceImpl extends BaseService implements IUserQualityS
 	@Override
 	public JSONObject addUserQuality(Object params) {
 		logger.info("(UserQualityService-addUserQuality)-新增用户职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_quality+"/insertUserQuality", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_quality+"/insertUserQuality", params, JSONObject.class);
 		return response;
 	}
 
@@ -88,7 +88,7 @@ public class UserQualityServiceImpl extends BaseService implements IUserQualityS
 	@Override
 	public JSONObject updateUserQuality(Object params) {
 		logger.info("(UserQualityService-updateUserQuality)-修改用户职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_quality+"/modifyUserQuality", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_quality+"/modifyUserQuality", params, JSONObject.class);
 		return response;
 	}
 

@@ -25,7 +25,7 @@ public class BaseUserServiceImpl extends BaseService implements IBaseUserService
 	@Override
 	public JSONObject getBaseUserListByPage(Object params) {
 		logger.info("(BaseUserService-getBaseUserListByPage)-分页获取基础用户列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/selectBaseUserListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/selectBaseUserListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class BaseUserServiceImpl extends BaseService implements IBaseUserService
 	@Override
 	public JSONObject getBaseUserList(Object params) {
 		logger.info("(BaseUserService-getBaseUserList)-获取基础用户列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/selectBaseUserList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/selectBaseUserList", params, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class BaseUserServiceImpl extends BaseService implements IBaseUserService
 	@Override
 	public JSONObject addBaseUser(Object params) {
 		logger.info("(BaseUserService-addBaseUser)-新增基础用户-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/insertBaseUser", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/insertBaseUser", params, JSONObject.class);
 		return response;
 	}
 
@@ -88,7 +88,7 @@ public class BaseUserServiceImpl extends BaseService implements IBaseUserService
 	@Override
 	public JSONObject updateBaseUser(Object params) {
 		logger.info("(BaseUserService-updateBaseUser)-修改基础用户-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/modifyBaseUser", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user+"/modifyBaseUser", params, JSONObject.class);
 		return response;
 	}
 

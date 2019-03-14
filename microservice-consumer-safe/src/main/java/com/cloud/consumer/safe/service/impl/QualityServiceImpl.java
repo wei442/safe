@@ -25,7 +25,7 @@ public class QualityServiceImpl extends BaseService implements IQualityService {
 	@Override
 	public JSONObject getQualityListByPage(Object params) {
 		logger.info("(QualityService-getQualityListByPage)-分页获取用户职务列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/selectQualityListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/selectQualityListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class QualityServiceImpl extends BaseService implements IQualityService {
 	@Override
 	public JSONObject getQualityList(Object params) {
 		logger.info("(QualityService-getQualityList)-获取用户职务列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/selectQualityList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/selectQualityList", params, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class QualityServiceImpl extends BaseService implements IQualityService {
 	@Override
 	public JSONObject addQuality(Object params) {
 		logger.info("(QualityService-addQuality)-新增用户职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/insertQuality", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/insertQuality", params, JSONObject.class);
 		return response;
 	}
 
@@ -85,7 +85,7 @@ public class QualityServiceImpl extends BaseService implements IQualityService {
 	@Override
 	public JSONObject updateQuality(Object params) {
 		logger.info("(QualityService-updateQuality)-修改用户职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/modifyQuality", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality+"/modifyQuality", params, JSONObject.class);
 		return response;
 	}
 

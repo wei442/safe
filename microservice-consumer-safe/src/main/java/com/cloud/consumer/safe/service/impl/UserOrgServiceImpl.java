@@ -25,7 +25,7 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	@Override
 	public JSONObject getUserOrgListByPage(Object params) {
 		logger.info("(UserOrgService-getUserOrgListByPage)-分页获取用户机构列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserOrgListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserOrgListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	@Override
 	public JSONObject getUserOrgList(Object params) {
 		logger.info("(UserOrgService-getUserOrgList)-获取用户机构列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserOrgList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserOrgList", params, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	@Override
 	public JSONObject addUserOrg(Object params) {
 		logger.info("(UserOrgService-addUserOrg)-新增用户机构-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/insertUserOrg", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/insertUserOrg", params, JSONObject.class);
 		return response;
 	}
 
@@ -85,7 +85,7 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	@Override
 	public JSONObject updateUserOrg(Object params) {
 		logger.info("(UserOrgService-updateUserOrg)-修改用户机构-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/modifyUserOrg", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/modifyUserOrg", params, JSONObject.class);
 		return response;
 	}
 

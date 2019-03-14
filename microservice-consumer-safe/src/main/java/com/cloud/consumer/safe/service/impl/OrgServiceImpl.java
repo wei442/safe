@@ -59,7 +59,7 @@ public class OrgServiceImpl extends BaseService implements IOrgService {
 	@Override
 	public JSONObject addOrg(Object params) {
 		logger.info("(OrgService-addOrg)-新增组织机构-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/insertOrg", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/insertOrg", params, JSONObject.class);
 		return response;
 	}
 
@@ -83,7 +83,7 @@ public class OrgServiceImpl extends BaseService implements IOrgService {
 	@Override
 	public JSONObject updateOrg(Object params) {
 		logger.info("(OrgService-updateOrg)-修改组织机构-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/modifyOrg", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/modifyOrg", params, JSONObject.class);
 		return response;
 	}
 

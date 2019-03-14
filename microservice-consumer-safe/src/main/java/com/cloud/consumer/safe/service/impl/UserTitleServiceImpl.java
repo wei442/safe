@@ -25,7 +25,7 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	@Override
 	public JSONObject getUserTitleListByPage(Object params) {
 		logger.info("(UserTitleService-getUserTitleListByPage)-分页获取用户职务列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserTitleListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserTitleListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	@Override
 	public JSONObject getUserTitleList(Object params) {
 		logger.info("(UserTitleService-getUserTitleList)-获取用户职务列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserTitleList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserTitleList", params, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	@Override
 	public JSONObject addUserTitle(Object params) {
 		logger.info("(UserTitleService-addUserTitle)-新增用户职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/insertUserTitle", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/insertUserTitle", params, JSONObject.class);
 		return response;
 	}
 
@@ -85,7 +85,7 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	@Override
 	public JSONObject updateUserTitle(Object params) {
 		logger.info("(UserTitleService-updateUserTitle)-修改用户职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/modifyUserTitle", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/modifyUserTitle", params, JSONObject.class);
 		return response;
 	}
 

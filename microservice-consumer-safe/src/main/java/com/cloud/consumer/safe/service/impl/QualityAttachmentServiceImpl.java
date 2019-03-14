@@ -25,7 +25,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	@Override
 	public JSONObject getQualityAttachmentListByPage(Object params) {
 		logger.info("(QualityAttachmentService-getQualityAttachmentListByPage)-分页获取资质附件列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	@Override
 	public JSONObject getQualityAttachmentList(Object params) {
 		logger.info("(QualityAttachmentService-getQualityAttachmentList)-获取资质附件列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentList", params, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	@Override
 	public JSONObject addQualityAttachment(Object params) {
 		logger.info("(QualityAttachmentService-addQualityAttachment)-新增资质附件-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/insertQualityAttachment", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/insertQualityAttachment", params, JSONObject.class);
 		return response;
 	}
 
@@ -85,7 +85,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	@Override
 	public JSONObject updateQualityAttachment(Object params) {
 		logger.info("(QualityAttachmentService-updateQualityAttachment)-修改资质附件-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/modifyQualityAttachment", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/modifyQualityAttachment", params, JSONObject.class);
 		return response;
 	}
 

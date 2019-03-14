@@ -25,7 +25,7 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	@Override
 	public JSONObject getDictItemListByPage(Object params) {
 		logger.info("(DictItemService-getDictItemListByPage)-分页获取字典子项列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectDictItemListByPage", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectDictItemListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	@Override
 	public JSONObject getDictItemList(Object params) {
 		logger.info("(DictItemService-getDictItemList)-获取字典子项列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectDictItemList", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectDictItemList", params, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	@Override
 	public JSONObject addDictItem(Object params) {
 		logger.info("(DictItemService-addDictItem)-新增字典子项-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/insertDictItem", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/insertDictItem", params, JSONObject.class);
 		return response;
 	}
 
@@ -85,7 +85,7 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	@Override
 	public JSONObject updateDictItem(Object params) {
 		logger.info("(DictItemService-updateDictItem)-修改字典子项-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/modifyDictItem", null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/modifyDictItem", params, JSONObject.class);
 		return response;
 	}
 
