@@ -18,26 +18,24 @@ public class OrgServiceImpl extends BaseService implements IOrgService {
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * 分页获取组织机构列表
+	 * 获取组织机构树用户列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	@Override
-	public JSONObject getOrgListByPage(Object params) {
-		logger.info("(OrgService-getOrgListByPage)-分页获取组织机构列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/selectOrgListByPage", null, JSONObject.class);
+	public JSONObject getOrgTreeUserList(Object params) {
+		logger.info("(OrgService-getOrgTreeUserList)-获取组织机构树用户列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/selectOrgTreeUserList", params, JSONObject.class);
 		return response;
 	}
 
 	/**
-	 * 获取组织机构列表
+	 * 获取组织机构树列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	@Override
-	public JSONObject getOrgList(Object params) {
-		logger.info("(OrgService-getOrgList)-获取组织机构列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/selectOrgList", null, JSONObject.class);
+	public JSONObject getOrgTreeList(Object params) {
+		logger.info("(OrgService-getOrgTreeList)-获取组织机构树列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/selectOrgTreeList", params, JSONObject.class);
 		return response;
 	}
 

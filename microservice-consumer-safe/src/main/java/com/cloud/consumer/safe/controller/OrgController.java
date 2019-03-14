@@ -18,14 +18,13 @@ import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
-import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.OrgIdRequest;
 import com.cloud.consumer.safe.rest.request.OrgRequest;
 import com.cloud.consumer.safe.rest.request.page.OrgPageRequest;
 import com.cloud.consumer.safe.service.IOrgService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
+import com.cloud.consumer.safe.vo.OrgUserVo;
 import com.cloud.consumer.safe.vo.OrgVo;
-import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,55 +46,53 @@ public class OrgController extends BaseController {
 	private IOrgService orgService;
 
 	/**
-	 * 分页查询
+	 * 查询组织机构树用户列表
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "分页查询组织机构列表")
-	@RequestMapping(value="/getOrgListByPage",method={RequestMethod.POST})
+	@ApiOperation(value = "查询组织机构树用户列表")
+	@RequestMapping(value="/getOrgTreeUserList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getOrgListByPage(
+	public BaseRestMapResponse getOrgTreeUserList(
 		@RequestBody OrgPageRequest req) {
-		logger.info("===step1:【分页查询】(OrgController-getOrgListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【查询组织机构树用户列表】(OrgController-getOrgTreeUserList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonOrg = orgService.getOrgListByPage(req);
-		logger.info("===step2:【分页查询】(OrgController-getOrgListByPage)-分页查询组织机构列表, jsonOrg:{}", jsonOrg);
+		JSONObject jsonOrg = orgService.getOrgTreeUserList(req);
+		logger.info("===step2:【查询组织机构树用户列表】(OrgController-getOrgTreeUserList)-查询组织机构树用户列表, jsonOrg:{}", jsonOrg);
 		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
-		String pageStr = JSONObject.toJSONString(jsonOrg.getJSONObject(PageConstants.PAGE));
-		List<OrgVo> orgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgVo>>(){});
-		PageVo pageVo = JSONObject.parseObject(pageStr, PageVo.class);
+		List<OrgUserVo> orgUserVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgUserVo>>(){});
 
-		BasePageResultVo result = new BasePageResultVo(pageVo, orgVoList);
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(RetSafeConstants.RESULT, result);
-	    logger.info("===step3:【分页查询】(OrgController-getOrgListByPage)-返回信息, orgResponse:{}", orgResponse);
+		orgResponse.put(RetSafeConstants.RESULT, orgUserVoList);
+	    logger.info("===step3:【查询组织机构树用户列表】(OrgController-getOrgTreeUserList)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}
 
 	/**
-	 * 不分页查询
+	 * 查询组织机构树列表
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "不分页查询组织机构列表")
-	@RequestMapping(value="/getOrgList",method={RequestMethod.POST})
+	@ApiOperation(value = "查询组织机构树列表")
+	@RequestMapping(value="/getOrgTreeList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getOrgList(
+	public BaseRestMapResponse getOrgTreeList(
 		@RequestBody OrgPageRequest req) {
-		logger.info("===step1:【不分页查询】(OrgController-getOrgList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【查询组织机构树列表】(OrgController-getOrgTreeList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonOrg = orgService.getOrgListByPage(req);
-		logger.info("===step2:【不分页查询】(OrgController-getOrgList)-不分页查询组织机构列表, jsonOrg:{}", jsonOrg);
+		JSONObject jsonOrg = orgService.getOrgTreeUserList(req);
+		logger.info("===step2:【查询组织机构树列表】(OrgController-getOrgTreeList)-查询组织机构树列表, jsonOrg:{}", jsonOrg);
 		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
 		List<OrgVo> orgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgVo>>(){});
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
 		orgResponse.put(RetSafeConstants.RESULT, orgVoList);
-		logger.info("===step3:【不分页查询】(OrgController-getOrgList)-返回信息, orgResponse:{}", orgResponse);
-		return orgResponse;
+	    logger.info("===step3:【查询组织机构树列表】(OrgController-getOrgTreeList)-返回信息, orgResponse:{}", orgResponse);
+	    return orgResponse;
 	}
+
 
 	/**
 	 * 获取组织机构详情

@@ -5,19 +5,21 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 用户请求 Param
+ * 组织机构请求 Param
  * @author wei.yong
  */
 @Data
-public class UserParam implements Serializable {
+public class OrgParam implements Serializable {
 
 	/**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    private Integer orgId;
+	private Integer orgId;
 
 	private Integer enterpriseId;
+
+    private Integer parentOrgId;
 
 }

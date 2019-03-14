@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.provider.safe.dao.UserInfoDao">
+  	<resultMap id="BaseResultMap" type="com.cloud.provider.safe.vo.UserInfoVo">
+	    <id column="id" jdbcType="INTEGER" property="userId" />
+	    <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
+	    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+	    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+	    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+	    <result column="user_name_en" jdbcType="VARCHAR" property="userNameEn" />
+	    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+	    <result column="user_type" jdbcType="INTEGER" property="userType" />
+	    <result column="gender" jdbcType="INTEGER" property="gender" />
+	    <result column="user_status" jdbcType="INTEGER" property="userStatus" />
+	    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+	    <result column="head_image" jdbcType="VARCHAR" property="headImage" />
+	    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+	    <result column="remark" jdbcType="VARCHAR" property="remark" />
+	    <result column="sort" jdbcType="INTEGER" property="sort" />
+	    <result column="created" jdbcType="VARCHAR" property="created" />
+	    <result column="updated" jdbcType="VARCHAR" property="updated" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    	<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  	</resultMap>
+  
+	<!-- 根据orgId查询当前组织机构下的所有人员 -->
+    <select id="selectUserInfoListByOrgId" parameterType="com.cloud.provider.safe.param.UserParam" resultMap="BaseResultMap">
+        select 
+        id, enterprise_id, user_account, user_password, user_name, user_name_en, nick_name, 
+	    user_type, gender, user_status, user_email, head_image, is_delete, remark, sort, 
+	    created, updated, create_time, update_time
+        from org t1
+        left join user_org t2 on t1.id = t2.org_id
+        left join user_info t3 on t2.user_id = t3._id
+        where t1.is_delete = 0 
+        and t3.is_delete = 0
+        
+        <if test="enterpriseId != null and enterpriseId != ''">
+            and t1.enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+            and t3.enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        </if>
+        <if test="orgId != null and orgId != ''">
+            and t1.id = #{orgId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+  
+</mapper>

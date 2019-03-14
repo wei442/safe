@@ -18,14 +18,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.PageConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
-import com.cloud.provider.safe.page.PageHelperUtil;
+import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.rest.request.OrgRequest;
 import com.cloud.provider.safe.rest.request.page.OrgPageRequest;
 import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
+import com.cloud.provider.safe.vo.OrgUserVo;
 import com.cloud.provider.safe.vo.OrgVo;
-import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,51 +46,65 @@ public class OrgController extends BaseController {
 	private IOrgService orgService;
 
 	/**
-	 * 分页查询
+	 * 查询组织机构树用户列表
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "分页查询组织机构列表")
-	@RequestMapping(value="/selectOrgListByPage",method={RequestMethod.POST})
+	@ApiOperation(value = "查询组织机构树用户列表")
+	@RequestMapping(value="/selectOrgTreeUserList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectOrgListByPage(
+	public BaseRestMapResponse selectOrgTreeUserList(
 		@RequestBody OrgPageRequest req) {
-		logger.info("===step1:【分页查询组织机构列表】(OrgController-selectOrgListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【查询组织机构树用户列表】(OrgController-selectOrgTreeUserList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		Integer pageNum = req.getPageNum();
-		Integer pageSize = req.getPageSize();
+		Integer parentOrgId = req.getParentOrgId();
+		Integer orgId = req.getOrgId();
+		Integer enterpriseId = req.getEnterpriseId();
 
-		Page<?> page = new Page<>(pageNum, pageSize);
-		List<Org> list = orgService.selectOrgListByPage(page, req);
-		logger.info("===step2:【分页查询组织机构列表】(OrgController-selectOrgListByPage)-分页查询组织机构列表, list.size:{}", list == null ? null : list.size());
-		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
+		OrgParam param = new OrgParam();
+		param.setParentOrgId(parentOrgId);
+		param.setOrgId(orgId);
+		param.setEnterpriseId(enterpriseId);
+
+		List<OrgUserVo> list = orgService.selectOrgTreeUserList(param);
+		logger.info("===step2:【查询组织机构树用户列表】(OrgController-selectOrgTreeUserList)-查询组织机构树用户列表, list.size:{}", list == null ? null : list.size());
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(orgVoList));
-		logger.info("===step3:【分页查询组织机构列表】(OrgController-selectOrgListByPage)-返回信息, orgResponse:{}", orgResponse);
+		orgResponse.put(PageConstants.DATA_LIST, list);
+		logger.info("===step3:【查询组织机构树用户列表】(OrgController-selectOrgTreeUserList)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}
 
 	/**
-	 * 不分页查询
+	 * 查询组织机构树列表
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "不分页查询组织机构列表")
-	@RequestMapping(value="/selectOrgList",method={RequestMethod.POST})
+	@ApiOperation(value = "查询组织机构树列表")
+	@RequestMapping(value="/selectOrgTreeList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectOrgList(
+	public BaseRestMapResponse selectOrgTreeList(
 		@RequestBody OrgPageRequest req) {
-		logger.info("===step1:【不分页查询组织机构列表】(OrgController-selectOrgList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<Org> list = orgService.selectOrgList(req);
-		logger.info("===step2:【不分页查询组织机构列表】(OrgController-selectOrgList)-不分页查询组织机构列表, list.size:{}", list == null ? null : list.size());
-		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
+		logger.info("===step1:【查询组织机构树列表】(OrgController-selectOrgTreeList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer parentOrgId = req.getParentOrgId();
+		Integer orgId = req.getOrgId();
+		Integer enterpriseId = req.getEnterpriseId();
+
+		OrgParam param = new OrgParam();
+		param.setParentOrgId(parentOrgId);
+		param.setOrgId(orgId);
+		param.setEnterpriseId(enterpriseId);
+
+		List<OrgVo> list = orgService.selectOrgTreeList(param);
+		logger.info("===step2:【查询组织机构树列表】(OrgController-selectOrgTreeList)-查询组织机构树列表, list.size:{}", list == null ? null : list.size());
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(PageConstants.DATA_LIST, orgVoList);
-		logger.info("===step3:【不分页查询组织机构列表】(OrgController-selectOrgList)-返回信息, orgResponse:{}", orgResponse);
+		orgResponse.put(PageConstants.DATA_LIST, list);
+		logger.info("===step3:【查询组织机构树列表】(OrgController-selectOrgTreeList)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}
+
 
 	/**
 	 * 据id查询组织机构

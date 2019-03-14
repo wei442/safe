@@ -6,14 +6,10 @@
     <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
     <result column="parent_org_id" jdbcType="INTEGER" property="parentOrgId" />
     <result column="parent_org_name" jdbcType="VARCHAR" property="parentOrgName" />
-    <result column="parent_org_name_en" jdbcType="VARCHAR" property="parentOrgNameEn" />
     <result column="org_name" jdbcType="VARCHAR" property="orgName" />
-    <result column="org_name_en" jdbcType="VARCHAR" property="orgNameEn" />
     <result column="org_alias" jdbcType="VARCHAR" property="orgAlias" />
     <result column="org_telphone" jdbcType="VARCHAR" property="orgTelphone" />
-    <result column="org_type" jdbcType="INTEGER" property="orgType" />
     <result column="org_status" jdbcType="INTEGER" property="orgStatus" />
-    <result column="org_fax" jdbcType="VARCHAR" property="orgFax" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
@@ -81,9 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, enterprise_id, parent_org_id, parent_org_name, parent_org_name_en, org_name, 
-    org_name_en, org_alias, org_telphone, org_type, org_status, org_fax, is_delete, remark, 
-    sort, created, updated, create_time, update_time
+    id, enterprise_id, parent_org_id, parent_org_name, org_name, org_alias, org_telphone, 
+    org_status, is_delete, remark, sort, created, updated, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.OrgExample" resultMap="BaseResultMap">
     select
@@ -117,19 +112,17 @@
   </delete>
   <insert id="insert" parameterType="com.cloud.provider.safe.po.Org">
     insert into org (id, enterprise_id, parent_org_id, 
-      parent_org_name, parent_org_name_en, org_name, 
-      org_name_en, org_alias, org_telphone, 
-      org_type, org_status, org_fax, 
-      is_delete, remark, sort, 
-      created, updated, create_time, 
-      update_time)
+      parent_org_name, org_name, org_alias, 
+      org_telphone, org_status, is_delete, 
+      remark, sort, created, 
+      updated, create_time, update_time
+      )
     values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{parentOrgId,jdbcType=INTEGER}, 
-      #{parentOrgName,jdbcType=VARCHAR}, #{parentOrgNameEn,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, 
-      #{orgNameEn,jdbcType=VARCHAR}, #{orgAlias,jdbcType=VARCHAR}, #{orgTelphone,jdbcType=VARCHAR}, 
-      #{orgType,jdbcType=INTEGER}, #{orgStatus,jdbcType=INTEGER}, #{orgFax,jdbcType=VARCHAR}, 
-      #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
-      #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{parentOrgName,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, #{orgAlias,jdbcType=VARCHAR}, 
+      #{orgTelphone,jdbcType=VARCHAR}, #{orgStatus,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, 
+      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Org">
     insert into org
@@ -146,14 +139,8 @@
       <if test="parentOrgName != null">
         parent_org_name,
       </if>
-      <if test="parentOrgNameEn != null">
-        parent_org_name_en,
-      </if>
       <if test="orgName != null">
         org_name,
-      </if>
-      <if test="orgNameEn != null">
-        org_name_en,
       </if>
       <if test="orgAlias != null">
         org_alias,
@@ -161,14 +148,8 @@
       <if test="orgTelphone != null">
         org_telphone,
       </if>
-      <if test="orgType != null">
-        org_type,
-      </if>
       <if test="orgStatus != null">
         org_status,
-      </if>
-      <if test="orgFax != null">
-        org_fax,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -205,14 +186,8 @@
       <if test="parentOrgName != null">
         #{parentOrgName,jdbcType=VARCHAR},
       </if>
-      <if test="parentOrgNameEn != null">
-        #{parentOrgNameEn,jdbcType=VARCHAR},
-      </if>
       <if test="orgName != null">
         #{orgName,jdbcType=VARCHAR},
-      </if>
-      <if test="orgNameEn != null">
-        #{orgNameEn,jdbcType=VARCHAR},
       </if>
       <if test="orgAlias != null">
         #{orgAlias,jdbcType=VARCHAR},
@@ -220,14 +195,8 @@
       <if test="orgTelphone != null">
         #{orgTelphone,jdbcType=VARCHAR},
       </if>
-      <if test="orgType != null">
-        #{orgType,jdbcType=INTEGER},
-      </if>
       <if test="orgStatus != null">
         #{orgStatus,jdbcType=INTEGER},
-      </if>
-      <if test="orgFax != null">
-        #{orgFax,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=INTEGER},
@@ -273,14 +242,8 @@
       <if test="record.parentOrgName != null">
         parent_org_name = #{record.parentOrgName,jdbcType=VARCHAR},
       </if>
-      <if test="record.parentOrgNameEn != null">
-        parent_org_name_en = #{record.parentOrgNameEn,jdbcType=VARCHAR},
-      </if>
       <if test="record.orgName != null">
         org_name = #{record.orgName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.orgNameEn != null">
-        org_name_en = #{record.orgNameEn,jdbcType=VARCHAR},
       </if>
       <if test="record.orgAlias != null">
         org_alias = #{record.orgAlias,jdbcType=VARCHAR},
@@ -288,14 +251,8 @@
       <if test="record.orgTelphone != null">
         org_telphone = #{record.orgTelphone,jdbcType=VARCHAR},
       </if>
-      <if test="record.orgType != null">
-        org_type = #{record.orgType,jdbcType=INTEGER},
-      </if>
       <if test="record.orgStatus != null">
         org_status = #{record.orgStatus,jdbcType=INTEGER},
-      </if>
-      <if test="record.orgFax != null">
-        org_fax = #{record.orgFax,jdbcType=VARCHAR},
       </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=INTEGER},
@@ -329,14 +286,10 @@
       enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
       parent_org_id = #{record.parentOrgId,jdbcType=INTEGER},
       parent_org_name = #{record.parentOrgName,jdbcType=VARCHAR},
-      parent_org_name_en = #{record.parentOrgNameEn,jdbcType=VARCHAR},
       org_name = #{record.orgName,jdbcType=VARCHAR},
-      org_name_en = #{record.orgNameEn,jdbcType=VARCHAR},
       org_alias = #{record.orgAlias,jdbcType=VARCHAR},
       org_telphone = #{record.orgTelphone,jdbcType=VARCHAR},
-      org_type = #{record.orgType,jdbcType=INTEGER},
       org_status = #{record.orgStatus,jdbcType=INTEGER},
-      org_fax = #{record.orgFax,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
       sort = #{record.sort,jdbcType=INTEGER},
@@ -360,14 +313,8 @@
       <if test="parentOrgName != null">
         parent_org_name = #{parentOrgName,jdbcType=VARCHAR},
       </if>
-      <if test="parentOrgNameEn != null">
-        parent_org_name_en = #{parentOrgNameEn,jdbcType=VARCHAR},
-      </if>
       <if test="orgName != null">
         org_name = #{orgName,jdbcType=VARCHAR},
-      </if>
-      <if test="orgNameEn != null">
-        org_name_en = #{orgNameEn,jdbcType=VARCHAR},
       </if>
       <if test="orgAlias != null">
         org_alias = #{orgAlias,jdbcType=VARCHAR},
@@ -375,14 +322,8 @@
       <if test="orgTelphone != null">
         org_telphone = #{orgTelphone,jdbcType=VARCHAR},
       </if>
-      <if test="orgType != null">
-        org_type = #{orgType,jdbcType=INTEGER},
-      </if>
       <if test="orgStatus != null">
         org_status = #{orgStatus,jdbcType=INTEGER},
-      </if>
-      <if test="orgFax != null">
-        org_fax = #{orgFax,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=INTEGER},
@@ -413,14 +354,10 @@
     set enterprise_id = #{enterpriseId,jdbcType=INTEGER},
       parent_org_id = #{parentOrgId,jdbcType=INTEGER},
       parent_org_name = #{parentOrgName,jdbcType=VARCHAR},
-      parent_org_name_en = #{parentOrgNameEn,jdbcType=VARCHAR},
       org_name = #{orgName,jdbcType=VARCHAR},
-      org_name_en = #{orgNameEn,jdbcType=VARCHAR},
       org_alias = #{orgAlias,jdbcType=VARCHAR},
       org_telphone = #{orgTelphone,jdbcType=VARCHAR},
-      org_type = #{orgType,jdbcType=INTEGER},
       org_status = #{orgStatus,jdbcType=INTEGER},
-      org_fax = #{orgFax,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       sort = #{sort,jdbcType=INTEGER},

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.provider.safe.dao.OrgDao">
+  	<resultMap id="BaseResultMap" type="com.cloud.provider.safe.vo.OrgVo">
+	    <id column="id" jdbcType="INTEGER" property="orgId" />
+	    <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
+	    <result column="parent_org_id" jdbcType="INTEGER" property="parentOrgId" />
+	    <result column="parent_org_name" jdbcType="VARCHAR" property="parentOrgName" />
+	    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+	    <result column="org_alias" jdbcType="VARCHAR" property="orgAlias" />
+	    <result column="org_telphone" jdbcType="VARCHAR" property="orgTelphone" />
+	    <result column="org_status" jdbcType="INTEGER" property="orgStatus" />
+	    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+	    <result column="remark" jdbcType="VARCHAR" property="remark" />
+	    <result column="sort" jdbcType="INTEGER" property="sort" />
+	    <result column="created" jdbcType="VARCHAR" property="created" />
+	    <result column="updated" jdbcType="VARCHAR" property="updated" />
+	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	 	<collection column="id" property="orgList" ofType="OrgVo" select="selectOrgChildrenListByOrgId"/>
+  	</resultMap>
+  
+   	<!-- 根据parentOrgId查出所有组织机构 -->
+    <select id="selectOrgTreeListByParentOrgIdId" parameterType="com.cloud.provider.safe.param.OrgParam" resultMap="BaseResultMap">
+        select 
+        id, enterprise_id, parent_org_id, parent_org_name, org_name, org_alias, org_telphone, 
+    	org_status, is_delete, remark, sort, created, updated, create_time, update_time
+        from org  
+        where is_delete = 0 
+        <if test="enterpriseId != null and enterpriseId != ''">
+            and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        </if>
+        <if test="parentOrgId != null and parentOrgId != ''">
+            and parent_org_id = #{parentOrgId,jdbcType=INTEGER}
+        </if>
+        <if test="parentOrgId == null or parentOrgId == ''">
+            and parent_org_id = -1
+        </if>
+    </select>
+    
+    <!-- 根据orgId再递归查询出一级组织机构下的所有子组织机构 -->
+    <select id="selectOrgChildrenListByOrgId" parameterType="com.cloud.provider.safe.param.OrgParam" resultMap="BaseResultMap">
+        select 
+        id, enterprise_id, parent_org_id, parent_org_name, org_name, org_alias, org_telphone, 
+    	org_status, is_delete, remark, sort, created, updated, create_time, update_time
+        from org  
+        where is_delete = 0 
+        <if test="enterpriseId != null and enterpriseId != ''">
+            and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        </if>
+        <if test="orgId != null and orgId != ''">
+            and id = #{orgId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+</mapper>

@@ -2,26 +2,26 @@ package com.cloud.provider.safe.service;
 
 import java.util.List;
 
+import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.po.Org;
-import com.cloud.provider.safe.rest.request.page.OrgPageRequest;
-import com.github.pagehelper.Page;
+import com.cloud.provider.safe.vo.OrgUserVo;
+import com.cloud.provider.safe.vo.OrgVo;
 
 public interface IOrgService {
 
     /**
-	 * 分页查询
-	 * @param page
-	 * @param param
-	 * @return List<Org>
-	 */
-	public List<Org> selectOrgListByPage(Page<?> page, OrgPageRequest param);
+     * 查询组织机构树用户
+     * @param param
+     * @return List<OrgUserVo>
+     */
+	public List<OrgUserVo> selectOrgTreeUserList(OrgParam param);
 
-	/**
-	 * 不分页查询
-	 * @param param
-	 * @return List<Org>
-	 */
-	public List<Org> selectOrgList(OrgPageRequest param);
+    /**
+     * 查询组织机构树
+     * @param param
+     * @return List<OrgVo>
+     */
+    public List<OrgVo> selectOrgTreeList(OrgParam param);
 
     /**
      * 根据id查询组织机构

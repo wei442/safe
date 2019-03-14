@@ -29,21 +29,13 @@ public class OrgVo implements Serializable {
 
     private String parentOrgName;
 
-    private String parentOrgNameEn;
-
     private String orgName;
-
-    private String orgNameEn;
 
     private String orgAlias;
 
     private String orgTelphone;
 
-    private Integer orgType;
-
     private Integer orgStatus;
-
-    private String orgFax;
 
     private Integer isDelete;
 

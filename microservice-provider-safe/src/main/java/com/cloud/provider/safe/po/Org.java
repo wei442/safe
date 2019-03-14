@@ -11,21 +11,13 @@ public class Org {
 
     private String parentOrgName;
 
-    private String parentOrgNameEn;
-
     private String orgName;
-
-    private String orgNameEn;
 
     private String orgAlias;
 
     private String orgTelphone;
 
-    private Integer orgType;
-
     private Integer orgStatus;
-
-    private String orgFax;
 
     private Integer isDelete;
 
@@ -73,28 +65,12 @@ public class Org {
         this.parentOrgName = parentOrgName == null ? null : parentOrgName.trim();
     }
 
-    public String getParentOrgNameEn() {
-        return parentOrgNameEn;
-    }
-
-    public void setParentOrgNameEn(String parentOrgNameEn) {
-        this.parentOrgNameEn = parentOrgNameEn == null ? null : parentOrgNameEn.trim();
-    }
-
     public String getOrgName() {
         return orgName;
     }
 
     public void setOrgName(String orgName) {
         this.orgName = orgName == null ? null : orgName.trim();
-    }
-
-    public String getOrgNameEn() {
-        return orgNameEn;
-    }
-
-    public void setOrgNameEn(String orgNameEn) {
-        this.orgNameEn = orgNameEn == null ? null : orgNameEn.trim();
     }
 
     public String getOrgAlias() {
@@ -113,28 +89,12 @@ public class Org {
         this.orgTelphone = orgTelphone == null ? null : orgTelphone.trim();
     }
 
-    public Integer getOrgType() {
-        return orgType;
-    }
-
-    public void setOrgType(Integer orgType) {
-        this.orgType = orgType;
-    }
-
     public Integer getOrgStatus() {
         return orgStatus;
     }
 
     public void setOrgStatus(Integer orgStatus) {
         this.orgStatus = orgStatus;
-    }
-
-    public String getOrgFax() {
-        return orgFax;
-    }
-
-    public void setOrgFax(String orgFax) {
-        this.orgFax = orgFax == null ? null : orgFax.trim();
     }
 
     public Integer getIsDelete() {
