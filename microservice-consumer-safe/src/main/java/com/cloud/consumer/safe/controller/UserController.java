@@ -30,7 +30,7 @@ import com.cloud.common.constants.wheel.WheelConstants;
 import com.cloud.common.dateformat.DateFormatConstants;
 import com.cloud.common.redis.keys.RedisKeysUtil;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
-import com.cloud.consumer.safe.rest.request.user.UserRequest;
+import com.cloud.consumer.safe.rest.request.user.UserLoginRequest;
 import com.cloud.consumer.safe.service.IUserInfoService;
 import com.cloud.consumer.safe.vo.gofun.ValidateUserVo;
 import com.cloud.consumer.safe.vo.user.NewUserLoginVo;
@@ -68,7 +68,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value="/login",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse login(
-		@RequestBody UserRequest req,
+		@RequestBody UserLoginRequest req,
 		HttpServletRequest request, HttpServletResponse response) {
 		String requestIp = this.getRequestIp();
 		logger.info("===step1:【用户登录】(UserController-login)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
@@ -252,7 +252,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value="/sign",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse sign(
-		@RequestBody UserRequest req,
+		@RequestBody UserLoginRequest req,
 		HttpServletRequest request, HttpServletResponse response){
    		logger.info("===step1:【用户签到接口】(UserController-sign)-用户签到接口, 请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
