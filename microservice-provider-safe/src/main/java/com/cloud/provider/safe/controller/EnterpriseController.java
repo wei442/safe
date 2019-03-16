@@ -112,9 +112,6 @@ public class EnterpriseController extends BaseController {
 
 		Enterprise enterprise = enterpriseService.selectEnterpriseById(enterpriseId);
 		logger.info("===step2:【据id查询企业】(EnterpriseController-selectEnterpriseById)-根据id查询企业, enterprise:{}", enterprise);
-		if(enterprise == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		EnterpriseVo enterpriseVo = new EnterpriseVo().convertToEnterpriseVo(enterprise);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();

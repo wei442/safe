@@ -110,9 +110,6 @@ public class PostAttachmentController extends BaseController {
 
 		PostAttachment postAttachment = postAttachmentService.selectPostAttachmentById(postAttachmentId);
 		logger.info("===step2:【据id查询岗位附件】(PostAttachmentController-selectPostAttachmentById)-根据id查询岗位附件, postAttachment:{}", postAttachment);
-		if(postAttachment == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		PostAttachmentVo postAttachmentVo = new PostAttachmentVo().convertToPostAttachmentVo(postAttachment);
 
 		BaseRestMapResponse postAttachmentResponse = new BaseRestMapResponse();

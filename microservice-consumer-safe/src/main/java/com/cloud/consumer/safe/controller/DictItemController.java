@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "字典子项")
 @RestController
-@RequestMapping("/dictItem")
+@RequestMapping("/dict/item")
 public class DictItemController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());

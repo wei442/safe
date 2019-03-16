@@ -110,9 +110,6 @@ public class AttachmentController extends BaseController {
 
 		Attachment attachment = attachmentService.selectAttachmentById(attachmentId);
 		logger.info("===step2:【据id查询附件】(AttachmentController-selectAttachmentById)-根据id查询附件, attachment:{}", attachment);
-		if(attachment == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		AttachmentVo attachmentVo = new AttachmentVo().convertToAttachmentVo(attachment);
 
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();

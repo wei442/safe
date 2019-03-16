@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户信息")
 @RestController
-@RequestMapping(value="/user")
+@RequestMapping(value="/user/info")
 public class UserInfoController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -110,9 +110,6 @@ public class UserInfoController extends BaseController {
 
 		UserInfo userInfo = userInfoService.selectUserInfoById(userInfoId);
 		logger.info("===step2:【据id查询用户信息】(UserInfoController-selectUserInfoById)-根据id查询用户信息, userInfo:{}", userInfo);
-		if(userInfo == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		UserInfoVo userInfoVo = new UserInfoVo().convertToUserInfoVo(userInfo);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();

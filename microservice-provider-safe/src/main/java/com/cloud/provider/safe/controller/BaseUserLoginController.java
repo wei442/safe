@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "基础用户登录")
 @RestController
-@RequestMapping(value="/base/userLogin")
+@RequestMapping(value="/base/user/login")
 public class BaseUserLoginController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -110,9 +110,6 @@ public class BaseUserLoginController extends BaseController {
 
 		BaseUserLogin baseUserLogin = baseUserLoginService.selectBaseUserLoginById(baseUserLoginId);
 		logger.info("===step2:【据id查询基础用户登录】(BaseUserLoginController-selectBaseUserLoginById)-根据id查询基础用户登录, baseUserLogin:{}", baseUserLogin);
-		if(baseUserLogin == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		BaseUserLoginVo baseUserLoginVo = new BaseUserLoginVo().convertToBaseUserLoginVo(baseUserLogin);
 
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();

@@ -110,9 +110,6 @@ public class UserAppLoginController extends BaseController {
 
 		UserAppLogin userAppLogin = userAppLoginService.selectUserAppLoginById(userAppLoginId);
 		logger.info("===step2:【据id查询用户应用登录】(UserAppLoginController-selectUserAppLoginById)-根据id查询用户应用登录, userAppLogin:{}", userAppLogin);
-		if(userAppLogin == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		UserAppLoginVo userAppLoginVo = new UserAppLoginVo().convertToUserAppLoginVo(userAppLogin);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();

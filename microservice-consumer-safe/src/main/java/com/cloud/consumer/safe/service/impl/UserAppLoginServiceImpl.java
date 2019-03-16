@@ -25,7 +25,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject getUserAppLoginListByPage(Object params) {
 		logger.info("(UserAppLoginService-getUserAppLoginListByPage)-分页获取用户应用登录列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginListByPage", params, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_login+"/selectUserAppLoginListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject getUserAppLoginList(Object params) {
 		logger.info("(UserAppLoginService-getUserAppLoginList)-获取用户应用登录列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginList", params, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_login+"/selectUserAppLoginList", params, JSONObject.class);
 		return response;
 	}
 
@@ -49,7 +49,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject getUserAppLoginById(Integer id) {
 		logger.info("(UserAppLoginService-getUserAppLoginById)-根据id获取用户应用登录-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/selectUserAppLoginById/"+id, null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_login+"/selectUserAppLoginById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject addUserAppLogin(Object params) {
 		logger.info("(UserAppLoginService-addUserAppLogin)-新增用户应用登录-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/insertUserAppLogin", params, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_login+"/insertUserAppLogin", params, JSONObject.class);
 		return response;
 	}
 
@@ -73,7 +73,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject deleteUserAppLoginById(Integer id) {
 		logger.info("(UserAppLoginService-deleteUserAppLoginById)-根据id获取用户应用登录-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/deleteUserAppLoginById/"+id, null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_login+"/deleteUserAppLoginById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -85,7 +85,7 @@ public class UserAppLoginServiceImpl extends BaseService implements IUserAppLogi
 	@Override
 	public JSONObject updateUserAppLogin(Object params) {
 		logger.info("(UserAppLoginService-updateUserAppLogin)-修改用户应用登录-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_appLogin+"/modifyUserAppLogin", params, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_login+"/modifyUserAppLogin", params, JSONObject.class);
 		return response;
 	}
 

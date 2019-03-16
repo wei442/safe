@@ -30,6 +30,13 @@ public interface IUserInfoService {
      */
 	public UserInfo selectUserInfoById(Integer id);
 
+	/**
+	 * 根据userAccount查询用户信息
+	 * @param userAccount
+	 * @return UserInfo
+	 */
+	public UserInfo selectUserInfoByUserAccount(String userAccount);
+
     /**
      * 插入用户信息
      * @param userInfo

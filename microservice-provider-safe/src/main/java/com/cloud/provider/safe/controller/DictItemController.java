@@ -110,9 +110,6 @@ public class DictItemController extends BaseController {
 
 		DictItem dictItem = dictItemService.selectDictItemById(dictItemId);
 		logger.info("===step2:【据id查询字典子项】(DictItemController-selectDictItemById)-根据id查询字典子项, dictItem:{}", dictItem);
-		if(dictItem == null) {
-			return new BaseRestMapResponse(SafeResultEnum.DICT_ITEM_ENTITY_NOTEXIST);
-		}
 		DictItemVo dictItemVo = new DictItemVo().convertToDictItemVo(dictItem);
 
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();

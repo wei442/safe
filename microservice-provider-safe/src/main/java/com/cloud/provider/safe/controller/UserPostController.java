@@ -110,9 +110,6 @@ public class UserPostController extends BaseController {
 
 		UserPost userPost = userPostService.selectUserPostById(userPostId);
 		logger.info("===step2:【据id查询用户岗位】(UserPostController-selectUserPostById)-根据id查询用户岗位, userPost:{}", userPost);
-		if(userPost == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		UserPostVo userPostVo = new UserPostVo().convertToUserPostVo(userPost);
 
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();

@@ -64,9 +64,9 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	public List<UserInfo> selectUserInfoList(UserInfoPageRequest param) {
 		logger.info("(UserInfoService-selectUserInfoList)-不分页查询-传入参数, param:{}", param);
 		UserInfoExample example = new UserInfoExample();
+		example.setOrderByClause(" id desc ");
 		UserInfoExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
-		example.setOrderByClause(" id desc ");
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
@@ -87,6 +87,26 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		UserInfo userInfo = userInfoMapper.selectByPrimaryKey(id);
 		return userInfo;
     }
+
+	/**
+	 * 根据userAccount查询用户信息
+	 * @param userAccount
+	 * @return UserInfo
+	 */
+	public UserInfo selectUserInfoByUserAccount(String userAccount) {
+		logger.info("(UserInfoService-selectUserInfoByUserAccount)-不分页查询-传入参数, userAccount:{}", userAccount);
+		UserInfoExample example = new UserInfoExample();
+		UserInfoExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
+		criteria.andUserAccountEqualTo(userAccount);
+
+		List<UserInfo> list = userInfoMapper.selectByExample(example);
+		UserInfo userInfo = null;
+		if(list != null && !list.isEmpty()) {
+			userInfo = list.get(0);
+		}
+		return userInfo;
+	}
 
     /**
      * 插入用户信息

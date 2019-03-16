@@ -27,8 +27,6 @@ public class UserInfoVo implements Serializable {
 
     private String userAccount;
 
-    private String userPassword;
-
     private String userName;
 
     private String userNameEn;

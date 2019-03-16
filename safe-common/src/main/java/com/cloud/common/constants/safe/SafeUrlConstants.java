@@ -11,9 +11,11 @@ public class SafeUrlConstants {
 	//附件
 	public static final String attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/attachment";
 	//基础用户
-	public static final String base_user = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/base/user";
+	public static final String base_user_info = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/base/user/info";
+	//基础用户密码
+	public static final String base_user_password = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/base/user/password";
 	//基础用户登录
-	public static final String base_userLogin = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/base/userLogin";
+	public static final String base_user_login = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/base/user/login";
 	//字典
 	public static final String dict = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/dict";
 	//字典子项
@@ -36,14 +38,18 @@ public class SafeUrlConstants {
 	//职务
 	public static final String title = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/title";
 
+	//用户信息
+	public static final String user_info = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/info";
+	//用户应用密码
+	public static final String user_app_password = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/app/password";
+	//用户应用登录
+	public static final String user_app_login = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/app/login";
 	//用户管理
 	public static final String user_admin = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/admin";
+	//用户管理密码
+	public static final String user_admin_password = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/admin/password";
 	//用户管理登录
-	public static final String user_adminLogin = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/adminLogin";
-	//用户应用登录
-	public static final String user_appLogin = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/appLogin";
-	//用户信息
-	public static final String userInfo = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user";
+	public static final String user_admin_login = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/admin/login";
 	//用户机构
 	public static final String user_org = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/org";
 	//用户岗位
@@ -52,6 +58,5 @@ public class SafeUrlConstants {
 	public static final String user_quality = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/quality";
 	//用户职务
 	public static final String user_title = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/title";
-
 
 }

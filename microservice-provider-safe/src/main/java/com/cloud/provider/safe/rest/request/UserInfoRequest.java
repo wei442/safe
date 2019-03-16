@@ -34,10 +34,6 @@ public class UserInfoRequest implements Serializable {
 	@NotBlank(message = "用户账户", groups = {ModifyGroup.class})
     private String userAccount;
 
-    @ApiModelProperty(value = "用户密码", required = true)
-	@NotBlank(message = "用户密码", groups = {ModifyGroup.class})
-    private String userPassword;
-
     @ApiModelProperty(value = "用户名称", required = true)
 	@NotBlank(message = "用户名称")
     private String userName;

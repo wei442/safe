@@ -110,9 +110,6 @@ public class QualityAttachmentController extends BaseController {
 
 		QualityAttachment qualityAttachment = qualityAttachmentService.selectQualityAttachmentById(qualityAttachmentId);
 		logger.info("===step2:【据id查询资质附件】(QualityAttachmentController-selectQualityAttachmentById)-根据id查询资质附件, qualityAttachment:{}", qualityAttachment);
-		if(qualityAttachment == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		QualityAttachmentVo qualityAttachmentVo = new QualityAttachmentVo().convertToQualityAttachmentVo(qualityAttachment);
 
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();

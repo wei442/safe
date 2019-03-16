@@ -110,9 +110,6 @@ public class UserTitleController extends BaseController {
 
 		UserTitle userTitle = userTitleService.selectUserTitleById(userTitleId);
 		logger.info("===step2:【据id查询用户职务】(UserTitleController-selectUserTitleById)-根据id查询用户职务, userTitle:{}", userTitle);
-		if(userTitle == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		UserTitleVo userTitleVo = new UserTitleVo().convertToUserTitleVo(userTitle);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();

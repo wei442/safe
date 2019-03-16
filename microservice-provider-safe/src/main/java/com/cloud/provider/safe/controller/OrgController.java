@@ -124,9 +124,6 @@ public class OrgController extends BaseController {
 
 		Org org = orgService.selectOrgById(orgId);
 		logger.info("===step2:【据id查询组织机构】(OrgController-selectOrgById)-根据id查询组织机构, org:{}", org);
-		if(org == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		OrgVo orgVo = new OrgVo().convertToOrgVo(org);
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();

@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "基础用户登录")
 @RestController
-@RequestMapping("/baseUserLogin")
+@RequestMapping("/base/userLogin")
 public class BaseUserLoginController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());

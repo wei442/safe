@@ -110,9 +110,6 @@ public class QualityController extends BaseController {
 
 		Quality quality = qualityService.selectQualityById(qualityId);
 		logger.info("===step2:【据id查询资质】(QualityController-selectQualityById)-根据id查询资质, quality:{}", quality);
-		if(quality == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		QualityVo qualityVo = new QualityVo().convertToQualityVo(quality);
 
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();

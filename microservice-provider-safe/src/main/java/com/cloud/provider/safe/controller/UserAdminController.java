@@ -60,7 +60,6 @@ public class UserAdminController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		UserAdmin userAdmin = new UserAdmin();
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<UserAdmin> list = userAdminService.selectUserAdminListByPage(page, req);
 		logger.info("===step2:【分页查询用户管理列表】(UserAdminController-selectUserAdminListByPage)-分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
@@ -111,9 +110,6 @@ public class UserAdminController extends BaseController {
 
 		UserAdmin userAdmin = userAdminService.selectUserAdminById(userAdminId);
 		logger.info("===step2:【据id查询用户管理】(UserAdminController-selectUserAdminById)-根据id查询用户管理, userAdmin:{}", userAdmin);
-		if(userAdmin == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		UserAdminVo userAdminVo = new UserAdminVo().convertToUserAdminVo(userAdmin);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();

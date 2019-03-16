@@ -60,7 +60,6 @@ public class EnterpriseQualityController extends BaseController {
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
-		EnterpriseQuality enterpriseQuality = new EnterpriseQuality();
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<EnterpriseQuality> list = enterpriseQualityService.selectEnterpriseQualityListByPage(page, req);
 		logger.info("===step2:【分页查询企业资质列表】(EnterpriseQualityController-selectEnterpriseQualityListByPage)-分页查询企业资质列表, list.size:{}", list == null ? null : list.size());
@@ -111,9 +110,6 @@ public class EnterpriseQualityController extends BaseController {
 
 		EnterpriseQuality enterpriseQuality = enterpriseQualityService.selectEnterpriseQualityById(enterpriseQualityId);
 		logger.info("===step2:【据id查询企业资质】(EnterpriseQualityController-selectEnterpriseQualityById)-根据id查询企业资质, enterpriseQuality:{}", enterpriseQuality);
-		if(enterpriseQuality == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		EnterpriseQualityVo enterpriseQualityVo = new EnterpriseQualityVo().convertToEnterpriseQualityVo(enterpriseQuality);
 
 		BaseRestMapResponse enterpriseQualityResponse = new BaseRestMapResponse();

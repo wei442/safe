@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
-import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.EnterpriseMapper;
 import com.cloud.provider.safe.po.Enterprise;
 import com.cloud.provider.safe.po.EnterpriseExample;
@@ -79,6 +78,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 	public Enterprise selectEnterpriseById(Integer id) {
     	logger.info("(EnterpriseService-selectEnterpriseById)-根据id查询企业-传入参数, id:{}", id);
 		Enterprise enterprise = enterpriseMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(enterprise, SafeResultEnum.DATABASE_NOTEXIST);
 		return enterprise;
     }
 
@@ -93,16 +93,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
     	enterprise.setEnterpriseStatus(SqlSafeConstants.SQL_ENTERPRISE_STATUS_NORMAL);
     	enterprise.setCreateTime(new Date());
     	enterprise.setUpdateTime(new Date());
-    	int i = 0;
-    	try {
-    		i = enterpriseMapper.insertSelective(enterprise);
-    	} catch (Exception e) {
-    		logger.error("(EnterpriseService-insertEnterprise)-插入企业-事务性异常, Exception = {}, message = {}", e, e.getMessage());
-    		throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
-    	}
-    	if(i<=0) {
-			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-		}
+    	int i = enterpriseMapper.insertSelective(enterprise);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
