@@ -140,6 +140,7 @@
 		<module>microservice-api-gateway-safe-admin</module>
 		<module>microservice-consumer-safe</module>
 		<module>microservice-consumer-safe-admin</module>
+		<module>microservice-consumer-safe-manage</module>
 		<module>microservice-provider-safe</module>
 		<module>microservice-provider-safe-log</module>
 		<module>safe-common</module>
