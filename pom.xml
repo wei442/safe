@@ -138,6 +138,7 @@
 	<modules>
 		<module>microservice-api-gateway-safe</module>
 		<module>microservice-api-gateway-safe-admin</module>
+		<module>microservice-api-gateway-safe-manage</module>
 		<module>microservice-consumer-safe</module>
 		<module>microservice-consumer-safe-admin</module>
 		<module>microservice-consumer-safe-manage</module>
