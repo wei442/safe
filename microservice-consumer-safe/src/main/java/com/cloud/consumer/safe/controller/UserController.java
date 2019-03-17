@@ -70,7 +70,7 @@ public class UserController extends BaseController {
 		}
 
 		//验证gToken
-		JSONObject jsonGoFunValidateUser = goFunService.validateUser(gToken, this.gofunPortal);
+		JSONObject jsonGoFunValidateUser = userInfoService.validateUser(gToken, this.gofunPortal);
 		logger.info("===step2:【用户登录】(UserController-login))-验证gofunApp用户登陆状态, jsonGoFunValidateUser:{}", jsonGoFunValidateUser);
 		String goFunCode = Objects.toString(jsonGoFunValidateUser.get(GoFunConstants.CODE), "");
 		String goFunMsg = Objects.toString(jsonGoFunValidateUser.get(GoFunConstants.MSG), "");

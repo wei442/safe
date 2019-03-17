@@ -3,6 +3,7 @@
 <mapper namespace="com.cloud.provider.safe.dao.UserTitleMapper">
   <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.UserTitle">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="title_id" jdbcType="INTEGER" property="titleId" />
     <result column="created" jdbcType="VARCHAR" property="created" />
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, title_id, created, updated, create_time, update_time
+    id, enterprise_id, user_id, title_id, created, updated, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.UserTitleExample" resultMap="BaseResultMap">
     select
@@ -102,18 +103,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cloud.provider.safe.po.UserTitle">
-    insert into user_title (id, user_id, title_id, 
-      created, updated, create_time, 
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{titleId,jdbcType=INTEGER}, 
-      #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into user_title (id, enterprise_id, user_id, 
+      title_id, created, updated, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{titleId,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.UserTitle">
     insert into user_title
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id,
       </if>
       <if test="userId != null">
         user_id,
@@ -137,6 +141,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=INTEGER},
       </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
@@ -170,6 +177,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.enterpriseId != null">
+        enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
+      </if>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
@@ -196,6 +206,7 @@
   <update id="updateByExample" parameterType="map">
     update user_title
     set id = #{record.id,jdbcType=INTEGER},
+      enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       title_id = #{record.titleId,jdbcType=INTEGER},
       created = #{record.created,jdbcType=VARCHAR},
@@ -209,6 +220,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cloud.provider.safe.po.UserTitle">
     update user_title
     <set>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=INTEGER},
+      </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
@@ -232,7 +246,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.UserTitle">
     update user_title
-    set user_id = #{userId,jdbcType=INTEGER},
+    set enterprise_id = #{enterpriseId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
       title_id = #{titleId,jdbcType=INTEGER},
       created = #{created,jdbcType=VARCHAR},
       updated = #{updated,jdbcType=VARCHAR},

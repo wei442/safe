@@ -45,6 +45,9 @@ public class UserPostServiceImpl implements IUserPostService {
 		example.setOrderByClause(" id desc ");
 		UserPostExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserPost>list = userPostMapper.selectByExample(example);
 		return list;
@@ -59,8 +62,12 @@ public class UserPostServiceImpl implements IUserPostService {
 	public List<UserPost> selectUserPostList(UserPostPageRequest param) {
 		logger.info("(UserPostService-selectUserPostList)-不分页查询-传入参数, param:{}", param);
 		UserPostExample example = new UserPostExample();
+		example.setOrderByClause(" id desc ");
 		UserPostExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserPost>list = userPostMapper.selectByExample(example);
 		return list;
@@ -75,8 +82,29 @@ public class UserPostServiceImpl implements IUserPostService {
 	public UserPost selectUserPostById(Integer id) {
     	logger.info("(UserPostService-selectUserPostById)-根据id查询用户岗位-传入参数, id:{}", id);
 		UserPost userPost = userPostMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(userPost, SafeResultEnum.DATABASE_NOTEXIST);
 		return userPost;
     }
+
+	/**
+	 * 根据userId查询用户岗位
+	 * @param userId
+	 * @return UserPost
+	 */
+	@Override
+	public UserPost selectUserPostByUserId(Integer userId) {
+		logger.info("(UserPostService-selectUserPostById)-根据userId查询用户岗位-传入参数, userId:{}", userId);
+		UserPostExample example = new UserPostExample();
+		UserPostExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		List<UserPost> list = userPostMapper.selectByExample(example);
+		UserPost userPost = null;
+		if(list != null && !list.isEmpty()) {
+			userPost = list.get(0);
+		}
+		Assert.thanOrEqualZreo(userPost, SafeResultEnum.DATABASE_NOTEXIST);
+		return userPost;
+	}
 
     /**
      * 插入用户岗位

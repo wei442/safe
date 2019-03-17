@@ -30,6 +30,13 @@ public interface IUserOrgService {
      */
 	public UserOrg selectUserOrgById(Integer id);
 
+	/**
+	 * 根据userId查询用户机构
+	 * @param userId
+	 * @return UserOrg
+	 */
+	public UserOrg selectUserOrgByUserId(Integer userId);
+
     /**
      * 插入用户机构
      * @param userOrg

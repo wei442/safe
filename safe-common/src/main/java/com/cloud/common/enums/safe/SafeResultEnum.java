@@ -9,8 +9,13 @@ public enum SafeResultEnum implements ResultEnum {
 	SYSTEM_ERROR(CommConstants.SYSTEM_ERROR, CommConstants.SYSTEM_ERROR_MSG),
 	DATABASE_ERROR(CommConstants.DATABASE_ERROR, CommConstants.DATABASE_ERROR_MSG),
 	DATABASE_NOTEXIST(CommConstants.DATABASE_NOTEXIST, CommConstants.DATABASE_NOTEXIST_MSG),
-	FIELD_EMPTY("1030001", "传入参数为空"),
-	FIELD_ERROR("1030002", "传入参数错误"),
+	FIELD_EMPTY("1000001", "传入参数为空"),
+	FIELD_ERROR("1000002", "传入参数错误"),
+
+	USER_ACCOUNT_EXIST("1010001", "用户账户已存在"),
+	USER_ACCOUNT_NOTEXIST("1010002", "用户账户不存在"),
+
+
 //	ORDER_LIST_NOTEXIST("1031001", "订单列表不存在"),
 //	ORDER_LIST_EXIST("1031002", "订单列表已存在"),
 //	ORDER_ENTITY_NOTEXIST("1031003", "订单不存在"),

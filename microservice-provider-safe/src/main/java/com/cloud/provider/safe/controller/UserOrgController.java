@@ -119,6 +119,32 @@ public class UserOrgController extends BaseController {
 	}
 
 	/**
+	 * 据userId查询用户机构
+	 * @param userId
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据id查询用户机构")
+	@RequestMapping(value="/selectUserOrgByUserId/{userId}",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectUserOrgByUserId(
+		@PathVariable(value="userId",required=false) Integer userId) {
+		logger.info("===step1:【据userId查询用户机构】(selectUserOrgById-selectUserOrgByUserId)-传入参数, userId:{}", userId);
+
+		if(userId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+		}
+
+		UserOrg userOrg = userOrgService.selectUserOrgByUserId(userId);
+		logger.info("===step2:【据userId查询用户机构】(UserOrgController-selectUserOrgByUserId)-根据userId查询用户机构, userOrg:{}", userOrg);
+		UserOrgVo userOrgVo = new UserOrgVo().convertToUserOrgVo(userOrg);
+
+		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
+		userOrgResponse.putAll((JSONObject) JSONObject.toJSON(userOrgVo));
+		logger.info("===step3:【据userId查询用户机构】(UserOrgController-selectUserOrgByUserId)-返回信息, userOrgResponse:{}", userOrgResponse);
+		return userOrgResponse;
+	}
+
+	/**
 	 * 添加用户机构
 	 * @param req
 	 * @param bindingResult

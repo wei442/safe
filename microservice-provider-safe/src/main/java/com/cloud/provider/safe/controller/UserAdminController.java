@@ -119,6 +119,32 @@ public class UserAdminController extends BaseController {
 	}
 
 	/**
+	 * 据userId查询用户管理
+	 * @param userId
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据userId查询用户管理")
+	@RequestMapping(value="/selectUserAdminByUserId/{userId}",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectUserAdminByUserId(
+		@PathVariable(value="userId",required=false) Integer userId) {
+		logger.info("===step1:【据userId查询用户管理】(selectUserAdminById-selectUserAdminByUserId)-传入参数, userId:{}", userId);
+
+		if(userId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+		}
+
+		UserAdmin userAdmin = userAdminService.selectUserAdminByUserId(userId);
+		logger.info("===step2:【据userId查询用户管理】(UserAdminController-selectUserAdminByUserId)-根据userId查询用户管理, userAdmin:{}", userAdmin);
+		UserAdminVo userAdminVo = new UserAdminVo().convertToUserAdminVo(userAdmin);
+
+		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
+		userAdminResponse.putAll((JSONObject) JSONObject.toJSON(userAdminVo));
+		logger.info("===step3:【据userId查询用户管理】(UserAdminController-selectUserAdminByUserId)-返回信息, userAdminResponse:{}", userAdminResponse);
+		return userAdminResponse;
+	}
+
+	/**
 	 * 添加用户管理
 	 * @param req
 	 * @param bindingResult

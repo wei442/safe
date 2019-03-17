@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service;
 
-import java.util.Map;
-
 import com.alibaba.fastjson.JSONObject;
 
 public interface IUserPostService {
@@ -26,6 +24,13 @@ public interface IUserPostService {
 	 * @return JSONObject
 	 */
 	public JSONObject getUserPostById(Integer id);
+
+	/**
+	 * 根据userId获取用户岗位
+	 * @param userId
+	 * @return JSONObject
+	 */
+	public JSONObject getUserPostByUserId(Integer userId);
 
 	/**
 	 * 新增用户岗位

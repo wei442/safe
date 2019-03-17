@@ -45,6 +45,9 @@ public class UserQualityServiceImpl implements IUserQualityService {
 		example.setOrderByClause(" id desc ");
 		UserQualityExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserQuality> list = userQualityMapper.selectByExample(example);
 		return list;
@@ -59,8 +62,12 @@ public class UserQualityServiceImpl implements IUserQualityService {
 	public List<UserQuality> selectUserQualityList(UserQualityPageRequest param) {
 		logger.info("(UserQualityService-selectUserQualityList)-不分页查询-传入参数, param:{}", param);
 		UserQualityExample example = new UserQualityExample();
+		example.setOrderByClause(" id desc ");
 		UserQualityExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserQuality> list = userQualityMapper.selectByExample(example);
 		return list;
@@ -75,8 +82,29 @@ public class UserQualityServiceImpl implements IUserQualityService {
 	public UserQuality selectUserQualityById(Integer id) {
     	logger.info("(UserQualityService-selectUserQualityById)-根据id查询用户资质-传入参数, id:{}", id);
 		UserQuality userQuality = userQualityMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(userQuality, SafeResultEnum.DATABASE_NOTEXIST);
 		return userQuality;
     }
+
+	/**
+	 * 根据userId查询用户资质
+	 * @param userId
+	 * @return UserQuality
+	 */
+	@Override
+	public UserQuality selectUserQualityByUserId(Integer userId) {
+		logger.info("(UserQualityService-selectUserQualityById)-根据userId查询用户资质-传入参数, userId:{}", userId);
+		UserQualityExample example = new UserQualityExample();
+		UserQualityExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		List<UserQuality> list = userQualityMapper.selectByExample(example);
+		UserQuality userQuality = null;
+		if(list != null && !list.isEmpty()) {
+			userQuality = list.get(0);
+		}
+		Assert.thanOrEqualZreo(userQuality, SafeResultEnum.DATABASE_NOTEXIST);
+		return userQuality;
+	}
 
     /**
      * 插入用户资质

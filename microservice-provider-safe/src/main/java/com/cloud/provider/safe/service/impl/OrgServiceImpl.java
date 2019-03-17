@@ -51,6 +51,7 @@ public class OrgServiceImpl implements IOrgService {
      * @param param
      * @return List<OrgUserVo>
      */
+	@Override
 	public List<OrgUserVo> selectOrgTreeUserList(OrgParam param) {
 		logger.info("(OrgService-selectOrgUserTreeList)-查询组织机构树用户-传入参数, param:{}", param);
 		Integer enterpriseId = param.getEnterpriseId();
@@ -93,8 +94,6 @@ public class OrgServiceImpl implements IOrgService {
     	List<OrgVo> list = orgDao.selectOrgTreeListByParentOrgIdId(param);
     	return list;
     }
-
-
 
 //    /**
 //	 * 分页查询
@@ -146,6 +145,7 @@ public class OrgServiceImpl implements IOrgService {
 	public Org selectOrgById(Integer id) {
     	logger.info("(OrgService-selectOrgById)-根据id查询组织机构-传入参数, id:{}", id);
 		Org org = orgMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(org, SafeResultEnum.DATABASE_NOTEXIST);
 		return org;
     }
 

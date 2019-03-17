@@ -5,7 +5,7 @@ import java.io.Serializable;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * boot基础请求
+ * base基础请求
  * @author wei.yong
  */
 public class BaseRestRequest implements Serializable {
@@ -23,9 +23,6 @@ public class BaseRestRequest implements Serializable {
 	//每页的数量
 	private int pageSize = 10;
 
-	//登录ip
-    private String loginIp;
-
 	public int getPageNum() {
 		return this.pageNum;
 	}
@@ -42,17 +39,9 @@ public class BaseRestRequest implements Serializable {
 		this.pageSize = pageSize;
 	}
 
-	public String getLoginIp() {
-		return this.loginIp;
-	}
-
-	public void setLoginIp(String loginIp) {
-		this.loginIp = loginIp;
-	}
-
 	@Override
 	public String toString() {
-		return "BaseRestRequest [pageNum=" + pageNum + ", pageSize=" + pageSize + ", loginIp=" + loginIp + "]";
+		return "BaseRestRequest [pageNum=" + pageNum + ", pageSize=" + pageSize + "]";
 	}
 
 }

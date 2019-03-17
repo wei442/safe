@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service;
 
-import java.util.Map;
-
 import com.alibaba.fastjson.JSONObject;
 
 public interface IUserTitleService {
@@ -26,6 +24,13 @@ public interface IUserTitleService {
 	 * @return JSONObject
 	 */
 	public JSONObject getUserTitleById(Integer id);
+
+	/**
+	 * 根据userId获取用户职务
+	 * @param userId
+	 * @return JSONObject
+	 */
+	public JSONObject getUserTitleByUserId(Integer userId);
 
 	/**
 	 * 新增用户职务

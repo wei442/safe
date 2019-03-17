@@ -54,6 +54,18 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	}
 
 	/**
+	 * 根据userId获取用户职务
+	 * @param userId
+	 * @return JSONObject
+	 */
+	@Override
+	public JSONObject getUserTitleByUserId(Integer userId) {
+		logger.info("(UserTitleService-getUserTitleByUserId)-根据userId获取用户职务-传入参数, userId:{}", userId);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserTitleByUserId/"+userId, null, JSONObject.class);
+		return response;
+	}
+
+	/**
 	 * 新增用户职务
 	 * @param params
 	 * @return JSONObject

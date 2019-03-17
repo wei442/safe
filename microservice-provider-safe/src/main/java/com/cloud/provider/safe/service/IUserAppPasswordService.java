@@ -12,11 +12,12 @@ public interface IUserAppPasswordService {
 	public UserAppPassword selectUserAppPasswordById(Integer id);
 
 	/**
-	 * 根据userId查询用户应用密码
+	 * 根据userId和password查询用户应用密码
 	 * @param userId
+	 * @param password
 	 * @return UserAppPassword
 	 */
-	public UserAppPassword selectUserAppPasswordByUserId(Integer userId);
+	public UserAppPassword selectUserAppPasswordByUserId(Integer userId,String password);
 
     /**
      * 插入用户应用密码

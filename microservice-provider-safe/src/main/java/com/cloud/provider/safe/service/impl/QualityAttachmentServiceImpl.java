@@ -61,6 +61,7 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
 	public List<QualityAttachment> selectQualityAttachmentList(QualityAttachmentPageRequest param) {
 		logger.info("(QualityAttachmentService-selectQualityAttachmentList)-不分页查询-传入参数, param:{}", param);
 		QualityAttachmentExample example = new QualityAttachmentExample();
+		example.setOrderByClause(" id desc ");
 		QualityAttachmentExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_QUALITY_ATTACHMENT_IS_DELETE_NO);
 		if(param != null) {
@@ -78,6 +79,7 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
 	public QualityAttachment selectQualityAttachmentById(Integer id) {
     	logger.info("(QualityAttachmentService-selectQualityAttachmentById)-根据id查询资质附件-传入参数, id:{}", id);
 		QualityAttachment qualityAttachment = qualityAttachmentMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(qualityAttachment, SafeResultEnum.DATABASE_NOTEXIST);
 		return qualityAttachment;
     }
 

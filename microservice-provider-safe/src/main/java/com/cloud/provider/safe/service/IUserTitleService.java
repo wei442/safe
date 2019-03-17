@@ -30,6 +30,13 @@ public interface IUserTitleService {
      */
 	public UserTitle selectUserTitleById(Integer id);
 
+	/**
+	 * 根据userId查询用户职务
+	 * @param userId
+	 * @return UserTitle
+	 */
+	public UserTitle selectUserTitleByUserId(Integer userId);
+
     /**
      * 插入用户职务
      * @param userTitle

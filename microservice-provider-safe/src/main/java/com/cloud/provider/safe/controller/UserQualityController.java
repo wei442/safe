@@ -119,6 +119,32 @@ public class UserQualityController extends BaseController {
 	}
 
 	/**
+	 * 据userId查询用户资质
+	 * @param userId
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据id查询用户资质")
+	@RequestMapping(value="/selectUserQualityByUserId/{userId}",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectUserQualityByUserId(
+		@PathVariable(value="userId",required=false) Integer userId) {
+		logger.info("===step1:【据userId查询用户资质】(selectUserQualityById-selectUserQualityByUserId)-传入参数, userId:{}", userId);
+
+		if(userId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+		}
+
+		UserQuality userQuality = userQualityService.selectUserQualityByUserId(userId);
+		logger.info("===step2:【据userId查询用户资质】(UserQualityController-selectUserQualityByUserId)-根据userId查询用户资质, userQuality:{}", userQuality);
+		UserQualityVo userQualityVo = new UserQualityVo().convertToUserQualityVo(userQuality);
+
+		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
+		userQualityResponse.putAll((JSONObject) JSONObject.toJSON(userQualityVo));
+		logger.info("===step3:【据userId查询用户资质】(UserQualityController-selectUserQualityByUserId)-返回信息, userQualityResponse:{}", userQualityResponse);
+		return userQualityResponse;
+	}
+
+	/**
 	 * 添加用户资质
 	 * @param req
 	 * @param bindingResult
@@ -180,7 +206,6 @@ public class UserQualityController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserQualityRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户资质】(UserQualityController-modifyUserQuality)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
 		this.bindingResult(bindingResult);
 
 		Integer userQualityId = req.getUserQualityId();

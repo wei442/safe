@@ -41,16 +41,17 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
     }
 
 	/**
-	 * 根据userId查询用户应用密码
+	 * 根据userId和password查询用户应用密码
 	 * @param userId
+	 * @param password
 	 * @return UserAppPassword
 	 */
-	@Override
-	public UserAppPassword selectUserAppPasswordByUserId(Integer userId) {
-		logger.info("(UserAppPasswordService-selectUserAppPasswordByUserId)-根据userId查询用户应用密码-传入参数, userId:{}", userId);
+	public UserAppPassword selectUserAppPasswordByUserId(Integer userId,String password) {
+		logger.info("(UserAppPasswordService-selectUserAppPasswordByUserId)-根据userId和password查询用户应用密码-传入参数, userId:{}, password:{}", userId, password);
 		UserAppPasswordExample example = new UserAppPasswordExample();
 		UserAppPasswordExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
+		criteria.andPasswordEqualTo(password);
 
 		List<UserAppPassword> list = userAppPasswordMapper.selectByExample(example);
 		UserAppPassword userAppPassword = null;

@@ -65,6 +65,7 @@ public class QualityServiceImpl implements IQualityService {
 	public List<Quality> selectQualityList(QualityPageRequest param) {
 		logger.info("(QualityService-selectQualityList)-不分页查询-传入参数, param:{}", param);
 		QualityExample example = new QualityExample();
+		example.setOrderByClause(" id desc ");
 		QualityExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_QUALITY_IS_DELETE_NO);
 		if(param != null) {
@@ -86,6 +87,7 @@ public class QualityServiceImpl implements IQualityService {
 	public Quality selectQualityById(Integer id) {
     	logger.info("(QualityService-selectQualityById)-根据id查询资质-传入参数, id:{}", id);
 		Quality quality = qualityMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(quality, SafeResultEnum.DATABASE_NOTEXIST);
 		return quality;
     }
 

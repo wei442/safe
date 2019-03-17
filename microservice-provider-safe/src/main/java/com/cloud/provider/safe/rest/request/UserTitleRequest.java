@@ -25,6 +25,10 @@ public class UserTitleRequest implements Serializable {
     @NotNull(message = "用户职务id", groups = {ModifyGroup.class})
 	private Integer userTitleId;
 
+	@ApiModelProperty(value = "企业id", required = true)
+    @NotNull(message = "企业id")
+    private Integer enterpriseId;
+
 	@ApiModelProperty(value = "用户id", required = true)
     @NotNull(message = "用户id")
     private Integer userId;

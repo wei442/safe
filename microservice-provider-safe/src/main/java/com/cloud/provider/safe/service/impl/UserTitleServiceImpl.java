@@ -45,6 +45,9 @@ public class UserTitleServiceImpl implements IUserTitleService {
 		example.setOrderByClause(" id desc ");
 		UserTitleExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserTitle> list = userTitleMapper.selectByExample(example);
 		return list;
@@ -59,8 +62,12 @@ public class UserTitleServiceImpl implements IUserTitleService {
 	public List<UserTitle> selectUserTitleList(UserTitlePageRequest param) {
 		logger.info("(UserTitleService-selectUserTitleList)-不分页查询-传入参数, param:{}", param);
 		UserTitleExample example = new UserTitleExample();
+		example.setOrderByClause(" id desc ");
 		UserTitleExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserTitle> list = userTitleMapper.selectByExample(example);
 		return list;
@@ -75,8 +82,29 @@ public class UserTitleServiceImpl implements IUserTitleService {
 	public UserTitle selectUserTitleById(Integer id) {
     	logger.info("(UserTitleService-selectUserTitleById)-根据id查询用户职务-传入参数, id:{}", id);
 		UserTitle userTitle = userTitleMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
 		return userTitle;
     }
+
+	/**
+	 * 根据userId查询用户职务
+	 * @param userId
+	 * @return UserTitle
+	 */
+	@Override
+	public UserTitle selectUserTitleByUserId(Integer userId) {
+		logger.info("(UserTitleService-selectUserTitleById)-根据userId查询用户职务-传入参数, userId:{}", userId);
+		UserTitleExample example = new UserTitleExample();
+		UserTitleExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		List<UserTitle> list = userTitleMapper.selectByExample(example);
+		UserTitle userTitle = null;
+		if(list != null && !list.isEmpty()) {
+			userTitle = list.get(0);
+		}
+		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
+		return userTitle;
+	}
 
     /**
      * 插入用户职务

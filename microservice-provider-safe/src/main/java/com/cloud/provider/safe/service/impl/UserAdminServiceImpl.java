@@ -76,6 +76,26 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		return list;
 	}
 
+	/**
+	 * 根据userId查询用户管理
+	 * @param userId
+	 * @return UserAdmin
+	 */
+	public UserAdmin selectUserAdminByUserId(Integer userId) {
+		logger.info("(UserAdminService-selectUserAdminByUserId)-根据userId查询用户管理-传入参数, userId:{}", userId);
+		UserAdminExample example = new UserAdminExample();
+		UserAdminExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
+		criteria.andUserIdEqualTo(userId);
+
+		List<UserAdmin> list = userAdminMapper.selectByExample(example);
+		UserAdmin userAdmin = null;
+		if(list != null && !list.isEmpty()) {
+			userAdmin = list.get(0);
+		}
+		return userAdmin;
+	}
+
     /**
      * 根据id查询用户管理
      * @param id

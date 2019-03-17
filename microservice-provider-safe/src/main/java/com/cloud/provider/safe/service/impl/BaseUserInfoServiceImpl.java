@@ -61,6 +61,7 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
 	public List<BaseUserInfo> selectBaseUserInfoList(BaseUserInfoPageRequest param) {
 		logger.info("(BaseUserInfoService-selectBaseUserInfoList)-不分页查询-传入参数, param:{}", param);
 		BaseUserInfoExample example = new BaseUserInfoExample();
+		example.setOrderByClause(" id desc ");
 		BaseUserInfoExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_BASE_USER_IS_DELETE_NO);
 		if(param != null) {
@@ -78,6 +79,7 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
 	public BaseUserInfo selectBaseUserInfoById(Integer id) {
     	logger.info("(BaseUserInfoService-selectBaseUserInfoById)-根据id查询基础用户信息-传入参数, id:{}", id);
 		BaseUserInfo baseUserInfo = baseUserInfoMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(baseUserInfo, SafeResultEnum.DATABASE_NOTEXIST);
 		return baseUserInfo;
     }
 

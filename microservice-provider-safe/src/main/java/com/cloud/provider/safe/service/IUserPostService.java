@@ -30,6 +30,13 @@ public interface IUserPostService {
      */
 	public UserPost selectUserPostById(Integer id);
 
+	/**
+	 * 根据userId查询用户岗位
+	 * @param userId
+	 * @return UserPost
+	 */
+	public UserPost selectUserPostByUserId(Integer userId);
+
     /**
      * 插入用户岗位
      * @param userPost

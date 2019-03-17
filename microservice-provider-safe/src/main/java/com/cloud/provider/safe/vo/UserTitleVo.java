@@ -23,6 +23,8 @@ public class UserTitleVo implements Serializable {
 
 	private Integer userTitleId;
 
+	private Integer enterpriseId;
+
     private Integer userId;
 
     private Integer titleId;

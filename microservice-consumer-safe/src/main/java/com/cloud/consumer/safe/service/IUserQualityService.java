@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service;
 
-import java.util.Map;
-
 import com.alibaba.fastjson.JSONObject;
 
 public interface IUserQualityService {
@@ -26,6 +24,13 @@ public interface IUserQualityService {
 	 * @return JSONObject
 	 */
 	public JSONObject getUserQualityById(Integer id);
+
+	/**
+	 * 根据userId获取用户资质
+	 * @param userId
+	 * @return JSONObject
+	 */
+	public JSONObject getUserQualityByUserId(Integer userId);
 
 	/**
 	 * 新增用户资质

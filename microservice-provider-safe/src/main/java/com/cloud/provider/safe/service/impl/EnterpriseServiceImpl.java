@@ -61,6 +61,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 	public List<Enterprise> selectEnterpriseList(EnterprisePageRequest param) {
 		logger.info("(EnterpriseService-selectEnterpriseList)-不分页查询-传入参数, param:{}", param);
 		EnterpriseExample example = new EnterpriseExample();
+		example.setOrderByClause(" id desc ");
 		EnterpriseExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_IS_DELETE_NO);
 		if(param != null) {

@@ -23,6 +23,8 @@ public class UserPostVo implements Serializable {
 
 	private Integer userPostId;
 
+	private Integer enterpriseId;
+
     private Integer userId;
 
     private Integer postId;

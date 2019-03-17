@@ -59,6 +59,7 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
 	public List<BaseUserLogin> selectBaseUserLoginList(BaseUserLoginPageRequest param) {
 		logger.info("(BaseUserLoginService-selectBaseUserLoginList)-不分页查询-传入参数, param:{}", param);
 		BaseUserLoginExample example = new BaseUserLoginExample();
+		example.setOrderByClause(" id desc ");
 		BaseUserLoginExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 		}

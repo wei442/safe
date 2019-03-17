@@ -2,6 +2,7 @@ package com.cloud.provider.safe.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
+import com.cloud.provider.safe.po.Enterprise;
+import com.cloud.provider.safe.po.UserAdmin;
+import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.rest.request.UserInfoRequest;
 import com.cloud.provider.safe.rest.request.UserRequest;
@@ -45,31 +49,42 @@ public class UserController extends BaseController {
 	@Autowired
 	private IUserInfoService userInfoService;
 
-
-
 	/**
 	 * 添加用户
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "添加用户信息")
+	@ApiOperation(value = "添加用户")
 	@RequestMapping(value="/insertUser",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insertUser(
 		@Validated @RequestBody UserRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户信息】(UserInfoController-insertUserInfo)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
+		logger.info("===step1:【添加用户】(UserController-insertUser)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		this.bindingResult(bindingResult);
 
-		UserInfo userInfo = req.convertToUserInfo();
-		int i = userService.insertUser(enterprise, userInfo);
-		logger.info("===step2:【添加用户信息】(UserInfoController-insertUserInfo)-插入用户信息, i:{}", i);
+		String userAccount = req.getUserAccount();
+		UserInfo userInfo = userInfoService.selectUserInfoByUserAccount(userAccount);
+		if(userInfo != null) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ACCOUNT_EXIST);
+		}
 
-		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户信息】(UserInfoController-insertUserInfo)-返回信息, userInfoResponse:{}", userInfoResponse);
-		return userInfoResponse;
+		Enterprise enterprise = new Enterprise();
+		userInfo = new UserInfo();
+		UserAdmin userAdmin = new UserAdmin();
+		UserAdminPassword userAdminPassword = new UserAdminPassword();
+		BeanUtils.copyProperties(req, enterprise);
+		BeanUtils.copyProperties(req, userInfo);
+		BeanUtils.copyProperties(req, userAdmin);
+		BeanUtils.copyProperties(req, userAdminPassword);
+
+		int i = userService.insertUser(enterprise, userInfo, userAdmin, userAdminPassword);
+		logger.info("===step2:【添加用户】(UserController-insertUser)-插入用户, i:{}", i);
+
+		BaseRestMapResponse userResponse = new BaseRestMapResponse();
+		logger.info("===step3:【添加用户】(UserController-insertUser)-返回信息, userResponse:{}", userResponse);
+		return userResponse;
 	}
 
 
@@ -95,9 +110,6 @@ public class UserController extends BaseController {
 
 		UserInfo userInfo = userInfoService.selectUserInfoById(userInfoId);
 		logger.info("===step2:【据id查询用户信息】(UserInfoController-selectUserInfoById)-根据id查询用户信息, userInfo:{}", userInfo);
-		if(userInfo == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ORDER_SETTING_ENTITY_NOTEXIST);
-		}
 		UserInfoVo userInfoVo = new UserInfoVo().convertToUserInfoVo(userInfo);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();

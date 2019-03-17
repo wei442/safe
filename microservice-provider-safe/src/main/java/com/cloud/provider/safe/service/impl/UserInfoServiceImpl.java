@@ -85,6 +85,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	public UserInfo selectUserInfoById(Integer id) {
     	logger.info("(UserInfoService-selectUserInfoById)-根据id查询用户信息-传入参数, id:{}", id);
 		UserInfo userInfo = userInfoMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(userInfo, SafeResultEnum.DATABASE_NOTEXIST);
 		return userInfo;
     }
 
@@ -93,6 +94,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	 * @param userAccount
 	 * @return UserInfo
 	 */
+	@Override
 	public UserInfo selectUserInfoByUserAccount(String userAccount) {
 		logger.info("(UserInfoService-selectUserInfoByUserAccount)-不分页查询-传入参数, userAccount:{}", userAccount);
 		UserInfoExample example = new UserInfoExample();
@@ -105,6 +107,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		if(list != null && !list.isEmpty()) {
 			userInfo = list.get(0);
 		}
+		Assert.thanOrEqualZreo(userInfo, SafeResultEnum.DATABASE_NOTEXIST);
 		return userInfo;
 	}
 

@@ -31,13 +31,13 @@ public class UserAppPasswordServiceImpl extends BaseService implements IUserAppP
 
 	/**
 	 * 根据userId获取用户应用密码
-	 * @param userId
+	 * @param params
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserAppPasswordByUserId(Integer userId) {
-		logger.info("(UserAppPasswordService-getUserAppPasswordByUserId)-根据userId获取用户应用密码-传入参数, userId:{}", userId);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_password+"/selectUserAppPasswordByUserId/"+userId, null, JSONObject.class);
+	public JSONObject getUserAppPasswordByUserId(Object params) {
+		logger.info("(UserAppPasswordService-getUserAppPasswordByUserId)-根据userId获取用户应用密码-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_password+"/selectUserAppPasswordByUserId", params, JSONObject.class);
 		return response;
 	}
 

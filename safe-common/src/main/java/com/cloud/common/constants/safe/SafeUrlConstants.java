@@ -10,7 +10,7 @@ public class SafeUrlConstants {
 
 	//附件
 	public static final String attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/attachment";
-	//基础用户
+	//基础用户信息
 	public static final String base_user_info = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/base/user/info";
 	//基础用户密码
 	public static final String base_user_password = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/base/user/password";
@@ -58,5 +58,11 @@ public class SafeUrlConstants {
 	public static final String user_quality = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/quality";
 	//用户职务
 	public static final String user_title = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/title";
+
+
+	//基础用户
+	public static final String base_user = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/base/user";
+	//用户
+	public static final String user = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user";
 
 }

@@ -119,6 +119,32 @@ public class UserPostController extends BaseController {
 	}
 
 	/**
+	 * 据userId查询用户岗位
+	 * @param userId
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据id查询用户岗位")
+	@RequestMapping(value="/selectUserPostByUserId/{userId}",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectUserPostByUserId(
+		@PathVariable(value="userId",required=false) Integer userId) {
+		logger.info("===step1:【据userId查询用户岗位】(selectUserPostById-selectUserPostByUserId)-传入参数, userId:{}", userId);
+
+		if(userId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+		}
+
+		UserPost userPost = userPostService.selectUserPostByUserId(userId);
+		logger.info("===step2:【据userId查询用户岗位】(UserPostController-selectUserPostByUserId)-根据userId查询用户岗位, userPost:{}", userPost);
+		UserPostVo userPostVo = new UserPostVo().convertToUserPostVo(userPost);
+
+		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
+		userPostResponse.putAll((JSONObject) JSONObject.toJSON(userPostVo));
+		logger.info("===step3:【据userId查询用户岗位】(UserPostController-selectUserPostByUserId)-返回信息, userPostResponse:{}", userPostResponse);
+		return userPostResponse;
+	}
+
+	/**
 	 * 添加用户岗位
 	 * @param req
 	 * @param bindingResult

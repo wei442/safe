@@ -25,6 +25,10 @@ public class UserQualityRequest implements Serializable {
     @NotNull(message = "用户资质id", groups = {ModifyGroup.class})
 	private Integer userQualityId;
 
+	@ApiModelProperty(value = "企业id", required = true)
+    @NotNull(message = "企业id")
+    private Integer enterpriseId;
+
 	@ApiModelProperty(value = "用户id", required = true)
     @NotNull(message = "用户id")
     private Integer userId;

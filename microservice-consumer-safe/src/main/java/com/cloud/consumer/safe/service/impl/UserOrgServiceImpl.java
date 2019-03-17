@@ -54,6 +54,18 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	}
 
 	/**
+	 * 根据userId获取用户机构
+	 * @param userId
+	 * @return JSONObject
+	 */
+	@Override
+	public JSONObject getUserOrgByUserId(Integer userId) {
+		logger.info("(UserOrgService-getUserOrgByUserId)-根据userId获取用户机构-传入参数, userId:{}", userId);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserOrgByUserId/"+userId, null, JSONObject.class);
+		return response;
+	}
+
+	/**
 	 * 新增用户机构
 	 * @param params
 	 * @return JSONObject

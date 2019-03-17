@@ -5,6 +5,8 @@ import java.util.Date;
 public class UserPost {
     private Integer id;
 
+    private Integer enterpriseId;
+
     private Integer userId;
 
     private Integer postId;
@@ -23,6 +25,14 @@ public class UserPost {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(Integer enterpriseId) {
+        this.enterpriseId = enterpriseId;
     }
 
     public Integer getUserId() {

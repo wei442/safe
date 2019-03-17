@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
-import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.DictMapper;
 import com.cloud.provider.safe.po.Dict;
 import com.cloud.provider.safe.po.DictExample;
@@ -84,13 +83,8 @@ public class DictServiceImpl implements IDictService {
 	@Override
 	public Dict selectDictById(Integer id) {
     	logger.info("(DictService-selectDictById)-根据id查询字典-传入参数, id:{}", id);
-    	Dict dict = null;
-    	try {
-    		dict = dictMapper.selectByPrimaryKey(id);
-		} catch (Exception e) {
-			logger.error("(DictService-selectDictById)-根据id查询字典-事务性异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
-		}
+    	Dict dict = dictMapper.selectByPrimaryKey(id);
+    	Assert.thanOrEqualZreo(dict, SafeResultEnum.DATABASE_NOTEXIST);
 		return dict;
     }
 

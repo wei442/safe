@@ -13,10 +13,10 @@ public interface IUserAppPasswordService {
 
 	/**
 	 * 根据userId获取用户应用密码
-	 * @param userId
+	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getUserAppPasswordByUserId(Integer userId);
+	public JSONObject getUserAppPasswordByUserId(Object params);
 
 	/**
 	 * 新增用户应用密码

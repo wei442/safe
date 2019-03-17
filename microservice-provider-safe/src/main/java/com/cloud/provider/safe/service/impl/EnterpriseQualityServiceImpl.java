@@ -64,6 +64,7 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 	public List<EnterpriseQuality> selectEnterpriseQualityList(EnterpriseQualityPageRequest param) {
 		logger.info("(EnterpriseQualityService-selectEnterpriseQualityList)-不分页查询-传入参数, param:{}", param);
 		EnterpriseQualityExample example = new EnterpriseQualityExample();
+		example.setOrderByClause(" id desc ");
 		EnterpriseQualityExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_QUALITY_IS_DELETE_NO);
 		if(param != null) {
@@ -84,6 +85,7 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 	public EnterpriseQuality selectEnterpriseQualityById(Integer id) {
     	logger.info("(EnterpriseQualityService-selectEnterpriseQualityById)-根据id查询企业资质-传入参数, id:{}", id);
 		EnterpriseQuality enterpriseQuality = enterpriseQualityMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(enterpriseQuality, SafeResultEnum.DATABASE_NOTEXIST);
 		return enterpriseQuality;
     }
 

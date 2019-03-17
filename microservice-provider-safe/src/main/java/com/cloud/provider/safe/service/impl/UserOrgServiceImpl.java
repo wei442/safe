@@ -45,6 +45,9 @@ public class UserOrgServiceImpl implements IUserOrgService {
 		example.setOrderByClause(" id desc ");
 		UserOrgExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserOrg> list = userOrgMapper.selectByExample(example);
 		return list;
@@ -59,8 +62,12 @@ public class UserOrgServiceImpl implements IUserOrgService {
 	public List<UserOrg> selectUserOrgList(UserOrgPageRequest param) {
 		logger.info("(UserOrgService-selectUserOrgList)-不分页查询-传入参数, param:{}", param);
 		UserOrgExample example = new UserOrgExample();
+		example.setOrderByClause(" id desc ");
 		UserOrgExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getEnterpriseId() != null) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
 		}
 		List<UserOrg> list = userOrgMapper.selectByExample(example);
 		return list;
@@ -75,8 +82,29 @@ public class UserOrgServiceImpl implements IUserOrgService {
 	public UserOrg selectUserOrgById(Integer id) {
     	logger.info("(UserOrgService-selectUserOrgById)-根据id查询用户机构-传入参数, id:{}", id);
 		UserOrg userOrg = userOrgMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(userOrg, SafeResultEnum.DATABASE_NOTEXIST);
 		return userOrg;
     }
+
+	/**
+	 * 根据userId查询用户机构
+	 * @param userId
+	 * @return UserOrg
+	 */
+	@Override
+	public UserOrg selectUserOrgByUserId(Integer userId) {
+		logger.info("(UserOrgService-selectUserOrgById)-根据userId查询用户机构-传入参数, userId:{}", userId);
+		UserOrgExample example = new UserOrgExample();
+		UserOrgExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		List<UserOrg> list = userOrgMapper.selectByExample(example);
+		UserOrg userOrg = null;
+		if(list != null && !list.isEmpty()) {
+			userOrg = list.get(0);
+		}
+		Assert.thanOrEqualZreo(userOrg, SafeResultEnum.DATABASE_NOTEXIST);
+		return userOrg;
+	}
 
     /**
      * 插入用户机构

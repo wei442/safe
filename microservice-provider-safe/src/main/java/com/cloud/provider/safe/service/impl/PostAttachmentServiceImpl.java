@@ -61,6 +61,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 	public List<PostAttachment> selectPostAttachmentList(PostAttachmentPageRequest param) {
 		logger.info("(PostAttachmentService-selectPostAttachmentList)-不分页查询-传入参数, param:{}", param);
 		PostAttachmentExample example = new PostAttachmentExample();
+		example.setOrderByClause(" id desc ");
 		PostAttachmentExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_POST_ATTACHMENT_IS_DELETE_NO);
 		if(param != null) {
@@ -78,6 +79,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 	public PostAttachment selectPostAttachmentById(Integer id) {
     	logger.info("(PostAttachmentService-selectPostAttachmentById)-根据id查询岗位附件-传入参数, id:{}", id);
 		PostAttachment postAttachment = postAttachmentMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(postAttachment, SafeResultEnum.DATABASE_NOTEXIST);
 		return postAttachment;
     }
 

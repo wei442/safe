@@ -54,6 +54,18 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 	}
 
 	/**
+	 * 根据userId获取用户岗位
+	 * @param userId
+	 * @return JSONObject
+	 */
+	@Override
+	public JSONObject getUserPostByUserId(Integer userId) {
+		logger.info("(UserPostService-getUserPostByUserId)-根据userId获取用户岗位-传入参数, userId:{}", userId);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserPostByUserId/"+userId, null, JSONObject.class);
+		return response;
+	}
+
+	/**
 	 * 新增用户岗位
 	 * @param params
 	 * @return JSONObject

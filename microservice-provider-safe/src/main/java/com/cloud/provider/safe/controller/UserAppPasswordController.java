@@ -67,27 +67,28 @@ public class UserAppPasswordController extends BaseController {
 
 	/**
 	 * 据userId查询用户应用密码
-	 * @param userId
+	 * @param req
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据userId查询用户应用密码")
-	@RequestMapping(value="/selectUserAppPasswordByUserId/{userId}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectUserAppPasswordByUserId",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectUserAppPasswordByUserId(
-		@PathVariable(value="userId",required=false) Integer userId) {
-		logger.info("===step1:【据userId查询用户应用密码】(selectUserAppPasswordById-selectUserAppPasswordByUserId)-传入参数, userId:{}", userId);
+		@Validated @RequestBody UserAppPasswordRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【根据userId查询用户应用密码】(UserAppPasswordController-selectUserAppPasswordByUserId)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		this.bindingResult(bindingResult);
 
-		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
-		}
+		Integer userId = req.getUserId();
+		String password = req.getPassword();
 
-		UserAppPassword userAppPassword = userAppPasswordService.selectUserAppPasswordByUserId(userId);
-		logger.info("===step2:【据userId查询用户应用密码】(UserAppPasswordController-selectUserAppPasswordByUserId)-根据id查询用户应用密码, userAppPassword:{}", userAppPassword);
+		UserAppPassword userAppPassword = userAppPasswordService.selectUserAppPasswordByUserId(userId, password);
+		logger.info("===step2:【根据userId查询用户应用密码】(UserAppPasswordController-selectUserAppPasswordByUserId)-根据userId和password查询用户应用密码, userAppPassword:{}", userAppPassword);
 		UserAppPasswordVo userAppPasswordVo = new UserAppPasswordVo().convertToUserAppPasswordVo(userAppPassword);
 
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
 		userAppPasswordResponse.putAll((JSONObject) JSONObject.toJSON(userAppPasswordVo));
-		logger.info("===step3:【据userId查询用户应用密码】(UserAppPasswordController-selectUserAppPasswordByUserId)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
+		logger.info("===step3:【根据userId查询用户应用密码】(UserAppPasswordController-selectUserAppPasswordByUserId)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}
 
@@ -104,7 +105,6 @@ public class UserAppPasswordController extends BaseController {
 		@Validated @RequestBody UserAppPasswordRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户应用密码】(UserAppPasswordController-insertUserAppPassword)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
 		this.bindingResult(bindingResult);
 
 		UserAppPassword userAppPassword = req.convertToUserAppPassword();

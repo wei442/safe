@@ -61,8 +61,8 @@ public class AttachmentServiceImpl implements IAttachmentService {
 	public List<Attachment> selectAttachmentList(AttachmentPageRequest param) {
 		logger.info("(AttachmentService-selectAttachmentList)-不分页查询-传入参数, param:{}", param);
 		AttachmentExample example = new AttachmentExample();
-		AttachmentExample.Criteria criteria = example.createCriteria();
 		example.setOrderByClause(" id desc ");
+		AttachmentExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ATTACHMENT_IS_DELETE_NO);
 		if(param != null) {
 		}
@@ -79,6 +79,7 @@ public class AttachmentServiceImpl implements IAttachmentService {
 	public Attachment selectAttachmentById(Integer id) {
     	logger.info("(AttachmentService-selectAttachmentById)-根据id查询附件-传入参数, id:{}", id);
 		Attachment attachment = attachmentMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(attachment, SafeResultEnum.DATABASE_NOTEXIST);
 		return attachment;
     }
 

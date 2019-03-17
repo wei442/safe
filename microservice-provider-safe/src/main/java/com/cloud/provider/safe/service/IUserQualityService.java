@@ -30,6 +30,13 @@ public interface IUserQualityService {
      */
 	public UserQuality selectUserQualityById(Integer id);
 
+	/**
+	 * 根据userId查询用户资质
+	 * @param userId
+	 * @return UserQuality
+	 */
+	public UserQuality selectUserQualityByUserId(Integer userId);
+
     /**
      * 插入用户资质
      * @param userQuality
