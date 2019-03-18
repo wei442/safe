@@ -75,8 +75,30 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
 	public UserAdminLogin selectById(Integer id) {
     	logger.info("(UserAdminLoginService-selectById)-根据id查询用户管理登录-传入参数, id:{}", id);
 		UserAdminLogin userAdminLogin = userAdminLoginMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(userAdminLogin, SafeResultEnum.DATABASE_NOTEXIST);
 		return userAdminLogin;
     }
+
+	/**
+	 * 根据userId查询用户管理登录
+	 * @param userId
+	 * @return UserAdminLogin
+	 */
+	@Override
+	public UserAdminLogin selectByUserId(Integer userId) {
+		logger.info("(UserAdminLoginService-selectByUserId)-根据userId查询用户管理登录-传入参数, userId:{}", userId);
+		UserAdminLoginExample example = new UserAdminLoginExample();
+		UserAdminLoginExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		List<UserAdminLogin> list = userAdminLoginMapper.selectByExample(example);
+
+		UserAdminLogin userAdminLogin = null;
+		if(list != null && !list.isEmpty()) {
+			userAdminLogin = list.get(0);
+		}
+		Assert.thanOrEqualZreo(userAdminLogin, SafeResultEnum.DATABASE_NOTEXIST);
+		return userAdminLogin;
+	}
 
     /**
      * 插入用户管理登录

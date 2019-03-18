@@ -102,7 +102,7 @@ public class UserAdminLoginController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userAdminLoginId) {
-		logger.info("===step1:【据id查询用户管理登录】(selectById-selectById)-传入参数, userAdminLoginId:{}", userAdminLoginId);
+		logger.info("===step1:【据id查询用户管理登录】(UserAdminLoginController-selectById)-传入参数, userAdminLoginId:{}", userAdminLoginId);
 
 		if(userAdminLoginId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminLoginId为空");
@@ -115,6 +115,32 @@ public class UserAdminLoginController extends BaseController {
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.putAll((JSONObject) JSONObject.toJSON(userAdminLoginVo));
 		logger.info("===step3:【据id查询用户管理登录】(UserAdminLoginController-selectById)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+		return userAdminLoginResponse;
+	}
+
+	/**
+	 * 据userId查询用户管理登录
+	 * @param userId
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据userId查询用户管理登录")
+	@RequestMapping(value="/selectByUserId/{userId}",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectByUserId(
+		@PathVariable(value="userId",required=false) Integer userId) {
+		logger.info("===step1:【据userId查询用户管理登录】(UserAdminLoginController-selectByUserId)-传入参数, userId:{}", userId);
+
+		if(userId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+		}
+
+		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
+		logger.info("===step2:【据userId查询用户管理登录】(UserAdminLoginController-selectByUserId)-根据id查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+		UserAdminLoginVo userAdminLoginVo = new UserAdminLoginVo().convertToUserAdminLoginVo(userAdminLogin);
+
+		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
+		userAdminLoginResponse.putAll((JSONObject) JSONObject.toJSON(userAdminLoginVo));
+		logger.info("===step3:【据userId查询用户管理登录】(UserAdminLoginController-selectByUserId)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
 

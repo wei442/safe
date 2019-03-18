@@ -30,6 +30,13 @@ public interface IUserAdminLoginService {
      */
 	public UserAdminLogin selectById(Integer id);
 
+	/**
+	 * 根据userId查询用户管理登录
+	 * @param userId
+	 * @return UserAdminLogin
+	 */
+	public UserAdminLogin selectByUserId(Integer userId);
+
     /**
      * 插入用户管理登录
      * @param userAdminLogin
