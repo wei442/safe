@@ -12,9 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cloud.common.constants.BootConstants;
 import com.cloud.common.constants.HttpUrlConstants;
-import com.cloud.common.constants.RedisConstants;
 import com.cloud.consumer.safe.service.IRedisLockService;
 
 /**
@@ -38,12 +36,12 @@ public class RedisLockServiceImpl extends BaseService implements IRedisLockServi
 		params.put("key", key);
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/boot/redis/distributedLock/lock", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/distributedLock/lock", httpEntity, JSONObject.class);
 		logger.info("(RedisLockService-lock)-锁定-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String bootCode = Objects.toString(response.get(BootConstants.BOOT_CODE), "");
+		String retCode = Objects.toString(response.get("retCode"), "");
 		boolean result = false;
-		if (StringUtils.equals(bootCode, BootConstants.OK)) {
-			result = response.getBooleanValue(RedisConstants.RESULT);
+		if (StringUtils.equals(retCode, "0000000")) {
+			result = response.getBooleanValue("result");
 		}
 		return result;
     }
@@ -60,12 +58,12 @@ public class RedisLockServiceImpl extends BaseService implements IRedisLockServi
 		params.put("key", key);
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/boot/redis/distributedLock/unlock", httpEntity, JSONObject.class);
+		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/distributedLock/unlock", httpEntity, JSONObject.class);
 		logger.info("(RedisLockService-unlock)-解锁-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String bootCode = Objects.toString(response.get(BootConstants.BOOT_CODE), "");
+		String retCode = Objects.toString(response.get("retCode"), "");
 		boolean result = false;
-		if (StringUtils.equals(bootCode, BootConstants.OK)) {
-			result = response.getBooleanValue(RedisConstants.RESULT);
+		if (StringUtils.equals(retCode, "0000000")) {
+			result = response.getBooleanValue("result");
 		}
 		return result;
 	}

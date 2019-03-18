@@ -96,7 +96,7 @@ public class BaseService {
 	}
 
 	/**
-	 * 封装post方法
+	 * safe封装post方法
 	 * @param url
 	 * @param request
 	 * @param responseType
@@ -105,6 +105,22 @@ public class BaseService {
 	 */
 	protected <T> T safePostForObject(String url, Object request, Class<T> responseType, Object... uriVariables) {
 		HttpHeaders headers = this.getProviderSafeHeaders();
+		HttpEntity<Object> httpEntity = new HttpEntity<>(request, headers);
+		T t = this.restTemplate.postForObject(url, httpEntity, responseType, uriVariables);
+		this.verifyResponse(t);
+		return t;
+	}
+
+	/**
+	 * safe封装post方法
+	 * @param url
+	 * @param request
+	 * @param responseType
+	 * @param uriVariables
+	 * @return T
+	 */
+	protected <T> T redisPostForObject(String url, Object request, Class<T> responseType, Object... uriVariables) {
+		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<>(request, headers);
 		T t = this.restTemplate.postForObject(url, httpEntity, responseType, uriVariables);
 		this.verifyResponse(t);

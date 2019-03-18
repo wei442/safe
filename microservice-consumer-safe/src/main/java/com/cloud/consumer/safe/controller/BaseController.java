@@ -120,13 +120,11 @@ public class BaseController {
 
 		String issuer = CommConstants.CLOUD;
 		String audience = CommConstants.CLOUD;
-		JSONObject claimsJson = new JSONObject();
-		claimsJson.put(CommConstants.ENTERPRISE_ID, enterpriseId);
-		claimsJson.put(CommConstants.USER_ID, userId);
-		claimsJson.put(CommConstants.USER_ACCOUNT, userAccount);
-		logger.info("(BaseController-setToken)-声明(claims)json, claimsJson:{}", claimsJson);
 		Map<String, Object> claims = new HashMap<String, Object>();
-		claims.put(RetWheelConstants.CLAIMS, claimsJson);
+		claims.put(CommConstants.ENTERPRISE_ID, enterpriseId);
+		claims.put(CommConstants.USER_ID, userId);
+		claims.put(CommConstants.USER_ACCOUNT, userAccount);
+		logger.info("(BaseController-setToken)-声明(claims), claims:{}", claims);
 
 		String token = TokenUtil.INSTANCE.createJWT(privateKey, signatureAlgorithm, claims, issuer, audience);
 		String tokenResult = redisService.setex(tokenkey, RetWheelConstants.TWENTY_FOUR_HOUR_SECONDS_TIME, token);

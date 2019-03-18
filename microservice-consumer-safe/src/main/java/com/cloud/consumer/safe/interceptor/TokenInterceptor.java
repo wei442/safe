@@ -67,7 +67,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 
 		String apiGatewayWheel = request.getHeader(ZuulConstants.API_GATEWAY);
 		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-请求网关, 请求网关:{}", apiGatewayWheel);
-		if(!StringUtils.equals(apiGatewayWheel, ZuulConstants.API_GATEWAY_WHEEL)) {
+		if(!StringUtils.equals(apiGatewayWheel, ZuulConstants.API_GATEWAY_SAFE_ADMIN)) {
 			String respStr = this.addRetMsg(RetSafeAdminResultEnum.NETWORK_ERROR);
 			logger.info("【Token拦截器】(TokenInterceptor-preHandle)-非法请求, respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);
@@ -102,10 +102,10 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 			return false;
         }
 		String issuer = claims.getIssuer();
-		String audience = claims.getAudience();
-		String claimsStr = Objects.toString(claims.get(CommConstants.CLAIMS), "");
-		JSONObject claimsJSON = JSONObject.parseObject(claimsStr);
-		String userId = Objects.toString(claimsJSON.get(CommConstants.USER_ID), "");
+//		String audience = claims.getAudience();
+//		String claimsStr = Objects.toString(claims.get(CommConstants.CLAIMS), "");
+//		JSONObject claimsJSON = JSONObject.parseObject(claimsStr);
+		String userId = Objects.toString(claims.get(CommConstants.USER_ID), "");
 
 		//校验失败
 		if(!StringUtils.equals(issuer, CommConstants.CLOUD)) {

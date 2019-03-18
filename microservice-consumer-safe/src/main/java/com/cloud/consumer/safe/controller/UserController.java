@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.wheel.RetWheelConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.rest.request.login.UserLoginRequest;
+import com.cloud.consumer.safe.service.IUserAdminLoginService;
 import com.cloud.consumer.safe.service.IUserAdminPasswordService;
 import com.cloud.consumer.safe.service.IUserInfoService;
 import com.cloud.consumer.safe.service.IUserService;
@@ -53,6 +54,10 @@ public class UserController extends BaseController {
 	@Autowired
 	private IUserAdminPasswordService userAdminPasswordService;
 
+	//用户管理登录 Service
+	@Autowired
+	private IUserAdminLoginService userAdminLoginService;
+
 	/**
 	 * 用户登录
 	 * @param req
@@ -72,7 +77,7 @@ public class UserController extends BaseController {
 		String userAccount = req.getUserAccount();
 		String userPassword = req.getUserPassword();
 
-		//验证gToken
+		//根据userAccount获取用户信息
 		JSONObject jsonUserInfo = userInfoService.getByUserAccount(userAccount);
 		logger.info("===step2:【用户登录】(UserController-login))-用户登录, jsonUserInfo:{}", jsonUserInfo);
 //		String retCode = Objects.toString(jsonUserInfo.get(CommConstants.RET_CODE), "");
