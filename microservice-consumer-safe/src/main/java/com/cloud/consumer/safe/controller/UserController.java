@@ -20,6 +20,7 @@ import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.rest.request.login.UserLoginRequest;
 import com.cloud.consumer.safe.service.IUserAdminLoginService;
 import com.cloud.consumer.safe.service.IUserAdminPasswordService;
+import com.cloud.consumer.safe.service.IUserAdminService;
 import com.cloud.consumer.safe.service.IUserInfoService;
 import com.cloud.consumer.safe.service.IUserService;
 import com.cloud.consumer.safe.vo.UserInfoVo;
@@ -49,6 +50,10 @@ public class UserController extends BaseController {
 	//用户信息 Service
 	@Autowired
 	private IUserInfoService userInfoService;
+
+	//用户管理 Service
+	@Autowired
+	private IUserAdminService userAdminService;
 
 	//用户管理密码 Service
 	@Autowired
@@ -92,6 +97,8 @@ public class UserController extends BaseController {
 		Integer userId = userInfoVo.getUserId();
 		Integer enterpriseId = userInfoVo.getEnterpriseId();
 		String userName = userInfoVo.getUserName();
+
+
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", userId);
@@ -153,7 +160,7 @@ public class UserController extends BaseController {
 		@RequestBody UserLoginRequest req,
 		BindingResult bindingResult) {
 		String requestIp = this.getRequestIp();
-		logger.info("===step1:【用户登录】(UserController-register)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
+		logger.info("===step1:【用户注册】(UserController-register)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
 		this.bindingResult(bindingResult);
 
 		JSONObject jsonUser = userService.addUser(req);

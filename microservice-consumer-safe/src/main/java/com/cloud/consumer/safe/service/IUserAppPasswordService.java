@@ -12,11 +12,11 @@ public interface IUserAppPasswordService {
 	public JSONObject getById(Integer id);
 
 	/**
-	 * 根据userId获取用户应用密码
+	 * 根据userId和password获取用户应用密码
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getByUserId(Object params);
+	public JSONObject getByUserIdPassword(Object params);
 
 	/**
 	 * 新增用户应用密码

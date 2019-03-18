@@ -17,6 +17,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.po.Enterprise;
 import com.cloud.provider.safe.po.UserAdmin;
+import com.cloud.provider.safe.po.UserAdminLogin;
 import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.rest.request.UserRequest;
@@ -70,12 +71,14 @@ public class UserController extends BaseController {
 		userInfo = new UserInfo();
 		UserAdmin userAdmin = new UserAdmin();
 		UserAdminPassword userAdminPassword = new UserAdminPassword();
+		UserAdminLogin userAdminLogin = new UserAdminLogin();
 		BeanUtils.copyProperties(req, enterprise);
 		BeanUtils.copyProperties(req, userInfo);
 		BeanUtils.copyProperties(req, userAdmin);
 		BeanUtils.copyProperties(req, userAdminPassword);
+		BeanUtils.copyProperties(req, userAdminLogin);
 
-		int i = userService.insertUser(enterprise, userInfo, userAdmin, userAdminPassword);
+		int i = userService.insertUser(enterprise, userInfo, userAdmin, userAdminPassword, userAdminLogin);
 		logger.info("===step2:【添加用户】(UserController-insertUser)-插入用户, i:{}", i);
 
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();

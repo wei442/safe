@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
-import com.cloud.provider.safe.dao.OrgDao;
 import com.cloud.provider.safe.dao.OrgMapper;
-import com.cloud.provider.safe.dao.UserInfoDao;
+import com.cloud.provider.safe.dao.dao.OrgDao;
+import com.cloud.provider.safe.dao.dao.UserInfoDao;
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.param.UserParam;
 import com.cloud.provider.safe.po.Org;

@@ -66,29 +66,29 @@ public class UserAppPasswordController extends BaseController {
 	}
 
 	/**
-	 * 据userId查询用户应用密码
+	 * 据userId和password查询用户应用密码
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据userId查询用户应用密码")
-	@RequestMapping(value="/selectByUserId",method={RequestMethod.POST})
+	@ApiOperation(value = "根据userId和password查询用户应用密码")
+	@RequestMapping(value="/selectByUserIdPassword",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectByUserId(
+	public BaseRestMapResponse selectByUserIdPassword(
 		@Validated @RequestBody UserAppPasswordRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【根据userId查询用户应用密码】(UserAppPasswordController-selectByUserId)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【根据userId和password查询用户应用密码】(UserAppPasswordController-selectByUserIdPassword)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		this.bindingResult(bindingResult);
 
 		Integer userId = req.getUserId();
 		String password = req.getPassword();
 
 		UserAppPassword userAppPassword = userAppPasswordService.selectByUserId(userId, password);
-		logger.info("===step2:【根据userId查询用户应用密码】(UserAppPasswordController-selectByUserId)-根据userId和password查询用户应用密码, userAppPassword:{}", userAppPassword);
+		logger.info("===step2:【根据userId和password查询用户应用密码】(UserAppPasswordController-selectByUserIdPassword)-根据userId和password查询用户应用密码, userAppPassword:{}", userAppPassword);
 		UserAppPasswordVo userAppPasswordVo = new UserAppPasswordVo().convertToUserAppPasswordVo(userAppPassword);
 
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
 		userAppPasswordResponse.putAll((JSONObject) JSONObject.toJSON(userAppPasswordVo));
-		logger.info("===step3:【根据userId查询用户应用密码】(UserAppPasswordController-selectByUserId)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
+		logger.info("===step3:【根据userId和password查询用户应用密码】(UserAppPasswordController-selectByUserIdPassword)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}
 

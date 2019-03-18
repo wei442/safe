@@ -26,6 +26,13 @@ public interface IUserAdminLoginService {
 	public JSONObject getById(Integer id);
 
 	/**
+	 * 根据userId获取用户管理登录
+	 * @param userId
+	 * @return JSONObject
+	 */
+	public JSONObject getByUserId(Integer userId);
+
+	/**
 	 * 新增用户管理登录
 	 * @param params
 	 * @return JSONObject

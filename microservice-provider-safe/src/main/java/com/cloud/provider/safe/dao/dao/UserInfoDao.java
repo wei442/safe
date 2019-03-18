@@ -1,4 +1,4 @@
-package com.cloud.provider.safe.dao;
+package com.cloud.provider.safe.dao.dao;
 
 import java.util.List;
 

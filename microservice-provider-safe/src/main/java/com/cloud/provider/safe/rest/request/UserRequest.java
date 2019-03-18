@@ -15,9 +15,6 @@ public class UserRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "企业id", required = true)
-    private Integer enterpriseId;
-
     @ApiModelProperty(value = "用户账户", required = true)
 	@NotBlank(message = "用户账户")
     private String userAccount;
@@ -35,6 +32,8 @@ public class UserRequest implements Serializable {
     @ApiModelProperty(value = "性别")
     private Integer gender;
 
+    @ApiModelProperty(value = "企业id", required = true)
+    private Integer enterpriseId;
 
 	@ApiModelProperty(value = "企业名称", required = true)
 	@NotBlank(message = "企业名称")

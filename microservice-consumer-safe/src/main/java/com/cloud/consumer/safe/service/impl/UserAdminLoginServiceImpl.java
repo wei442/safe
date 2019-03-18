@@ -54,6 +54,17 @@ public class UserAdminLoginServiceImpl extends BaseService implements IUserAdmin
 	}
 
 	/**
+	 * 根据userId获取用户管理登录
+	 * @param userId
+	 * @return JSONObject
+	 */
+	public JSONObject getByUserId(Integer userId) {
+		logger.info("(Service-getByUserId)-根据userId获取用户管理登录-传入参数, userId:{}", userId);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_login+"/selectByUserId/"+userId, null, JSONObject.class);
+		return response;
+	}
+
+	/**
 	 * 新增用户管理登录
 	 * @param params
 	 * @return JSONObject

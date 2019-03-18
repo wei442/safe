@@ -102,9 +102,6 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 			return false;
         }
 		String issuer = claims.getIssuer();
-//		String audience = claims.getAudience();
-//		String claimsStr = Objects.toString(claims.get(CommConstants.CLAIMS), "");
-//		JSONObject claimsJSON = JSONObject.parseObject(claimsStr);
 		String userId = Objects.toString(claims.get(CommConstants.USER_ID), "");
 
 		//校验失败
