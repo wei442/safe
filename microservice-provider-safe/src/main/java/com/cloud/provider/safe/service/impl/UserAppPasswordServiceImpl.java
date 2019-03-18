@@ -34,8 +34,8 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
      * @return UserAppPassword
      */
 	@Override
-	public UserAppPassword selectUserAppPasswordById(Integer id) {
-    	logger.info("(UserAppPasswordService-selectUserAppPasswordById)-根据id查询用户应用密码-传入参数, id:{}", id);
+	public UserAppPassword selectById(Integer id) {
+    	logger.info("(UserAppPasswordService-selectById)-根据id查询用户应用密码-传入参数, id:{}", id);
 		UserAppPassword userAppPassword = userAppPasswordMapper.selectByPrimaryKey(id);
 		return userAppPassword;
     }
@@ -46,8 +46,9 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
 	 * @param password
 	 * @return UserAppPassword
 	 */
-	public UserAppPassword selectUserAppPasswordByUserId(Integer userId,String password) {
-		logger.info("(UserAppPasswordService-selectUserAppPasswordByUserId)-根据userId和password查询用户应用密码-传入参数, userId:{}, password:{}", userId, password);
+	@Override
+	public UserAppPassword selectByUserId(Integer userId,String password) {
+		logger.info("(UserAppPasswordService-selectByUserId)-根据userId和password查询用户应用密码-传入参数, userId:{}, password:{}", userId, password);
 		UserAppPasswordExample example = new UserAppPasswordExample();
 		UserAppPasswordExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
@@ -67,7 +68,7 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
      * @return Integer
      */
 	@Override
-	public Integer insertUserAppPassword(UserAppPassword userAppPassword) {
+	public Integer insert(UserAppPassword userAppPassword) {
     	logger.info("(UserAppPasswordService-insertUserAppPassword)-插入用户应用密码-传入参数, userAppPassword:{}", userAppPassword);
     	userAppPassword.setCreateTime(new Date());
     	userAppPassword.setUpdateTime(new Date());
@@ -82,8 +83,8 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteUserAppPasswordById(Integer id) {
-  		logger.info("(UserAppPasswordService-deleteUserAppPasswordById)-根据id删除用户应用密码-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(UserAppPasswordService-deleteById)-根据id删除用户应用密码-传入参数, id:{}", id);
 		int i = userAppPasswordMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -95,7 +96,7 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
      * @return Integer
      */
 	@Override
-	public Integer modifyUserAppPassword(UserAppPassword userAppPassword) {
+	public Integer modify(UserAppPassword userAppPassword) {
     	logger.info("(UserAppPasswordService-modifyUserAppPassword)-修改用户应用密码-传入参数, userAppPassword:{}", userAppPassword);
     	userAppPassword.setUpdateTime(new Date());
 		int i = userAppPasswordMapper.updateByPrimaryKeySelective(userAppPassword);

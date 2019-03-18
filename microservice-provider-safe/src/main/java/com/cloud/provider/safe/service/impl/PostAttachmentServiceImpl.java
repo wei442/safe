@@ -39,8 +39,8 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 	 * @return List<PostAttachment>
 	 */
 	@Override
-	public List<PostAttachment> selectPostAttachmentListByPage(Page<?> page, PostAttachmentPageRequest param) {
-		logger.info("(PostAttachmentService-selectPostAttachmentListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<PostAttachment> selectListByPage(Page<?> page, PostAttachmentPageRequest param) {
+		logger.info("(PostAttachmentService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		PostAttachmentExample example = new PostAttachmentExample();
 		example.setOrderByClause(" id desc ");
@@ -58,8 +58,8 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 	 * @return List<PostAttachment>
 	 */
 	@Override
-	public List<PostAttachment> selectPostAttachmentList(PostAttachmentPageRequest param) {
-		logger.info("(PostAttachmentService-selectPostAttachmentList)-不分页查询-传入参数, param:{}", param);
+	public List<PostAttachment> selectList(PostAttachmentPageRequest param) {
+		logger.info("(PostAttachmentService-selectList)-不分页查询-传入参数, param:{}", param);
 		PostAttachmentExample example = new PostAttachmentExample();
 		example.setOrderByClause(" id desc ");
 		PostAttachmentExample.Criteria criteria = example.createCriteria();
@@ -76,8 +76,8 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
      * @return PostAttachment
      */
 	@Override
-	public PostAttachment selectPostAttachmentById(Integer id) {
-    	logger.info("(PostAttachmentService-selectPostAttachmentById)-根据id查询岗位附件-传入参数, id:{}", id);
+	public PostAttachment selectById(Integer id) {
+    	logger.info("(PostAttachmentService-selectById)-根据id查询岗位附件-传入参数, id:{}", id);
 		PostAttachment postAttachment = postAttachmentMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(postAttachment, SafeResultEnum.DATABASE_NOTEXIST);
 		return postAttachment;
@@ -89,7 +89,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
      * @return Integer
      */
 	@Override
-	public Integer insertPostAttachment(PostAttachment postAttachment) {
+	public Integer insert(PostAttachment postAttachment) {
     	logger.info("(PostAttachmentService-insertPostAttachment)-插入岗位附件-传入参数, postAttachment:{}", postAttachment);
     	postAttachment.setIsDelete(SqlSafeConstants.SQL_POST_ATTACHMENT_IS_DELETE_NO);
     	postAttachment.setCreateTime(new Date());
@@ -105,8 +105,8 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deletePostAttachmentById(Integer id) {
-  		logger.info("(PostAttachmentService-deletePostAttachmentById)-根据id删除岗位附件-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(PostAttachmentService-deleteById)-根据id删除岗位附件-传入参数, id:{}", id);
   		int i = postAttachmentMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -118,7 +118,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
      * @return Integer
      */
 	@Override
-	public Integer modifyPostAttachment(PostAttachment postAttachment) {
+	public Integer modify(PostAttachment postAttachment) {
     	logger.info("(PostAttachmentService-modifyPostAttachment)-修改岗位附件-传入参数, postAttachment:{}", postAttachment);
     	postAttachment.setUpdateTime(new Date());
     	int i = postAttachmentMapper.updateByPrimaryKeySelective(postAttachment);

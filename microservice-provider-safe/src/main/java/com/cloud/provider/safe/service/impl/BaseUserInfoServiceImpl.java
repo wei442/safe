@@ -39,8 +39,8 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
 	 * @return List<BaseUserInfo>
 	 */
 	@Override
-	public List<BaseUserInfo> selectBaseUserInfoListByPage(Page<?> page, BaseUserInfoPageRequest param) {
-		logger.info("(BaseUserInfoService-selectBaseUserInfoListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<BaseUserInfo> selectListByPage(Page<?> page, BaseUserInfoPageRequest param) {
+		logger.info("(BaseUserInfoService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		BaseUserInfoExample example = new BaseUserInfoExample();
 		example.setOrderByClause(" id desc ");
@@ -58,8 +58,8 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
 	 * @return List<BaseUserInfo>
 	 */
 	@Override
-	public List<BaseUserInfo> selectBaseUserInfoList(BaseUserInfoPageRequest param) {
-		logger.info("(BaseUserInfoService-selectBaseUserInfoList)-不分页查询-传入参数, param:{}", param);
+	public List<BaseUserInfo> selectList(BaseUserInfoPageRequest param) {
+		logger.info("(BaseUserInfoService-selectList)-不分页查询-传入参数, param:{}", param);
 		BaseUserInfoExample example = new BaseUserInfoExample();
 		example.setOrderByClause(" id desc ");
 		BaseUserInfoExample.Criteria criteria = example.createCriteria();
@@ -76,8 +76,8 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
      * @return BaseUserInfo
      */
 	@Override
-	public BaseUserInfo selectBaseUserInfoById(Integer id) {
-    	logger.info("(BaseUserInfoService-selectBaseUserInfoById)-根据id查询基础用户信息-传入参数, id:{}", id);
+	public BaseUserInfo selectById(Integer id) {
+    	logger.info("(BaseUserInfoService-selectById)-根据id查询基础用户信息-传入参数, id:{}", id);
 		BaseUserInfo baseUserInfo = baseUserInfoMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(baseUserInfo, SafeResultEnum.DATABASE_NOTEXIST);
 		return baseUserInfo;
@@ -89,7 +89,7 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
      * @return Integer
      */
 	@Override
-	public Integer insertBaseUserInfo(BaseUserInfo baseUserInfo) {
+	public Integer insert(BaseUserInfo baseUserInfo) {
     	logger.info("(BaseUserInfoService-insertBaseUserInfo)-插入基础用户信息-传入参数, baseUserInfo:{}", baseUserInfo);
     	baseUserInfo.setUserStatus(SqlSafeConstants.SQL_BASE_USER_STATUS_NORMAL);
     	baseUserInfo.setIsDelete(SqlSafeConstants.SQL_BASE_USER_IS_DELETE_NO);
@@ -106,8 +106,8 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteBaseUserInfoById(Integer id) {
-  		logger.info("(BaseUserInfoService-deleteBaseUserInfoById)-根据id删除基础用户信息-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(BaseUserInfoService-deleteById)-根据id删除基础用户信息-传入参数, id:{}", id);
   		int i = baseUserInfoMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -119,7 +119,7 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
      * @return Integer
      */
 	@Override
-	public Integer modifyBaseUserInfo(BaseUserInfo baseUserInfo) {
+	public Integer modify(BaseUserInfo baseUserInfo) {
     	logger.info("(BaseUserInfoService-modifyBaseUserInfo)-修改基础用户信息-传入参数, baseUserInfo:{}", baseUserInfo);
     	baseUserInfo.setUpdateTime(new Date());
     	int i = baseUserInfoMapper.updateByPrimaryKeySelective(baseUserInfo);

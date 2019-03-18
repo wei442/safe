@@ -14,48 +14,48 @@ public interface IUserPostService {
 	 * @param param
 	 * @return List<UserPost>
 	 */
-	public List<UserPost> selectUserPostListByPage(Page<?> page, UserPostPageRequest param);
+	public List<UserPost> selectListByPage(Page<?> page, UserPostPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<UserPost>
 	 */
-	public List<UserPost> selectUserPostList(UserPostPageRequest param);
+	public List<UserPost> selectList(UserPostPageRequest param);
 
     /**
      * 根据id查询用户岗位
      * @param id
      * @return UserPost
      */
-	public UserPost selectUserPostById(Integer id);
+	public UserPost selectById(Integer id);
 
 	/**
 	 * 根据userId查询用户岗位
 	 * @param userId
 	 * @return UserPost
 	 */
-	public UserPost selectUserPostByUserId(Integer userId);
+	public UserPost selectByUserId(Integer userId);
 
     /**
      * 插入用户岗位
      * @param userPost
      * @return Integer
      */
-	public Integer insertUserPost(UserPost userPost);
+	public Integer insert(UserPost userPost);
 
  	/**
   	 * 根据id删除用户岗位
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserPostById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改用户岗位
      * @param userPost
      * @return Integer
      */
-	public Integer modifyUserPost(UserPost userPost);
+	public Integer modify(UserPost userPost);
 
 }

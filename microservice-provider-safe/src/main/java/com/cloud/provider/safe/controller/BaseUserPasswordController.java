@@ -45,23 +45,23 @@ public class BaseUserPasswordController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询基础用户密码")
-	@RequestMapping(value="/selectBaseUserPasswordById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectBaseUserPasswordById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer baseUserPasswordId) {
-		logger.info("===step1:【据id查询基础用户密码】(selectBaseUserPasswordById-selectBaseUserPasswordById)-传入参数, baseUserPasswordId:{}", baseUserPasswordId);
+		logger.info("===step1:【据id查询基础用户密码】(selectById-selectById)-传入参数, baseUserPasswordId:{}", baseUserPasswordId);
 
 		if(baseUserPasswordId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "baseUserPasswordId为空");
 		}
 
-		BaseUserPassword baseUserPassword = baseUserPasswordService.selectBaseUserPasswordById(baseUserPasswordId);
-		logger.info("===step2:【据id查询基础用户密码】(BaseUserPasswordController-selectBaseUserPasswordById)-根据id查询基础用户密码, baseUserPassword:{}", baseUserPassword);
+		BaseUserPassword baseUserPassword = baseUserPasswordService.selectById(baseUserPasswordId);
+		logger.info("===step2:【据id查询基础用户密码】(BaseUserPasswordController-selectById)-根据id查询基础用户密码, baseUserPassword:{}", baseUserPassword);
 		BaseUserPasswordVo baseUserPasswordVo = new BaseUserPasswordVo().convertToBaseUserPasswordVo(baseUserPassword);
 
 		BaseRestMapResponse baseUserPasswordResponse = new BaseRestMapResponse();
 		baseUserPasswordResponse.putAll((JSONObject) JSONObject.toJSON(baseUserPasswordVo));
-		logger.info("===step3:【据id查询基础用户密码】(BaseUserPasswordController-selectBaseUserPasswordById)-返回信息, baseUserPasswordResponse:{}", baseUserPasswordResponse);
+		logger.info("===step3:【据id查询基础用户密码】(BaseUserPasswordController-selectById)-返回信息, baseUserPasswordResponse:{}", baseUserPasswordResponse);
 		return baseUserPasswordResponse;
 	}
 
@@ -71,23 +71,23 @@ public class BaseUserPasswordController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据baseUserId查询基础用户密码")
-	@RequestMapping(value="/selectBaseUserPasswordByBaseUserId/{baseUserId}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectByBaseUserId/{baseUserId}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectBaseUserPasswordByBaseUserId(
+	public BaseRestMapResponse selectByBaseUserId(
 		@PathVariable(value="baseUserId",required=false) Integer baseUserId) {
-		logger.info("===step1:【据baseUserId查询基础用户密码】(selectBaseUserPasswordById-selectBaseUserPasswordById)-传入参数, baseUserPasswordId:{}", baseUserId);
+		logger.info("===step1:【据baseUserId查询基础用户密码】(selectById-selectById)-传入参数, baseUserPasswordId:{}", baseUserId);
 
 		if(baseUserId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "baseUserId为空");
 		}
 
-		BaseUserPassword baseUserPassword = baseUserPasswordService.selectBaseUserPasswordByBaseUserId(baseUserId);
-		logger.info("===step2:【据baseUserId查询基础用户密码】(BaseUserPasswordController-selectBaseUserPasswordById)-根据baseUserId查询基础用户密码, baseUserPassword:{}", baseUserPassword);
+		BaseUserPassword baseUserPassword = baseUserPasswordService.selectByBaseUserId(baseUserId);
+		logger.info("===step2:【据baseUserId查询基础用户密码】(BaseUserPasswordController-selectById)-根据baseUserId查询基础用户密码, baseUserPassword:{}", baseUserPassword);
 		BaseUserPasswordVo baseUserPasswordVo = new BaseUserPasswordVo().convertToBaseUserPasswordVo(baseUserPassword);
 
 		BaseRestMapResponse baseUserPasswordResponse = new BaseRestMapResponse();
 		baseUserPasswordResponse.putAll((JSONObject) JSONObject.toJSON(baseUserPasswordVo));
-		logger.info("===step3:【据baseUserId查询基础用户密码】(BaseUserPasswordController-selectBaseUserPasswordById)-返回信息, baseUserPasswordResponse:{}", baseUserPasswordResponse);
+		logger.info("===step3:【据baseUserId查询基础用户密码】(BaseUserPasswordController-selectById)-返回信息, baseUserPasswordResponse:{}", baseUserPasswordResponse);
 		return baseUserPasswordResponse;
 	}
 
@@ -98,21 +98,21 @@ public class BaseUserPasswordController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加基础用户密码")
-	@RequestMapping(value="/insertBaseUserPassword",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertBaseUserPassword(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody BaseUserPasswordRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加基础用户密码】(BaseUserPasswordController-insertBaseUserPassword)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加基础用户密码】(BaseUserPasswordController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		BaseUserPassword baseUserPassword = req.convertToBaseUserPassword();
-		int i = baseUserPasswordService.insertBaseUserPassword(baseUserPassword);
-		logger.info("===step2:【添加基础用户密码】(BaseUserPasswordController-insertBaseUserPassword)-插入基础用户密码, i:{}", i);
+		int i = baseUserPasswordService.insert(baseUserPassword);
+		logger.info("===step2:【添加基础用户密码】(BaseUserPasswordController-insert)-插入基础用户密码, i:{}", i);
 
 		BaseRestMapResponse baseUserPasswordResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加基础用户密码】(BaseUserPasswordController-insertBaseUserPassword)-返回信息, baseUserPasswordResponse:{}", baseUserPasswordResponse);
+		logger.info("===step3:【添加基础用户密码】(BaseUserPasswordController-insert)-返回信息, baseUserPasswordResponse:{}", baseUserPasswordResponse);
 		return baseUserPasswordResponse;
 	}
 
@@ -122,21 +122,21 @@ public class BaseUserPasswordController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除基础用户密码")
-	@RequestMapping(value="/deleteBaseUserPasswordById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteBaseUserPasswordById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer baseUserPasswordId) {
-		logger.info("===step1:【根据id删除基础用户密码】(selectBaseUserPasswordById-deleteBaseUserPasswordById)-传入参数, baseUserPasswordId:{}", baseUserPasswordId);
+		logger.info("===step1:【根据id删除基础用户密码】(selectById-deleteById)-传入参数, baseUserPasswordId:{}", baseUserPasswordId);
 
 		if(baseUserPasswordId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "baseUserPasswordId为空");
 		}
 
-		int i = baseUserPasswordService.deleteBaseUserPasswordById(baseUserPasswordId);
-		logger.info("===step2:【根据id删除基础用户密码】(BaseUserPasswordController-deleteBaseUserPasswordById)-根据id查询基础用户密码, i:{}", i);
+		int i = baseUserPasswordService.deleteById(baseUserPasswordId);
+		logger.info("===step2:【根据id删除基础用户密码】(BaseUserPasswordController-deleteById)-根据id查询基础用户密码, i:{}", i);
 
 		BaseRestMapResponse baseUserPasswordResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除基础用户密码】(BaseUserPasswordController-deleteBaseUserPasswordById)-返回信息, baseUserPasswordResponse:{}", baseUserPasswordResponse);
+		logger.info("===step3:【根据id删除基础用户密码】(BaseUserPasswordController-deleteById)-返回信息, baseUserPasswordResponse:{}", baseUserPasswordResponse);
 		return baseUserPasswordResponse;
 	}
 
@@ -147,23 +147,23 @@ public class BaseUserPasswordController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改基础用户密码")
-	@RequestMapping(value="/modifyBaseUserPassword",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyBaseUserPassword(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody BaseUserPasswordRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改基础用户密码】(BaseUserPasswordController-modifyBaseUserPassword)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改基础用户密码】(BaseUserPasswordController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer baseUserPasswordId = req.getBaseUserPasswordId();
 		BaseUserPassword baseUserPassword = req.convertToBaseUserPassword();
 		baseUserPassword.setId(baseUserPasswordId);
-		int i = baseUserPasswordService.modifyBaseUserPassword(baseUserPassword);
-		logger.info("===step2:【修改基础用户密码】(BaseUserPasswordController-modifyBaseUserPassword)-修改基础用户密码, i:{}", i);
+		int i = baseUserPasswordService.modify(baseUserPassword);
+		logger.info("===step2:【修改基础用户密码】(BaseUserPasswordController-modify)-修改基础用户密码, i:{}", i);
 
 		BaseRestMapResponse baseUserPasswordResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改基础用户密码】(BaseUserPasswordController-modifyBaseUserPassword)-返回信息, baseUserPasswordResponse:{}", baseUserPasswordResponse);
+		logger.info("===step3:【修改基础用户密码】(BaseUserPasswordController-modify)-返回信息, baseUserPasswordResponse:{}", baseUserPasswordResponse);
 		return baseUserPasswordResponse;
 	}
 

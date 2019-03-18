@@ -51,23 +51,23 @@ public class UserOrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户机构列表")
-	@RequestMapping(value="/selectUserOrgListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserOrgListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody UserOrgPageRequest req) {
-		logger.info("===step1:【分页查询用户机构列表】(UserOrgController-selectUserOrgListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询用户机构列表】(UserOrgController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserOrg> list = userOrgService.selectUserOrgListByPage(page, req);
-		logger.info("===step2:【分页查询用户机构列表】(UserOrgController-selectUserOrgListByPage)-分页查询用户机构列表, list.size:{}", list == null ? null : list.size());
+		List<UserOrg> list = userOrgService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询用户机构列表】(UserOrgController-selectListByPage)-分页查询用户机构列表, list.size:{}", list == null ? null : list.size());
 		List<UserOrgVo> userOrgVoList = new UserOrgVo().convertToUserOrgVoList(list);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
 		userOrgResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userOrgVoList));
-		logger.info("===step3:【分页查询用户机构列表】(UserOrgController-selectUserOrgListByPage)-返回信息, userOrgResponse:{}", userOrgResponse);
+		logger.info("===step3:【分页查询用户机构列表】(UserOrgController-selectListByPage)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
 
@@ -77,18 +77,18 @@ public class UserOrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询用户机构列表")
-	@RequestMapping(value="/selectUserOrgList",method={RequestMethod.POST})
+	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserOrgList(
+	public BaseRestMapResponse selectList(
 		@RequestBody UserOrgPageRequest req) {
-		logger.info("===step1:【不分页查询用户机构列表】(UserOrgController-selectUserOrgList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserOrg> list = userOrgService.selectUserOrgList(req);
-		logger.info("===step2:【不分页查询用户机构列表】(UserOrgController-selectUserOrgList)-不分页查询用户机构列表, list.size:{}", list == null ? null : list.size());
+		logger.info("===step1:【不分页查询用户机构列表】(UserOrgController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<UserOrg> list = userOrgService.selectList(req);
+		logger.info("===step2:【不分页查询用户机构列表】(UserOrgController-selectList)-不分页查询用户机构列表, list.size:{}", list == null ? null : list.size());
 		List<UserOrgVo> userOrgVoList = new UserOrgVo().convertToUserOrgVoList(list);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
 		userOrgResponse.put(PageConstants.DATA_LIST, userOrgVoList);
-		logger.info("===step3:【不分页查询用户机构列表】(UserOrgController-selectUserOrgList)-返回信息, userOrgResponse:{}", userOrgResponse);
+		logger.info("===step3:【不分页查询用户机构列表】(UserOrgController-selectList)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
 
@@ -98,23 +98,23 @@ public class UserOrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询用户机构")
-	@RequestMapping(value="/selectUserOrgById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserOrgById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userOrgId) {
-		logger.info("===step1:【据id查询用户机构】(selectUserOrgById-selectUserOrgById)-传入参数, userOrgId:{}", userOrgId);
+		logger.info("===step1:【据id查询用户机构】(selectById-selectById)-传入参数, userOrgId:{}", userOrgId);
 
 		if(userOrgId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userOrgId为空");
 		}
 
-		UserOrg userOrg = userOrgService.selectUserOrgById(userOrgId);
-		logger.info("===step2:【据id查询用户机构】(UserOrgController-selectUserOrgById)-根据id查询用户机构, userOrg:{}", userOrg);
+		UserOrg userOrg = userOrgService.selectById(userOrgId);
+		logger.info("===step2:【据id查询用户机构】(UserOrgController-selectById)-根据id查询用户机构, userOrg:{}", userOrg);
 		UserOrgVo userOrgVo = new UserOrgVo().convertToUserOrgVo(userOrg);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
 		userOrgResponse.putAll((JSONObject) JSONObject.toJSON(userOrgVo));
-		logger.info("===step3:【据id查询用户机构】(UserOrgController-selectUserOrgById)-返回信息, userOrgResponse:{}", userOrgResponse);
+		logger.info("===step3:【据id查询用户机构】(UserOrgController-selectById)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
 
@@ -124,23 +124,23 @@ public class UserOrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询用户机构")
-	@RequestMapping(value="/selectUserOrgByUserId/{userId}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectByUserId/{userId}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserOrgByUserId(
+	public BaseRestMapResponse selectByUserId(
 		@PathVariable(value="userId",required=false) Integer userId) {
-		logger.info("===step1:【据userId查询用户机构】(selectUserOrgById-selectUserOrgByUserId)-传入参数, userId:{}", userId);
+		logger.info("===step1:【据userId查询用户机构】(selectById-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
 		}
 
-		UserOrg userOrg = userOrgService.selectUserOrgByUserId(userId);
-		logger.info("===step2:【据userId查询用户机构】(UserOrgController-selectUserOrgByUserId)-根据userId查询用户机构, userOrg:{}", userOrg);
+		UserOrg userOrg = userOrgService.selectByUserId(userId);
+		logger.info("===step2:【据userId查询用户机构】(UserOrgController-selectByUserId)-根据userId查询用户机构, userOrg:{}", userOrg);
 		UserOrgVo userOrgVo = new UserOrgVo().convertToUserOrgVo(userOrg);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
 		userOrgResponse.putAll((JSONObject) JSONObject.toJSON(userOrgVo));
-		logger.info("===step3:【据userId查询用户机构】(UserOrgController-selectUserOrgByUserId)-返回信息, userOrgResponse:{}", userOrgResponse);
+		logger.info("===step3:【据userId查询用户机构】(UserOrgController-selectByUserId)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
 
@@ -151,21 +151,21 @@ public class UserOrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加用户机构")
-	@RequestMapping(value="/insertUserOrg",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUserOrg(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody UserOrgRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户机构】(UserOrgController-insertUserOrg)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加用户机构】(UserOrgController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		UserOrg userOrg = req.convertToUserOrg();
-		int i = userOrgService.insertUserOrg(userOrg);
-		logger.info("===step2:【添加用户机构】(UserOrgController-insertUserOrg)-插入用户机构, i:{}", i);
+		int i = userOrgService.insert(userOrg);
+		logger.info("===step2:【添加用户机构】(UserOrgController-insert)-插入用户机构, i:{}", i);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户机构】(UserOrgController-insertUserOrg)-返回信息, userOrgResponse:{}", userOrgResponse);
+		logger.info("===step3:【添加用户机构】(UserOrgController-insert)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
 
@@ -175,21 +175,21 @@ public class UserOrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除用户机构")
-	@RequestMapping(value="/deleteUserOrgById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteUserOrgById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer userOrgId) {
-		logger.info("===step1:【根据id删除用户机构】(selectUserOrgById-deleteUserOrgById)-传入参数, userOrgId:{}", userOrgId);
+		logger.info("===step1:【根据id删除用户机构】(selectById-deleteById)-传入参数, userOrgId:{}", userOrgId);
 
 		if(userOrgId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userOrgId为空");
 		}
 
-		int i = userOrgService.deleteUserOrgById(userOrgId);
-		logger.info("===step2:【根据id删除用户机构】(UserOrgController-deleteUserOrgById)-根据id查询用户机构, i:{}", i);
+		int i = userOrgService.deleteById(userOrgId);
+		logger.info("===step2:【根据id删除用户机构】(UserOrgController-deleteById)-根据id查询用户机构, i:{}", i);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除用户机构】(UserOrgController-deleteUserOrgById)-返回信息, userOrgResponse:{}", userOrgResponse);
+		logger.info("===step3:【根据id删除用户机构】(UserOrgController-deleteById)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
 
@@ -200,23 +200,23 @@ public class UserOrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改用户机构")
-	@RequestMapping(value="/modifyUserOrg",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyUserOrg(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody UserOrgRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户机构】(UserOrgController-modifyUserOrg)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改用户机构】(UserOrgController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer userOrgId = req.getUserOrgId();
 		UserOrg userOrg = req.convertToUserOrg();
 		userOrg.setId(userOrgId);
-		int i = userOrgService.modifyUserOrg(userOrg);
-		logger.info("===step2:【修改用户机构】(UserOrgController-modifyUserOrg)-修改用户机构, i:{}", i);
+		int i = userOrgService.modify(userOrg);
+		logger.info("===step2:【修改用户机构】(UserOrgController-modify)-修改用户机构, i:{}", i);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改用户机构】(UserOrgController-modifyUserOrg)-返回信息, userOrgResponse:{}", userOrgResponse);
+		logger.info("===step3:【修改用户机构】(UserOrgController-modify)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
 

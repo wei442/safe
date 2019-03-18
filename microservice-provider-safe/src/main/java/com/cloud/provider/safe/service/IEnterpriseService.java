@@ -14,41 +14,41 @@ public interface IEnterpriseService {
 	 * @param param
 	 * @return List<Enterprise>
 	 */
-	public List<Enterprise> selectEnterpriseListByPage(Page<?> page, EnterprisePageRequest enterprise);
+	public List<Enterprise> selectListByPage(Page<?> page, EnterprisePageRequest enterprise);
 
 	/**
 	 * 不分页查询
 	 * @param enterprise
 	 * @return List<Enterprise>
 	 */
-	public List<Enterprise> selectEnterpriseList(EnterprisePageRequest param);
+	public List<Enterprise> selectList(EnterprisePageRequest param);
 
     /**
      * 根据id查询企业
      * @param id
      * @return Enterprise
      */
-	public Enterprise selectEnterpriseById(Integer id);
+	public Enterprise selectById(Integer id);
 
     /**
      * 插入企业
      * @param enterprise
      * @return Integer
      */
-	public Integer insertEnterprise(Enterprise enterprise);
+	public Integer insert(Enterprise enterprise);
 
  	/**
   	 * 根据id删除企业
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteEnterpriseById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改企业
      * @param enterprise
      * @return Integer
      */
-	public Integer modifyEnterprise(Enterprise enterprise);
+	public Integer modify(Enterprise enterprise);
 
 }

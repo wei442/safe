@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IBaseUserPasswordService;
 
 /**
- * 基础用户密码 BaseUserPasswordService (microservice-provider-safe)
+ * 基础用户密码 Service (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -23,9 +23,9 @@ public class BaseUserPasswordServiceImpl extends BaseService implements IBaseUse
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getBaseUserPasswordById(Integer id) {
-		logger.info("(BaseUserPasswordService-getBaseUserPasswordById)-根据id获取基础用户密码-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_password+"/selectBaseUserPasswordById/"+id, null, JSONObject.class);
+	public JSONObject getById(Integer id) {
+		logger.info("(Service-getById)-根据id获取基础用户密码-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_password+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -34,9 +34,9 @@ public class BaseUserPasswordServiceImpl extends BaseService implements IBaseUse
 	 * @param baseUserId
 	 * @return JSONObject
 	 */
-	public JSONObject getBaseUserPasswordByBaseUserId(Integer baseUserId) {
-		logger.info("(BaseUserPasswordService-getBaseUserPasswordByBaseUserId)-根据baseUserId获取基础用户密码-传入参数, baseUserId:{}", baseUserId);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_password+"/selectBaseUserPasswordByBaseUserId/"+baseUserId, null, JSONObject.class);
+	public JSONObject getByBaseUserId(Integer baseUserId) {
+		logger.info("(Service-getByBaseUserId)-根据baseUserId获取基础用户密码-传入参数, baseUserId:{}", baseUserId);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_password+"/selectByBaseUserId/"+baseUserId, null, JSONObject.class);
 		return response;
 	}
 
@@ -46,9 +46,9 @@ public class BaseUserPasswordServiceImpl extends BaseService implements IBaseUse
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addBaseUserPassword(Object params) {
-		logger.info("(BaseUserPasswordService-addBaseUserPassword)-新增基础用户密码-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_password+"/insertBaseUserPassword", params, JSONObject.class);
+	public JSONObject add(Object params) {
+		logger.info("(Service-add)-新增基础用户密码-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_password+"/insert", params, JSONObject.class);
 		return response;
 	}
 
@@ -58,9 +58,9 @@ public class BaseUserPasswordServiceImpl extends BaseService implements IBaseUse
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteBaseUserPasswordById(Integer id) {
-		logger.info("(BaseUserPasswordService-deleteBaseUserPasswordById)-根据id获取基础用户密码-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_password+"/deleteBaseUserPasswordById/"+id, null, JSONObject.class);
+	public JSONObject deleteById(Integer id) {
+		logger.info("(Service-deleteById)-根据id获取基础用户密码-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_password+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -70,9 +70,9 @@ public class BaseUserPasswordServiceImpl extends BaseService implements IBaseUse
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject updateBaseUserPassword(Object params) {
-		logger.info("(BaseUserPasswordService-updateBaseUserPassword)-修改基础用户密码-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_password+"/modifyBaseUserPassword", params, JSONObject.class);
+	public JSONObject update(Object params) {
+		logger.info("(Service-update)-修改基础用户密码-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_password+"/modify", params, JSONObject.class);
 		return response;
 	}
 

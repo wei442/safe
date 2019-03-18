@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IQualityAttachmentService;
 
 /**
- * 资质附件 QualityAttachmentService (microservice-provider-safe)
+ * 资质附件 Service (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -23,9 +23,9 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getQualityAttachmentListByPage(Object params) {
-		logger.info("(QualityAttachmentService-getQualityAttachmentListByPage)-分页获取资质附件列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentListByPage", params, JSONObject.class);
+	public JSONObject getListByPage(Object params) {
+		logger.info("(Service-getListByPage)-分页获取资质附件列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -35,9 +35,9 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getQualityAttachmentList(Object params) {
-		logger.info("(QualityAttachmentService-getQualityAttachmentList)-获取资质附件列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentList", params, JSONObject.class);
+	public JSONObject getList(Object params) {
+		logger.info("(Service-getList)-获取资质附件列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectList", params, JSONObject.class);
 		return response;
 	}
 
@@ -47,9 +47,9 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getQualityAttachmentById(Integer id) {
-		logger.info("(QualityAttachmentService-getQualityAttachmentById)-根据id获取资质附件-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectQualityAttachmentById/"+id, null, JSONObject.class);
+	public JSONObject getById(Integer id) {
+		logger.info("(Service-getById)-根据id获取资质附件-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -59,9 +59,9 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addQualityAttachment(Object params) {
-		logger.info("(QualityAttachmentService-addQualityAttachment)-新增资质附件-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/insertQualityAttachment", params, JSONObject.class);
+	public JSONObject add(Object params) {
+		logger.info("(Service-add)-新增资质附件-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/insert", params, JSONObject.class);
 		return response;
 	}
 
@@ -71,9 +71,9 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteQualityAttachmentById(Integer id) {
-		logger.info("(QualityAttachmentService-deleteQualityAttachmentById)-根据id获取资质附件-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/deleteQualityAttachmentById/"+id, null, JSONObject.class);
+	public JSONObject deleteById(Integer id) {
+		logger.info("(Service-deleteById)-根据id获取资质附件-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -83,9 +83,9 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject updateQualityAttachment(Object params) {
-		logger.info("(QualityAttachmentService-updateQualityAttachment)-修改资质附件-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/modifyQualityAttachment", params, JSONObject.class);
+	public JSONObject update(Object params) {
+		logger.info("(Service-update)-修改资质附件-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/modify", params, JSONObject.class);
 		return response;
 	}
 

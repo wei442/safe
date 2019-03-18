@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.wheel.RetWheelConstants;
 import com.cloud.common.exception.SafeException;
 import com.cloud.common.redis.keys.RedisKeysUtil;
 import com.cloud.common.security.KeyFactoryUtil;
-import com.cloud.common.sign.security.AESUtils;
 import com.cloud.common.util.IpUtil;
 import com.cloud.consumer.safe.service.IRedisLockService;
 import com.cloud.consumer.safe.service.IRedisService;
@@ -63,10 +63,6 @@ public class BaseController {
 	//token的rsa的私钥
 	@Value("${token.rsa.privateKey}")
 	protected String rsaPrivateKeyStr;
-
-	//token的aes的密钥
-	@Value("${token.claims.aes.secretKey}")
-	protected String aesSecretKeyStr;
 
 	//实时排名100名，因为redis存储的下标是从0开始，所以是99
 	protected final Integer realRank = 99;
@@ -106,44 +102,55 @@ public class BaseController {
 
 	/**
 	 * 设置token,过期时间为7*24小时
+	 * @param enterpriseId
 	 * @param userId
 	 * @param userAccount
-	 * @param gToken
 	 * @return String
 	 */
-	protected String setToken(Integer userId,String userAccount,String gToken) {
-		logger.info("(BaseController-setToken)-redis设置token-传入参数, userId:{}, userAccount:{}, gToken:{}", userId, userAccount, gToken);
-		if(null == userId || StringUtils.isBlank(userAccount) || StringUtils.isBlank(gToken)) {
+	protected String setToken(Integer enterpriseId,Integer userId,String userAccount) {
+		logger.info("(BaseController-setToken)-redis设置token-传入参数, enterpriseId:{}, userId:{}, userAccount:{}", enterpriseId, userId, userAccount);
+		if(null == enterpriseId ||null == userId || StringUtils.isBlank(userAccount)) {
 			return null;
 		}
 
-		String tokenkey = RedisKeysUtil.CN_OCHAIN_WHEEL_APP_H5_LOGIN_TOKEN + userId;
+		String tokenkey = RedisKeysUtil.CN_CLOUD_SAFE_ADMIN_LOGIN_TOKEN + userId;
 
 		PrivateKey privateKey = KeyFactoryUtil.INSTANCE.generateRSAPrivateKey(rsaPrivateKeyStr);
 		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.RS512;
 
-		String issuer = RetWheelConstants.OCHAIN;
-		String audience = RetWheelConstants.GOFUN;
+		String issuer = CommConstants.CLOUD;
+		String audience = CommConstants.CLOUD;
 		JSONObject claimsJson = new JSONObject();
-		claimsJson.put(RetWheelConstants.USER_ID, userId);
-		claimsJson.put(RetWheelConstants.USER_ACCOUNT, userAccount);
-		claimsJson.put(RetWheelConstants.GTOKEN, gToken);
+		claimsJson.put(CommConstants.ENTERPRISE_ID, enterpriseId);
+		claimsJson.put(CommConstants.USER_ID, userId);
+		claimsJson.put(CommConstants.USER_ACCOUNT, userAccount);
 		logger.info("(BaseController-setToken)-声明(claims)json, claimsJson:{}", claimsJson);
-		//使用aes密钥加密信息
-		String claimsEncryptStr = null;
-		try {
-			claimsEncryptStr = AESUtils.encrypt(claimsJson.toJSONString(), aesSecretKeyStr, aesSecretKeyStr);
-		} catch (Exception e) {
-			logger.error("(BaseController-setToken)-声明(claims)加密-异常, Exception = {}, message = {}",e,e.getMessage());
-		}
 		Map<String, Object> claims = new HashMap<String, Object>();
-		claims.put(RetWheelConstants.CLAIMS, claimsEncryptStr);
+		claims.put(RetWheelConstants.CLAIMS, claimsJson);
 
 		String token = TokenUtil.INSTANCE.createJWT(privateKey, signatureAlgorithm, claims, issuer, audience);
-		String tokenResult = redisService.setex(tokenkey, RetWheelConstants.TOKEN_TIME, token);
+		String tokenResult = redisService.setex(tokenkey, RetWheelConstants.TWENTY_FOUR_HOUR_SECONDS_TIME, token);
 		logger.info("(BaseController-setToken)-redis设置token-返回信息, tokenkey:{}, tokenResult:{}", tokenkey, tokenResult);
 		return token;
 	}
+
+	/**
+	 * 清除token
+	 * @param userId
+	 */
+	protected void clearToken(Integer userId) {
+		logger.info("(BaseController-clearToken)-清除token-传入参数, userId:{}", userId);
+		if(null == userId) {
+			return ;
+		}
+
+		String tokenkey = RedisKeysUtil.CN_CLOUD_SAFE_ADMIN_LOGIN_TOKEN + userId;
+		if(redisService.exists(tokenkey)) {
+			long l = redisService.del(tokenkey);
+			logger.info("(BaseController-clearToken)-清除token-返回信息, tokenkey:{}, l:{}", tokenkey, l);
+		}
+	}
+
 
 	/**
 	 * 获取请求ip
@@ -205,13 +212,13 @@ public class BaseController {
 		JSONObject payloadJSON = JSONObject.parseObject(payloadStr);
 		String claimsStr = Objects.toString(payloadJSON.get(RetWheelConstants.CLAIMS));
 
-		String claimsDecryptStr = null;
-		try {
-			claimsDecryptStr = AESUtils.decrypt(claimsStr, aesSecretKeyStr, aesSecretKeyStr);
-		} catch (Exception e) {
-			logger.error("(BaseController-getTokenPayload)-声明(claims)解密-异常, Exception = {}, message = {}",e,e.getMessage());
-		}
-		JSONObject claimsJSON = JSONObject.parseObject(claimsDecryptStr);
+//		String claimsDecryptStr = null;
+//		try {
+//			claimsDecryptStr = AESUtils.decrypt(claimsStr, aesSecretKeyStr, aesSecretKeyStr);
+//		} catch (Exception e) {
+//			logger.error("(BaseController-getTokenPayload)-声明(claims)解密-异常, Exception = {}, message = {}",e,e.getMessage());
+//		}
+		JSONObject claimsJSON = JSONObject.parseObject(claimsStr);
 		return claimsJSON;
 	}
 

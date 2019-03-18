@@ -14,48 +14,48 @@ public interface IUserAdminService {
 	 * @param param
 	 * @return List<UserAdmin>
 	 */
-	public List<UserAdmin> selectUserAdminListByPage(Page<?> page, UserAdminPageRequest param);
+	public List<UserAdmin> selectListByPage(Page<?> page, UserAdminPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<UserAdmin>
 	 */
-	public List<UserAdmin> selectUserAdminList(UserAdminPageRequest param);
+	public List<UserAdmin> selectList(UserAdminPageRequest param);
 
     /**
      * 根据id查询用户管理
      * @param id
      * @return UserAdmin
      */
-	public UserAdmin selectUserAdminById(Integer id);
+	public UserAdmin selectById(Integer id);
 
 	/**
 	 * 根据userId查询用户管理
 	 * @param userId
 	 * @return UserAdmin
 	 */
-	public UserAdmin selectUserAdminByUserId(Integer userId);
+	public UserAdmin selectByUserId(Integer userId);
 
     /**
      * 插入用户管理
      * @param userAdmin
      * @return Integer
      */
-	public Integer insertUserAdmin(UserAdmin userAdmin);
+	public Integer insert(UserAdmin userAdmin);
 
  	/**
   	 * 根据id删除用户管理
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserAdminById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改用户管理
      * @param userAdmin
      * @return Integer
      */
-	public Integer modifyUserAdmin(UserAdmin userAdmin);
+	public Integer modify(UserAdmin userAdmin);
 
 }

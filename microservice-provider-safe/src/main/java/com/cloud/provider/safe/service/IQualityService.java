@@ -14,41 +14,41 @@ public interface IQualityService {
 	 * @param param
 	 * @return List<Quality>
 	 */
-	public List<Quality> selectQualityListByPage(Page<?> page, QualityPageRequest param);
+	public List<Quality> selectListByPage(Page<?> page, QualityPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<Quality>
 	 */
-	public List<Quality> selectQualityList(QualityPageRequest param);
+	public List<Quality> selectList(QualityPageRequest param);
 
     /**
      * 根据id查询资质
      * @param id
      * @return Quality
      */
-	public Quality selectQualityById(Integer id);
+	public Quality selectById(Integer id);
 
     /**
      * 插入资质
      * @param quality
      * @return Integer
      */
-	public Integer insertQuality(Quality quality);
+	public Integer insert(Quality quality);
 
  	/**
   	 * 根据id删除资质
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteQualityById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改资质
      * @param quality
      * @return Integer
      */
-	public Integer modifyQuality(Quality quality);
+	public Integer modify(Quality quality);
 
 }

@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service;
 
-import java.util.Map;
-
 import com.alibaba.fastjson.JSONObject;
 
 public interface IQualityAttachmentService {
@@ -11,41 +9,41 @@ public interface IQualityAttachmentService {
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getQualityAttachmentListByPage(Object params);
+	public JSONObject getListByPage(Object params);
 
 	/**
 	 * 获取资质附件列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getQualityAttachmentList(Object params);
+	public JSONObject getList(Object params);
 
 	/**
 	 * 根据id获取资质附件
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject getQualityAttachmentById(Integer id);
+	public JSONObject getById(Integer id);
 
 	/**
 	 * 新增资质附件
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addQualityAttachment(Object params);
+	public JSONObject add(Object params);
 
 	/**
 	 * 根据id删除资质附件
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject deleteQualityAttachmentById(Integer id);
+	public JSONObject deleteById(Integer id);
 
 	/**
 	 * 修改资质附件
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject updateQualityAttachment(Object params);
+	public JSONObject update(Object params);
 
 }

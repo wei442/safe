@@ -38,8 +38,8 @@ public class UserPostServiceImpl implements IUserPostService {
 	 * @return List<UserPost>
 	 */
 	@Override
-	public List<UserPost> selectUserPostListByPage(Page<?> page, UserPostPageRequest param) {
-		logger.info("(UserPostService-selectUserPostListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<UserPost> selectListByPage(Page<?> page, UserPostPageRequest param) {
+		logger.info("(UserPostService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserPostExample example = new UserPostExample();
 		example.setOrderByClause(" id desc ");
@@ -59,8 +59,8 @@ public class UserPostServiceImpl implements IUserPostService {
 	 * @return List<UserPost>
 	 */
 	@Override
-	public List<UserPost> selectUserPostList(UserPostPageRequest param) {
-		logger.info("(UserPostService-selectUserPostList)-不分页查询-传入参数, param:{}", param);
+	public List<UserPost> selectList(UserPostPageRequest param) {
+		logger.info("(UserPostService-selectList)-不分页查询-传入参数, param:{}", param);
 		UserPostExample example = new UserPostExample();
 		example.setOrderByClause(" id desc ");
 		UserPostExample.Criteria criteria = example.createCriteria();
@@ -79,8 +79,8 @@ public class UserPostServiceImpl implements IUserPostService {
      * @return UserPost
      */
 	@Override
-	public UserPost selectUserPostById(Integer id) {
-    	logger.info("(UserPostService-selectUserPostById)-根据id查询用户岗位-传入参数, id:{}", id);
+	public UserPost selectById(Integer id) {
+    	logger.info("(UserPostService-selectById)-根据id查询用户岗位-传入参数, id:{}", id);
 		UserPost userPost = userPostMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(userPost, SafeResultEnum.DATABASE_NOTEXIST);
 		return userPost;
@@ -92,8 +92,8 @@ public class UserPostServiceImpl implements IUserPostService {
 	 * @return UserPost
 	 */
 	@Override
-	public UserPost selectUserPostByUserId(Integer userId) {
-		logger.info("(UserPostService-selectUserPostById)-根据userId查询用户岗位-传入参数, userId:{}", userId);
+	public UserPost selectByUserId(Integer userId) {
+		logger.info("(UserPostService-selectById)-根据userId查询用户岗位-传入参数, userId:{}", userId);
 		UserPostExample example = new UserPostExample();
 		UserPostExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
@@ -112,7 +112,7 @@ public class UserPostServiceImpl implements IUserPostService {
      * @return Integer
      */
 	@Override
-	public Integer insertUserPost(UserPost userPost) {
+	public Integer insert(UserPost userPost) {
     	logger.info("(UserPostService-insertUserPost)-插入用户岗位-传入参数, userPost:{}", userPost);
     	userPost.setCreateTime(new Date());
     	userPost.setUpdateTime(new Date());
@@ -127,8 +127,8 @@ public class UserPostServiceImpl implements IUserPostService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteUserPostById(Integer id) {
-  		logger.info("(UserPostService-deleteUserPostById)-根据id删除用户岗位-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(UserPostService-deleteById)-根据id删除用户岗位-传入参数, id:{}", id);
 		int i = userPostMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -140,7 +140,7 @@ public class UserPostServiceImpl implements IUserPostService {
      * @return Integer
      */
 	@Override
-	public Integer modifyUserPost(UserPost userPost) {
+	public Integer modify(UserPost userPost) {
     	logger.info("(UserPostService-modifyUserPost)-修改用户岗位-传入参数, userPost:{}", userPost);
     	userPost.setUpdateTime(new Date());
 		int i = userPostMapper.updateByPrimaryKeySelective(userPost);

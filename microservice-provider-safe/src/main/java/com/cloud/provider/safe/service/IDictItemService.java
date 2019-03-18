@@ -14,41 +14,41 @@ public interface IDictItemService {
 	 * @param param
 	 * @return List<DictItem>
 	 */
-	public List<DictItem> selectDictItemListByPage(Page<?> page, DictItemPageRequest param);
+	public List<DictItem> selectListByPage(Page<?> page, DictItemPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<DictItem>
 	 */
-	public List<DictItem> selectDictItemList(DictItemPageRequest param);
+	public List<DictItem> selectList(DictItemPageRequest param);
 
     /**
      * 根据id查询字典子项
      * @param id
      * @return DictItem
      */
-	public DictItem selectDictItemById(Integer id);
+	public DictItem selectById(Integer id);
 
     /**
      * 插入字典子项
      * @param dictItem
      * @return Integer
      */
-	public Integer insertDictItem(DictItem dictItem);
+	public Integer insert(DictItem dictItem);
 
  	/**
   	 * 根据id删除字典子项
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteDictItemById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改字典子项
      * @param dictItem
      * @return Integer
      */
-	public Integer modifyDictItem(DictItem dictItem);
+	public Integer modify(DictItem dictItem);
 
 }

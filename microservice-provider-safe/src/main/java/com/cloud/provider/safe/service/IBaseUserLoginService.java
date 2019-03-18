@@ -14,41 +14,41 @@ public interface IBaseUserLoginService {
 	 * @param param
 	 * @return List<BaseUserLogin>
 	 */
-	public List<BaseUserLogin> selectBaseUserLoginListByPage(Page<?> page, BaseUserLoginPageRequest param);
+	public List<BaseUserLogin> selectListByPage(Page<?> page, BaseUserLoginPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<BaseUserLogin>
 	 */
-	public List<BaseUserLogin> selectBaseUserLoginList(BaseUserLoginPageRequest param);
+	public List<BaseUserLogin> selectList(BaseUserLoginPageRequest param);
 
     /**
      * 根据id查询基础用户登录
      * @param id
      * @return BaseUserLogin
      */
-	public BaseUserLogin selectBaseUserLoginById(Integer id);
+	public BaseUserLogin selectById(Integer id);
 
     /**
      * 插入基础用户登录
      * @param baseUserLogin
      * @return Integer
      */
-	public Integer insertBaseUserLogin(BaseUserLogin baseUserLogin);
+	public Integer insert(BaseUserLogin baseUserLogin);
 
  	/**
   	 * 根据id删除基础用户登录
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteBaseUserLoginById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改基础用户登录
      * @param baseUserLogin
      * @return Integer
      */
-	public Integer modifyBaseUserLogin(BaseUserLogin baseUserLogin);
+	public Integer modify(BaseUserLogin baseUserLogin);
 
 }

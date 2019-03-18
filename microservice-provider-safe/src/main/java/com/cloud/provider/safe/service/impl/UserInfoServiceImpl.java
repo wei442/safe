@@ -39,8 +39,8 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	 * @return List<UserInfo>
 	 */
 	@Override
-	public List<UserInfo> selectUserInfoListByPage(Page<?> page, UserInfoPageRequest param) {
-		logger.info("(UserInfoService-selectUserInfoListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<UserInfo> selectListByPage(Page<?> page, UserInfoPageRequest param) {
+		logger.info("(UserInfoService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserInfoExample example = new UserInfoExample();
 		example.setOrderByClause(" id desc ");
@@ -61,8 +61,8 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	 * @return List<UserInfo>
 	 */
 	@Override
-	public List<UserInfo> selectUserInfoList(UserInfoPageRequest param) {
-		logger.info("(UserInfoService-selectUserInfoList)-不分页查询-传入参数, param:{}", param);
+	public List<UserInfo> selectList(UserInfoPageRequest param) {
+		logger.info("(UserInfoService-selectList)-不分页查询-传入参数, param:{}", param);
 		UserInfoExample example = new UserInfoExample();
 		example.setOrderByClause(" id desc ");
 		UserInfoExample.Criteria criteria = example.createCriteria();
@@ -82,8 +82,8 @@ public class UserInfoServiceImpl implements IUserInfoService {
      * @return UserInfo
      */
 	@Override
-	public UserInfo selectUserInfoById(Integer id) {
-    	logger.info("(UserInfoService-selectUserInfoById)-根据id查询用户信息-传入参数, id:{}", id);
+	public UserInfo selectById(Integer id) {
+    	logger.info("(UserInfoService-selectById)-根据id查询用户信息-传入参数, id:{}", id);
 		UserInfo userInfo = userInfoMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(userInfo, SafeResultEnum.DATABASE_NOTEXIST);
 		return userInfo;
@@ -95,8 +95,8 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	 * @return UserInfo
 	 */
 	@Override
-	public UserInfo selectUserInfoByUserAccount(String userAccount) {
-		logger.info("(UserInfoService-selectUserInfoByUserAccount)-不分页查询-传入参数, userAccount:{}", userAccount);
+	public UserInfo selectByUserAccount(String userAccount) {
+		logger.info("(UserInfoService-selectByUserAccount)-不分页查询-传入参数, userAccount:{}", userAccount);
 		UserInfoExample example = new UserInfoExample();
 		UserInfoExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
@@ -107,7 +107,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		if(list != null && !list.isEmpty()) {
 			userInfo = list.get(0);
 		}
-		Assert.thanOrEqualZreo(userInfo, SafeResultEnum.DATABASE_NOTEXIST);
+		Assert.thanOrEqualZreo(userInfo, SafeResultEnum.USER_ACCOUNT_NOTEXIST);
 		return userInfo;
 	}
 
@@ -117,7 +117,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
      * @return Integer
      */
 	@Override
-	public Integer insertUserInfo(UserInfo userInfo) {
+	public Integer insert(UserInfo userInfo) {
     	logger.info("(UserInfoService-insertUserInfo)-插入用户信息-传入参数, userInfo:{}", userInfo);
     	userInfo.setUserStatus(SqlSafeConstants.SQL_USER_STATUS_NORMAL);
     	userInfo.setIsDelete(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
@@ -134,8 +134,8 @@ public class UserInfoServiceImpl implements IUserInfoService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteUserInfoById(Integer id) {
-  		logger.info("(UserInfoService-deleteUserInfoById)-根据id删除用户信息-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(UserInfoService-deleteById)-根据id删除用户信息-传入参数, id:{}", id);
   		int i = userInfoMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -147,13 +147,10 @@ public class UserInfoServiceImpl implements IUserInfoService {
      * @return Integer
      */
 	@Override
-	public Integer modifyUserInfo(UserInfo userInfo) {
+	public Integer modify(UserInfo userInfo) {
     	logger.info("(UserInfoService-modifyUserInfo)-修改用户信息-传入参数, userInfo:{}", userInfo);
     	userInfo.setUpdateTime(new Date());
     	int i = userInfoMapper.updateByPrimaryKeySelective(userInfo);
-//    	if(i<=0) {
-//			throw new SafeException(SafeResultEnum.DATABASE_ERROR);
-//		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

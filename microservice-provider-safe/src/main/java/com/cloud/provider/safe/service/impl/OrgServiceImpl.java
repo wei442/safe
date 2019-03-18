@@ -52,8 +52,8 @@ public class OrgServiceImpl implements IOrgService {
      * @return List<OrgUserVo>
      */
 	@Override
-	public List<OrgUserVo> selectOrgTreeUserList(OrgParam param) {
-		logger.info("(OrgService-selectOrgUserTreeList)-查询组织机构树用户-传入参数, param:{}", param);
+	public List<OrgUserVo> selectTreeUserList(OrgParam param) {
+		logger.info("(OrgService-selectTreeUserList)-查询组织机构树用户-传入参数, param:{}", param);
 		Integer enterpriseId = param.getEnterpriseId();
 
 		List<OrgUserVo> orgUserVoList = null;
@@ -89,7 +89,7 @@ public class OrgServiceImpl implements IOrgService {
      * @return List<OrgVo>
      */
     @Override
-	public List<OrgVo> selectOrgTreeList(OrgParam param) {
+	public List<OrgVo> selectTreeList(OrgParam param) {
     	logger.info("(OrgService-selectOrgTreeList)-查询组织机构树-传入参数, param:{}", param);
     	List<OrgVo> list = orgDao.selectOrgTreeListByParentOrgIdId(param);
     	return list;
@@ -142,8 +142,8 @@ public class OrgServiceImpl implements IOrgService {
      * @return Org
      */
 	@Override
-	public Org selectOrgById(Integer id) {
-    	logger.info("(OrgService-selectOrgById)-根据id查询组织机构-传入参数, id:{}", id);
+	public Org selectById(Integer id) {
+    	logger.info("(OrgService-selectById)-根据id查询组织机构-传入参数, id:{}", id);
 		Org org = orgMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(org, SafeResultEnum.DATABASE_NOTEXIST);
 		return org;
@@ -155,7 +155,7 @@ public class OrgServiceImpl implements IOrgService {
      * @return Integer
      */
 	@Override
-	public Integer insertOrg(Org org) {
+	public Integer insert(Org org) {
     	logger.info("(OrgService-insertOrg)-插入组织机构-传入参数, org:{}", org);
     	org.setIsDelete(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
     	org.setCreateTime(new Date());
@@ -171,8 +171,8 @@ public class OrgServiceImpl implements IOrgService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteOrgById(Integer id) {
-  		logger.info("(OrgService-deleteOrgById)-根据id删除组织机构-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(OrgService-deleteById)-根据id删除组织机构-传入参数, id:{}", id);
   		int i = orgMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -184,7 +184,7 @@ public class OrgServiceImpl implements IOrgService {
      * @return Integer
      */
 	@Override
-	public Integer modifyOrg(Org org) {
+	public Integer modify(Org org) {
     	logger.info("(OrgService-modifyOrg)-修改组织机构-传入参数, org:{}", org);
     	org.setUpdateTime(new Date());
     	int i = orgMapper.updateByPrimaryKeySelective(org);

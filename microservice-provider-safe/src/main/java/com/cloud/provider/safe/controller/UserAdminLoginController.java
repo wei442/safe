@@ -51,23 +51,23 @@ public class UserAdminLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户管理登录列表")
-	@RequestMapping(value="/selectUserAdminLoginListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAdminLoginListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody UserAdminLoginPageRequest req) {
-		logger.info("===step1:【分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询用户管理登录列表】(UserAdminLoginController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserAdminLogin> list = userAdminLoginService.selectUserAdminLoginListByPage(page, req);
-		logger.info("===step2:【分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginListByPage)-分页查询用户管理登录列表, list.size:{}", list == null ? null : list.size());
+		List<UserAdminLogin> list = userAdminLoginService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询用户管理登录列表】(UserAdminLoginController-selectListByPage)-分页查询用户管理登录列表, list.size:{}", list == null ? null : list.size());
 		List<UserAdminLoginVo> userAdminLoginVoList = new UserAdminLoginVo().convertToUserAdminLoginVoList(list);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userAdminLoginVoList));
-		logger.info("===step3:【分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginListByPage)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+		logger.info("===step3:【分页查询用户管理登录列表】(UserAdminLoginController-selectListByPage)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
 
@@ -77,18 +77,18 @@ public class UserAdminLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询用户管理登录列表")
-	@RequestMapping(value="/selectUserAdminLoginList",method={RequestMethod.POST})
+	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAdminLoginList(
+	public BaseRestMapResponse selectList(
 		@RequestBody UserAdminLoginPageRequest req) {
-		logger.info("===step1:【不分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserAdminLogin> list = userAdminLoginService.selectUserAdminLoginList(req);
-		logger.info("===step2:【不分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginList)-不分页查询用户管理登录列表, list.size:{}", list == null ? null : list.size());
+		logger.info("===step1:【不分页查询用户管理登录列表】(UserAdminLoginController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<UserAdminLogin> list = userAdminLoginService.selectList(req);
+		logger.info("===step2:【不分页查询用户管理登录列表】(UserAdminLoginController-selectList)-不分页查询用户管理登录列表, list.size:{}", list == null ? null : list.size());
 		List<UserAdminLoginVo> userAdminLoginVoList = new UserAdminLoginVo().convertToUserAdminLoginVoList(list);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.put(PageConstants.DATA_LIST, userAdminLoginVoList);
-		logger.info("===step3:【不分页查询用户管理登录列表】(UserAdminLoginController-selectUserAdminLoginList)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+		logger.info("===step3:【不分页查询用户管理登录列表】(UserAdminLoginController-selectList)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
 
@@ -98,23 +98,23 @@ public class UserAdminLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询用户管理登录")
-	@RequestMapping(value="/selectUserAdminLoginById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAdminLoginById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userAdminLoginId) {
-		logger.info("===step1:【据id查询用户管理登录】(selectUserAdminLoginById-selectUserAdminLoginById)-传入参数, userAdminLoginId:{}", userAdminLoginId);
+		logger.info("===step1:【据id查询用户管理登录】(selectById-selectById)-传入参数, userAdminLoginId:{}", userAdminLoginId);
 
 		if(userAdminLoginId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminLoginId为空");
 		}
 
-		UserAdminLogin userAdminLogin = userAdminLoginService.selectUserAdminLoginById(userAdminLoginId);
-		logger.info("===step2:【据id查询用户管理登录】(UserAdminLoginController-selectUserAdminLoginById)-根据id查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+		UserAdminLogin userAdminLogin = userAdminLoginService.selectById(userAdminLoginId);
+		logger.info("===step2:【据id查询用户管理登录】(UserAdminLoginController-selectById)-根据id查询用户管理登录, userAdminLogin:{}", userAdminLogin);
 		UserAdminLoginVo userAdminLoginVo = new UserAdminLoginVo().convertToUserAdminLoginVo(userAdminLogin);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.putAll((JSONObject) JSONObject.toJSON(userAdminLoginVo));
-		logger.info("===step3:【据id查询用户管理登录】(UserAdminLoginController-selectUserAdminLoginById)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+		logger.info("===step3:【据id查询用户管理登录】(UserAdminLoginController-selectById)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
 
@@ -125,21 +125,21 @@ public class UserAdminLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加用户管理登录")
-	@RequestMapping(value="/insertUserAdminLogin",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUserAdminLogin(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody UserAdminLoginRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户管理登录】(UserAdminLoginController-insertUserAdminLogin)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加用户管理登录】(UserAdminLoginController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		UserAdminLogin userAdminLogin = req.convertToUserAdminLogin();
-		int i = userAdminLoginService.insertUserAdminLogin(userAdminLogin);
-		logger.info("===step2:【添加用户管理登录】(UserAdminLoginController-insertUserAdminLogin)-插入用户管理登录, i:{}", i);
+		int i = userAdminLoginService.insert(userAdminLogin);
+		logger.info("===step2:【添加用户管理登录】(UserAdminLoginController-insert)-插入用户管理登录, i:{}", i);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户管理登录】(UserAdminLoginController-insertUserAdminLogin)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+		logger.info("===step3:【添加用户管理登录】(UserAdminLoginController-insert)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
 
@@ -149,21 +149,21 @@ public class UserAdminLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除用户管理登录")
-	@RequestMapping(value="/deleteUserAdminLoginById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteUserAdminLoginById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer userAdminLoginId) {
-		logger.info("===step1:【根据id删除用户管理登录】(selectUserAdminLoginById-deleteUserAdminLoginById)-传入参数, userAdminLoginId:{}", userAdminLoginId);
+		logger.info("===step1:【根据id删除用户管理登录】(selectById-deleteById)-传入参数, userAdminLoginId:{}", userAdminLoginId);
 
 		if(userAdminLoginId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminLoginId为空");
 		}
 
-		int i = userAdminLoginService.deleteUserAdminLoginById(userAdminLoginId);
-		logger.info("===step2:【根据id删除用户管理登录】(UserAdminLoginController-deleteUserAdminLoginById)-根据id查询用户管理登录, i:{}", i);
+		int i = userAdminLoginService.deleteById(userAdminLoginId);
+		logger.info("===step2:【根据id删除用户管理登录】(UserAdminLoginController-deleteById)-根据id查询用户管理登录, i:{}", i);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除用户管理登录】(UserAdminLoginController-deleteUserAdminLoginById)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+		logger.info("===step3:【根据id删除用户管理登录】(UserAdminLoginController-deleteById)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
 
@@ -174,23 +174,23 @@ public class UserAdminLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改用户管理登录")
-	@RequestMapping(value="/modifyUserAdminLogin",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyUserAdminLogin(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody UserAdminLoginRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户管理登录】(UserAdminLoginController-modifyUserAdminLogin)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改用户管理登录】(UserAdminLoginController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer userAdminLoginId = req.getUserAdminLoginId();
 		UserAdminLogin userAdminLogin = req.convertToUserAdminLogin();
 		userAdminLogin.setId(userAdminLoginId);
-		int i = userAdminLoginService.modifyUserAdminLogin(userAdminLogin);
-		logger.info("===step2:【修改用户管理登录】(UserAdminLoginController-modifyUserAdminLogin)-修改用户管理登录, i:{}", i);
+		int i = userAdminLoginService.modify(userAdminLogin);
+		logger.info("===step2:【修改用户管理登录】(UserAdminLoginController-modify)-修改用户管理登录, i:{}", i);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改用户管理登录】(UserAdminLoginController-modifyUserAdminLogin)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+		logger.info("===step3:【修改用户管理登录】(UserAdminLoginController-modify)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
 

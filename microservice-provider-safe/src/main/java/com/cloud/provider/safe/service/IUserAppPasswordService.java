@@ -9,7 +9,7 @@ public interface IUserAppPasswordService {
      * @param id
      * @return UserAppPassword
      */
-	public UserAppPassword selectUserAppPasswordById(Integer id);
+	public UserAppPassword selectById(Integer id);
 
 	/**
 	 * 根据userId和password查询用户应用密码
@@ -17,27 +17,27 @@ public interface IUserAppPasswordService {
 	 * @param password
 	 * @return UserAppPassword
 	 */
-	public UserAppPassword selectUserAppPasswordByUserId(Integer userId,String password);
+	public UserAppPassword selectByUserId(Integer userId,String password);
 
     /**
      * 插入用户应用密码
      * @param userAppPassword
      * @return Integer
      */
-	public Integer insertUserAppPassword(UserAppPassword userAppPassword);
+	public Integer insert(UserAppPassword userAppPassword);
 
 	/**
   	 * 根据id删除用户应用密码
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserAppPasswordById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改用户应用密码
      * @param userAppPassword
      * @return Integer
      */
-	public Integer modifyUserAppPassword(UserAppPassword userAppPassword);
+	public Integer modify(UserAppPassword userAppPassword);
 
 }

@@ -12,8 +12,9 @@ public enum SafeResultEnum implements ResultEnum {
 	FIELD_EMPTY("1000001", "传入参数为空"),
 	FIELD_ERROR("1000002", "传入参数错误"),
 
-	USER_ACCOUNT_EXIST("1010001", "用户账户已存在"),
-	USER_ACCOUNT_NOTEXIST("1010002", "用户账户不存在"),
+	USER_ACCOUNT_NOTEXIST("1010001", "用户账户不存在"),
+	USER_ACCOUNT_EXIST("1010002", "用户账户已存在"),
+	USER_ADMIN_PASSWORD_ERROR("1010003", "用户密码错误"),
 
 
 //	ORDER_LIST_NOTEXIST("1031001", "订单列表不存在"),

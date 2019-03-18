@@ -14,48 +14,48 @@ public interface IUserInfoService {
 	 * @param param
 	 * @return List<UserInfo>
 	 */
-	public List<UserInfo> selectUserInfoListByPage(Page<?> page, UserInfoPageRequest param);
+	public List<UserInfo> selectListByPage(Page<?> page, UserInfoPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<UserInfo>
 	 */
-	public List<UserInfo> selectUserInfoList(UserInfoPageRequest param);
+	public List<UserInfo> selectList(UserInfoPageRequest param);
 
     /**
      * 根据id查询用户信息
      * @param id
      * @return UserInfo
      */
-	public UserInfo selectUserInfoById(Integer id);
+	public UserInfo selectById(Integer id);
 
 	/**
 	 * 根据userAccount查询用户信息
 	 * @param userAccount
 	 * @return UserInfo
 	 */
-	public UserInfo selectUserInfoByUserAccount(String userAccount);
+	public UserInfo selectByUserAccount(String userAccount);
 
     /**
      * 插入用户信息
      * @param userInfo
      * @return Integer
      */
-	public Integer insertUserInfo(UserInfo userInfo);
+	public Integer insert(UserInfo userInfo);
 
  	/**
   	 * 根据id删除用户信息
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserInfoById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改用户信息
      * @param userInfo
      * @return Integer
      */
-	public Integer modifyUserInfo(UserInfo userInfo);
+	public Integer modify(UserInfo userInfo);
 
 }

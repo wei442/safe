@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserAdminPasswordService;
 
 /**
- * 用户管理密码 UserAdminPasswordService (microservice-provider-safe)
+ * 用户管理密码 Service (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -23,9 +23,9 @@ public class UserAdminPasswordServiceImpl extends BaseService implements IUserAd
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserAdminPasswordById(Integer id) {
-		logger.info("(UserAdminPasswordService-getUserAdminPasswordById)-根据id获取用户管理密码-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/selectUserAdminPasswordById/"+id, null, JSONObject.class);
+	public JSONObject getById(Integer id) {
+		logger.info("(Service-getById)-根据id获取用户管理密码-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -35,9 +35,9 @@ public class UserAdminPasswordServiceImpl extends BaseService implements IUserAd
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserAdminPasswordByUserId(Object params) {
-		logger.info("(UserAdminPasswordService-getUserAdminPasswordByUserId)-根据userId获取用户管理密码-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/selectUserAdminPasswordByUserId", params, JSONObject.class);
+	public JSONObject getByUserId(Object params) {
+		logger.info("(Service-getByUserId)-根据userId获取用户管理密码-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/selectByUserId", params, JSONObject.class);
 		return response;
 	}
 
@@ -47,9 +47,9 @@ public class UserAdminPasswordServiceImpl extends BaseService implements IUserAd
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addUserAdminPassword(Object params) {
-		logger.info("(UserAdminPasswordService-addUserAdminPassword)-新增用户管理密码-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/insertUserAdminPassword", params, JSONObject.class);
+	public JSONObject add(Object params) {
+		logger.info("(Service-add)-新增用户管理密码-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/insert", params, JSONObject.class);
 		return response;
 	}
 
@@ -59,9 +59,9 @@ public class UserAdminPasswordServiceImpl extends BaseService implements IUserAd
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteUserAdminPasswordById(Integer id) {
-		logger.info("(UserAdminPasswordService-deleteUserAdminPasswordById)-根据id获取用户管理密码-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/deleteUserAdminPasswordById/"+id, null, JSONObject.class);
+	public JSONObject deleteById(Integer id) {
+		logger.info("(Service-deleteById)-根据id获取用户管理密码-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -71,9 +71,9 @@ public class UserAdminPasswordServiceImpl extends BaseService implements IUserAd
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject updateUserAdminPassword(Object params) {
-		logger.info("(UserAdminPasswordService-updateUserAdminPassword)-修改用户管理密码-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/modifyUserAdminPassword", params, JSONObject.class);
+	public JSONObject update(Object params) {
+		logger.info("(Service-update)-修改用户管理密码-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/modify", params, JSONObject.class);
 		return response;
 	}
 

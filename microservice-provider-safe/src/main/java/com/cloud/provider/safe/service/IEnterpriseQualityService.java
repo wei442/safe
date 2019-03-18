@@ -14,41 +14,41 @@ public interface IEnterpriseQualityService {
 	 * @param param
 	 * @return List<EnterpriseQuality>
 	 */
-	public List<EnterpriseQuality> selectEnterpriseQualityListByPage(Page<?> page, EnterpriseQualityPageRequest param);
+	public List<EnterpriseQuality> selectListByPage(Page<?> page, EnterpriseQualityPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<EnterpriseQuality>
 	 */
-	public List<EnterpriseQuality> selectEnterpriseQualityList(EnterpriseQualityPageRequest param);
+	public List<EnterpriseQuality> selectList(EnterpriseQualityPageRequest param);
 
     /**
      * 根据id查询企业资质
      * @param id
      * @return EnterpriseQuality
      */
-	public EnterpriseQuality selectEnterpriseQualityById(Integer id);
+	public EnterpriseQuality selectById(Integer id);
 
     /**
      * 插入企业资质
      * @param enterpriseQuality
      * @return Integer
      */
-	public Integer insertEnterpriseQuality(EnterpriseQuality enterpriseQuality);
+	public Integer insert(EnterpriseQuality enterpriseQuality);
 
 	/**
   	 * 根据id删除企业资质
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteEnterpriseQualityById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改企业资质
      * @param enterpriseQuality
      * @return Integer
      */
-	public Integer modifyEnterpriseQuality(EnterpriseQuality enterpriseQuality);
+	public Integer modify(EnterpriseQuality enterpriseQuality);
 
 }

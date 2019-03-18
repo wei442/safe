@@ -51,23 +51,23 @@ public class UserAppLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户应用登录列表")
-	@RequestMapping(value="/selectUserAppLoginListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAppLoginListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody UserAppLoginPageRequest req) {
-		logger.info("===step1:【分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询用户应用登录列表】(UserAppLoginController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserAppLogin> list = userAppLoginService.selectUserAppLoginListByPage(page, req);
-		logger.info("===step2:【分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginListByPage)-分页查询用户应用登录列表, list.size:{}", list == null ? null : list.size());
+		List<UserAppLogin> list = userAppLoginService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询用户应用登录列表】(UserAppLoginController-selectListByPage)-分页查询用户应用登录列表, list.size:{}", list == null ? null : list.size());
 		List<UserAppLoginVo> userAppLoginVoList = new UserAppLoginVo().convertToUserAppLoginVoList(list);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
 		userAppLoginResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userAppLoginVoList));
-		logger.info("===step3:【分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginListByPage)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
+		logger.info("===step3:【分页查询用户应用登录列表】(UserAppLoginController-selectListByPage)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}
 
@@ -77,18 +77,18 @@ public class UserAppLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询用户应用登录列表")
-	@RequestMapping(value="/selectUserAppLoginList",method={RequestMethod.POST})
+	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAppLoginList(
+	public BaseRestMapResponse selectList(
 		@RequestBody UserAppLoginPageRequest req) {
-		logger.info("===step1:【不分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserAppLogin> list = userAppLoginService.selectUserAppLoginList(req);
-		logger.info("===step2:【不分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginList)-不分页查询用户应用登录列表, list.size:{}", list == null ? null : list.size());
+		logger.info("===step1:【不分页查询用户应用登录列表】(UserAppLoginController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<UserAppLogin> list = userAppLoginService.selectList(req);
+		logger.info("===step2:【不分页查询用户应用登录列表】(UserAppLoginController-selectList)-不分页查询用户应用登录列表, list.size:{}", list == null ? null : list.size());
 		List<UserAppLoginVo> userAppLoginVoList = new UserAppLoginVo().convertToUserAppLoginVoList(list);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
 		userAppLoginResponse.put(PageConstants.DATA_LIST, userAppLoginVoList);
-		logger.info("===step3:【不分页查询用户应用登录列表】(UserAppLoginController-selectUserAppLoginList)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
+		logger.info("===step3:【不分页查询用户应用登录列表】(UserAppLoginController-selectList)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}
 
@@ -98,23 +98,23 @@ public class UserAppLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询用户应用登录")
-	@RequestMapping(value="/selectUserAppLoginById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAppLoginById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userAppLoginId) {
-		logger.info("===step1:【据id查询用户应用登录】(selectUserAppLoginById-selectUserAppLoginById)-传入参数, userAppLoginId:{}", userAppLoginId);
+		logger.info("===step1:【据id查询用户应用登录】(selectById-selectById)-传入参数, userAppLoginId:{}", userAppLoginId);
 
 		if(userAppLoginId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAppLoginId为空");
 		}
 
-		UserAppLogin userAppLogin = userAppLoginService.selectUserAppLoginById(userAppLoginId);
-		logger.info("===step2:【据id查询用户应用登录】(UserAppLoginController-selectUserAppLoginById)-根据id查询用户应用登录, userAppLogin:{}", userAppLogin);
+		UserAppLogin userAppLogin = userAppLoginService.selectById(userAppLoginId);
+		logger.info("===step2:【据id查询用户应用登录】(UserAppLoginController-selectById)-根据id查询用户应用登录, userAppLogin:{}", userAppLogin);
 		UserAppLoginVo userAppLoginVo = new UserAppLoginVo().convertToUserAppLoginVo(userAppLogin);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
 		userAppLoginResponse.putAll((JSONObject) JSONObject.toJSON(userAppLoginVo));
-		logger.info("===step3:【据id查询用户应用登录】(UserAppLoginController-selectUserAppLoginById)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
+		logger.info("===step3:【据id查询用户应用登录】(UserAppLoginController-selectById)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}
 
@@ -125,21 +125,21 @@ public class UserAppLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加用户应用登录")
-	@RequestMapping(value="/insertUserAppLogin",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUserAppLogin(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody UserAppLoginRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户应用登录】(UserAppLoginController-insertUserAppLogin)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加用户应用登录】(UserAppLoginController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		UserAppLogin userAppLogin = req.convertToUserAppLogin();
-		int i = userAppLoginService.insertUserAppLogin(userAppLogin);
-		logger.info("===step2:【添加用户应用登录】(UserAppLoginController-insertUserAppLogin)-插入用户应用登录, i:{}", i);
+		int i = userAppLoginService.insert(userAppLogin);
+		logger.info("===step2:【添加用户应用登录】(UserAppLoginController-insert)-插入用户应用登录, i:{}", i);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户应用登录】(UserAppLoginController-insertUserAppLogin)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
+		logger.info("===step3:【添加用户应用登录】(UserAppLoginController-insert)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}
 
@@ -149,21 +149,21 @@ public class UserAppLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除用户应用登录")
-	@RequestMapping(value="/deleteUserAppLoginById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteUserAppLoginById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer userAppLoginId) {
-		logger.info("===step1:【根据id删除用户应用登录】(selectUserAppLoginById-deleteUserAppLoginById)-传入参数, userAppLoginId:{}", userAppLoginId);
+		logger.info("===step1:【根据id删除用户应用登录】(selectById-deleteById)-传入参数, userAppLoginId:{}", userAppLoginId);
 
 		if(userAppLoginId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAppLoginId为空");
 		}
 
-		int i = userAppLoginService.deleteUserAppLoginById(userAppLoginId);
-		logger.info("===step2:【根据id删除用户应用登录】(UserAppLoginController-deleteUserAppLoginById)-根据id查询用户应用登录, i:{}", i);
+		int i = userAppLoginService.deleteById(userAppLoginId);
+		logger.info("===step2:【根据id删除用户应用登录】(UserAppLoginController-deleteById)-根据id查询用户应用登录, i:{}", i);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除用户应用登录】(UserAppLoginController-deleteUserAppLoginById)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
+		logger.info("===step3:【根据id删除用户应用登录】(UserAppLoginController-deleteById)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}
 
@@ -174,23 +174,23 @@ public class UserAppLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改用户应用登录")
-	@RequestMapping(value="/modifyUserAppLogin",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyUserAppLogin(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody UserAppLoginRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户应用登录】(UserAppLoginController-modifyUserAppLogin)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改用户应用登录】(UserAppLoginController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer userAppLoginId = req.getUserAppLoginId();
 		UserAppLogin userAppLogin = req.convertToUserAppLogin();
 		userAppLogin.setId(userAppLoginId);
-		int i = userAppLoginService.modifyUserAppLogin(userAppLogin);
-		logger.info("===step2:【修改用户应用登录】(UserAppLoginController-modifyUserAppLogin)-修改用户应用登录, i:{}", i);
+		int i = userAppLoginService.modify(userAppLogin);
+		logger.info("===step2:【修改用户应用登录】(UserAppLoginController-modify)-修改用户应用登录, i:{}", i);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改用户应用登录】(UserAppLoginController-modifyUserAppLogin)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
+		logger.info("===step3:【修改用户应用登录】(UserAppLoginController-modify)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}
 

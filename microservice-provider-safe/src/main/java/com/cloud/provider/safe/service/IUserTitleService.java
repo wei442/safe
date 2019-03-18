@@ -14,48 +14,48 @@ public interface IUserTitleService {
 	 * @param param
 	 * @return List<UserTitle>
 	 */
-	public List<UserTitle> selectUserTitleListByPage(Page<?> page, UserTitlePageRequest param);
+	public List<UserTitle> selectListByPage(Page<?> page, UserTitlePageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<UserTitle>
 	 */
-	public List<UserTitle> selectUserTitleList(UserTitlePageRequest param);
+	public List<UserTitle> selectList(UserTitlePageRequest param);
 
     /**
      * 根据id查询用户职务
      * @param id
      * @return UserTitle
      */
-	public UserTitle selectUserTitleById(Integer id);
+	public UserTitle selectById(Integer id);
 
 	/**
 	 * 根据userId查询用户职务
 	 * @param userId
 	 * @return UserTitle
 	 */
-	public UserTitle selectUserTitleByUserId(Integer userId);
+	public UserTitle selectByUserId(Integer userId);
 
     /**
      * 插入用户职务
      * @param userTitle
      * @return Integer
      */
-	public Integer insertUserTitle(UserTitle userTitle);
+	public Integer insert(UserTitle userTitle);
 
 	/**
   	 * 根据id删除用户职务
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserTitleById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改用户职务
      * @param userTitle
      * @return Integer
      */
-	public Integer modifyUserTitle(UserTitle userTitle);
+	public Integer modify(UserTitle userTitle);
 
 }

@@ -51,23 +51,23 @@ public class DictItemController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询字典子项列表")
-	@RequestMapping(value="/selectDictItemListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectDictItemListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody DictItemPageRequest req) {
-		logger.info("===step1:【分页查询字典子项列表】(DictItemController-selectDictItemListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询字典子项列表】(DictItemController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<DictItem> list = dictItemService.selectDictItemListByPage(page, req);
-		logger.info("===step2:【分页查询字典子项列表】(DictItemController-selectDictItemListByPage)-分页查询字典子项列表, list.size:{}", list == null ? null : list.size());
+		List<DictItem> list = dictItemService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询字典子项列表】(DictItemController-selectListByPage)-分页查询字典子项列表, list.size:{}", list == null ? null : list.size());
 		List<DictItemVo> dictItemVoList = new DictItemVo().convertToDictItemVoList(list);
 
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
 		dictItemResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(dictItemVoList));
-		logger.info("===step3:【分页查询字典子项列表】(DictItemController-selectDictItemListByPage)-返回信息, dictItemResponse:{}", dictItemResponse);
+		logger.info("===step3:【分页查询字典子项列表】(DictItemController-selectListByPage)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}
 
@@ -77,18 +77,18 @@ public class DictItemController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询字典子项列表")
-	@RequestMapping(value="/selectDictItemList",method={RequestMethod.POST})
+	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectDictItemList(
+	public BaseRestMapResponse selectList(
 		@RequestBody DictItemPageRequest req) {
-		logger.info("===step1:【不分页查询字典子项列表】(DictItemController-selectDictItemList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<DictItem> list = dictItemService.selectDictItemList(req);
-		logger.info("===step2:【不分页查询字典子项列表】(DictItemController-selectDictItemList)-不分页查询字典子项列表, list.size:{}", list == null ? null : list.size());
+		logger.info("===step1:【不分页查询字典子项列表】(DictItemController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<DictItem> list = dictItemService.selectList(req);
+		logger.info("===step2:【不分页查询字典子项列表】(DictItemController-selectList)-不分页查询字典子项列表, list.size:{}", list == null ? null : list.size());
 		List<DictItemVo> dictItemVoList = new DictItemVo().convertToDictItemVoList(list);
 
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
 		dictItemResponse.put(PageConstants.DATA_LIST, dictItemVoList);
-		logger.info("===step3:【不分页查询字典子项列表】(DictItemController-selectDictItemList)-返回信息, dictItemResponse:{}", dictItemResponse);
+		logger.info("===step3:【不分页查询字典子项列表】(DictItemController-selectList)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}
 
@@ -98,23 +98,23 @@ public class DictItemController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询字典子项")
-	@RequestMapping(value="/selectDictItemById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectDictItemById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer dictItemId) {
-		logger.info("===step1:【据id查询字典子项】(selectDictItemById-selectDictItemById)-传入参数, dictItemId:{}", dictItemId);
+		logger.info("===step1:【据id查询字典子项】(selectById-selectById)-传入参数, dictItemId:{}", dictItemId);
 
 		if(dictItemId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "dictItemId为空");
 		}
 
-		DictItem dictItem = dictItemService.selectDictItemById(dictItemId);
-		logger.info("===step2:【据id查询字典子项】(DictItemController-selectDictItemById)-根据id查询字典子项, dictItem:{}", dictItem);
+		DictItem dictItem = dictItemService.selectById(dictItemId);
+		logger.info("===step2:【据id查询字典子项】(DictItemController-selectById)-根据id查询字典子项, dictItem:{}", dictItem);
 		DictItemVo dictItemVo = new DictItemVo().convertToDictItemVo(dictItem);
 
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
 		dictItemResponse.putAll((JSONObject) JSONObject.toJSON(dictItemVo));
-		logger.info("===step3:【据id查询字典子项】(DictItemController-selectDictItemById)-返回信息, dictItemResponse:{}", dictItemResponse);
+		logger.info("===step3:【据id查询字典子项】(DictItemController-selectById)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}
 
@@ -125,21 +125,21 @@ public class DictItemController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加字典子项")
-	@RequestMapping(value="/insertDictItem",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertDictItem(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody DictItemRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加字典子项】(DictItemController-insertDictItem)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加字典子项】(DictItemController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		DictItem dictItem = req.convertToDictItem();
-		int i = dictItemService.insertDictItem(dictItem);
-		logger.info("===step2:【添加字典子项】(DictItemController-insertDictItem)-插入字典子项, i:{}", i);
+		int i = dictItemService.insert(dictItem);
+		logger.info("===step2:【添加字典子项】(DictItemController-insert)-插入字典子项, i:{}", i);
 
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加字典子项】(DictItemController-insertDictItem)-返回信息, dictItemResponse:{}", dictItemResponse);
+		logger.info("===step3:【添加字典子项】(DictItemController-insert)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}
 
@@ -149,21 +149,21 @@ public class DictItemController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除字典子项")
-	@RequestMapping(value="/deleteDictItemById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteDictItemById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer dictItemId) {
-		logger.info("===step1:【根据id删除字典子项】(selectDictItemById-deleteDictItemById)-传入参数, dictItemId:{}", dictItemId);
+		logger.info("===step1:【根据id删除字典子项】(selectById-deleteById)-传入参数, dictItemId:{}", dictItemId);
 
 		if(dictItemId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "dictItemId为空");
 		}
 
-		int i = dictItemService.deleteDictItemById(dictItemId);
-		logger.info("===step2:【根据id删除字典子项】(DictItemController-deleteDictItemById)-根据id查询字典子项, i:{}", i);
+		int i = dictItemService.deleteById(dictItemId);
+		logger.info("===step2:【根据id删除字典子项】(DictItemController-deleteById)-根据id查询字典子项, i:{}", i);
 
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除字典子项】(DictItemController-deleteDictItemById)-返回信息, dictItemResponse:{}", dictItemResponse);
+		logger.info("===step3:【根据id删除字典子项】(DictItemController-deleteById)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}
 
@@ -174,23 +174,23 @@ public class DictItemController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改字典子项")
-	@RequestMapping(value="/modifyDictItem",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyDictItem(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody DictItemRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改字典子项】(DictItemController-modifyDictItem)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改字典子项】(DictItemController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer dictItemId = req.getDictItemId();
 		DictItem dictItem = req.convertToDictItem();
 		dictItem.setId(dictItemId);
-		int i = dictItemService.modifyDictItem(dictItem);
-		logger.info("===step2:【修改字典子项】(DictItemController-modifyDictItem)-修改字典子项, i:{}", i);
+		int i = dictItemService.modify(dictItem);
+		logger.info("===step2:【修改字典子项】(DictItemController-modify)-修改字典子项, i:{}", i);
 
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改字典子项】(DictItemController-modifyDictItem)-返回信息, dictItemResponse:{}", dictItemResponse);
+		logger.info("===step3:【修改字典子项】(DictItemController-modify)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}
 

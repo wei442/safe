@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service;
 
-import java.util.Map;
-
 import com.alibaba.fastjson.JSONObject;
 
 public interface IBaseUserLoginService {
@@ -11,41 +9,41 @@ public interface IBaseUserLoginService {
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getBaseUserLoginListByPage(Object params);
+	public JSONObject getListByPage(Object params);
 
 	/**
 	 * 获取基础用户登录列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getBaseUserLoginList(Object params);
+	public JSONObject getList(Object params);
 
 	/**
 	 * 根据id获取基础用户登录
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject getBaseUserLoginById(Integer id);
+	public JSONObject getById(Integer id);
 
 	/**
 	 * 新增基础用户登录
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addBaseUserLogin(Object params);
+	public JSONObject add(Object params);
 
 	/**
 	 * 根据id删除基础用户登录
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject deleteBaseUserLoginById(Integer id);
+	public JSONObject deleteById(Integer id);
 
 	/**
 	 * 修改基础用户登录
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject updateBaseUserLogin(Object params);
+	public JSONObject update(Object params);
 
 }

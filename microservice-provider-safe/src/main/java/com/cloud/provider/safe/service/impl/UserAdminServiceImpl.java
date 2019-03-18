@@ -39,8 +39,8 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	 * @return List<UserAdmin>
 	 */
 	@Override
-	public List<UserAdmin> selectUserAdminListByPage(Page<?> page, UserAdminPageRequest param) {
-		logger.info("(UserAdminService-selectUserAdminListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<UserAdmin> selectListByPage(Page<?> page, UserAdminPageRequest param) {
+		logger.info("(UserAdminService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserAdminExample example = new UserAdminExample();
 		example.setOrderByClause(" id desc ");
@@ -61,8 +61,8 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	 * @return List<UserAdmin>
 	 */
 	@Override
-	public List<UserAdmin> selectUserAdminList(UserAdminPageRequest param) {
-		logger.info("(UserAdminService-selectUserAdminList)-不分页查询-传入参数, param:{}", param);
+	public List<UserAdmin> selectList(UserAdminPageRequest param) {
+		logger.info("(UserAdminService-selectList)-不分页查询-传入参数, param:{}", param);
 		UserAdminExample example = new UserAdminExample();
 		example.setOrderByClause(" id desc ");
 		UserAdminExample.Criteria criteria = example.createCriteria();
@@ -81,8 +81,9 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	 * @param userId
 	 * @return UserAdmin
 	 */
-	public UserAdmin selectUserAdminByUserId(Integer userId) {
-		logger.info("(UserAdminService-selectUserAdminByUserId)-根据userId查询用户管理-传入参数, userId:{}", userId);
+	@Override
+	public UserAdmin selectByUserId(Integer userId) {
+		logger.info("(UserAdminService-selectByUserId)-根据userId查询用户管理-传入参数, userId:{}", userId);
 		UserAdminExample example = new UserAdminExample();
 		UserAdminExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
@@ -102,8 +103,8 @@ public class UserAdminServiceImpl implements IUserAdminService {
      * @return UserAdmin
      */
 	@Override
-	public UserAdmin selectUserAdminById(Integer id) {
-    	logger.info("(UserAdminService-selectUserAdminById)-根据id查询用户管理-传入参数, id:{}", id);
+	public UserAdmin selectById(Integer id) {
+    	logger.info("(UserAdminService-selectById)-根据id查询用户管理-传入参数, id:{}", id);
 		UserAdmin userAdmin = userAdminMapper.selectByPrimaryKey(id);
 		return userAdmin;
     }
@@ -114,7 +115,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
      * @return Integer
      */
 	@Override
-	public Integer insertUserAdmin(UserAdmin userAdmin) {
+	public Integer insert(UserAdmin userAdmin) {
     	logger.info("(UserAdminService-insertUserAdmin)-插入用户管理-传入参数, userAdmin:{}", userAdmin);
     	userAdmin.setIsDelete(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
     	userAdmin.setCreateTime(new Date());
@@ -130,8 +131,8 @@ public class UserAdminServiceImpl implements IUserAdminService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteUserAdminById(Integer id) {
-  		logger.info("(UserAdminService-deleteUserAdminById)-根据id删除用户管理-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(UserAdminService-deleteById)-根据id删除用户管理-传入参数, id:{}", id);
   		int i = userAdminMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -143,7 +144,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
      * @return Integer
      */
 	@Override
-	public Integer modifyUserAdmin(UserAdmin userAdmin) {
+	public Integer modify(UserAdmin userAdmin) {
     	logger.info("(UserAdminService-modifyUserAdmin)-修改用户管理-传入参数, userAdmin:{}", userAdmin);
     	userAdmin.setUpdateTime(new Date());
     	int i = userAdminMapper.updateByPrimaryKeySelective(userAdmin);

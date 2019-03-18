@@ -9,41 +9,41 @@ public interface IDictItemService {
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getDictItemListByPage(Object params);
+	public JSONObject getListByPage(Object params);
 
 	/**
 	 * 获取字典子项列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getDictItemList(Object params);
+	public JSONObject getList(Object params);
 
 	/**
 	 * 根据id获取字典子项
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject getDictItemById(Integer id);
+	public JSONObject getById(Integer id);
 
 	/**
 	 * 新增字典子项
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addDictItem(Object params);
+	public JSONObject add(Object params);
 
 	/**
 	 * 根据id删除字典子项
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject deleteDictItemById(Integer id);
+	public JSONObject deleteById(Integer id);
 
 	/**
 	 * 修改字典子项
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject updateDictItem(Object params);
+	public JSONObject update(Object params);
 
 }

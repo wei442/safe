@@ -38,8 +38,8 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
 	 * @return List<BaseUserLogin>
 	 */
 	@Override
-	public List<BaseUserLogin> selectBaseUserLoginListByPage(Page<?> page, BaseUserLoginPageRequest param) {
-		logger.info("(BaseUserLoginService-selectBaseUserLoginListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<BaseUserLogin> selectListByPage(Page<?> page, BaseUserLoginPageRequest param) {
+		logger.info("(BaseUserLoginService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		BaseUserLoginExample example = new BaseUserLoginExample();
 		example.setOrderByClause(" id desc ");
@@ -56,8 +56,8 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
 	 * @return List<BaseUserLogin>
 	 */
 	@Override
-	public List<BaseUserLogin> selectBaseUserLoginList(BaseUserLoginPageRequest param) {
-		logger.info("(BaseUserLoginService-selectBaseUserLoginList)-不分页查询-传入参数, param:{}", param);
+	public List<BaseUserLogin> selectList(BaseUserLoginPageRequest param) {
+		logger.info("(BaseUserLoginService-selectList)-不分页查询-传入参数, param:{}", param);
 		BaseUserLoginExample example = new BaseUserLoginExample();
 		example.setOrderByClause(" id desc ");
 		BaseUserLoginExample.Criteria criteria = example.createCriteria();
@@ -73,8 +73,8 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
      * @return BaseUserLogin
      */
 	@Override
-	public BaseUserLogin selectBaseUserLoginById(Integer id) {
-    	logger.info("(BaseUserLoginService-selectBaseUserLoginById)-根据id查询基础用户登录-传入参数, id:{}", id);
+	public BaseUserLogin selectById(Integer id) {
+    	logger.info("(BaseUserLoginService-selectById)-根据id查询基础用户登录-传入参数, id:{}", id);
 		BaseUserLogin baseUserLogin = baseUserLoginMapper.selectByPrimaryKey(id);
 		return baseUserLogin;
     }
@@ -85,7 +85,7 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
      * @return Integer
      */
 	@Override
-	public Integer insertBaseUserLogin(BaseUserLogin baseUserLogin) {
+	public Integer insert(BaseUserLogin baseUserLogin) {
     	logger.info("(BaseUserLoginService-insertBaseUserLogin)-插入基础用户登录-传入参数, baseUserLogin:{}", baseUserLogin);
     	baseUserLogin.setCreateTime(new Date());
     	baseUserLogin.setUpdateTime(new Date());
@@ -100,8 +100,8 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteBaseUserLoginById(Integer id) {
-  		logger.info("(BaseUserLoginService-deleteBaseUserLoginById)-根据id删除基础用户登录-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(BaseUserLoginService-deleteById)-根据id删除基础用户登录-传入参数, id:{}", id);
   		int i = baseUserLoginMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -113,7 +113,7 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
      * @return Integer
      */
 	@Override
-	public Integer modifyBaseUserLogin(BaseUserLogin baseUserLogin) {
+	public Integer modify(BaseUserLogin baseUserLogin) {
     	logger.info("(BaseUserLoginService-modifyBaseUserLogin)-修改基础用户登录-传入参数, baseUserLogin:{}", baseUserLogin);
     	baseUserLogin.setUpdateTime(new Date());
 		int i = baseUserLoginMapper.updateByPrimaryKeySelective(baseUserLogin);

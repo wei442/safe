@@ -52,14 +52,14 @@ public class BaseUserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询基础用户信息列表")
-	@RequestMapping(value="/getBaseUserInfoListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/getListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getBaseUserInfoListByPage(
+	public BaseRestMapResponse getListByPage(
 		@RequestBody BaseUserInfoPageRequest req) {
-		logger.info("===step1:【分页查询】(BaseUserInfoController-getBaseUserInfoListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询】(BaseUserInfoController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonBaseUserInfo = baseUserInfoService.getBaseUserInfoListByPage(req);
-		logger.info("===step2:【分页查询】(BaseUserInfoController-getBaseUserInfoListByPage)-分页查询基础用户信息列表, jsonBaseUserInfo:{}", jsonBaseUserInfo);
+		JSONObject jsonBaseUserInfo = baseUserInfoService.getListByPage(req);
+		logger.info("===step2:【分页查询】(BaseUserInfoController-getListByPage)-分页查询基础用户信息列表, jsonBaseUserInfo:{}", jsonBaseUserInfo);
 		String dataListStr = JSONObject.toJSONString(jsonBaseUserInfo.getJSONArray(PageConstants.DATA_LIST));
 		String pageStr = JSONObject.toJSONString(jsonBaseUserInfo.getJSONObject(PageConstants.PAGE));
 		List<BaseUserInfoVo> baseUserInfoVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<BaseUserInfoVo>>(){});
@@ -69,7 +69,7 @@ public class BaseUserInfoController extends BaseController {
 		//返回信息
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
 		baseUserInfoResponse.put(RetSafeConstants.RESULT, result);
-	    logger.info("===step3:【分页查询】(BaseUserInfoController-getBaseUserInfoListByPage)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
+	    logger.info("===step3:【分页查询】(BaseUserInfoController-getListByPage)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
 	    return baseUserInfoResponse;
 	}
 
@@ -79,21 +79,21 @@ public class BaseUserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询基础用户信息列表")
-	@RequestMapping(value="/getBaseUserInfoList",method={RequestMethod.POST})
+	@RequestMapping(value="/getList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getBaseUserInfoList(
+	public BaseRestMapResponse getList(
 		@RequestBody BaseUserInfoPageRequest req) {
-		logger.info("===step1:【不分页查询】(BaseUserInfoController-getBaseUserInfoList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【不分页查询】(BaseUserInfoController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonBaseUserInfo = baseUserInfoService.getBaseUserInfoListByPage(req);
-		logger.info("===step2:【不分页查询】(BaseUserInfoController-getBaseUserInfoList)-不分页查询基础用户信息列表, jsonBaseUserInfo:{}", jsonBaseUserInfo);
+		JSONObject jsonBaseUserInfo = baseUserInfoService.getListByPage(req);
+		logger.info("===step2:【不分页查询】(BaseUserInfoController-getList)-不分页查询基础用户信息列表, jsonBaseUserInfo:{}", jsonBaseUserInfo);
 		String dataListStr = JSONObject.toJSONString(jsonBaseUserInfo.getJSONArray(PageConstants.DATA_LIST));
 		List<BaseUserInfoVo> baseUserInfoVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<BaseUserInfoVo>>(){});
 
 		//返回信息
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
 		baseUserInfoResponse.put(RetSafeConstants.RESULT, baseUserInfoVoList);
-		logger.info("===step3:【不分页查询】(BaseUserInfoController-getBaseUserInfoList)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
+		logger.info("===step3:【不分页查询】(BaseUserInfoController-getList)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
 		return baseUserInfoResponse;
 	}
 
@@ -105,24 +105,24 @@ public class BaseUserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "获取基础用户信息详情")
-	@RequestMapping(value="/getBaseUserInfo",method={RequestMethod.POST})
+	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getBaseUserInfo(
+	public BaseRestMapResponse get(
 		@Validated @RequestBody BaseUserInfoIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取基础用户信息】(BaseUserInfoController-getBaseUserInfo)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取基础用户信息】(BaseUserInfoController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer baseUserId = req.getBaseUserId();
-		JSONObject jsonBaseUserInfo = baseUserInfoService.getBaseUserInfoById(baseUserId);
-		logger.info("===step2:【获取基础用户信息】(BaseUserInfoController-getBaseUserInfo)-根据baseUserInfoId获取基础用户信息, jsonBaseUserInfo:{}", jsonBaseUserInfo);
+		JSONObject jsonBaseUserInfo = baseUserInfoService.getById(baseUserId);
+		logger.info("===step2:【获取基础用户信息】(BaseUserInfoController-get)-根据baseUserInfoId获取基础用户信息, jsonBaseUserInfo:{}", jsonBaseUserInfo);
 		BaseUserInfoVo baseUserInfoVo = JSONObject.toJavaObject(jsonBaseUserInfo, BaseUserInfoVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
 		baseUserInfoResponse.put(RetSafeConstants.RESULT, baseUserInfoVo);
-	    logger.info("===step3:【获取基础用户信息】(BaseUserInfoController-getBaseUserInfo)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
+	    logger.info("===step3:【获取基础用户信息】(BaseUserInfoController-get)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
 	    return baseUserInfoResponse;
 	}
 
@@ -133,23 +133,23 @@ public class BaseUserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "新增基础用户信息")
-	@RequestMapping(value="/addBaseUserInfo",method={RequestMethod.POST})
+	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse addBaseUserInfo(
+	public BaseRestMapResponse add(
 		@Validated @RequestBody BaseUserInfoRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【新增基础用户信息】(BaseUserInfoController-addBaseUserInfo)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【新增基础用户信息】(BaseUserInfoController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonBaseUserInfo = baseUserInfoService.addBaseUserInfo(req);
-		logger.info("===step2:【新增基础用户信息】(BaseUserInfoController-addBaseUserInfo)-分页查询基础用户信息列表, jsonBaseUserInfo:{}", jsonBaseUserInfo);
+		JSONObject jsonBaseUserInfo = baseUserInfoService.add(req);
+		logger.info("===step2:【新增基础用户信息】(BaseUserInfoController-add)-分页查询基础用户信息列表, jsonBaseUserInfo:{}", jsonBaseUserInfo);
 		BaseUserInfoVo baseUserInfoVo = JSONObject.toJavaObject(jsonBaseUserInfo, BaseUserInfoVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
 		baseUserInfoResponse.put(RetSafeConstants.RESULT, baseUserInfoVo);
-	    logger.info("===step3:【新增基础用户信息】(BaseUserInfoController-addBaseUserInfo)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
+	    logger.info("===step3:【新增基础用户信息】(BaseUserInfoController-add)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
 	    return baseUserInfoResponse;
 	}
 
@@ -160,24 +160,24 @@ public class BaseUserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "删除基础用户信息")
-	@RequestMapping(value="/deleteBaseUserInfo",method={RequestMethod.POST})
+	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteBaseUserInfo(
+	public BaseRestMapResponse delete(
 		@Validated @RequestBody BaseUserInfoIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【删除基础用户信息】(BaseUserInfoController-deleteBaseUserInfo)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【删除基础用户信息】(BaseUserInfoController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer baseUserId = req.getBaseUserId();
-		JSONObject jsonBaseUserInfo = baseUserInfoService.deleteBaseUserInfoById(baseUserId);
-		logger.info("===step2:【删除基础用户信息】(BaseUserInfoController-deleteBaseUserInfo)-根据baseUserInfoId删除基础用户信息, jsonBaseUserInfo:{}", jsonBaseUserInfo);
+		JSONObject jsonBaseUserInfo = baseUserInfoService.deleteById(baseUserId);
+		logger.info("===step2:【删除基础用户信息】(BaseUserInfoController-delete)-根据baseUserInfoId删除基础用户信息, jsonBaseUserInfo:{}", jsonBaseUserInfo);
 		BaseUserInfoVo baseUserInfoVo = JSONObject.toJavaObject(jsonBaseUserInfo, BaseUserInfoVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
 		baseUserInfoResponse.put(RetSafeConstants.RESULT, baseUserInfoVo);
-		logger.info("===step3:【删除基础用户信息】(BaseUserInfoController-deleteBaseUserInfo)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
+		logger.info("===step3:【删除基础用户信息】(BaseUserInfoController-delete)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
 		return baseUserInfoResponse;
 	}
 
@@ -188,23 +188,23 @@ public class BaseUserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改基础用户信息")
-	@RequestMapping(value="/updateBaseUserInfo",method={RequestMethod.POST})
+	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse updateBaseUserInfo(
+	public BaseRestMapResponse update(
 		@Validated({ UpdateGroup.class }) @RequestBody BaseUserInfoRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改基础用户信息】(BaseUserInfoController-updateBaseUserInfo)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改基础用户信息】(BaseUserInfoController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonBaseUserInfo = baseUserInfoService.addBaseUserInfo(req);
-		logger.info("===step2:【修改基础用户信息】(BaseUserInfoController-updateBaseUserInfo)-修改基础用户信息, jsonBaseUserInfo:{}", jsonBaseUserInfo);
+		JSONObject jsonBaseUserInfo = baseUserInfoService.update(req);
+		logger.info("===step2:【修改基础用户信息】(BaseUserInfoController-update)-修改基础用户信息, jsonBaseUserInfo:{}", jsonBaseUserInfo);
 		BaseUserInfoVo baseUserInfoVo = JSONObject.toJavaObject(jsonBaseUserInfo, BaseUserInfoVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
 		baseUserInfoResponse.put(RetSafeConstants.RESULT, baseUserInfoVo);
-		logger.info("===step3:【修改基础用户信息】(BaseUserInfoController-updateBaseUserInfo)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
+		logger.info("===step3:【修改基础用户信息】(BaseUserInfoController-update)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
 		return baseUserInfoResponse;
 	}
 

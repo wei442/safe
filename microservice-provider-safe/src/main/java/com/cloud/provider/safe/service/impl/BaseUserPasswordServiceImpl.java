@@ -34,8 +34,8 @@ public class BaseUserPasswordServiceImpl implements IBaseUserPasswordService {
      * @return BaseUserPassword
      */
 	@Override
-	public BaseUserPassword selectBaseUserPasswordById(Integer id) {
-    	logger.info("(BaseUserPasswordService-selectBaseUserPasswordById)-根据id查询基础用户密码-传入参数, id:{}", id);
+	public BaseUserPassword selectById(Integer id) {
+    	logger.info("(BaseUserPasswordService-selectById)-根据id查询基础用户密码-传入参数, id:{}", id);
 		BaseUserPassword baseUserPassword = baseUserPasswordMapper.selectByPrimaryKey(id);
 		return baseUserPassword;
     }
@@ -45,8 +45,9 @@ public class BaseUserPasswordServiceImpl implements IBaseUserPasswordService {
 	 * @param  baseUserId
 	 * @return BaseUserPassword
 	 */
-	public BaseUserPassword selectBaseUserPasswordByBaseUserId(Integer baseUserId) {
-		logger.info("(BaseUserPasswordService-selectBaseUserPasswordById)-根据baseUserId查询基础用户密码-传入参数,  baseUserId:{}",  baseUserId);
+	@Override
+	public BaseUserPassword selectByBaseUserId(Integer baseUserId) {
+		logger.info("(BaseUserPasswordService-selectById)-根据baseUserId查询基础用户密码-传入参数,  baseUserId:{}",  baseUserId);
 		BaseUserPasswordExample example = new BaseUserPasswordExample();
 		BaseUserPasswordExample.Criteria criteria = example.createCriteria();
 		criteria.andBaseUserIdEqualTo( baseUserId);
@@ -65,7 +66,7 @@ public class BaseUserPasswordServiceImpl implements IBaseUserPasswordService {
      * @return Integer
      */
 	@Override
-	public Integer insertBaseUserPassword(BaseUserPassword baseUserPassword) {
+	public Integer insert(BaseUserPassword baseUserPassword) {
     	logger.info("(BaseUserPasswordService-insertBaseUserPassword)-插入基础用户密码-传入参数, baseUserPassword:{}", baseUserPassword);
     	baseUserPassword.setCreateTime(new Date());
     	baseUserPassword.setUpdateTime(new Date());
@@ -80,8 +81,8 @@ public class BaseUserPasswordServiceImpl implements IBaseUserPasswordService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteBaseUserPasswordById(Integer id) {
-  		logger.info("(BaseUserPasswordService-deleteBaseUserPasswordById)-根据id删除基础用户密码-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(BaseUserPasswordService-deleteById)-根据id删除基础用户密码-传入参数, id:{}", id);
 		int i = baseUserPasswordMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -93,7 +94,7 @@ public class BaseUserPasswordServiceImpl implements IBaseUserPasswordService {
      * @return Integer
      */
 	@Override
-	public Integer modifyBaseUserPassword(BaseUserPassword baseUserPassword) {
+	public Integer modify(BaseUserPassword baseUserPassword) {
     	logger.info("(BaseUserPasswordService-modifyBaseUserPassword)-修改基础用户密码-传入参数, baseUserPassword:{}", baseUserPassword);
     	baseUserPassword.setUpdateTime(new Date());
 		int i = baseUserPasswordMapper.updateByPrimaryKeySelective(baseUserPassword);

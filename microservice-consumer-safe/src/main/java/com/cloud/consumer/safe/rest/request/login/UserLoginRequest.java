@@ -2,55 +2,29 @@ package com.cloud.consumer.safe.rest.request.login;
 
 import java.io.Serializable;
 
-import com.cloud.consumer.safe.base.BaseRestRequest;
+import javax.validation.constraints.NotBlank;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * 用户登录请求
  * @author wei.yong
  */
-public class UserLoginRequest extends BaseRestRequest implements Serializable {
+@Data
+public class UserLoginRequest implements Serializable {
 
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	//gofun的token
-	private String gToken;
-
-	//gId
-	private String gId;
-
-	//手机号码
+	@ApiModelProperty(value = "用户账户", required = true)
+	@NotBlank(message = "用户账户")
 	private String userAccount;
 
-	public String getgToken() {
-		return this.gToken;
-	}
-
-	public void setgToken(String gToken) {
-		this.gToken = gToken;
-	}
-
-	public String getgId() {
-		return this.gId;
-	}
-
-	public void setgId(String gId) {
-		this.gId = gId;
-	}
-
-	public String getUserAccount() {
-		return this.userAccount;
-	}
-
-	public void setUserAccount(String userAccount) {
-		this.userAccount = userAccount;
-	}
-
-	@Override
-	public String toString() {
-		return "UserRequest [gToken=" + gToken + ", gId=" + gId + ", userAccount=" + userAccount + "]";
-	}
+	@ApiModelProperty(value = "用户密码", required = true)
+	@NotBlank(message = "用户密码")
+	private String userPassword;
 
 }

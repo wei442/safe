@@ -52,23 +52,23 @@ public class EnterpriseController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询企业列表")
-	@RequestMapping(value="/selectEnterpriseListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectEnterpriseListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody EnterprisePageRequest req) {
-		logger.info("===step1:【分页查询企业列表】(EnterpriseController-selectEnterpriseListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询企业列表】(EnterpriseController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<Enterprise> list = enterpriseService.selectEnterpriseListByPage(page, req);
-		logger.info("===step2:【分页查询企业列表】(EnterpriseController-selectEnterpriseListByPage)-分页查询企业列表, list.size:{}", list == null ? null : list.size());
+		List<Enterprise> list = enterpriseService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询企业列表】(EnterpriseController-selectListByPage)-分页查询企业列表, list.size:{}", list == null ? null : list.size());
 		List<EnterpriseVo> enterpriseVoList = new EnterpriseVo().convertToEnterpriseVoList(list);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
 		enterpriseResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(enterpriseVoList));
-		logger.info("===step3:【分页查询企业列表】(EnterpriseController-selectEnterpriseListByPage)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【分页查询企业列表】(EnterpriseController-selectListByPage)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 
@@ -78,18 +78,18 @@ public class EnterpriseController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询企业列表")
-	@RequestMapping(value="/selectEnterpriseList",method={RequestMethod.POST})
+	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectEnterpriseList(
+	public BaseRestMapResponse selectList(
 		@RequestBody EnterprisePageRequest req) {
-		logger.info("===step1:【不分页查询企业列表】(EnterpriseController-selectEnterpriseList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<Enterprise> list = enterpriseService.selectEnterpriseList(req);
-		logger.info("===step2:【不分页查询企业列表】(EnterpriseController-selectEnterpriseList)-不分页查询企业列表, list.size:{}", list == null ? null : list.size());
+		logger.info("===step1:【不分页查询企业列表】(EnterpriseController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<Enterprise> list = enterpriseService.selectList(req);
+		logger.info("===step2:【不分页查询企业列表】(EnterpriseController-selectList)-不分页查询企业列表, list.size:{}", list == null ? null : list.size());
 		List<EnterpriseVo> enterpriseVoList = new EnterpriseVo().convertToEnterpriseVoList(list);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
 		enterpriseResponse.put(PageConstants.DATA_LIST, enterpriseVoList);
-		logger.info("===step3:【不分页查询企业列表】(EnterpriseController-selectEnterpriseList)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【不分页查询企业列表】(EnterpriseController-selectList)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 
@@ -100,23 +100,23 @@ public class EnterpriseController extends BaseController {
 	 */
 	@ApiOperation(value = "根据id查询企业")
 	@ApiParam(name="id", value="企业id", required=true)
-	@RequestMapping(value="/selectEnterpriseById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectEnterpriseById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer enterpriseId) {
-		logger.info("===step1:【据id查询企业】(selectEnterpriseById-selectEnterpriseById)-传入参数, enterpriseId:{}", enterpriseId);
+		logger.info("===step1:【据id查询企业】(selectById-selectById)-传入参数, enterpriseId:{}", enterpriseId);
 
 		if(enterpriseId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseId为空");
 		}
 
-		Enterprise enterprise = enterpriseService.selectEnterpriseById(enterpriseId);
-		logger.info("===step2:【据id查询企业】(EnterpriseController-selectEnterpriseById)-根据id查询企业, enterprise:{}", enterprise);
+		Enterprise enterprise = enterpriseService.selectById(enterpriseId);
+		logger.info("===step2:【据id查询企业】(EnterpriseController-selectById)-根据id查询企业, enterprise:{}", enterprise);
 		EnterpriseVo enterpriseVo = new EnterpriseVo().convertToEnterpriseVo(enterprise);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
 		enterpriseResponse.putAll((JSONObject) JSONObject.toJSON(enterpriseVo));
-		logger.info("===step3:【据id查询企业】(EnterpriseController-selectEnterpriseById)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【据id查询企业】(EnterpriseController-selectById)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 
@@ -127,21 +127,21 @@ public class EnterpriseController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加企业")
-	@RequestMapping(value="/insertEnterprise",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertEnterprise(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody EnterpriseRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加企业】(EnterpriseController-insertEnterprise)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加企业】(EnterpriseController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Enterprise enterprise = req.convertToEnterprise();
-		int i = enterpriseService.insertEnterprise(enterprise);
-		logger.info("===step2:【添加企业】(EnterpriseController-insertEnterprise)-插入企业, i:{}", i);
+		int i = enterpriseService.insert(enterprise);
+		logger.info("===step2:【添加企业】(EnterpriseController-insert)-插入企业, i:{}", i);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加企业】(EnterpriseController-insertEnterprise)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【添加企业】(EnterpriseController-insert)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 
@@ -152,21 +152,21 @@ public class EnterpriseController extends BaseController {
 	 */
 	@ApiOperation(value = "根据id删除企业")
 	@ApiParam(name="id", value="企业id", required=true)
-	@RequestMapping(value="/deleteEnterpriseById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteEnterpriseById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer enterpriseId) {
-		logger.info("===step1:【根据id删除企业】(selectEnterpriseById-deleteEnterpriseById)-传入参数, enterpriseId:{}", enterpriseId);
+		logger.info("===step1:【根据id删除企业】(selectById-deleteById)-传入参数, enterpriseId:{}", enterpriseId);
 
 		if(enterpriseId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseId为空");
 		}
 
-		int i = enterpriseService.deleteEnterpriseById(enterpriseId);
-		logger.info("===step2:【根据id删除企业】(EnterpriseController-deleteEnterpriseById)-根据id查询企业, i:{}", i);
+		int i = enterpriseService.deleteById(enterpriseId);
+		logger.info("===step2:【根据id删除企业】(EnterpriseController-deleteById)-根据id查询企业, i:{}", i);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除企业】(EnterpriseController-deleteEnterpriseById)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【根据id删除企业】(EnterpriseController-deleteById)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 
@@ -177,23 +177,23 @@ public class EnterpriseController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改企业")
-	@RequestMapping(value="/modifyEnterprise",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyEnterprise(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody EnterpriseRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改企业】(EnterpriseController-modifyEnterprise)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改企业】(EnterpriseController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer enterpriseId = req.getEnterpriseId();
 		Enterprise enterprise = req.convertToEnterprise();
 		enterprise.setId(enterpriseId);
-		int i = enterpriseService.modifyEnterprise(enterprise);
-		logger.info("===step2:【修改企业】(EnterpriseController-modifyEnterprise)-修改企业, i:{}", i);
+		int i = enterpriseService.modify(enterprise);
+		logger.info("===step2:【修改企业】(EnterpriseController-modify)-修改企业, i:{}", i);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改企业】(EnterpriseController-modifyEnterprise)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		logger.info("===step3:【修改企业】(EnterpriseController-modify)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
 

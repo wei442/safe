@@ -39,8 +39,8 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 	 * @return List<EnterpriseQuality>
 	 */
 	@Override
-	public List<EnterpriseQuality> selectEnterpriseQualityListByPage(Page<?> page, EnterpriseQualityPageRequest param) {
-		logger.info("(EnterpriseQualityService-selectEnterpriseQualityListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<EnterpriseQuality> selectListByPage(Page<?> page, EnterpriseQualityPageRequest param) {
+		logger.info("(EnterpriseQualityService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		EnterpriseQualityExample example = new EnterpriseQualityExample();
 		example.setOrderByClause(" id desc ");
@@ -61,8 +61,8 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 	 * @return List<EnterpriseQuality>
 	 */
 	@Override
-	public List<EnterpriseQuality> selectEnterpriseQualityList(EnterpriseQualityPageRequest param) {
-		logger.info("(EnterpriseQualityService-selectEnterpriseQualityList)-不分页查询-传入参数, param:{}", param);
+	public List<EnterpriseQuality> selectList(EnterpriseQualityPageRequest param) {
+		logger.info("(EnterpriseQualityService-selectList)-不分页查询-传入参数, param:{}", param);
 		EnterpriseQualityExample example = new EnterpriseQualityExample();
 		example.setOrderByClause(" id desc ");
 		EnterpriseQualityExample.Criteria criteria = example.createCriteria();
@@ -82,8 +82,8 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
      * @return EnterpriseQuality
      */
 	@Override
-	public EnterpriseQuality selectEnterpriseQualityById(Integer id) {
-    	logger.info("(EnterpriseQualityService-selectEnterpriseQualityById)-根据id查询企业资质-传入参数, id:{}", id);
+	public EnterpriseQuality selectById(Integer id) {
+    	logger.info("(EnterpriseQualityService-selectById)-根据id查询企业资质-传入参数, id:{}", id);
 		EnterpriseQuality enterpriseQuality = enterpriseQualityMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(enterpriseQuality, SafeResultEnum.DATABASE_NOTEXIST);
 		return enterpriseQuality;
@@ -95,7 +95,7 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
      * @return Integer
      */
 	@Override
-	public Integer insertEnterpriseQuality(EnterpriseQuality enterpriseQuality) {
+	public Integer insert(EnterpriseQuality enterpriseQuality) {
     	logger.info("(EnterpriseQualityService-insertEnterpriseQuality)-插入企业资质-传入参数, enterpriseQuality:{}", enterpriseQuality);
     	enterpriseQuality.setCreateTime(new Date());
     	enterpriseQuality.setUpdateTime(new Date());
@@ -110,8 +110,8 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteEnterpriseQualityById(Integer id) {
-  		logger.info("(EnterpriseQualityService-deleteEnterpriseQualityById)-根据id删除企业资质-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(EnterpriseQualityService-deleteById)-根据id删除企业资质-传入参数, id:{}", id);
   		int i = enterpriseQualityMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -123,7 +123,7 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
      * @return Integer
      */
 	@Override
-	public Integer modifyEnterpriseQuality(EnterpriseQuality enterpriseQuality) {
+	public Integer modify(EnterpriseQuality enterpriseQuality) {
     	logger.info("(EnterpriseQualityService-modifyEnterpriseQuality)-修改企业资质-传入参数, enterpriseQuality:{}", enterpriseQuality);
     	enterpriseQuality.setUpdateTime(new Date());
 		int i = enterpriseQualityMapper.updateByPrimaryKeySelective(enterpriseQuality);

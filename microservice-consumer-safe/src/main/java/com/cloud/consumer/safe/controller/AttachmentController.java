@@ -52,14 +52,14 @@ public class AttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询附件列表")
-	@RequestMapping(value="/getAttachmentListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/getListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getAttachmentListByPage(
+	public BaseRestMapResponse getListByPage(
 		@RequestBody AttachmentPageRequest req) {
-		logger.info("===step1:【分页查询】(AttachmentController-getAttachmentListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询】(AttachmentController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonAttachment = attachmentService.getAttachmentListByPage(req);
-		logger.info("===step2:【分页查询】(AttachmentController-getAttachmentListByPage)-分页查询附件列表, jsonAttachment:{}", jsonAttachment);
+		JSONObject jsonAttachment = attachmentService.getListByPage(req);
+		logger.info("===step2:【分页查询】(AttachmentController-getListByPage)-分页查询附件列表, jsonAttachment:{}", jsonAttachment);
 		String dataListStr = JSONObject.toJSONString(jsonAttachment.getJSONArray(PageConstants.DATA_LIST));
 		String pageStr = JSONObject.toJSONString(jsonAttachment.getJSONObject(PageConstants.PAGE));
 		List<AttachmentVo> attachmentVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<AttachmentVo>>(){});
@@ -69,7 +69,7 @@ public class AttachmentController extends BaseController {
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
 		attachmentResponse.put(RetSafeConstants.RESULT, result);
-	    logger.info("===step3:【分页查询】(AttachmentController-getAttachmentListByPage)-返回信息, attachmentResponse:{}", attachmentResponse);
+	    logger.info("===step3:【分页查询】(AttachmentController-getListByPage)-返回信息, attachmentResponse:{}", attachmentResponse);
 	    return attachmentResponse;
 	}
 
@@ -79,21 +79,21 @@ public class AttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询附件列表")
-	@RequestMapping(value="/getAttachmentList",method={RequestMethod.POST})
+	@RequestMapping(value="/getList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getAttachmentList(
+	public BaseRestMapResponse getList(
 		@RequestBody AttachmentPageRequest req) {
-		logger.info("===step1:【不分页查询】(AttachmentController-getAttachmentList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【不分页查询】(AttachmentController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonAttachment = attachmentService.getAttachmentListByPage(req);
-		logger.info("===step2:【不分页查询】(AttachmentController-getAttachmentList)-不分页查询附件列表, jsonAttachment:{}", jsonAttachment);
+		JSONObject jsonAttachment = attachmentService.getListByPage(req);
+		logger.info("===step2:【不分页查询】(AttachmentController-getList)-不分页查询附件列表, jsonAttachment:{}", jsonAttachment);
 		String dataListStr = JSONObject.toJSONString(jsonAttachment.getJSONArray(PageConstants.DATA_LIST));
 		List<AttachmentVo> attachmentVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<AttachmentVo>>(){});
 
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
 		attachmentResponse.put(RetSafeConstants.RESULT, attachmentVoList);
-		logger.info("===step3:【不分页查询】(AttachmentController-getAttachmentList)-返回信息, attachmentResponse:{}", attachmentResponse);
+		logger.info("===step3:【不分页查询】(AttachmentController-getList)-返回信息, attachmentResponse:{}", attachmentResponse);
 		return attachmentResponse;
 	}
 
@@ -105,24 +105,24 @@ public class AttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "获取附件详情")
-	@RequestMapping(value="/getAttachment",method={RequestMethod.POST})
+	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getAttachment(
+	public BaseRestMapResponse get(
 		@Validated @RequestBody AttachmentIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取附件】(AttachmentController-getAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取附件】(AttachmentController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer attachmentId = req.getAttachmentId();
-		JSONObject jsonAttachment = attachmentService.getAttachmentById(attachmentId);
-		logger.info("===step2:【获取附件】(AttachmentController-getAttachment)-根据attachmentId获取附件, jsonAttachment:{}", jsonAttachment);
+		JSONObject jsonAttachment = attachmentService.getById(attachmentId);
+		logger.info("===step2:【获取附件】(AttachmentController-get)-根据attachmentId获取附件, jsonAttachment:{}", jsonAttachment);
 		AttachmentVo attachmentVo = JSONObject.toJavaObject(jsonAttachment, AttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
 		attachmentResponse.put(RetSafeConstants.RESULT, attachmentVo);
-	    logger.info("===step3:【获取附件】(AttachmentController-getAttachment)-返回信息, attachmentResponse:{}", attachmentResponse);
+	    logger.info("===step3:【获取附件】(AttachmentController-get)-返回信息, attachmentResponse:{}", attachmentResponse);
 	    return attachmentResponse;
 	}
 
@@ -133,23 +133,23 @@ public class AttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "新增附件")
-	@RequestMapping(value="/addAttachment",method={RequestMethod.POST})
+	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse addAttachment(
+	public BaseRestMapResponse add(
 		@Validated @RequestBody AttachmentRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【新增附件】(AttachmentController-addAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【新增附件】(AttachmentController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonAttachment = attachmentService.addAttachment(req);
-		logger.info("===step2:【新增附件】(AttachmentController-addAttachment)-分页查询附件列表, jsonAttachment:{}", jsonAttachment);
+		JSONObject jsonAttachment = attachmentService.add(req);
+		logger.info("===step2:【新增附件】(AttachmentController-add)-分页查询附件列表, jsonAttachment:{}", jsonAttachment);
 		AttachmentVo attachmentVo = JSONObject.toJavaObject(jsonAttachment, AttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
 		attachmentResponse.put(RetSafeConstants.RESULT, attachmentVo);
-	    logger.info("===step3:【新增附件】(AttachmentController-addAttachment)-返回信息, attachmentResponse:{}", attachmentResponse);
+	    logger.info("===step3:【新增附件】(AttachmentController-add)-返回信息, attachmentResponse:{}", attachmentResponse);
 	    return attachmentResponse;
 	}
 
@@ -160,24 +160,24 @@ public class AttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "删除附件")
-	@RequestMapping(value="/deleteAttachment",method={RequestMethod.POST})
+	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteAttachment(
+	public BaseRestMapResponse delete(
 		@Validated @RequestBody AttachmentIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【删除附件】(AttachmentController-deleteAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【删除附件】(AttachmentController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer attachmentId = req.getAttachmentId();
-		JSONObject jsonAttachment = attachmentService.deleteAttachmentById(attachmentId);
-		logger.info("===step2:【删除附件】(AttachmentController-deleteAttachment)-根据attachmentId删除附件, jsonAttachment:{}", jsonAttachment);
+		JSONObject jsonAttachment = attachmentService.deleteById(attachmentId);
+		logger.info("===step2:【删除附件】(AttachmentController-delete)-根据attachmentId删除附件, jsonAttachment:{}", jsonAttachment);
 		AttachmentVo attachmentVo = JSONObject.toJavaObject(jsonAttachment, AttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
 		attachmentResponse.put(RetSafeConstants.RESULT, attachmentVo);
-		logger.info("===step3:【删除附件】(AttachmentController-deleteAttachment)-返回信息, attachmentResponse:{}", attachmentResponse);
+		logger.info("===step3:【删除附件】(AttachmentController-delete)-返回信息, attachmentResponse:{}", attachmentResponse);
 		return attachmentResponse;
 	}
 
@@ -188,23 +188,23 @@ public class AttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改附件")
-	@RequestMapping(value="/updateAttachment",method={RequestMethod.POST})
+	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse updateAttachment(
+	public BaseRestMapResponse update(
 		@Validated({ UpdateGroup.class }) @RequestBody AttachmentRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改附件】(AttachmentController-updateAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改附件】(AttachmentController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonAttachment = attachmentService.addAttachment(req);
-		logger.info("===step2:【修改附件】(AttachmentController-updateAttachment)-修改附件, jsonAttachment:{}", jsonAttachment);
+		JSONObject jsonAttachment = attachmentService.update(req);
+		logger.info("===step2:【修改附件】(AttachmentController-update)-修改附件, jsonAttachment:{}", jsonAttachment);
 		AttachmentVo attachmentVo = JSONObject.toJavaObject(jsonAttachment, AttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
 		attachmentResponse.put(RetSafeConstants.RESULT, attachmentVo);
-		logger.info("===step3:【修改附件】(AttachmentController-updateAttachment)-返回信息, attachmentResponse:{}", attachmentResponse);
+		logger.info("===step3:【修改附件】(AttachmentController-update)-返回信息, attachmentResponse:{}", attachmentResponse);
 		return attachmentResponse;
 	}
 

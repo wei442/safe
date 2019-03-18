@@ -39,8 +39,8 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
 	 * @return List<QualityAttachment>
 	 */
 	@Override
-	public List<QualityAttachment> selectQualityAttachmentListByPage(Page<?> page, QualityAttachmentPageRequest param) {
-		logger.info("(QualityAttachmentService-selectQualityAttachmentListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<QualityAttachment> selectListByPage(Page<?> page, QualityAttachmentPageRequest param) {
+		logger.info("(QualityAttachmentService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		QualityAttachmentExample example = new QualityAttachmentExample();
 		example.setOrderByClause(" id desc ");
@@ -58,8 +58,8 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
 	 * @return List<QualityAttachment>
 	 */
 	@Override
-	public List<QualityAttachment> selectQualityAttachmentList(QualityAttachmentPageRequest param) {
-		logger.info("(QualityAttachmentService-selectQualityAttachmentList)-不分页查询-传入参数, param:{}", param);
+	public List<QualityAttachment> selectList(QualityAttachmentPageRequest param) {
+		logger.info("(QualityAttachmentService-selectList)-不分页查询-传入参数, param:{}", param);
 		QualityAttachmentExample example = new QualityAttachmentExample();
 		example.setOrderByClause(" id desc ");
 		QualityAttachmentExample.Criteria criteria = example.createCriteria();
@@ -76,8 +76,8 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
      * @return QualityAttachment
      */
 	@Override
-	public QualityAttachment selectQualityAttachmentById(Integer id) {
-    	logger.info("(QualityAttachmentService-selectQualityAttachmentById)-根据id查询资质附件-传入参数, id:{}", id);
+	public QualityAttachment selectById(Integer id) {
+    	logger.info("(QualityAttachmentService-selectById)-根据id查询资质附件-传入参数, id:{}", id);
 		QualityAttachment qualityAttachment = qualityAttachmentMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(qualityAttachment, SafeResultEnum.DATABASE_NOTEXIST);
 		return qualityAttachment;
@@ -89,7 +89,7 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
      * @return Integer
      */
 	@Override
-	public Integer insertQualityAttachment(QualityAttachment qualityAttachment) {
+	public Integer insert(QualityAttachment qualityAttachment) {
     	logger.info("(QualityAttachmentService-insertQualityAttachment)-插入资质附件-传入参数, qualityAttachment:{}", qualityAttachment);
     	qualityAttachment.setIsDelete(SqlSafeConstants.SQL_QUALITY_ATTACHMENT_IS_DELETE_NO);
     	qualityAttachment.setCreateTime(new Date());
@@ -105,8 +105,8 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteQualityAttachmentById(Integer id) {
-  		logger.info("(QualityAttachmentService-deleteQualityAttachmentById)-根据id删除资质附件-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(QualityAttachmentService-deleteById)-根据id删除资质附件-传入参数, id:{}", id);
   		int i = qualityAttachmentMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -118,7 +118,7 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
      * @return Integer
      */
 	@Override
-	public Integer modifyQualityAttachment(QualityAttachment qualityAttachment) {
+	public Integer modify(QualityAttachment qualityAttachment) {
     	logger.info("(QualityAttachmentService-modifyQualityAttachment)-修改资质附件-传入参数, qualityAttachment:{}", qualityAttachment);
     	qualityAttachment.setUpdateTime(new Date());
     	int i = qualityAttachmentMapper.updateByPrimaryKeySelective(qualityAttachment);

@@ -38,8 +38,8 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
 	 * @return List<UserAppLogin>
 	 */
 	@Override
-	public List<UserAppLogin> selectUserAppLoginListByPage(Page<?> page, UserAppLoginPageRequest param) {
-		logger.info("(UserAppLoginService-selectUserAppLoginListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<UserAppLogin> selectListByPage(Page<?> page, UserAppLoginPageRequest param) {
+		logger.info("(UserAppLoginService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserAppLoginExample example = new UserAppLoginExample();
 		example.setOrderByClause(" id desc ");
@@ -56,8 +56,8 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
 	 * @return List<UserAppLogin>
 	 */
 	@Override
-	public List<UserAppLogin> selectUserAppLoginList(UserAppLoginPageRequest param) {
-		logger.info("(UserAppLoginService-selectUserAppLoginList)-不分页查询-传入参数, param:{}", param);
+	public List<UserAppLogin> selectList(UserAppLoginPageRequest param) {
+		logger.info("(UserAppLoginService-selectList)-不分页查询-传入参数, param:{}", param);
 		UserAppLoginExample example = new UserAppLoginExample();
 		UserAppLoginExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
@@ -72,8 +72,8 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
      * @return UserAppLogin
      */
 	@Override
-	public UserAppLogin selectUserAppLoginById(Integer id) {
-    	logger.info("(UserAppLoginService-selectUserAppLoginById)-根据id查询用户应用登录-传入参数, id:{}", id);
+	public UserAppLogin selectById(Integer id) {
+    	logger.info("(UserAppLoginService-selectById)-根据id查询用户应用登录-传入参数, id:{}", id);
 		UserAppLogin userAppLogin = userAppLoginMapper.selectByPrimaryKey(id);
 		return userAppLogin;
     }
@@ -84,7 +84,7 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
      * @return Integer
      */
 	@Override
-	public Integer insertUserAppLogin(UserAppLogin userAppLogin) {
+	public Integer insert(UserAppLogin userAppLogin) {
     	logger.info("(UserAppLoginService-insertUserAppLogin)-插入用户应用登录-传入参数, userAppLogin:{}", userAppLogin);
     	userAppLogin.setCreateTime(new Date());
     	userAppLogin.setUpdateTime(new Date());
@@ -99,8 +99,8 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteUserAppLoginById(Integer id) {
-  		logger.info("(UserAppLoginService-deleteUserAppLoginById)-根据id删除用户应用登录-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(UserAppLoginService-deleteById)-根据id删除用户应用登录-传入参数, id:{}", id);
   		int i = userAppLoginMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -112,7 +112,7 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
      * @return Integer
      */
 	@Override
-	public Integer modifyUserAppLogin(UserAppLogin userAppLogin) {
+	public Integer modify(UserAppLogin userAppLogin) {
     	logger.info("(UserAppLoginService-modifyUserAppLogin)-修改用户应用登录-传入参数, userAppLogin:{}", userAppLogin);
     	userAppLogin.setUpdateTime(new Date());
     	int i = userAppLoginMapper.updateByPrimaryKeySelective(userAppLogin);

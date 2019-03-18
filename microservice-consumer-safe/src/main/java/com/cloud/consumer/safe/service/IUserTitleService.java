@@ -9,48 +9,48 @@ public interface IUserTitleService {
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getUserTitleListByPage(Object params);
+	public JSONObject getListByPage(Object params);
 
 	/**
 	 * 获取用户职务列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getUserTitleList(Object params);
+	public JSONObject getList(Object params);
 
 	/**
 	 * 根据id获取用户职务
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject getUserTitleById(Integer id);
+	public JSONObject getById(Integer id);
 
 	/**
 	 * 根据userId获取用户职务
 	 * @param userId
 	 * @return JSONObject
 	 */
-	public JSONObject getUserTitleByUserId(Integer userId);
+	public JSONObject getByUserId(Integer userId);
 
 	/**
 	 * 新增用户职务
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addUserTitle(Object params);
+	public JSONObject add(Object params);
 
 	/**
 	 * 根据id删除用户职务
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject deleteUserTitleById(Integer id);
+	public JSONObject deleteById(Integer id);
 
 	/**
 	 * 修改用户职务
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject updateUserTitle(Object params);
+	public JSONObject update(Object params);
 
 }

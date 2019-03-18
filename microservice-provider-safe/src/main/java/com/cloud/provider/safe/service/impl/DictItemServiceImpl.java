@@ -39,8 +39,8 @@ public class DictItemServiceImpl implements IDictItemService {
 	 * @return List<DictItem>
 	 */
 	@Override
-	public List<DictItem> selectDictItemListByPage(Page<?> page, DictItemPageRequest param) {
-		logger.info("(DictItemService-selectDictItemListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<DictItem> selectListByPage(Page<?> page, DictItemPageRequest param) {
+		logger.info("(DictItemService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		DictItemExample example = new DictItemExample();
 		example.setOrderByClause(" id desc ");
@@ -61,8 +61,8 @@ public class DictItemServiceImpl implements IDictItemService {
 	 * @return List<DictItem>
 	 */
 	@Override
-	public List<DictItem> selectDictItemList(DictItemPageRequest param) {
-		logger.info("(DictItemService-selectDictItemList)-不分页查询-传入参数, dictItem:{}", param);
+	public List<DictItem> selectList(DictItemPageRequest param) {
+		logger.info("(DictItemService-selectList)-不分页查询-传入参数, dictItem:{}", param);
 		DictItemExample example = new DictItemExample();
 		example.setOrderByClause(" id desc ");
 		DictItemExample.Criteria criteria = example.createCriteria();
@@ -82,8 +82,8 @@ public class DictItemServiceImpl implements IDictItemService {
      * @return DictItem
      */
 	@Override
-	public DictItem selectDictItemById(Integer id) {
-    	logger.info("(DictItemService-selectDictItemById)-根据id查询字典子项-传入参数, id:{}", id);
+	public DictItem selectById(Integer id) {
+    	logger.info("(DictItemService-selectById)-根据id查询字典子项-传入参数, id:{}", id);
 		DictItem dictItem = dictItemMapper.selectByPrimaryKey(id);
     	Assert.thanOrEqualZreo(dictItem, SafeResultEnum.DATABASE_NOTEXIST);
 		return dictItem;
@@ -95,7 +95,7 @@ public class DictItemServiceImpl implements IDictItemService {
      * @return Integer
      */
 	@Override
-	public Integer insertDictItem(DictItem dictItem) {
+	public Integer insert(DictItem dictItem) {
     	logger.info("(DictItemService-insertDictItem)-插入字典子项-传入参数, dictItem:{}", dictItem);
     	dictItem.setIsDelete(SqlSafeConstants.SQL_DICT_ITEM_IS_DELETE_NO);
     	dictItem.setCreateTime(new Date());
@@ -111,8 +111,8 @@ public class DictItemServiceImpl implements IDictItemService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteDictItemById(Integer id) {
-  		logger.info("(DictItemService-deleteDictItemById)-根据id删除字典子项-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(DictItemService-deleteById)-根据id删除字典子项-传入参数, id:{}", id);
   		int i = dictItemMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -124,7 +124,7 @@ public class DictItemServiceImpl implements IDictItemService {
      * @return Integer
      */
 	@Override
-	public Integer modifyDictItem(DictItem dictItem) {
+	public Integer modify(DictItem dictItem) {
     	logger.info("(DictItemService-modifyDictItem)-修改字典子项-传入参数, dictItem:{}", dictItem);
     	dictItem.setUpdateTime(new Date());
     	int i = dictItemMapper.updateByPrimaryKeySelective(dictItem);

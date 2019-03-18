@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IAttachmentService;
 
 /**
- * 附件 AttachmentService (microservice-provider-safe)
+ * 附件 Service (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -23,9 +23,9 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getAttachmentListByPage(Object params) {
-		logger.info("(AttachmentService-getAttachmentListByPage)-分页获取附件列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/selectAttachmentListByPage", params, JSONObject.class);
+	public JSONObject getListByPage(Object params) {
+		logger.info("(Service-getListByPage)-分页获取附件列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -35,9 +35,9 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getAttachmentList(Object params) {
-		logger.info("(AttachmentService-getAttachmentList)-获取附件列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/selectAttachmentList", params, JSONObject.class);
+	public JSONObject getList(Object params) {
+		logger.info("(Service-getList)-获取附件列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/selectList", params, JSONObject.class);
 		return response;
 	}
 
@@ -47,9 +47,9 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getAttachmentById(Integer id) {
-		logger.info("(AttachmentService-getAttachmentById)-根据id获取附件-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/selectAttachmentById/"+id, null, JSONObject.class);
+	public JSONObject getById(Integer id) {
+		logger.info("(Service-getById)-根据id获取附件-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -59,9 +59,9 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addAttachment(Object params) {
-		logger.info("(AttachmentService-addAttachment)-新增附件-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/insertAttachment", params, JSONObject.class);
+	public JSONObject add(Object params) {
+		logger.info("(Service-add)-新增附件-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/insert", params, JSONObject.class);
 		return response;
 	}
 
@@ -71,9 +71,9 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteAttachmentById(Integer id) {
-		logger.info("(AttachmentService-deleteAttachmentById)-根据id获取附件-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/deleteAttachmentById/"+id, null, JSONObject.class);
+	public JSONObject deleteById(Integer id) {
+		logger.info("(Service-deleteById)-根据id获取附件-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -83,9 +83,9 @@ public class AttachmentServiceImpl extends BaseService implements IAttachmentSer
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject updateAttachment(Object params) {
-		logger.info("(AttachmentService-updateAttachment)-修改附件-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/modifyAttachment", params, JSONObject.class);
+	public JSONObject update(Object params) {
+		logger.info("(Service-update)-修改附件-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.attachment+"/modify", params, JSONObject.class);
 		return response;
 	}
 

@@ -39,8 +39,8 @@ public class QualityServiceImpl implements IQualityService {
 	 * @return List<Quality>
 	 */
 	@Override
-	public List<Quality> selectQualityListByPage(Page<?> page, QualityPageRequest param) {
-		logger.info("(QualityService-selectQualityListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<Quality> selectListByPage(Page<?> page, QualityPageRequest param) {
+		logger.info("(QualityService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		QualityExample example = new QualityExample();
 		example.setOrderByClause(" id desc ");
@@ -62,8 +62,8 @@ public class QualityServiceImpl implements IQualityService {
 	 * @return List<Quality>
 	 */
 	@Override
-	public List<Quality> selectQualityList(QualityPageRequest param) {
-		logger.info("(QualityService-selectQualityList)-不分页查询-传入参数, param:{}", param);
+	public List<Quality> selectList(QualityPageRequest param) {
+		logger.info("(QualityService-selectList)-不分页查询-传入参数, param:{}", param);
 		QualityExample example = new QualityExample();
 		example.setOrderByClause(" id desc ");
 		QualityExample.Criteria criteria = example.createCriteria();
@@ -84,8 +84,8 @@ public class QualityServiceImpl implements IQualityService {
      * @return Quality
      */
 	@Override
-	public Quality selectQualityById(Integer id) {
-    	logger.info("(QualityService-selectQualityById)-根据id查询资质-传入参数, id:{}", id);
+	public Quality selectById(Integer id) {
+    	logger.info("(QualityService-selectById)-根据id查询资质-传入参数, id:{}", id);
 		Quality quality = qualityMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(quality, SafeResultEnum.DATABASE_NOTEXIST);
 		return quality;
@@ -97,7 +97,7 @@ public class QualityServiceImpl implements IQualityService {
      * @return Integer
      */
 	@Override
-	public Integer insertQuality(Quality quality) {
+	public Integer insert(Quality quality) {
     	logger.info("(QualityService-insertQuality)-插入资质-传入参数, quality:{}", quality);
     	quality.setIsDelete(SqlSafeConstants.SQL_QUALITY_IS_DELETE_NO);
     	quality.setCreateTime(new Date());
@@ -113,8 +113,8 @@ public class QualityServiceImpl implements IQualityService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteQualityById(Integer id) {
-  		logger.info("(QualityService-deleteQualityById)-根据id删除资质-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(QualityService-deleteById)-根据id删除资质-传入参数, id:{}", id);
   		int i = qualityMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -126,7 +126,7 @@ public class QualityServiceImpl implements IQualityService {
      * @return Integer
      */
 	@Override
-	public Integer modifyQuality(Quality quality) {
+	public Integer modify(Quality quality) {
     	logger.info("(QualityService-modifyQuality)-修改资质-传入参数, quality:{}", quality);
     	quality.setUpdateTime(new Date());
     	int i = qualityMapper.updateByPrimaryKeySelective(quality);

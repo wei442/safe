@@ -2,6 +2,7 @@ package com.cloud.provider.safe.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,23 +52,23 @@ public class UserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户信息列表")
-	@RequestMapping(value="/selectUserInfoListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserInfoListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody UserInfoPageRequest req) {
-		logger.info("===step1:【分页查询用户信息列表】(UserInfoController-selectUserInfoListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询用户信息列表】(UserInfoController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserInfo> list = userInfoService.selectUserInfoListByPage(page, req);
-		logger.info("===step2:【分页查询用户信息列表】(UserInfoController-selectUserInfoListByPage)-分页查询用户信息列表, list.size:{}", list == null ? null : list.size());
+		List<UserInfo> list = userInfoService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询用户信息列表】(UserInfoController-selectListByPage)-分页查询用户信息列表, list.size:{}", list == null ? null : list.size());
 		List<UserInfoVo> userInfoVoList = new UserInfoVo().convertToUserInfoVoList(list);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
 		userInfoResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userInfoVoList));
-		logger.info("===step3:【分页查询用户信息列表】(UserInfoController-selectUserInfoListByPage)-返回信息, userInfoResponse:{}", userInfoResponse);
+		logger.info("===step3:【分页查询用户信息列表】(UserInfoController-selectListByPage)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
 
@@ -77,18 +78,18 @@ public class UserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询用户信息列表")
-	@RequestMapping(value="/selectUserInfoList",method={RequestMethod.POST})
+	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserInfoList(
+	public BaseRestMapResponse selectList(
 		@RequestBody UserInfoPageRequest req) {
-		logger.info("===step1:【不分页查询用户信息列表】(UserInfoController-selectUserInfoList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserInfo> list = userInfoService.selectUserInfoList(req);
-		logger.info("===step2:【不分页查询用户信息列表】(UserInfoController-selectUserInfoList)-不分页查询用户信息列表, list.size:{}", list == null ? null : list.size());
+		logger.info("===step1:【不分页查询用户信息列表】(UserInfoController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<UserInfo> list = userInfoService.selectList(req);
+		logger.info("===step2:【不分页查询用户信息列表】(UserInfoController-selectList)-不分页查询用户信息列表, list.size:{}", list == null ? null : list.size());
 		List<UserInfoVo> userInfoVoList = new UserInfoVo().convertToUserInfoVoList(list);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
 		userInfoResponse.put(PageConstants.DATA_LIST, userInfoVoList);
-		logger.info("===step3:【不分页查询用户信息列表】(UserInfoController-selectUserInfoList)-返回信息, userInfoResponse:{}", userInfoResponse);
+		logger.info("===step3:【不分页查询用户信息列表】(UserInfoController-selectList)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
 
@@ -98,23 +99,49 @@ public class UserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询用户信息")
-	@RequestMapping(value="/selectUserInfoById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserInfoById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userInfoId) {
-		logger.info("===step1:【据id查询用户信息】(selectUserInfoById-selectUserInfoById)-传入参数, userInfoId:{}", userInfoId);
+		logger.info("===step1:【据id查询用户信息】(selectById-selectById)-传入参数, userInfoId:{}", userInfoId);
 
 		if(userInfoId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userInfoId为空");
 		}
 
-		UserInfo userInfo = userInfoService.selectUserInfoById(userInfoId);
-		logger.info("===step2:【据id查询用户信息】(UserInfoController-selectUserInfoById)-根据id查询用户信息, userInfo:{}", userInfo);
+		UserInfo userInfo = userInfoService.selectById(userInfoId);
+		logger.info("===step2:【据id查询用户信息】(UserInfoController-selectById)-根据id查询用户信息, userInfo:{}", userInfo);
 		UserInfoVo userInfoVo = new UserInfoVo().convertToUserInfoVo(userInfo);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
 		userInfoResponse.putAll((JSONObject) JSONObject.toJSON(userInfoVo));
-		logger.info("===step3:【据id查询用户信息】(UserInfoController-selectUserInfoById)-返回信息, userInfoResponse:{}", userInfoResponse);
+		logger.info("===step3:【据id查询用户信息】(UserInfoController-selectById)-返回信息, userInfoResponse:{}", userInfoResponse);
+		return userInfoResponse;
+	}
+
+	/**
+	 * 据userAccount查询用户信息
+	 * @param userInfoId
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据userAccount查询用户信息")
+	@RequestMapping(value="/selectByUserAccount/{userAccount}",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectByUserAccount(
+		@PathVariable(value="userAccount",required=false) String userAccount) {
+		logger.info("===step1:【据userAccount查询用户信息】(selectById-selectById)-传入参数, userAccount:{}", userAccount);
+
+		if(StringUtils.isBlank(userAccount)) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAccount为空");
+		}
+
+		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
+		logger.info("===step2:【据userAccount查询用户信息】(UserInfoController-selectByUserAccount)-根据id查询用户信息, userInfo:{}", userInfo);
+		UserInfoVo userInfoVo = new UserInfoVo().convertToUserInfoVo(userInfo);
+
+		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
+		userInfoResponse.putAll((JSONObject) JSONObject.toJSON(userInfoVo));
+		logger.info("===step3:【据id查询用户信息】(UserInfoController-selectByUserAccount)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
 
@@ -125,21 +152,21 @@ public class UserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加用户信息")
-	@RequestMapping(value="/insertUserInfo",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUserInfo(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody UserInfoRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户信息】(UserInfoController-insertUserInfo)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加用户信息】(UserInfoController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		UserInfo userInfo = req.convertToUserInfo();
-		int i = userInfoService.insertUserInfo(userInfo);
-		logger.info("===step2:【添加用户信息】(UserInfoController-insertUserInfo)-插入用户信息, i:{}", i);
+		int i = userInfoService.insert(userInfo);
+		logger.info("===step2:【添加用户信息】(UserInfoController-insert)-插入用户信息, i:{}", i);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户信息】(UserInfoController-insertUserInfo)-返回信息, userInfoResponse:{}", userInfoResponse);
+		logger.info("===step3:【添加用户信息】(UserInfoController-insert)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
 
@@ -149,21 +176,21 @@ public class UserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除用户信息")
-	@RequestMapping(value="/deleteUserInfoById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteUserInfoById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer userInfoId) {
-		logger.info("===step1:【根据id删除用户信息】(selectUserInfoById-deleteUserInfoById)-传入参数, userInfoId:{}", userInfoId);
+		logger.info("===step1:【根据id删除用户信息】(selectById-deleteById)-传入参数, userInfoId:{}", userInfoId);
 
 		if(userInfoId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userInfoId为空");
 		}
 
-		int i = userInfoService.deleteUserInfoById(userInfoId);
-		logger.info("===step2:【根据id删除用户信息】(UserInfoController-deleteUserInfoById)-根据id查询用户信息, i:{}", i);
+		int i = userInfoService.deleteById(userInfoId);
+		logger.info("===step2:【根据id删除用户信息】(UserInfoController-deleteById)-根据id查询用户信息, i:{}", i);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除用户信息】(UserInfoController-deleteUserInfoById)-返回信息, userInfoResponse:{}", userInfoResponse);
+		logger.info("===step3:【根据id删除用户信息】(UserInfoController-deleteById)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
 
@@ -174,23 +201,23 @@ public class UserInfoController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改用户信息")
-	@RequestMapping(value="/modifyUserInfo",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyUserInfo(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody UserInfoRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户信息】(UserInfoController-modifyUserInfo)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改用户信息】(UserInfoController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer userInfoId = req.getUserId();
 		UserInfo userInfo = req.convertToUserInfo();
 		userInfo.setId(userInfoId);
-		int i = userInfoService.modifyUserInfo(userInfo);
-		logger.info("===step2:【修改用户信息】(UserInfoController-modifyUserInfo)-修改用户信息, i:{}", i);
+		int i = userInfoService.modify(userInfo);
+		logger.info("===step2:【修改用户信息】(UserInfoController-modify)-修改用户信息, i:{}", i);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改用户信息】(UserInfoController-modifyUserInfo)-返回信息, userInfoResponse:{}", userInfoResponse);
+		logger.info("===step3:【修改用户信息】(UserInfoController-modify)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
 

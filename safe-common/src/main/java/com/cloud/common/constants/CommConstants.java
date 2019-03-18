@@ -10,8 +10,8 @@ public class CommConstants {
 
 	public static final String RET_CODE = "retCode";
 	public static final String RET_MSG = "retMsg";
-	public static final String SUB_CODE = "subCode";
-	public static final String SUB_MSG = "subMsg";
+//	public static final String SUB_CODE = "subCode";
+//	public static final String SUB_MSG = "subMsg";
 	public static final String RESULT = "result";
 
 	//操作成功-7个0-返回给app接口
@@ -49,6 +49,12 @@ public class CommConstants {
 
 	//claims
 	public static final String CLAIMS = "claims";
+	//cloud
+	public static final String CLOUD = "cloud";
+
+	public static final String USER_ID = "userId";
+	public static final String USER_ACCOUNT = "userAccount";
+	public static final String ENTERPRISE_ID = "enterpriseId";
 
   	/*----------------------------- 系统统一错误编码 -----------------------------*/
     /**

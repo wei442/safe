@@ -38,8 +38,8 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
 	 * @return List<UserAdminLogin>
 	 */
 	@Override
-	public List<UserAdminLogin> selectUserAdminLoginListByPage(Page<?> page, UserAdminLoginPageRequest param) {
-		logger.info("(UserAdminLoginService-selectUserAdminLoginListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<UserAdminLogin> selectListByPage(Page<?> page, UserAdminLoginPageRequest param) {
+		logger.info("(UserAdminLoginService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserAdminLoginExample example = new UserAdminLoginExample();
 		example.setOrderByClause(" id desc ");
@@ -56,8 +56,8 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
 	 * @return List<UserAdminLogin>
 	 */
 	@Override
-	public List<UserAdminLogin> selectUserAdminLoginList(UserAdminLoginPageRequest param) {
-		logger.info("(UserAdminLoginService-selectUserAdminLoginList)-不分页查询-传入参数, param:{}", param);
+	public List<UserAdminLogin> selectList(UserAdminLoginPageRequest param) {
+		logger.info("(UserAdminLoginService-selectList)-不分页查询-传入参数, param:{}", param);
 		UserAdminLoginExample example = new UserAdminLoginExample();
 		UserAdminLoginExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
@@ -72,8 +72,8 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
      * @return UserAdminLogin
      */
 	@Override
-	public UserAdminLogin selectUserAdminLoginById(Integer id) {
-    	logger.info("(UserAdminLoginService-selectUserAdminLoginById)-根据id查询用户管理登录-传入参数, id:{}", id);
+	public UserAdminLogin selectById(Integer id) {
+    	logger.info("(UserAdminLoginService-selectById)-根据id查询用户管理登录-传入参数, id:{}", id);
 		UserAdminLogin userAdminLogin = userAdminLoginMapper.selectByPrimaryKey(id);
 		return userAdminLogin;
     }
@@ -84,7 +84,7 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
      * @return Integer
      */
 	@Override
-	public Integer insertUserAdminLogin(UserAdminLogin userAdminLogin) {
+	public Integer insert(UserAdminLogin userAdminLogin) {
     	logger.info("(UserAdminLoginService-insertUserAdminLogin)-插入用户管理登录-传入参数, userAdminLogin:{}", userAdminLogin);
     	userAdminLogin.setCreateTime(new Date());
     	userAdminLogin.setUpdateTime(new Date());
@@ -99,8 +99,8 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteUserAdminLoginById(Integer id) {
-  		logger.info("(UserAdminLoginService-deleteUserAdminLoginById)-根据id删除用户管理登录-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(UserAdminLoginService-deleteById)-根据id删除用户管理登录-传入参数, id:{}", id);
   		int i = userAdminLoginMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -112,7 +112,7 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
      * @return Integer
      */
 	@Override
-	public Integer modifyUserAdminLogin(UserAdminLogin userAdminLogin) {
+	public Integer modify(UserAdminLogin userAdminLogin) {
     	logger.info("(UserAdminLoginService-modifyUserAdminLogin)-修改用户管理登录-传入参数, userAdminLogin:{}", userAdminLogin);
     	userAdminLogin.setUpdateTime(new Date());
     	int i = userAdminLoginMapper.updateByPrimaryKeySelective(userAdminLogin);

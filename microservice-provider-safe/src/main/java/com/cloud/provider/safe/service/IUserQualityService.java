@@ -14,48 +14,48 @@ public interface IUserQualityService {
 	 * @param param
 	 * @return List<UserQuality>
 	 */
-	public List<UserQuality> selectUserQualityListByPage(Page<?> page, UserQualityPageRequest param);
+	public List<UserQuality> selectListByPage(Page<?> page, UserQualityPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<UserQuality>
 	 */
-	public List<UserQuality> selectUserQualityList(UserQualityPageRequest param);
+	public List<UserQuality> selectList(UserQualityPageRequest param);
 
     /**
      * 根据id查询用户资质
      * @param id
      * @return UserQuality
      */
-	public UserQuality selectUserQualityById(Integer id);
+	public UserQuality selectById(Integer id);
 
 	/**
 	 * 根据userId查询用户资质
 	 * @param userId
 	 * @return UserQuality
 	 */
-	public UserQuality selectUserQualityByUserId(Integer userId);
+	public UserQuality selectByUserId(Integer userId);
 
     /**
      * 插入用户资质
      * @param userQuality
      * @return Integer
      */
-	public Integer insertUserQuality(UserQuality userQuality);
+	public Integer insert(UserQuality userQuality);
 
  	/**
   	 * 根据id删除用户资质
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserQualityById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改用户资质
      * @param userQuality
      * @return Integer
      */
-	public Integer modifyUserQuality(UserQuality userQuality);
+	public Integer modify(UserQuality userQuality);
 
 }

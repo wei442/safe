@@ -9,41 +9,41 @@ public interface ITitleService {
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getTitleListByPage(Object params);
+	public JSONObject getListByPage(Object params);
 
 	/**
 	 * 获取职务列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getTitleList(Object params);
+	public JSONObject getList(Object params);
 
 	/**
 	 * 根据id获取职务
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject getTitleById(Integer id);
+	public JSONObject getById(Integer id);
 
 	/**
 	 * 新增职务
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addTitle(Object params);
+	public JSONObject add(Object params);
 
 	/**
 	 * 根据id删除职务
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject deleteTitleById(Integer id);
+	public JSONObject deleteById(Integer id);
 
 	/**
 	 * 修改职务
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject updateTitle(Object params);
+	public JSONObject update(Object params);
 
 }

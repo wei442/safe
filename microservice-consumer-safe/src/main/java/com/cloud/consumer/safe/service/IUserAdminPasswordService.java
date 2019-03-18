@@ -9,34 +9,34 @@ public interface IUserAdminPasswordService {
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject getUserAdminPasswordById(Integer id);
+	public JSONObject getById(Integer id);
 
 	/**
 	 * 根据userId获取用户管理密码
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getUserAdminPasswordByUserId(Object params);
+	public JSONObject getByUserId(Object params);
 
 	/**
 	 * 新增用户管理密码
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addUserAdminPassword(Object params);
+	public JSONObject add(Object params);
 
 	/**
 	 * 根据id删除用户管理密码
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject deleteUserAdminPasswordById(Integer id);
+	public JSONObject deleteById(Integer id);
 
 	/**
 	 * 修改用户管理密码
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject updateUserAdminPassword(Object params);
+	public JSONObject update(Object params);
 
 }

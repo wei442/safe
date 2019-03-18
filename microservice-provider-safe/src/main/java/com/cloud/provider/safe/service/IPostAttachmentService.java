@@ -14,41 +14,41 @@ public interface IPostAttachmentService {
 	 * @param param
 	 * @return List<PostAttachment>
 	 */
-	public List<PostAttachment> selectPostAttachmentListByPage(Page<?> page, PostAttachmentPageRequest param);
+	public List<PostAttachment> selectListByPage(Page<?> page, PostAttachmentPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<PostAttachment>
 	 */
-	public List<PostAttachment> selectPostAttachmentList(PostAttachmentPageRequest param);
+	public List<PostAttachment> selectList(PostAttachmentPageRequest param);
 
     /**
      * 根据id查询用户附件
      * @param id
      * @return PostAttachment
      */
-	public PostAttachment selectPostAttachmentById(Integer id);
+	public PostAttachment selectById(Integer id);
 
     /**
      * 插入用户附件
      * @param postAttachment
      * @return Integer
      */
-	public Integer insertPostAttachment(PostAttachment postAttachment);
+	public Integer insert(PostAttachment postAttachment);
 
  	/**
   	 * 根据id删除岗位附件
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deletePostAttachmentById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改用户附件
      * @param postAttachment
      * @return Integer
      */
-	public Integer modifyPostAttachment(PostAttachment postAttachment);
+	public Integer modify(PostAttachment postAttachment);
 
 }

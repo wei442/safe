@@ -51,23 +51,23 @@ public class DictController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询字典列表")
-	@RequestMapping(value="/selectDictListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectDictListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody DictPageRequest req) {
-		logger.info("===step1:【分页查询字典列表】(DictController-selectDictListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询字典列表】(DictController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<Dict> list = dictService.selectDictListByPage(page, req);
-		logger.info("===step2:【分页查询字典列表】(DictController-selectDictListByPage)-分页查询字典列表, list.size:{}", list == null ? null : list.size());
+		List<Dict> list = dictService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询字典列表】(DictController-selectListByPage)-分页查询字典列表, list.size:{}", list == null ? null : list.size());
 		List<DictVo> dictVoList = new DictVo().convertToDictVoList(list);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
 		dictResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(dictVoList));
-		logger.info("===step3:【分页查询字典列表】(DictController-selectDictListByPage)-返回信息, dictResponse:{}", dictResponse);
+		logger.info("===step3:【分页查询字典列表】(DictController-selectListByPage)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
 
@@ -77,18 +77,18 @@ public class DictController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询字典")
-	@RequestMapping(value="/selectDictList",method={RequestMethod.POST})
+	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectDictList(
+	public BaseRestMapResponse selectList(
 		@RequestBody DictPageRequest req) {
-		logger.info("===step1:【不分页查询字典列表】(DictController-selectDictList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<Dict> list = dictService.selectDictList(req);
-		logger.info("===step2:【不分页查询字典列表】(DictController-selectDictList)-不分页查询字典列表, list.size:{}", list == null ? null : list.size());
+		logger.info("===step1:【不分页查询字典列表】(DictController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<Dict> list = dictService.selectList(req);
+		logger.info("===step2:【不分页查询字典列表】(DictController-selectList)-不分页查询字典列表, list.size:{}", list == null ? null : list.size());
 		List<DictVo> dictVoList = new DictVo().convertToDictVoList(list);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
 		dictResponse.put(PageConstants.DATA_LIST, dictVoList);
-		logger.info("===step3:【不分页查询字典列表】(DictController-selectDictList)-返回信息, dictResponse:{}", dictResponse);
+		logger.info("===step3:【不分页查询字典列表】(DictController-selectList)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
 
@@ -98,23 +98,23 @@ public class DictController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询字典")
-	@RequestMapping(value="/selectDictById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectDictById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer dictId) {
-		logger.info("===step1:【据id查询字典】(selectDictById-selectDictById)-传入参数, dictId:{}", dictId);
+		logger.info("===step1:【据id查询字典】(selectById-selectById)-传入参数, dictId:{}", dictId);
 
 		if(dictId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "dictId为空");
 		}
 
-		Dict dict = dictService.selectDictById(dictId);
-		logger.info("===step2:【据id查询字典】(DictController-selectDictById)-根据id查询字典, dict:{}", dict);
+		Dict dict = dictService.selectById(dictId);
+		logger.info("===step2:【据id查询字典】(DictController-selectById)-根据id查询字典, dict:{}", dict);
 		DictVo dictVo = new DictVo().convertToDictVo(dict);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
 		dictResponse.putAll((JSONObject) JSONObject.toJSON(dictVo));
-		logger.info("===step3:【据id查询字典】(DictController-selectDictById)-返回信息, dictResponse:{}", dictResponse);
+		logger.info("===step3:【据id查询字典】(DictController-selectById)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
 
@@ -125,21 +125,21 @@ public class DictController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加字典")
-	@RequestMapping(value="/insertDict",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertDict(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody DictRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加字典】(DictController-insertDict)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加字典】(DictController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Dict dict = req.convertToDict();
-		int i = dictService.insertDict(dict);
-		logger.info("===step2:【添加字典】(DictController-insertDict)-插入字典, i:{}", i);
+		int i = dictService.insert(dict);
+		logger.info("===step2:【添加字典】(DictController-insert)-插入字典, i:{}", i);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加字典】(DictController-insertDict)-返回信息, dictResponse:{}", dictResponse);
+		logger.info("===step3:【添加字典】(DictController-insert)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
 
@@ -149,21 +149,21 @@ public class DictController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除字典")
-	@RequestMapping(value="/deleteDictById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteDictById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer dictId) {
-		logger.info("===step1:【根据id删除字典】(selectDictById-deleteDictById)-传入参数, dictId:{}", dictId);
+		logger.info("===step1:【根据id删除字典】(selectById-deleteById)-传入参数, dictId:{}", dictId);
 
 		if(dictId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "dictId为空");
 		}
 
-		int i = dictService.deleteDictById(dictId);
-		logger.info("===step2:【根据id删除字典】(DictController-deleteDictById)-根据id查询字典, i:{}", i);
+		int i = dictService.deleteById(dictId);
+		logger.info("===step2:【根据id删除字典】(DictController-deleteById)-根据id查询字典, i:{}", i);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除字典】(DictController-deleteDictById)-返回信息, dictResponse:{}", dictResponse);
+		logger.info("===step3:【根据id删除字典】(DictController-deleteById)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
 
@@ -174,23 +174,23 @@ public class DictController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改字典")
-	@RequestMapping(value="/modifyDict",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyDict(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody DictRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改字典】(DictController-modifyDict)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改字典】(DictController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer dictId = req.getDictId();
 		Dict dict = req.convertToDict();
 		dict.setId(dictId);
-		int i = dictService.modifyDict(dict);
-		logger.info("===step2:【修改字典】(DictController-modifyDict)-修改字典, i:{}", i);
+		int i = dictService.modify(dict);
+		logger.info("===step2:【修改字典】(DictController-modify)-修改字典, i:{}", i);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改字典】(DictController-modifyDict)-返回信息, dictResponse:{}", dictResponse);
+		logger.info("===step3:【修改字典】(DictController-modify)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
 

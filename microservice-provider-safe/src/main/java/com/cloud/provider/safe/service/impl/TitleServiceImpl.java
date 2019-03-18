@@ -39,8 +39,8 @@ public class TitleServiceImpl implements ITitleService {
 	 * @return List<Title>
 	 */
 	@Override
-	public List<Title> selectTitleListByPage(Page<?> page, TitlePageRequest param) {
-		logger.info("(TitleService-selectTitleListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<Title> selectListByPage(Page<?> page, TitlePageRequest param) {
+		logger.info("(TitleService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		TitleExample example = new TitleExample();
 		example.setOrderByClause(" id desc ");
@@ -61,8 +61,8 @@ public class TitleServiceImpl implements ITitleService {
 	 * @return List<Title>
 	 */
 	@Override
-	public List<Title> selectTitleList(TitlePageRequest param) {
-		logger.info("(TitleService-selectTitleList)-不分页查询-传入参数, param:{}", param);
+	public List<Title> selectList(TitlePageRequest param) {
+		logger.info("(TitleService-selectList)-不分页查询-传入参数, param:{}", param);
 		TitleExample example = new TitleExample();
 		example.setOrderByClause(" id desc ");
 		TitleExample.Criteria criteria = example.createCriteria();
@@ -79,8 +79,8 @@ public class TitleServiceImpl implements ITitleService {
      * @return Title
      */
 	@Override
-	public Title selectTitleById(Integer id) {
-    	logger.info("(TitleService-selectTitleById)-根据id查询职务-传入参数, id:{}", id);
+	public Title selectById(Integer id) {
+    	logger.info("(TitleService-selectById)-根据id查询职务-传入参数, id:{}", id);
 		Title title = titleMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(title, SafeResultEnum.DATABASE_NOTEXIST);
 		return title;
@@ -92,7 +92,7 @@ public class TitleServiceImpl implements ITitleService {
      * @return Integer
      */
 	@Override
-	public Integer insertTitle(Title title) {
+	public Integer insert(Title title) {
     	logger.info("(TitleService-insertTitle)-插入职务-传入参数, title:{}", title);
     	title.setIsDelete(SqlSafeConstants.SQL_TITLE_IS_DELETE_NO);
     	title.setCreateTime(new Date());
@@ -108,8 +108,8 @@ public class TitleServiceImpl implements ITitleService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteTitleById(Integer id) {
-  		logger.info("(TitleService-deleteTitleById)-根据id删除职务-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(TitleService-deleteById)-根据id删除职务-传入参数, id:{}", id);
   		int i = titleMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -121,7 +121,7 @@ public class TitleServiceImpl implements ITitleService {
      * @return Integer
      */
 	@Override
-	public Integer modifyTitle(Title title) {
+	public Integer modify(Title title) {
     	logger.info("(TitleService-modifyTitle)-修改职务-传入参数, title:{}", title);
     	title.setUpdateTime(new Date());
     	int i = titleMapper.updateByPrimaryKeySelective(title);

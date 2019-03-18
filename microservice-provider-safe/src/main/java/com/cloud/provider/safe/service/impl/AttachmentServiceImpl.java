@@ -39,8 +39,8 @@ public class AttachmentServiceImpl implements IAttachmentService {
 	 * @return List<Attachment>
 	 */
 	@Override
-	public List<Attachment> selectAttachmentListByPage(Page<?> page, AttachmentPageRequest param) {
-		logger.info("(AttachmentService-selectAttachmentListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<Attachment> selectListByPage(Page<?> page, AttachmentPageRequest param) {
+		logger.info("(AttachmentService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		AttachmentExample example = new AttachmentExample();
 		example.setOrderByClause(" id desc ");
@@ -58,8 +58,8 @@ public class AttachmentServiceImpl implements IAttachmentService {
 	 * @return List<Attachment>
 	 */
 	@Override
-	public List<Attachment> selectAttachmentList(AttachmentPageRequest param) {
-		logger.info("(AttachmentService-selectAttachmentList)-不分页查询-传入参数, param:{}", param);
+	public List<Attachment> selectList(AttachmentPageRequest param) {
+		logger.info("(AttachmentService-selectList)-不分页查询-传入参数, param:{}", param);
 		AttachmentExample example = new AttachmentExample();
 		example.setOrderByClause(" id desc ");
 		AttachmentExample.Criteria criteria = example.createCriteria();
@@ -76,8 +76,8 @@ public class AttachmentServiceImpl implements IAttachmentService {
      * @return Attachment
      */
 	@Override
-	public Attachment selectAttachmentById(Integer id) {
-    	logger.info("(AttachmentService-selectAttachmentById)-根据id查询附件-传入参数, id:{}", id);
+	public Attachment selectById(Integer id) {
+    	logger.info("(AttachmentService-selectById)-根据id查询附件-传入参数, id:{}", id);
 		Attachment attachment = attachmentMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(attachment, SafeResultEnum.DATABASE_NOTEXIST);
 		return attachment;
@@ -89,7 +89,7 @@ public class AttachmentServiceImpl implements IAttachmentService {
      * @return Integer
      */
 	@Override
-	public Integer insertAttachment(Attachment attachment) {
+	public Integer insert(Attachment attachment) {
     	logger.info("(AttachmentService-insertAttachment)-插入附件-传入参数, attachment:{}", attachment);
     	attachment.setCreateTime(new Date());
     	attachment.setUpdateTime(new Date());
@@ -104,8 +104,8 @@ public class AttachmentServiceImpl implements IAttachmentService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteAttachmentById(Integer id) {
-  		logger.info("(AttachmentService-deleteAttachmentById)-根据id删除附件-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(AttachmentService-deleteById)-根据id删除附件-传入参数, id:{}", id);
   		int i = attachmentMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -117,7 +117,7 @@ public class AttachmentServiceImpl implements IAttachmentService {
      * @return Integer
      */
 	@Override
-	public Integer modifyAttachment(Attachment attachment) {
+	public Integer modify(Attachment attachment) {
     	logger.info("(AttachmentService-modifyAttachment)-修改附件-传入参数, attachment:{}", attachment);
     	attachment.setUpdateTime(new Date());
 		int i = attachmentMapper.updateByPrimaryKeySelective(attachment);

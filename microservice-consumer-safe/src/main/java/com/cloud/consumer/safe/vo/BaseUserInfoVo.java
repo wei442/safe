@@ -13,7 +13,7 @@ public class BaseUserInfoVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer baseUserId;
+	private Integer baseUserInfoId;
 
     private String userAccount;
 

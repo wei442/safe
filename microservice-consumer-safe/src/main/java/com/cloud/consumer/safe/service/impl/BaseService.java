@@ -3,7 +3,6 @@ package com.cloud.consumer.safe.service.impl;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,21 +27,16 @@ public class BaseService {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	//Basic加密中间有空格
-	private static final String BASIC = "Basic";
-
-	private static final String AUTHORIZATION = "Authorization";
-
 	//rest模板
 	@Autowired
 	protected RestTemplate restTemplate;
 
-	//方向盘提供者-访问用户名
-	@Value("${provider.wheel.spring.security.user.name}")
-	private String providerWheelUserName;
-	//方向盘提供者-访问用户密码
-	@Value("${provider.wheel.spring.security.user.password}")
-	private String providerWheelUserPassword;
+	//安全提供者-访问用户名
+	@Value("${provider.safe.spring.security.user.name}")
+	private String providerSafeUserName;
+	//安全提供者-访问用户密码
+	@Value("${provider.safe.spring.security.user.password}")
+	private String providerSafeUserPassword;
 
 	//redis-访问用户名
 	@Value("${provider.redis.spring.security.user.name}")
@@ -57,13 +51,9 @@ public class BaseService {
 	 * @return HttpHeaders
 	 */
 	protected HttpHeaders getProviderSafeHeaders() {
-		//格式: 用户名+英文冒号+密码
-    	String plainCredentials = providerWheelUserName+":"+providerWheelUserPassword;
-    	String base64Credentials = new String(Base64.encodeBase64(plainCredentials.getBytes(StandardCharsets.UTF_8)),StandardCharsets.UTF_8);
-
     	HttpHeaders headers = new HttpHeaders();
-    	//格式: Authorization, Basic+空格+base64加密
-    	headers.add(AUTHORIZATION, BASIC+" "+base64Credentials);
+    	//Basic Authentication
+    	headers.setBasicAuth(providerSafeUserName, providerSafeUserPassword, StandardCharsets.UTF_8);
 		headers.setContentType(MediaType.parseMediaType(MediaType.APPLICATION_JSON_UTF8_VALUE));
 		return headers;
     }
@@ -74,13 +64,9 @@ public class BaseService {
 	 * @return HttpHeaders
 	 */
 	protected HttpHeaders getProviderRedisHeaders() {
-		//格式: 用户名+英文冒号+密码
-		String plainCredentials = providerRedisUserName+":"+providerRedisUserPassword;
-		String base64Credentials = new String(Base64.encodeBase64(plainCredentials.getBytes(StandardCharsets.UTF_8)),StandardCharsets.UTF_8);
-
 		HttpHeaders headers = new HttpHeaders();
-		//格式: Authorization, Basic+空格+base64加密
-		headers.add(AUTHORIZATION, BASIC+" "+base64Credentials);
+		//Basic Authentication
+		headers.setBasicAuth(providerRedisUserName, providerRedisUserPassword, StandardCharsets.UTF_8);
 		headers.setContentType(MediaType.parseMediaType(MediaType.APPLICATION_JSON_UTF8_VALUE));
 		return headers;
 	}

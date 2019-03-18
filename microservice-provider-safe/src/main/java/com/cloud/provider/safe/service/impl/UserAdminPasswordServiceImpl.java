@@ -34,8 +34,8 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
      * @return UserAdminPassword
      */
 	@Override
-	public UserAdminPassword selectUserAdminPasswordById(Integer id) {
-    	logger.info("(UserAdminPasswordService-selectUserAdminPasswordById)-根据id查询用户管理密码-传入参数, id:{}", id);
+	public UserAdminPassword selectById(Integer id) {
+    	logger.info("(UserAdminPasswordService-selectById)-根据id查询用户管理密码-传入参数, id:{}", id);
 		UserAdminPassword userAdminPassword = userAdminPasswordMapper.selectByPrimaryKey(id);
 		return userAdminPassword;
     }
@@ -46,8 +46,9 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
 	 * @param password
 	 * @return UserAdminPassword
 	 */
-	public UserAdminPassword selectUserAdminPasswordByUserId(Integer userId,String password) {
-		logger.info("(UserAdminPasswordService-selectUserAdminPasswordByUserId)-根据userId和password查询用户管理密码-传入参数, userId:{}, password:{}", userId, password);
+	@Override
+	public UserAdminPassword selectByUserId(Integer userId,String password) {
+		logger.info("(UserAdminPasswordService-selectByUserId)-根据userId和password查询用户管理密码-传入参数, userId:{}, password:{}", userId, password);
 		UserAdminPasswordExample example = new UserAdminPasswordExample();
 		UserAdminPasswordExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
@@ -58,6 +59,7 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
 		if(list != null && !list.isEmpty()) {
 			userAdminPassword = list.get(0);
 		}
+		Assert.thanOrEqualZreo(userAdminPassword, SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
 		return userAdminPassword;
 	}
 
@@ -67,7 +69,7 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
      * @return Integer
      */
 	@Override
-	public Integer insertUserAdminPassword(UserAdminPassword userAdminPassword) {
+	public Integer insert(UserAdminPassword userAdminPassword) {
     	logger.info("(UserAdminPasswordService-insertUserAdminPassword)-插入用户管理密码-传入参数, userAdminPassword:{}", userAdminPassword);
     	userAdminPassword.setCreateTime(new Date());
     	userAdminPassword.setUpdateTime(new Date());
@@ -82,8 +84,8 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteUserAdminPasswordById(Integer id) {
-  		logger.info("(UserAdminPasswordService-deleteUserAdminPasswordById)-根据id删除用户管理密码-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(UserAdminPasswordService-deleteById)-根据id删除用户管理密码-传入参数, id:{}", id);
 		int i = userAdminPasswordMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -95,7 +97,7 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
      * @return Integer
      */
 	@Override
-	public Integer modifyUserAdminPassword(UserAdminPassword userAdminPassword) {
+	public Integer modify(UserAdminPassword userAdminPassword) {
     	logger.info("(UserAdminPasswordService-modifyUserAdminPassword)-修改用户管理密码-传入参数, userAdminPassword:{}", userAdminPassword);
     	userAdminPassword.setUpdateTime(new Date());
 		int i = userAdminPasswordMapper.updateByPrimaryKeySelective(userAdminPassword);

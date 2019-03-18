@@ -6,28 +6,21 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class UserTitleVo implements Serializable {
+public class BaseUserPasswordVo implements Serializable {
 
     /**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer userTitleId;
+	private Integer baseUserPasswordId;
 
-	private Integer enterpriseId;
+    private Integer baseUserId;
 
-    private Integer userId;
-
-    private Integer titleId;
-
-    private String created;
-
-    private String updated;
+    private String password;
 
     private Date createTime;
 
     private Date updateTime;
-
 
 }

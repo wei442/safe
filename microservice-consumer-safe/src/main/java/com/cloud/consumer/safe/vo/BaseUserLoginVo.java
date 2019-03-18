@@ -17,6 +17,8 @@ public class BaseUserLoginVo implements Serializable {
 
     private Integer baseUserId;
 
+    private Integer firstLogin;
+
     private Integer loginCount;
 
     private Date lastPassTime;

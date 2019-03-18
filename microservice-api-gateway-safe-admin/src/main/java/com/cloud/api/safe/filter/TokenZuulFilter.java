@@ -14,10 +14,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.ZuulConstants;
-import com.cloud.common.constants.wheel.RetWheelConstants;
+import com.cloud.common.enums.ResultEnum;
+import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
 import com.cloud.common.util.IpUtil;
 import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
 
 /**
  * tokenZuul请求过滤 TokenZuulFilter
@@ -79,10 +82,10 @@ public class TokenZuulFilter extends ZuulFilter {
 		RequestContext context = RequestContext.getCurrentContext();
 		HttpServletRequest request = context.getRequest();
 
-		String token = request.getHeader(RetWheelConstants.TOKEN);
+		String token = request.getHeader(CommConstants.TOKEN);
 //		logger.info("【tokenZuul请求过滤】(TokenZuulFilter-run)-token请求过滤-请求URI, token:{}", token);
 		if(StringUtils.isBlank(token)) {
-	    	String respStr = this.addRetMsg(RetWheelConstants.TOKEN_ERROR, RetWheelConstants.TOKEN_NULL_ERROR_MSG, RetWheelConstants.TOKEN_NULL_ERROR, RetWheelConstants.TOKEN_NULL_ERROR_MSG);
+	    	String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_NULL_ERROR);
 	    	logger.info("【tokenZuul请求过滤】(TokenZuulFilter-run)-header的token为空, respStr:{}", respStr);
 	    	context.setResponseBody(respStr);
 	    	context.setSendZuulResponse(false);
@@ -102,19 +105,15 @@ public class TokenZuulFilter extends ZuulFilter {
 	}
 
     /**
-     * 设置返回信息（主编码/主编码信息/子编码/子编码信息）
+     * 设置返回信息（编码/编码信息）
      * @param retCode
      * @param retMsg
-     * @param subCode
-     * @param subMsg
      * @return String
      */
-    public String addRetMsg(String retCode, String retMsg, String subCode, String subMsg) {
+    public String addRetMsg(ResultEnum enums) {
 		JSONObject json = new JSONObject();
-    	json.put("retCode", retCode);
-    	json.put("retMsg", retMsg);
-    	json.put("subCode", subCode);
-    	json.put("subMsg", subMsg);
+    	json.put(CommConstants.RET_CODE, enums.getCode());
+    	json.put(CommConstants.RET_MSG, enums.getMsg());
     	return json.toJSONString();
     }
 

@@ -14,41 +14,41 @@ public interface ITitleService {
 	 * @param param
 	 * @return List<Title>
 	 */
-	public List<Title> selectTitleListByPage(Page<?> page, TitlePageRequest param);
+	public List<Title> selectListByPage(Page<?> page, TitlePageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<Title>
 	 */
-	public List<Title> selectTitleList(TitlePageRequest param);
+	public List<Title> selectList(TitlePageRequest param);
 
     /**
      * 根据id查询职务
      * @param id
      * @return Title
      */
-	public Title selectTitleById(Integer id);
+	public Title selectById(Integer id);
 
     /**
      * 插入职务
      * @param title
      * @return Integer
      */
-	public Integer insertTitle(Title title);
+	public Integer insert(Title title);
 
  	/**
   	 * 根据id删除职务
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteTitleById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改职务
      * @param title
      * @return Integer
      */
-	public Integer modifyTitle(Title title);
+	public Integer modify(Title title);
 
 }

@@ -9,34 +9,34 @@ public interface IUserAppPasswordService {
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject getUserAppPasswordById(Integer id);
+	public JSONObject getById(Integer id);
 
 	/**
 	 * 根据userId获取用户应用密码
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getUserAppPasswordByUserId(Object params);
+	public JSONObject getByUserId(Object params);
 
 	/**
 	 * 新增用户应用密码
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addUserAppPassword(Object params);
+	public JSONObject add(Object params);
 
 	/**
 	 * 根据id删除用户应用密码
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject deleteUserAppPasswordById(Integer id);
+	public JSONObject deleteById(Integer id);
 
 	/**
 	 * 修改用户应用密码
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject updateUserAppPassword(Object params);
+	public JSONObject update(Object params);
 
 }

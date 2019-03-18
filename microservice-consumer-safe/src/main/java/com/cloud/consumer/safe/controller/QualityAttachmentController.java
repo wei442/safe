@@ -52,14 +52,14 @@ public class QualityAttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询资质附件列表")
-	@RequestMapping(value="/getQualityAttachmentListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/getListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getQualityAttachmentListByPage(
+	public BaseRestMapResponse getListByPage(
 		@RequestBody QualityAttachmentPageRequest req) {
-		logger.info("===step1:【分页查询】(QualityAttachmentController-getQualityAttachmentListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询】(QualityAttachmentController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonQualityAttachment = qualityAttachmentService.getQualityAttachmentListByPage(req);
-		logger.info("===step2:【分页查询】(QualityAttachmentController-getQualityAttachmentListByPage)-分页查询资质附件列表, jsonQualityAttachment:{}", jsonQualityAttachment);
+		JSONObject jsonQualityAttachment = qualityAttachmentService.getListByPage(req);
+		logger.info("===step2:【分页查询】(QualityAttachmentController-getListByPage)-分页查询资质附件列表, jsonQualityAttachment:{}", jsonQualityAttachment);
 		String dataListStr = JSONObject.toJSONString(jsonQualityAttachment.getJSONArray(PageConstants.DATA_LIST));
 		String pageStr = JSONObject.toJSONString(jsonQualityAttachment.getJSONObject(PageConstants.PAGE));
 		List<QualityAttachmentVo> qualityAttachmentVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<QualityAttachmentVo>>(){});
@@ -69,7 +69,7 @@ public class QualityAttachmentController extends BaseController {
 		//返回信息
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();
 		qualityAttachmentResponse.put(RetSafeConstants.RESULT, result);
-	    logger.info("===step3:【分页查询】(QualityAttachmentController-getQualityAttachmentListByPage)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
+	    logger.info("===step3:【分页查询】(QualityAttachmentController-getListByPage)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
 	    return qualityAttachmentResponse;
 	}
 
@@ -79,21 +79,21 @@ public class QualityAttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询资质附件列表")
-	@RequestMapping(value="/getQualityAttachmentList",method={RequestMethod.POST})
+	@RequestMapping(value="/getList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getQualityAttachmentList(
+	public BaseRestMapResponse getList(
 		@RequestBody QualityAttachmentPageRequest req) {
-		logger.info("===step1:【不分页查询】(QualityAttachmentController-getQualityAttachmentList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【不分页查询】(QualityAttachmentController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonQualityAttachment = qualityAttachmentService.getQualityAttachmentListByPage(req);
-		logger.info("===step2:【不分页查询】(QualityAttachmentController-getQualityAttachmentList)-不分页查询资质附件列表, jsonQualityAttachment:{}", jsonQualityAttachment);
+		JSONObject jsonQualityAttachment = qualityAttachmentService.getListByPage(req);
+		logger.info("===step2:【不分页查询】(QualityAttachmentController-getList)-不分页查询资质附件列表, jsonQualityAttachment:{}", jsonQualityAttachment);
 		String dataListStr = JSONObject.toJSONString(jsonQualityAttachment.getJSONArray(PageConstants.DATA_LIST));
 		List<QualityAttachmentVo> qualityAttachmentVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<QualityAttachmentVo>>(){});
 
 		//返回信息
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();
 		qualityAttachmentResponse.put(RetSafeConstants.RESULT, qualityAttachmentVoList);
-		logger.info("===step3:【不分页查询】(QualityAttachmentController-getQualityAttachmentList)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
+		logger.info("===step3:【不分页查询】(QualityAttachmentController-getList)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
 		return qualityAttachmentResponse;
 	}
 
@@ -105,24 +105,24 @@ public class QualityAttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "获取资质附件详情")
-	@RequestMapping(value="/getQualityAttachment",method={RequestMethod.POST})
+	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getQualityAttachment(
+	public BaseRestMapResponse get(
 		@Validated @RequestBody QualityAttachmentIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取资质附件】(QualityAttachmentController-getQualityAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取资质附件】(QualityAttachmentController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer qualityAttachmentId = req.getQualityAttachmentId();
-		JSONObject jsonQualityAttachment = qualityAttachmentService.getQualityAttachmentById(qualityAttachmentId);
-		logger.info("===step2:【获取资质附件】(QualityAttachmentController-getQualityAttachment)-根据qualityAttachmentId获取资质附件, jsonQualityAttachment:{}", jsonQualityAttachment);
+		JSONObject jsonQualityAttachment = qualityAttachmentService.getById(qualityAttachmentId);
+		logger.info("===step2:【获取资质附件】(QualityAttachmentController-get)-根据qualityAttachmentId获取资质附件, jsonQualityAttachment:{}", jsonQualityAttachment);
 		QualityAttachmentVo qualityAttachmentVo = JSONObject.toJavaObject(jsonQualityAttachment, QualityAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();
 		qualityAttachmentResponse.put(RetSafeConstants.RESULT, qualityAttachmentVo);
-	    logger.info("===step3:【获取资质附件】(QualityAttachmentController-getQualityAttachment)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
+	    logger.info("===step3:【获取资质附件】(QualityAttachmentController-get)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
 	    return qualityAttachmentResponse;
 	}
 
@@ -133,23 +133,23 @@ public class QualityAttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "新增资质附件")
-	@RequestMapping(value="/addQualityAttachment",method={RequestMethod.POST})
+	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse addQualityAttachment(
+	public BaseRestMapResponse add(
 		@Validated @RequestBody QualityAttachmentRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【新增资质附件】(QualityAttachmentController-addQualityAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【新增资质附件】(QualityAttachmentController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonQualityAttachment = qualityAttachmentService.addQualityAttachment(req);
-		logger.info("===step2:【新增资质附件】(QualityAttachmentController-addQualityAttachment)-分页查询资质附件列表, jsonQualityAttachment:{}", jsonQualityAttachment);
+		JSONObject jsonQualityAttachment = qualityAttachmentService.add(req);
+		logger.info("===step2:【新增资质附件】(QualityAttachmentController-add)-分页查询资质附件列表, jsonQualityAttachment:{}", jsonQualityAttachment);
 		QualityAttachmentVo qualityAttachmentVo = JSONObject.toJavaObject(jsonQualityAttachment, QualityAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();
 		qualityAttachmentResponse.put(RetSafeConstants.RESULT, qualityAttachmentVo);
-	    logger.info("===step3:【新增资质附件】(QualityAttachmentController-addQualityAttachment)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
+	    logger.info("===step3:【新增资质附件】(QualityAttachmentController-add)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
 	    return qualityAttachmentResponse;
 	}
 
@@ -160,24 +160,24 @@ public class QualityAttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "删除资质附件")
-	@RequestMapping(value="/deleteQualityAttachment",method={RequestMethod.POST})
+	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteQualityAttachment(
+	public BaseRestMapResponse delete(
 		@Validated @RequestBody QualityAttachmentIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【删除资质附件】(QualityAttachmentController-deleteQualityAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【删除资质附件】(QualityAttachmentController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer qualityAttachmentId = req.getQualityAttachmentId();
-		JSONObject jsonQualityAttachment = qualityAttachmentService.deleteQualityAttachmentById(qualityAttachmentId);
-		logger.info("===step2:【删除资质附件】(QualityAttachmentController-deleteQualityAttachment)-根据qualityAttachmentId删除资质附件, jsonQualityAttachment:{}", jsonQualityAttachment);
+		JSONObject jsonQualityAttachment = qualityAttachmentService.deleteById(qualityAttachmentId);
+		logger.info("===step2:【删除资质附件】(QualityAttachmentController-delete)-根据qualityAttachmentId删除资质附件, jsonQualityAttachment:{}", jsonQualityAttachment);
 		QualityAttachmentVo qualityAttachmentVo = JSONObject.toJavaObject(jsonQualityAttachment, QualityAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();
 		qualityAttachmentResponse.put(RetSafeConstants.RESULT, qualityAttachmentVo);
-		logger.info("===step3:【删除资质附件】(QualityAttachmentController-deleteQualityAttachment)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
+		logger.info("===step3:【删除资质附件】(QualityAttachmentController-delete)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
 		return qualityAttachmentResponse;
 	}
 
@@ -188,23 +188,23 @@ public class QualityAttachmentController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改资质附件")
-	@RequestMapping(value="/updateQualityAttachment",method={RequestMethod.POST})
+	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse updateQualityAttachment(
+	public BaseRestMapResponse update(
 		@Validated({ UpdateGroup.class }) @RequestBody QualityAttachmentRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改资质附件】(QualityAttachmentController-updateQualityAttachment)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改资质附件】(QualityAttachmentController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonQualityAttachment = qualityAttachmentService.addQualityAttachment(req);
-		logger.info("===step2:【修改资质附件】(QualityAttachmentController-updateQualityAttachment)-修改资质附件, jsonQualityAttachment:{}", jsonQualityAttachment);
+		JSONObject jsonQualityAttachment = qualityAttachmentService.update(req);
+		logger.info("===step2:【修改资质附件】(QualityAttachmentController-update)-修改资质附件, jsonQualityAttachment:{}", jsonQualityAttachment);
 		QualityAttachmentVo qualityAttachmentVo = JSONObject.toJavaObject(jsonQualityAttachment, QualityAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();
 		qualityAttachmentResponse.put(RetSafeConstants.RESULT, qualityAttachmentVo);
-		logger.info("===step3:【修改资质附件】(QualityAttachmentController-updateQualityAttachment)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
+		logger.info("===step3:【修改资质附件】(QualityAttachmentController-update)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
 		return qualityAttachmentResponse;
 	}
 

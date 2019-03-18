@@ -38,8 +38,8 @@ public class UserTitleServiceImpl implements IUserTitleService {
 	 * @return List<UserTitle>
 	 */
 	@Override
-	public List<UserTitle> selectUserTitleListByPage(Page<?> page, UserTitlePageRequest param) {
-		logger.info("(UserTitleService-selectUserTitleListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<UserTitle> selectListByPage(Page<?> page, UserTitlePageRequest param) {
+		logger.info("(UserTitleService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		UserTitleExample example = new UserTitleExample();
 		example.setOrderByClause(" id desc ");
@@ -59,8 +59,8 @@ public class UserTitleServiceImpl implements IUserTitleService {
 	 * @return List<UserTitle>
 	 */
 	@Override
-	public List<UserTitle> selectUserTitleList(UserTitlePageRequest param) {
-		logger.info("(UserTitleService-selectUserTitleList)-不分页查询-传入参数, param:{}", param);
+	public List<UserTitle> selectList(UserTitlePageRequest param) {
+		logger.info("(UserTitleService-selectList)-不分页查询-传入参数, param:{}", param);
 		UserTitleExample example = new UserTitleExample();
 		example.setOrderByClause(" id desc ");
 		UserTitleExample.Criteria criteria = example.createCriteria();
@@ -79,8 +79,8 @@ public class UserTitleServiceImpl implements IUserTitleService {
      * @return UserTitle
      */
 	@Override
-	public UserTitle selectUserTitleById(Integer id) {
-    	logger.info("(UserTitleService-selectUserTitleById)-根据id查询用户职务-传入参数, id:{}", id);
+	public UserTitle selectById(Integer id) {
+    	logger.info("(UserTitleService-selectById)-根据id查询用户职务-传入参数, id:{}", id);
 		UserTitle userTitle = userTitleMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
 		return userTitle;
@@ -92,8 +92,8 @@ public class UserTitleServiceImpl implements IUserTitleService {
 	 * @return UserTitle
 	 */
 	@Override
-	public UserTitle selectUserTitleByUserId(Integer userId) {
-		logger.info("(UserTitleService-selectUserTitleById)-根据userId查询用户职务-传入参数, userId:{}", userId);
+	public UserTitle selectByUserId(Integer userId) {
+		logger.info("(UserTitleService-selectById)-根据userId查询用户职务-传入参数, userId:{}", userId);
 		UserTitleExample example = new UserTitleExample();
 		UserTitleExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
@@ -112,7 +112,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
      * @return Integer
      */
 	@Override
-	public Integer insertUserTitle(UserTitle userTitle) {
+	public Integer insert(UserTitle userTitle) {
     	logger.info("(UserTitleService-insertUserTitle)-插入用户职务-传入参数, userTitle:{}", userTitle);
     	userTitle.setCreateTime(new Date());
     	userTitle.setUpdateTime(new Date());
@@ -127,8 +127,8 @@ public class UserTitleServiceImpl implements IUserTitleService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteUserTitleById(Integer id) {
-  		logger.info("(UserTitleService-deleteUserTitleById)-根据id删除用户职务-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(UserTitleService-deleteById)-根据id删除用户职务-传入参数, id:{}", id);
 		int i = userTitleMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -140,7 +140,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
      * @return Integer
      */
 	@Override
-	public Integer modifyUserTitle(UserTitle userTitle) {
+	public Integer modify(UserTitle userTitle) {
     	logger.info("(UserTitleService-modifyUserTitle)-修改用户职务-传入参数, userTitle:{}", userTitle);
     	userTitle.setUpdateTime(new Date());
 		int i = userTitleMapper.updateByPrimaryKeySelective(userTitle);

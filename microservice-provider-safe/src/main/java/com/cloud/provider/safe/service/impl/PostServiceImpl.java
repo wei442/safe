@@ -39,8 +39,8 @@ public class PostServiceImpl implements IPostService {
 	 * @return List<Post>
 	 */
 	@Override
-	public List<Post> selectPostListByPage(Page<?> page, PostPageRequest param) {
-		logger.info("(PostService-selectPostListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<Post> selectListByPage(Page<?> page, PostPageRequest param) {
+		logger.info("(PostService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		PostExample example = new PostExample();
 		example.setOrderByClause(" id desc ");
@@ -58,8 +58,8 @@ public class PostServiceImpl implements IPostService {
 	 * @return List<Post>
 	 */
 	@Override
-	public List<Post> selectPostList(PostPageRequest param) {
-		logger.info("(PostService-selectPostList)-不分页查询-传入参数, param:{}", param);
+	public List<Post> selectList(PostPageRequest param) {
+		logger.info("(PostService-selectList)-不分页查询-传入参数, param:{}", param);
 		PostExample example = new PostExample();
 		example.setOrderByClause(" id desc ");
 		PostExample.Criteria criteria = example.createCriteria();
@@ -79,8 +79,8 @@ public class PostServiceImpl implements IPostService {
      * @return Post
      */
 	@Override
-	public Post selectPostById(Integer id) {
-    	logger.info("(PostService-selectPostById)-根据id查询岗位-传入参数, id:{}", id);
+	public Post selectById(Integer id) {
+    	logger.info("(PostService-selectById)-根据id查询岗位-传入参数, id:{}", id);
     	Post post = postMapper.selectByPrimaryKey(id);
     	Assert.thanOrEqualZreo(post, SafeResultEnum.DATABASE_NOTEXIST);
 		return post;
@@ -92,7 +92,7 @@ public class PostServiceImpl implements IPostService {
      * @return Integer
      */
 	@Override
-	public Integer insertPost(Post post) {
+	public Integer insert(Post post) {
     	logger.info("(PostService-insertPost)-插入岗位-传入参数, post:{}", post);
     	post.setIsDelete(SqlSafeConstants.SQL_POST_IS_DELETE_NO);
     	post.setCreateTime(new Date());
@@ -108,8 +108,8 @@ public class PostServiceImpl implements IPostService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deletePostById(Integer id) {
-  		logger.info("(PostService-deletePostById)-根据id删除岗位-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(PostService-deleteById)-根据id删除岗位-传入参数, id:{}", id);
   		int i = postMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -121,7 +121,7 @@ public class PostServiceImpl implements IPostService {
      * @return Integer
      */
 	@Override
-	public Integer modifyPost(Post post) {
+	public Integer modify(Post post) {
     	logger.info("(PostService-modifyPost)-修改岗位-传入参数, post:{}", post);
     	post.setUpdateTime(new Date());
     	int i = postMapper.updateByPrimaryKeySelective(post);

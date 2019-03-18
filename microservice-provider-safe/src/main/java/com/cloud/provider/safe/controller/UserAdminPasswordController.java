@@ -45,23 +45,23 @@ public class UserAdminPasswordController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询用户管理密码")
-	@RequestMapping(value="/selectUserAdminPasswordById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAdminPasswordById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userAdminPasswordId) {
-		logger.info("===step1:【据id查询用户管理密码】(selectUserAdminPasswordById-selectUserAdminPasswordById)-传入参数, userAdminPasswordId:{}", userAdminPasswordId);
+		logger.info("===step1:【据id查询用户管理密码】(selectById-selectById)-传入参数, userAdminPasswordId:{}", userAdminPasswordId);
 
 		if(userAdminPasswordId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminPasswordId为空");
 		}
 
-		UserAdminPassword userAdminPassword = userAdminPasswordService.selectUserAdminPasswordById(userAdminPasswordId);
-		logger.info("===step2:【据id查询用户管理密码】(UserAdminPasswordController-selectUserAdminPasswordById)-根据id查询用户管理密码, userAdminPassword:{}", userAdminPassword);
+		UserAdminPassword userAdminPassword = userAdminPasswordService.selectById(userAdminPasswordId);
+		logger.info("===step2:【据id查询用户管理密码】(UserAdminPasswordController-selectById)-根据id查询用户管理密码, userAdminPassword:{}", userAdminPassword);
 		UserAdminPasswordVo userAdminPasswordVo = new UserAdminPasswordVo().convertToUserAdminPasswordVo(userAdminPassword);
 
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
 		userAdminPasswordResponse.putAll((JSONObject) JSONObject.toJSON(userAdminPasswordVo));
-		logger.info("===step3:【据id查询用户管理密码】(UserAdminPasswordController-selectUserAdminPasswordById)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
+		logger.info("===step3:【据id查询用户管理密码】(UserAdminPasswordController-selectById)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 		return userAdminPasswordResponse;
 	}
 
@@ -71,24 +71,24 @@ public class UserAdminPasswordController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据userId查询用户管理密码")
-	@RequestMapping(value="/selectUserAdminPasswordByUserId",method={RequestMethod.POST})
+	@RequestMapping(value="/selectByUserId",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAdminPasswordByUserId(
+	public BaseRestMapResponse selectByUserId(
 		@Validated @RequestBody UserAdminPasswordRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【根据userId查询用户管理密码】(UserAdminPasswordController-selectUserAdminPasswordByUserId)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【根据userId查询用户管理密码】(UserAdminPasswordController-selectByUserId)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		this.bindingResult(bindingResult);
 
 		Integer userId = req.getUserId();
 		String password = req.getPassword();
 
-		UserAdminPassword userAdminPassword = userAdminPasswordService.selectUserAdminPasswordByUserId(userId, password);
-		logger.info("===step2:【根据userId查询用户管理密码】(UserAdminPasswordController-selectUserAdminPasswordByUserId)-根据userId和password查询用户管理密码, userAdminPassword:{}", userAdminPassword);
+		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserId(userId, password);
+		logger.info("===step2:【根据userId查询用户管理密码】(UserAdminPasswordController-selectByUserId)-根据userId和password查询用户管理密码, userAdminPassword:{}", userAdminPassword);
 		UserAdminPasswordVo userAdminPasswordVo = new UserAdminPasswordVo().convertToUserAdminPasswordVo(userAdminPassword);
 
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
 		userAdminPasswordResponse.putAll((JSONObject) JSONObject.toJSON(userAdminPasswordVo));
-		logger.info("===step3:【根据userId查询用户管理密码】(UserAdminPasswordController-selectUserAdminPasswordByUserId)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
+		logger.info("===step3:【根据userId查询用户管理密码】(UserAdminPasswordController-selectByUserId)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 		return userAdminPasswordResponse;
 	}
 
@@ -99,21 +99,21 @@ public class UserAdminPasswordController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加用户管理密码")
-	@RequestMapping(value="/insertUserAdminPassword",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUserAdminPassword(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody UserAdminPasswordRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户管理密码】(UserAdminPasswordController-insertUserAdminPassword)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加用户管理密码】(UserAdminPasswordController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		UserAdminPassword userAdminPassword = req.convertToUserAdminPassword();
-		int i = userAdminPasswordService.insertUserAdminPassword(userAdminPassword);
-		logger.info("===step2:【添加用户管理密码】(UserAdminPasswordController-insertUserAdminPassword)-插入用户管理密码, i:{}", i);
+		int i = userAdminPasswordService.insert(userAdminPassword);
+		logger.info("===step2:【添加用户管理密码】(UserAdminPasswordController-insert)-插入用户管理密码, i:{}", i);
 
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户管理密码】(UserAdminPasswordController-insertUserAdminPassword)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
+		logger.info("===step3:【添加用户管理密码】(UserAdminPasswordController-insert)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 		return userAdminPasswordResponse;
 	}
 
@@ -123,21 +123,21 @@ public class UserAdminPasswordController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除用户管理密码")
-	@RequestMapping(value="/deleteUserAdminPasswordById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteUserAdminPasswordById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer userAdminPasswordId) {
-		logger.info("===step1:【根据id删除用户管理密码】(selectUserAdminPasswordById-deleteUserAdminPasswordById)-传入参数, userAdminPasswordId:{}", userAdminPasswordId);
+		logger.info("===step1:【根据id删除用户管理密码】(selectById-deleteById)-传入参数, userAdminPasswordId:{}", userAdminPasswordId);
 
 		if(userAdminPasswordId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminPasswordId为空");
 		}
 
-		int i = userAdminPasswordService.deleteUserAdminPasswordById(userAdminPasswordId);
-		logger.info("===step2:【根据id删除用户管理密码】(UserAdminPasswordController-deleteUserAdminPasswordById)-根据id查询用户管理密码, i:{}", i);
+		int i = userAdminPasswordService.deleteById(userAdminPasswordId);
+		logger.info("===step2:【根据id删除用户管理密码】(UserAdminPasswordController-deleteById)-根据id查询用户管理密码, i:{}", i);
 
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除用户管理密码】(UserAdminPasswordController-deleteUserAdminPasswordById)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
+		logger.info("===step3:【根据id删除用户管理密码】(UserAdminPasswordController-deleteById)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 		return userAdminPasswordResponse;
 	}
 
@@ -148,23 +148,23 @@ public class UserAdminPasswordController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改用户管理密码")
-	@RequestMapping(value="/modifyUserAdminPassword",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyUserAdminPassword(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody UserAdminPasswordRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户管理密码】(UserAdminPasswordController-modifyUserAdminPassword)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改用户管理密码】(UserAdminPasswordController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer userAdminPasswordId = req.getUserId();
 		UserAdminPassword userAdminPassword = req.convertToUserAdminPassword();
 		userAdminPassword.setId(userAdminPasswordId);
-		int i = userAdminPasswordService.modifyUserAdminPassword(userAdminPassword);
-		logger.info("===step2:【修改用户管理密码】(UserAdminPasswordController-modifyUserAdminPassword)-修改用户管理密码, i:{}", i);
+		int i = userAdminPasswordService.modify(userAdminPassword);
+		logger.info("===step2:【修改用户管理密码】(UserAdminPasswordController-modify)-修改用户管理密码, i:{}", i);
 
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改用户管理密码】(UserAdminPasswordController-modifyUserAdminPassword)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
+		logger.info("===step3:【修改用户管理密码】(UserAdminPasswordController-modify)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 		return userAdminPasswordResponse;
 	}
 

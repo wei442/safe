@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IPostService;
 
 /**
- * 岗位 PostService (microservice-provider-safe)
+ * 岗位 Service (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -23,9 +23,9 @@ public class PostServiceImpl extends BaseService implements IPostService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getPostListByPage(Object params) {
-		logger.info("(PostService-getPostListByPage)-分页获取岗位列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectPostListByPage", params, JSONObject.class);
+	public JSONObject getListByPage(Object params) {
+		logger.info("(Service-getListByPage)-分页获取岗位列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -35,9 +35,9 @@ public class PostServiceImpl extends BaseService implements IPostService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getPostList(Object params) {
-		logger.info("(PostService-getPostList)-获取岗位列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectPostList", params, JSONObject.class);
+	public JSONObject getList(Object params) {
+		logger.info("(Service-getList)-获取岗位列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectList", params, JSONObject.class);
 		return response;
 	}
 
@@ -47,9 +47,9 @@ public class PostServiceImpl extends BaseService implements IPostService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getPostById(Integer id) {
-		logger.info("(PostService-getPostById)-根据id获取岗位-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectPostById/"+id, null, JSONObject.class);
+	public JSONObject getById(Integer id) {
+		logger.info("(Service-getById)-根据id获取岗位-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -59,12 +59,9 @@ public class PostServiceImpl extends BaseService implements IPostService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addPost(Object params) {
-		logger.info("(PostService-addPost)-新增岗位-传入参数, params:{}", params);
-
-
-		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/insertPost", params, JSONObject.class);
-
+	public JSONObject add(Object params) {
+		logger.info("(Service-add)-新增岗位-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/insert", params, JSONObject.class);
 		return response;
 	}
 
@@ -74,9 +71,9 @@ public class PostServiceImpl extends BaseService implements IPostService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deletePostById(Integer id) {
-		logger.info("(PostService-deletePostById)-根据id获取岗位-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/deletePostById/"+id, null, JSONObject.class);
+	public JSONObject deleteById(Integer id) {
+		logger.info("(Service-deleteById)-根据id获取岗位-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -86,9 +83,9 @@ public class PostServiceImpl extends BaseService implements IPostService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject updatePost(Object params) {
-		logger.info("(PostService-updatePost)-修改岗位-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/modifyPost", params, JSONObject.class);
+	public JSONObject update(Object params) {
+		logger.info("(Service-update)-修改岗位-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.post+"/modify", params, JSONObject.class);
 		return response;
 	}
 

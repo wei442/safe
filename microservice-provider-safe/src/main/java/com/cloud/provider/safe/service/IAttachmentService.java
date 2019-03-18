@@ -14,41 +14,41 @@ public interface IAttachmentService {
 	 * @param param
 	 * @return List<Attachment>
 	 */
-	public List<Attachment> selectAttachmentListByPage(Page<?> page, AttachmentPageRequest param);
+	public List<Attachment> selectListByPage(Page<?> page, AttachmentPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<Attachment>
 	 */
-	public List<Attachment> selectAttachmentList(AttachmentPageRequest param);
+	public List<Attachment> selectList(AttachmentPageRequest param);
 
     /**
      * 根据id查询附件
      * @param id
      * @return Attachment
      */
-	public Attachment selectAttachmentById(Integer id);
+	public Attachment selectById(Integer id);
 
     /**
      * 插入附件
      * @param attachment
      * @return Integer
      */
-	public Integer insertAttachment(Attachment attachment);
+	public Integer insert(Attachment attachment);
 
  	/**
   	 * 根据id删除附件
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteAttachmentById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改附件
      * @param attachment
      * @return Integer
      */
-	public Integer modifyAttachment(Attachment attachment);
+	public Integer modify(Attachment attachment);
 
 }

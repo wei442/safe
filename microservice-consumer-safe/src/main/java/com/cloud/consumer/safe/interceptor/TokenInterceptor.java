@@ -18,17 +18,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.ZuulConstants;
-import com.cloud.common.constants.gofun.GoFunConstants;
-import com.cloud.common.constants.wheel.RetWheelConstants;
+import com.cloud.common.enums.ResultEnum;
+import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
 import com.cloud.common.jjwt.JJWTUtil;
 import com.cloud.common.redis.keys.RedisKeysUtil;
 import com.cloud.common.security.KeyFactoryUtil;
-import com.cloud.common.sign.security.AESUtils;
 import com.cloud.common.util.AjaxUtil;
 import com.cloud.common.util.IpUtil;
 import com.cloud.consumer.safe.service.IRedisService;
-import com.cloud.consumer.safe.service.third.IGoFunService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.MalformedJwtException;
@@ -47,23 +46,11 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private IRedisService redisService;
 
-	//goFun Service
-	@Autowired
-	private IGoFunService goFunService;
-
 	private PublicKey publicKey = null;
 
 	//token的rsa的公钥
 	@Value("${token.rsa.publicKey}")
 	private String rsaPublicKeyStr;
-
-	//token的aes的密钥
-	@Value("${token.claims.aes.secretKey}")
-	private String aesSecretKeyStr;
-
-	//gofun的portal
-	@Value("${gofun.portal}")
-	private String gofunPortal;
 
 	 /**
      * preHandle方法是进行处理器拦截用的，顾名思义，该方法将在Controller处理之前进行调用，SpringMVC中的Interceptor拦截器是链式的，可以同时存在
@@ -81,16 +68,16 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		String apiGatewayWheel = request.getHeader(ZuulConstants.API_GATEWAY);
 		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-请求网关, 请求网关:{}", apiGatewayWheel);
 		if(!StringUtils.equals(apiGatewayWheel, ZuulConstants.API_GATEWAY_WHEEL)) {
-			String respStr = this.addRetMsg(RetWheelConstants.NETWORK_ERROR, RetWheelConstants.NETWORK_ERROR_MSG, RetWheelConstants.NETWORK_FAIL, RetWheelConstants.NETWORK_ERROR_MSG);
+			String respStr = this.addRetMsg(RetSafeAdminResultEnum.NETWORK_ERROR);
 			logger.info("【Token拦截器】(TokenInterceptor-preHandle)-非法请求, respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);
 			return false;
 		}
 
-		String token = request.getHeader(RetWheelConstants.TOKEN);
+		String token = request.getHeader(CommConstants.TOKEN);
 		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-获取header(token)数据, token:{}", token);
 		if(StringUtils.isBlank(token)) {
-			String respStr = this.addRetMsg(RetWheelConstants.TOKEN_ERROR, RetWheelConstants.TOKEN_NULL_ERROR_MSG, RetWheelConstants.TOKEN_NULL_ERROR, RetWheelConstants.TOKEN_NULL_ERROR_MSG);
+			String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_NULL_ERROR);
 			logger.info("【Token拦截器】(TokenInterceptor-preHandle)-token为空, respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);
 			return false;
@@ -102,68 +89,42 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		} catch (MalformedJwtException e) {
 			//not a valid JWS
 			logger.error("【Token拦截器】(TokenInterceptor-preHandle)-token格式错误, Exception = {}, message = {}", e, e.getMessage());
-        	String respStr = this.addRetMsg(RetWheelConstants.TOKEN_ERROR, RetWheelConstants.TOKEN_ERROR_MSG, RetWheelConstants.TOKEN_JWT_ERROR, RetWheelConstants.TOKEN_JWT_ERROR_MSG);
+        	String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_JWT_ERROR);
 	    	logger.info("【Token拦截器】(TokenInterceptor-preHandle)-token格式错误, respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);
 			return false;
         } catch (SignatureException e) {
         	//JWT signature validation fails
         	logger.error("【Token拦截器】(TokenInterceptor-preHandle)-token签名错误, Exception = {}, message = {}", e, e.getMessage());
-        	String respStr = this.addRetMsg(RetWheelConstants.TOKEN_ERROR, RetWheelConstants.TOKEN_ERROR_MSG, RetWheelConstants.TOKEN_VERIFY_FAIL, RetWheelConstants.TOKEN_ERROR_MSG);
+        	String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_VERIFY_FAIL_ERROR);
 	    	logger.info("【Token拦截器】(TokenInterceptor-preHandle)-token签名错误, respStr:{}", respStr);
 	    	AjaxUtil.printByWriter(response, respStr);
 			return false;
         }
 		String issuer = claims.getIssuer();
 		String audience = claims.getAudience();
-		String claimsStr = Objects.toString(claims.get(RetWheelConstants.CLAIMS), "");
-		String claimsDecryptStr = null;
-		try {
-			claimsDecryptStr = AESUtils.decrypt(claimsStr, aesSecretKeyStr, aesSecretKeyStr);
-		} catch (Exception e) {
-			logger.error("【Token拦截器】(TokenInterceptor-preHandle)-声明(claims)解密-异常, Exception = {}, message = {}",e,e.getMessage());
-		}
-		JSONObject claimsJSON = JSONObject.parseObject(claimsDecryptStr);
-		String userId = Objects.toString(claimsJSON.get(RetWheelConstants.USER_ID), "");
-		String gToken = Objects.toString(claimsJSON.get(RetWheelConstants.GTOKEN), "");
+		String claimsStr = Objects.toString(claims.get(CommConstants.CLAIMS), "");
+		JSONObject claimsJSON = JSONObject.parseObject(claimsStr);
+		String userId = Objects.toString(claimsJSON.get(CommConstants.USER_ID), "");
 
 		//校验失败
-		if(!StringUtils.equals(issuer, RetWheelConstants.OCHAIN)) {
-			String respStr = this.addRetMsg(RetWheelConstants.TOKEN_ERROR, RetWheelConstants.TOKEN_ERROR_MSG, RetWheelConstants.TOKEN_ERROR, RetWheelConstants.TOKEN_ERROR_MSG);
+		if(!StringUtils.equals(issuer, CommConstants.CLOUD)) {
+			String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_ERROR);
 	    	logger.info("【Token拦截器】(TokenInterceptor-preHandle)-发行者(issuer)错误, respStr:{}", respStr);
 	    	AjaxUtil.printByWriter(response, respStr);
 			return false;
-		} else if(!StringUtils.equals(audience, RetWheelConstants.GOFUN)) {
-			String respStr = this.addRetMsg(RetWheelConstants.TOKEN_ERROR, RetWheelConstants.TOKEN_ERROR_MSG, RetWheelConstants.TOKEN_ERROR, RetWheelConstants.TOKEN_ERROR_MSG);
-			logger.info("【Token拦截器】(TokenInterceptor-preHandle)-观众(audience)错误, respStr:{}", respStr);
-			AjaxUtil.printByWriter(response, respStr);
-			return false;
 		}
 
-		//验证gToken
-		JSONObject jsonValidateUser = goFunService.validateUser(gToken, this.gofunPortal);
-		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-验证App用户登陆状态, jsonValidateUser:{}", jsonValidateUser);
-		String goFunCode = Objects.toString(jsonValidateUser.get(GoFunConstants.CODE), "");
-		if (!StringUtils.equals(goFunCode, GoFunConstants.OK)) {
-			if (StringUtils.equals(goFunCode, GoFunConstants.ERROR_1005)) {
-				//gtoken已失效
-				String respStr = this.addRetMsg(RetWheelConstants.GTOKEN_ERROR, RetWheelConstants.GTOKEN_EXPIRE_MSG, RetWheelConstants.GTOKEN_EXPIRE, RetWheelConstants.GTOKEN_EXPIRE_MSG);
-				logger.info("【Token拦截器】(TokenInterceptor-preHandle)-无GoFun用户信息, respStr:{}", respStr);
-				AjaxUtil.printByWriter(response, respStr);
-				return false;
-			}
-		}
-
-		String tokenkey = RedisKeysUtil.CN_OCHAIN_WHEEL_APP_H5_LOGIN_TOKEN + userId;
+		String tokenkey = RedisKeysUtil.CN_CLOUD_SAFE_ADMIN_LOGIN_TOKEN + userId;
 		String redisToken = redisService.get(tokenkey);
 		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-获取redis里token, tokenkey:{}, redisToken:{}", tokenkey, redisToken);
 		if(StringUtils.isBlank(redisToken)) {
-			String respStr = this.addRetMsg(RetWheelConstants.TOKEN_ERROR, RetWheelConstants.TOKEN_EXPIRE_MSG, RetWheelConstants.TOKEN_EXPIRE, RetWheelConstants.TOKEN_EXPIRE_MSG);
+			String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_EXPIRE);
 			logger.info("【Token拦截器】(TokenInterceptor-preHandle)-token已过期 , respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);
 			return false;
 		} else if(!StringUtils.equals(token, redisToken)) {
-			String respStr = this.addRetMsg(RetWheelConstants.TOKEN_ERROR, RetWheelConstants.TOKEN_ERROR_MSG, RetWheelConstants.TOKEN_FAIL, RetWheelConstants.TOKEN_ERROR_MSG);
+			String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_ERROR);
 			logger.info("【Token拦截器】(TokenInterceptor-preHandle)-token错误, respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);
 			return false;
@@ -191,11 +152,11 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
     	Integer userId = this.getTokenUserId(request);
-    	String tokenkey = RedisKeysUtil.CN_OCHAIN_WHEEL_APP_H5_LOGIN_TOKEN + userId;
+    	String tokenkey = RedisKeysUtil.CN_CLOUD_SAFE_ADMIN_LOGIN_TOKEN + userId;
 		long l = 0;
 		if(redisService.exists(tokenkey)) {
 			//redis延续token过期时间
-			l = redisService.expire(tokenkey, RetWheelConstants.TOKEN_TIME);
+			l = redisService.expire(tokenkey, CommConstants.TWENTY_FOUR_HOUR_SECONDS_TIME);
 		}
 		logger.info("【Token拦截器】(TokenInterceptor-afterCompletion)-延续token过期时间-返回信息, tokenkey:{}, l:{}", tokenkey, l);
 		super.afterCompletion(request, response, handler, ex);
@@ -210,33 +171,16 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		}
 	}
 
-//    /**
-//     * 设置返回信息（主编码/主编码信息）
-//     * @param retCode
-//     * @param retMsg
-//     * @return String
-//     */
-//    public String addRetMsg(String retCode, String retMsg) {
-//        JSONObject json = new JSONObject();
-//    	json.put("retCode", retCode);
-//    	json.put("retMsg", retMsg);
-//        return json.toJSONString();
-//    }
-
     /**
-     * 设置返回信息（主编码/主编码信息/子编码/子编码信息）
+     * 设置返回信息（编码/编码信息）
      * @param retCode
      * @param retMsg
-     * @param subCode
-     * @param subMsg
      * @return String
      */
-    public String addRetMsg(String retCode, String retMsg, String subCode, String subMsg) {
+    public String addRetMsg(ResultEnum enums) {
 		JSONObject json = new JSONObject();
-    	json.put("retCode", retCode);
-    	json.put("retMsg", retMsg);
-    	json.put("subCode", subCode);
-    	json.put("subMsg", subMsg);
+    	json.put(CommConstants.RET_CODE, enums.getCode());
+    	json.put(CommConstants.RET_MSG, enums.getMsg());
     	return json.toJSONString();
     }
 
@@ -245,7 +189,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 	 * @return Integer
 	 */
 	protected Integer getTokenUserId(HttpServletRequest request) {
-		String token = request.getHeader(RetWheelConstants.TOKEN);
+		String token = request.getHeader(CommConstants.TOKEN);
 		if(StringUtils.isBlank(token)) {
 			return null;
 		}
@@ -259,16 +203,10 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		}
 		String payloadStr = new String(Base64.decodeBase64(payload), StandardCharsets.UTF_8);
 		JSONObject payloadJSON = JSONObject.parseObject(payloadStr);
-		String claimsStr = Objects.toString(payloadJSON.get(RetWheelConstants.CLAIMS));
+		String claimsStr = Objects.toString(payloadJSON.get(CommConstants.CLAIMS));
 
-		String claimsDecryptStr = null;
-		try {
-			claimsDecryptStr = AESUtils.decrypt(claimsStr, aesSecretKeyStr, aesSecretKeyStr);
-		} catch (Exception e) {
-			logger.error("【Token拦截器】(TokenInterceptor-getTokenUserId)-声明(claims)解密-异常, Exception = {}, message = {}",e,e.getMessage());
-		}
-		JSONObject claimsJSON = JSONObject.parseObject(claimsDecryptStr);
-		Integer userId = new Integer(Objects.toString(claimsJSON.get(RetWheelConstants.USER_ID)));
+		JSONObject claimsJSON = JSONObject.parseObject(claimsStr);
+		Integer userId = new Integer(Objects.toString(claimsJSON.get(CommConstants.USER_ID)));
 		logger.info("【Token拦截器】(TokenInterceptor-getTokenUserId)-返回信息, userId:{}", userId);
 		return userId;
 	}
@@ -285,7 +223,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
           return flag;
 		}
 
-		String tokenkey = RedisKeysUtil.CN_OCHAIN_WHEEL_APP_H5_LOGIN_TOKEN + userId;
+		String tokenkey = RedisKeysUtil.CN_CLOUD_SAFE_ADMIN_LOGIN_TOKEN + userId;
 		long l = redisService.del(tokenkey);
 		logger.info("【Token拦截器】(TokenInterceptor-clearToken)-清除token-返回信息, tokenkey:{}, l:{}", tokenkey, l);
 		if(l >0) {

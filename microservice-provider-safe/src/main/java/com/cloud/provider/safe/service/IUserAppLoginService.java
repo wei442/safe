@@ -14,41 +14,41 @@ public interface IUserAppLoginService {
 	 * @param param
 	 * @return List<UserAppLogin>
 	 */
-	public List<UserAppLogin> selectUserAppLoginListByPage(Page<?> page, UserAppLoginPageRequest param);
+	public List<UserAppLogin> selectListByPage(Page<?> page, UserAppLoginPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<UserAppLogin>
 	 */
-	public List<UserAppLogin> selectUserAppLoginList(UserAppLoginPageRequest param);
+	public List<UserAppLogin> selectList(UserAppLoginPageRequest param);
 
     /**
      * 根据id查询用户应用登录
      * @param id
      * @return UserAppLogin
      */
-	public UserAppLogin selectUserAppLoginById(Integer id);
+	public UserAppLogin selectById(Integer id);
 
     /**
      * 插入用户应用登录
      * @param userAppLogin
      * @return Integer
      */
-	public Integer insertUserAppLogin(UserAppLogin userAppLogin);
+	public Integer insert(UserAppLogin userAppLogin);
 
 	/**
   	 * 根据id删除用户应用登录
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserAppLoginById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改用户应用登录
      * @param userAppLogin
      * @return Integer
      */
-	public Integer modifyUserAppLogin(UserAppLogin userAppLogin);
+	public Integer modify(UserAppLogin userAppLogin);
 
 }

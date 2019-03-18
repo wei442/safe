@@ -51,23 +51,23 @@ public class UserAdminController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户管理列表")
-	@RequestMapping(value="/selectUserAdminListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAdminListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody UserAdminPageRequest req) {
-		logger.info("===step1:【分页查询用户管理列表】(UserAdminController-selectUserAdminListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询用户管理列表】(UserAdminController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserAdmin> list = userAdminService.selectUserAdminListByPage(page, req);
-		logger.info("===step2:【分页查询用户管理列表】(UserAdminController-selectUserAdminListByPage)-分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
+		List<UserAdmin> list = userAdminService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询用户管理列表】(UserAdminController-selectListByPage)-分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
 		List<UserAdminVo> userAdminVoList = new UserAdminVo().convertToUserAdminVoList(list);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
 		userAdminResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userAdminVoList));
-		logger.info("===step3:【分页查询用户管理列表】(UserAdminController-selectUserAdminListByPage)-返回信息, userAdminResponse:{}", userAdminResponse);
+		logger.info("===step3:【分页查询用户管理列表】(UserAdminController-selectListByPage)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 
@@ -77,18 +77,18 @@ public class UserAdminController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询用户管理列表")
-	@RequestMapping(value="/selectUserAdminList",method={RequestMethod.POST})
+	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAdminList(
+	public BaseRestMapResponse selectList(
 		@RequestBody UserAdminPageRequest req) {
-		logger.info("===step1:【不分页查询用户管理列表】(UserAdminController-selectUserAdminList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserAdmin> list = userAdminService.selectUserAdminList(req);
-		logger.info("===step2:【不分页查询用户管理列表】(UserAdminController-selectUserAdminList)-不分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
+		logger.info("===step1:【不分页查询用户管理列表】(UserAdminController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<UserAdmin> list = userAdminService.selectList(req);
+		logger.info("===step2:【不分页查询用户管理列表】(UserAdminController-selectList)-不分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
 		List<UserAdminVo> userAdminVoList = new UserAdminVo().convertToUserAdminVoList(list);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
 		userAdminResponse.put(PageConstants.DATA_LIST, userAdminVoList);
-		logger.info("===step3:【不分页查询用户管理列表】(UserAdminController-selectUserAdminList)-返回信息, userAdminResponse:{}", userAdminResponse);
+		logger.info("===step3:【不分页查询用户管理列表】(UserAdminController-selectList)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 
@@ -98,23 +98,23 @@ public class UserAdminController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询用户管理")
-	@RequestMapping(value="/selectUserAdminById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAdminById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userAdminId) {
-		logger.info("===step1:【据id查询用户管理】(selectUserAdminById-selectUserAdminById)-传入参数, userAdminId:{}", userAdminId);
+		logger.info("===step1:【据id查询用户管理】(selectById-selectById)-传入参数, userAdminId:{}", userAdminId);
 
 		if(userAdminId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminId为空");
 		}
 
-		UserAdmin userAdmin = userAdminService.selectUserAdminById(userAdminId);
-		logger.info("===step2:【据id查询用户管理】(UserAdminController-selectUserAdminById)-根据id查询用户管理, userAdmin:{}", userAdmin);
+		UserAdmin userAdmin = userAdminService.selectById(userAdminId);
+		logger.info("===step2:【据id查询用户管理】(UserAdminController-selectById)-根据id查询用户管理, userAdmin:{}", userAdmin);
 		UserAdminVo userAdminVo = new UserAdminVo().convertToUserAdminVo(userAdmin);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
 		userAdminResponse.putAll((JSONObject) JSONObject.toJSON(userAdminVo));
-		logger.info("===step3:【据id查询用户管理】(UserAdminController-selectUserAdminById)-返回信息, userAdminResponse:{}", userAdminResponse);
+		logger.info("===step3:【据id查询用户管理】(UserAdminController-selectById)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 
@@ -124,23 +124,23 @@ public class UserAdminController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据userId查询用户管理")
-	@RequestMapping(value="/selectUserAdminByUserId/{userId}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectByUserId/{userId}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAdminByUserId(
+	public BaseRestMapResponse selectByUserId(
 		@PathVariable(value="userId",required=false) Integer userId) {
-		logger.info("===step1:【据userId查询用户管理】(selectUserAdminById-selectUserAdminByUserId)-传入参数, userId:{}", userId);
+		logger.info("===step1:【据userId查询用户管理】(selectById-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
 		}
 
-		UserAdmin userAdmin = userAdminService.selectUserAdminByUserId(userId);
-		logger.info("===step2:【据userId查询用户管理】(UserAdminController-selectUserAdminByUserId)-根据userId查询用户管理, userAdmin:{}", userAdmin);
+		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
+		logger.info("===step2:【据userId查询用户管理】(UserAdminController-selectByUserId)-根据userId查询用户管理, userAdmin:{}", userAdmin);
 		UserAdminVo userAdminVo = new UserAdminVo().convertToUserAdminVo(userAdmin);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
 		userAdminResponse.putAll((JSONObject) JSONObject.toJSON(userAdminVo));
-		logger.info("===step3:【据userId查询用户管理】(UserAdminController-selectUserAdminByUserId)-返回信息, userAdminResponse:{}", userAdminResponse);
+		logger.info("===step3:【据userId查询用户管理】(UserAdminController-selectByUserId)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 
@@ -151,21 +151,21 @@ public class UserAdminController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加用户管理")
-	@RequestMapping(value="/insertUserAdmin",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUserAdmin(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody UserAdminRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户管理】(UserAdminController-insertUserAdmin)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加用户管理】(UserAdminController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		UserAdmin userAdmin = req.convertToUserAdmin();
-		int i = userAdminService.insertUserAdmin(userAdmin);
-		logger.info("===step2:【添加用户管理】(UserAdminController-insertUserAdmin)-插入用户管理, i:{}", i);
+		int i = userAdminService.insert(userAdmin);
+		logger.info("===step2:【添加用户管理】(UserAdminController-insert)-插入用户管理, i:{}", i);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户管理】(UserAdminController-insertUserAdmin)-返回信息, userAdminResponse:{}", userAdminResponse);
+		logger.info("===step3:【添加用户管理】(UserAdminController-insert)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 
@@ -175,21 +175,21 @@ public class UserAdminController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除用户管理")
-	@RequestMapping(value="/deleteUserAdminById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteUserAdminById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer userAdminId) {
-		logger.info("===step1:【根据id删除用户管理】(selectUserAdminById-deleteUserAdminById)-传入参数, userAdminId:{}", userAdminId);
+		logger.info("===step1:【根据id删除用户管理】(selectById-deleteById)-传入参数, userAdminId:{}", userAdminId);
 
 		if(userAdminId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminId为空");
 		}
 
-		int i = userAdminService.deleteUserAdminById(userAdminId);
-		logger.info("===step2:【根据id删除用户管理】(UserAdminController-deleteUserAdminById)-根据id查询用户管理, i:{}", i);
+		int i = userAdminService.deleteById(userAdminId);
+		logger.info("===step2:【根据id删除用户管理】(UserAdminController-deleteById)-根据id查询用户管理, i:{}", i);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除用户管理】(UserAdminController-deleteUserAdminById)-返回信息, userAdminResponse:{}", userAdminResponse);
+		logger.info("===step3:【根据id删除用户管理】(UserAdminController-deleteById)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 
@@ -200,23 +200,23 @@ public class UserAdminController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改用户管理")
-	@RequestMapping(value="/modifyUserAdmin",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyUserAdmin(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody UserAdminRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户管理】(UserAdminController-modifyUserAdmin)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改用户管理】(UserAdminController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer userAdminId = req.getUserAdminId();
 		UserAdmin userAdmin = req.convertToUserAdmin();
 		userAdmin.setId(userAdminId);
-		int i = userAdminService.modifyUserAdmin(userAdmin);
-		logger.info("===step2:【修改用户管理】(UserAdminController-modifyUserAdmin)-修改用户管理, i:{}", i);
+		int i = userAdminService.modify(userAdmin);
+		logger.info("===step2:【修改用户管理】(UserAdminController-modify)-修改用户管理, i:{}", i);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改用户管理】(UserAdminController-modifyUserAdmin)-返回信息, userAdminResponse:{}", userAdminResponse);
+		logger.info("===step3:【修改用户管理】(UserAdminController-modify)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 

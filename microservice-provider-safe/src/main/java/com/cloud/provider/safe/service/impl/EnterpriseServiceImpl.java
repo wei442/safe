@@ -39,8 +39,8 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 	 * @return List<Enterprise>
 	 */
 	@Override
-	public List<Enterprise> selectEnterpriseListByPage(Page<?> page, EnterprisePageRequest param) {
-		logger.info("(EnterpriseService-selectEnterpriseListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<Enterprise> selectListByPage(Page<?> page, EnterprisePageRequest param) {
+		logger.info("(EnterpriseService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page);
 		EnterpriseExample example = new EnterpriseExample();
 		example.setOrderByClause(" id desc ");
@@ -58,8 +58,8 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 	 * @return List<Enterprise>
 	 */
 	@Override
-	public List<Enterprise> selectEnterpriseList(EnterprisePageRequest param) {
-		logger.info("(EnterpriseService-selectEnterpriseList)-不分页查询-传入参数, param:{}", param);
+	public List<Enterprise> selectList(EnterprisePageRequest param) {
+		logger.info("(EnterpriseService-selectList)-不分页查询-传入参数, param:{}", param);
 		EnterpriseExample example = new EnterpriseExample();
 		example.setOrderByClause(" id desc ");
 		EnterpriseExample.Criteria criteria = example.createCriteria();
@@ -76,8 +76,8 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
      * @return Enterprise
      */
 	@Override
-	public Enterprise selectEnterpriseById(Integer id) {
-    	logger.info("(EnterpriseService-selectEnterpriseById)-根据id查询企业-传入参数, id:{}", id);
+	public Enterprise selectById(Integer id) {
+    	logger.info("(EnterpriseService-selectById)-根据id查询企业-传入参数, id:{}", id);
 		Enterprise enterprise = enterpriseMapper.selectByPrimaryKey(id);
 		Assert.thanOrEqualZreo(enterprise, SafeResultEnum.DATABASE_NOTEXIST);
 		return enterprise;
@@ -89,7 +89,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
      * @return Integer
      */
 	@Override
-	public Integer insertEnterprise(Enterprise enterprise) {
+	public Integer insert(Enterprise enterprise) {
     	logger.info("(EnterpriseService-insertEnterprise)-插入企业-传入参数, enterprise:{}", enterprise);
     	enterprise.setEnterpriseStatus(SqlSafeConstants.SQL_ENTERPRISE_STATUS_NORMAL);
     	enterprise.setCreateTime(new Date());
@@ -105,8 +105,8 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteEnterpriseById(Integer id) {
-  		logger.info("(EnterpriseService-deleteEnterpriseById)-根据id删除企业-传入参数, id:{}", id);
+	public Integer deleteById(Integer id) {
+  		logger.info("(EnterpriseService-deleteById)-根据id删除企业-传入参数, id:{}", id);
   		int i = enterpriseMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
@@ -118,7 +118,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
      * @return Integer
      */
 	@Override
-	public Integer modifyEnterprise(Enterprise enterprise) {
+	public Integer modify(Enterprise enterprise) {
     	logger.info("(EnterpriseService-modifyEnterprise)-修改企业-传入参数, enterprise:{}", enterprise);
     	enterprise.setUpdateTime(new Date());
     	int i = enterpriseMapper.updateByPrimaryKeySelective(enterprise);

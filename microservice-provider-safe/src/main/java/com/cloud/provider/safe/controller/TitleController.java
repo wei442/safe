@@ -51,23 +51,23 @@ public class TitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询职务列表")
-	@RequestMapping(value="/selectTitleListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectTitleListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody TitlePageRequest req) {
-		logger.info("===step1:【分页查询职务列表】(TitleController-selectTitleListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询职务列表】(TitleController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<Title> list = TitleService.selectTitleListByPage(page, req);
-		logger.info("===step2:【分页查询职务列表】(TitleController-selectTitleListByPage)-分页查询职务列表, list.size:{}", list == null ? null : list.size());
+		List<Title> list = TitleService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询职务列表】(TitleController-selectListByPage)-分页查询职务列表, list.size:{}", list == null ? null : list.size());
 		List<TitleVo> titleVoList = new TitleVo().convertToTitleVoList(list);
 
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
 		titleResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(titleVoList));
-		logger.info("===step3:【分页查询职务列表】(TitleController-selectTitleListByPage)-返回信息, titleResponse:{}", titleResponse);
+		logger.info("===step3:【分页查询职务列表】(TitleController-selectListByPage)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}
 
@@ -77,18 +77,18 @@ public class TitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询职务列表")
-	@RequestMapping(value="/selectTitleList",method={RequestMethod.POST})
+	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectTitleList(
+	public BaseRestMapResponse selectList(
 		@RequestBody TitlePageRequest req) {
-		logger.info("===step1:【不分页查询职务列表】(TitleController-selectTitleList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<Title> list = TitleService.selectTitleList(req);
-		logger.info("===step2:【不分页查询职务列表】(TitleController-selectTitleList)-不分页查询职务列表, list.size:{}", list == null ? null : list.size());
+		logger.info("===step1:【不分页查询职务列表】(TitleController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<Title> list = TitleService.selectList(req);
+		logger.info("===step2:【不分页查询职务列表】(TitleController-selectList)-不分页查询职务列表, list.size:{}", list == null ? null : list.size());
 		List<TitleVo> titleVoList = new TitleVo().convertToTitleVoList(list);
 
 		BaseRestMapResponse TitleResponse = new BaseRestMapResponse();
 		TitleResponse.put(PageConstants.DATA_LIST, titleVoList);
-		logger.info("===step3:【不分页查询职务列表】(TitleController-selectTitleList)-返回信息, TitleResponse:{}", TitleResponse);
+		logger.info("===step3:【不分页查询职务列表】(TitleController-selectList)-返回信息, TitleResponse:{}", TitleResponse);
 		return TitleResponse;
 	}
 
@@ -98,23 +98,23 @@ public class TitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询职务")
-	@RequestMapping(value="/selectTitleById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectTitleById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer TitleId) {
-		logger.info("===step1:【据id查询职务】(selectTitleById-selectTitleById)-传入参数, TitleId:{}", TitleId);
+		logger.info("===step1:【据id查询职务】(selectById-selectById)-传入参数, TitleId:{}", TitleId);
 
 		if(TitleId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "TitleId为空");
 		}
 
-		Title Title = TitleService.selectTitleById(TitleId);
-		logger.info("===step2:【据id查询职务】(TitleController-selectTitleById)-根据id查询职务, Title:{}", Title);
+		Title Title = TitleService.selectById(TitleId);
+		logger.info("===step2:【据id查询职务】(TitleController-selectById)-根据id查询职务, Title:{}", Title);
 		TitleVo TitleVo = new TitleVo().convertToTitleVo(Title);
 
 		BaseRestMapResponse TitleResponse = new BaseRestMapResponse();
 		TitleResponse.putAll((JSONObject) JSONObject.toJSON(TitleVo));
-		logger.info("===step3:【据id查询职务】(TitleController-selectTitleById)-返回信息, TitleResponse:{}", TitleResponse);
+		logger.info("===step3:【据id查询职务】(TitleController-selectById)-返回信息, TitleResponse:{}", TitleResponse);
 		return TitleResponse;
 	}
 
@@ -125,21 +125,21 @@ public class TitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加职务")
-	@RequestMapping(value="/insertTitle",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertTitle(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody TitleRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加职务】(TitleController-insertTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加职务】(TitleController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Title Title = req.convertToTitle();
-		int i = TitleService.insertTitle(Title);
-		logger.info("===step2:【添加职务】(TitleController-insertTitle)-插入职务, i:{}", i);
+		int i = TitleService.insert(Title);
+		logger.info("===step2:【添加职务】(TitleController-insert)-插入职务, i:{}", i);
 
 		BaseRestMapResponse TitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加职务】(TitleController-insertTitle)-返回信息, TitleResponse:{}", TitleResponse);
+		logger.info("===step3:【添加职务】(TitleController-insert)-返回信息, TitleResponse:{}", TitleResponse);
 		return TitleResponse;
 	}
 
@@ -149,21 +149,21 @@ public class TitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除职务")
-	@RequestMapping(value="/deleteTitleById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteTitleById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer TitleId) {
-		logger.info("===step1:【根据id删除职务】(selectTitleById-deleteTitleById)-传入参数, TitleId:{}", TitleId);
+		logger.info("===step1:【根据id删除职务】(selectById-deleteById)-传入参数, TitleId:{}", TitleId);
 
 		if(TitleId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "TitleId为空");
 		}
 
-		int i = TitleService.deleteTitleById(TitleId);
-		logger.info("===step2:【根据id删除职务】(TitleController-deleteTitleById)-根据id查询职务, i:{}", i);
+		int i = TitleService.deleteById(TitleId);
+		logger.info("===step2:【根据id删除职务】(TitleController-deleteById)-根据id查询职务, i:{}", i);
 
 		BaseRestMapResponse TitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除职务】(TitleController-deleteTitleById)-返回信息, TitleResponse:{}", TitleResponse);
+		logger.info("===step3:【根据id删除职务】(TitleController-deleteById)-返回信息, TitleResponse:{}", TitleResponse);
 		return TitleResponse;
 	}
 
@@ -174,23 +174,23 @@ public class TitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改职务")
-	@RequestMapping(value="/modifyTitle",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyTitle(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody TitleRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改职务】(TitleController-modifyTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改职务】(TitleController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer TitleId = req.getTitleId();
 		Title Title = req.convertToTitle();
 		Title.setId(TitleId);
-		int i = TitleService.modifyTitle(Title);
-		logger.info("===step2:【修改职务】(TitleController-modifyTitle)-修改职务, i:{}", i);
+		int i = TitleService.modify(Title);
+		logger.info("===step2:【修改职务】(TitleController-modify)-修改职务, i:{}", i);
 
 		BaseRestMapResponse TitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改职务】(TitleController-modifyTitle)-返回信息, TitleResponse:{}", TitleResponse);
+		logger.info("===step3:【修改职务】(TitleController-modify)-返回信息, TitleResponse:{}", TitleResponse);
 		return TitleResponse;
 	}
 

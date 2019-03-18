@@ -51,23 +51,23 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户职务列表")
-	@RequestMapping(value="/selectUserTitleListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserTitleListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody UserTitlePageRequest req) {
-		logger.info("===step1:【分页查询用户职务列表】(UserTitleController-selectUserTitleListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询用户职务列表】(UserTitleController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserTitle> list = userTitleService.selectUserTitleListByPage(page, req);
-		logger.info("===step2:【分页查询用户职务列表】(UserTitleController-selectUserTitleListByPage)-分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
+		List<UserTitle> list = userTitleService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询用户职务列表】(UserTitleController-selectListByPage)-分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
 		List<UserTitleVo> userTitleVoList = new UserTitleVo().convertToUserTitleVoList(list);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
 		userTitleResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userTitleVoList));
-		logger.info("===step3:【分页查询用户职务列表】(UserTitleController-selectUserTitleListByPage)-返回信息, userTitleResponse:{}", userTitleResponse);
+		logger.info("===step3:【分页查询用户职务列表】(UserTitleController-selectListByPage)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
 
@@ -77,18 +77,18 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询用户职务列表")
-	@RequestMapping(value="/selectUserTitleList",method={RequestMethod.POST})
+	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserTitleList(
+	public BaseRestMapResponse selectList(
 		@RequestBody UserTitlePageRequest req) {
-		logger.info("===step1:【不分页查询用户职务列表】(UserTitleController-selectUserTitleList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserTitle> list = userTitleService.selectUserTitleList(req);
-		logger.info("===step2:【不分页查询用户职务列表】(UserTitleController-selectUserTitleList)-不分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
+		logger.info("===step1:【不分页查询用户职务列表】(UserTitleController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<UserTitle> list = userTitleService.selectList(req);
+		logger.info("===step2:【不分页查询用户职务列表】(UserTitleController-selectList)-不分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
 		List<UserTitleVo> userTitleVoList = new UserTitleVo().convertToUserTitleVoList(list);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
 		userTitleResponse.put(PageConstants.DATA_LIST, userTitleVoList);
-		logger.info("===step3:【不分页查询用户职务列表】(UserTitleController-selectUserTitleList)-返回信息, userTitleResponse:{}", userTitleResponse);
+		logger.info("===step3:【不分页查询用户职务列表】(UserTitleController-selectList)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
 
@@ -98,23 +98,23 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询用户职务")
-	@RequestMapping(value="/selectUserTitleById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserTitleById(
+	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userTitleId) {
-		logger.info("===step1:【据id查询用户职务】(selectUserTitleById-selectUserTitleById)-传入参数, userTitleId:{}", userTitleId);
+		logger.info("===step1:【据id查询用户职务】(selectById-selectById)-传入参数, userTitleId:{}", userTitleId);
 
 		if(userTitleId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userTitleId为空");
 		}
 
-		UserTitle userTitle = userTitleService.selectUserTitleById(userTitleId);
-		logger.info("===step2:【据id查询用户职务】(UserTitleController-selectUserTitleById)-根据id查询用户职务, userTitle:{}", userTitle);
+		UserTitle userTitle = userTitleService.selectById(userTitleId);
+		logger.info("===step2:【据id查询用户职务】(UserTitleController-selectById)-根据id查询用户职务, userTitle:{}", userTitle);
 		UserTitleVo userTitleVo = new UserTitleVo().convertToUserTitleVo(userTitle);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
 		userTitleResponse.putAll((JSONObject) JSONObject.toJSON(userTitleVo));
-		logger.info("===step3:【据id查询用户职务】(UserTitleController-selectUserTitleById)-返回信息, userTitleResponse:{}", userTitleResponse);
+		logger.info("===step3:【据id查询用户职务】(UserTitleController-selectById)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
 
@@ -124,23 +124,23 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询用户职务")
-	@RequestMapping(value="/selectUserTitleByUserId/{userId}",method={RequestMethod.POST})
+	@RequestMapping(value="/selectByUserId/{userId}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserTitleByUserId(
+	public BaseRestMapResponse selectByUserId(
 		@PathVariable(value="userId",required=false) Integer userId) {
-		logger.info("===step1:【据userId查询用户职务】(selectUserTitleById-selectUserTitleByUserId)-传入参数, userId:{}", userId);
+		logger.info("===step1:【据userId查询用户职务】(selectById-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
 		}
 
-		UserTitle userTitle = userTitleService.selectUserTitleByUserId(userId);
-		logger.info("===step2:【据userId查询用户职务】(UserTitleController-selectUserTitleByUserId)-根据userId查询用户职务, userTitle:{}", userTitle);
+		UserTitle userTitle = userTitleService.selectByUserId(userId);
+		logger.info("===step2:【据userId查询用户职务】(UserTitleController-selectByUserId)-根据userId查询用户职务, userTitle:{}", userTitle);
 		UserTitleVo userTitleVo = new UserTitleVo().convertToUserTitleVo(userTitle);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
 		userTitleResponse.putAll((JSONObject) JSONObject.toJSON(userTitleVo));
-		logger.info("===step3:【据userId查询用户职务】(UserTitleController-selectUserTitleByUserId)-返回信息, userTitleResponse:{}", userTitleResponse);
+		logger.info("===step3:【据userId查询用户职务】(UserTitleController-selectByUserId)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
 
@@ -153,7 +153,7 @@ public class UserTitleController extends BaseController {
 	@ApiOperation(value = "添加用户职务")
 	@RequestMapping(value="/insertUserTitle",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUserTitle(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody UserTitleRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户职务】(UserTitleController-insertUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
@@ -161,7 +161,7 @@ public class UserTitleController extends BaseController {
 		this.bindingResult(bindingResult);
 
 		UserTitle userTitle = req.convertToUserTitle();
-		int i = userTitleService.insertUserTitle(userTitle);
+		int i = userTitleService.insert(userTitle);
 		logger.info("===step2:【添加用户职务】(UserTitleController-insertUserTitle)-插入用户职务, i:{}", i);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
@@ -175,21 +175,21 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除用户职务")
-	@RequestMapping(value="/deleteUserTitleById/{id}",method={RequestMethod.POST})
+	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteUserTitleById(
+	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer userTitleId) {
-		logger.info("===step1:【根据id删除用户职务】(selectUserTitleById-deleteUserTitleById)-传入参数, userTitleId:{}", userTitleId);
+		logger.info("===step1:【根据id删除用户职务】(selectById-deleteById)-传入参数, userTitleId:{}", userTitleId);
 
 		if(userTitleId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userTitleId为空");
 		}
 
-		int i = userTitleService.deleteUserTitleById(userTitleId);
-		logger.info("===step2:【根据id删除用户职务】(UserTitleController-deleteUserTitleById)-根据id查询用户职务, i:{}", i);
+		int i = userTitleService.deleteById(userTitleId);
+		logger.info("===step2:【根据id删除用户职务】(UserTitleController-deleteById)-根据id查询用户职务, i:{}", i);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除用户职务】(UserTitleController-deleteUserTitleById)-返回信息, userTitleResponse:{}", userTitleResponse);
+		logger.info("===step3:【根据id删除用户职务】(UserTitleController-deleteById)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
 
@@ -202,7 +202,7 @@ public class UserTitleController extends BaseController {
 	@ApiOperation(value = "修改用户职务")
 	@RequestMapping(value="/modifyUserTitle",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse modifyUserTitle(
+	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody UserTitleRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户职务】(UserTitleController-modifyUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
@@ -211,7 +211,7 @@ public class UserTitleController extends BaseController {
 		Integer userTitleId = req.getUserTitleId();
 		UserTitle userTitle = req.convertToUserTitle();
 		userTitle.setId(userTitleId);
-		int i = userTitleService.modifyUserTitle(userTitle);
+		int i = userTitleService.modify(userTitle);
 		logger.info("===step2:【修改用户职务】(UserTitleController-modifyUserTitle)-修改用户职务, i:{}", i);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();

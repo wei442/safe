@@ -9,7 +9,7 @@ public interface IUserAdminPasswordService {
      * @param id
      * @return UserAdminPassword
      */
-	public UserAdminPassword selectUserAdminPasswordById(Integer id);
+	public UserAdminPassword selectById(Integer id);
 
 	/**
 	 * 根据userId好和password查询用户管理密码
@@ -17,27 +17,27 @@ public interface IUserAdminPasswordService {
 	 * @param password
 	 * @return UserAdminPassword
 	 */
-	public UserAdminPassword selectUserAdminPasswordByUserId(Integer userId,String password);
+	public UserAdminPassword selectByUserId(Integer userId,String password);
 
     /**
      * 插入用户管理密码
      * @param userAdminPassword
      * @return Integer
      */
-	public Integer insertUserAdminPassword(UserAdminPassword userAdminPassword);
+	public Integer insert(UserAdminPassword userAdminPassword);
 
 	/**
   	 * 根据id删除用户管理密码
   	 * @param id
   	 * @return Integer
   	 */
-	public Integer deleteUserAdminPasswordById(Integer id);
+	public Integer deleteById(Integer id);
 
     /**
      * 修改用户管理密码
      * @param userAdminPassword
      * @return Integer
      */
-	public Integer modifyUserAdminPassword(UserAdminPassword userAdminPassword);
+	public Integer modify(UserAdminPassword userAdminPassword);
 
 }
