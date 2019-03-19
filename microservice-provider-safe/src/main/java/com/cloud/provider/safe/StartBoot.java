@@ -147,24 +147,6 @@ public class StartBoot {
 	    return new DefaultPointcutAdvisor(pointcut, txAdvice());
 	}
 
-//	/**
-//	 * 分页语句拦截类
-//	 * @return Interceptor
-//	 */
-//	@Bean
-//	public Interceptor paginationStatementHandlerInterceptor() {
-//		return new PaginationStatementHandlerInterceptor();
-//	}
-//
-//	/**
-//	 * 分页结果拦截器
-//	 * @return Interceptor
-//	 */
-//	@Bean
-//	public Interceptor paginationResultSetHandlerInterceptor() {
-//		return new PaginationResultSetHandlerInterceptor();
-//	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(StartBoot.class, args);
 	}

@@ -26,10 +26,6 @@ public class UserInfoRequest implements Serializable {
     @NotNull(message = "用户id", groups = {ModifyGroup.class})
 	private Integer userId;
 
-	@ApiModelProperty(value = "企业id", required = true)
-    @NotNull(message = "企业id", groups = {ModifyGroup.class})
-    private Integer enterpriseId;
-
     @ApiModelProperty(value = "用户账户", required = true)
 	@NotBlank(message = "用户账户", groups = {ModifyGroup.class})
     private String userAccount;

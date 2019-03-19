@@ -1,8 +1,5 @@
 package com.cloud.consumer.safe.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,10 +97,10 @@ public class UserController extends BaseController {
 
 
 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("userId", userId);
-		params.put("password", userPassword);
-		JSONObject jsonAdminPassword = userAdminPasswordService.getByUserId(params);
+//		Map<String, Object> params = new HashMap<String, Object>();
+//		params.put("userId", userId);
+//		params.put("password", userPassword);
+		JSONObject jsonAdminPassword = userAdminPasswordService.getByUserIdPassword(userId, userPassword);
 //		UserAdminPasswordVo userAdminPasswordVo = JSONObject.toJavaObject(jsonAdminPassword, UserAdminPasswordVo.class);
 
 		//设置token

@@ -73,7 +73,6 @@ public class UserServiceImpl implements IUserService {
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	Integer enterpriseId = enterprise.getId();
 
-    	userInfo.setEnterpriseId(enterpriseId);
     	userInfo.setUserStatus(SqlSafeConstants.SQL_USER_STATUS_NORMAL);
     	userInfo.setIsDelete(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
     	userInfo.setCreateTime(new Date());
@@ -82,6 +81,7 @@ public class UserServiceImpl implements IUserService {
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	Integer userId = userInfo.getId();
 
+    	userAdmin.setEnterpriseId(enterpriseId);
     	userAdmin.setUserId(userId);
     	userAdmin.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER);
     	userAdmin.setCreateTime(new Date());

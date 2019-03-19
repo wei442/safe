@@ -24,7 +24,4 @@ public class UserInfoPageRequest extends BaseRestRequest {
     @ApiModelProperty(value = "用户名称")
     private String userName;
 
-
-
-
 }

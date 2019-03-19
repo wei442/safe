@@ -76,6 +76,19 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		return list;
 	}
 
+    /**
+     * 根据id查询用户管理
+     * @param id
+     * @return UserAdmin
+     */
+	@Override
+	public UserAdmin selectById(Integer id) {
+    	logger.info("(UserAdminService-selectById)-根据id查询用户管理-传入参数, id:{}", id);
+		UserAdmin userAdmin = userAdminMapper.selectByPrimaryKey(id);
+		Assert.thanOrEqualZreo(userAdmin, SafeResultEnum.DATABASE_NOTEXIST);
+		return userAdmin;
+    }
+
 	/**
 	 * 根据userId查询用户管理
 	 * @param userId
@@ -94,20 +107,9 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		if(list != null && !list.isEmpty()) {
 			userAdmin = list.get(0);
 		}
+		Assert.thanOrEqualZreo(userAdmin, SafeResultEnum.ENTERPRISE_NOTEXIST);
 		return userAdmin;
 	}
-
-    /**
-     * 根据id查询用户管理
-     * @param id
-     * @return UserAdmin
-     */
-	@Override
-	public UserAdmin selectById(Integer id) {
-    	logger.info("(UserAdminService-selectById)-根据id查询用户管理-传入参数, id:{}", id);
-		UserAdmin userAdmin = userAdminMapper.selectByPrimaryKey(id);
-		return userAdmin;
-    }
 
     /**
      * 插入用户管理

@@ -23,19 +23,19 @@ public interface IUserAdminService {
 	 */
 	public List<UserAdmin> selectList(UserAdminPageRequest param);
 
-    /**
-     * 根据id查询用户管理
-     * @param id
-     * @return UserAdmin
-     */
-	public UserAdmin selectById(Integer id);
-
 	/**
 	 * 根据userId查询用户管理
 	 * @param userId
 	 * @return UserAdmin
 	 */
 	public UserAdmin selectByUserId(Integer userId);
+
+    /**
+     * 根据id查询用户管理
+     * @param id
+     * @return UserAdmin
+     */
+	public UserAdmin selectById(Integer id);
 
     /**
      * 插入用户管理

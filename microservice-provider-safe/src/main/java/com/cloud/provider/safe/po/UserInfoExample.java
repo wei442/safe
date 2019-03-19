@@ -165,66 +165,6 @@ public class UserInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andEnterpriseIdIsNull() {
-            addCriterion("enterprise_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andEnterpriseIdIsNotNull() {
-            addCriterion("enterprise_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andEnterpriseIdEqualTo(Integer value) {
-            addCriterion("enterprise_id =", value, "enterpriseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEnterpriseIdNotEqualTo(Integer value) {
-            addCriterion("enterprise_id <>", value, "enterpriseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEnterpriseIdGreaterThan(Integer value) {
-            addCriterion("enterprise_id >", value, "enterpriseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEnterpriseIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("enterprise_id >=", value, "enterpriseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEnterpriseIdLessThan(Integer value) {
-            addCriterion("enterprise_id <", value, "enterpriseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEnterpriseIdLessThanOrEqualTo(Integer value) {
-            addCriterion("enterprise_id <=", value, "enterpriseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEnterpriseIdIn(List<Integer> values) {
-            addCriterion("enterprise_id in", values, "enterpriseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEnterpriseIdNotIn(List<Integer> values) {
-            addCriterion("enterprise_id not in", values, "enterpriseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEnterpriseIdBetween(Integer value1, Integer value2) {
-            addCriterion("enterprise_id between", value1, value2, "enterpriseId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEnterpriseIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("enterprise_id not between", value1, value2, "enterpriseId");
-            return (Criteria) this;
-        }
-
         public Criteria andUserAccountIsNull() {
             addCriterion("user_account is null");
             return (Criteria) this;

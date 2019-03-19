@@ -12,11 +12,12 @@ public interface IUserAdminPasswordService {
 	public JSONObject getById(Integer id);
 
 	/**
-	 * 根据userId获取用户管理密码
-	 * @param params
+	 * 根据userId和password获取用户管理密码
+	 * @param userId
+	 * @param password
 	 * @return JSONObject
 	 */
-	public JSONObject getByUserId(Object params);
+	public JSONObject getByUserIdPassword(Integer userId,String password);
 
 	/**
 	 * 新增用户管理密码

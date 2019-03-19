@@ -1,5 +1,6 @@
 package com.cloud.provider.safe.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,29 +67,31 @@ public class UserAdminPasswordController extends BaseController {
 	}
 
 	/**
-	 * 据userId查询用户管理密码
+	 * 据userId和password查询用户管理密码
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据userId查询用户管理密码")
-	@RequestMapping(value="/selectByUserId",method={RequestMethod.POST})
+	@ApiOperation(value = "根据userId和password查询用户管理密码")
+	@RequestMapping(value="/selectByUserIdPassword/{userId}/{password}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectByUserId(
-		@Validated @RequestBody UserAdminPasswordRequest req,
-		BindingResult bindingResult) {
-		logger.info("===step1:【根据userId查询用户管理密码】(UserAdminPasswordController-selectByUserId)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		this.bindingResult(bindingResult);
+		@PathVariable(value="userId",required=false) Integer userId,
+		@PathVariable(value="password",required=false) String password) {
+		logger.info("===step1:【根据userId和password查询用管理密码】(UserAdminPasswordController-selectByUserIdPassword)-传入参数, userId:{}, password:{}", userId, password);
 
-		Integer userId = req.getUserId();
-		String password = req.getPassword();
+		if(userId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+		} else if(StringUtils.isBlank(password)) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "password为空");
+		}
 
-		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserId(userId, password);
-		logger.info("===step2:【根据userId查询用户管理密码】(UserAdminPasswordController-selectByUserId)-根据userId和password查询用户管理密码, userAdminPassword:{}", userAdminPassword);
+		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserIdPassword(userId, password);
+		logger.info("===step2:【根据userId和password查询用户管理密码】(UserAdminPasswordController-selectByUserIdPassword)-根据userId和password查询用户管理密码, userAdminPassword:{}", userAdminPassword);
 		UserAdminPasswordVo userAdminPasswordVo = new UserAdminPasswordVo().convertToUserAdminPasswordVo(userAdminPassword);
 
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
 		userAdminPasswordResponse.putAll((JSONObject) JSONObject.toJSON(userAdminPasswordVo));
-		logger.info("===step3:【根据userId查询用户管理密码】(UserAdminPasswordController-selectByUserId)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
+		logger.info("===step3:【根据userId和password查询用户管理密码】(UserAdminPasswordController-selectByUserIdPassword)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 		return userAdminPasswordResponse;
 	}
 

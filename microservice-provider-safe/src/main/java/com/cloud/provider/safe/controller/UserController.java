@@ -21,6 +21,7 @@ import com.cloud.provider.safe.po.UserAdminLogin;
 import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.rest.request.UserRequest;
+import com.cloud.provider.safe.service.IUserAdminService;
 import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.service.IUserService;
 
@@ -46,6 +47,10 @@ public class UserController extends BaseController {
 	@Autowired
 	private IUserInfoService userInfoService;
 
+	//用户管理Service
+	@Autowired
+	private IUserAdminService userAdminService;
+
 	/**
 	 * 添加用户
 	 * @param req
@@ -63,13 +68,20 @@ public class UserController extends BaseController {
 
 		String userAccount = req.getUserAccount();
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
+		Integer userId = null;
 		if(userInfo != null) {
+			userId = userInfo.getId();
 			return new BaseRestMapResponse(SafeResultEnum.USER_ACCOUNT_EXIST);
+		}
+
+		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
+		if(userAdmin != null) {
+			return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_EXIST);
 		}
 
 		Enterprise enterprise = new Enterprise();
 		userInfo = new UserInfo();
-		UserAdmin userAdmin = new UserAdmin();
+		userAdmin = new UserAdmin();
 		UserAdminPassword userAdminPassword = new UserAdminPassword();
 		UserAdminLogin userAdminLogin = new UserAdminLogin();
 		BeanUtils.copyProperties(req, enterprise);

@@ -47,8 +47,8 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
 	 * @return UserAppPassword
 	 */
 	@Override
-	public UserAppPassword selectByUserId(Integer userId,String password) {
-		logger.info("(UserAppPasswordService-selectByUserId)-根据userId和password查询用户应用密码-传入参数, userId:{}, password:{}", userId, password);
+	public UserAppPassword selectByUserIdPassword(Integer userId,String password) {
+		logger.info("(UserAppPasswordService-selectByUserIdPassword)-根据userId和password查询用户应用密码-传入参数, userId:{}, password:{}", userId, password);
 		UserAppPasswordExample example = new UserAppPasswordExample();
 		UserAppPasswordExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
@@ -59,6 +59,7 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
 		if(list != null && !list.isEmpty()) {
 			userAppPassword = list.get(0);
 		}
+		Assert.thanOrEqualZreo(userAppPassword, SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
 		return userAppPassword;
 	}
 

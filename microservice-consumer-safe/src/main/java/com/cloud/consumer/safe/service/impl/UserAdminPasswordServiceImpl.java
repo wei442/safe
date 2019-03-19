@@ -30,14 +30,14 @@ public class UserAdminPasswordServiceImpl extends BaseService implements IUserAd
 	}
 
 	/**
-	 * 根据userId获取用户管理密码
-	 * @param params
+	 * 根据userId和password获取用户管理密码
+	 * @param userId
+	 * @param password
 	 * @return JSONObject
 	 */
-	@Override
-	public JSONObject getByUserId(Object params) {
-		logger.info("(Service-getByUserId)-根据userId获取用户管理密码-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/selectByUserId", params, JSONObject.class);
+	public JSONObject getByUserIdPassword(Integer userId,String password) {
+		logger.info("(Service-getByUserId)-根据userId和password获取用户管理密码-传入参数, userId:{}, password:{}", userId, password);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/selectByUserIdPassword/"+userId+"/"+password, null, JSONObject.class);
 		return response;
 	}
 

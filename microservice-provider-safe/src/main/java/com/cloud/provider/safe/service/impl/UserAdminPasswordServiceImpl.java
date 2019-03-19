@@ -41,14 +41,14 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
     }
 
 	/**
-	 * 根据userId好和password查询用户管理密码
+	 * 根据userId和password查询用户管理密码
 	 * @param userId
 	 * @param password
 	 * @return UserAdminPassword
 	 */
 	@Override
-	public UserAdminPassword selectByUserId(Integer userId,String password) {
-		logger.info("(UserAdminPasswordService-selectByUserId)-根据userId和password查询用户管理密码-传入参数, userId:{}, password:{}", userId, password);
+	public UserAdminPassword selectByUserIdPassword(Integer userId,String password) {
+		logger.info("(UserAdminPasswordService-selectByUserIdPassword)-根据userId和password查询用户管理密码-传入参数, userId:{}, password:{}", userId, password);
 		UserAdminPasswordExample example = new UserAdminPasswordExample();
 		UserAdminPasswordExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);

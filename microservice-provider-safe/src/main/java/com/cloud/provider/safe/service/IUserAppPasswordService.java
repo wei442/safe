@@ -17,7 +17,7 @@ public interface IUserAppPasswordService {
 	 * @param password
 	 * @return UserAppPassword
 	 */
-	public UserAppPassword selectByUserId(Integer userId,String password);
+	public UserAppPassword selectByUserIdPassword(Integer userId,String password);
 
     /**
      * 插入用户应用密码

@@ -5,8 +5,6 @@ import java.util.Date;
 public class UserInfo {
     private Integer id;
 
-    private Integer enterpriseId;
-
     private String userAccount;
 
     private String userName;
@@ -45,14 +43,6 @@ public class UserInfo {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getEnterpriseId() {
-        return enterpriseId;
-    }
-
-    public void setEnterpriseId(Integer enterpriseId) {
-        this.enterpriseId = enterpriseId;
     }
 
     public String getUserAccount() {

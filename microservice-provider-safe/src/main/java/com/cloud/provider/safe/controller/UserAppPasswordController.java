@@ -1,5 +1,6 @@
 package com.cloud.provider.safe.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,18 +72,21 @@ public class UserAppPasswordController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据userId和password查询用户应用密码")
-	@RequestMapping(value="/selectByUserIdPassword",method={RequestMethod.POST})
+	@RequestMapping(value="/selectByUserIdPassword/{userId}/{password}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectByUserIdPassword(
-		@Validated @RequestBody UserAppPasswordRequest req,
+		@PathVariable(value="userId",required=false) Integer userId,
+		@PathVariable(value="password",required=false) String password,
 		BindingResult bindingResult) {
-		logger.info("===step1:【根据userId和password查询用户应用密码】(UserAppPasswordController-selectByUserIdPassword)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		this.bindingResult(bindingResult);
+		logger.info("===step1:【根据userId和password查询用户应用密码】(UserAppPasswordController-selectByUserIdPassword)-传入参数, userId:{}, password:{}", userId, password);
 
-		Integer userId = req.getUserId();
-		String password = req.getPassword();
+		if(userId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+		} else if(StringUtils.isBlank(password)) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "password为空");
+		}
 
-		UserAppPassword userAppPassword = userAppPasswordService.selectByUserId(userId, password);
+		UserAppPassword userAppPassword = userAppPasswordService.selectByUserIdPassword(userId, password);
 		logger.info("===step2:【根据userId和password查询用户应用密码】(UserAppPasswordController-selectByUserIdPassword)-根据userId和password查询用户应用密码, userAppPassword:{}", userAppPassword);
 		UserAppPasswordVo userAppPasswordVo = new UserAppPasswordVo().convertToUserAppPasswordVo(userAppPassword);
 
