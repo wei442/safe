@@ -97,7 +97,7 @@ public class TokenZuulFilter extends ZuulFilter {
 
 		Integer enterpriseId = this.getTokenEnterpriseId(request);
 		if(enterpriseId  != null) {
-			request.setAttribute("enterpriseId", enterpriseId);
+			request.setAttribute(CommConstants.ENTERPRISE_ID, enterpriseId);
 			context.setRequest(request);
 		}
 
