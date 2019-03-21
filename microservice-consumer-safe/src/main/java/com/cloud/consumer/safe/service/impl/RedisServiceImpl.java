@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.HttpUrlConstants;
 import com.cloud.consumer.safe.service.IRedisService;
 
@@ -43,11 +44,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 //		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 //		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/del", httpEntity, JSONObject.class);
 		JSONObject response = this.redisPostForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/del", params, JSONObject.class);
-		logger.info("(RedisService-del)-删除单个key-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-del)-删除单个key-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
     }
@@ -65,11 +66,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/array/del", httpEntity, JSONObject.class);
-		logger.info("(RedisService-delArray)-删除多个key-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-delArray)-删除多个key-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
     }
@@ -87,11 +88,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/dump", httpEntity, JSONObject.class);
-		logger.info("(RedisService-dump)-序列化给定key并返回被序列化的值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-dump)-序列化给定key并返回被序列化的值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		byte[] result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getBytes("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getBytes(CommConstants.RESULT);
 		}
 		return result;
     }
@@ -109,11 +110,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/exists", httpEntity, JSONObject.class);
-		logger.info("(RedisService-exists)-检查key是否存在-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-exists)-检查key是否存在-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		boolean result = false;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getBooleanValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getBooleanValue(CommConstants.RESULT);
 		}
 		return result;
     }
@@ -131,11 +132,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/array/exists", httpEntity, JSONObject.class);
-		logger.info("(RedisService-existsArray)-检查key是否存在-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-existsArray)-检查key是否存在-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		boolean result = false;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getBooleanValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getBooleanValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -155,11 +156,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/expire", httpEntity, JSONObject.class);
-		logger.info("(RedisService-expire)-设置单个key的过期时间-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-expire)-设置单个key的过期时间-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
     }
@@ -178,11 +179,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/keys", httpEntity, JSONObject.class);
-		logger.info("(RedisService-keys)-查找所有符合给定模式的key-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-keys)-查找所有符合给定模式的key-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		Set<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (Set<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (Set<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
     }
@@ -205,11 +206,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/migrate", httpEntity, JSONObject.class);
-		logger.info("(RedisService-migrate)-将key原子性地从当前实例传送到目标实例的指定数据库-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-migrate)-将key原子性地从当前实例传送到目标实例的指定数据库-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -229,11 +230,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/move", httpEntity, JSONObject.class);
-		logger.info("(RedisService-move)-将当前数据库的key移动到给定的数据库db当中-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-move)-将当前数据库的key移动到给定的数据库db当中-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -251,11 +252,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/persist", httpEntity, JSONObject.class);
-		logger.info("(RedisService-keys)-移除key的生存时间-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-keys)-移除key的生存时间-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -275,11 +276,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/pexpire", httpEntity, JSONObject.class);
-		logger.info("(RedisService-pexpire)-设置 key的毫秒过期时间-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-pexpire)-设置 key的毫秒过期时间-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
     }
@@ -297,11 +298,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/pttl", httpEntity, JSONObject.class);
-		logger.info("(RedisService-pttl)-毫秒为单位返回key的剩余生存时间-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-pttl)-毫秒为单位返回key的剩余生存时间-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -316,11 +317,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(null, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/randomKey", httpEntity, JSONObject.class);
-		logger.info("(RedisService-keys)-当前数据库中随机返回一个key-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-keys)-当前数据库中随机返回一个key-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -340,11 +341,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/rename", httpEntity, JSONObject.class);
-		logger.info("(RedisService-rename)-修改key的名称-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-rename)-修改key的名称-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
     }
@@ -364,11 +365,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/renamenx", httpEntity, JSONObject.class);
-		logger.info("(RedisService-renamenx)-新key不存在时修改key的名称-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-renamenx)-新key不存在时修改key的名称-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -390,11 +391,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/restore", httpEntity, JSONObject.class);
-		logger.info("(RedisService-restore)反序列化给定的序列化值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-restore)反序列化给定的序列化值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -416,11 +417,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/sort", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sort)反序列化给定的序列化值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sort)反序列化给定的序列化值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -438,11 +439,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/ttl", httpEntity, JSONObject.class);
-		logger.info("(RedisService-ttl)-秒为单位返回 key的剩余生存时间-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-ttl)-秒为单位返回 key的剩余生存时间-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -460,11 +461,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/type", httpEntity, JSONObject.class);
-		logger.info("(RedisService-ttl)-key储存的值的类型-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-ttl)-key储存的值的类型-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -488,11 +489,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/append", httpEntity, JSONObject.class);
-		logger.info("(RedisService-append)-追加key值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-append)-追加key值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -510,11 +511,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/bitcount", httpEntity, JSONObject.class);
-		logger.info("(RedisService-bitcount)-计算给定字符串中被设置为1的比特位的数量-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-bitcount)-计算给定字符串中被设置为1的比特位的数量-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -536,11 +537,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/bitcountStartEnd", httpEntity, JSONObject.class);
-		logger.info("(RedisService-bitcountStartEnd)-计算给定字符串中被设置为1的比特位的数量-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-bitcountStartEnd)-计算给定字符串中被设置为1的比特位的数量-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -562,11 +563,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/bitop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-bitop)-对一个保存二进制位的字符串key进行位元操作-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-bitop)-对一个保存二进制位的字符串key进行位元操作-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -588,11 +589,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/array/bitop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-bitopArray)-对多个保存二进制位的字符串key进行位元操作-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-bitopArray)-对多个保存二进制位的字符串key进行位元操作-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -614,11 +615,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/bitfield", httpEntity, JSONObject.class);
-		logger.info("(RedisService-bitfield)-将一个字符串看作是一个由二进制位组成的数组-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-bitfield)-将一个字符串看作是一个由二进制位组成的数组-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<Long> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<Long>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<Long>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -640,11 +641,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/array/bitfield", httpEntity, JSONObject.class);
-		logger.info("(RedisService-bitfieldArray)-将多个字符串看作是一个由二进制位组成的数组-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-bitfieldArray)-将多个字符串看作是一个由二进制位组成的数组-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<Long> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<Long>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<Long>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -662,11 +663,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/decr", httpEntity, JSONObject.class);
-		logger.info("(RedisService-decr)-key中储存的数字值减一-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-decr)-key中储存的数字值减一-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -686,11 +687,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/decrBy", httpEntity, JSONObject.class);
-		logger.info("(RedisService-decrBy)-key所储存的值减去减量值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-decrBy)-key所储存的值减去减量值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -710,11 +711,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 //		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/get", httpEntity, JSONObject.class);
 
 		JSONObject response = this.redisPostForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/get", params, JSONObject.class);
-		logger.info("(RedisService-get)-获取 key值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-get)-获取 key值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
     }
@@ -734,11 +735,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/getbit", httpEntity, JSONObject.class);
-		logger.info("(RedisService-getbit)-对key所储存的字符串值，获取指定偏移量上的位(bit)-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-getbit)-对key所储存的字符串值，获取指定偏移量上的位(bit)-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		boolean result = false;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getBooleanValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getBooleanValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -760,11 +761,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/getrange", httpEntity, JSONObject.class);
-		logger.info("(RedisService-getrange)-获取存储在指定 key中字符串的子字符串-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-getrange)-获取存储在指定 key中字符串的子字符串-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -784,11 +785,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/getSet", httpEntity, JSONObject.class);
-		logger.info("(RedisService-getSet)-指定key值返回key旧值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-getSet)-指定key值返回key旧值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -806,11 +807,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/incr", httpEntity, JSONObject.class);
-		logger.info("(RedisService-incr)-key中储存的数字值加一-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-incr)-key中储存的数字值加一-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -830,11 +831,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/incrBy", httpEntity, JSONObject.class);
-		logger.info("(RedisService-incrBy)-key所储存的值减去增量值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-incrBy)-key所储存的值减去增量值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -854,11 +855,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/incrByFloat", httpEntity, JSONObject.class);
-		logger.info("(RedisService-incrByFloat)-key中所储存的值加上浮点数增量值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-incrByFloat)-key中所储存的值加上浮点数增量值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		double result = -1d;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getDouble("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getDouble(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -877,11 +878,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/mget", httpEntity, JSONObject.class);
-		logger.info("(RedisService-mget)-返回一个key值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-mget)-返回一个key值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
     }
@@ -900,11 +901,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/array/mget", httpEntity, JSONObject.class);
-		logger.info("(RedisService-mgetArray)-返回多个key值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-mgetArray)-返回多个key值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -924,11 +925,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/mset", httpEntity, JSONObject.class);
-		logger.info("(RedisService-mset)-设置单个 key-value-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-mset)-设置单个 key-value-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -946,11 +947,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/mset", httpEntity, JSONObject.class);
-		logger.info("(RedisService-msetArray)-设置多个key-value-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-msetArray)-设置多个key-value-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -970,11 +971,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/msetnx", httpEntity, JSONObject.class);
-		logger.info("(RedisService-msetnx)-设置单个 key-value-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-msetnx)-设置单个 key-value-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -992,11 +993,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/array/msetnx", httpEntity, JSONObject.class);
-		logger.info("(RedisService-msetnx)-设置多个 key-value-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-msetnx)-设置多个 key-value-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1018,11 +1019,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/psetex", httpEntity, JSONObject.class);
-		logger.info("(RedisService-psetex)-毫秒为单位设置key的生存时间-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-psetex)-毫秒为单位设置key的生存时间-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1042,11 +1043,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/set", httpEntity, JSONObject.class);
-		logger.info("(RedisService-set)-设置key-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-set)-设置key-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1068,11 +1069,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/setbit", httpEntity, JSONObject.class);
-		logger.info("(RedisService-setbit)-对key所储存的字符串值，设置或清除指定偏移量上的位(bit)-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-setbit)-对key所储存的字符串值，设置或清除指定偏移量上的位(bit)-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		boolean result = false;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getBooleanValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getBooleanValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1096,11 +1097,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 //		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/setex", httpEntity, JSONObject.class);
 
 		JSONObject response = this.redisPostForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/setex", params, JSONObject.class);
-		logger.info("(RedisService-setex)-设置key值和过期时间-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-setex)-设置key值和过期时间-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1120,11 +1121,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/setnx", httpEntity, JSONObject.class);
-		logger.info("(RedisService-setnx)-设置key-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-setnx)-设置key-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1146,11 +1147,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/setrange", httpEntity, JSONObject.class);
-		logger.info("(RedisService-setrange)-指定的字符串覆盖给定key所储存的字符串值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-setrange)-指定的字符串覆盖给定key所储存的字符串值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1168,11 +1169,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/strlen", httpEntity, JSONObject.class);
-		logger.info("(RedisService-strlen)-获取key所储存的字符串值的长度-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-strlen)-获取key所储存的字符串值的长度-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
     }
@@ -1195,11 +1196,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hdel", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hdel)-删除哈希表key中的一个字段-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hdel)-删除哈希表key中的一个字段-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
     }
@@ -1219,11 +1220,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/array/hdel", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hdelArray)-删除哈希表key中的多个字段-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hdelArray)-删除哈希表key中的多个字段-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1243,11 +1244,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hexists", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hexists)-看哈希表的指定字段是否存在-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hexists)-看哈希表的指定字段是否存在-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		boolean result = false;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getBooleanValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getBooleanValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1267,11 +1268,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hget", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hget)-哈希表中指定字段的值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hget)-哈希表中指定字段的值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1290,11 +1291,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hgetAll", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hget)-返回哈希表中所有的字段和值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hget)-返回哈希表中所有的字段和值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		Map<String, String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (Map<String, String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (Map<String, String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1316,11 +1317,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hincrBy", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hincrBy)-哈希表中的字段值加上指定增量值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hincrBy)-哈希表中的字段值加上指定增量值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1342,11 +1343,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hincrByFloat", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hincrByFloat)-哈希表中的字段值加上指定浮点数增量值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hincrByFloat)-哈希表中的字段值加上指定浮点数增量值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		double result = -1d;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getDoubleValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getDoubleValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1365,11 +1366,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hkeys", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hkeys)-获取哈希表中的所有字段名-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hkeys)-获取哈希表中的所有字段名-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		Set<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (Set<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (Set<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1387,11 +1388,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hlen", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hlen)-获取哈希表中字段的数量-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hlen)-获取哈希表中字段的数量-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1412,11 +1413,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hmget", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hmget)-返回哈希表中一个给定字段的值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hmget)-返回哈希表中一个给定字段的值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1437,11 +1438,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/array/hmget", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hmget)-返回哈希表中多个给定字段的值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hmget)-返回哈希表中多个给定字段的值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1461,11 +1462,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hmset", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hmset)-多个字段-值对设置到哈希表-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hmset)-多个字段-值对设置到哈希表-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1487,11 +1488,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hset", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hset)-哈希表中的字段赋值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hset)-哈希表中的字段赋值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1513,11 +1514,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hsetnx", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hsetnx)-哈希表中的字段赋值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hsetnx)-哈希表中的字段赋值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1536,11 +1537,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hvals", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hvals)-返回哈希表所有字段的值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hvals)-返回哈希表所有字段的值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1561,11 +1562,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hash/hscan", httpEntity, JSONObject.class);
-		logger.info("(RedisService-hscan)-迭代集合键中的元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-hscan)-迭代集合键中的元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<Map<String, String>> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<Map<String, String>>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<Map<String, String>>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1586,11 +1587,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/blpop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-blpop)-不超时移除并返回列表的第一个元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-blpop)-不超时移除并返回列表的第一个元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1608,11 +1609,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/array/blpop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-blpopArray)-不超时移除并返回列表的第一个元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-blpopArray)-不超时移除并返回列表的第一个元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1632,11 +1633,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/timeout/blpop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-blpopTimeout)-超时移除并返回列表的第一个元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-blpopTimeout)-超时移除并返回列表的第一个元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1656,11 +1657,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/timeout/array/blpop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-blpopTimeoutArray)-超时移除并返回列表的第一个元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-blpopTimeoutArray)-超时移除并返回列表的第一个元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1678,11 +1679,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/brpop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-brpop)-阻塞移除并返回列表的第一个元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-brpop)-阻塞移除并返回列表的第一个元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1700,11 +1701,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/array/brpop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-brpopArray)-阻塞移除并返回列表的第一个元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-brpopArray)-阻塞移除并返回列表的第一个元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1724,11 +1725,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/timeout/brpop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-brpopTimeout)-超时移除并返回列表的第一个元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-brpopTimeout)-超时移除并返回列表的第一个元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1748,11 +1749,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/timeout/array/brpop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-brpopTimeoutArray)-超时移除并返回列表的第一个元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-brpopTimeoutArray)-超时移除并返回列表的第一个元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1774,11 +1775,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/brpoplpush", httpEntity, JSONObject.class);
-		logger.info("(RedisService-brpoplpush)-从列表中弹出一个值，将弹出的元素插入到另外一个列表-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-brpoplpush)-从列表中弹出一个值，将弹出的元素插入到另外一个列表-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1798,11 +1799,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/lindex", httpEntity, JSONObject.class);
-		logger.info("(RedisService-lindex)-通过索引获取列表中的元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-lindex)-通过索引获取列表中的元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1828,11 +1829,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/linsert", httpEntity, JSONObject.class);
-		logger.info("(RedisService-linsert)-列表的元素前或者后插入元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-linsert)-列表的元素前或者后插入元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1851,11 +1852,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/llen", httpEntity, JSONObject.class);
-		logger.info("(RedisService-llen)-返回列表的长度-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-llen)-返回列表的长度-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1874,11 +1875,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/lpop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-lpop)-移除并返回列表 key的头元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-lpop)-移除并返回列表 key的头元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -1898,11 +1899,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/lpush", httpEntity, JSONObject.class);
-		logger.info("(RedisService-lpush)-插入单个值到列表头部-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-lpush)-插入单个值到列表头部-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1922,11 +1923,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/array/lpush", httpEntity, JSONObject.class);
-		logger.info("(RedisService-lpushArray)-插入多个值到列表头部-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-lpushArray)-插入多个值到列表头部-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1946,11 +1947,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/lpushx", httpEntity, JSONObject.class);
-		logger.info("(RedisService-lpushx)-插入一个值到列表尾部-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-lpushx)-插入一个值到列表尾部-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1970,11 +1971,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/array/lpushx", httpEntity, JSONObject.class);
-		logger.info("(RedisService-lpushxArray)-入多个值到列表尾部-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-lpushxArray)-入多个值到列表尾部-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -1997,11 +1998,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/lrange", httpEntity, JSONObject.class);
-		logger.info("(RedisService-lrange)-列表指定区间内的元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-lrange)-列表指定区间内的元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2023,11 +2024,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/lrem", httpEntity, JSONObject.class);
-		logger.info("(RedisService-lrem)-移除列表中与参数value相等的元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-lrem)-移除列表中与参数value相等的元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2049,11 +2050,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/lset", httpEntity, JSONObject.class);
-		logger.info("(RedisService-lset)-通过索引来设置元素的值-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-lset)-通过索引来设置元素的值-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -2075,11 +2076,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/ltrim", httpEntity, JSONObject.class);
-		logger.info("(RedisService-ltrim)-列表进行修剪-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-ltrim)-列表进行修剪-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -2097,11 +2098,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/rpop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-rpop)-移除并返回列表的最后一个元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-rpop)-移除并返回列表的最后一个元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -2121,11 +2122,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/rpoplpush", httpEntity, JSONObject.class);
-		logger.info("(RedisService-rpoplpush)-列表中的最后一个元素(尾元素)弹出-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-rpoplpush)-列表中的最后一个元素(尾元素)弹出-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -2145,11 +2146,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/rpush", httpEntity, JSONObject.class);
-		logger.info("(RedisService-rpush)-插入一个值到列表尾部(最右边)-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-rpush)-插入一个值到列表尾部(最右边)-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2169,11 +2170,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/array/rpush", httpEntity, JSONObject.class);
-		logger.info("(RedisService-rpushArray)-插入多个值到列表尾部(最右边)-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-rpushArray)-插入多个值到列表尾部(最右边)-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2193,11 +2194,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/rpushx", httpEntity, JSONObject.class);
-		logger.info("(RedisService-rpushx)-插入一个值到列表尾部-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-rpushx)-插入一个值到列表尾部-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2217,11 +2218,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/list/array/rpushx", httpEntity, JSONObject.class);
-		logger.info("(RedisService-rpushxArray)-插入多个值到列表尾部-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-rpushxArray)-插入多个值到列表尾部-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2244,11 +2245,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/sadd", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sadd)-一个成员元素加入集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sadd)-一个成员元素加入集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2268,11 +2269,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/array/sadd", httpEntity, JSONObject.class);
-		logger.info("(RedisService-saddArray)-多个成员元素加入集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-saddArray)-多个成员元素加入集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2290,11 +2291,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/scard", httpEntity, JSONObject.class);
-		logger.info("(RedisService-scard)-返回集合元素数量-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-scard)-返回集合元素数量-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2313,11 +2314,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/sdiff", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sdiff)-返回集合之间差集-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sdiff)-返回集合之间差集-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		Set<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (Set<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (Set<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2336,11 +2337,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/array/sdiff", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sdiffArray)-返回集合之间差集-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sdiffArray)-返回集合之间差集-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		Set<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (Set<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (Set<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2360,11 +2361,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/sdiffstore", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sdiffstore)-集合之间的差集存储在指定的集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sdiffstore)-集合之间的差集存储在指定的集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2384,11 +2385,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/array/sdiffstore", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sdiffstoreArray)-集合之间的差集存储在指定的集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sdiffstoreArray)-集合之间的差集存储在指定的集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2407,11 +2408,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/sinter", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sinter)-返返回给定所有给定集合交集-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sinter)-返返回给定所有给定集合交集-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		Set<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (Set<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (Set<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2430,11 +2431,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/array/sinter", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sinterArray)-返返回给定所有给定集合交集-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sinterArray)-返返回给定所有给定集合交集-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		Set<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (Set<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (Set<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2454,11 +2455,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/sinterstore", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sinterstore)-给定集合之间的交集存储在指定的集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sinterstore)-给定集合之间的交集存储在指定的集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2478,11 +2479,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/array/sinterstore", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sinterstoreArray)-给定集合之间的交集存储在指定的集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sinterstoreArray)-给定集合之间的交集存储在指定的集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2502,11 +2503,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/sismember", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sismember)-判断成员元素是否是集合的成员-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sismember)-判断成员元素是否是集合的成员-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		boolean result = false;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getBooleanValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getBooleanValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2526,11 +2527,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/smembers", httpEntity, JSONObject.class);
-		logger.info("(RedisService-smembers)-返回集合中的所有的成员-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-smembers)-返回集合中的所有的成员-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2552,11 +2553,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/smove", httpEntity, JSONObject.class);
-		logger.info("(RedisService-smove)-成员移动-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-smove)-成员移动-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2574,11 +2575,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/spop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-spop)-移除并返回集合中的一个随机元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-spop)-移除并返回集合中的一个随机元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -2599,11 +2600,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/count/spop", httpEntity, JSONObject.class);
-		logger.info("(RedisService-spopCount)-移除并返回集合中的一个随机元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-spopCount)-移除并返回集合中的一个随机元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		Set<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (Set<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (Set<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2621,11 +2622,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/srandmember", httpEntity, JSONObject.class);
-		logger.info("(RedisService-srandmember)-返回集合中的一个随机元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-srandmember)-返回集合中的一个随机元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -2646,11 +2647,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/count/srandmember", httpEntity, JSONObject.class);
-		logger.info("(RedisService-srandmember)-返回集合中的一个随机元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-srandmember)-返回集合中的一个随机元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2670,11 +2671,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/srem", httpEntity, JSONObject.class);
-		logger.info("(RedisService-srem)-移除集合中的一个成员元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-srem)-移除集合中的一个成员元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2694,11 +2695,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/array/srem", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sremArray)-移除集合中的一个成员元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sremArray)-移除集合中的一个成员元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2717,11 +2718,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/sunion", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sunion)-返回给定集合的并集-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sunion)-返回给定集合的并集-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		Set<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (Set<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (Set<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2740,11 +2741,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/array/sunion", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sunionArray)-返回给定集合的并集-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sunionArray)-返回给定集合的并集-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		Set<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (Set<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (Set<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2764,11 +2765,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/sunionstore", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sunionstore)-给定集合的并集存储指定的集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sunionstore)-给定集合的并集存储指定的集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2788,11 +2789,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/array/sunionstore", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sunionstore)-给定集合的并集存储指定的集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sunionstore)-给定集合的并集存储指定的集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2813,11 +2814,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/set/sscan", httpEntity, JSONObject.class);
-		logger.info("(RedisService-sscan)-迭代集合键中的元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-sscan)-迭代集合键中的元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2842,11 +2843,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zadd", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zadd)-根据分数值存储有序集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zadd)-根据分数值存储有序集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2864,11 +2865,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zcard", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zcard)-有序集key的基数-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zcard)-有序集key的基数-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2890,11 +2891,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zcount", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zcount)-有序集key中成员的数量-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zcount)-有序集key中成员的数量-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2916,11 +2917,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zincrby", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zincrby)-有序集合成员分数增加增量-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zincrby)-有序集合成员分数增加增量-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		double result = -1d;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getDoubleValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getDoubleValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2943,11 +2944,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zrange", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zrange)-有序集key中指定区间内从小到大的成员-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zrange)-有序集key中指定区间内从小到大的成员-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2970,11 +2971,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zrangeWithScores", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zrange)-有序集key中指定区间内从小到大的成员-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zrange)-有序集key中指定区间内从小到大的成员-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<Object> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<Object>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<Object>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -2997,11 +2998,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zrangeByScore", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zrangeByScore)-根据分数值范围查询存储有序集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zrangeByScore)-根据分数值范围查询存储有序集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3024,11 +3025,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zrangeByScoreWithScores", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zrangeByScoreWithScores)-根据分数值范围查询存储有序集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zrangeByScoreWithScores)-根据分数值范围查询存储有序集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<Object> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<Object>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<Object>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3049,11 +3050,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zrank", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zrank)-有序集key中成员member从小到大的排名-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zrank)-有序集key中成员member从小到大的排名-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3073,11 +3074,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zrem", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zrem)-移除有序集key中的一个成员-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zrem)-移除有序集key中的一个成员-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3097,11 +3098,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/array/zrem", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zremArray)-移除有序集key中的多个成员-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zremArray)-移除有序集key中的多个成员-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3123,11 +3124,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zremrangeByRank", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zremrangeByRank)-移除指定排名区间内的所有成员-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zremrangeByRank)-移除指定排名区间内的所有成员-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3149,11 +3150,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zremrangeByScore", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zremrangeByScore)-分数值范围删除存储有序集合-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zremrangeByScore)-分数值范围删除存储有序集合-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3176,11 +3177,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zrevrange", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zrevrange)-有序集key中指定区间内的从大到小成员-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zrevrange)-有序集key中指定区间内的从大到小成员-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3203,11 +3204,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zrevrangeWithScores", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zrevrange)-有序集key中指定区间内的从大到小成员-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zrevrange)-有序集key中指定区间内的从大到小成员-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<Object> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<Object>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<Object>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3231,11 +3232,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zrevrangeByScore", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zrevrange)-有序集key中max和min之间所有的成员-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zrevrange)-有序集key中max和min之间所有的成员-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3258,11 +3259,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zrevrangeByScoreWithScores", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zrevrangeByScoreWithScores)-有序集key中max和min之间所有的成员-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zrevrangeByScoreWithScores)-有序集key中max和min之间所有的成员-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<Object> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<Object>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<Object>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3282,11 +3283,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zrevrank", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zrevrank)-有序集key中成员member从大到小的排名-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zrevrank)-有序集key中成员member从大到小的排名-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3306,11 +3307,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/sortedSet/zscore", httpEntity, JSONObject.class);
-		logger.info("(RedisService-zscore)-有序集key中成员member的score值名-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-zscore)-有序集key中成员member的score值名-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		double result = -1d;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getDoubleValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getDoubleValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3334,11 +3335,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hyperLogLog/pfadd", httpEntity, JSONObject.class);
-		logger.info("(RedisService-pfadd)-将一个数量的元素添加到指定的HyperLogLog里面-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-pfadd)-将一个数量的元素添加到指定的HyperLogLog里面-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3358,11 +3359,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hyperLogLog/array/pfadd", httpEntity, JSONObject.class);
-		logger.info("(RedisService-pfaddArray)-将多个数量的元素添加到指定的HyperLogLog里面-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-pfaddArray)-将多个数量的元素添加到指定的HyperLogLog里面-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3380,11 +3381,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hyperLogLog/pfcount", httpEntity, JSONObject.class);
-		logger.info("(RedisService-pfadd)-返回储存在给定键的HyperLogLog的近似基数-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-pfadd)-返回储存在给定键的HyperLogLog的近似基数-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3402,11 +3403,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hyperLogLog/array/pfcount", httpEntity, JSONObject.class);
-		logger.info("(RedisService-pfcountArray)-返回储存在给定键的HyperLogLog的近似基数-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-pfcountArray)-返回储存在给定键的HyperLogLog的近似基数-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3426,11 +3427,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hyperLogLog/pfmerge", httpEntity, JSONObject.class);
-		logger.info("(RedisService-pfmerge)-将一个HyperLogLog合并（merge）为一个HyperLogLog-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-pfmerge)-将一个HyperLogLog合并（merge）为一个HyperLogLog-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -3450,11 +3451,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/hyperLogLog/array/pfmerge", httpEntity, JSONObject.class);
-		logger.info("(RedisService-pfmergeArray)-将多个HyperLogLog合并（merge）为一个HyperLogLog-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-pfmergeArray)-将多个HyperLogLog合并（merge）为一个HyperLogLog-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -3481,11 +3482,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/geo/geoadd", httpEntity, JSONObject.class);
-		logger.info("(RedisService-geoadd)-将给定的空间元素（纬度、经度、名字）添加到指定的键里面-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-geoadd)-将给定的空间元素（纬度、经度、名字）添加到指定的键里面-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3505,11 +3506,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/geo/map/geoadd", httpEntity, JSONObject.class);
-		logger.info("(RedisService-geoadd)-将给定的空间元素（纬度、经度、名字）添加到指定的键里面-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-geoadd)-将给定的空间元素（纬度、经度、名字）添加到指定的键里面-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getLongValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getLongValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3529,11 +3530,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/geo/geopos", httpEntity, JSONObject.class);
-		logger.info("(RedisService-geopos)-返回所有给定位置元素的位置（经度和纬度）-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-geopos)-返回所有给定位置元素的位置（经度和纬度）-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<?> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<?>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<?>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3555,11 +3556,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/geo/geodist", httpEntity, JSONObject.class);
-		logger.info("(RedisService-geodist)-返回两个给定位置之间的距离-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-geodist)-返回两个给定位置之间的距离-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		double result = -1d;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getDoubleValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getDoubleValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3583,11 +3584,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/geo/unit/geodist", httpEntity, JSONObject.class);
-		logger.info("(RedisService-geodist)-返回两个给定位置之间的距离-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-geodist)-返回两个给定位置之间的距离-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		double result = -1d;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = response.getDoubleValue("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = response.getDoubleValue(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3613,11 +3614,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/geo/georadius", httpEntity, JSONObject.class);
-		logger.info("(RedisService-georadius)-给定的经纬度为中心的距离不超过给定最大距离的所有位置元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-georadius)-给定的经纬度为中心的距离不超过给定最大距离的所有位置元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<?> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<?>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<?>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3647,11 +3648,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/geo/param/georadius", httpEntity, JSONObject.class);
-		logger.info("(RedisService-georadius)-给定的经纬度为中心的距离不超过给定最大距离的所有位置元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-georadius)-给定的经纬度为中心的距离不超过给定最大距离的所有位置元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<?> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<?>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<?>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3675,11 +3676,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/geo/georadiusByMember", httpEntity, JSONObject.class);
-		logger.info("(RedisService-georadiusByMember)-以给定中心点的距离不超过给定最大距离的所有位置元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-georadiusByMember)-以给定中心点的距离不超过给定最大距离的所有位置元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<?> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<?>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<?>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3707,11 +3708,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/geo/param/georadiusByMember", httpEntity, JSONObject.class);
-		logger.info("(RedisService-georadiusByMember)-给定的经纬度为中心的距离不超过给定最大距离的所有位置元素-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-georadiusByMember)-给定的经纬度为中心的距离不超过给定最大距离的所有位置元素-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<?> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<?>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<?>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3732,11 +3733,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/geo/geohash", httpEntity, JSONObject.class);
-		logger.info("(RedisService-geohash)-返回一个位置元素的Geohash表-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-geohash)-返回一个位置元素的Geohash表-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3757,11 +3758,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/geo/param/geohash", httpEntity, JSONObject.class);
-		logger.info("(RedisService-geohashArray)-返回多个位置元素的Geohash表-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-geohashArray)-返回多个位置元素的Geohash表-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<String> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<String>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<String>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3781,11 +3782,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/transaction/discard", httpEntity, JSONObject.class);
-		logger.info("(RedisService-discard)-取消事务-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-discard)-取消事务-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -3802,11 +3803,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/transaction/exec", httpEntity, JSONObject.class);
-		logger.info("(RedisService-exec)-执行所有事务-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-exec)-执行所有事务-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		List<Object> result = null;
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = (List<Object>) response.get("result");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = (List<Object>) response.get(CommConstants.RESULT);
 		}
 		return result;
 	}
@@ -3822,11 +3823,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/transaction/multi", httpEntity, JSONObject.class);
-		logger.info("(RedisService-multi)-标记事务-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-multi)-标记事务-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -3843,11 +3844,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/transaction/unwatch", httpEntity, JSONObject.class);
-		logger.info("(RedisService-unwatch)-取消WATCH命令对所有key的监视-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-unwatch)-取消WATCH命令对所有key的监视-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -3865,11 +3866,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/transaction/watch", httpEntity, JSONObject.class);
-		logger.info("(RedisService-watch)-监视一个key-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-watch)-监视一个key-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}
@@ -3887,11 +3888,11 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		HttpHeaders headers = this.getProviderRedisHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/transaction/array/watch", httpEntity, JSONObject.class);
-		logger.info("(RedisService-watchArray)-监视多个key-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get("retCode"), "");
+		logger.info("(RedisService-watchArray)-监视多个key-返回信息, response:{}", JSONObject.toJSONString(response));
+		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
-		if (StringUtils.equals(retCode, "0000000")) {
-			result = Objects.toString(response.get("result"), "");
+		if (StringUtils.equals(retCode, CommConstants.OK)) {
+			result = Objects.toString(response.get(CommConstants.RESULT), "");
 		}
 		return result;
 	}

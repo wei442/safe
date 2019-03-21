@@ -41,7 +41,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 	@Override
 	public List<Enterprise> selectListByPage(Page<?> page, EnterprisePageRequest param) {
 		logger.info("(EnterpriseService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		EnterpriseExample example = new EnterpriseExample();
 		example.setOrderByClause(" id desc ");
 		EnterpriseExample.Criteria criteria = example.createCriteria();

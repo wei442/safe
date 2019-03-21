@@ -8,6 +8,8 @@ import java.util.ListIterator;
 
 import org.springframework.beans.BeanUtils;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.cloud.common.dateformat.DateFormatConstants;
 import com.cloud.provider.safe.po.Enterprise;
 import com.google.common.base.Converter;
 
@@ -57,8 +59,10 @@ public class EnterpriseVo implements Serializable {
 
     private String updated;
 
+    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date createTime;
 
+    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
 
     /**
@@ -78,10 +82,10 @@ public class EnterpriseVo implements Serializable {
      */
     public List<EnterpriseVo> convertToEnterpriseVoList(List<Enterprise> list) {
     	EnterpriseVoConvert convert = new EnterpriseVoConvert();
-    	List<EnterpriseVo> enterpriseVoList = null;
+    	List<EnterpriseVo> enterpriseVoList = new ArrayList<EnterpriseVo>();
     	EnterpriseVo enterpriseVo = null;
     	if(list != null && !list.isEmpty()) {
-    		enterpriseVoList = new ArrayList<EnterpriseVo>(list.size());
+//    		enterpriseVoList = new ArrayList<EnterpriseVo>(list.size());
     		ListIterator<Enterprise> it = list.listIterator();
     		while(it.hasNext()) {
     			Enterprise enterprise = it.next();

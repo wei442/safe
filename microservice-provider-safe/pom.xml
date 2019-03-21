@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.cloud</groupId>
 		<artifactId>safe</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>${revision}</version>
 	</parent>
 	<artifactId>microservice-provider-safe</artifactId>
 	<!-- 开发版本 -->

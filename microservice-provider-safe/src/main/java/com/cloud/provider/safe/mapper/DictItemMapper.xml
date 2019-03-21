@@ -108,7 +108,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.DictItem">
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.DictItem" useGeneratedKeys="true" keyProperty="id">
     insert into dict_item (id, dict_id, item_name, 
       item_alias, item_level, item_status, 
       is_delete, remark, sort, 
@@ -120,7 +120,7 @@
       #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.DictItem">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.DictItem" useGeneratedKeys="true" keyProperty="id">
     insert into dict_item
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

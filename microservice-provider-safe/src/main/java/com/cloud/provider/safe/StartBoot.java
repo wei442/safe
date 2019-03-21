@@ -13,7 +13,6 @@ import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -58,11 +57,6 @@ public class StartBoot {
 	 */
 	private static final String AOP_POINTCUT_EXPRESSION = "execution(* com.cloud.provider.safe.service..*.*(..))";
 
-	//gofun地域名字
-	@Value("${gofun.location.name}")
-	private String gofunLocationName;
-
-
 	/**
 	 * 使用fastjson
 	 * @return HttpMessageConverters
@@ -71,8 +65,8 @@ public class StartBoot {
     public HttpMessageConverters fastJsonHttpMessageConverters() {
 		SerializerFeature[] serializerFeature = new SerializerFeature[]{
 			SerializerFeature.PrettyFormat, SerializerFeature.MapSortField,
-			SerializerFeature.WriteNullListAsEmpty,SerializerFeature.WriteNullStringAsEmpty,
-			SerializerFeature.WriteDateUseDateFormat
+			SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteNullStringAsEmpty,
+			SerializerFeature.WriteMapNullValue, SerializerFeature.WriteDateUseDateFormat
 		};
 		List<MediaType> mediaTypes = new ArrayList<MediaType>();
 		mediaTypes.add(MediaType.parseMediaType(MediaType.APPLICATION_JSON_UTF8_VALUE));

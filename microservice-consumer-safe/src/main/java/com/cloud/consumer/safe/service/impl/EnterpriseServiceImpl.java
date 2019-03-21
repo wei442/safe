@@ -24,7 +24,7 @@ public class EnterpriseServiceImpl extends BaseService implements IEnterpriseSer
 	 */
 	@Override
 	public JSONObject getListByPage(Object params) {
-		logger.info("(Service-getListByPage)-分页获取企业列表-传入参数, params:{}", params);
+		logger.info("(EnterpriseService-getListByPage)-分页获取企业列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
@@ -36,7 +36,7 @@ public class EnterpriseServiceImpl extends BaseService implements IEnterpriseSer
 	 */
 	@Override
 	public JSONObject getList(Object params) {
-		logger.info("(Service-getList)-获取企业列表-传入参数, params:{}", params);
+		logger.info("(EnterpriseService-getList)-获取企业列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise+"/selectList", params, JSONObject.class);
 		return response;
 	}
@@ -48,7 +48,7 @@ public class EnterpriseServiceImpl extends BaseService implements IEnterpriseSer
 	 */
 	@Override
 	public JSONObject getById(Integer id) {
-		logger.info("(Service-getById)-根据id获取企业-传入参数, id:{}", id);
+		logger.info("(EnterpriseService-getById)-根据id获取企业-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -60,7 +60,7 @@ public class EnterpriseServiceImpl extends BaseService implements IEnterpriseSer
 	 */
 	@Override
 	public JSONObject add(Object params) {
-		logger.info("(Service-add)-新增企业-传入参数, params:{}", params);
+		logger.info("(EnterpriseService-add)-新增企业-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise+"/insert", params, JSONObject.class);
 		return response;
 	}
@@ -72,7 +72,7 @@ public class EnterpriseServiceImpl extends BaseService implements IEnterpriseSer
 	 */
 	@Override
 	public JSONObject deleteById(Integer id) {
-		logger.info("(Service-deleteById)-根据id获取企业-传入参数, id:{}", id);
+		logger.info("(EnterpriseService-deleteById)-根据id获取企业-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -84,7 +84,7 @@ public class EnterpriseServiceImpl extends BaseService implements IEnterpriseSer
 	 */
 	@Override
 	public JSONObject update(Object params) {
-		logger.info("(Service-update)-修改企业-传入参数, params:{}", params);
+		logger.info("(EnterpriseService-update)-修改企业-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise+"/modify", params, JSONObject.class);
 		return response;
 	}

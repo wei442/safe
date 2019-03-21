@@ -43,7 +43,6 @@ public class TokenZuulFilter extends ZuulFilter {
 	@Value("${security.ignore.uri}")
 	private String ignoreUri;
 
-
 	/**
 	 * 是否执行该过滤器，此处为true，说明需要过滤
 	 */

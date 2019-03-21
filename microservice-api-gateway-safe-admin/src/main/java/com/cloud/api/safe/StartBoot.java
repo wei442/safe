@@ -9,7 +9,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import com.cloud.api.safe.filter.ResponseZuulFilter;
-import com.cloud.api.safe.filter.TokenZuulFilter;
 
 @SpringBootApplication
 //服务网关
@@ -36,10 +35,10 @@ public class StartBoot {
 	 * TokenZuulFilter过滤器
 	 * @return TokenZuulFilter
 	 */
-	@Bean
-	public TokenZuulFilter tokenZuulFilter() {
-		return new TokenZuulFilter();
-	}
+//	@Bean
+//	public TokenZuulFilter tokenZuulFilter() {
+//		return new TokenZuulFilter();
+//	}
 
 	/**
 	 * ResponseZuulFilter过滤器
