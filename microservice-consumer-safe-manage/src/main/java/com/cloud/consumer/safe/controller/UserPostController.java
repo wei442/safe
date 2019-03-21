@@ -52,14 +52,14 @@ public class UserPostController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户岗位列表")
-	@RequestMapping(value="/getUserPostListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/getListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getUserPostListByPage(
+	public BaseRestMapResponse getListByPage(
 		@RequestBody UserPostPageRequest req) {
-		logger.info("===step1:【分页查询】(UserPostController-getUserPostListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询】(UserPostController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonUserPost = userPostService.getUserPostListByPage(req);
-		logger.info("===step2:【分页查询】(UserPostController-getUserPostListByPage)-分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
+		JSONObject jsonUserPost = userPostService.getListByPage(req);
+		logger.info("===step2:【分页查询】(UserPostController-getListByPage)-分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
 		String dataListStr = JSONObject.toJSONString(jsonUserPost.getJSONArray(PageConstants.DATA_LIST));
 		String pageStr = JSONObject.toJSONString(jsonUserPost.getJSONObject(PageConstants.PAGE));
 		List<UserPostVo> userPostVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserPostVo>>(){});
@@ -69,7 +69,7 @@ public class UserPostController extends BaseController {
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
 		userPostResponse.put(RetSafeConstants.RESULT, result);
-	    logger.info("===step3:【分页查询】(UserPostController-getUserPostListByPage)-返回信息, userPostResponse:{}", userPostResponse);
+	    logger.info("===step3:【分页查询】(UserPostController-getListByPage)-返回信息, userPostResponse:{}", userPostResponse);
 	    return userPostResponse;
 	}
 
@@ -79,21 +79,21 @@ public class UserPostController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询用户岗位列表")
-	@RequestMapping(value="/getUserPostList",method={RequestMethod.POST})
+	@RequestMapping(value="/getList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getUserPostList(
+	public BaseRestMapResponse getList(
 		@RequestBody UserPostPageRequest req) {
-		logger.info("===step1:【不分页查询】(UserPostController-getUserPostList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【不分页查询】(UserPostController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonUserPost = userPostService.getUserPostListByPage(req);
-		logger.info("===step2:【不分页查询】(UserPostController-getUserPostList)-不分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
+		JSONObject jsonUserPost = userPostService.getListByPage(req);
+		logger.info("===step2:【不分页查询】(UserPostController-getList)-不分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
 		String dataListStr = JSONObject.toJSONString(jsonUserPost.getJSONArray(PageConstants.DATA_LIST));
 		List<UserPostVo> userPostVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserPostVo>>(){});
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
 		userPostResponse.put(RetSafeConstants.RESULT, userPostVoList);
-		logger.info("===step3:【不分页查询】(UserPostController-getUserPostList)-返回信息, userPostResponse:{}", userPostResponse);
+		logger.info("===step3:【不分页查询】(UserPostController-getList)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}
 
@@ -105,24 +105,24 @@ public class UserPostController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "获取用户岗位详情")
-	@RequestMapping(value="/getUserPost",method={RequestMethod.POST})
+	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getUserPost(
+	public BaseRestMapResponse get(
 		@Validated @RequestBody UserPostIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户岗位】(UserPostController-getUserPost)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户岗位】(UserPostController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer userPostId = req.getUserPostId();
-		JSONObject jsonUserPost = userPostService.getUserPostById(userPostId);
-		logger.info("===step2:【获取用户岗位】(UserPostController-getUserPost)-根据userPostId获取用户岗位, jsonUserPost:{}", jsonUserPost);
+		JSONObject jsonUserPost = userPostService.getById(userPostId);
+		logger.info("===step2:【获取用户岗位】(UserPostController-get)-根据userPostId获取用户岗位, jsonUserPost:{}", jsonUserPost);
 		UserPostVo userPostVo = JSONObject.toJavaObject(jsonUserPost, UserPostVo.class);
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
 		userPostResponse.put(RetSafeConstants.RESULT, userPostVo);
-	    logger.info("===step3:【获取用户岗位】(UserPostController-getUserPost)-返回信息, userPostResponse:{}", userPostResponse);
+	    logger.info("===step3:【获取用户岗位】(UserPostController-get)-返回信息, userPostResponse:{}", userPostResponse);
 	    return userPostResponse;
 	}
 
@@ -133,23 +133,23 @@ public class UserPostController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "新增用户岗位")
-	@RequestMapping(value="/addUserPost",method={RequestMethod.POST})
+	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse addUserPost(
+	public BaseRestMapResponse add(
 		@Validated @RequestBody UserPostRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【新增用户岗位】(UserPostController-addUserPost)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【新增用户岗位】(UserPostController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonUserPost = userPostService.addUserPost(req);
-		logger.info("===step2:【新增用户岗位】(UserPostController-addUserPost)-分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
+		JSONObject jsonUserPost = userPostService.add(req);
+		logger.info("===step2:【新增用户岗位】(UserPostController-add)-分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
 		UserPostVo userPostVo = JSONObject.toJavaObject(jsonUserPost, UserPostVo.class);
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
 		userPostResponse.put(RetSafeConstants.RESULT, userPostVo);
-	    logger.info("===step3:【新增用户岗位】(UserPostController-addUserPost)-返回信息, userPostResponse:{}", userPostResponse);
+	    logger.info("===step3:【新增用户岗位】(UserPostController-add)-返回信息, userPostResponse:{}", userPostResponse);
 	    return userPostResponse;
 	}
 
@@ -160,24 +160,24 @@ public class UserPostController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "新增用户岗位")
-	@RequestMapping(value="/deleteUserPost",method={RequestMethod.POST})
+	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteUserPost(
+	public BaseRestMapResponse delete(
 		@Validated @RequestBody UserPostIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【删除用户岗位】(UserPostController-deleteUserPost)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【删除用户岗位】(UserPostController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer userPostId = req.getUserPostId();
-		JSONObject jsonUserPost = userPostService.deleteUserPostById(userPostId);
-		logger.info("===step2:【删除用户岗位】(UserPostController-deleteUserPost)-根据userPostId删除用户岗位, jsonUserPost:{}", jsonUserPost);
+		JSONObject jsonUserPost = userPostService.deleteById(userPostId);
+		logger.info("===step2:【删除用户岗位】(UserPostController-delete)-根据userPostId删除用户岗位, jsonUserPost:{}", jsonUserPost);
 		UserPostVo userPostVo = JSONObject.toJavaObject(jsonUserPost, UserPostVo.class);
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
 		userPostResponse.put(RetSafeConstants.RESULT, userPostVo);
-		logger.info("===step3:【删除用户岗位】(UserPostController-deleteUserPost)-返回信息, userPostResponse:{}", userPostResponse);
+		logger.info("===step3:【删除用户岗位】(UserPostController-delete)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}
 
@@ -188,23 +188,23 @@ public class UserPostController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改用户岗位")
-	@RequestMapping(value="/updateUserPost",method={RequestMethod.POST})
+	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse updateUserPost(
+	public BaseRestMapResponse update(
 		@Validated({ UpdateGroup.class }) @RequestBody UserPostRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户岗位】(UserPostController-updateUserPost)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改用户岗位】(UserPostController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonUserPost = userPostService.addUserPost(req);
-		logger.info("===step2:【修改用户岗位】(UserPostController-updateUserPost)-修改用户岗位, jsonUserPost:{}", jsonUserPost);
+		JSONObject jsonUserPost = userPostService.update(req);
+		logger.info("===step2:【修改用户岗位】(UserPostController-update)-修改用户岗位, jsonUserPost:{}", jsonUserPost);
 		UserPostVo userPostVo = JSONObject.toJavaObject(jsonUserPost, UserPostVo.class);
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
 		userPostResponse.put(RetSafeConstants.RESULT, userPostVo);
-		logger.info("===step3:【修改用户岗位】(UserPostController-updateUserPost)-返回信息, userPostResponse:{}", userPostResponse);
+		logger.info("===step3:【修改用户岗位】(UserPostController-update)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}
 

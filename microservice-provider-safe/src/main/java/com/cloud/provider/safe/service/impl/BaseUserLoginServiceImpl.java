@@ -40,7 +40,7 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
 	@Override
 	public List<BaseUserLogin> selectListByPage(Page<?> page, BaseUserLoginPageRequest param) {
 		logger.info("(BaseUserLoginService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		BaseUserLoginExample example = new BaseUserLoginExample();
 		example.setOrderByClause(" id desc ");
 		BaseUserLoginExample.Criteria criteria = example.createCriteria();

@@ -41,7 +41,7 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
 	@Override
 	public List<BaseUserInfo> selectListByPage(Page<?> page, BaseUserInfoPageRequest param) {
 		logger.info("(BaseUserInfoService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		BaseUserInfoExample example = new BaseUserInfoExample();
 		example.setOrderByClause(" id desc ");
 		BaseUserInfoExample.Criteria criteria = example.createCriteria();

@@ -41,7 +41,7 @@ public class QualityServiceImpl implements IQualityService {
 	@Override
 	public List<Quality> selectListByPage(Page<?> page, QualityPageRequest param) {
 		logger.info("(QualityService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		QualityExample example = new QualityExample();
 		example.setOrderByClause(" id desc ");
 		QualityExample.Criteria criteria = example.createCriteria();

@@ -41,7 +41,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 	@Override
 	public List<PostAttachment> selectListByPage(Page<?> page, PostAttachmentPageRequest param) {
 		logger.info("(PostAttachmentService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		PostAttachmentExample example = new PostAttachmentExample();
 		example.setOrderByClause(" id desc ");
 		PostAttachmentExample.Criteria criteria = example.createCriteria();

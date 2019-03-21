@@ -40,7 +40,7 @@ public class AttachmentLogServiceImpl implements IAttachmentLogService {
 	@Override
 	public List<AttachmentLog> selectAttachmentLogListByPage(Page<?> page, AttachmentLogPageRequest param) {
 		logger.info("(AttachmentLogService-selectAttachmentLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		AttachmentLogExample example = new AttachmentLogExample();
 		example.setOrderByClause(" id desc ");
 		AttachmentLogExample.Criteria criteria = example.createCriteria();

@@ -41,7 +41,7 @@ public class AttachmentServiceImpl implements IAttachmentService {
 	@Override
 	public List<Attachment> selectListByPage(Page<?> page, AttachmentPageRequest param) {
 		logger.info("(AttachmentService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		AttachmentExample example = new AttachmentExample();
 		example.setOrderByClause(" id desc ");
 		AttachmentExample.Criteria criteria = example.createCriteria();

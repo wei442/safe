@@ -2,11 +2,14 @@ package com.cloud.consumer.safe.vo.user;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
 /**
  *
- * 用户注册登录 Vo
+ * 用户登录 Vo
  * @author wei.yong
  */
+@Data
 public class UserLoginVo implements Serializable {
 
 	/**
@@ -14,50 +17,15 @@ public class UserLoginVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String token;
+
+	private Integer enterpriseId;
+
+	private Integer userId;
 
 	private String userAccount;
 
-	private Integer isSign;
+	private String userName;
 
-	private String gToken;
-
-	public String getToken() {
-		return this.token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	public String getUserAccount() {
-		return this.userAccount;
-	}
-
-	public void setUserAccount(String userAccount) {
-		this.userAccount = userAccount;
-	}
-
-	public Integer getIsSign() {
-		return this.isSign;
-	}
-
-	public void setIsSign(Integer isSign) {
-		this.isSign = isSign;
-	}
-
-	public String getgToken() {
-		return this.gToken;
-	}
-
-	public void setgToken(String gToken) {
-		this.gToken = gToken;
-	}
-
-	@Override
-	public String toString() {
-		return "UserLoginVo [token=" + token + ", userAccount=" + userAccount + ", isSign=" + isSign + ", gToken="
-				+ gToken + "]";
-	}
+	private String token;
 
 }

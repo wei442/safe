@@ -40,7 +40,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
 	@Override
 	public List<UserTitle> selectListByPage(Page<?> page, UserTitlePageRequest param) {
 		logger.info("(UserTitleService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserTitleExample example = new UserTitleExample();
 		example.setOrderByClause(" id desc ");
 		UserTitleExample.Criteria criteria = example.createCriteria();

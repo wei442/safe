@@ -39,7 +39,7 @@ public class BaseUserLoginLogServiceImpl implements IBaseUserLoginLogService {
 	 */
 	public List<BaseUserLoginLog> selectBaseUserLoginLogListByPage(Page<?> page, BaseUserLoginLogPageRequest param) {
 		logger.info("(BaseUserLoginLogService-selectBaseUserLoginLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		BaseUserLoginLogExample example = new BaseUserLoginLogExample();
 		example.setOrderByClause(" id desc ");
 		BaseUserLoginLogExample.Criteria criteria = example.createCriteria();

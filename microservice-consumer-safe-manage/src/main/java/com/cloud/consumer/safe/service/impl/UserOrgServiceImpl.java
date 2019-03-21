@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserOrgService;
 
 /**
- * 用户机构 UserOrgService (microservice-provider-safe)
+ * 用户机构 Service (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -23,9 +23,9 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserOrgListByPage(Object params) {
-		logger.info("(UserOrgService-getUserOrgListByPage)-分页获取用户机构列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserOrgListByPage", params, JSONObject.class);
+	public JSONObject getListByPage(Object params) {
+		logger.info("(Service-getListByPage)-分页获取用户机构列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -35,9 +35,9 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserOrgList(Object params) {
-		logger.info("(UserOrgService-getUserOrgList)-获取用户机构列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserOrgList", params, JSONObject.class);
+	public JSONObject getList(Object params) {
+		logger.info("(Service-getList)-获取用户机构列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectList", params, JSONObject.class);
 		return response;
 	}
 
@@ -47,9 +47,21 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserOrgById(Integer id) {
-		logger.info("(UserOrgService-getUserOrgById)-根据id获取用户机构-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectUserOrgById/"+id, null, JSONObject.class);
+	public JSONObject getById(Integer id) {
+		logger.info("(Service-getById)-根据id获取用户机构-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectById/"+id, null, JSONObject.class);
+		return response;
+	}
+
+	/**
+	 * 根据userId获取用户机构
+	 * @param userId
+	 * @return JSONObject
+	 */
+	@Override
+	public JSONObject getByUserId(Integer userId) {
+		logger.info("(Service-getByUserId)-根据userId获取用户机构-传入参数, userId:{}", userId);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectByUserId/"+userId, null, JSONObject.class);
 		return response;
 	}
 
@@ -59,9 +71,9 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addUserOrg(Object params) {
-		logger.info("(UserOrgService-addUserOrg)-新增用户机构-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/insertUserOrg", params, JSONObject.class);
+	public JSONObject add(Object params) {
+		logger.info("(Service-add)-新增用户机构-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/insert", params, JSONObject.class);
 		return response;
 	}
 
@@ -71,9 +83,9 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteUserOrgById(Integer id) {
-		logger.info("(UserOrgService-deleteUserOrgById)-根据id获取用户机构-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/deleteUserOrgById/"+id, null, JSONObject.class);
+	public JSONObject deleteById(Integer id) {
+		logger.info("(Service-deleteById)-根据id获取用户机构-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -83,9 +95,9 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject updateUserOrg(Object params) {
-		logger.info("(UserOrgService-updateUserOrg)-修改用户机构-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/modifyUserOrg", params, JSONObject.class);
+	public JSONObject update(Object params) {
+		logger.info("(Service-update)-修改用户机构-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/modify", params, JSONObject.class);
 		return response;
 	}
 

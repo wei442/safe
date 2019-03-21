@@ -40,7 +40,7 @@ public class UserQualityServiceImpl implements IUserQualityService {
 	@Override
 	public List<UserQuality> selectListByPage(Page<?> page, UserQualityPageRequest param) {
 		logger.info("(UserQualityService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserQualityExample example = new UserQualityExample();
 		example.setOrderByClause(" id desc ");
 		UserQualityExample.Criteria criteria = example.createCriteria();

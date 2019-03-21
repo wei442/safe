@@ -21,8 +21,6 @@ public class BaseUserVo implements Serializable {
 
     private String userNameEn;
 
-    private String userPassword;
-
     private Integer userType;
 
     private Integer userStatus;

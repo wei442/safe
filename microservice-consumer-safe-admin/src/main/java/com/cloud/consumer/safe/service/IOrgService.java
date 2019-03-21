@@ -1,51 +1,49 @@
 package com.cloud.consumer.safe.service;
 
-import java.util.Map;
-
 import com.alibaba.fastjson.JSONObject;
 
 public interface IOrgService {
 
 	/**
-	 * 分页获取组织机构列表
+	 * 获取组织机构树用户列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getOrgListByPage(Object params);
+	public JSONObject getTreeUserList(Object params);
 
 	/**
-	 * 获取组织机构列表
+	 * 获取组织机构树列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getOrgList(Object params);
+	public JSONObject getTreeList(Object params);
 
 	/**
 	 * 根据id获取组织机构
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject getOrgById(Integer id);
+	public JSONObject getById(Integer id);
 
 	/**
 	 * 新增组织机构
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addOrg(Object params);
+	public JSONObject add(Object params);
 
 	/**
 	 * 根据id删除组织机构
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject deleteOrgById(Integer id);
+	public JSONObject deleteById(Integer id);
 
 	/**
 	 * 修改组织机构
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject updateOrg(Object params);
+	public JSONObject update(Object params);
 
 }

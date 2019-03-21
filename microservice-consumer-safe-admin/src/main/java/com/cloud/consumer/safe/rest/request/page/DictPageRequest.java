@@ -2,6 +2,7 @@ package com.cloud.consumer.safe.rest.request.page;
 
 import com.cloud.consumer.safe.base.BaseRestRequest;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,14 +15,7 @@ public class DictPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer dictId;
-
-    private Integer enterpriseId;
-
+    @ApiModelProperty(value = "字典名称")
     private String dictName;
-
-    private Integer dictType;
-
-    private Integer dictStatus;
 
 }

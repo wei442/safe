@@ -2,6 +2,7 @@ package com.cloud.consumer.safe.rest.request.page;
 
 import com.cloud.consumer.safe.base.BaseRestRequest;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,38 +15,13 @@ public class OrgPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "机构id")
 	private Integer orgId;
 
+	@ApiModelProperty(value = "企业id")
     private Integer enterpriseId;
 
+    @ApiModelProperty(value = "机构父id")
     private Integer parentOrgId;
-
-    private String parentOrgName;
-
-    private String parentOrgNameEn;
-
-    private String orgName;
-
-    private String orgNameEn;
-
-    private String orgAlias;
-
-    private String orgTelphone;
-
-    private Integer orgType;
-
-    private Integer orgStatus;
-
-    private Integer orgLevel;
-
-    private String orgFax;
-
-    private String orgEmail;
-
-    private String orgPostCode;
-
-    private String orgAddr;
-
-    private String orgWebsite;
 
 }

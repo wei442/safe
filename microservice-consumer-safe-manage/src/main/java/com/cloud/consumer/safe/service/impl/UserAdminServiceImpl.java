@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserAdminService;
 
 /**
- * 用户管理 UserAdminService (microservice-provider-safe)
+ * 用户管理 Service (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -18,74 +18,85 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * 分页获取用户职务列表
+	 * 分页获取用户管理列表
 	 * @param params
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserAdminListByPage(Object params) {
-		logger.info("(UserAdminService-getUserAdminListByPage)-分页获取用户职务列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectUserAdminListByPage", params, JSONObject.class);
+	public JSONObject getListByPage(Object params) {
+		logger.info("(Service-getListByPage)-分页获取用户管理列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
 
 	/**
-	 * 获取用户职务列表
+	 * 获取用户管理列表
 	 * @param params
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserAdminList(Object params) {
-		logger.info("(UserAdminService-getUserAdminList)-获取用户职务列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectUserAdminList", params, JSONObject.class);
+	public JSONObject getList(Object params) {
+		logger.info("(Service-getList)-获取用户管理列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectList", params, JSONObject.class);
 		return response;
 	}
 
 	/**
-	 * 根据id获取用户职务
+	 * 根据id获取用户管理
 	 * @param id
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserAdminById(Integer id) {
-		logger.info("(UserAdminService-getUserAdminById)-根据id获取用户职务-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectUserAdminById/"+id, null, JSONObject.class);
+	public JSONObject getById(Integer id) {
+		logger.info("(Service-getById)-根据id获取用户管理-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
 
 	/**
-	 * 新增用户职务
+	 * 根据userId获取用户管理
+	 * @param userId
+	 * @return JSONObject
+	 */
+	public JSONObject getByUserId(Integer userId) {
+		logger.info("(Service-getByUserId)-根据userId获取用户管理-传入参数, userId:{}", userId);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectByUserId/"+userId, null, JSONObject.class);
+		return response;
+	}
+
+	/**
+	 * 新增用户管理
 	 * @param params
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addUserAdmin(Object params) {
-		logger.info("(UserAdminService-addUserAdmin)-新增用户职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/insertUserAdmin", params, JSONObject.class);
+	public JSONObject add(Object params) {
+		logger.info("(Service-add)-新增用户管理-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/insert", params, JSONObject.class);
 		return response;
 	}
 
 	/**
-	 * 根据id删除用户职务
+	 * 根据id删除用户管理
 	 * @param id
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteUserAdminById(Integer id) {
-		logger.info("(UserAdminService-deleteUserAdminById)-根据id获取用户职务-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/deleteUserAdminById/"+id, null, JSONObject.class);
+	public JSONObject deleteById(Integer id) {
+		logger.info("(Service-deleteById)-根据id获取用户管理-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
 
 	/**
-	 * 修改用户职务
+	 * 修改用户管理
 	 * @param params
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject updateUserAdmin(Object params) {
-		logger.info("(UserAdminService-updateUserAdmin)-修改用户职务-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/modifyUserAdmin", params, JSONObject.class);
+	public JSONObject update(Object params) {
+		logger.info("(Service-update)-修改用户管理-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/modify", params, JSONObject.class);
 		return response;
 	}
 

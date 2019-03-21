@@ -41,7 +41,7 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
 	@Override
 	public List<QualityAttachment> selectListByPage(Page<?> page, QualityAttachmentPageRequest param) {
 		logger.info("(QualityAttachmentService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		QualityAttachmentExample example = new QualityAttachmentExample();
 		example.setOrderByClause(" id desc ");
 		QualityAttachmentExample.Criteria criteria = example.createCriteria();

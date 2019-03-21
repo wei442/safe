@@ -40,7 +40,7 @@ public class UserPostServiceImpl implements IUserPostService {
 	@Override
 	public List<UserPost> selectListByPage(Page<?> page, UserPostPageRequest param) {
 		logger.info("(UserPostService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserPostExample example = new UserPostExample();
 		example.setOrderByClause(" id desc ");
 		UserPostExample.Criteria criteria = example.createCriteria();

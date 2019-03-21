@@ -39,7 +39,7 @@ public class UserAdminLoginLogServiceImpl implements IUserAdminLoginLogService {
 	 */
 	public List<UserAdminLoginLog> selectUserAdminLoginLogListByPage(Page<?> page, UserAdminLoginLogPageRequest param) {
 		logger.info("(UserAdminLoginLogService-selectUserAdminLoginLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserAdminLoginLogExample example = new UserAdminLoginLogExample();
 		example.setOrderByClause(" id desc ");
 		UserAdminLoginLogExample.Criteria criteria = example.createCriteria();

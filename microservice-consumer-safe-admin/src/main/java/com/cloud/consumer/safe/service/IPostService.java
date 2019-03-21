@@ -9,41 +9,41 @@ public interface IPostService {
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getPostListByPage(Object params);
+	public JSONObject getListByPage(Object params);
 
 	/**
 	 * 获取岗位列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getPostList(Object params);
+	public JSONObject getList(Object params);
 
 	/**
 	 * 根据id获取岗位
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject getPostById(Integer id);
+	public JSONObject getById(Integer id);
 
 	/**
 	 * 新增岗位
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addPost(Object params);
+	public JSONObject add(Object params);
 
 	/**
 	 * 根据id删除岗位
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject deletePostById(Integer id);
+	public JSONObject deleteById(Integer id);
 
 	/**
 	 * 修改岗位
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject updatePost(Object params);
+	public JSONObject update(Object params);
 
 }

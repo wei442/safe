@@ -41,7 +41,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	@Override
 	public List<UserAdmin> selectListByPage(Page<?> page, UserAdminPageRequest param) {
 		logger.info("(UserAdminService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserAdminExample example = new UserAdminExample();
 		example.setOrderByClause(" id desc ");
 		UserAdminExample.Criteria criteria = example.createCriteria();

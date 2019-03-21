@@ -15,6 +15,8 @@ public class UserOrgVo implements Serializable {
 
 	private Integer userOrgId;
 
+	private Integer enterpriseId;
+
     private Integer userId;
 
     private Integer orgId;
@@ -26,5 +28,6 @@ public class UserOrgVo implements Serializable {
     private Date createTime;
 
     private Date updateTime;
+
 
 }

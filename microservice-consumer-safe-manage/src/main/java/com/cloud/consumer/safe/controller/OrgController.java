@@ -51,21 +51,21 @@ public class OrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "查询组织机构树用户列表")
-	@RequestMapping(value="/getOrgTreeUserList",method={RequestMethod.POST})
+	@RequestMapping(value="/getTreeUserList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getOrgTreeUserList(
+	public BaseRestMapResponse getTreeUserList(
 		@RequestBody OrgPageRequest req) {
-		logger.info("===step1:【查询组织机构树用户列表】(OrgController-getOrgTreeUserList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【查询组织机构树用户列表】(OrgController-getTreeUserList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonOrg = orgService.getOrgTreeUserList(req);
-		logger.info("===step2:【查询组织机构树用户列表】(OrgController-getOrgTreeUserList)-查询组织机构树用户列表, jsonOrg:{}", jsonOrg);
+		JSONObject jsonOrg = orgService.getTreeUserList(req);
+		logger.info("===step2:【查询组织机构树用户列表】(OrgController-getTreeUserList)-查询组织机构树用户列表, jsonOrg:{}", jsonOrg);
 		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
 		List<OrgUserVo> orgUserVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgUserVo>>(){});
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
 		orgResponse.put(RetSafeConstants.RESULT, orgUserVoList);
-	    logger.info("===step3:【查询组织机构树用户列表】(OrgController-getOrgTreeUserList)-返回信息, orgResponse:{}", orgResponse);
+	    logger.info("===step3:【查询组织机构树用户列表】(OrgController-getTreeUserList)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}
 
@@ -75,21 +75,21 @@ public class OrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "查询组织机构树列表")
-	@RequestMapping(value="/getOrgTreeList",method={RequestMethod.POST})
+	@RequestMapping(value="/getTreeList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getOrgTreeList(
+	public BaseRestMapResponse getTreeList(
 		@RequestBody OrgPageRequest req) {
-		logger.info("===step1:【查询组织机构树列表】(OrgController-getOrgTreeList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【查询组织机构树列表】(OrgController-getTreeList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonOrg = orgService.getOrgTreeUserList(req);
-		logger.info("===step2:【查询组织机构树列表】(OrgController-getOrgTreeList)-查询组织机构树列表, jsonOrg:{}", jsonOrg);
+		JSONObject jsonOrg = orgService.getTreeList(req);
+		logger.info("===step2:【查询组织机构树列表】(OrgController-getTreeList)-查询组织机构树列表, jsonOrg:{}", jsonOrg);
 		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
 		List<OrgVo> orgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgVo>>(){});
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
 		orgResponse.put(RetSafeConstants.RESULT, orgVoList);
-	    logger.info("===step3:【查询组织机构树列表】(OrgController-getOrgTreeList)-返回信息, orgResponse:{}", orgResponse);
+	    logger.info("===step3:【查询组织机构树列表】(OrgController-getTreeList)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}
 
@@ -102,24 +102,24 @@ public class OrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "获取组织机构详情")
-	@RequestMapping(value="/getOrg",method={RequestMethod.POST})
+	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getOrg(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody OrgIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取组织机构】(OrgController-getOrg)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取组织机构】(OrgController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer orgId = req.getOrgId();
-		JSONObject jsonOrg = orgService.getOrgById(orgId);
-		logger.info("===step2:【获取组织机构】(OrgController-getOrg)-根据orgId获取组织机构, jsonOrg:{}", jsonOrg);
+		JSONObject jsonOrg = orgService.getById(orgId);
+		logger.info("===step2:【获取组织机构】(OrgController-getDetail)-根据orgId获取组织机构, jsonOrg:{}", jsonOrg);
 		OrgVo orgVo = JSONObject.toJavaObject(jsonOrg, OrgVo.class);
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
 		orgResponse.put(RetSafeConstants.RESULT, orgVo);
-	    logger.info("===step3:【获取组织机构】(OrgController-getOrg)-返回信息, orgResponse:{}", orgResponse);
+	    logger.info("===step3:【获取组织机构】(OrgController-getDetail)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}
 
@@ -130,23 +130,23 @@ public class OrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "新增组织机构")
-	@RequestMapping(value="/addOrg",method={RequestMethod.POST})
+	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse addOrg(
+	public BaseRestMapResponse add(
 		@Validated @RequestBody OrgRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【新增组织机构】(OrgController-addOrg)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【新增组织机构】(OrgController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonOrg = orgService.addOrg(req);
-		logger.info("===step2:【新增组织机构】(OrgController-addOrg)-分页查询组织机构列表, jsonOrg:{}", jsonOrg);
+		JSONObject jsonOrg = orgService.add(req);
+		logger.info("===step2:【新增组织机构】(OrgController-add)-分页查询组织机构列表, jsonOrg:{}", jsonOrg);
 		OrgVo orgVo = JSONObject.toJavaObject(jsonOrg, OrgVo.class);
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
 		orgResponse.put(RetSafeConstants.RESULT, orgVo);
-	    logger.info("===step3:【新增组织机构】(OrgController-addOrg)-返回信息, orgResponse:{}", orgResponse);
+	    logger.info("===step3:【新增组织机构】(OrgController-add)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}
 
@@ -167,7 +167,7 @@ public class OrgController extends BaseController {
 		this.bindingResult(bindingResult);
 
 		Integer orgId = req.getOrgId();
-		JSONObject jsonOrg = orgService.deleteOrgById(orgId);
+		JSONObject jsonOrg = orgService.deleteById(orgId);
 		logger.info("===step2:【删除组织机构】(OrgController-deleteOrg)-根据orgId删除组织机构, jsonOrg:{}", jsonOrg);
 		OrgVo orgVo = JSONObject.toJavaObject(jsonOrg, OrgVo.class);
 
@@ -185,23 +185,23 @@ public class OrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改组织机构")
-	@RequestMapping(value="/updateOrg",method={RequestMethod.POST})
+	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse updateOrg(
+	public BaseRestMapResponse update(
 		@Validated({ UpdateGroup.class }) @RequestBody OrgRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改组织机构】(OrgController-updateOrg)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改组织机构】(OrgController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonOrg = orgService.addOrg(req);
-		logger.info("===step2:【修改组织机构】(OrgController-updateOrg)-修改组织机构, jsonOrg:{}", jsonOrg);
+		JSONObject jsonOrg = orgService.update(req);
+		logger.info("===step2:【修改组织机构】(OrgController-update)-修改组织机构, jsonOrg:{}", jsonOrg);
 		OrgVo orgVo = JSONObject.toJavaObject(jsonOrg, OrgVo.class);
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
 		orgResponse.put(RetSafeConstants.RESULT, orgVo);
-		logger.info("===step3:【修改组织机构】(OrgController-updateOrg)-返回信息, orgResponse:{}", orgResponse);
+		logger.info("===step3:【修改组织机构】(OrgController-update)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}
 

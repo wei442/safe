@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service;
 
-import java.util.Map;
-
 import com.alibaba.fastjson.JSONObject;
 
 public interface IUserOrgService {
@@ -11,41 +9,48 @@ public interface IUserOrgService {
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getUserOrgListByPage(Object params);
+	public JSONObject getListByPage(Object params);
 
 	/**
 	 * 获取用户机构列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getUserOrgList(Object params);
+	public JSONObject getList(Object params);
 
 	/**
 	 * 根据id获取用户机构
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject getUserOrgById(Integer id);
+	public JSONObject getById(Integer id);
+
+	/**
+	 * 根据userId获取用户机构
+	 * @param userId
+	 * @return JSONObject
+	 */
+	public JSONObject getByUserId(Integer userId);
 
 	/**
 	 * 新增用户机构
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addUserOrg(Object params);
+	public JSONObject add(Object params);
 
 	/**
 	 * 根据id删除用户机构
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject deleteUserOrgById(Integer id);
+	public JSONObject deleteById(Integer id);
 
 	/**
 	 * 修改用户机构
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject updateUserOrg(Object params);
+	public JSONObject update(Object params);
 
 }

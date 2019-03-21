@@ -41,7 +41,7 @@ public class PostServiceImpl implements IPostService {
 	@Override
 	public List<Post> selectListByPage(Page<?> page, PostPageRequest param) {
 		logger.info("(PostService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		PostExample example = new PostExample();
 		example.setOrderByClause(" id desc ");
 		PostExample.Criteria criteria = example.createCriteria();

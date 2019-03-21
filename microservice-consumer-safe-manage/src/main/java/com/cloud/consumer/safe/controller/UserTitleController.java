@@ -52,14 +52,14 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户职务列表")
-	@RequestMapping(value="/getUserTitleListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/getListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getUserTitleListByPage(
+	public BaseRestMapResponse getListByPage(
 		@RequestBody UserTitlePageRequest req) {
-		logger.info("===step1:【分页查询】(UserTitleController-getUserTitleListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询】(UserTitleController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonUserTitle = userTitleService.getUserTitleListByPage(req);
-		logger.info("===step2:【分页查询】(UserTitleController-getUserTitleListByPage)-分页查询用户职务列表, jsonUserTitle:{}", jsonUserTitle);
+		JSONObject jsonUserTitle = userTitleService.getListByPage(req);
+		logger.info("===step2:【分页查询】(UserTitleController-getListByPage)-分页查询用户职务列表, jsonUserTitle:{}", jsonUserTitle);
 		String dataListStr = JSONObject.toJSONString(jsonUserTitle.getJSONArray(PageConstants.DATA_LIST));
 		String pageStr = JSONObject.toJSONString(jsonUserTitle.getJSONObject(PageConstants.PAGE));
 		List<UserTitleVo> userTitleVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserTitleVo>>(){});
@@ -69,7 +69,7 @@ public class UserTitleController extends BaseController {
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
 		userTitleResponse.put(RetSafeConstants.RESULT, result);
-	    logger.info("===step3:【分页查询】(UserTitleController-getUserTitleListByPage)-返回信息, userTitleResponse:{}", userTitleResponse);
+	    logger.info("===step3:【分页查询】(UserTitleController-getListByPage)-返回信息, userTitleResponse:{}", userTitleResponse);
 	    return userTitleResponse;
 	}
 
@@ -79,21 +79,21 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询用户职务列表")
-	@RequestMapping(value="/getUserTitleList",method={RequestMethod.POST})
+	@RequestMapping(value="/getList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getUserTitleList(
+	public BaseRestMapResponse getList(
 		@RequestBody UserTitlePageRequest req) {
-		logger.info("===step1:【不分页查询】(UserTitleController-getUserTitleList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【不分页查询】(UserTitleController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonUserTitle = userTitleService.getUserTitleListByPage(req);
-		logger.info("===step2:【不分页查询】(UserTitleController-getUserTitleList)-不分页查询用户职务列表, jsonUserTitle:{}", jsonUserTitle);
+		JSONObject jsonUserTitle = userTitleService.getListByPage(req);
+		logger.info("===step2:【不分页查询】(UserTitleController-getList)-不分页查询用户职务列表, jsonUserTitle:{}", jsonUserTitle);
 		String dataListStr = JSONObject.toJSONString(jsonUserTitle.getJSONArray(PageConstants.DATA_LIST));
 		List<UserTitleVo> userTitleVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserTitleVo>>(){});
 
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
 		userTitleResponse.put(RetSafeConstants.RESULT, userTitleVoList);
-		logger.info("===step3:【不分页查询】(UserTitleController-getUserTitleList)-返回信息, userTitleResponse:{}", userTitleResponse);
+		logger.info("===step3:【不分页查询】(UserTitleController-getList)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
 
@@ -105,24 +105,24 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "获取用户职务详情")
-	@RequestMapping(value="/getUserTitle",method={RequestMethod.POST})
+	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getUserTitle(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserTitleIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户职务】(UserTitleController-getUserTitle)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户职务】(UserTitleController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer userTitleId = req.getUserTitleId();
-		JSONObject jsonUserTitle = userTitleService.getUserTitleById(userTitleId);
-		logger.info("===step2:【获取用户职务】(UserTitleController-getUserTitle)-根据userTitleId获取用户职务, jsonUserTitle:{}", jsonUserTitle);
+		JSONObject jsonUserTitle = userTitleService.getById(userTitleId);
+		logger.info("===step2:【获取用户职务】(UserTitleController-getDetail)-根据userTitleId获取用户职务, jsonUserTitle:{}", jsonUserTitle);
 		UserTitleVo userTitleVo = JSONObject.toJavaObject(jsonUserTitle, UserTitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
 		userTitleResponse.put(RetSafeConstants.RESULT, userTitleVo);
-	    logger.info("===step3:【获取用户职务】(UserTitleController-getUserTitle)-返回信息, userTitleResponse:{}", userTitleResponse);
+	    logger.info("===step3:【获取用户职务】(UserTitleController-getDetail)-返回信息, userTitleResponse:{}", userTitleResponse);
 	    return userTitleResponse;
 	}
 
@@ -133,23 +133,23 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "新增用户职务")
-	@RequestMapping(value="/addUserTitle",method={RequestMethod.POST})
+	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse addUserTitle(
+	public BaseRestMapResponse add(
 		@Validated @RequestBody UserTitleRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【新增用户职务】(UserTitleController-addUserTitle)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【新增用户职务】(UserTitleController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonUserTitle = userTitleService.addUserTitle(req);
-		logger.info("===step2:【新增用户职务】(UserTitleController-addUserTitle)-分页查询用户职务列表, jsonUserTitle:{}", jsonUserTitle);
+		JSONObject jsonUserTitle = userTitleService.add(req);
+		logger.info("===step2:【新增用户职务】(UserTitleController-add)-分页查询用户职务列表, jsonUserTitle:{}", jsonUserTitle);
 		UserTitleVo userTitleVo = JSONObject.toJavaObject(jsonUserTitle, UserTitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
 		userTitleResponse.put(RetSafeConstants.RESULT, userTitleVo);
-	    logger.info("===step3:【新增用户职务】(UserTitleController-addUserTitle)-返回信息, userTitleResponse:{}", userTitleResponse);
+	    logger.info("===step3:【新增用户职务】(UserTitleController-add)-返回信息, userTitleResponse:{}", userTitleResponse);
 	    return userTitleResponse;
 	}
 
@@ -170,7 +170,7 @@ public class UserTitleController extends BaseController {
 		this.bindingResult(bindingResult);
 
 		Integer userTitleId = req.getUserTitleId();
-		JSONObject jsonUserTitle = userTitleService.deleteUserTitleById(userTitleId);
+		JSONObject jsonUserTitle = userTitleService.deleteById(userTitleId);
 		logger.info("===step2:【删除用户职务】(UserTitleController-deleteUserTitle)-根据userTitleId删除用户职务, jsonUserTitle:{}", jsonUserTitle);
 		UserTitleVo userTitleVo = JSONObject.toJavaObject(jsonUserTitle, UserTitleVo.class);
 
@@ -188,23 +188,23 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改用户职务")
-	@RequestMapping(value="/updateUserTitle",method={RequestMethod.POST})
+	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse updateUserTitle(
+	public BaseRestMapResponse update(
 		@Validated({ UpdateGroup.class }) @RequestBody UserTitleRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户职务】(UserTitleController-updateUserTitle)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改用户职务】(UserTitleController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonUserTitle = userTitleService.addUserTitle(req);
-		logger.info("===step2:【修改用户职务】(UserTitleController-updateUserTitle)-修改用户职务, jsonUserTitle:{}", jsonUserTitle);
+		JSONObject jsonUserTitle = userTitleService.update(req);
+		logger.info("===step2:【修改用户职务】(UserTitleController-update)-修改用户职务, jsonUserTitle:{}", jsonUserTitle);
 		UserTitleVo userTitleVo = JSONObject.toJavaObject(jsonUserTitle, UserTitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
 		userTitleResponse.put(RetSafeConstants.RESULT, userTitleVo);
-		logger.info("===step3:【修改用户职务】(UserTitleController-updateUserTitle)-返回信息, userTitleResponse:{}", userTitleResponse);
+		logger.info("===step3:【修改用户职务】(UserTitleController-update)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
 

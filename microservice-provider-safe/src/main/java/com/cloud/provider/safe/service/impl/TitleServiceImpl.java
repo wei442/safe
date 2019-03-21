@@ -41,7 +41,7 @@ public class TitleServiceImpl implements ITitleService {
 	@Override
 	public List<Title> selectListByPage(Page<?> page, TitlePageRequest param) {
 		logger.info("(TitleService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		TitleExample example = new TitleExample();
 		example.setOrderByClause(" id desc ");
 		TitleExample.Criteria criteria = example.createCriteria();

@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service;
 
-import java.util.Map;
-
 import com.alibaba.fastjson.JSONObject;
 
 public interface IDictService {
@@ -11,41 +9,41 @@ public interface IDictService {
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getDictListByPage(Object params);
+	public JSONObject getListByPage(Object params);
 
 	/**
 	 * 获取字典列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getDictList(Object params);
+	public JSONObject getList(Object params);
 
 	/**
 	 * 根据id获取字典
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject getDictById(Integer id);
+	public JSONObject getById(Integer id);
 
 	/**
 	 * 新增字典
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addDict(Object params);
+	public JSONObject add(Object params);
 
 	/**
 	 * 根据id删除字典
 	 * @param id
 	 * @return JSONObject
 	 */
-	public JSONObject deleteDictById(Integer id);
+	public JSONObject deleteById(Integer id);
 
 	/**
 	 * 修改字典
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject updateDict(Object params);
+	public JSONObject update(Object params);
 
 }

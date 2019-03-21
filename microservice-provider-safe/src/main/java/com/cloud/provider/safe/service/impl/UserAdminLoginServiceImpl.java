@@ -40,7 +40,7 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
 	@Override
 	public List<UserAdminLogin> selectListByPage(Page<?> page, UserAdminLoginPageRequest param) {
 		logger.info("(UserAdminLoginService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserAdminLoginExample example = new UserAdminLoginExample();
 		example.setOrderByClause(" id desc ");
 		UserAdminLoginExample.Criteria criteria = example.createCriteria();

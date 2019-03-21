@@ -40,7 +40,7 @@ public class UserOrgServiceImpl implements IUserOrgService {
 	@Override
 	public List<UserOrg> selectListByPage(Page<?> page, UserOrgPageRequest param) {
 		logger.info("(UserOrgService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserOrgExample example = new UserOrgExample();
 		example.setOrderByClause(" id desc ");
 		UserOrgExample.Criteria criteria = example.createCriteria();

@@ -21,6 +21,8 @@ public class UserAdminLoginVo implements Serializable {
 
     private Integer loginCount;
 
+    private Date lastPassTime;
+
     private String created;
 
     private String updated;

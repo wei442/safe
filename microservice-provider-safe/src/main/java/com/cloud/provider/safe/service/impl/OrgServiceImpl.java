@@ -104,7 +104,7 @@ public class OrgServiceImpl implements IOrgService {
 //	@Override
 //	public List<Org> selectOrgListByPage(Page<?> page, OrgPageRequest param) {
 //		logger.info("(OrgService-selectOrgListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-//		PageHelper.startPage(page);
+//		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 //		OrgExample example = new OrgExample();
 //		example.setOrderByClause(" id desc ");
 //		OrgExample.Criteria criteria = example.createCriteria();

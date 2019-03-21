@@ -15,9 +15,11 @@ public class UserTitleVo implements Serializable {
 
 	private Integer userTitleId;
 
+	private Integer enterpriseId;
+
     private Integer userId;
 
-    private Integer postId;
+    private Integer titleId;
 
     private String created;
 
@@ -26,5 +28,6 @@ public class UserTitleVo implements Serializable {
     private Date createTime;
 
     private Date updateTime;
+
 
 }

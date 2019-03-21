@@ -41,7 +41,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	@Override
 	public List<UserInfo> selectListByPage(Page<?> page, UserInfoPageRequest param) {
 		logger.info("(UserInfoService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserInfoExample example = new UserInfoExample();
 		example.setOrderByClause(" id desc ");
 		UserInfoExample.Criteria criteria = example.createCriteria();

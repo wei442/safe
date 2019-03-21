@@ -39,7 +39,7 @@ public class UserAppLoginLogServiceImpl implements IUserAppLoginLogService {
 	 */
 	public List<UserAppLoginLog> selectUserAppLoginLogListByPage(Page<?> page, UserAppLoginLogPageRequest param) {
 		logger.info("(UserAppLoginLogService-selectUserAppLoginLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserAppLoginLogExample example = new UserAppLoginLogExample();
 		example.setOrderByClause(" id desc ");
 		UserAppLoginLogExample.Criteria criteria = example.createCriteria();

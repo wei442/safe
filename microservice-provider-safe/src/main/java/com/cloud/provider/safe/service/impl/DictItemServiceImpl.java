@@ -41,7 +41,7 @@ public class DictItemServiceImpl implements IDictItemService {
 	@Override
 	public List<DictItem> selectListByPage(Page<?> page, DictItemPageRequest param) {
 		logger.info("(DictItemService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		DictItemExample example = new DictItemExample();
 		example.setOrderByClause(" id desc ");
 		DictItemExample.Criteria criteria = example.createCriteria();

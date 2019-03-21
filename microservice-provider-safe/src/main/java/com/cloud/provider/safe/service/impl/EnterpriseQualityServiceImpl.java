@@ -41,7 +41,7 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 	@Override
 	public List<EnterpriseQuality> selectListByPage(Page<?> page, EnterpriseQualityPageRequest param) {
 		logger.info("(EnterpriseQualityService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		EnterpriseQualityExample example = new EnterpriseQualityExample();
 		example.setOrderByClause(" id desc ");
 		EnterpriseQualityExample.Criteria criteria = example.createCriteria();

@@ -19,6 +19,7 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.UserAdminLoginIdRequest;
 import com.cloud.consumer.safe.rest.request.UserAdminLoginRequest;
 import com.cloud.consumer.safe.rest.request.page.UserAdminLoginPageRequest;
 import com.cloud.consumer.safe.service.IUserAdminLoginService;
@@ -36,7 +37,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户管理登录")
 @RestController
-@RequestMapping("/user/userAdminLogin")
+@RequestMapping("/user/adminLogin")
 public class UserAdminLoginController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -51,14 +52,14 @@ public class UserAdminLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户管理登录列表")
-	@RequestMapping(value="/getUserAdminLoginListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/getListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getUserAdminLoginListByPage(
+	public BaseRestMapResponse getListByPage(
 		@RequestBody UserAdminLoginPageRequest req) {
-		logger.info("===step1:【分页查询】(UserAdminLoginController-getUserAdminLoginListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询】(UserAdminLoginController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonUserAdminLogin = userAdminLoginService.getUserAdminLoginListByPage(req);
-		logger.info("===step2:【分页查询】(UserAdminLoginController-getUserAdminLoginListByPage)-分页查询用户管理登录列表, jsonUserAdminLogin:{}", jsonUserAdminLogin);
+		JSONObject jsonUserAdminLogin = userAdminLoginService.getListByPage(req);
+		logger.info("===step2:【分页查询】(UserAdminLoginController-getListByPage)-分页查询用户管理登录列表, jsonUserAdminLogin:{}", jsonUserAdminLogin);
 		String dataListStr = JSONObject.toJSONString(jsonUserAdminLogin.getJSONArray(PageConstants.DATA_LIST));
 		String pageStr = JSONObject.toJSONString(jsonUserAdminLogin.getJSONObject(PageConstants.PAGE));
 		List<UserAdminLoginVo> userAdminLoginVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserAdminLoginVo>>(){});
@@ -68,7 +69,7 @@ public class UserAdminLoginController extends BaseController {
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.put(RetSafeConstants.RESULT, result);
-	    logger.info("===step3:【分页查询】(UserAdminLoginController-getUserAdminLoginListByPage)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+	    logger.info("===step3:【分页查询】(UserAdminLoginController-getListByPage)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 	    return userAdminLoginResponse;
 	}
 
@@ -78,21 +79,21 @@ public class UserAdminLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询用户管理登录列表")
-	@RequestMapping(value="/getUserAdminLoginList",method={RequestMethod.POST})
+	@RequestMapping(value="/getList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getUserAdminLoginList(
+	public BaseRestMapResponse getList(
 		@RequestBody UserAdminLoginPageRequest req) {
-		logger.info("===step1:【不分页查询】(UserAdminLoginController-getUserAdminLoginList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【不分页查询】(UserAdminLoginController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonUserAdminLogin = userAdminLoginService.getUserAdminLoginListByPage(req);
-		logger.info("===step2:【不分页查询】(UserAdminLoginController-getUserAdminLoginList)-不分页查询用户管理登录列表, jsonUserAdminLogin:{}", jsonUserAdminLogin);
+		JSONObject jsonUserAdminLogin = userAdminLoginService.getListByPage(req);
+		logger.info("===step2:【不分页查询】(UserAdminLoginController-getList)-不分页查询用户管理登录列表, jsonUserAdminLogin:{}", jsonUserAdminLogin);
 		String dataListStr = JSONObject.toJSONString(jsonUserAdminLogin.getJSONArray(PageConstants.DATA_LIST));
 		List<UserAdminLoginVo> userAdminLoginVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserAdminLoginVo>>(){});
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.put(RetSafeConstants.RESULT, userAdminLoginVoList);
-		logger.info("===step3:【不分页查询】(UserAdminLoginController-getUserAdminLoginList)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+		logger.info("===step3:【不分页查询】(UserAdminLoginController-getList)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
 
@@ -104,24 +105,24 @@ public class UserAdminLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "获取用户管理登录详情")
-	@RequestMapping(value="/getUserAdminLogin",method={RequestMethod.POST})
+	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getUserAdminLogin(
-		@RequestBody UserAdminLoginRequest req,
+	public BaseRestMapResponse get(
+		@Validated @RequestBody UserAdminLoginIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户管理登录】(UserAdminLoginController-getUserAdminLogin)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户管理登录】(UserAdminLoginController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer userAdminLoginId = req.getUserAdminLoginId();
-		JSONObject jsonUserAdminLogin = userAdminLoginService.getUserAdminLoginById(userAdminLoginId);
-		logger.info("===step2:【获取用户管理登录】(UserAdminLoginController-getUserAdminLogin)-根据userAdminLoginId获取用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
+		JSONObject jsonUserAdminLogin = userAdminLoginService.getById(userAdminLoginId);
+		logger.info("===step2:【获取用户管理登录】(UserAdminLoginController-get)-根据userAdminLoginId获取用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
 		UserAdminLoginVo userAdminLoginVo = JSONObject.toJavaObject(jsonUserAdminLogin, UserAdminLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.put(RetSafeConstants.RESULT, userAdminLoginVo);
-	    logger.info("===step3:【获取用户管理登录】(UserAdminLoginController-getUserAdminLogin)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+	    logger.info("===step3:【获取用户管理登录】(UserAdminLoginController-get)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 	    return userAdminLoginResponse;
 	}
 
@@ -132,23 +133,23 @@ public class UserAdminLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "新增用户管理登录")
-	@RequestMapping(value="/addUserAdminLogin",method={RequestMethod.POST})
+	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse addUserAdminLogin(
+	public BaseRestMapResponse add(
 		@Validated @RequestBody UserAdminLoginRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【新增用户管理登录】(UserAdminLoginController-addUserAdminLogin)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【新增用户管理登录】(UserAdminLoginController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonUserAdminLogin = userAdminLoginService.addUserAdminLogin(req);
-		logger.info("===step2:【新增用户管理登录】(UserAdminLoginController-addUserAdminLogin)-分页查询用户管理登录列表, jsonUserAdminLogin:{}", jsonUserAdminLogin);
+		JSONObject jsonUserAdminLogin = userAdminLoginService.add(req);
+		logger.info("===step2:【新增用户管理登录】(UserAdminLoginController-add)-分页查询用户管理登录列表, jsonUserAdminLogin:{}", jsonUserAdminLogin);
 		UserAdminLoginVo userAdminLoginVo = JSONObject.toJavaObject(jsonUserAdminLogin, UserAdminLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.put(RetSafeConstants.RESULT, userAdminLoginVo);
-	    logger.info("===step3:【新增用户管理登录】(UserAdminLoginController-addUserAdminLogin)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+	    logger.info("===step3:【新增用户管理登录】(UserAdminLoginController-add)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 	    return userAdminLoginResponse;
 	}
 
@@ -158,25 +159,25 @@ public class UserAdminLoginController extends BaseController {
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "新增用户管理登录")
-	@RequestMapping(value="/deleteUserAdminLogin",method={RequestMethod.POST})
+	@ApiOperation(value = "新删除用户管理登录")
+	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteUserAdminLogin(
-		@RequestBody UserAdminLoginRequest req,
+	public BaseRestMapResponse delete(
+		@Validated @RequestBody UserAdminLoginIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【删除用户管理登录】(UserAdminLoginController-deleteUserAdminLogin)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【删除用户管理登录】(UserAdminLoginController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer userAdminLoginId = req.getUserAdminLoginId();
-		JSONObject jsonUserAdminLogin = userAdminLoginService.deleteUserAdminLoginById(userAdminLoginId);
-		logger.info("===step2:【删除用户管理登录】(UserAdminLoginController-deleteUserAdminLogin)-根据userAdminLoginId删除用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
+		JSONObject jsonUserAdminLogin = userAdminLoginService.deleteById(userAdminLoginId);
+		logger.info("===step2:【删除用户管理登录】(UserAdminLoginController-delete)-根据userAdminLoginId删除用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
 		UserAdminLoginVo userAdminLoginVo = JSONObject.toJavaObject(jsonUserAdminLogin, UserAdminLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.put(RetSafeConstants.RESULT, userAdminLoginVo);
-		logger.info("===step3:【删除用户管理登录】(UserAdminLoginController-deleteUserAdminLogin)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+		logger.info("===step3:【删除用户管理登录】(UserAdminLoginController-delete)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
 
@@ -187,23 +188,23 @@ public class UserAdminLoginController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改用户管理登录")
-	@RequestMapping(value="/updateUserAdminLogin",method={RequestMethod.POST})
+	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse updateUserAdminLogin(
+	public BaseRestMapResponse update(
 		@Validated({ UpdateGroup.class }) @RequestBody UserAdminLoginRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户管理登录】(UserAdminLoginController-updateUserAdminLogin)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改用户管理登录】(UserAdminLoginController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonUserAdminLogin = userAdminLoginService.addUserAdminLogin(req);
-		logger.info("===step2:【修改用户管理登录】(UserAdminLoginController-updateUserAdminLogin)-修改用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
+		JSONObject jsonUserAdminLogin = userAdminLoginService.update(req);
+		logger.info("===step2:【修改用户管理登录】(UserAdminLoginController-update)-修改用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
 		UserAdminLoginVo userAdminLoginVo = JSONObject.toJavaObject(jsonUserAdminLogin, UserAdminLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.put(RetSafeConstants.RESULT, userAdminLoginVo);
-		logger.info("===step3:【修改用户管理登录】(UserAdminLoginController-updateUserAdminLogin)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+		logger.info("===step3:【修改用户管理登录】(UserAdminLoginController-update)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
 

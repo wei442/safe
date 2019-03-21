@@ -53,6 +53,37 @@ public enum PageHelperUtil {
 		return map;
 	}
 
+	/**
+	 * 获取分页对象
+	 * @param list
+	 * @return PageVo
+	 */
+	public PageVo getPageVo(List<?> list) {
+		PageVo page = null;
+		if(list != null && !list.isEmpty()) {
+			PageInfo<?> pageInfo = new PageInfo<>(list);
+			page = new PageVo();
+			page.setPageNum(pageInfo.getPageNum());
+			page.setPageSize(pageInfo.getPageSize());
+			page.setSize(pageInfo.getSize());
+			page.setTotal(pageInfo.getTotal());
+			page.setPages(pageInfo.getPages());
+			page.setPrePage(pageInfo.getPrePage());
+			page.setNextPage(pageInfo.getNextPage());
+			page.setNavigateFirstPage(pageInfo.getNavigateFirstPage());
+			page.setNavigateLastPage(pageInfo.getNavigateLastPage());
+			page.setNavigatepageNums(pageInfo.getNavigatepageNums());
+		}
+
+//		map = new HashMap<String, Object>();
+//		map.put(PageConstants.PAGE, page);
+//		map.put(PageConstants.DATA_LIST, list);
+
+		return page;
+	}
+
+
+
 //	/**
 //	 * 获取分页map列表对象
 //	 * @param list

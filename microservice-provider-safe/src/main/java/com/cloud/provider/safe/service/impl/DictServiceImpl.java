@@ -41,7 +41,7 @@ public class DictServiceImpl implements IDictService {
 	@Override
 	public List<Dict> selectListByPage(Page<?> page, DictPageRequest param) {
 		logger.info("(DictService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		DictExample example = new DictExample();
 		example.setOrderByClause(" id desc ");
 		DictExample.Criteria criteria = example.createCriteria();

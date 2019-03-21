@@ -40,7 +40,7 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
 	@Override
 	public List<UserAppLogin> selectListByPage(Page<?> page, UserAppLoginPageRequest param) {
 		logger.info("(UserAppLoginService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-		PageHelper.startPage(page);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserAppLoginExample example = new UserAppLoginExample();
 		example.setOrderByClause(" id desc ");
 		UserAppLoginExample.Criteria criteria = example.createCriteria();

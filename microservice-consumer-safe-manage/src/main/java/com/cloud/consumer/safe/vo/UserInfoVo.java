@@ -49,4 +49,5 @@ public class UserInfoVo implements Serializable {
 
     private Date updateTime;
 
+
 }

@@ -15,6 +15,8 @@ public class UserQualityVo implements Serializable {
 
 	private Integer userQualityId;
 
+	private Integer enterpriseId;
+
     private Integer userId;
 
     private Integer qualityId;
@@ -30,5 +32,6 @@ public class UserQualityVo implements Serializable {
     private Date createTime;
 
     private Date updateTime;
+
 
 }

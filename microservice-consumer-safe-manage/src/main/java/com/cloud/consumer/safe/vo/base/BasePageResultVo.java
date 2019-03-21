@@ -19,9 +19,9 @@ public class BasePageResultVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private PageVo page;
+	private PageVo page = null;
 
-	private List<?> dataList;
+	private List<?> dataList = null;
 
 	public BasePageResultVo() {
 	}

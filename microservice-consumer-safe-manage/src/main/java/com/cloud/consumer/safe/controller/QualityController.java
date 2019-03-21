@@ -52,14 +52,14 @@ public class QualityController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询资质列表")
-	@RequestMapping(value="/getQualityListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/getListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getQualityListByPage(
+	public BaseRestMapResponse getListByPage(
 		@RequestBody QualityPageRequest req) {
-		logger.info("===step1:【分页查询】(QualityController-getQualityListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询】(QualityController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonQuality = qualityService.getQualityListByPage(req);
-		logger.info("===step2:【分页查询】(QualityController-getQualityListByPage)-分页查询资质列表, jsonQuality:{}", jsonQuality);
+		JSONObject jsonQuality = qualityService.getListByPage(req);
+		logger.info("===step2:【分页查询】(QualityController-getListByPage)-分页查询资质列表, jsonQuality:{}", jsonQuality);
 		String dataListStr = JSONObject.toJSONString(jsonQuality.getJSONArray(PageConstants.DATA_LIST));
 		String pageStr = JSONObject.toJSONString(jsonQuality.getJSONObject(PageConstants.PAGE));
 		List<QualityVo> qualityVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<QualityVo>>(){});
@@ -69,7 +69,7 @@ public class QualityController extends BaseController {
 		//返回信息
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();
 		qualityResponse.put(RetSafeConstants.RESULT, result);
-	    logger.info("===step3:【分页查询】(QualityController-getQualityListByPage)-返回信息, qualityResponse:{}", qualityResponse);
+	    logger.info("===step3:【分页查询】(QualityController-getListByPage)-返回信息, qualityResponse:{}", qualityResponse);
 	    return qualityResponse;
 	}
 
@@ -79,21 +79,21 @@ public class QualityController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询资质列表")
-	@RequestMapping(value="/getQualityList",method={RequestMethod.POST})
+	@RequestMapping(value="/getList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getQualityList(
+	public BaseRestMapResponse getList(
 		@RequestBody QualityPageRequest req) {
-		logger.info("===step1:【不分页查询】(QualityController-getQualityList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【不分页查询】(QualityController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonQuality = qualityService.getQualityListByPage(req);
-		logger.info("===step2:【不分页查询】(QualityController-getQualityList)-不分页查询资质列表, jsonQuality:{}", jsonQuality);
+		JSONObject jsonQuality = qualityService.getListByPage(req);
+		logger.info("===step2:【不分页查询】(QualityController-getList)-不分页查询资质列表, jsonQuality:{}", jsonQuality);
 		String dataListStr = JSONObject.toJSONString(jsonQuality.getJSONArray(PageConstants.DATA_LIST));
 		List<QualityVo> qualityVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<QualityVo>>(){});
 
 		//返回信息
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();
 		qualityResponse.put(RetSafeConstants.RESULT, qualityVoList);
-		logger.info("===step3:【不分页查询】(QualityController-getQualityList)-返回信息, qualityResponse:{}", qualityResponse);
+		logger.info("===step3:【不分页查询】(QualityController-getList)-返回信息, qualityResponse:{}", qualityResponse);
 		return qualityResponse;
 	}
 
@@ -105,24 +105,24 @@ public class QualityController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "获取资质详情")
-	@RequestMapping(value="/getQuality",method={RequestMethod.POST})
+	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getQuality(
+	public BaseRestMapResponse get(
 		@Validated @RequestBody QualityIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取资质】(QualityController-getQuality)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取资质】(QualityController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer qualityId = req.getQualityId();
-		JSONObject jsonQuality = qualityService.getQualityById(qualityId);
-		logger.info("===step2:【获取资质】(QualityController-getQuality)-根据qualityId获取资质, jsonQuality:{}", jsonQuality);
+		JSONObject jsonQuality = qualityService.getById(qualityId);
+		logger.info("===step2:【获取资质】(QualityController-get)-根据qualityId获取资质, jsonQuality:{}", jsonQuality);
 		QualityVo qualityVo = JSONObject.toJavaObject(jsonQuality, QualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();
 		qualityResponse.put(RetSafeConstants.RESULT, qualityVo);
-	    logger.info("===step3:【获取资质】(QualityController-getQuality)-返回信息, qualityResponse:{}", qualityResponse);
+	    logger.info("===step3:【获取资质】(QualityController-get)-返回信息, qualityResponse:{}", qualityResponse);
 	    return qualityResponse;
 	}
 
@@ -133,23 +133,23 @@ public class QualityController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "新增资质")
-	@RequestMapping(value="/addQuality",method={RequestMethod.POST})
+	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse addQuality(
+	public BaseRestMapResponse add(
 		@Validated @RequestBody QualityRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【新增资质】(QualityController-addQuality)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【新增资质】(QualityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonQuality = qualityService.addQuality(req);
-		logger.info("===step2:【新增资质】(QualityController-addQuality)-分页查询资质列表, jsonQuality:{}", jsonQuality);
+		JSONObject jsonQuality = qualityService.add(req);
+		logger.info("===step2:【新增资质】(QualityController-add)-分页查询资质列表, jsonQuality:{}", jsonQuality);
 		QualityVo qualityVo = JSONObject.toJavaObject(jsonQuality, QualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();
 		qualityResponse.put(RetSafeConstants.RESULT, qualityVo);
-	    logger.info("===step3:【新增资质】(QualityController-addQuality)-返回信息, qualityResponse:{}", qualityResponse);
+	    logger.info("===step3:【新增资质】(QualityController-add)-返回信息, qualityResponse:{}", qualityResponse);
 	    return qualityResponse;
 	}
 
@@ -160,24 +160,24 @@ public class QualityController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "删除资质")
-	@RequestMapping(value="/deleteQuality",method={RequestMethod.POST})
+	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteQuality(
+	public BaseRestMapResponse delete(
 		@Validated @RequestBody QualityIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【删除资质】(QualityController-deleteQuality)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【删除资质】(QualityController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
 		Integer qualityId = req.getQualityId();
-		JSONObject jsonQuality = qualityService.deleteQualityById(qualityId);
-		logger.info("===step2:【删除资质】(QualityController-deleteQuality)-根据qualityId删除资质, jsonQuality:{}", jsonQuality);
+		JSONObject jsonQuality = qualityService.deleteById(qualityId);
+		logger.info("===step2:【删除资质】(QualityController-delete)-根据qualityId删除资质, jsonQuality:{}", jsonQuality);
 		QualityVo qualityVo = JSONObject.toJavaObject(jsonQuality, QualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();
 		qualityResponse.put(RetSafeConstants.RESULT, qualityVo);
-		logger.info("===step3:【删除资质】(QualityController-deleteQuality)-返回信息, qualityResponse:{}", qualityResponse);
+		logger.info("===step3:【删除资质】(QualityController-delete)-返回信息, qualityResponse:{}", qualityResponse);
 		return qualityResponse;
 	}
 
@@ -188,23 +188,23 @@ public class QualityController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改资质")
-	@RequestMapping(value="/updateQuality",method={RequestMethod.POST})
+	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse updateQuality(
+	public BaseRestMapResponse update(
 		@Validated({ UpdateGroup.class }) @RequestBody QualityRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改资质】(QualityController-updateQuality)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改资质】(QualityController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		this.bindingResult(bindingResult);
 
-		JSONObject jsonQuality = qualityService.addQuality(req);
-		logger.info("===step2:【修改资质】(QualityController-updateQuality)-修改资质, jsonQuality:{}", jsonQuality);
+		JSONObject jsonQuality = qualityService.update(req);
+		logger.info("===step2:【修改资质】(QualityController-update)-修改资质, jsonQuality:{}", jsonQuality);
 		QualityVo qualityVo = JSONObject.toJavaObject(jsonQuality, QualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();
 		qualityResponse.put(RetSafeConstants.RESULT, qualityVo);
-		logger.info("===step3:【修改资质】(QualityController-updateQuality)-返回信息, qualityResponse:{}", qualityResponse);
+		logger.info("===step3:【修改资质】(QualityController-update)-返回信息, qualityResponse:{}", qualityResponse);
 		return qualityResponse;
 	}
 

@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserPostService;
 
 /**
- * 用户岗位 UserPostService (microservice-provider-safe)
+ * 用户岗位 Service (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -23,9 +23,9 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserPostListByPage(Object params) {
-		logger.info("(UserPostService-getUserPostListByPage)-分页获取用户岗位列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/selectUserPostListByPage", params, JSONObject.class);
+	public JSONObject getListByPage(Object params) {
+		logger.info("(Service-getListByPage)-分页获取用户岗位列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -35,9 +35,9 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserPostList(Object params) {
-		logger.info("(UserPostService-getUserPostList)-获取用户岗位列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/selectUserPostList", params, JSONObject.class);
+	public JSONObject getList(Object params) {
+		logger.info("(Service-getList)-获取用户岗位列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/selectList", params, JSONObject.class);
 		return response;
 	}
 
@@ -47,9 +47,21 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getUserPostById(Integer id) {
-		logger.info("(UserPostService-getUserPostById)-根据id获取用户岗位-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/selectUserPostById/"+id, null, JSONObject.class);
+	public JSONObject getById(Integer id) {
+		logger.info("(Service-getById)-根据id获取用户岗位-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/selectById/"+id, null, JSONObject.class);
+		return response;
+	}
+
+	/**
+	 * 根据userId获取用户岗位
+	 * @param userId
+	 * @return JSONObject
+	 */
+	@Override
+	public JSONObject getByUserId(Integer userId) {
+		logger.info("(Service-getByUserId)-根据userId获取用户岗位-传入参数, userId:{}", userId);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/selectByUserId/"+userId, null, JSONObject.class);
 		return response;
 	}
 
@@ -59,9 +71,9 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addUserPost(Object params) {
-		logger.info("(UserPostService-addUserPost)-新增用户岗位-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/insertUserPost", params, JSONObject.class);
+	public JSONObject add(Object params) {
+		logger.info("(Service-add)-新增用户岗位-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/insert", params, JSONObject.class);
 		return response;
 	}
 
@@ -71,9 +83,9 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteUserPostById(Integer id) {
-		logger.info("(UserPostService-deleteUserPostById)-根据id获取用户岗位-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/deleteUserPostById/"+id, null, JSONObject.class);
+	public JSONObject deleteById(Integer id) {
+		logger.info("(Service-deleteById)-根据id获取用户岗位-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -83,9 +95,9 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject updateUserPost(Object params) {
-		logger.info("(UserPostService-updateUserPost)-修改用户岗位-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/modifyUserPost", params, JSONObject.class);
+	public JSONObject update(Object params) {
+		logger.info("(Service-update)-修改用户岗位-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/modify", params, JSONObject.class);
 		return response;
 	}
 
