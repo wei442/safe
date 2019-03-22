@@ -239,13 +239,10 @@ public class UserController extends BaseController {
 
 		String userPassword = req.getUserPassword();
 		Integer userId = req.getUserId();
-//		Integer enterpriseId = req.getEnterpriseId();
 		if(StringUtils.isBlank(userPassword)) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "用户密码为空");
 		} else if(userId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "用户id为空");
-//		} else if(enterpriseId == null) {
-//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseId为空");
 		}
 		UserInfo userInfo = userInfoService.selectById(userId);
 		logger.info("===step2:【用户登录第二步】(UserController-loginSecond)-根据userId查询用户信息, userInfo:{}", userInfo);
@@ -258,16 +255,6 @@ public class UserController extends BaseController {
 			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
 		}
 
-//		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
-//		logger.info("===step3:【用户登录第一步】(UserController-loginFirst)-根据userId查询用户管理, userAdmin:{}", userAdmin);
-//		Integer enterpriseId = null;
-//		if(userAdmin != null) {
-//			enterpriseId = userAdmin.getEnterpriseId();
-//			return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_EXIST);
-//		}
-//		Enterprise enterprise = enterpriseService.selectById(enterpriseId);
-//		logger.info("===step6:【用户登录第一步】(UserController-loginFirst)-根据enterpriseId查询企业, enterprise:{}", enterprise);
-
 		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
 		logger.info("===step4:【用户登录第一步】(UserController-loginFirst)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
 		Long loginCount = userAdminLogin.getLoginCount();
@@ -276,8 +263,6 @@ public class UserController extends BaseController {
 		logger.info("===step5:【用户登录第一步】(UserController-loginFirst)-修改用户管理登录登录次数, i:{}", i);
 
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-//		userResponse.putAll((JSONObject) JSONObject.toJSON(userInfo));
-//		userResponse.putAll((JSONObject) JSONObject.toJSON(enterprise));
 		logger.info("===step7:【用户登录第二步】(UserController-loginSecond)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
