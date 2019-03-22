@@ -9,6 +9,8 @@ public class BaseUserPassword {
 
     private String password;
 
+    private Date lastPassTime;
+
     private Date createTime;
 
     private Date updateTime;
@@ -35,6 +37,14 @@ public class BaseUserPassword {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public Date getLastPassTime() {
+        return lastPassTime;
+    }
+
+    public void setLastPassTime(Date lastPassTime) {
+        this.lastPassTime = lastPassTime;
     }
 
     public Date getCreateTime() {

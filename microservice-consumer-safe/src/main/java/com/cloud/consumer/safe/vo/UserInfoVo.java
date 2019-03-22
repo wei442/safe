@@ -15,8 +15,6 @@ public class UserInfoVo implements Serializable {
 
 	private Integer userId;
 
-    private Integer enterpriseId;
-
     private String userAccount;
 
     private String userName;

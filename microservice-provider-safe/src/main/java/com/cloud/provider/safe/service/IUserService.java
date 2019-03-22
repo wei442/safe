@@ -1,22 +1,16 @@
 package com.cloud.provider.safe.service;
 
 import com.cloud.provider.safe.po.Enterprise;
-import com.cloud.provider.safe.po.UserAdmin;
-import com.cloud.provider.safe.po.UserAdminLogin;
-import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserInfo;
 
 public interface IUserService {
 
-	   /**
-     * 插入用户
-     * @param enterprise
+    /**
+     * 插入用户企业
      * @param userInfo
-     * @param userAdmin
-     * @param userAdminPassword
-     * @param userAdminLogin
+     * @param enterprise
      * @return Integer
      */
-	public Integer insertUser(Enterprise enterprise,UserInfo userInfo,UserAdmin userAdmin,UserAdminPassword userAdminPassword,UserAdminLogin userAdminLogin);
+	public Integer insertUserEnterprise(UserInfo userInfo,Enterprise enterprise);
 
 }

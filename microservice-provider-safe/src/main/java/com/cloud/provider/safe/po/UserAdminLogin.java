@@ -9,9 +9,7 @@ public class UserAdminLogin {
 
     private Integer firstLogin;
 
-    private Integer loginCount;
-
-    private Date lastPassTime;
+    private Long loginCount;
 
     private String created;
 
@@ -45,20 +43,12 @@ public class UserAdminLogin {
         this.firstLogin = firstLogin;
     }
 
-    public Integer getLoginCount() {
+    public Long getLoginCount() {
         return loginCount;
     }
 
-    public void setLoginCount(Integer loginCount) {
+    public void setLoginCount(Long loginCount) {
         this.loginCount = loginCount;
-    }
-
-    public Date getLastPassTime() {
-        return lastPassTime;
-    }
-
-    public void setLastPassTime(Date lastPassTime) {
-        this.lastPassTime = lastPassTime;
     }
 
     public String getCreated() {

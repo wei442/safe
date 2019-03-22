@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.EnterpriseMapper;
+import com.cloud.provider.safe.dao.OrgMapper;
 import com.cloud.provider.safe.po.Enterprise;
 import com.cloud.provider.safe.po.EnterpriseExample;
+import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.rest.request.page.EnterprisePageRequest;
 import com.cloud.provider.safe.service.IEnterpriseService;
 import com.cloud.provider.safe.util.Assert;
@@ -31,6 +33,10 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
     //企业 Mapper
     @Autowired
     private EnterpriseMapper enterpriseMapper;
+
+    //组织机构 Mapper
+    @Autowired
+    private OrgMapper orgMapper;
 
     /**
 	 * 分页查询
@@ -91,10 +97,21 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 	@Override
 	public Integer insert(Enterprise enterprise) {
     	logger.info("(EnterpriseService-insertEnterprise)-插入企业-传入参数, enterprise:{}", enterprise);
+
     	enterprise.setEnterpriseStatus(SqlSafeConstants.SQL_ENTERPRISE_STATUS_NORMAL);
     	enterprise.setCreateTime(new Date());
     	enterprise.setUpdateTime(new Date());
     	int i = enterpriseMapper.insertSelective(enterprise);
+    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    	String enterpriseName = enterprise.getEnterpriseName();
+
+    	Org org = new Org();
+    	org.setOrgName(enterpriseName);
+    	org.setOrgAlias(enterpriseName);
+    	org.setIsDelete(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
+    	org.setCreateTime(new Date());
+    	org.setUpdateTime(new Date());
+    	i = orgMapper.insertSelective(org);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

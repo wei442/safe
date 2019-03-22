@@ -14,9 +14,10 @@ public enum SafeResultEnum implements ResultEnum {
 
 	USER_ACCOUNT_NOTEXIST("1010001", "您的账号不存在"),
 	USER_ACCOUNT_EXIST("1010002", "您已经注册过"),
-	USER_ADMIN_PASSWORD_ERROR("1010003", "您的账号密码错误"),
-	USER_ADMIN_PASSWORD_NOTEXIST("1010004", "您的密码不存在"),
-	USER_ADMIN_PASSWORD_EXIST("1010005", "您的密码已存在"),
+	USER_ADMIN_PASSWORD_ERROR("1010003", "您的管理密码错误"),
+	USER_ADMIN_PASSWORD_NOTEXIST("1010004", "您的管理密码不存在"),
+	USER_ADMIN_PASSWORD_EXIST("1010005", "您的管理密码已存在"),
+	USER_ADMIN_FIRST_LOGIN_CHANGE_PASSWORD("1010006", "您好，这是你第一次登录该企业的管理后台，请先设置管理密码"),
 
 
 	ENTERPRISE_NOTEXIST("1020001", "您没有注册企业"),

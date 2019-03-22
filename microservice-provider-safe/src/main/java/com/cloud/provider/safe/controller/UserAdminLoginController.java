@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.PageConstants;
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
@@ -157,7 +158,6 @@ public class UserAdminLoginController extends BaseController {
 		@Validated @RequestBody UserAdminLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户管理登录】(UserAdminLoginController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
 		this.bindingResult(bindingResult);
 
 		UserAdminLogin userAdminLogin = req.convertToUserAdminLogin();
@@ -206,12 +206,15 @@ public class UserAdminLoginController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserAdminLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理登录】(UserAdminLoginController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
 		this.bindingResult(bindingResult);
 
 		Integer userAdminLoginId = req.getUserAdminLoginId();
-		UserAdminLogin userAdminLogin = req.convertToUserAdminLogin();
-		userAdminLogin.setId(userAdminLoginId);
+		UserAdminLogin userAdminLogin = userAdminLoginService.selectById(userAdminLoginId);
+		logger.info("===step2:【据id查询用户管理登录】(UserAdminLoginController-selectById)-根据id查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+
+		Long loginCount = userAdminLogin.getLoginCount();
+		userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_YES);
+		userAdminLogin.setLoginCount(loginCount+1);
 		int i = userAdminLoginService.modify(userAdminLogin);
 		logger.info("===step2:【修改用户管理登录】(UserAdminLoginController-modify)-修改用户管理登录, i:{}", i);
 

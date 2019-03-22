@@ -48,8 +48,6 @@ public enum PageHelperUtil {
 		map = new HashMap<String, Object>();
 		map.put(PageConstants.PAGE, page);
 		map.put(PageConstants.DATA_LIST, list);
-
-		logger.info("map==="+map);
 		return map;
 	}
 
@@ -74,10 +72,6 @@ public enum PageHelperUtil {
 			page.setNavigateLastPage(pageInfo.getNavigateLastPage());
 			page.setNavigatepageNums(pageInfo.getNavigatepageNums());
 		}
-
-//		map = new HashMap<String, Object>();
-//		map.put(PageConstants.PAGE, page);
-//		map.put(PageConstants.DATA_LIST, list);
 
 		return page;
 	}

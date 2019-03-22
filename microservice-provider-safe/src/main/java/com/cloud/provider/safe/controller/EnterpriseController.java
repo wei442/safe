@@ -19,7 +19,6 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
-import com.cloud.provider.safe.page.PageVo;
 import com.cloud.provider.safe.po.Enterprise;
 import com.cloud.provider.safe.rest.request.EnterpriseRequest;
 import com.cloud.provider.safe.rest.request.page.EnterprisePageRequest;
@@ -66,14 +65,13 @@ public class EnterpriseController extends BaseController {
 		List<Enterprise> list = enterpriseService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询企业列表】(EnterpriseController-selectListByPage)-分页查询企业列表, list.size:{}", list == null ? null : list.size());
 		List<EnterpriseVo> enterpriseVoList = new EnterpriseVo().convertToEnterpriseVoList(list);
-		PageVo pageVo = PageHelperUtil.INSTANCE.getPageVo(enterpriseVoList);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(PageConstants.PAGE, pageVo);
-		enterpriseResponse.put(PageConstants.DATA_LIST, enterpriseVoList);
+		enterpriseResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(enterpriseVoList));
 		logger.info("===step3:【分页查询企业列表】(EnterpriseController-selectListByPage)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
+
 
 	/**
 	 * 不分页查询

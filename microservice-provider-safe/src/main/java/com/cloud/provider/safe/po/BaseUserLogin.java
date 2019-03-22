@@ -11,8 +11,6 @@ public class BaseUserLogin {
 
     private Integer loginCount;
 
-    private Date lastPassTime;
-
     private String created;
 
     private String updated;
@@ -51,14 +49,6 @@ public class BaseUserLogin {
 
     public void setLoginCount(Integer loginCount) {
         this.loginCount = loginCount;
-    }
-
-    public Date getLastPassTime() {
-        return lastPassTime;
-    }
-
-    public void setLastPassTime(Date lastPassTime) {
-        this.lastPassTime = lastPassTime;
     }
 
     public String getCreated() {

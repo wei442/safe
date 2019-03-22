@@ -295,113 +295,53 @@ public class UserAppLoginExample {
             return (Criteria) this;
         }
 
-        public Criteria andLoginCountEqualTo(Integer value) {
+        public Criteria andLoginCountEqualTo(Long value) {
             addCriterion("login_count =", value, "loginCount");
             return (Criteria) this;
         }
 
-        public Criteria andLoginCountNotEqualTo(Integer value) {
+        public Criteria andLoginCountNotEqualTo(Long value) {
             addCriterion("login_count <>", value, "loginCount");
             return (Criteria) this;
         }
 
-        public Criteria andLoginCountGreaterThan(Integer value) {
+        public Criteria andLoginCountGreaterThan(Long value) {
             addCriterion("login_count >", value, "loginCount");
             return (Criteria) this;
         }
 
-        public Criteria andLoginCountGreaterThanOrEqualTo(Integer value) {
+        public Criteria andLoginCountGreaterThanOrEqualTo(Long value) {
             addCriterion("login_count >=", value, "loginCount");
             return (Criteria) this;
         }
 
-        public Criteria andLoginCountLessThan(Integer value) {
+        public Criteria andLoginCountLessThan(Long value) {
             addCriterion("login_count <", value, "loginCount");
             return (Criteria) this;
         }
 
-        public Criteria andLoginCountLessThanOrEqualTo(Integer value) {
+        public Criteria andLoginCountLessThanOrEqualTo(Long value) {
             addCriterion("login_count <=", value, "loginCount");
             return (Criteria) this;
         }
 
-        public Criteria andLoginCountIn(List<Integer> values) {
+        public Criteria andLoginCountIn(List<Long> values) {
             addCriterion("login_count in", values, "loginCount");
             return (Criteria) this;
         }
 
-        public Criteria andLoginCountNotIn(List<Integer> values) {
+        public Criteria andLoginCountNotIn(List<Long> values) {
             addCriterion("login_count not in", values, "loginCount");
             return (Criteria) this;
         }
 
-        public Criteria andLoginCountBetween(Integer value1, Integer value2) {
+        public Criteria andLoginCountBetween(Long value1, Long value2) {
             addCriterion("login_count between", value1, value2, "loginCount");
             return (Criteria) this;
         }
 
-        public Criteria andLoginCountNotBetween(Integer value1, Integer value2) {
+        public Criteria andLoginCountNotBetween(Long value1, Long value2) {
             addCriterion("login_count not between", value1, value2, "loginCount");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeIsNull() {
-            addCriterion("last_pass_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeIsNotNull() {
-            addCriterion("last_pass_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeEqualTo(Date value) {
-            addCriterion("last_pass_time =", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeNotEqualTo(Date value) {
-            addCriterion("last_pass_time <>", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeGreaterThan(Date value) {
-            addCriterion("last_pass_time >", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("last_pass_time >=", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeLessThan(Date value) {
-            addCriterion("last_pass_time <", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeLessThanOrEqualTo(Date value) {
-            addCriterion("last_pass_time <=", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeIn(List<Date> values) {
-            addCriterion("last_pass_time in", values, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeNotIn(List<Date> values) {
-            addCriterion("last_pass_time not in", values, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeBetween(Date value1, Date value2) {
-            addCriterion("last_pass_time between", value1, value2, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeNotBetween(Date value1, Date value2) {
-            addCriterion("last_pass_time not between", value1, value2, "lastPassTime");
             return (Criteria) this;
         }
 

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.wheel.RetWheelConstants;
+import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
 import com.cloud.common.exception.SafeException;
 import com.cloud.common.redis.keys.RedisKeysUtil;
 import com.cloud.common.security.KeyFactoryUtil;
@@ -249,7 +250,7 @@ public class BaseController {
 	protected void bindingResult(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
         	logger.info(">>>>>> {}.{}() valid params is error msg = {}", this.getClass().getSimpleName(), this.getRequestMethodName(), bindingResult.getFieldError().getDefaultMessage());
-            throw new SafeException("1050000", bindingResult.getFieldError().getDefaultMessage());
+        	throw new SafeException(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), bindingResult.getFieldError().getDefaultMessage());
         }
     }
 

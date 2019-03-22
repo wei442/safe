@@ -345,66 +345,6 @@ public class BaseUserLoginExample {
             return (Criteria) this;
         }
 
-        public Criteria andLastPassTimeIsNull() {
-            addCriterion("last_pass_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeIsNotNull() {
-            addCriterion("last_pass_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeEqualTo(Date value) {
-            addCriterion("last_pass_time =", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeNotEqualTo(Date value) {
-            addCriterion("last_pass_time <>", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeGreaterThan(Date value) {
-            addCriterion("last_pass_time >", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("last_pass_time >=", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeLessThan(Date value) {
-            addCriterion("last_pass_time <", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeLessThanOrEqualTo(Date value) {
-            addCriterion("last_pass_time <=", value, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeIn(List<Date> values) {
-            addCriterion("last_pass_time in", values, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeNotIn(List<Date> values) {
-            addCriterion("last_pass_time not in", values, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeBetween(Date value1, Date value2) {
-            addCriterion("last_pass_time between", value1, value2, "lastPassTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastPassTimeNotBetween(Date value1, Date value2) {
-            addCriterion("last_pass_time not between", value1, value2, "lastPassTime");
-            return (Criteria) this;
-        }
-
         public Criteria andCreatedIsNull() {
             addCriterion("created is null");
             return (Criteria) this;
