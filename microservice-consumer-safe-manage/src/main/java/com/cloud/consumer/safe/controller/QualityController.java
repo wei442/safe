@@ -112,7 +112,7 @@ public class QualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取资质】(QualityController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer qualityId = req.getQualityId();
 		JSONObject jsonQuality = qualityService.getById(qualityId);
@@ -140,7 +140,7 @@ public class QualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增资质】(QualityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonQuality = qualityService.add(req);
 		logger.info("===step2:【新增资质】(QualityController-add)-分页查询资质列表, jsonQuality:{}", jsonQuality);
@@ -167,7 +167,7 @@ public class QualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除资质】(QualityController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer qualityId = req.getQualityId();
 		JSONObject jsonQuality = qualityService.deleteById(qualityId);
@@ -195,7 +195,7 @@ public class QualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改资质】(QualityController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonQuality = qualityService.update(req);
 		logger.info("===step2:【修改资质】(QualityController-update)-修改资质, jsonQuality:{}", jsonQuality);

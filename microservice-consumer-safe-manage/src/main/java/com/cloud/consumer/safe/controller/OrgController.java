@@ -109,7 +109,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取组织机构】(OrgController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer orgId = req.getOrgId();
 		JSONObject jsonOrg = orgService.getById(orgId);
@@ -137,7 +137,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增组织机构】(OrgController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonOrg = orgService.add(req);
 		logger.info("===step2:【新增组织机构】(OrgController-add)-分页查询组织机构列表, jsonOrg:{}", jsonOrg);
@@ -164,7 +164,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除组织机构】(OrgController-deleteOrg)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer orgId = req.getOrgId();
 		JSONObject jsonOrg = orgService.deleteById(orgId);
@@ -192,7 +192,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改组织机构】(OrgController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonOrg = orgService.update(req);
 		logger.info("===step2:【修改组织机构】(OrgController-update)-修改组织机构, jsonOrg:{}", jsonOrg);

@@ -74,7 +74,7 @@ public class UserController extends BaseController {
 		BindingResult bindingResult) {
 		String requestIp = this.getRequestIp();
 		logger.info("===step1:【用户登录】(UserController-login)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
-		this.bindingResult(bindingResult);
+		
 
 		String userAccount = req.getUserAccount();
 		String userPassword = req.getUserPassword();
@@ -158,7 +158,7 @@ public class UserController extends BaseController {
 		BindingResult bindingResult) {
 		String requestIp = this.getRequestIp();
 		logger.info("===step1:【用户注册】(UserController-register)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUser = userService.addUser(req);
 		logger.info("===step2:【用户注册】(UserController-register)-用户注册, jsonUser:{}", jsonUser);

@@ -112,7 +112,7 @@ public class UserTitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户职务】(UserTitleController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userTitleId = req.getUserTitleId();
 		JSONObject jsonUserTitle = userTitleService.getById(userTitleId);
@@ -140,7 +140,7 @@ public class UserTitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户职务】(UserTitleController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserTitle = userTitleService.add(req);
 		logger.info("===step2:【新增用户职务】(UserTitleController-add)-分页查询用户职务列表, jsonUserTitle:{}", jsonUserTitle);
@@ -167,7 +167,7 @@ public class UserTitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户职务】(UserTitleController-deleteUserTitle)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userTitleId = req.getUserTitleId();
 		JSONObject jsonUserTitle = userTitleService.deleteById(userTitleId);
@@ -195,7 +195,7 @@ public class UserTitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户职务】(UserTitleController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserTitle = userTitleService.update(req);
 		logger.info("===step2:【修改用户职务】(UserTitleController-update)-修改用户职务, jsonUserTitle:{}", jsonUserTitle);
