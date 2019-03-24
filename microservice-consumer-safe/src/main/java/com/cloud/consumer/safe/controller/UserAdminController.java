@@ -112,7 +112,7 @@ public class UserAdminController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户管理】(UserAdminController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userAdminId = req.getUserAdminId();
 		JSONObject jsonUserAdmin = userAdminService.getById(userAdminId);
@@ -140,7 +140,7 @@ public class UserAdminController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户管理】(UserAdminController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserAdmin = userAdminService.add(req);
 		logger.info("===step2:【新增用户管理】(UserAdminController-add)-分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
@@ -167,7 +167,7 @@ public class UserAdminController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户管理】(UserAdminController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userAdminId = req.getUserAdminId();
 		JSONObject jsonUserAdmin = userAdminService.deleteById(userAdminId);
@@ -195,7 +195,7 @@ public class UserAdminController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理】(UserAdminController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserAdmin = userAdminService.update(req);
 		logger.info("===step2:【修改用户管理】(UserAdminController-update)-修改用户管理, jsonUserAdmin:{}", jsonUserAdmin);

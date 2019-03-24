@@ -112,7 +112,7 @@ public class UserAppLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户应用登录】(UserAppLoginController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userAppLoginId = req.getUserAppLoginId();
 		JSONObject jsonUserAppLogin = userAppLoginService.getById(userAppLoginId);
@@ -140,7 +140,7 @@ public class UserAppLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户应用登录】(UserAppLoginController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserAppLogin = userAppLoginService.add(req);
 		logger.info("===step2:【新增用户应用登录】(UserAppLoginController-add)-分页查询用户应用登录列表, jsonUserAppLogin:{}", jsonUserAppLogin);
@@ -167,7 +167,7 @@ public class UserAppLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户应用登录】(UserAppLoginController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userAppLoginId = req.getUserAppLoginId();
 		JSONObject jsonUserAppLogin = userAppLoginService.deleteById(userAppLoginId);
@@ -195,7 +195,7 @@ public class UserAppLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户应用登录】(UserAppLoginController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserAppLogin = userAppLoginService.update(req);
 		logger.info("===step2:【修改用户应用登录】(UserAppLoginController-update)-修改用户应用登录, jsonUserAppLogin:{}", jsonUserAppLogin);

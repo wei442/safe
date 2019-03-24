@@ -112,8 +112,6 @@ public class UserTitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户职务】(UserTitleController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
-
 		Integer userTitleId = req.getUserTitleId();
 		JSONObject jsonUserTitle = userTitleService.getById(userTitleId);
 		logger.info("===step2:【获取用户职务】(UserTitleController-getDetail)-根据userTitleId获取用户职务, jsonUserTitle:{}", jsonUserTitle);
@@ -140,15 +138,11 @@ public class UserTitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户职务】(UserTitleController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
-
 		JSONObject jsonUserTitle = userTitleService.add(req);
 		logger.info("===step2:【新增用户职务】(UserTitleController-add)-分页查询用户职务列表, jsonUserTitle:{}", jsonUserTitle);
-		UserTitleVo userTitleVo = JSONObject.toJavaObject(jsonUserTitle, UserTitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.put(RetSafeConstants.RESULT, userTitleVo);
 	    logger.info("===step3:【新增用户职务】(UserTitleController-add)-返回信息, userTitleResponse:{}", userTitleResponse);
 	    return userTitleResponse;
 	}
@@ -167,16 +161,13 @@ public class UserTitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户职务】(UserTitleController-deleteUserTitle)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
 
 		Integer userTitleId = req.getUserTitleId();
 		JSONObject jsonUserTitle = userTitleService.deleteById(userTitleId);
 		logger.info("===step2:【删除用户职务】(UserTitleController-deleteUserTitle)-根据userTitleId删除用户职务, jsonUserTitle:{}", jsonUserTitle);
-		UserTitleVo userTitleVo = JSONObject.toJavaObject(jsonUserTitle, UserTitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.put(RetSafeConstants.RESULT, userTitleVo);
 		logger.info("===step3:【删除用户职务】(UserTitleController-deleteUserTitle)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
@@ -195,15 +186,11 @@ public class UserTitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户职务】(UserTitleController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
-
 		JSONObject jsonUserTitle = userTitleService.update(req);
 		logger.info("===step2:【修改用户职务】(UserTitleController-update)-修改用户职务, jsonUserTitle:{}", jsonUserTitle);
-		UserTitleVo userTitleVo = JSONObject.toJavaObject(jsonUserTitle, UserTitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.put(RetSafeConstants.RESULT, userTitleVo);
 		logger.info("===step3:【修改用户职务】(UserTitleController-update)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}

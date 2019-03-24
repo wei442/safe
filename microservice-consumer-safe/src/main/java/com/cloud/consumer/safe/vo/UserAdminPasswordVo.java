@@ -18,6 +18,8 @@ public class UserAdminPasswordVo implements Serializable {
 
     private String password;
 
+    private Date lastPassTime;
+
     private Date createTime;
 
     private Date updateTime;

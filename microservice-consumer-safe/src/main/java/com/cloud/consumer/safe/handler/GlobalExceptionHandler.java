@@ -2,10 +2,8 @@ package com.cloud.consumer.safe.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cloud.common.enums.safe.SafeResultEnum;
@@ -20,10 +18,6 @@ import com.cloud.consumer.safe.base.BaseRestMapResponse;
 public class GlobalExceptionHandler {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	@InitBinder
-    public void initBinder(WebDataBinder binder) {
-    }
 
 	/**
 	 * 异常处理

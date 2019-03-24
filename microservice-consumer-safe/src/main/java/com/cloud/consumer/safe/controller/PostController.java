@@ -112,7 +112,7 @@ public class PostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取岗位】(PostController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer postId = req.getPostId();
 		JSONObject jsonPost = postService.getById(postId);
@@ -140,7 +140,7 @@ public class PostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增岗位】(PostController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonPost = postService.add(req);
 		logger.info("===step2:【新增岗位】(PostController-add)-分页查询岗位列表, jsonPost:{}", jsonPost);
@@ -167,7 +167,7 @@ public class PostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除岗位】(PostController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer postId = req.getPostId();
 		JSONObject jsonPost = postService.deleteById(postId);
@@ -195,7 +195,7 @@ public class PostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改岗位】(PostController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonPost = postService.update(req);
 		logger.info("===step2:【修改岗位】(PostController-update)-修改岗位, jsonPost:{}", jsonPost);

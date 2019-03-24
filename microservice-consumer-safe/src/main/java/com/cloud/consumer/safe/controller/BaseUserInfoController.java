@@ -112,7 +112,7 @@ public class BaseUserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取基础用户信息】(BaseUserInfoController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer baseUserId = req.getBaseUserId();
 		JSONObject jsonBaseUserInfo = baseUserInfoService.getById(baseUserId);
@@ -140,7 +140,7 @@ public class BaseUserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增基础用户信息】(BaseUserInfoController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonBaseUserInfo = baseUserInfoService.add(req);
 		logger.info("===step2:【新增基础用户信息】(BaseUserInfoController-add)-分页查询基础用户信息列表, jsonBaseUserInfo:{}", jsonBaseUserInfo);
@@ -167,7 +167,7 @@ public class BaseUserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除基础用户信息】(BaseUserInfoController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer baseUserId = req.getBaseUserId();
 		JSONObject jsonBaseUserInfo = baseUserInfoService.deleteById(baseUserId);
@@ -195,7 +195,7 @@ public class BaseUserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改基础用户信息】(BaseUserInfoController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonBaseUserInfo = baseUserInfoService.update(req);
 		logger.info("===step2:【修改基础用户信息】(BaseUserInfoController-update)-修改基础用户信息, jsonBaseUserInfo:{}", jsonBaseUserInfo);
