@@ -132,7 +132,7 @@ public class AttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加附件】(AttachmentController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Attachment attachment = req.convertToAttachment();
 		int i = attachmentService.insert(attachment);
@@ -181,7 +181,7 @@ public class AttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【附件】(AttachmentController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer attachmentId = req.getAttachmentId();
 		Attachment attachment = req.convertToAttachment();

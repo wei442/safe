@@ -146,7 +146,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加组织机构】(OrgController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Org org = req.convertToOrg();
 		int i = orgService.insert(org);
@@ -195,7 +195,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改组织机构】(OrgController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer orgId = req.getOrgId();
 		Org org = req.convertToOrg();

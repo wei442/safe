@@ -82,7 +82,6 @@ public class UserOrgServiceImpl implements IUserOrgService {
 	public UserOrg selectById(Integer id) {
     	logger.info("(UserOrgService-selectById)-根据id查询用户机构-传入参数, id:{}", id);
 		UserOrg userOrg = userOrgMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(userOrg, SafeResultEnum.DATABASE_NOTEXIST);
 		return userOrg;
     }
 
@@ -102,7 +101,6 @@ public class UserOrgServiceImpl implements IUserOrgService {
 		if(list != null && !list.isEmpty()) {
 			userOrg = list.get(0);
 		}
-		Assert.thanOrEqualZreo(userOrg, SafeResultEnum.DATABASE_NOTEXIST);
 		return userOrg;
 	}
 

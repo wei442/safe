@@ -75,7 +75,6 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
 	public UserAdminLogin selectById(Integer id) {
     	logger.info("(UserAdminLoginService-selectById)-根据id查询用户管理登录-传入参数, id:{}", id);
 		UserAdminLogin userAdminLogin = userAdminLoginMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(userAdminLogin, SafeResultEnum.DATABASE_NOTEXIST);
 		return userAdminLogin;
     }
 
@@ -96,7 +95,6 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
 		if(list != null && !list.isEmpty()) {
 			userAdminLogin = list.get(0);
 		}
-		Assert.thanOrEqualZreo(userAdminLogin, SafeResultEnum.DATABASE_NOTEXIST);
 		return userAdminLogin;
 	}
 

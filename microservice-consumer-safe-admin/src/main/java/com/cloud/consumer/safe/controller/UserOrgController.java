@@ -112,7 +112,7 @@ public class UserOrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户机构】(UserOrgController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userOrgId = req.getUserOrgId();
 		JSONObject jsonUserOrg = userOrgService.getById(userOrgId);
@@ -140,7 +140,7 @@ public class UserOrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户机构】(UserOrgController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserOrg = userOrgService.add(req);
 		logger.info("===step2:【新增用户机构】(UserOrgController-add)-分页查询用户机构列表, jsonUserOrg:{}", jsonUserOrg);
@@ -167,7 +167,7 @@ public class UserOrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户机构】(UserOrgController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userOrgId = req.getUserOrgId();
 		JSONObject jsonUserOrg = userOrgService.deleteById(userOrgId);
@@ -195,7 +195,7 @@ public class UserOrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户机构】(UserOrgController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserOrg = userOrgService.update(req);
 		logger.info("===step2:【修改用户机构】(UserOrgController-update)-修改用户机构, jsonUserOrg:{}", jsonUserOrg);

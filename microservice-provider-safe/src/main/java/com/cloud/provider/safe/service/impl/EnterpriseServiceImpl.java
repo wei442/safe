@@ -85,7 +85,6 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 	public Enterprise selectById(Integer id) {
     	logger.info("(EnterpriseService-selectById)-根据id查询企业-传入参数, id:{}", id);
 		Enterprise enterprise = enterpriseMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(enterprise, SafeResultEnum.DATABASE_NOTEXIST);
 		return enterprise;
     }
 

@@ -87,7 +87,6 @@ public class QualityServiceImpl implements IQualityService {
 	public Quality selectById(Integer id) {
     	logger.info("(QualityService-selectById)-根据id查询资质-传入参数, id:{}", id);
 		Quality quality = qualityMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(quality, SafeResultEnum.DATABASE_NOTEXIST);
 		return quality;
     }
 

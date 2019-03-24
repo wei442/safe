@@ -23,10 +23,10 @@ public class UserLoginRequest implements Serializable {
     @ApiModelProperty(value = "用户密码")
     private String userPassword;
 
-    @ApiModelProperty(value = "用户id")
-    private Integer userId;
-
-    @ApiModelProperty(value = "企业id")
-    private Integer enterpriseId;
+//    @ApiModelProperty(value = "用户id")
+//    private Integer userId;
+//
+//    @ApiModelProperty(value = "企业id")
+//    private Integer enterpriseId;
 
 }

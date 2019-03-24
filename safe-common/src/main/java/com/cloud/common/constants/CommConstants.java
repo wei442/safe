@@ -84,6 +84,7 @@ public class CommConstants {
      * 错误描述-数据不存在
      */
     public static final String DATABASE_NOTEXIST_MSG = "数据不存在";
+
     /*----------------------------- 系统统一错误编码 -----------------------------*/
 
 }

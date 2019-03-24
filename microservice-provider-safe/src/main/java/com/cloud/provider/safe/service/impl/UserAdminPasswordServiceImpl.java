@@ -41,6 +41,26 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
     }
 
 	/**
+	 * 根据userId查询用户管理密码
+	 * @param userId
+	 * @return UserAdminPassword
+	 */
+	@Override
+	public UserAdminPassword selectByUserId(Integer userId) {
+		logger.info("(UserAdminPasswordService-selectByUserIdPassword)-根据userId查询用户管理密码-传入参数, userId:{}", userId);
+		UserAdminPasswordExample example = new UserAdminPasswordExample();
+		UserAdminPasswordExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+
+		List<UserAdminPassword> list = userAdminPasswordMapper.selectByExample(example);
+		UserAdminPassword userAdminPassword = null;
+		if(list != null && !list.isEmpty()) {
+			userAdminPassword = list.get(0);
+		}
+		return userAdminPassword;
+	}
+
+	/**
 	 * 根据userId和password查询用户管理密码
 	 * @param userId
 	 * @param password

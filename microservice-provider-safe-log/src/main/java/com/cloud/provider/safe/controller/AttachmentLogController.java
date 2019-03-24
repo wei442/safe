@@ -81,7 +81,7 @@ public class AttachmentLogController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加附件日志】(AttachmentLogController-insertAttachmentLog)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		AttachmentLog attachmentLog = req.convertToAttachmentLog();
 		int i = attachmentLogService.insertAttachmentLog(attachmentLog);

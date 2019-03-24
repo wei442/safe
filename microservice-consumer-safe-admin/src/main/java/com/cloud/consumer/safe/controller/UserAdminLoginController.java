@@ -112,7 +112,7 @@ public class UserAdminLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户管理登录】(UserAdminLoginController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userAdminLoginId = req.getUserAdminLoginId();
 		JSONObject jsonUserAdminLogin = userAdminLoginService.getById(userAdminLoginId);
@@ -140,7 +140,7 @@ public class UserAdminLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户管理登录】(UserAdminLoginController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserAdminLogin = userAdminLoginService.add(req);
 		logger.info("===step2:【新增用户管理登录】(UserAdminLoginController-add)-分页查询用户管理登录列表, jsonUserAdminLogin:{}", jsonUserAdminLogin);
@@ -167,7 +167,7 @@ public class UserAdminLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户管理登录】(UserAdminLoginController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userAdminLoginId = req.getUserAdminLoginId();
 		JSONObject jsonUserAdminLogin = userAdminLoginService.deleteById(userAdminLoginId);
@@ -195,7 +195,7 @@ public class UserAdminLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理登录】(UserAdminLoginController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserAdminLogin = userAdminLoginService.update(req);
 		logger.info("===step2:【修改用户管理登录】(UserAdminLoginController-update)-修改用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);

@@ -158,7 +158,7 @@ public class UserOrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户机构】(UserOrgController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		UserOrg userOrg = req.convertToUserOrg();
 		int i = userOrgService.insert(userOrg);
@@ -207,7 +207,7 @@ public class UserOrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户机构】(UserOrgController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userOrgId = req.getUserOrgId();
 		UserOrg userOrg = req.convertToUserOrg();

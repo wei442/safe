@@ -81,7 +81,7 @@ public class BaseUserLoginLogController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加基础用户登录日志】(BaseUserLoginLogController-insertBaseUserLoginLog)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		BaseUserLoginLog baseUserLoginLog = req.convertToBaseUserLoginLog();
 		int i = baseUserLoginLogService.insertBaseUserLoginLog(baseUserLoginLog);

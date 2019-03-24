@@ -158,7 +158,7 @@ public class UserAdminController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户管理】(UserAdminController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		UserAdmin userAdmin = req.convertToUserAdmin();
 		int i = userAdminService.insert(userAdmin);
@@ -207,7 +207,7 @@ public class UserAdminController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理】(UserAdminController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userAdminId = req.getUserAdminId();
 		UserAdmin userAdmin = req.convertToUserAdmin();

@@ -132,7 +132,7 @@ public class PostAttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加岗位附件】(PostAttachmentController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		PostAttachment postAttachment = req.convertToPostAttachment();
 		int i = postAttachmentService.insert(postAttachment);
@@ -181,7 +181,7 @@ public class PostAttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改岗位附件】(PostAttachmentController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer postAttachmentId = req.getPostAttachmentId();
 		PostAttachment postAttachment = req.convertToPostAttachment();

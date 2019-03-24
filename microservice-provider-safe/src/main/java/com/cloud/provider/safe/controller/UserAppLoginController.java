@@ -132,7 +132,7 @@ public class UserAppLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户应用登录】(UserAppLoginController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		UserAppLogin userAppLogin = req.convertToUserAppLogin();
 		int i = userAppLoginService.insert(userAppLogin);
@@ -181,7 +181,7 @@ public class UserAppLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户应用登录】(UserAppLoginController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userAppLoginId = req.getUserAppLoginId();
 		UserAppLogin userAppLogin = req.convertToUserAppLogin();

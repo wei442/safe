@@ -112,7 +112,7 @@ public class EnterpriseQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取企业资质】(EnterpriseQualityController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer enterpriseQualityId = req.getEnterpriseQualityId();
 		JSONObject jsonEnterpriseQuality = enterpriseQualityService.getById(enterpriseQualityId);
@@ -140,7 +140,7 @@ public class EnterpriseQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增企业资质】(EnterpriseQualityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonEnterpriseQuality = enterpriseQualityService.add(req);
 		logger.info("===step2:【新增企业资质】(EnterpriseQualityController-add)-分页查询企业资质列表, jsonEnterpriseQuality:{}", jsonEnterpriseQuality);
@@ -167,7 +167,7 @@ public class EnterpriseQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除企业资质】(EnterpriseQualityController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer enterpriseQualityId = req.getEnterpriseQualityId();
 		JSONObject jsonEnterpriseQuality = enterpriseQualityService.deleteById(enterpriseQualityId);
@@ -195,7 +195,7 @@ public class EnterpriseQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改企业资质】(EnterpriseQualityController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonEnterpriseQuality = enterpriseQualityService.update(req);
 		logger.info("===step2:【修改企业资质】(EnterpriseQualityController-update)-修改企业资质, jsonEnterpriseQuality:{}", jsonEnterpriseQuality);

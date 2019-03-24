@@ -112,7 +112,7 @@ public class DictController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取字典】(DictController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer dictId = req.getDictId();
 		JSONObject jsonDict = dictService.getById(dictId);
@@ -140,7 +140,7 @@ public class DictController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增字典】(DictController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonDict = dictService.add(req);
 		logger.info("===step2:【新增字典】(DictController-add)-分页查询字典列表, jsonDict:{}", jsonDict);
@@ -167,7 +167,7 @@ public class DictController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除字典】(DictController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer dictId = req.getDictId();
 		JSONObject jsonDict = dictService.deleteById(dictId);
@@ -195,7 +195,7 @@ public class DictController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改字典】(DictController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonDict = dictService.update(req);
 		logger.info("===step2:【修改字典】(DictController-update)-修改字典, jsonDict:{}", jsonDict);

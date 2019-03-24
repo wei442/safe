@@ -82,7 +82,6 @@ public class PostServiceImpl implements IPostService {
 	public Post selectById(Integer id) {
     	logger.info("(PostService-selectById)-根据id查询岗位-传入参数, id:{}", id);
     	Post post = postMapper.selectByPrimaryKey(id);
-    	Assert.thanOrEqualZreo(post, SafeResultEnum.DATABASE_NOTEXIST);
 		return post;
     }
 

@@ -112,7 +112,7 @@ public class AttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取附件】(AttachmentController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer attachmentId = req.getAttachmentId();
 		JSONObject jsonAttachment = attachmentService.getById(attachmentId);
@@ -140,7 +140,7 @@ public class AttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增附件】(AttachmentController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonAttachment = attachmentService.add(req);
 		logger.info("===step2:【新增附件】(AttachmentController-add)-分页查询附件列表, jsonAttachment:{}", jsonAttachment);
@@ -167,7 +167,7 @@ public class AttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除附件】(AttachmentController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer attachmentId = req.getAttachmentId();
 		JSONObject jsonAttachment = attachmentService.deleteById(attachmentId);
@@ -195,7 +195,7 @@ public class AttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改附件】(AttachmentController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonAttachment = attachmentService.update(req);
 		logger.info("===step2:【修改附件】(AttachmentController-update)-修改附件, jsonAttachment:{}", jsonAttachment);

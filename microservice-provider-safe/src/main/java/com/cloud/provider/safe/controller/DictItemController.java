@@ -132,7 +132,7 @@ public class DictItemController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加字典子项】(DictItemController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		DictItem dictItem = req.convertToDictItem();
 		int i = dictItemService.insert(dictItem);
@@ -181,7 +181,7 @@ public class DictItemController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改字典子项】(DictItemController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer dictItemId = req.getDictItemId();
 		DictItem dictItem = req.convertToDictItem();

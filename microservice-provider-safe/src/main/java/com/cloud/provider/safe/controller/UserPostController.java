@@ -158,7 +158,7 @@ public class UserPostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户岗位】(UserPostController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		UserPost userPost = req.convertToUserPost();
 		int i = userPostService.insert(userPost);
@@ -207,7 +207,7 @@ public class UserPostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户岗位】(UserPostController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userPostId = req.getUserPostId();
 		UserPost userPost = req.convertToUserPost();

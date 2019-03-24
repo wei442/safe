@@ -85,7 +85,6 @@ public class DictItemServiceImpl implements IDictItemService {
 	public DictItem selectById(Integer id) {
     	logger.info("(DictItemService-selectById)-根据id查询字典子项-传入参数, id:{}", id);
 		DictItem dictItem = dictItemMapper.selectByPrimaryKey(id);
-    	Assert.thanOrEqualZreo(dictItem, SafeResultEnum.DATABASE_NOTEXIST);
 		return dictItem;
     }
 

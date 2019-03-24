@@ -105,7 +105,7 @@ public class BaseUserPasswordController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加基础用户密码】(BaseUserPasswordController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		BaseUserPassword baseUserPassword = req.convertToBaseUserPassword();
 		int i = baseUserPasswordService.insert(baseUserPassword);
@@ -154,7 +154,7 @@ public class BaseUserPasswordController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改基础用户密码】(BaseUserPasswordController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer baseUserPasswordId = req.getBaseUserPasswordId();
 		BaseUserPassword baseUserPassword = req.convertToBaseUserPassword();

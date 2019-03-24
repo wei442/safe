@@ -12,6 +12,13 @@ public interface IUserAdminPasswordService {
 	public UserAdminPassword selectById(Integer id);
 
 	/**
+	 * 根据userId查询用户管理密码
+	 * @param userId
+	 * @return UserAdminPassword
+	 */
+	public UserAdminPassword selectByUserId(Integer userId);
+
+	/**
 	 * 根据userId和password查询用户管理密码
 	 * @param userId
 	 * @param password

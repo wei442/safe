@@ -132,7 +132,7 @@ public class EnterpriseQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加企业资质】(EnterpriseQualityController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		EnterpriseQuality enterpriseQuality = req.convertToEnterpriseQuality();
 		int i = enterpriseQualityService.insert(enterpriseQuality);
@@ -181,7 +181,7 @@ public class EnterpriseQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改企业资质】(EnterpriseQualityController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer enterpriseQualityId = req.getEnterpriseQualityId();
 		EnterpriseQuality enterpriseQuality = req.convertToEnterpriseQuality();

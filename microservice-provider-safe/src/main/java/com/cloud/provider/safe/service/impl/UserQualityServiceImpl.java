@@ -82,7 +82,6 @@ public class UserQualityServiceImpl implements IUserQualityService {
 	public UserQuality selectById(Integer id) {
     	logger.info("(UserQualityService-selectById)-根据id查询用户资质-传入参数, id:{}", id);
 		UserQuality userQuality = userQualityMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(userQuality, SafeResultEnum.DATABASE_NOTEXIST);
 		return userQuality;
     }
 
@@ -102,7 +101,6 @@ public class UserQualityServiceImpl implements IUserQualityService {
 		if(list != null && !list.isEmpty()) {
 			userQuality = list.get(0);
 		}
-		Assert.thanOrEqualZreo(userQuality, SafeResultEnum.DATABASE_NOTEXIST);
 		return userQuality;
 	}
 

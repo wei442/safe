@@ -132,7 +132,7 @@ public class QualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加资质】(QualityController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Quality quality = req.convertToQuality();
 		int i = qualityService.insert(quality);
@@ -181,7 +181,7 @@ public class QualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改资质】(QualityController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer qualityId = req.getQualityId();
 		Quality quality = req.convertToQuality();

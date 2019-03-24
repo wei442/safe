@@ -145,7 +145,6 @@ public class OrgServiceImpl implements IOrgService {
 	public Org selectById(Integer id) {
     	logger.info("(OrgService-selectById)-根据id查询组织机构-传入参数, id:{}", id);
 		Org org = orgMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(org, SafeResultEnum.DATABASE_NOTEXIST);
 		return org;
     }
 

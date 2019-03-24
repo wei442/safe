@@ -23,6 +23,7 @@ import com.cloud.provider.safe.po.UserTitle;
 import com.cloud.provider.safe.rest.request.UserTitleRequest;
 import com.cloud.provider.safe.rest.request.page.UserTitlePageRequest;
 import com.cloud.provider.safe.service.IUserTitleService;
+import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.UserTitleVo;
 import com.github.pagehelper.Page;
@@ -109,6 +110,7 @@ public class UserTitleController extends BaseController {
 		}
 
 		UserTitle userTitle = userTitleService.selectById(userTitleId);
+		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据id查询用户职务】(UserTitleController-selectById)-根据id查询用户职务, userTitle:{}", userTitle);
 		UserTitleVo userTitleVo = new UserTitleVo().convertToUserTitleVo(userTitle);
 
@@ -135,6 +137,7 @@ public class UserTitleController extends BaseController {
 		}
 
 		UserTitle userTitle = userTitleService.selectByUserId(userId);
+		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据userId查询用户职务】(UserTitleController-selectByUserId)-根据userId查询用户职务, userTitle:{}", userTitle);
 		UserTitleVo userTitleVo = new UserTitleVo().convertToUserTitleVo(userTitle);
 
@@ -158,7 +161,7 @@ public class UserTitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户职务】(UserTitleController-insertUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+
 
 		UserTitle userTitle = req.convertToUserTitle();
 		int i = userTitleService.insert(userTitle);
@@ -206,7 +209,7 @@ public class UserTitleController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserTitleRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户职务】(UserTitleController-modifyUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		this.bindingResult(bindingResult);
+
 
 		Integer userTitleId = req.getUserTitleId();
 		UserTitle userTitle = req.convertToUserTitle();

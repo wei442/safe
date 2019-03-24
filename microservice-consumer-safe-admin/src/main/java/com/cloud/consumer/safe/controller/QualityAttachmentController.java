@@ -112,7 +112,7 @@ public class QualityAttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取资质附件】(QualityAttachmentController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer qualityAttachmentId = req.getQualityAttachmentId();
 		JSONObject jsonQualityAttachment = qualityAttachmentService.getById(qualityAttachmentId);
@@ -140,7 +140,7 @@ public class QualityAttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增资质附件】(QualityAttachmentController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonQualityAttachment = qualityAttachmentService.add(req);
 		logger.info("===step2:【新增资质附件】(QualityAttachmentController-add)-分页查询资质附件列表, jsonQualityAttachment:{}", jsonQualityAttachment);
@@ -167,7 +167,7 @@ public class QualityAttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除资质附件】(QualityAttachmentController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer qualityAttachmentId = req.getQualityAttachmentId();
 		JSONObject jsonQualityAttachment = qualityAttachmentService.deleteById(qualityAttachmentId);
@@ -195,7 +195,7 @@ public class QualityAttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改资质附件】(QualityAttachmentController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonQualityAttachment = qualityAttachmentService.update(req);
 		logger.info("===step2:【修改资质附件】(QualityAttachmentController-update)-修改资质附件, jsonQualityAttachment:{}", jsonQualityAttachment);

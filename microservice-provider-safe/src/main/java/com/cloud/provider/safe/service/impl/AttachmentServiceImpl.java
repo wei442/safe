@@ -79,7 +79,6 @@ public class AttachmentServiceImpl implements IAttachmentService {
 	public Attachment selectById(Integer id) {
     	logger.info("(AttachmentService-selectById)-根据id查询附件-传入参数, id:{}", id);
 		Attachment attachment = attachmentMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(attachment, SafeResultEnum.DATABASE_NOTEXIST);
 		return attachment;
     }
 

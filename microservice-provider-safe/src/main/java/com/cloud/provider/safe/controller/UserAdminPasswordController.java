@@ -19,6 +19,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.rest.request.UserAdminPasswordRequest;
 import com.cloud.provider.safe.service.IUserAdminPasswordService;
+import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.UserAdminPasswordVo;
 
@@ -57,6 +58,7 @@ public class UserAdminPasswordController extends BaseController {
 		}
 
 		UserAdminPassword userAdminPassword = userAdminPasswordService.selectById(userAdminPasswordId);
+		Assert.thanOrEqualZreo(userAdminPassword, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据id查询用户管理密码】(UserAdminPasswordController-selectById)-根据id查询用户管理密码, userAdminPassword:{}", userAdminPassword);
 		UserAdminPasswordVo userAdminPasswordVo = new UserAdminPasswordVo().convertToUserAdminPasswordVo(userAdminPassword);
 
@@ -109,9 +111,13 @@ public class UserAdminPasswordController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户管理密码】(UserAdminPasswordController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		Integer userId = req.getUserId();
+		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserId(userId);
+		if(userAdminPassword != null) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_EXIST);
+		}
 
-		UserAdminPassword userAdminPassword = req.convertToUserAdminPassword();
+		userAdminPassword = req.convertToUserAdminPassword();
 		int i = userAdminPasswordService.insert(userAdminPassword);
 		logger.info("===step2:【添加用户管理密码】(UserAdminPasswordController-insert)-插入用户管理密码, i:{}", i);
 
@@ -157,8 +163,6 @@ public class UserAdminPasswordController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserAdminPasswordRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理密码】(UserAdminPasswordController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		this.bindingResult(bindingResult);
 
 		Integer userAdminPasswordId = req.getUserId();
 		UserAdminPassword userAdminPassword = req.convertToUserAdminPassword();

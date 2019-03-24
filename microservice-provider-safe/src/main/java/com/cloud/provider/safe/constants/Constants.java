@@ -7,13 +7,7 @@ package com.cloud.provider.safe.constants;
  */
 public class Constants {
 
-	//算力配置表code初始化值
-	public static final String CALCULATE_CONFIG_CODE_START = "0001";
-	//算力配置表code前缀
-	public static final String CALCULATE_CONFIG_CODE_PREFIX = "CQL";
-	//方向盘配置表code初始化值
-	public static final String DIAMOND_CONFIG_CODE_START = "0001";
-	//方向盘配置表code前缀
-	public static final String DIAMOND_CONFIG_CODE_PREFIX = "NL";
+	//主管理员
+	public static final String ADMIN_NAME_MASTER = "主管理员";
 
 }

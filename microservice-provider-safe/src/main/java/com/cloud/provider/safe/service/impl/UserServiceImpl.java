@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
+import com.cloud.provider.safe.constants.Constants;
 import com.cloud.provider.safe.dao.EnterpriseMapper;
 import com.cloud.provider.safe.dao.OrgMapper;
 import com.cloud.provider.safe.dao.UserAdminLoginMapper;
@@ -93,7 +94,7 @@ public class UserServiceImpl implements IUserService {
     	UserAdmin userAdmin = new UserAdmin();
     	userAdmin.setEnterpriseId(enterpriseId);
     	userAdmin.setUserId(userId);
-    	userAdmin.setAdminName("主管理员");
+    	userAdmin.setAdminName(Constants.ADMIN_NAME_MASTER);
     	userAdmin.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER);
     	userAdmin.setCreateTime(new Date());
     	userAdmin.setUpdateTime(new Date());

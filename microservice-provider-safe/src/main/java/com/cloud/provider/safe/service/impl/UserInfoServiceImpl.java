@@ -79,7 +79,6 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	public UserInfo selectById(Integer id) {
     	logger.info("(UserInfoService-selectById)-根据id查询用户信息-传入参数, id:{}", id);
 		UserInfo userInfo = userInfoMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(userInfo, SafeResultEnum.DATABASE_NOTEXIST);
 		return userInfo;
     }
 

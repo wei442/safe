@@ -82,7 +82,6 @@ public class TitleServiceImpl implements ITitleService {
 	public Title selectById(Integer id) {
     	logger.info("(TitleService-selectById)-根据id查询职务-传入参数, id:{}", id);
 		Title title = titleMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(title, SafeResultEnum.DATABASE_NOTEXIST);
 		return title;
     }
 

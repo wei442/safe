@@ -82,7 +82,6 @@ public class UserPostServiceImpl implements IUserPostService {
 	public UserPost selectById(Integer id) {
     	logger.info("(UserPostService-selectById)-根据id查询用户岗位-传入参数, id:{}", id);
 		UserPost userPost = userPostMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(userPost, SafeResultEnum.DATABASE_NOTEXIST);
 		return userPost;
     }
 
@@ -102,7 +101,6 @@ public class UserPostServiceImpl implements IUserPostService {
 		if(list != null && !list.isEmpty()) {
 			userPost = list.get(0);
 		}
-		Assert.thanOrEqualZreo(userPost, SafeResultEnum.DATABASE_NOTEXIST);
 		return userPost;
 	}
 

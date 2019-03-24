@@ -85,7 +85,6 @@ public class EnterpriseQualityServiceImpl implements IEnterpriseQualityService {
 	public EnterpriseQuality selectById(Integer id) {
     	logger.info("(EnterpriseQualityService-selectById)-根据id查询企业资质-传入参数, id:{}", id);
 		EnterpriseQuality enterpriseQuality = enterpriseQualityMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(enterpriseQuality, SafeResultEnum.DATABASE_NOTEXIST);
 		return enterpriseQuality;
     }
 

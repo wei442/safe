@@ -84,7 +84,6 @@ public class DictServiceImpl implements IDictService {
 	public Dict selectById(Integer id) {
     	logger.info("(DictService-selectById)-根据id查询字典-传入参数, id:{}", id);
     	Dict dict = dictMapper.selectByPrimaryKey(id);
-    	Assert.thanOrEqualZreo(dict, SafeResultEnum.DATABASE_NOTEXIST);
 		return dict;
     }
 

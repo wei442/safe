@@ -79,7 +79,6 @@ public class QualityAttachmentServiceImpl implements IQualityAttachmentService {
 	public QualityAttachment selectById(Integer id) {
     	logger.info("(QualityAttachmentService-selectById)-根据id查询资质附件-传入参数, id:{}", id);
 		QualityAttachment qualityAttachment = qualityAttachmentMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(qualityAttachment, SafeResultEnum.DATABASE_NOTEXIST);
 		return qualityAttachment;
     }
 

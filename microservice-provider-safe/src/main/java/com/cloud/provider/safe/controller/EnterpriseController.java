@@ -135,7 +135,7 @@ public class EnterpriseController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加企业】(EnterpriseController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Enterprise enterprise = req.convertToEnterprise();
 		int i = enterpriseService.insert(enterprise);
@@ -185,7 +185,7 @@ public class EnterpriseController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改企业】(EnterpriseController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer enterpriseId = req.getEnterpriseId();
 		Enterprise enterprise = req.convertToEnterprise();

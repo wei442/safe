@@ -132,7 +132,7 @@ public class PostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加岗位】(PostController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Post post = req.convertToPost();
 		int i = postService.insert(post);
@@ -181,7 +181,7 @@ public class PostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改岗位】(PostController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer postId = req.getPostId();
 		Post post = req.convertToPost();

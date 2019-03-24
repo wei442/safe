@@ -82,7 +82,6 @@ public class UserTitleServiceImpl implements IUserTitleService {
 	public UserTitle selectById(Integer id) {
     	logger.info("(UserTitleService-selectById)-根据id查询用户职务-传入参数, id:{}", id);
 		UserTitle userTitle = userTitleMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
 		return userTitle;
     }
 
@@ -102,7 +101,6 @@ public class UserTitleServiceImpl implements IUserTitleService {
 		if(list != null && !list.isEmpty()) {
 			userTitle = list.get(0);
 		}
-		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
 		return userTitle;
 	}
 

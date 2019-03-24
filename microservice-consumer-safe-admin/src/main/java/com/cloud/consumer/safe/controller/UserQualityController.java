@@ -112,7 +112,7 @@ public class UserQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户资质】(UserQualityController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userQualityId = req.getUserQualityId();
 		JSONObject jsonUserQuality = userQualityService.getById(userQualityId);
@@ -140,7 +140,7 @@ public class UserQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户资质】(UserQualityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserQuality = userQualityService.add(req);
 		logger.info("===step2:【新增用户资质】(UserQualityController-add)-分页查询用户资质列表, jsonUserQuality:{}", jsonUserQuality);
@@ -167,7 +167,7 @@ public class UserQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户资质】(UserQualityController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer userQualityId = req.getUserQualityId();
 		JSONObject jsonUserQuality = userQualityService.deleteById(userQualityId);
@@ -195,7 +195,7 @@ public class UserQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户资质】(UserQualityController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		JSONObject jsonUserQuality = userQualityService.update(req);
 		logger.info("===step2:【修改用户资质】(UserQualityController-update)-修改用户资质, jsonUserQuality:{}", jsonUserQuality);

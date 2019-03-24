@@ -79,7 +79,6 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
 	public BaseUserInfo selectById(Integer id) {
     	logger.info("(BaseUserInfoService-selectById)-根据id查询基础用户信息-传入参数, id:{}", id);
 		BaseUserInfo baseUserInfo = baseUserInfoMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(baseUserInfo, SafeResultEnum.DATABASE_NOTEXIST);
 		return baseUserInfo;
     }
 

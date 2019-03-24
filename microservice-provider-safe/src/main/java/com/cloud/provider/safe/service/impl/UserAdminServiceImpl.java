@@ -85,7 +85,6 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	public UserAdmin selectById(Integer id) {
     	logger.info("(UserAdminService-selectById)-根据id查询用户管理-传入参数, id:{}", id);
 		UserAdmin userAdmin = userAdminMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(userAdmin, SafeResultEnum.DATABASE_NOTEXIST);
 		return userAdmin;
     }
 

@@ -132,7 +132,7 @@ public class BaseUserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加基础用户信息】(BaseUserInfoController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		BaseUserInfo baseUserInfo = req.convertToBaseUserInfo();
 		int i = baseUserInfoService.insert(baseUserInfo);
@@ -181,7 +181,7 @@ public class BaseUserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改基础用户信息】(BaseUserInfoController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		this.bindingResult(bindingResult);
+		
 
 		Integer baseUserInfoId = req.getBaseUserInfoId();
 		BaseUserInfo baseUserInfo = req.convertToBaseUserInfo();

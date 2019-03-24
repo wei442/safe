@@ -79,7 +79,6 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
 	public PostAttachment selectById(Integer id) {
     	logger.info("(PostAttachmentService-selectById)-根据id查询岗位附件-传入参数, id:{}", id);
 		PostAttachment postAttachment = postAttachmentMapper.selectByPrimaryKey(id);
-		Assert.thanOrEqualZreo(postAttachment, SafeResultEnum.DATABASE_NOTEXIST);
 		return postAttachment;
     }
 

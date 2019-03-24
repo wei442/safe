@@ -158,7 +158,7 @@ public class UserAdminLoginController extends BaseController {
 		@Validated @RequestBody UserAdminLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户管理登录】(UserAdminLoginController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		this.bindingResult(bindingResult);
+		
 
 		UserAdminLogin userAdminLogin = req.convertToUserAdminLogin();
 		int i = userAdminLoginService.insert(userAdminLogin);
@@ -206,7 +206,7 @@ public class UserAdminLoginController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserAdminLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理登录】(UserAdminLoginController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		this.bindingResult(bindingResult);
+		
 
 		Integer userAdminLoginId = req.getUserAdminLoginId();
 		UserAdminLogin userAdminLogin = userAdminLoginService.selectById(userAdminLoginId);
