@@ -14,7 +14,7 @@ import com.cloud.common.exception.SafeException;
 
 @Component
 @Aspect
-@Order(1)
+@Order(2)
 public class BindResultAspect {
 
 	//取得日志记录器
