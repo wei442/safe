@@ -54,14 +54,14 @@ public class UserServiceImpl extends BaseService implements IUserService {
 	}
 
 	/**
-	 * 新增用户企业
+	 * 新增用户
 	 * @param params
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addUserEnterprise(Object params) {
-		logger.info("(UserService-addUserEnterprise)-新增用户企业-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/insertUserEnterprise", params, JSONObject.class);
+	public JSONObject addUser(Object params) {
+		logger.info("(UserService-addUser)-新增用户-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/insertUser", params, JSONObject.class);
 		return response;
 	}
 

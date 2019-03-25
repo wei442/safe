@@ -28,6 +28,9 @@ import com.cloud.provider.safe.service.IUserAdminPasswordService;
 import com.cloud.provider.safe.service.IUserAdminService;
 import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.service.IUserService;
+import com.cloud.provider.safe.vo.EnterpriseVo;
+import com.cloud.provider.safe.vo.UserAdminLoginVo;
+import com.cloud.provider.safe.vo.UserInfoVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -68,25 +71,32 @@ public class UserController extends BaseController {
 	private IUserAdminPasswordService userAdminPasswordService;
 
 	/**
-	 * 添加用户企业
+	 * 添加用户
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "添加用户企业")
-	@RequestMapping(value="/insertUserEnterprise",method={RequestMethod.POST})
+	@ApiOperation(value = "添加用户")
+	@RequestMapping(value="/insertUser",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUserEnterprise(
+	public BaseRestMapResponse insertUser(
 		@Validated @RequestBody UserEnterpriseRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户企业】(UserController-insertUserEnterprise)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		
+		logger.info("===step1:【添加用户】(UserController-insertUser)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		String userAccount = req.getUserAccount();
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
+		logger.info("===step2:【添加用户】(UserController-insertUser)-根据userAccount查询用户信息, userInfo:{}", userInfo);
+
+		Integer userId = null;
 		if(userInfo != null) {
-			Integer userId = userInfo.getId();
+			userId = userInfo.getId();
+			if(userId != null) {
+				return new BaseRestMapResponse(SafeResultEnum.USER_ACCOUNT_EXIST);
+			}
+
 			UserAdmin userAdmin = userAdminService.selectByUserId(userId);
+			logger.info("===step3:【添加用户】(UserController-insertUser)-根据userId查询用户管理, userAdmin:{}", userAdmin);
 			if(userAdmin != null) {
 				return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_EXIST);
 			}
@@ -96,13 +106,15 @@ public class UserController extends BaseController {
 		Enterprise enterprise = new Enterprise();
 		enterprise.setEnterpriseName(enterpriseName);
 
-		int i = userService.insertUserEnterprise(userInfo, enterprise);
-		logger.info("===step2:【添加用户企业】(UserController-insertUserEnterprise)-添加用户企业, i:{}", i);
+		userInfo = new UserInfo();
+		userInfo.setUserAccount(userAccount);
+		int i = userService.insertUser(userInfo, enterprise);
+		logger.info("===step4:【添加用户】(UserController-insertUser)-添加用户, i:{}", i);
 
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
 		userResponse.putAll((JSONObject) JSONObject.toJSON(enterprise));
 		userResponse.putAll((JSONObject) JSONObject.toJSON(userInfo));
-		logger.info("===step3:【添加用户企业】(UserController-insertUserEnterprise)-返回信息, userResponse:{}", userResponse);
+		logger.info("===step5:【添加用户】(UserController-insertUser)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
 
@@ -119,15 +131,9 @@ public class UserController extends BaseController {
 		@Validated @RequestBody UserLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【用户登录】(UserController-login)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		
 
 		String userAccount =  req.getUserAccount();
 		String userPassword = req.getUserPassword();
-//		if(StringUtils.isBlank(userAccount)) {
-//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAccount为空");
-//		} else if(StringUtils.isBlank(userPassword)) {
-//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userPassword为空");
-//		}
 
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
 		logger.info("===step2:【用户登录】(UserController-login)-根据userAccount查询用户信息, userInfo:{}", userInfo);
@@ -138,11 +144,10 @@ public class UserController extends BaseController {
 
 		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
 		logger.info("===step3:【用户登录】(UserController-login)-根据userId查询用户管理, userAdmin:{}", userAdmin);
-		Integer enterpriseId = null;
-		if(userAdmin != null) {
-			enterpriseId = userAdmin.getEnterpriseId();
-			return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_EXIST);
+		if(userAdmin == null) {
+			return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_NOTEXIST);
 		}
+		Integer enterpriseId = userAdmin.getEnterpriseId();
 
 		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
 		logger.info("===step4:【用户登录】(UserController-login)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
@@ -165,12 +170,19 @@ public class UserController extends BaseController {
 		int i = userAdminLoginService.modify(userAdminLogin);
 		logger.info("===step7:【用户登录】(UserController-login)-修改用户管理登录登录次数, i:{}", i);
 
+		UserInfoVo userInfoVo = new UserInfoVo().convertToUserInfoVo(userInfo);
+		EnterpriseVo enterpriseVo = new EnterpriseVo().convertToEnterpriseVo(enterprise);
+		UserAdminLoginVo userAdminLoginVo = new UserAdminLoginVo().convertToUserAdminLoginVo(userAdminLogin);
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-		userResponse.putAll((JSONObject) JSONObject.toJSON(userInfo));
-		userResponse.putAll((JSONObject) JSONObject.toJSON(enterprise));
-		logger.info("===step8:【添加用户企业】(UserController-insertUserEnterprise)-返回信息, userResponse:{}", userResponse);
+		userResponse.putAll((JSONObject) JSONObject.toJSON(userInfoVo));
+		userResponse.putAll((JSONObject) JSONObject.toJSON(enterpriseVo));
+		userResponse.putAll((JSONObject) JSONObject.toJSON(userAdminLoginVo));
+		logger.info("===step8:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
+	
+	
+	
 
 	/**
 	 * 用户登录第一步

@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户应用密码")
 @RestController
-@RequestMapping(value="/user/appPassword")
+@RequestMapping(value="/user/app/password")
 public class UserAppPasswordController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -109,7 +109,7 @@ public class UserAppPasswordController extends BaseController {
 		@Validated @RequestBody UserAppPasswordRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户应用密码】(UserAppPasswordController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		
+
 
 		UserAppPassword userAppPassword = req.convertToUserAppPassword();
 		int i = userAppPasswordService.insert(userAppPassword);
@@ -158,7 +158,7 @@ public class UserAppPasswordController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户应用密码】(UserAppPasswordController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Integer userAppPasswordId = req.getUserId();
 		UserAppPassword userAppPassword = req.convertToUserAppPassword();

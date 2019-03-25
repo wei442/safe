@@ -89,7 +89,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	 */
 	@Override
 	public UserInfo selectByUserAccount(String userAccount) {
-		logger.info("(UserInfoService-selectByUserAccount)-不分页查询-传入参数, userAccount:{}", userAccount);
+		logger.info("(UserInfoService-selectByUserAccount)-根据userAccount查询用户信息-传入参数, userAccount:{}", userAccount);
 		UserInfoExample example = new UserInfoExample();
 		UserInfoExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
@@ -100,7 +100,6 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		if(list != null && !list.isEmpty()) {
 			userInfo = list.get(0);
 		}
-		Assert.thanOrEqualZreo(userInfo, SafeResultEnum.USER_ACCOUNT_NOTEXIST);
 		return userInfo;
 	}
 

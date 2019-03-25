@@ -1,7 +1,6 @@
 package com.cloud.provider.safe.rest.request;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
@@ -32,9 +31,6 @@ public class UserAdminLoginRequest implements Serializable {
 
 	@ApiModelProperty(value = "登录次数")
     private Integer loginCount;
-
-	@ApiModelProperty(value = "过期时间")
-    private Date lastPassTime;
 
     /**
 	 * 实体转换

@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户应用登录")
 @RestController
-@RequestMapping(value="/user/appLogin")
+@RequestMapping(value="/user/app/login")
 public class UserAppLoginController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -132,8 +132,6 @@ public class UserAppLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户应用登录】(UserAppLoginController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		UserAppLogin userAppLogin = req.convertToUserAppLogin();
 		int i = userAppLoginService.insert(userAppLogin);
 		logger.info("===step2:【添加用户应用登录】(UserAppLoginController-insert)-插入用户应用登录, i:{}", i);
@@ -180,8 +178,6 @@ public class UserAppLoginController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserAppLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户应用登录】(UserAppLoginController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userAppLoginId = req.getUserAppLoginId();
 		UserAppLogin userAppLogin = req.convertToUserAppLogin();

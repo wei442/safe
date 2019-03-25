@@ -17,6 +17,7 @@ import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.rest.request.UserAdminPasswordIdRequest;
 import com.cloud.consumer.safe.rest.request.UserAdminPasswordRequest;
+import com.cloud.consumer.safe.rest.request.UserInfoIdRequest;
 import com.cloud.consumer.safe.service.IUserAdminPasswordService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.UserAdminPasswordVo;
@@ -69,31 +70,57 @@ public class UserAdminPasswordController extends BaseController {
 	}
 
 	/**
-	 * 根据用户id和密码获取用户管理密码详情
+	 * 根据用户id获取用户管理密码详情
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据用户id和密码获取用户管理密码详情")
-	@RequestMapping(value="/getByUserIdPassword",method={RequestMethod.POST})
+	@ApiOperation(value = "根据用户id获取用户管理密码详情")
+	@RequestMapping(value="/getByUserId",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getByUserIdPassword(
-		@Validated @RequestBody UserAdminPasswordRequest req,
+	public BaseRestMapResponse getByUserId(
+		@Validated @RequestBody UserInfoIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【根据用户id和密码获取用户管理密码详情】(UserAdminPasswordController-getByUserIdPassword)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【根据用户id获取用户管理密码详情】(UserAdminPasswordController-getByUserId)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userId = req.getUserId();
-		String password = req.getPassword();
-		JSONObject jsonUserAdminPassword = userAdminPasswordService.getByUserIdPassword(userId, password);
-		logger.info("===step2:【根据用户id和密码获取用户管理密码详情】(UserAdminPasswordController-getByUserIdPassword)-根据userId和password获取用户管理密码详情, jsonUserAdminPassword:{}", jsonUserAdminPassword);
+		JSONObject jsonUserAdminPassword = userAdminPasswordService.getByUserId(userId);
+		logger.info("===step2:【根据用户id获取用户管理密码详情】(UserAdminPasswordController-getByUserId)-根据userId获取用户管理密码详情, jsonUserAdminPassword:{}", jsonUserAdminPassword);
 		UserAdminPasswordVo userAdminPasswordVo = JSONObject.toJavaObject(jsonUserAdminPassword, UserAdminPasswordVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
 		userAdminPasswordResponse.put(RetSafeConstants.RESULT, userAdminPasswordVo);
-		logger.info("===step3:【根据用户id和密码获取用户管理密码详情】(UserAdminPasswordController-getByUserIdPassword)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
+		logger.info("===step3:【根据用户id获取用户管理密码详情】(UserAdminPasswordController-getByUserId)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 		return userAdminPasswordResponse;
 	}
+
+	/**
+	 * 根据用户id和密码获取用户管理密码详情
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+//	@ApiOperation(value = "根据用户id和密码获取用户管理密码详情")
+//	@RequestMapping(value="/getByUserIdPassword",method={RequestMethod.POST})
+//	@ResponseBody
+//	public BaseRestMapResponse getByUserIdPassword(
+//		@Validated @RequestBody UserAdminPasswordRequest req,
+//		BindingResult bindingResult) {
+//		logger.info("===step1:【根据用户id和密码获取用户管理密码详情】(UserAdminPasswordController-getByUserIdPassword)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+//
+//		Integer userId = req.getUserId();
+//		String password = req.getPassword();
+//		JSONObject jsonUserAdminPassword = userAdminPasswordService.getByUserIdPassword(userId, password);
+//		logger.info("===step2:【根据用户id和密码获取用户管理密码详情】(UserAdminPasswordController-getByUserIdPassword)-根据userId和password获取用户管理密码详情, jsonUserAdminPassword:{}", jsonUserAdminPassword);
+//		UserAdminPasswordVo userAdminPasswordVo = JSONObject.toJavaObject(jsonUserAdminPassword, UserAdminPasswordVo.class);
+//
+//		//返回信息
+//		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
+//		userAdminPasswordResponse.put(RetSafeConstants.RESULT, userAdminPasswordVo);
+//		logger.info("===step3:【根据用户id和密码获取用户管理密码详情】(UserAdminPasswordController-getByUserIdPassword)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
+//		return userAdminPasswordResponse;
+//	}
 
 	/**
 	 * 新增用户管理密码

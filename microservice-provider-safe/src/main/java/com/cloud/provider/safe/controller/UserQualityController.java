@@ -158,7 +158,6 @@ public class UserQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户资质】(UserQualityController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
 
 		UserQuality userQuality = req.convertToUserQuality();
 		int i = userQualityService.insert(userQuality);
@@ -206,7 +205,7 @@ public class UserQualityController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserQualityRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户资质】(UserQualityController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		
+
 
 		Integer userQualityId = req.getUserQualityId();
 		UserQuality userQuality = req.convertToUserQuality();

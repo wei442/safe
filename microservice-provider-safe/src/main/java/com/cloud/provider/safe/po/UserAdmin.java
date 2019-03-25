@@ -2,6 +2,9 @@ package com.cloud.provider.safe.po;
 
 import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class UserAdmin {
     private Integer id;
 

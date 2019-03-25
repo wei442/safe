@@ -53,4 +53,11 @@ public interface IUserAdminLoginService {
 	 */
 	public JSONObject update(Object params);
 
+	/**
+	 * 根据userId修改用户管理登录
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject updateByUserId(Object params);
+
 }

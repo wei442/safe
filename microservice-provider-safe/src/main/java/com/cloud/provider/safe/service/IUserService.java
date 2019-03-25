@@ -6,11 +6,11 @@ import com.cloud.provider.safe.po.UserInfo;
 public interface IUserService {
 
     /**
-     * 插入用户企业
+     * 插入用户
      * @param userInfo
      * @param enterprise
      * @return Integer
      */
-	public Integer insertUserEnterprise(UserInfo userInfo,Enterprise enterprise);
+	public Integer insertUser(UserInfo userInfo,Enterprise enterprise);
 
 }

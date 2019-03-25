@@ -2,6 +2,8 @@ package com.cloud.provider.safe.service.impl;
 
 import java.util.Date;
 
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import com.cloud.provider.safe.po.Enterprise;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.po.UserAdmin;
 import com.cloud.provider.safe.po.UserAdminLogin;
+import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.service.IUserService;
@@ -64,29 +67,27 @@ public class UserServiceImpl implements IUserService {
     private UserOrgMapper userOrgMapper;
 
     /**
-     * 插入用户企业
+     * 插入用户
      * @param userInfo
      * @param enterprise
      * @return Integer
      */
 	@Override
-	public Integer insertUserEnterprise(UserInfo userInfo,Enterprise enterprise) {
-    	logger.info("(UserInfoService-insertUserEnterprise)-插入用户企业-传入参数, userInfo:{}, enterprise:{}", userInfo, enterprise);
+	public Integer insertUser(UserInfo userInfo,Enterprise enterprise) {
+    	logger.info("(UserService-insertUser)-插入用户-传入参数, userInfo:{}, enterprise:{}", userInfo, enterprise);
 
-    	if(null != userInfo) {
-	    	userInfo.setUserStatus(SqlSafeConstants.SQL_USER_STATUS_NORMAL);
-	    	userInfo.setIsDelete(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
-	    	userInfo.setCreateTime(new Date());
-	    	userInfo.setUpdateTime(new Date());
-	    	int i = userInfoMapper.insertSelective(userInfo);
-	    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
-    	}
+    	userInfo.setUserStatus(SqlSafeConstants.SQL_USER_STATUS_NORMAL);
+    	userInfo.setIsDelete(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
+    	userInfo.setCreateTime(new Date());
+    	userInfo.setUpdateTime(new Date());
+    	int i = userInfoMapper.insertSelective(userInfo);
+    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	Integer userId = userInfo.getId();
 
     	enterprise.setEnterpriseStatus(SqlSafeConstants.SQL_ENTERPRISE_STATUS_NORMAL);
     	enterprise.setCreateTime(new Date());
     	enterprise.setUpdateTime(new Date());
-    	int i = enterpriseMapper.insertSelective(enterprise);
+    	i = enterpriseMapper.insertSelective(enterprise);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	Integer enterpriseId = enterprise.getId();
     	String enterpriseName = enterprise.getEnterpriseName();
@@ -101,6 +102,7 @@ public class UserServiceImpl implements IUserService {
     	i = userAdminMapper.insertSelective(userAdmin);
 
     	UserAdminLogin userAdminLogin = new UserAdminLogin();
+    	userAdminLogin.setUserId(userId);
     	userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO);
     	userAdminLogin.setCreateTime(new Date());
     	userAdminLogin.setUpdateTime(new Date());
@@ -108,6 +110,7 @@ public class UserServiceImpl implements IUserService {
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
 
     	Org org = new Org();
+    	org.setEnterpriseId(enterpriseId);
     	org.setOrgName(enterpriseName);
     	org.setOrgAlias(enterpriseName);
     	org.setIsDelete(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
@@ -126,15 +129,16 @@ public class UserServiceImpl implements IUserService {
     	i = userOrgMapper.insertSelective(userOrg);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
 
-//    	UserAdminPassword userAdminPassword = new UserAdminPassword();
-//    	userAdminPassword.setUserId(userId);
-//    	//过期时间暂为100年
-//    	Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
-//    	userAdminPassword.setLastPassTime(lastPassTime);
-//    	userAdminPassword.setCreateTime(new Date());
-//    	userAdminPassword.setUpdateTime(new Date());
-//    	i = userAdminPasswordMapper.insertSelective(userAdminPassword);
-//    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    	//首次注册密码为空
+    	UserAdminPassword userAdminPassword = new UserAdminPassword();
+    	userAdminPassword.setUserId(userId);
+    	//过期时间暂为100年
+    	Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
+    	userAdminPassword.setLastPassTime(lastPassTime);
+    	userAdminPassword.setCreateTime(new Date());
+    	userAdminPassword.setUpdateTime(new Date());
+    	i = userAdminPasswordMapper.insertSelective(userAdminPassword);
+    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
 
     	return i;
     }

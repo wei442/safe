@@ -26,10 +26,10 @@ public interface IUserService {
 	public JSONObject login(Object params);
 
 	/**
-	 * 新增用户企业
+	 * 新增用户
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addUserEnterprise(Object params);
+	public JSONObject addUser(Object params);
 
 }

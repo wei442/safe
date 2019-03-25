@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户管理登录")
 @RestController
-@RequestMapping(value="/user/adminLogin")
+@RequestMapping(value="/user/admin/login")
 public class UserAdminLoginController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -158,7 +158,6 @@ public class UserAdminLoginController extends BaseController {
 		@Validated @RequestBody UserAdminLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户管理登录】(UserAdminLoginController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		
 
 		UserAdminLogin userAdminLogin = req.convertToUserAdminLogin();
 		int i = userAdminLoginService.insert(userAdminLogin);
@@ -206,7 +205,6 @@ public class UserAdminLoginController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserAdminLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理登录】(UserAdminLoginController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		
 
 		Integer userAdminLoginId = req.getUserAdminLoginId();
 		UserAdminLogin userAdminLogin = userAdminLoginService.selectById(userAdminLoginId);
@@ -220,6 +218,35 @@ public class UserAdminLoginController extends BaseController {
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		logger.info("===step3:【修改用户管理登录】(UserAdminLoginController-modify)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+		return userAdminLoginResponse;
+	}
+
+	/**
+	 * 根据userId修改用户管理登录
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据userId修改用户管理登录")
+	@RequestMapping(value="/modifyByUserId",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse modifyByUserId(
+		@Validated @RequestBody UserAdminLoginRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【根据userId修改用户管理登录】(UserAdminLoginController-modifyByUserId)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer userId = req.getUserId();
+		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
+		logger.info("===step2:【根据userId修改用户管理登录】(UserAdminLoginController-modifyByUserId)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+
+		Long loginCount = userAdminLogin.getLoginCount();
+		userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_YES);
+		userAdminLogin.setLoginCount(loginCount+1);
+		int i = userAdminLoginService.modify(userAdminLogin);
+		logger.info("===step3:【根据userId修改用户管理登录】(UserAdminLoginController-modifyByUserId)-修改用户管理登录, i:{}", i);
+
+		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
+		logger.info("===step4:【根据userId修改用户管理登录】(UserAdminLoginController-modifyByUserId)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
 

@@ -106,7 +106,6 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		if(list != null && !list.isEmpty()) {
 			userAdmin = list.get(0);
 		}
-		Assert.thanOrEqualZreo(userAdmin, SafeResultEnum.ENTERPRISE_NOTEXIST);
 		return userAdmin;
 	}
 

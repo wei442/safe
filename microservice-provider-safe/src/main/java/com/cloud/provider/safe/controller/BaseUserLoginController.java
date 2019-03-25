@@ -132,7 +132,7 @@ public class BaseUserLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加基础用户登录】(BaseUserLoginController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		BaseUserLogin baseUserLogin = req.convertToBaseUserLogin();
 		int i = baseUserLoginService.insert(baseUserLogin);
@@ -181,7 +181,6 @@ public class BaseUserLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【基础用户登录】(BaseUserLoginController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
 
 		Integer baseUserLoginId = req.getBaseUserLoginId();
 		BaseUserLogin baseUserLogin = req.convertToBaseUserLogin();
@@ -193,6 +192,5 @@ public class BaseUserLoginController extends BaseController {
 		logger.info("===step3:【基础用户登录】(BaseUserLoginController-modify)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}
-
 
 }
