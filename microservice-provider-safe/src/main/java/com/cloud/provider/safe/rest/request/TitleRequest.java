@@ -27,11 +27,11 @@ public class TitleRequest implements Serializable {
 	private Integer titleId;
 
 	@ApiModelProperty(value = "企业id")
-	@NotNull(message = "企业id")
+	@NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 
 	@ApiModelProperty(value = "职务名称")
-	@NotBlank(message = "职务名称")
+	@NotBlank(message = "职务名称不能为空")
     private String titleName;
 
 	@ApiModelProperty(value = "备注")

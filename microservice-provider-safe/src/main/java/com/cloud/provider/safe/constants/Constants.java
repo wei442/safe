@@ -10,4 +10,7 @@ public class Constants {
 	//主管理员
 	public static final String ADMIN_NAME_MASTER = "主管理员";
 
+	//初始化密码，11111111
+	public static final String PASSWORD_INIT = "11111111";
+
 }

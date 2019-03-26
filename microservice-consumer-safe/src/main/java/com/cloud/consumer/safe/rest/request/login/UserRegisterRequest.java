@@ -8,11 +8,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 用户企业注册请求
+ * 用户注册请求
  * @author wei.yong
  */
 @Data
-public class UserEnterpriseRegisterRequest implements Serializable {
+public class UserRegisterRequest implements Serializable {
 
 	/**
 	 *

@@ -239,9 +239,7 @@ public class UserAdminLoginController extends BaseController {
 		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
 		logger.info("===step2:【根据userId修改用户管理登录】(UserAdminLoginController-modifyByUserId)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
 
-		Long loginCount = userAdminLogin.getLoginCount();
 		userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_YES);
-		userAdminLogin.setLoginCount(loginCount+1);
 		int i = userAdminLoginService.modify(userAdminLogin);
 		logger.info("===step3:【根据userId修改用户管理登录】(UserAdminLoginController-modifyByUserId)-修改用户管理登录, i:{}", i);
 

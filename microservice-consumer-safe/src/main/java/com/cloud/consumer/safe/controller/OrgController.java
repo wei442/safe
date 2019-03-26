@@ -81,6 +81,7 @@ public class OrgController extends BaseController {
 		@RequestBody OrgPageRequest req) {
 		logger.info("===step1:【查询组织机构树列表】(OrgController-getTreeList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
+//		req.setEnterpriseId(this.getTokenEnterpriseId());
 		JSONObject jsonOrg = orgService.getTreeList(req);
 		logger.info("===step2:【查询组织机构树列表】(OrgController-getTreeList)-查询组织机构树列表, jsonOrg:{}", jsonOrg);
 		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
@@ -109,7 +110,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取组织机构】(OrgController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Integer orgId = req.getOrgId();
 		JSONObject jsonOrg = orgService.getById(orgId);
@@ -137,7 +138,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增组织机构】(OrgController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		JSONObject jsonOrg = orgService.add(req);
 		logger.info("===step2:【新增组织机构】(OrgController-add)-分页查询组织机构列表, jsonOrg:{}", jsonOrg);
@@ -164,7 +165,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除组织机构】(OrgController-deleteOrg)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Integer orgId = req.getOrgId();
 		JSONObject jsonOrg = orgService.deleteById(orgId);
@@ -192,7 +193,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改组织机构】(OrgController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		JSONObject jsonOrg = orgService.update(req);
 		logger.info("===step2:【修改组织机构】(OrgController-update)-修改组织机构, jsonOrg:{}", jsonOrg);

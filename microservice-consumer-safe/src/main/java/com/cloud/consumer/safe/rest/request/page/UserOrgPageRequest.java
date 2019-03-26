@@ -14,10 +14,6 @@ public class UserOrgPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer userOrgId;
-
-    private Integer userId;
-
-    private Integer orgId;
+	private Integer enterpriseId;
 
 }

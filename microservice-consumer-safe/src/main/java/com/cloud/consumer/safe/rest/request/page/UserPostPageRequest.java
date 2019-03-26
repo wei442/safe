@@ -14,10 +14,6 @@ public class UserPostPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer userPostId;
-
-    private Integer userId;
-
-    private Integer postId;
+	private Integer enterpriseId;
 
 }

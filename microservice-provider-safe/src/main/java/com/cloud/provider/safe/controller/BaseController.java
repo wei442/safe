@@ -7,10 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.cloud.common.exception.SafeException;
 
 /**
  * Boot的BootBaseController
@@ -32,12 +29,12 @@ public class BaseController {
 	 * 校验参数
 	 * @param bindingResult
 	 */
-	protected void bindingResult(BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-        	logger.info(">>>>>> {}.{}() valid params is error msg = {}", this.getClass().getSimpleName(), this.getRequestMethodName(), bindingResult.getFieldError().getDefaultMessage());
-            throw new SafeException("1050000", bindingResult.getFieldError().getDefaultMessage());
-        }
-    }
+//	protected void bindingResult(BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//        	logger.info(">>>>>> {}.{}() valid params is error msg = {}", this.getClass().getSimpleName(), this.getRequestMethodName(), bindingResult.getFieldError().getDefaultMessage());
+//            throw new SafeException("1050000", bindingResult.getFieldError().getDefaultMessage());
+//        }
+//    }
 
 	/**
 	 * 获取请求加点URI参数为空，如：user.register.parameter.empty

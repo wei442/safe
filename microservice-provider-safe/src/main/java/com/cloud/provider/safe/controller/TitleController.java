@@ -132,8 +132,6 @@ public class TitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加职务】(TitleController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		Title Title = req.convertToTitle();
 		int i = TitleService.insert(Title);
 		logger.info("===step2:【添加职务】(TitleController-insert)-插入职务, i:{}", i);
@@ -181,7 +179,7 @@ public class TitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改职务】(TitleController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Integer TitleId = req.getTitleId();
 		Title Title = req.convertToTitle();

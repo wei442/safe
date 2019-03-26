@@ -1,6 +1,9 @@
 package com.cloud.api.safe.filter;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -95,10 +98,17 @@ public class TokenZuulFilter extends ZuulFilter {
 	    }
 
 		Integer enterpriseId = this.getTokenEnterpriseId(request);
-		if(enterpriseId  != null) {
-			request.setAttribute(CommConstants.ENTERPRISE_ID, enterpriseId);
-			context.setRequest(request);
+		request.getParameterMap();// 关键步骤，一定要get一下,下面这行代码才能取到值
+		Map<String, List<String>> requestQueryParams = context.getRequestQueryParams();
+
+		if (requestQueryParams == null || requestQueryParams.isEmpty()) {
+			requestQueryParams = new HashMap<>();
+			ArrayList<String> arrayList2 = new ArrayList<>();
+			arrayList2.add(enterpriseId + "");
+			requestQueryParams.put("enterpriseId", arrayList2);
+			context.setRequestQueryParams(requestQueryParams);
 		}
+		context.setRequest(request);
 
 		return null;
     }
@@ -162,10 +172,7 @@ public class TokenZuulFilter extends ZuulFilter {
 		try {
 			String payloadStr = new String(Base64.decodeBase64(payload), StandardCharsets.UTF_8);
 			JSONObject payloadJSON = JSONObject.parseObject(payloadStr);
-			String claimsStr = Objects.toString(payloadJSON.get(CommConstants.CLAIMS));
-
-			JSONObject claimsJSON = JSONObject.parseObject(claimsStr);
-			enterpriseId = new Integer(Objects.toString(claimsJSON.get(CommConstants.ENTERPRISE_ID)));
+			enterpriseId = new Integer(Objects.toString(payloadJSON.get(CommConstants.ENTERPRISE_ID)));
 		} catch (Exception e) {
 			logger.error("【tokenZuul请求过滤】(TokenZuulFilter-getTokenEnterpriseId)-获取企业id异常, Exception = {}, message = {}", e, e.getMessage());
 		}

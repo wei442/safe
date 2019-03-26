@@ -29,9 +29,6 @@ public class UserAdminLoginRequest implements Serializable {
     @NotNull(message = "用户id")
     private Integer userId;
 
-	@ApiModelProperty(value = "登录次数")
-    private Integer loginCount;
-
     /**
 	 * 实体转换
 	 * @return UserAdminLogin

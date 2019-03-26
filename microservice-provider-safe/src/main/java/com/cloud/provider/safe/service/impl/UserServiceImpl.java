@@ -2,6 +2,7 @@ package com.cloud.provider.safe.service.impl;
 
 import java.util.Date;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.slf4j.Logger;
@@ -132,6 +133,7 @@ public class UserServiceImpl implements IUserService {
     	//首次注册密码为空
     	UserAdminPassword userAdminPassword = new UserAdminPassword();
     	userAdminPassword.setUserId(userId);
+    	userAdminPassword.setPassword(DigestUtils.sha256Hex(Constants.PASSWORD_INIT));
     	//过期时间暂为100年
     	Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
     	userAdminPassword.setLastPassTime(lastPassTime);

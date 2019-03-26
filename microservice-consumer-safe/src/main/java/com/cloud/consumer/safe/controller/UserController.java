@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.wheel.RetWheelConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
-import com.cloud.consumer.safe.rest.request.login.UserEnterpriseRegisterRequest;
+import com.cloud.consumer.safe.rest.request.login.UserRegisterRequest;
 import com.cloud.consumer.safe.rest.request.login.UserLoginRequest;
 import com.cloud.consumer.safe.service.IUserAdminLoginService;
 import com.cloud.consumer.safe.service.IUserAdminPasswordService;
@@ -83,11 +83,12 @@ public class UserController extends BaseController {
 
 		String userAccount = req.getUserAccount();
 
+		String userPassword = req.getUserPassword();
+		req.setUserPassword(DigestUtils.sha256Hex(userPassword));
 		JSONObject jsonUser = userService.login(req);
         logger.info("===step3:【用户登录】(UserController-login)-用户登录, jsonUser:{}", jsonUser);
 		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUser, UserInfoVo.class);
 		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonUser, EnterpriseVo.class);
-//		UserAdminLoginVo userAdminLoginVo = JSONObject.toJavaObject(jsonUser, UserAdminLoginVo.class);
 		Integer userId = userInfoVo.getUserId();
 		String userName = userInfoVo.getUserName();
 		Integer enterpriseId = enterpriseVo.getEnterpriseId();
@@ -141,7 +142,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value="/register",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse register(
-		@RequestBody UserEnterpriseRegisterRequest req,
+		@RequestBody UserRegisterRequest req,
 		BindingResult bindingResult) {
 		String requestIp = this.getRequestIp();
 		logger.info("===step1:【用户注册】(UserController-register)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));

@@ -14,8 +14,6 @@ public class RetSafeConstants extends RetConstants {
 
 	public static final String USER_ID = "userId";
 	public static final String USER_ACCOUNT = "userAccount";
-//	public static final String GTOKEN = "gToken";
-//	public static final String GID = "gId";
 
 	//token过期时间 2592000秒 30天(30*24*60*60)
 	public static final Integer TOKEN_TIME = 2592000;
