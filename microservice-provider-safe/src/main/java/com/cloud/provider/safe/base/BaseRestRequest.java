@@ -15,12 +15,12 @@ public class BaseRestRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "当前页默认值：1")
 	//当前页
+	@ApiModelProperty(value = "当前页默认值：1")
 	private int pageNum = 1;
 
-	@ApiModelProperty(value = "每页显示条数默认值：10")
 	//每页的数量
+	@ApiModelProperty(value = "每页显示条数默认值：10")
 	private int pageSize = 10;
 
 	public int getPageNum() {

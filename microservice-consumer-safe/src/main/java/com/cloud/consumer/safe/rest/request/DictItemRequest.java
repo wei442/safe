@@ -22,8 +22,7 @@ public class DictItemRequest implements Serializable {
     @NotNull(message = "字典子项id", groups = {UpdateGroup.class})
 	private Integer dictItemId;
 
-	@ApiModelProperty(value = "字典id", required = true)
-    @NotNull(message = "字典id")
+	@ApiModelProperty(value = "字典id")
     private Integer dictId;
 
 	@NotBlank(message = "字典子项名称")

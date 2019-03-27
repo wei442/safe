@@ -1,9 +1,6 @@
 package com.cloud.api.safe.filter;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -96,19 +93,6 @@ public class TokenZuulFilter extends ZuulFilter {
 	    	context.setSendZuulResponse(false);
 	    	return null;
 	    }
-
-		Integer enterpriseId = this.getTokenEnterpriseId(request);
-		request.getParameterMap();// 关键步骤，一定要get一下,下面这行代码才能取到值
-		Map<String, List<String>> requestQueryParams = context.getRequestQueryParams();
-
-		if (requestQueryParams == null || requestQueryParams.isEmpty()) {
-			requestQueryParams = new HashMap<>();
-			ArrayList<String> arrayList2 = new ArrayList<>();
-			arrayList2.add(enterpriseId + "");
-			requestQueryParams.put("enterpriseId", arrayList2);
-			context.setRequestQueryParams(requestQueryParams);
-		}
-		context.setRequest(request);
 
 		return null;
     }

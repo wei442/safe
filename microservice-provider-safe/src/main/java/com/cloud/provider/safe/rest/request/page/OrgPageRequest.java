@@ -24,5 +24,4 @@ public class OrgPageRequest extends BaseRestRequest {
     @ApiModelProperty(value = "机构父id")
     private Integer parentOrgId;
 
-
 }

@@ -57,6 +57,8 @@ public class PostController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody PostPageRequest req) {
 		logger.info("===step1:【分页查询】(PostController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonPost = postService.getListByPage(req);
 		logger.info("===step2:【分页查询】(PostController-getListByPage)-分页查询岗位列表, jsonPost:{}", jsonPost);
@@ -84,6 +86,8 @@ public class PostController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody PostPageRequest req) {
 		logger.info("===step1:【不分页查询】(PostController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonPost = postService.getListByPage(req);
 		logger.info("===step2:【不分页查询】(PostController-getList)-不分页查询岗位列表, jsonPost:{}", jsonPost);
@@ -112,8 +116,6 @@ public class PostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取岗位】(PostController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		Integer postId = req.getPostId();
 		JSONObject jsonPost = postService.getById(postId);
 		logger.info("===step2:【获取岗位】(PostController-get)-根据postId获取岗位, jsonPost:{}", jsonPost);
@@ -139,8 +141,8 @@ public class PostController extends BaseController {
 		@Validated @RequestBody PostRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增岗位】(PostController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonPost = postService.add(req);
 		logger.info("===step2:【新增岗位】(PostController-add)-分页查询岗位列表, jsonPost:{}", jsonPost);
@@ -167,8 +169,6 @@ public class PostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除岗位】(PostController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		Integer postId = req.getPostId();
 		JSONObject jsonPost = postService.deleteById(postId);
 		logger.info("===step2:【删除岗位】(PostController-delete)-根据postId删除岗位, jsonPost:{}", jsonPost);
@@ -194,8 +194,8 @@ public class PostController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody PostRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改岗位】(PostController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonPost = postService.update(req);
 		logger.info("===step2:【修改岗位】(PostController-update)-修改岗位, jsonPost:{}", jsonPost);

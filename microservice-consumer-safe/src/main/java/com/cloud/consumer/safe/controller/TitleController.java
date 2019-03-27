@@ -57,8 +57,9 @@ public class TitleController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody TitlePageRequest req) {
 		logger.info("===step1:【分页查询】(TitleController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
-//		req.setEnterpriseId(this.getTokenEnterpriseId());
 		JSONObject jsonTitle = titleService.getListByPage(req);
 		logger.info("===step2:【分页查询】(TitleController-getListByPage)-分页查询职务列表, jsonTitle:{}", jsonTitle);
 		String dataListStr = JSONObject.toJSONString(jsonTitle.getJSONArray(PageConstants.DATA_LIST));
@@ -85,6 +86,8 @@ public class TitleController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody TitlePageRequest req) {
 		logger.info("===step1:【不分页查询】(TitleController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonTitle = titleService.getListByPage(req);
 		logger.info("===step2:【不分页查询】(TitleController-getList)-不分页查询职务列表, jsonTitle:{}", jsonTitle);
@@ -138,6 +141,8 @@ public class TitleController extends BaseController {
 		@Validated @RequestBody TitleRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增职务】(TitleController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonTitle = titleService.add(req);
 		logger.info("===step2:【新增职务】(TitleController-add)-分页查询职务列表, jsonTitle:{}", jsonTitle);
@@ -189,6 +194,8 @@ public class TitleController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody TitleRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改职务】(TitleController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonTitle = titleService.update(req);
 		logger.info("===step2:【修改职务】(TitleController-update)-修改职务, jsonTitle:{}", jsonTitle);

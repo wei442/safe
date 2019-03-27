@@ -112,8 +112,6 @@ public class DictItemController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取字典子项】(DictItemController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		Integer dictItemId = req.getDictItemId();
 		JSONObject jsonDictItem = dictItemService.getById(dictItemId);
 		logger.info("===step2:【获取字典子项】(DictItemController-get)-根据dictItemId获取字典子项, jsonDictItem:{}", jsonDictItem);
@@ -140,7 +138,6 @@ public class DictItemController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增字典子项】(DictItemController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
 
 		JSONObject jsonDictItem = dictItemService.add(req);
 		logger.info("===step2:【新增字典子项】(DictItemController-add)-分页查询字典子项列表, jsonDictItem:{}", jsonDictItem);
@@ -167,7 +164,6 @@ public class DictItemController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除字典子项】(DictItemController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
 
 		Integer dictItemId = req.getDictItemId();
 		JSONObject jsonDictItem = dictItemService.deleteById(dictItemId);
@@ -194,8 +190,6 @@ public class DictItemController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody DictItemRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改字典子项】(DictItemController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonDictItem = dictItemService.update(req);
 		logger.info("===step2:【修改字典子项】(DictItemController-update)-修改字典子项, jsonDictItem:{}", jsonDictItem);

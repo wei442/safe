@@ -47,6 +47,18 @@ public class OrgServiceImpl implements IOrgService {
     private UserInfoDao userInfoDao;
 
     /**
+     * 查询组织机构树
+     * @param param
+     * @return List<OrgVo>
+     */
+    @Override
+	public List<OrgVo> selectTreeList(OrgParam param) {
+    	logger.info("(OrgService-selectOrgTreeList)-查询组织机构树-传入参数, param:{}", param);
+    	List<OrgVo> list = orgDao.selectOrgTreeListByParentOrgIdId(param);
+    	return list;
+    }
+
+    /**
      * 查询组织机构树用户
      * @param param
      * @return List<OrgUserVo>
@@ -82,18 +94,6 @@ public class OrgServiceImpl implements IOrgService {
 
 		return orgUserVoList;
 	}
-
-    /**
-     * 查询组织机构树
-     * @param param
-     * @return List<OrgVo>
-     */
-    @Override
-	public List<OrgVo> selectTreeList(OrgParam param) {
-    	logger.info("(OrgService-selectOrgTreeList)-查询组织机构树-传入参数, param:{}", param);
-    	List<OrgVo> list = orgDao.selectOrgTreeListByParentOrgIdId(param);
-    	return list;
-    }
 
 //    /**
 //	 * 分页查询

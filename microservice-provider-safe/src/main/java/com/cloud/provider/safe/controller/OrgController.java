@@ -46,36 +46,6 @@ public class OrgController extends BaseController {
 	private IOrgService orgService;
 
 	/**
-	 * 查询组织机构树用户列表
-	 * @param req
-	 * @return BaseRestMapResponse
-	 */
-	@ApiOperation(value = "查询组织机构树用户列表")
-	@RequestMapping(value="/selectTreeUserList",method={RequestMethod.POST})
-	@ResponseBody
-	public BaseRestMapResponse selectTreeUserList(
-		@RequestBody OrgPageRequest req) {
-		logger.info("===step1:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		Integer parentOrgId = req.getParentOrgId();
-		Integer orgId = req.getOrgId();
-		Integer enterpriseId = req.getEnterpriseId();
-
-		OrgParam param = new OrgParam();
-		param.setParentOrgId(parentOrgId);
-		param.setOrgId(orgId);
-		param.setEnterpriseId(enterpriseId);
-
-		List<OrgUserVo> list = orgService.selectTreeUserList(param);
-		logger.info("===step2:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-查询组织机构树用户列表, list.size:{}", list == null ? null : list.size());
-
-		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(PageConstants.DATA_LIST, list);
-		logger.info("===step3:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-返回信息, orgResponse:{}", orgResponse);
-		return orgResponse;
-	}
-
-	/**
 	 * 查询组织机构树列表
 	 * @param req
 	 * @return BaseRestMapResponse
@@ -105,6 +75,35 @@ public class OrgController extends BaseController {
 		return orgResponse;
 	}
 
+	/**
+	 * 查询组织机构树用户列表
+	 * @param req
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "查询组织机构树用户列表")
+	@RequestMapping(value="/selectTreeUserList",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectTreeUserList(
+		@RequestBody OrgPageRequest req) {
+		logger.info("===step1:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer parentOrgId = req.getParentOrgId();
+		Integer orgId = req.getOrgId();
+		Integer enterpriseId = req.getEnterpriseId();
+
+		OrgParam param = new OrgParam();
+		param.setParentOrgId(parentOrgId);
+		param.setOrgId(orgId);
+		param.setEnterpriseId(enterpriseId);
+
+		List<OrgUserVo> list = orgService.selectTreeUserList(param);
+		logger.info("===step2:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-查询组织机构树用户列表, list.size:{}", list == null ? null : list.size());
+
+		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
+		orgResponse.put(PageConstants.DATA_LIST, list);
+		logger.info("===step3:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-返回信息, orgResponse:{}", orgResponse);
+		return orgResponse;
+	}
 
 	/**
 	 * 据id查询组织机构
@@ -146,7 +145,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加组织机构】(OrgController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Org org = req.convertToOrg();
 		int i = orgService.insert(org);
@@ -195,7 +194,7 @@ public class OrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改组织机构】(OrgController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Integer orgId = req.getOrgId();
 		Org org = req.convertToOrg();

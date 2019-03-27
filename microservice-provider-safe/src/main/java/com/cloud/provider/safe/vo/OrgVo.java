@@ -51,6 +51,8 @@ public class OrgVo implements Serializable {
 
     private Date updateTime;
 
+    private List<OrgVo> orgList;
+
     /**
      * 实体转换
      * @param org

@@ -61,13 +61,14 @@ public class BaseController {
 	@Value("${token.rsa.privateKey}")
 	protected String rsaPrivateKeyStr;
 
-	//实时排名100名，因为redis存储的下标是从0开始，所以是99
-	protected final Integer realRank = 99;
-	//昨日排名100名，因为redis存储的下标是从0开始，所以是99
-	protected final Integer yesterdayRank = 99;
+	//企业id
+	protected Integer enterpriseId = null;
 
-	//排名10000个
-	protected final Integer sortRank = 10000;
+	//用户id
+	protected final Integer userId = null;
+
+	//用户账户
+	protected final String userAccount = "";
 
 	/**
 	 * 设置token 在response header里面
@@ -145,7 +146,6 @@ public class BaseController {
 			logger.info("(BaseController-clearToken)-清除token-返回信息, tokenkey:{}, l:{}", tokenkey, l);
 		}
 	}
-
 
 	/**
 	 * 获取请求ip
