@@ -39,6 +39,25 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
 		UserAppPassword userAppPassword = userAppPasswordMapper.selectByPrimaryKey(id);
 		return userAppPassword;
     }
+	
+	/**
+	 * 根据userId查询用户应用密码
+	 * @param userId
+	 * @return UserAppPassword
+	 */
+	public UserAppPassword selectByUserId(Integer userId) {
+		logger.info("(UserAppPasswordService-selectByUserId)-根据userId查询用户应用密码-传入参数, userId:{}", userId);
+		UserAppPasswordExample example = new UserAppPasswordExample();
+		UserAppPasswordExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		
+		List<UserAppPassword> list = userAppPasswordMapper.selectByExample(example);
+		UserAppPassword userAppPassword = null;
+		if(list != null && !list.isEmpty()) {
+			userAppPassword = list.get(0);
+		}
+		return userAppPassword;
+	}
 
 	/**
 	 * 根据userId和password查询用户应用密码
@@ -59,7 +78,6 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
 		if(list != null && !list.isEmpty()) {
 			userAppPassword = list.get(0);
 		}
-		Assert.thanOrEqualZreo(userAppPassword, SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
 		return userAppPassword;
 	}
 

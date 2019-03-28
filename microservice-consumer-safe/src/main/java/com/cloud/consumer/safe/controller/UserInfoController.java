@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IUserInfoService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.UserInfoVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +91,10 @@ public class UserInfoController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonUserInfo.getJSONArray(PageConstants.DATA_LIST));
 		List<UserInfoVo> userInfoVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserInfoVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(userInfoVoList);
 		//返回信息
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(RetSafeConstants.RESULT, userInfoVoList);
+		userInfoResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserInfoController-getList)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
@@ -111,7 +113,6 @@ public class UserInfoController extends BaseController {
 		@Validated @RequestBody UserInfoIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户信息】(UserInfoController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		
 
 		Integer userId = req.getUserId();
 		JSONObject jsonUserInfo = userInfoService.getById(userId);
@@ -139,8 +140,6 @@ public class UserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户信息】(UserInfoController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		JSONObject jsonUserInfo = userInfoService.add(req);
 		logger.info("===step2:【新增用户信息】(UserInfoController-add)-分页查询用户信息列表, jsonUserInfo:{}", jsonUserInfo);
 		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUserInfo, UserInfoVo.class);
@@ -165,8 +164,6 @@ public class UserInfoController extends BaseController {
 		@Validated @RequestBody UserInfoIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户信息】(UserInfoController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userId = req.getUserId();
 		JSONObject jsonUserInfo = userInfoService.deleteById(userId);
@@ -193,8 +190,6 @@ public class UserInfoController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody UserInfoRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户信息】(UserInfoController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonUserInfo = userInfoService.update(req);
 		logger.info("===step2:【修改用户信息】(UserInfoController-update)-修改用户信息, jsonUserInfo:{}", jsonUserInfo);

@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IUserAdminService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.UserAdminVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +91,10 @@ public class UserAdminController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonUserAdmin.getJSONArray(PageConstants.DATA_LIST));
 		List<UserAdminVo> userAdminVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserAdminVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(userAdminVoList);
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, userAdminVoList);
+		userAdminResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserAdminController-getList)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
@@ -111,8 +113,6 @@ public class UserAdminController extends BaseController {
 		@Validated @RequestBody UserAdminIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户管理】(UserAdminController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userAdminId = req.getUserAdminId();
 		JSONObject jsonUserAdmin = userAdminService.getById(userAdminId);
@@ -140,8 +140,6 @@ public class UserAdminController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户管理】(UserAdminController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		JSONObject jsonUserAdmin = userAdminService.add(req);
 		logger.info("===step2:【新增用户管理】(UserAdminController-add)-分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
 		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserAdmin, UserAdminVo.class);
@@ -166,8 +164,6 @@ public class UserAdminController extends BaseController {
 		@Validated @RequestBody UserAdminIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户管理】(UserAdminController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userAdminId = req.getUserAdminId();
 		JSONObject jsonUserAdmin = userAdminService.deleteById(userAdminId);
@@ -194,8 +190,6 @@ public class UserAdminController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody UserAdminRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理】(UserAdminController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonUserAdmin = userAdminService.update(req);
 		logger.info("===step2:【修改用户管理】(UserAdminController-update)-修改用户管理, jsonUserAdmin:{}", jsonUserAdmin);

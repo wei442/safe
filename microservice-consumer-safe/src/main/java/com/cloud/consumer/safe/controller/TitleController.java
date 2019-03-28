@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.ITitleService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.TitleVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -94,9 +95,10 @@ public class TitleController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonTitle.getJSONArray(PageConstants.DATA_LIST));
 		List<TitleVo> titleVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<TitleVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(titleVoList);
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, titleVoList);
+		titleResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(TitleController-getList)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}

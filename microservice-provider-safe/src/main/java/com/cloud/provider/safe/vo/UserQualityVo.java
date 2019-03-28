@@ -8,6 +8,8 @@ import java.util.ListIterator;
 
 import org.springframework.beans.BeanUtils;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.cloud.common.dateformat.DateFormatConstants;
 import com.cloud.provider.safe.po.UserQuality;
 import com.google.common.base.Converter;
 
@@ -37,8 +39,10 @@ public class UserQualityVo implements Serializable {
 
     private String updated;
 
+    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date createTime;
 
+    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
 
     /**

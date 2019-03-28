@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IEnterpriseQualityService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.EnterpriseQualityVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +91,10 @@ public class EnterpriseQualityController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonEnterpriseQuality.getJSONArray(PageConstants.DATA_LIST));
 		List<EnterpriseQualityVo> enterpriseQualityVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<EnterpriseQualityVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(enterpriseQualityVoList);
 		//返回信息
 		BaseRestMapResponse enterpriseQualityResponse = new BaseRestMapResponse();
-		enterpriseQualityResponse.put(RetSafeConstants.RESULT, enterpriseQualityVoList);
+		enterpriseQualityResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(EnterpriseQualityController-getList)-返回信息, enterpriseQualityResponse:{}", enterpriseQualityResponse);
 		return enterpriseQualityResponse;
 	}
@@ -111,8 +113,6 @@ public class EnterpriseQualityController extends BaseController {
 		@Validated @RequestBody EnterpriseQualityIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取企业资质】(EnterpriseQualityController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer enterpriseQualityId = req.getEnterpriseQualityId();
 		JSONObject jsonEnterpriseQuality = enterpriseQualityService.getById(enterpriseQualityId);
@@ -140,8 +140,6 @@ public class EnterpriseQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增企业资质】(EnterpriseQualityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		JSONObject jsonEnterpriseQuality = enterpriseQualityService.add(req);
 		logger.info("===step2:【新增企业资质】(EnterpriseQualityController-add)-分页查询企业资质列表, jsonEnterpriseQuality:{}", jsonEnterpriseQuality);
 		EnterpriseQualityVo enterpriseQualityVo = JSONObject.toJavaObject(jsonEnterpriseQuality, EnterpriseQualityVo.class);
@@ -166,8 +164,6 @@ public class EnterpriseQualityController extends BaseController {
 		@Validated @RequestBody EnterpriseQualityIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除企业资质】(EnterpriseQualityController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer enterpriseQualityId = req.getEnterpriseQualityId();
 		JSONObject jsonEnterpriseQuality = enterpriseQualityService.deleteById(enterpriseQualityId);
@@ -194,8 +190,6 @@ public class EnterpriseQualityController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody EnterpriseQualityRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改企业资质】(EnterpriseQualityController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonEnterpriseQuality = enterpriseQualityService.update(req);
 		logger.info("===step2:【修改企业资质】(EnterpriseQualityController-update)-修改企业资质, jsonEnterpriseQuality:{}", jsonEnterpriseQuality);

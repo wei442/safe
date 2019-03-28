@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IUserTitleService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.UserTitleVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -89,10 +90,11 @@ public class UserTitleController extends BaseController {
 		logger.info("===step2:【不分页查询】(UserTitleController-getList)-不分页查询用户职务列表, jsonUserTitle:{}", jsonUserTitle);
 		String dataListStr = JSONObject.toJSONString(jsonUserTitle.getJSONArray(PageConstants.DATA_LIST));
 		List<UserTitleVo> userTitleVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserTitleVo>>(){});
-
+		
+		BaseResultVo result = new BaseResultVo(userTitleVoList);
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.put(RetSafeConstants.RESULT, userTitleVoList);
+		userTitleResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserTitleController-getList)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}

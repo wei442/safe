@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IQualityService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.QualityVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +91,10 @@ public class QualityController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonQuality.getJSONArray(PageConstants.DATA_LIST));
 		List<QualityVo> qualityVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<QualityVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(qualityVoList);
 		//返回信息
 		BaseRestMapResponse qualityResponse = new BaseRestMapResponse();
-		qualityResponse.put(RetSafeConstants.RESULT, qualityVoList);
+		qualityResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(QualityController-getList)-返回信息, qualityResponse:{}", qualityResponse);
 		return qualityResponse;
 	}
@@ -111,8 +113,6 @@ public class QualityController extends BaseController {
 		@Validated @RequestBody QualityIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取资质】(QualityController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer qualityId = req.getQualityId();
 		JSONObject jsonQuality = qualityService.getById(qualityId);
@@ -140,8 +140,6 @@ public class QualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增资质】(QualityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		JSONObject jsonQuality = qualityService.add(req);
 		logger.info("===step2:【新增资质】(QualityController-add)-分页查询资质列表, jsonQuality:{}", jsonQuality);
 		QualityVo qualityVo = JSONObject.toJavaObject(jsonQuality, QualityVo.class);
@@ -166,8 +164,6 @@ public class QualityController extends BaseController {
 		@Validated @RequestBody QualityIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除资质】(QualityController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer qualityId = req.getQualityId();
 		JSONObject jsonQuality = qualityService.deleteById(qualityId);
@@ -194,8 +190,6 @@ public class QualityController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody QualityRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改资质】(QualityController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonQuality = qualityService.update(req);
 		logger.info("===step2:【修改资质】(QualityController-update)-修改资质, jsonQuality:{}", jsonQuality);

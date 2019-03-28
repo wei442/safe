@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IUserOrgService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.UserOrgVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +91,10 @@ public class UserOrgController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonUserOrg.getJSONArray(PageConstants.DATA_LIST));
 		List<UserOrgVo> userOrgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserOrgVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(userOrgVoList);
 		//返回信息
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.put(RetSafeConstants.RESULT, userOrgVoList);
+		userOrgResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserOrgController-getList)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
@@ -111,8 +113,6 @@ public class UserOrgController extends BaseController {
 		@Validated @RequestBody UserOrgIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户机构】(UserOrgController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userOrgId = req.getUserOrgId();
 		JSONObject jsonUserOrg = userOrgService.getById(userOrgId);
@@ -140,8 +140,6 @@ public class UserOrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户机构】(UserOrgController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		JSONObject jsonUserOrg = userOrgService.add(req);
 		logger.info("===step2:【新增用户机构】(UserOrgController-add)-分页查询用户机构列表, jsonUserOrg:{}", jsonUserOrg);
 		UserOrgVo userOrgVo = JSONObject.toJavaObject(jsonUserOrg, UserOrgVo.class);
@@ -166,8 +164,6 @@ public class UserOrgController extends BaseController {
 		@Validated @RequestBody UserOrgIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户机构】(UserOrgController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userOrgId = req.getUserOrgId();
 		JSONObject jsonUserOrg = userOrgService.deleteById(userOrgId);
@@ -194,8 +190,6 @@ public class UserOrgController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody UserOrgRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户机构】(UserOrgController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonUserOrg = userOrgService.update(req);
 		logger.info("===step2:【修改用户机构】(UserOrgController-update)-修改用户机构, jsonUserOrg:{}", jsonUserOrg);

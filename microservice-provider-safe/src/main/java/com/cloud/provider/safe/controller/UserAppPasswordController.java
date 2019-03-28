@@ -17,6 +17,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.po.UserAppPassword;
+import com.cloud.provider.safe.po.UserAppPassword;
+import com.cloud.provider.safe.rest.request.UserAppPasswordRequest;
 import com.cloud.provider.safe.rest.request.UserAppPasswordRequest;
 import com.cloud.provider.safe.service.IUserAppPasswordService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
@@ -110,7 +112,6 @@ public class UserAppPasswordController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户应用密码】(UserAppPasswordController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
 		UserAppPassword userAppPassword = req.convertToUserAppPassword();
 		int i = userAppPasswordService.insert(userAppPassword);
 		logger.info("===step2:【添加用户应用密码】(UserAppPasswordController-insert)-插入用户应用密码, i:{}", i);
@@ -158,8 +159,6 @@ public class UserAppPasswordController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户应用密码】(UserAppPasswordController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
-
 		Integer userAppPasswordId = req.getUserId();
 		UserAppPassword userAppPassword = req.convertToUserAppPassword();
 		userAppPassword.setId(userAppPasswordId);
@@ -168,6 +167,34 @@ public class UserAppPasswordController extends BaseController {
 
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
 		logger.info("===step3:【修改用户应用密码】(UserAppPasswordController-modify)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
+		return userAppPasswordResponse;
+	}
+	
+	/**
+	 * 根据userId修改用户应用密码
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据userId修改用户应用密码")
+	@RequestMapping(value="/modifyByUserId",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse modifyByUserId(
+		@Validated @RequestBody UserAppPasswordRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【根据userId修改用户应用密码】(UserAppPasswordController-modifyByUserId)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer userId = req.getUserId();
+		String password = req.getPassword();
+		UserAppPassword userAppPassword = userAppPasswordService.selectByUserId(userId);
+		logger.info("===step2:【根据userId修改用户应用密码】(UserAppPasswordController-modifyByUserId)-根据userId查询用户应用密码, userAppPassword:{}", userAppPassword);
+
+		userAppPassword.setPassword(password);
+		int i = userAppPasswordService.modify(userAppPassword);
+		logger.info("===step3:【根据userId修改用户应用密码】(UserAppPasswordController-modifyByUserId)-修改用户应用密码, i:{}", i);
+
+		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
+		logger.info("===step4:【根据userId修改用户应用密码】(UserAppPasswordController-modifyByUserId)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}
 

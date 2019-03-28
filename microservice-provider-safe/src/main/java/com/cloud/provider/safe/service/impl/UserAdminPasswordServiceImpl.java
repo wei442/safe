@@ -79,7 +79,6 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
 		if(list != null && !list.isEmpty()) {
 			userAdminPassword = list.get(0);
 		}
-		Assert.thanOrEqualZreo(userAdminPassword, SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
 		return userAdminPassword;
 	}
 

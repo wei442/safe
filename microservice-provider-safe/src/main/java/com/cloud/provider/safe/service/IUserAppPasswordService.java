@@ -10,6 +10,13 @@ public interface IUserAppPasswordService {
      * @return UserAppPassword
      */
 	public UserAppPassword selectById(Integer id);
+	
+	/**
+	 * 根据userId查询用户应用密码
+	 * @param userId
+	 * @return UserAppPassword
+	 */
+	public UserAppPassword selectByUserId(Integer userId);
 
 	/**
 	 * 根据userId和password查询用户应用密码

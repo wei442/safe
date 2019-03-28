@@ -8,6 +8,8 @@ import java.util.ListIterator;
 
 import org.springframework.beans.BeanUtils;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.cloud.common.dateformat.DateFormatConstants;
 import com.cloud.provider.safe.po.UserAdminPassword;
 import com.google.common.base.Converter;
 
@@ -26,10 +28,13 @@ public class UserAdminPasswordVo implements Serializable {
 
     private String password;
 
+    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date lastPassTime;
 
+    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date createTime;
 
+    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
 
     /**

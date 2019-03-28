@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IQualityAttachmentService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.QualityAttachmentVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +91,10 @@ public class QualityAttachmentController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonQualityAttachment.getJSONArray(PageConstants.DATA_LIST));
 		List<QualityAttachmentVo> qualityAttachmentVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<QualityAttachmentVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(qualityAttachmentVoList);
 		//返回信息
 		BaseRestMapResponse qualityAttachmentResponse = new BaseRestMapResponse();
-		qualityAttachmentResponse.put(RetSafeConstants.RESULT, qualityAttachmentVoList);
+		qualityAttachmentResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(QualityAttachmentController-getList)-返回信息, qualityAttachmentResponse:{}", qualityAttachmentResponse);
 		return qualityAttachmentResponse;
 	}
@@ -111,8 +113,6 @@ public class QualityAttachmentController extends BaseController {
 		@Validated @RequestBody QualityAttachmentIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取资质附件】(QualityAttachmentController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer qualityAttachmentId = req.getQualityAttachmentId();
 		JSONObject jsonQualityAttachment = qualityAttachmentService.getById(qualityAttachmentId);
@@ -139,9 +139,7 @@ public class QualityAttachmentController extends BaseController {
 		@Validated @RequestBody QualityAttachmentRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增资质附件】(QualityAttachmentController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
 		
-
 		JSONObject jsonQualityAttachment = qualityAttachmentService.add(req);
 		logger.info("===step2:【新增资质附件】(QualityAttachmentController-add)-分页查询资质附件列表, jsonQualityAttachment:{}", jsonQualityAttachment);
 		QualityAttachmentVo qualityAttachmentVo = JSONObject.toJavaObject(jsonQualityAttachment, QualityAttachmentVo.class);
@@ -166,8 +164,6 @@ public class QualityAttachmentController extends BaseController {
 		@Validated @RequestBody QualityAttachmentIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除资质附件】(QualityAttachmentController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer qualityAttachmentId = req.getQualityAttachmentId();
 		JSONObject jsonQualityAttachment = qualityAttachmentService.deleteById(qualityAttachmentId);
@@ -194,8 +190,6 @@ public class QualityAttachmentController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody QualityAttachmentRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改资质附件】(QualityAttachmentController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonQualityAttachment = qualityAttachmentService.update(req);
 		logger.info("===step2:【修改资质附件】(QualityAttachmentController-update)-修改资质附件, jsonQualityAttachment:{}", jsonQualityAttachment);

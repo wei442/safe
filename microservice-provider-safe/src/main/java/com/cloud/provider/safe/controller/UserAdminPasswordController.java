@@ -57,8 +57,8 @@ public class UserAdminPasswordController extends BaseController {
 		}
 
 		UserAdminPassword userAdminPassword = userAdminPasswordService.selectById(userAdminPasswordId);
-		Assert.thanOrEqualZreo(userAdminPassword, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据id查询用户管理密码】(UserAdminPasswordController-selectById)-根据id查询用户管理密码, userAdminPassword:{}", userAdminPassword);
+		Assert.thanOrEqualZreo(userAdminPassword, SafeResultEnum.DATABASE_NOTEXIST);
 		UserAdminPasswordVo userAdminPasswordVo = new UserAdminPasswordVo().convertToUserAdminPasswordVo(userAdminPassword);
 
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
@@ -85,6 +85,7 @@ public class UserAdminPasswordController extends BaseController {
 
 		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserId(userId);
 		logger.info("===step2:【根据userId查询用户管理密码】(UserAdminPasswordController-selectByUserIdPassword)-根据userId查询用户管理密码, userAdminPassword:{}", userAdminPassword);
+		Assert.thanOrEqualZreo(userAdminPassword, SafeResultEnum.DATABASE_NOTEXIST);
 		UserAdminPasswordVo userAdminPasswordVo = new UserAdminPasswordVo().convertToUserAdminPasswordVo(userAdminPassword);
 
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();

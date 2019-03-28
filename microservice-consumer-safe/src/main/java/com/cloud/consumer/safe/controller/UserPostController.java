@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IUserPostService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.UserPostVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +91,10 @@ public class UserPostController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonUserPost.getJSONArray(PageConstants.DATA_LIST));
 		List<UserPostVo> userPostVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserPostVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(userPostVoList);
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
-		userPostResponse.put(RetSafeConstants.RESULT, userPostVoList);
+		userPostResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserPostController-getList)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}
@@ -111,8 +113,6 @@ public class UserPostController extends BaseController {
 		@Validated @RequestBody UserPostIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户岗位】(UserPostController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userPostId = req.getUserPostId();
 		JSONObject jsonUserPost = userPostService.getById(userPostId);
@@ -139,9 +139,7 @@ public class UserPostController extends BaseController {
 		@Validated @RequestBody UserPostRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户岗位】(UserPostController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
 		
-
 		JSONObject jsonUserPost = userPostService.add(req);
 		logger.info("===step2:【新增用户岗位】(UserPostController-add)-分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
 		UserPostVo userPostVo = JSONObject.toJavaObject(jsonUserPost, UserPostVo.class);
@@ -166,8 +164,6 @@ public class UserPostController extends BaseController {
 		@Validated @RequestBody UserPostIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户岗位】(UserPostController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userPostId = req.getUserPostId();
 		JSONObject jsonUserPost = userPostService.deleteById(userPostId);
@@ -194,8 +190,6 @@ public class UserPostController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody UserPostRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户岗位】(UserPostController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonUserPost = userPostService.update(req);
 		logger.info("===step2:【修改用户岗位】(UserPostController-update)-修改用户岗位, jsonUserPost:{}", jsonUserPost);

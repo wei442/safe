@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IPostService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.PostVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -94,9 +95,10 @@ public class PostController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonPost.getJSONArray(PageConstants.DATA_LIST));
 		List<PostVo> postVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<PostVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(postVoList);
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, postVoList);
+		postResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(PostController-getList)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}

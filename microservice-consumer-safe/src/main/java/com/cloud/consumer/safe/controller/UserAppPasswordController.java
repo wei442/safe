@@ -53,8 +53,6 @@ public class UserAppPasswordController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户应用密码】(UserAppPasswordController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
-
 		Integer userAppPasswordId = req.getUserAppPasswordId();
 		JSONObject jsonUserAppPassword = userAppPasswordService.getById(userAppPasswordId);
 		logger.info("===step2:【获取用户应用密码】(UserAppPasswordController-get)-根据userAppPasswordId获取用户应用密码, jsonUserAppPassword:{}", jsonUserAppPassword);

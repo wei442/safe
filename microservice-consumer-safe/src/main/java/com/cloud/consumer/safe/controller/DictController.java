@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IDictService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.DictVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -94,9 +95,10 @@ public class DictController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonDict.getJSONArray(PageConstants.DATA_LIST));
 		List<DictVo> dictVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<DictVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(dictVoList);
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(RetSafeConstants.RESULT, dictVoList);
+		dictResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(DictController-getList)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
