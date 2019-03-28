@@ -2,8 +2,6 @@ package com.cloud.provider.safe.dao.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.vo.OrgVo;
 
@@ -21,6 +19,6 @@ public interface OrgDao {
      * @param param
      * @return List<OrgVo>
      */
-    public List<OrgVo> selectOrgChildrenListByOrgId(@Param("param")OrgParam param);
+    public List<OrgVo> selectOrgChildrenListByOrgId(OrgParam param);
 
 }

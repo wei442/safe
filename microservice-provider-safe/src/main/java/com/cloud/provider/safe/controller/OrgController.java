@@ -62,9 +62,13 @@ public class OrgController extends BaseController {
 		Integer enterpriseId = req.getEnterpriseId();
 
 		OrgParam param = new OrgParam();
-		param.setParentOrgId(parentOrgId);
 		param.setOrgId(orgId);
 		param.setEnterpriseId(enterpriseId);
+		if(parentOrgId == null) {
+			param.setParentOrgId(-1);
+		} else {
+			param.setParentOrgId(parentOrgId);
+		}
 
 		List<OrgVo> list = orgService.selectTreeList(param);
 		logger.info("===step2:【查询组织机构树列表】(OrgController-selectTreeList)-查询组织机构树列表, list.size:{}", list == null ? null : list.size());
@@ -144,8 +148,6 @@ public class OrgController extends BaseController {
 		@Validated @RequestBody OrgRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加组织机构】(OrgController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-
 
 		Org org = req.convertToOrg();
 		int i = orgService.insert(org);

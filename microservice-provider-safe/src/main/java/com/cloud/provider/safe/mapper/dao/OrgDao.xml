@@ -17,7 +17,7 @@
 	    <result column="updated" jdbcType="VARCHAR" property="updated" />
 	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-	 	<collection column="id" property="orgList" ofType="OrgVo" select="selectOrgChildrenListByOrgId"/>
+	 	<collection column="{orgId=id, enterpriseId=enterprise_id}" property="orgList" ofType="BaseResultMap" select="selectOrgChildrenListByOrgId"/>
   	</resultMap>
   
    	<!-- 根据parentOrgId查出所有组织机构 -->
@@ -25,17 +25,10 @@
         select 
         id, enterprise_id, parent_org_id, parent_org_name, org_name, org_alias, org_telphone, 
     	org_status, is_delete, remark, sort, created, updated, create_time, update_time
-        from org  
+        from org 
         where is_delete = 0 
-        <if test="enterpriseId != null and enterpriseId != ''">
-            and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
-        </if>
-        <if test="parentOrgId != null and parentOrgId != ''">
-            and parent_org_id = #{parentOrgId,jdbcType=INTEGER}
-        </if>
-        <if test="parentOrgId == null or parentOrgId == ''">
-            and parent_org_id = -1
-        </if>
+		and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+ 		and parent_org_id = #{parentOrgId,jdbcType=INTEGER}
     </select>
     
     <!-- 根据orgId再递归查询出一级组织机构下的所有子组织机构 -->
@@ -43,14 +36,10 @@
         select 
         id, enterprise_id, parent_org_id, parent_org_name, org_name, org_alias, org_telphone, 
     	org_status, is_delete, remark, sort, created, updated, create_time, update_time
-        from org  
+        from org 
         where is_delete = 0 
-        <if test="enterpriseId != null and enterpriseId != ''">
-            and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
-        </if>
-        <if test="orgId != null and orgId != ''">
-            and id = #{orgId,jdbcType=INTEGER}
-        </if>
+		and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        and parent_org_id = #{orgId,jdbcType=INTEGER}
     </select>
 
 </mapper>

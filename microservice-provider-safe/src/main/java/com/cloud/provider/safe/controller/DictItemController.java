@@ -54,7 +54,7 @@ public class DictItemController extends BaseController {
 	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectListByPage(
-		@RequestBody DictItemPageRequest req) {
+		@Validated @RequestBody DictItemPageRequest req) {
 		logger.info("===step1:【分页查询字典子项列表】(DictItemController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
@@ -132,8 +132,6 @@ public class DictItemController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加字典子项】(DictItemController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		DictItem dictItem = req.convertToDictItem();
 		int i = dictItemService.insert(dictItem);
 		logger.info("===step2:【添加字典子项】(DictItemController-insert)-插入字典子项, i:{}", i);
@@ -180,8 +178,6 @@ public class DictItemController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody DictItemRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改字典子项】(DictItemController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer dictItemId = req.getDictItemId();
 		DictItem dictItem = req.convertToDictItem();

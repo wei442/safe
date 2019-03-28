@@ -25,6 +25,7 @@ import com.cloud.consumer.safe.service.IOrgService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.OrgUserVo;
 import com.cloud.consumer.safe.vo.OrgVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -64,9 +65,10 @@ public class OrgController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
 		List<OrgVo> orgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(orgVoList);
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(RetSafeConstants.RESULT, orgVoList);
+		orgResponse.put(RetSafeConstants.RESULT, result);
 	    logger.info("===step3:【查询组织机构树列表】(OrgController-getTreeList)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}
@@ -90,9 +92,10 @@ public class OrgController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
 		List<OrgUserVo> orgUserVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgUserVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(orgUserVoList);
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(RetSafeConstants.RESULT, orgUserVoList);
+		orgResponse.put(RetSafeConstants.RESULT, result);
 	    logger.info("===step3:【查询组织机构树用户列表】(OrgController-getTreeUserList)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}

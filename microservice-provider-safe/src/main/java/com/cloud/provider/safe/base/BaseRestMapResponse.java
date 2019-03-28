@@ -1,8 +1,8 @@
 package com.cloud.provider.safe.base;
 
 import java.io.Serializable;
-import java.util.HashMap;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.enums.ResultEnum;
 
@@ -10,7 +10,7 @@ import com.cloud.common.enums.ResultEnum;
  * base map返回
  * @author wei.yong
  */
-public class BaseRestMapResponse extends HashMap<String, Object> implements Serializable {
+public class BaseRestMapResponse extends JSONObject implements Serializable {
 
 	/**
 	 *
