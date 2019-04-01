@@ -1,9 +1,8 @@
 package com.cloud.provider.safe.handler;
 
-import java.sql.SQLException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,7 +24,6 @@ public class GlobalExceptionHandler {
 
 	@InitBinder
     public void initBinder(WebDataBinder binder) {
-//        System.out.println("============应用到所有@RequestMapping注解方法，在其执行之前初始化数据绑定器");
     }
 
 	/**
@@ -41,9 +39,14 @@ public class GlobalExceptionHandler {
 			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-自定义异常, Exception = {}, message = {}", e, e.getMessage());
 			return new BaseRestMapResponse(ex.getErrorCode(), ex.getMessage());
 		}
-		if (e instanceof SQLException) {
-			SQLException ex = (SQLException) e;
-			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-数据库异常, Exception = {}, message = {}", ex, ex.getMessage());
+//		if (e instanceof SQLException) {
+//			SQLException ex = (SQLException) e;
+//			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-sql异常, Exception = {}, message = {}", ex, ex.getMessage());
+//			return new BaseRestMapResponse(SafeResultEnum.SYSTEM_ERROR);
+//		}
+		if (e instanceof DataAccessException) {
+			DataAccessException ex = (DataAccessException) e;
+			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-数据访问异常, Exception = {}, message = {}", ex, ex.getMessage());
 			return new BaseRestMapResponse(SafeResultEnum.SYSTEM_ERROR);
 		}
 
