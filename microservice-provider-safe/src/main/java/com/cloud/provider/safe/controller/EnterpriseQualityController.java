@@ -105,7 +105,7 @@ public class EnterpriseQualityController extends BaseController {
 		logger.info("===step1:【据id查询企业资质】(selectById-selectById)-传入参数, enterpriseQualityId:{}", enterpriseQualityId);
 
 		if(enterpriseQualityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseQualityId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseQualityId不能为空");
 		}
 
 		EnterpriseQuality enterpriseQuality = enterpriseQualityService.selectById(enterpriseQualityId);
@@ -156,7 +156,7 @@ public class EnterpriseQualityController extends BaseController {
 		logger.info("===step1:【根据id删除企业资质】(selectById-deleteById)-传入参数, enterpriseQualityId:{}", enterpriseQualityId);
 
 		if(enterpriseQualityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseQualityId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseQualityId不能为空");
 		}
 
 		int i = enterpriseQualityService.deleteById(enterpriseQualityId);

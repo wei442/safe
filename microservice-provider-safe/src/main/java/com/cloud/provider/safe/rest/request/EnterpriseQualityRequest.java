@@ -22,15 +22,15 @@ public class EnterpriseQualityRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "用户id", required = true)
-    @NotNull(message = "用户id", groups = {ModifyGroup.class})
+    @NotNull(message = "用户id不能为空", groups = {ModifyGroup.class})
 	private Integer enterpriseQualityId;
 
 	@ApiModelProperty(value = "企业id", required = true)
-    @NotNull(message = "企业id")
+    @NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 
 	@ApiModelProperty(value = "附件id", required = true)
-    @NotNull(message = "附件id")
+    @NotNull(message = "附件id不能为空")
     private Integer qualityId;
 
 	@ApiModelProperty(value = "备注")

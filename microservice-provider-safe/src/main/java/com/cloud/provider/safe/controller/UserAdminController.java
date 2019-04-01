@@ -102,10 +102,10 @@ public class UserAdminController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userAdminId) {
-		logger.info("===step1:【据id查询用户管理】(selectById-selectById)-传入参数, userAdminId:{}", userAdminId);
+		logger.info("===step1:【据id查询用户管理】(UserAdminController-selectById)-传入参数, userAdminId:{}", userAdminId);
 
 		if(userAdminId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminId不能为空");
 		}
 
 		UserAdmin userAdmin = userAdminService.selectById(userAdminId);
@@ -128,10 +128,10 @@ public class UserAdminController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectByUserId(
 		@PathVariable(value="userId",required=false) Integer userId) {
-		logger.info("===step1:【据userId查询用户管理】(selectById-selectByUserId)-传入参数, userId:{}", userId);
+		logger.info("===step1:【据userId查询用户管理】(UserAdminController-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId不能为空");
 		}
 
 		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
@@ -141,6 +141,33 @@ public class UserAdminController extends BaseController {
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
 		userAdminResponse.putAll((JSONObject) JSONObject.toJSON(userAdminVo));
 		logger.info("===step3:【据userId查询用户管理】(UserAdminController-selectByUserId)-返回信息, userAdminResponse:{}", userAdminResponse);
+		return userAdminResponse;
+	}
+
+	/**
+	 * 根据enterpriseId和userId查询用户管理
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据userId查询用户管理")
+	@RequestMapping(value="/selectByEnterpriseIdUserId",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectByEnterpriseIdUserId(
+		@Validated @RequestBody UserAdminRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【根据enterpriseId和userId查询用户管理】(UserAdminController-selectByEnterpriseIdUserId)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer enterpriseId = req.getEnterpriseId();
+		Integer userId = req.getUserId();
+
+		UserAdmin userAdmin = userAdminService.selectByEnterpriseIdUserId(enterpriseId, userId);
+		logger.info("===step2:【根据enterpriseId和userId查询用户管理】(UserAdminController-selectByEnterpriseIdUserId)-根据enterpriseId和userId查询用户管理, userAdmin:{}", userAdmin);
+		UserAdminVo userAdminVo = new UserAdminVo().convertToUserAdminVo(userAdmin);
+
+		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
+		userAdminResponse.putAll((JSONObject) JSONObject.toJSON(userAdminVo));
+		logger.info("===step3:【根据enterpriseId和userId查询用户管理】(UserAdminController-selectByEnterpriseIdUserId)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 
@@ -157,8 +184,6 @@ public class UserAdminController extends BaseController {
 		@Validated @RequestBody UserAdminRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户管理】(UserAdminController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		UserAdmin userAdmin = req.convertToUserAdmin();
 		int i = userAdminService.insert(userAdmin);
@@ -182,7 +207,7 @@ public class UserAdminController extends BaseController {
 		logger.info("===step1:【根据id删除用户管理】(selectById-deleteById)-传入参数, userAdminId:{}", userAdminId);
 
 		if(userAdminId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminId不能为空");
 		}
 
 		int i = userAdminService.deleteById(userAdminId);
@@ -206,8 +231,6 @@ public class UserAdminController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserAdminRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理】(UserAdminController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userAdminId = req.getUserAdminId();
 		UserAdmin userAdmin = req.convertToUserAdmin();

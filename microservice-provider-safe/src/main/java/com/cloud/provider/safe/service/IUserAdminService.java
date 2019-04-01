@@ -30,6 +30,14 @@ public interface IUserAdminService {
 	 */
 	public UserAdmin selectByUserId(Integer userId);
 
+	/**
+	 * 根据enterpriseId和userId查询用户管理
+	 * @param enterpriseId
+	 * @param userId
+	 * @return UserAdmin
+	 */
+	public UserAdmin selectByEnterpriseIdUserId(Integer enterpriseId,Integer userId);
+
     /**
      * 根据id查询用户管理
      * @param id

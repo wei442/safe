@@ -19,6 +19,8 @@ public class UserAdminLoginLog {
 
     private Integer logType;
 
+    private String loginMode;
+
     private String loginIp;
 
     private Date createTime;
@@ -87,6 +89,14 @@ public class UserAdminLoginLog {
 
     public void setLogType(Integer logType) {
         this.logType = logType;
+    }
+
+    public String getLoginMode() {
+        return loginMode;
+    }
+
+    public void setLoginMode(String loginMode) {
+        this.loginMode = loginMode == null ? null : loginMode.trim();
     }
 
     public String getLoginIp() {

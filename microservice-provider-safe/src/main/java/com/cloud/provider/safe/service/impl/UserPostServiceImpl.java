@@ -96,6 +96,7 @@ public class UserPostServiceImpl implements IUserPostService {
 		UserPostExample example = new UserPostExample();
 		UserPostExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
+
 		List<UserPost> list = userPostMapper.selectByExample(example);
 		UserPost userPost = null;
 		if(list != null && !list.isEmpty()) {
@@ -128,6 +129,21 @@ public class UserPostServiceImpl implements IUserPostService {
 	public Integer deleteById(Integer id) {
   		logger.info("(UserPostService-deleteById)-根据id删除用户岗位-传入参数, id:{}", id);
 		int i = userPostMapper.deleteByPrimaryKey(id);
+  		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+  		return i;
+  	}
+
+ 	/**
+  	 * 根据ids删除用户岗位
+  	 * @param ids
+  	 * @return Integer
+  	 */
+	public Integer deleteByIds(List<Integer> ids) {
+  		logger.info("(UserOrgService-deleteByIds)-根据ids删除用户岗位-传入参数, ids:{}", ids);
+  		UserPostExample example = new UserPostExample();
+  		UserPostExample.Criteria criteria = example.createCriteria();
+  		criteria.andIdIn(ids);
+		int i = userPostMapper.deleteByExample(example);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}

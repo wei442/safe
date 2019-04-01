@@ -23,26 +23,26 @@ public class OrgRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "机构id")
-	@NotNull(message = "机构id", groups = {ModifyGroup.class})
+	@NotNull(message = "机构id不能为空", groups = {ModifyGroup.class})
 	private Integer orgId;
 
 	@ApiModelProperty(value = "企业id")
-	@NotNull(message = "企业id")
+	@NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 
     @ApiModelProperty(value = "机构父id")
-    @NotNull(message = "机构父id")
+    @NotNull(message = "机构父id不能为空")
     private Integer parentOrgId;
 
     @ApiModelProperty(value = "机构父名称")
-    @NotBlank(message = "机构父名称")
+    @NotBlank(message = "机构父名称不能为空")
     private String parentOrgName;
 
     @ApiModelProperty(value = "机构父英文名称")
     private String parentOrgNameEn;
 
     @ApiModelProperty(value = "机构名称")
-    @NotBlank(message = "机构名称")
+    @NotBlank(message = "机构名称不能为空")
     private String orgName;
 
     @ApiModelProperty(value = "机构英文名称")

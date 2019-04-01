@@ -2,7 +2,6 @@ package com.cloud.provider.safe.vo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.cloud.common.dateformat.DateFormatConstants;
@@ -10,28 +9,32 @@ import com.cloud.common.dateformat.DateFormatConstants;
 import lombok.Data;
 
 @Data
-public class OrgUserVo implements Serializable {
+public class UserInfoOrgVo implements Serializable {
 
     /**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer orgId;
+	private Integer userId;
 
-	private Integer enterpriseId;
+    private String userAccount;
 
-    private Integer parentOrgId;
+    private String userName;
 
-    private String parentOrgName;
+    private String userNameEn;
 
-    private String orgName;
+    private String nickName;
 
-    private String orgAlias;
+    private Integer userType;
 
-    private String orgTelphone;
+    private Integer gender;
 
-    private Integer orgStatus;
+    private Integer userStatus;
+
+    private String userEmail;
+
+    private String headImage;
 
     private Integer isDelete;
 
@@ -49,8 +52,7 @@ public class OrgUserVo implements Serializable {
     @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
 
-    private Integer count;
+    private Integer userOrgId;
 
-    private List<UserInfoVo> userList;
 
 }

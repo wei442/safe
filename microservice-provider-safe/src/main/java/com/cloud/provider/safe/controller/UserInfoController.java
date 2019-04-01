@@ -106,7 +106,7 @@ public class UserInfoController extends BaseController {
 		logger.info("===step1:【据id查询用户信息】(selectById-selectById)-传入参数, userInfoId:{}", userInfoId);
 
 		if(userInfoId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userInfoId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userInfoId不能为空");
 		}
 
 		UserInfo userInfo = userInfoService.selectById(userInfoId);
@@ -132,7 +132,7 @@ public class UserInfoController extends BaseController {
 		logger.info("===step1:【据userAccount查询用户信息】(selectById-selectById)-传入参数, userAccount:{}", userAccount);
 
 		if(StringUtils.isBlank(userAccount)) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAccount为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAccount不能为空");
 		}
 
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
@@ -159,8 +159,6 @@ public class UserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户信息】(UserInfoController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		UserInfo userInfo = req.convertToUserInfo();
 		int i = userInfoService.insert(userInfo);
 		logger.info("===step2:【添加用户信息】(UserInfoController-insert)-插入用户信息, i:{}", i);
@@ -183,7 +181,7 @@ public class UserInfoController extends BaseController {
 		logger.info("===step1:【根据id删除用户信息】(selectById-deleteById)-传入参数, userInfoId:{}", userInfoId);
 
 		if(userInfoId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userInfoId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userInfoId不能为空");
 		}
 
 		int i = userInfoService.deleteById(userInfoId);
@@ -208,7 +206,7 @@ public class UserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户信息】(UserInfoController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Integer userInfoId = req.getUserId();
 		UserInfo userInfo = req.convertToUserInfo();

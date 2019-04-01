@@ -105,7 +105,7 @@ public class UserPostController extends BaseController {
 		logger.info("===step1:【据id查询用户岗位】(selectById-selectById)-传入参数, userPostId:{}", userPostId);
 
 		if(userPostId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userPostId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userPostId不能为空");
 		}
 
 		UserPost userPost = userPostService.selectById(userPostId);
@@ -131,7 +131,7 @@ public class UserPostController extends BaseController {
 		logger.info("===step1:【据userId查询用户岗位】(selectById-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId不能为空");
 		}
 
 		UserPost userPost = userPostService.selectByUserId(userId);
@@ -158,8 +158,6 @@ public class UserPostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户岗位】(UserPostController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		UserPost userPost = req.convertToUserPost();
 		int i = userPostService.insert(userPost);
 		logger.info("===step2:【添加用户岗位】(UserPostController-insert)-插入用户岗位, i:{}", i);
@@ -179,10 +177,10 @@ public class UserPostController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer userPostId) {
-		logger.info("===step1:【根据id删除用户岗位】(selectById-deleteById)-传入参数, userPostId:{}", userPostId);
+		logger.info("===step1:【根据id删除用户岗位】(UserPostController-deleteById)-传入参数, userPostId:{}", userPostId);
 
 		if(userPostId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userPostId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userPostId不能为空");
 		}
 
 		int i = userPostService.deleteById(userPostId);
@@ -190,6 +188,30 @@ public class UserPostController extends BaseController {
 
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
 		logger.info("===step3:【根据id删除用户岗位】(UserPostController-deleteById)-返回信息, userPostResponse:{}", userPostResponse);
+		return userPostResponse;
+	}
+
+	/**
+	 * 根据ids删除用户岗位
+	 * @param userPostIds
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据ids删除用户岗位")
+	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse deleteByIds(
+		@PathVariable(value="ids",required=false) List<Integer> userPostIds) {
+		logger.info("===step1:【根据ids删除用户岗位】(UserPostController-deleteByIds)-传入参数, userPostIds:{}", userPostIds);
+
+		if(userPostIds == null || userPostIds.isEmpty()) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userPostIds不能为空");
+		}
+
+		int i = userPostService.deleteByIds(userPostIds);
+		logger.info("===step2:【根据ids删除用户岗位】(UserPostController-deleteByIds)-根据ids删除用户岗位, i:{}", i);
+
+		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
+		logger.info("===step3:【根据ids删除用户岗位】(UserPostController-deleteByIds)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}
 
@@ -206,8 +228,6 @@ public class UserPostController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserPostRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户岗位】(UserPostController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userPostId = req.getUserPostId();
 		UserPost userPost = req.convertToUserPost();

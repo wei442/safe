@@ -105,7 +105,7 @@ public class PostAttachmentController extends BaseController {
 		logger.info("===step1:【据id查询岗位附件】(selectById-selectById)-传入参数, postAttachmentId:{}", postAttachmentId);
 
 		if(postAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "postAttachmentId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "postAttachmentId不能为空");
 		}
 
 		PostAttachment postAttachment = postAttachmentService.selectById(postAttachmentId);
@@ -156,7 +156,7 @@ public class PostAttachmentController extends BaseController {
 		logger.info("===step1:【根据id删除岗位附件】(selectById-deleteById)-传入参数, postAttachmentId:{}", postAttachmentId);
 
 		if(postAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "postAttachmentId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "postAttachmentId不能为空");
 		}
 
 		int i = postAttachmentService.deleteById(postAttachmentId);

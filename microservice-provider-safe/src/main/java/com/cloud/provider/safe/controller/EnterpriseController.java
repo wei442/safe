@@ -108,7 +108,7 @@ public class EnterpriseController extends BaseController {
 		logger.info("===step1:【据id查询企业】(selectById-selectById)-传入参数, enterpriseId:{}", enterpriseId);
 
 		if(enterpriseId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseId不能为空");
 		}
 
 		Enterprise enterprise = enterpriseService.selectById(enterpriseId);
@@ -160,7 +160,7 @@ public class EnterpriseController extends BaseController {
 		logger.info("===step1:【根据id删除企业】(selectById-deleteById)-传入参数, enterpriseId:{}", enterpriseId);
 
 		if(enterpriseId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "enterpriseId不能为空");
 		}
 
 		int i = enterpriseService.deleteById(enterpriseId);

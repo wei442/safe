@@ -24,7 +24,7 @@ public class EnterpriseQualityServiceImpl extends BaseService implements IEnterp
 	 */
 	@Override
 	public JSONObject getListByPage(Object params) {
-		logger.info("(Service-getListByPage)-分页获取企业资质列表-传入参数, params:{}", params);
+		logger.info("(EnterpriseQualityService-getListByPage)-分页获取企业资质列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
@@ -36,7 +36,7 @@ public class EnterpriseQualityServiceImpl extends BaseService implements IEnterp
 	 */
 	@Override
 	public JSONObject getList(Object params) {
-		logger.info("(Service-getList)-获取企业资质列表-传入参数, params:{}", params);
+		logger.info("(EnterpriseQualityService-getList)-获取企业资质列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/selectList", params, JSONObject.class);
 		return response;
 	}
@@ -48,7 +48,7 @@ public class EnterpriseQualityServiceImpl extends BaseService implements IEnterp
 	 */
 	@Override
 	public JSONObject getById(Integer id) {
-		logger.info("(Service-getById)-根据id获取企业资质-传入参数, id:{}", id);
+		logger.info("(EnterpriseQualityService-getById)-根据id获取企业资质-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -60,7 +60,7 @@ public class EnterpriseQualityServiceImpl extends BaseService implements IEnterp
 	 */
 	@Override
 	public JSONObject add(Object params) {
-		logger.info("(Service-add)-新增企业资质-传入参数, params:{}", params);
+		logger.info("(EnterpriseQualityService-add)-新增企业资质-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/insert", params, JSONObject.class);
 		return response;
 	}
@@ -72,7 +72,7 @@ public class EnterpriseQualityServiceImpl extends BaseService implements IEnterp
 	 */
 	@Override
 	public JSONObject deleteById(Integer id) {
-		logger.info("(Service-deleteById)-根据id获取企业资质-传入参数, id:{}", id);
+		logger.info("(EnterpriseQualityService-deleteById)-根据id获取企业资质-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -84,7 +84,7 @@ public class EnterpriseQualityServiceImpl extends BaseService implements IEnterp
 	 */
 	@Override
 	public JSONObject update(Object params) {
-		logger.info("(Service-update)-修改企业资质-传入参数, params:{}", params);
+		logger.info("(EnterpriseQualityService-update)-修改企业资质-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.enterprise_quality+"/modify", params, JSONObject.class);
 		return response;
 	}

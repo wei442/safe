@@ -105,7 +105,7 @@ public class AttachmentController extends BaseController {
 		logger.info("===step1:【据id查询附件】(selectById-selectById)-传入参数, attachmentId:{}", attachmentId);
 
 		if(attachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "attachmentId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "attachmentId不能为空");
 		}
 
 		Attachment attachment = attachmentService.selectById(attachmentId);
@@ -156,7 +156,7 @@ public class AttachmentController extends BaseController {
 		logger.info("===step1:【根据id删除附件】(selectById-deleteById)-传入参数, attachmentId:{}", attachmentId);
 
 		if(attachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "attachmentId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "attachmentId不能为空");
 		}
 
 		int i = attachmentService.deleteById(attachmentId);

@@ -25,9 +25,11 @@ public class UserOrgVo implements Serializable {
 
 	private Integer userOrgId;
 
-	private Integer enterpriseId;
+    private Integer enterpriseId;
 
     private Integer userId;
+
+    private String userName;
 
     private Integer orgId;
 
@@ -40,7 +42,7 @@ public class UserOrgVo implements Serializable {
 
     @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
-    
+
     /**
      * 实体转换
      * @param userOrg

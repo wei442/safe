@@ -51,6 +51,13 @@ public interface IUserQualityService {
   	 */
 	public Integer deleteById(Integer id);
 
+ 	/**
+  	 * 根据ids删除用户资质
+  	 * @param ids
+  	 * @return Integer
+  	 */
+	public Integer deleteByIds(List<Integer> ids);
+
     /**
      * 修改用户资质
      * @param userQuality

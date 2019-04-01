@@ -295,133 +295,63 @@ public class DictItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasIsNull() {
-            addCriterion("item_alias is null");
+        public Criteria andItemTypeIsNull() {
+            addCriterion("item_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasIsNotNull() {
-            addCriterion("item_alias is not null");
+        public Criteria andItemTypeIsNotNull() {
+            addCriterion("item_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasEqualTo(String value) {
-            addCriterion("item_alias =", value, "itemAlias");
+        public Criteria andItemTypeEqualTo(Integer value) {
+            addCriterion("item_type =", value, "itemType");
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasNotEqualTo(String value) {
-            addCriterion("item_alias <>", value, "itemAlias");
+        public Criteria andItemTypeNotEqualTo(Integer value) {
+            addCriterion("item_type <>", value, "itemType");
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasGreaterThan(String value) {
-            addCriterion("item_alias >", value, "itemAlias");
+        public Criteria andItemTypeGreaterThan(Integer value) {
+            addCriterion("item_type >", value, "itemType");
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasGreaterThanOrEqualTo(String value) {
-            addCriterion("item_alias >=", value, "itemAlias");
+        public Criteria andItemTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("item_type >=", value, "itemType");
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasLessThan(String value) {
-            addCriterion("item_alias <", value, "itemAlias");
+        public Criteria andItemTypeLessThan(Integer value) {
+            addCriterion("item_type <", value, "itemType");
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasLessThanOrEqualTo(String value) {
-            addCriterion("item_alias <=", value, "itemAlias");
+        public Criteria andItemTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("item_type <=", value, "itemType");
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasLike(String value) {
-            addCriterion("item_alias like", value, "itemAlias");
+        public Criteria andItemTypeIn(List<Integer> values) {
+            addCriterion("item_type in", values, "itemType");
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasNotLike(String value) {
-            addCriterion("item_alias not like", value, "itemAlias");
+        public Criteria andItemTypeNotIn(List<Integer> values) {
+            addCriterion("item_type not in", values, "itemType");
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasIn(List<String> values) {
-            addCriterion("item_alias in", values, "itemAlias");
+        public Criteria andItemTypeBetween(Integer value1, Integer value2) {
+            addCriterion("item_type between", value1, value2, "itemType");
             return (Criteria) this;
         }
 
-        public Criteria andItemAliasNotIn(List<String> values) {
-            addCriterion("item_alias not in", values, "itemAlias");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemAliasBetween(String value1, String value2) {
-            addCriterion("item_alias between", value1, value2, "itemAlias");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemAliasNotBetween(String value1, String value2) {
-            addCriterion("item_alias not between", value1, value2, "itemAlias");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelIsNull() {
-            addCriterion("item_level is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelIsNotNull() {
-            addCriterion("item_level is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelEqualTo(Integer value) {
-            addCriterion("item_level =", value, "itemLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelNotEqualTo(Integer value) {
-            addCriterion("item_level <>", value, "itemLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelGreaterThan(Integer value) {
-            addCriterion("item_level >", value, "itemLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelGreaterThanOrEqualTo(Integer value) {
-            addCriterion("item_level >=", value, "itemLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelLessThan(Integer value) {
-            addCriterion("item_level <", value, "itemLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelLessThanOrEqualTo(Integer value) {
-            addCriterion("item_level <=", value, "itemLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelIn(List<Integer> values) {
-            addCriterion("item_level in", values, "itemLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelNotIn(List<Integer> values) {
-            addCriterion("item_level not in", values, "itemLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelBetween(Integer value1, Integer value2) {
-            addCriterion("item_level between", value1, value2, "itemLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemLevelNotBetween(Integer value1, Integer value2) {
-            addCriterion("item_level not between", value1, value2, "itemLevel");
+        public Criteria andItemTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("item_type not between", value1, value2, "itemType");
             return (Criteria) this;
         }
 

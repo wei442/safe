@@ -2,8 +2,10 @@ package com.cloud.provider.safe.service;
 
 import java.util.List;
 
+import com.cloud.provider.safe.param.UserParam;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.rest.request.page.UserInfoPageRequest;
+import com.cloud.provider.safe.vo.UserInfoOrgVo;
 import com.github.pagehelper.Page;
 
 public interface IUserInfoService {
@@ -22,6 +24,13 @@ public interface IUserInfoService {
 	 * @return List<UserInfo>
 	 */
 	public List<UserInfo> selectList(UserInfoPageRequest param);
+
+	/**
+	 * 根据orgId查询当前组织机构下的所有人员
+	 * @param param
+	 * @return List<UserInfoVo>
+	 */
+	public List<UserInfoOrgVo> selectListByOrgId(UserParam param);
 
     /**
      * 根据id查询用户信息

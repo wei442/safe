@@ -132,6 +132,21 @@ public class UserTitleServiceImpl implements IUserTitleService {
   		return i;
   	}
 
+ 	/**
+  	 * 根据ids删除用户职务
+  	 * @param ids
+  	 * @return Integer
+  	 */
+	public Integer deleteByIds(List<Integer> ids) {
+  		logger.info("(UserOrgService-deleteById)-根据ids删除用户职务-传入参数, ids:{}", ids);
+  		UserTitleExample example = new UserTitleExample();
+  		UserTitleExample.Criteria criteria = example.createCriteria();
+  		criteria.andIdIn(ids);
+		int i = userTitleMapper.deleteByExample(example);
+  		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+  		return i;
+  	}
+
     /**
      * 修改用户职务
      * @param userTitle

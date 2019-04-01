@@ -51,6 +51,13 @@ public interface IUserTitleService {
   	 */
 	public Integer deleteById(Integer id);
 
+ 	/**
+  	 * 根据ids删除用户职务
+  	 * @param ids
+  	 * @return Integer
+  	 */
+	public Integer deleteByIds(List<Integer> ids);
+
     /**
      * 修改用户职务
      * @param userTitle

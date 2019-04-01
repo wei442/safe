@@ -18,17 +18,17 @@ public class UserTitleRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "用户职务id", required = true)
-    @NotNull(message = "用户职务id", groups = {UpdateGroup.class})
+    @NotNull(message = "用户职务id不能为空", groups = {UpdateGroup.class})
 	private Integer userTitleId;
 
 	private Integer enterpriseId;
 
 	@ApiModelProperty(value = "用户id", required = true)
-    @NotNull(message = "用户id")
+    @NotNull(message = "用户id不能为空")
     private Integer userId;
 
 	@ApiModelProperty(value = "职务id", required = true)
-    @NotNull(message = "职务id")
+    @NotNull(message = "职务id不能为空")
 	private Integer titleId;
 
 }

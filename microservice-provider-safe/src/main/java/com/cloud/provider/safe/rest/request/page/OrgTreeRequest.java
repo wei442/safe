@@ -1,5 +1,7 @@
 package com.cloud.provider.safe.rest.request.page;
 
+import javax.validation.constraints.NotNull;
+
 import com.cloud.provider.safe.base.BaseRestRequest;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -8,7 +10,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OrgPageRequest extends BaseRestRequest {
+public class OrgTreeRequest extends BaseRestRequest {
 
     /**
 	 *
@@ -19,6 +21,7 @@ public class OrgPageRequest extends BaseRestRequest {
 	private Integer orgId;
 
 	@ApiModelProperty(value = "企业id")
+	@NotNull(message = "企业id")
     private Integer enterpriseId;
 
     @ApiModelProperty(value = "机构父id")

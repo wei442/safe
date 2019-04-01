@@ -21,9 +21,8 @@ import com.cloud.provider.safe.param.UserParam;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.util.Assert;
-import com.cloud.provider.safe.vo.OrgUserVo;
 import com.cloud.provider.safe.vo.OrgVo;
-import com.cloud.provider.safe.vo.UserInfoVo;
+import com.cloud.provider.safe.vo.UserInfoOrgVo;
 
 /**
  * 组织机构 OrgService
@@ -51,11 +50,41 @@ public class OrgServiceImpl implements IOrgService {
      * @param param
      * @return List<OrgVo>
      */
-    @Override
+	@Override
 	public List<OrgVo> selectTreeList(OrgParam param) {
-    	logger.info("(OrgService-selectOrgTreeList)-查询组织机构树-传入参数, param:{}", param);
-    	List<OrgVo> list = orgDao.selectOrgTreeListByParentOrgIdId(param);
-    	return list;
+    	logger.info("(OrgService-selectTreeList)-查询组织机构树-传入参数, param:{}", param);
+        List<OrgVo> orgList = new ArrayList<OrgVo>();
+    	List<OrgVo> list = orgDao.selectListByParentOrgId(param);
+    	if(list != null && !list.isEmpty()) {
+    		List<OrgVo> orgChildList = this.selectChildTreeList(list);
+    		orgList.addAll(orgChildList);
+    	}
+    	return orgList;
+    }
+
+	/**
+	 * 查询子组织机构
+	 * @param list
+	 * @return List<OrgVo>
+	 */
+    public List<OrgVo> selectChildTreeList(List<OrgVo> list) {
+    	List<OrgVo> orgList = new ArrayList<OrgVo>();
+    	if(list != null && !list.isEmpty()) {
+    		for (OrgVo orgVo : list) {
+    			OrgParam param = new OrgParam();
+    			param.setEnterpriseId(orgVo.getEnterpriseId());
+    			param.setOrgId(orgVo.getOrgId());
+    			List<OrgVo> childOrgList = orgDao.selectChildrenListByOrgId(param);
+    			if(childOrgList != null && !childOrgList.isEmpty()) {
+    				List<OrgVo> newChildOrgList = this.selectChildTreeList(childOrgList);
+    				if(newChildOrgList != null && !newChildOrgList.isEmpty()) {
+	    				orgVo.setOrgList(newChildOrgList);
+    				}
+    			}
+    			orgList.add(orgVo);
+			}
+    	}
+    	return orgList;
     }
 
     /**
@@ -64,30 +93,28 @@ public class OrgServiceImpl implements IOrgService {
      * @return List<OrgUserVo>
      */
 	@Override
-	public List<OrgUserVo> selectTreeUserList(OrgParam param) {
+	public List<UserInfoOrgVo> selectTreeUserList(OrgParam param) {
 		logger.info("(OrgService-selectTreeUserList)-查询组织机构树用户-传入参数, param:{}", param);
-		Integer enterpriseId = param.getEnterpriseId();
+		Integer enterpriseId = null;
 
-		List<OrgUserVo> orgUserVoList = null;
-		OrgUserVo orgUserVo = null;
-		List<OrgVo> list = orgDao.selectOrgTreeListByParentOrgIdId(param);
+		List<UserInfoOrgVo> orgUserVoList = null;
+		UserInfoOrgVo orgUserVo = null;
+		List<OrgVo> list = orgDao.selectListByParentOrgId(param);
 		if(list != null && !list.isEmpty()) {
 			ListIterator<OrgVo> it = list.listIterator();
-			orgUserVoList = new ArrayList<OrgUserVo>();
+			orgUserVoList = new ArrayList<UserInfoOrgVo>();
 			while(it.hasNext()) {
 				OrgVo orgVo = it.next();
-				orgUserVo = new OrgUserVo();
+				orgUserVo = new UserInfoOrgVo();
 
 				Integer orgId = orgVo.getOrgId();
 				UserParam userParam = new UserParam();
 				userParam.setOrgId(orgId);
 				userParam.setEnterpriseId(enterpriseId);
-				List<UserInfoVo> userList = userInfoDao.selectUserInfoListByOrgId(userParam);
+				List<UserInfoOrgVo> userList = userInfoDao.selectListByOrgId(userParam);
 				Integer size = userList == null ? 0 : userList.size();
 
 				BeanUtils.copyProperties(orgVo, orgUserVo);
-				orgUserVo.setCount(size);
-				orgUserVo.setUserList(userList);
 				orgUserVoList.add(orgUserVo);
 			}
 		}

@@ -58,6 +58,8 @@ public class UserPostController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody UserPostPageRequest req) {
 		logger.info("===step1:【分页查询】(UserPostController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserPost = userPostService.getListByPage(req);
 		logger.info("===step2:【分页查询】(UserPostController-getListByPage)-分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
@@ -85,6 +87,8 @@ public class UserPostController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody UserPostPageRequest req) {
 		logger.info("===step1:【不分页查询】(UserPostController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserPost = userPostService.getListByPage(req);
 		logger.info("===step2:【不分页查询】(UserPostController-getList)-不分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
@@ -139,14 +143,15 @@ public class UserPostController extends BaseController {
 		@Validated @RequestBody UserPostRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户岗位】(UserPostController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
+
 		JSONObject jsonUserPost = userPostService.add(req);
 		logger.info("===step2:【新增用户岗位】(UserPostController-add)-分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
 		UserPostVo userPostVo = JSONObject.toJavaObject(jsonUserPost, UserPostVo.class);
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
-		userPostResponse.put(RetSafeConstants.RESULT, userPostVo);
 	    logger.info("===step3:【新增用户岗位】(UserPostController-add)-返回信息, userPostResponse:{}", userPostResponse);
 	    return userPostResponse;
 	}
@@ -172,7 +177,6 @@ public class UserPostController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
-		userPostResponse.put(RetSafeConstants.RESULT, userPostVo);
 		logger.info("===step3:【删除用户岗位】(UserPostController-delete)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}
@@ -190,6 +194,8 @@ public class UserPostController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody UserPostRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户岗位】(UserPostController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserPost = userPostService.update(req);
 		logger.info("===step2:【修改用户岗位】(UserPostController-update)-修改用户岗位, jsonUserPost:{}", jsonUserPost);
@@ -197,7 +203,6 @@ public class UserPostController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
-		userPostResponse.put(RetSafeConstants.RESULT, userPostVo);
 		logger.info("===step3:【修改用户岗位】(UserPostController-update)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}

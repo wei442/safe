@@ -19,13 +19,15 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.param.OrgParam;
+import com.cloud.provider.safe.param.UserParam;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.rest.request.OrgRequest;
-import com.cloud.provider.safe.rest.request.page.OrgPageRequest;
+import com.cloud.provider.safe.rest.request.page.OrgTreeRequest;
 import com.cloud.provider.safe.service.IOrgService;
+import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.OrgUserVo;
 import com.cloud.provider.safe.vo.OrgVo;
+import com.cloud.provider.safe.vo.UserInfoOrgVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +47,10 @@ public class OrgController extends BaseController {
 	@Autowired
 	private IOrgService orgService;
 
+	//用户信息Service
+	@Autowired
+	private IUserInfoService userInfoService;
+
 	/**
 	 * 查询组织机构树列表
 	 * @param req
@@ -54,7 +60,7 @@ public class OrgController extends BaseController {
 	@RequestMapping(value="/selectTreeList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectTreeList(
-		@RequestBody OrgPageRequest req) {
+		@RequestBody OrgTreeRequest req) {
 		logger.info("===step1:【查询组织机构树列表】(OrgController-selectTreeList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer parentOrgId = req.getParentOrgId();
@@ -88,19 +94,17 @@ public class OrgController extends BaseController {
 	@RequestMapping(value="/selectTreeUserList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectTreeUserList(
-		@RequestBody OrgPageRequest req) {
+		@RequestBody OrgTreeRequest req) {
 		logger.info("===step1:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		Integer parentOrgId = req.getParentOrgId();
 		Integer orgId = req.getOrgId();
 		Integer enterpriseId = req.getEnterpriseId();
 
-		OrgParam param = new OrgParam();
-		param.setParentOrgId(parentOrgId);
+		UserParam param = new UserParam();
 		param.setOrgId(orgId);
 		param.setEnterpriseId(enterpriseId);
 
-		List<OrgUserVo> list = orgService.selectTreeUserList(param);
+		List<UserInfoOrgVo> list = userInfoService.selectListByOrgId(param);
 		logger.info("===step2:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-查询组织机构树用户列表, list.size:{}", list == null ? null : list.size());
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
@@ -122,7 +126,7 @@ public class OrgController extends BaseController {
 		logger.info("===step1:【据id查询组织机构】(selectById-selectById)-传入参数, orgId:{}", orgId);
 
 		if(orgId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "orgId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "orgId不能为空");
 		}
 
 		Org org = orgService.selectById(orgId);
@@ -171,7 +175,7 @@ public class OrgController extends BaseController {
 		logger.info("===step1:【根据id删除组织机构】(selectById-deleteById)-传入参数, orgId:{}", orgId);
 
 		if(orgId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "orgId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "orgId不能为空");
 		}
 
 		int i = orgService.deleteById(orgId);
@@ -195,8 +199,6 @@ public class OrgController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody OrgRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改组织机构】(OrgController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-
 
 		Integer orgId = req.getOrgId();
 		Org org = req.convertToOrg();

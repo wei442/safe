@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.provider.safe.dao.dao.OrgDao">
-  	<resultMap id="BaseResultMap" type="com.cloud.provider.safe.vo.OrgVo">
-	    <id column="id" jdbcType="INTEGER" property="orgId" />
-	    <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
-	    <result column="parent_org_id" jdbcType="INTEGER" property="parentOrgId" />
-	    <result column="parent_org_name" jdbcType="VARCHAR" property="parentOrgName" />
-	    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
-	    <result column="org_alias" jdbcType="VARCHAR" property="orgAlias" />
-	    <result column="org_telphone" jdbcType="VARCHAR" property="orgTelphone" />
-	    <result column="org_status" jdbcType="INTEGER" property="orgStatus" />
-	    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
-	    <result column="remark" jdbcType="VARCHAR" property="remark" />
-	    <result column="sort" jdbcType="INTEGER" property="sort" />
-	    <result column="created" jdbcType="VARCHAR" property="created" />
-	    <result column="updated" jdbcType="VARCHAR" property="updated" />
-	    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-	    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-	 	<collection column="{orgId=id, enterpriseId=enterprise_id}" property="orgList" ofType="BaseResultMap" select="selectOrgChildrenListByOrgId"/>
-  	</resultMap>
-  
-   	<!-- 根据parentOrgId查出所有组织机构 -->
-    <select id="selectOrgTreeListByParentOrgIdId" parameterType="com.cloud.provider.safe.param.OrgParam" resultMap="BaseResultMap">
-        select 
-        id, enterprise_id, parent_org_id, parent_org_name, org_name, org_alias, org_telphone, 
-    	org_status, is_delete, remark, sort, created, updated, create_time, update_time
+	<!-- 根据parentOrgId查询当前组织机构列表 -->
+    <select id="selectListByParentOrgId" parameterType="com.cloud.provider.safe.param.OrgParam" resultType="com.cloud.provider.safe.vo.OrgVo">
+		select 
+        id as orgId, enterprise_id as enterpriseId, parent_org_id as parentOrgId, parent_org_name as parentOrgName, org_name as orgName, 
+        org_alias as orgAlias, org_telphone as orgTelphone, org_status as orgStatus, is_delete as isDelete, remark as remark, 
+    	sort as sort, created as created, updated as updated, create_time as createTime, update_time as updateTime
         from org 
         where is_delete = 0 
-		and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
- 		and parent_org_id = #{parentOrgId,jdbcType=INTEGER}
+        <if test="enterpriseId != null and enterpriseId != ''">
+			and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        </if>
+        <if test="parentOrgId != null and parentOrgId != ''">
+ 			and parent_org_id = #{parentOrgId,jdbcType=INTEGER}
+        </if>
+        <if test="orderByClause != null and orderByClause != ''">
+  			order by ${orderByClause}
+        </if>
     </select>
     
-    <!-- 根据orgId再递归查询出一级组织机构下的所有子组织机构 -->
-    <select id="selectOrgChildrenListByOrgId" parameterType="com.cloud.provider.safe.param.OrgParam" resultMap="BaseResultMap">
-        select 
-        id, enterprise_id, parent_org_id, parent_org_name, org_name, org_alias, org_telphone, 
-    	org_status, is_delete, remark, sort, created, updated, create_time, update_time
+	<!-- 根据orgId查询当前组织机构列表 -->
+    <select id="selectChildrenListByOrgId" parameterType="com.cloud.provider.safe.param.OrgParam" resultType="com.cloud.provider.safe.vo.OrgVo">
+   		select 
+        id as orgId, enterprise_id as enterpriseId, parent_org_id as parentOrgId, parent_org_name as parentOrgName, org_name as orgName, 
+        org_alias as orgAlias, org_telphone as orgTelphone, org_status as orgStatus, is_delete as isDelete, remark as remark, 
+    	sort as sort, created as created, updated as updated, create_time as createTime, update_time as updateTime
         from org 
         where is_delete = 0 
-		and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
-        and parent_org_id = #{orgId,jdbcType=INTEGER}
+        <if test="enterpriseId != null and enterpriseId != ''">
+			and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        </if>
+        <if test="orgId != null and orgId != ''">
+ 			and parent_org_id = #{orgId,jdbcType=INTEGER}
+        </if>
+        <if test="orderByClause != null and orderByClause != ''">
+          order by ${orderByClause}
+        </if>
     </select>
-
+    
+    
+    
+    
 </mapper>

@@ -37,7 +37,7 @@ public class BaseController {
 //    }
 
 	/**
-	 * 获取请求加点URI参数为空，如：user.register.parameter.empty
+	 * 获取请求加点URI参数不能为空，如：user.register.parameter.empty
 	 * @return String
 	 */
 	protected String getRequestMethodName() {

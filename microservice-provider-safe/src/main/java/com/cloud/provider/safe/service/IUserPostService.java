@@ -51,6 +51,13 @@ public interface IUserPostService {
   	 */
 	public Integer deleteById(Integer id);
 
+	/**
+  	 * 根据ids删除用户岗位
+  	 * @param ids
+  	 * @return Integer
+  	 */
+	public Integer deleteByIds(List<Integer> ids);
+
     /**
      * 修改用户岗位
      * @param userPost

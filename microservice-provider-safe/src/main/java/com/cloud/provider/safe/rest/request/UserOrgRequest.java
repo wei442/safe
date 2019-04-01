@@ -2,6 +2,7 @@ package com.cloud.provider.safe.rest.request;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.BeanUtils;
@@ -22,20 +23,29 @@ public class UserOrgRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "用户机构id", required = true)
-    @NotNull(message = "用户机构id", groups = {ModifyGroup.class})
+    @NotNull(message = "用户机构id不能为空", groups = {ModifyGroup.class})
 	private Integer userOrgId;
 
 	@ApiModelProperty(value = "企业id", required = true)
-    @NotNull(message = "企业id")
+    @NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 
-	@ApiModelProperty(value = "用户id", required = true)
-    @NotNull(message = "用户id")
-    private Integer userId;
+//	@ApiModelProperty(value = "用户id", required = true)
+//    @NotNull(message = "用户id不能为空")
+//    private Integer userId;
 
 	@ApiModelProperty(value = "机构id", required = true)
-    @NotNull(message = "机构id")
+    @NotNull(message = "机构id不能为空")
     private Integer orgId;
+
+	@ApiModelProperty(value = "手机号码", required = true)
+	@NotBlank(message = "手机号码不能为空")
+    private String userAccount;
+
+    @ApiModelProperty(value = "用户名称", required = true)
+	@NotBlank(message = "用户名称不能为空")
+    private String userName;
+
 
     /**
 	 * 实体转换

@@ -1,5 +1,7 @@
 package com.cloud.consumer.safe.service;
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSONObject;
 
 public interface IUserQualityService {
@@ -45,6 +47,13 @@ public interface IUserQualityService {
 	 * @return JSONObject
 	 */
 	public JSONObject deleteById(Integer id);
+
+	/**
+	 * 根据ids删除用户资质
+	 * @param ids
+	 * @return JSONObject
+	 */
+	public JSONObject deleteByIds(List<Integer> ids);
 
 	/**
 	 * 修改用户资质

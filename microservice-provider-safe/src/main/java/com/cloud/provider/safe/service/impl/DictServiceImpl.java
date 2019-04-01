@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
+import com.cloud.provider.safe.dao.DictItemMapper;
 import com.cloud.provider.safe.dao.DictMapper;
 import com.cloud.provider.safe.po.Dict;
 import com.cloud.provider.safe.po.DictExample;
+import com.cloud.provider.safe.po.DictItemExample;
 import com.cloud.provider.safe.rest.request.page.DictPageRequest;
 import com.cloud.provider.safe.service.IDictService;
 import com.cloud.provider.safe.util.Assert;
@@ -31,6 +33,10 @@ public class DictServiceImpl implements IDictService {
     //字典 Mapper
     @Autowired
     private DictMapper dictMapper;
+
+    //字典子项 Mapper
+    @Autowired
+    private DictItemMapper dictItemMapper;
 
     /**
 	 * 分页查询
@@ -64,6 +70,7 @@ public class DictServiceImpl implements IDictService {
 	public List<Dict> selectList(DictPageRequest param) {
 		logger.info("(DictService-selectList)-不分页查询-传入参数, param:{}", param);
 		DictExample example = new DictExample();
+		example.setOrderByClause(" id desc ");
 		DictExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_IS_DELETE_NO);
 		if(param != null) {
@@ -112,6 +119,13 @@ public class DictServiceImpl implements IDictService {
 	public Integer deleteById(Integer id) {
   		logger.info("(DictService-deleteById)-根据id删除字典-传入参数, id:{}", id);
   		int i = dictMapper.deleteByPrimaryKey(id);
+  		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+
+  		DictItemExample example = new DictItemExample();
+		DictItemExample.Criteria criteria = example.createCriteria();
+		criteria.andDictIdEqualTo(id);
+		i = dictItemMapper.deleteByExample(example);
+		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
 

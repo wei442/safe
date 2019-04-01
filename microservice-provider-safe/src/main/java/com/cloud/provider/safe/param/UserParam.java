@@ -16,8 +16,11 @@ public class UserParam implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    private Integer enterpriseId;
+
     private Integer orgId;
 
-	private Integer enterpriseId;
+    //排序
+    private String orderByClause;
 
 }

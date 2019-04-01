@@ -22,4 +22,7 @@ public class OrgParam implements Serializable {
 
     private Integer parentOrgId;
 
+    //排序
+    private String orderByClause;
+
 }

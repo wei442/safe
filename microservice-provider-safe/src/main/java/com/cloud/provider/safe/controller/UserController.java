@@ -149,17 +149,17 @@ public class UserController extends BaseController {
 		}
 		Integer enterpriseId = userAdmin.getEnterpriseId();
 
+		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserIdPassword(userId, userPassword);
+		logger.info("===step4:【用户登录】(UserController-login)-根据userId和userPassword查询用户管理登录, userAdminPassword:{}", userAdminPassword);
+		if(userAdminPassword == null) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
+		}
+
 		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
-		logger.info("===step4:【用户登录】(UserController-login)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+		logger.info("===step5:【用户登录】(UserController-login)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
 		Integer firstLogin = userAdminLogin.getFirstLogin();
 		if(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO.equals(firstLogin)) {
 			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_FIRST_LOGIN_CHANGE_PASSWORD);
-		}
-
-		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserIdPassword(userId, userPassword);
-		logger.info("===step5:【用户登录】(UserController-login)-根据userId和userPassword查询用户管理登录, userAdminPassword:{}", userAdminPassword);
-		if(userAdminPassword == null) {
-			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
 		}
 
 		Enterprise enterprise = enterpriseService.selectById(enterpriseId);
@@ -180,9 +180,9 @@ public class UserController extends BaseController {
 		logger.info("===step8:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
-	
-	
-	
+
+
+
 
 	/**
 	 * 用户登录第一步
@@ -198,7 +198,7 @@ public class UserController extends BaseController {
 //
 //		String userAccount =  req.getUserAccount();
 //		if(StringUtils.isBlank(userAccount)) {
-//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "用户账户为空");
+//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "用户账户不能为空");
 //		}
 //
 //		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
@@ -248,9 +248,9 @@ public class UserController extends BaseController {
 //		String userPassword = req.getUserPassword();
 //		Integer userId = req.getUserId();
 //		if(StringUtils.isBlank(userPassword)) {
-//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "用户密码为空");
+//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "用户密码不能为空");
 //		} else if(userId == null) {
-//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "用户id为空");
+//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "用户id不能为空");
 //		}
 //		UserInfo userInfo = userInfoService.selectById(userId);
 //		logger.info("===step2:【用户登录第二步】(UserController-loginSecond)-根据userId查询用户信息, userInfo:{}", userInfo);

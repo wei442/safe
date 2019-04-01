@@ -11,11 +11,14 @@ import org.springframework.stereotype.Service;
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserInfoMapper;
+import com.cloud.provider.safe.dao.dao.UserInfoDao;
+import com.cloud.provider.safe.param.UserParam;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserInfoExample;
 import com.cloud.provider.safe.rest.request.page.UserInfoPageRequest;
 import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.util.Assert;
+import com.cloud.provider.safe.vo.UserInfoOrgVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
@@ -31,6 +34,10 @@ public class UserInfoServiceImpl implements IUserInfoService {
     //用户信息 Mapper
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    //用户信息 Dao
+    @Autowired
+    private UserInfoDao userInfoDao;
 
     /**
 	 * 分页查询
@@ -67,6 +74,19 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		if(param != null) {
 		}
 		List<UserInfo> list = userInfoMapper.selectByExample(example);
+		return list;
+	}
+
+	/**
+	 * 根据orgId查询当前组织机构下的所有人员
+	 * @param param
+	 * @return List<UserInfoVo>
+	 */
+	@Override
+	public List<UserInfoOrgVo> selectListByOrgId(UserParam param) {
+		logger.info("(UserInfoService-selectListByOrgId)-根据orgId查询当前组织机构下的所有人员-传入参数, param:{}", param);
+		param.setOrderByClause(" t2.id asc ");
+		List<UserInfoOrgVo> list = userInfoDao.selectListByOrgId(param);
 		return list;
 	}
 

@@ -19,6 +19,8 @@ public enum SafeResultEnum implements ResultEnum {
 	USER_ADMIN_PASSWORD_EXIST("1010005", "您的管理密码已存在"),
 	USER_ADMIN_FIRST_LOGIN_CHANGE_PASSWORD("1010006", "您好，这是你第一次登录该企业的管理后台，请先设置管理密码"),
 
+	USER_ORG_EXIST("1010007", "此手机号码已存在"),
+
 
 	ENTERPRISE_NOTEXIST("1020001", "您没有注册企业"),
 	ENTERPRISE_EXIST("1020002", "您已经注册企业"),

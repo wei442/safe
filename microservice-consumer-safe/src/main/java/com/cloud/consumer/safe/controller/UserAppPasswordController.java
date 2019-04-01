@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户应用密码")
 @RestController
-@RequestMapping("/user/appPassword")
+@RequestMapping("/user/app/password")
 public class UserAppPasswordController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -66,29 +66,27 @@ public class UserAppPasswordController extends BaseController {
 	}
 
 	/**
-	 * 根据用户id和密码获取用户应用密码详情
+	 * 根据userId和password获取用户应用密码详情
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据用户id和密码获取用户应用密码详情")
+	@ApiOperation(value = "根据userId和password获取用户应用密码详情")
 	@RequestMapping(value="/getByUserIdPassword",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getByUserIdPassword(
 		@Validated @RequestBody UserAppPasswordRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【根据用户id和密码获取用户应用密码详情】(UserAppPasswordController-getByUserIdPassword)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【根据userId和password获取用户应用密码详情】(UserAppPasswordController-getByUserIdPassword)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		Integer userId = req.getUserId();
-		String password = req.getPassword();
-		JSONObject jsonUserAppPassword = userAppPasswordService.getByUserIdPassword(userId, password);
-		logger.info("===step2:【根据用户id和密码获取用户应用密码详情】(UserAppPasswordController-getByUserIdPassword)-根据userId和password获取用户应用密码详情, jsonUserAppPassword:{}", jsonUserAppPassword);
+		JSONObject jsonUserAppPassword = userAppPasswordService.getByUserIdPassword(req);
+		logger.info("===step2:【根据userId和password获取用户应用密码详情】(UserAppPasswordController-getByUserIdPassword)-根据userId和password获取用户应用密码详情, jsonUserAppPassword:{}", jsonUserAppPassword);
 		UserAppPasswordVo userAppPasswordVo = JSONObject.toJavaObject(jsonUserAppPassword, UserAppPasswordVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
 		userAppPasswordResponse.put(RetSafeConstants.RESULT, userAppPasswordVo);
-		logger.info("===step3:【根据用户id和密码获取用户应用密码详情】(UserAppPasswordController-getByUserIdPassword)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
+		logger.info("===step3:【根据userId和password获取用户应用密码详情】(UserAppPasswordController-getByUserIdPassword)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}
 

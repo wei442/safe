@@ -5,8 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="dict_id" jdbcType="INTEGER" property="dictId" />
     <result column="item_name" jdbcType="VARCHAR" property="itemName" />
-    <result column="item_alias" jdbcType="VARCHAR" property="itemAlias" />
-    <result column="item_level" jdbcType="INTEGER" property="itemLevel" />
+    <result column="item_type" jdbcType="INTEGER" property="itemType" />
     <result column="item_status" jdbcType="INTEGER" property="itemStatus" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -75,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, dict_id, item_name, item_alias, item_level, item_status, is_delete, remark, sort, 
-    created, updated, create_time, update_time
+    id, dict_id, item_name, item_type, item_status, is_delete, remark, sort, created, 
+    updated, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.DictItemExample" resultMap="BaseResultMap">
     select
@@ -110,15 +109,15 @@
   </delete>
   <insert id="insert" parameterType="com.cloud.provider.safe.po.DictItem" useGeneratedKeys="true" keyProperty="id">
     insert into dict_item (id, dict_id, item_name, 
-      item_alias, item_level, item_status, 
-      is_delete, remark, sort, 
-      created, updated, create_time, 
-      update_time)
+      item_type, item_status, is_delete, 
+      remark, sort, created, 
+      updated, create_time, update_time
+      )
     values (#{id,jdbcType=INTEGER}, #{dictId,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, 
-      #{itemAlias,jdbcType=VARCHAR}, #{itemLevel,jdbcType=INTEGER}, #{itemStatus,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
-      #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{itemType,jdbcType=INTEGER}, #{itemStatus,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, 
+      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.DictItem" useGeneratedKeys="true" keyProperty="id">
     insert into dict_item
@@ -132,11 +131,8 @@
       <if test="itemName != null">
         item_name,
       </if>
-      <if test="itemAlias != null">
-        item_alias,
-      </if>
-      <if test="itemLevel != null">
-        item_level,
+      <if test="itemType != null">
+        item_type,
       </if>
       <if test="itemStatus != null">
         item_status,
@@ -173,11 +169,8 @@
       <if test="itemName != null">
         #{itemName,jdbcType=VARCHAR},
       </if>
-      <if test="itemAlias != null">
-        #{itemAlias,jdbcType=VARCHAR},
-      </if>
-      <if test="itemLevel != null">
-        #{itemLevel,jdbcType=INTEGER},
+      <if test="itemType != null">
+        #{itemType,jdbcType=INTEGER},
       </if>
       <if test="itemStatus != null">
         #{itemStatus,jdbcType=INTEGER},
@@ -223,11 +216,8 @@
       <if test="record.itemName != null">
         item_name = #{record.itemName,jdbcType=VARCHAR},
       </if>
-      <if test="record.itemAlias != null">
-        item_alias = #{record.itemAlias,jdbcType=VARCHAR},
-      </if>
-      <if test="record.itemLevel != null">
-        item_level = #{record.itemLevel,jdbcType=INTEGER},
+      <if test="record.itemType != null">
+        item_type = #{record.itemType,jdbcType=INTEGER},
       </if>
       <if test="record.itemStatus != null">
         item_status = #{record.itemStatus,jdbcType=INTEGER},
@@ -263,8 +253,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       dict_id = #{record.dictId,jdbcType=INTEGER},
       item_name = #{record.itemName,jdbcType=VARCHAR},
-      item_alias = #{record.itemAlias,jdbcType=VARCHAR},
-      item_level = #{record.itemLevel,jdbcType=INTEGER},
+      item_type = #{record.itemType,jdbcType=INTEGER},
       item_status = #{record.itemStatus,jdbcType=INTEGER},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
@@ -286,11 +275,8 @@
       <if test="itemName != null">
         item_name = #{itemName,jdbcType=VARCHAR},
       </if>
-      <if test="itemAlias != null">
-        item_alias = #{itemAlias,jdbcType=VARCHAR},
-      </if>
-      <if test="itemLevel != null">
-        item_level = #{itemLevel,jdbcType=INTEGER},
+      <if test="itemType != null">
+        item_type = #{itemType,jdbcType=INTEGER},
       </if>
       <if test="itemStatus != null">
         item_status = #{itemStatus,jdbcType=INTEGER},
@@ -323,8 +309,7 @@
     update dict_item
     set dict_id = #{dictId,jdbcType=INTEGER},
       item_name = #{itemName,jdbcType=VARCHAR},
-      item_alias = #{itemAlias,jdbcType=VARCHAR},
-      item_level = #{itemLevel,jdbcType=INTEGER},
+      item_type = #{itemType,jdbcType=INTEGER},
       item_status = #{itemStatus,jdbcType=INTEGER},
       is_delete = #{isDelete,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},

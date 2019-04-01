@@ -92,9 +92,30 @@ public class UserOrgServiceImpl implements IUserOrgService {
 	 */
 	@Override
 	public UserOrg selectByUserId(Integer userId) {
-		logger.info("(UserOrgService-selectById)-根据userId查询用户机构-传入参数, userId:{}", userId);
+		logger.info("(UserOrgService-selectByUserId)-根据userId查询用户机构-传入参数, userId:{}", userId);
 		UserOrgExample example = new UserOrgExample();
 		UserOrgExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		List<UserOrg> list = userOrgMapper.selectByExample(example);
+		UserOrg userOrg = null;
+		if(list != null && !list.isEmpty()) {
+			userOrg = list.get(0);
+		}
+		return userOrg;
+	}
+
+	/**
+	 * 根据enterpriseId和userId查询用户机构
+	 * @param enterpriseId
+	 * @param userId
+	 * @return UserOrg
+	 */
+	@Override
+	public UserOrg selectByEnterpriseIdAndUserId(Integer enterpriseId,Integer userId) {
+		logger.info("(UserOrgService-selectByEnterpriseIdUserId)-根据enterpriseId和userId查询用户机构-传入参数, enterpriseId:{}, userId:{}", enterpriseId, userId);
+		UserOrgExample example = new UserOrgExample();
+		UserOrgExample.Criteria criteria = example.createCriteria();
+		criteria.andEnterpriseIdEqualTo(enterpriseId);
 		criteria.andUserIdEqualTo(userId);
 		List<UserOrg> list = userOrgMapper.selectByExample(example);
 		UserOrg userOrg = null;
@@ -120,17 +141,33 @@ public class UserOrgServiceImpl implements IUserOrgService {
     }
 
  	/**
-  	 * 根据id删除用户机构
-  	 * @param id
+  	 * 根据ids删除用户机构
+  	 * @param ids
   	 * @return Integer
   	 */
 	@Override
-	public Integer deleteById(Integer id) {
-  		logger.info("(UserOrgService-deleteById)-根据id删除用户机构-传入参数, id:{}", id);
-  		int i = userOrgMapper.deleteByPrimaryKey(id);
+	public Integer deleteByIds(List<Integer> ids) {
+  		logger.info("(UserOrgService-deleteByIds)-根据ids删除用户机构-传入参数, ids:{}", ids);
+  		UserOrgExample example = new UserOrgExample();
+  		UserOrgExample.Criteria criteria = example.createCriteria();
+  		criteria.andIdIn(ids);
+		int i = userOrgMapper.deleteByExample(example);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
+
+	/**
+	 * 根据ids删除用户机构
+	 * @param id
+	 * @return Integer
+	 */
+	@Override
+	public Integer deleteById(Integer id) {
+		logger.info("(UserOrgService-deleteById)-根据id删除用户机构-传入参数, id:{}", id);
+		int i = userOrgMapper.deleteByPrimaryKey(id);
+		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+		return i;
+	}
 
     /**
      * 修改用户机构

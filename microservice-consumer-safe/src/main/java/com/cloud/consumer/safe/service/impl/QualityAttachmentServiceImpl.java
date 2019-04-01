@@ -24,7 +24,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 */
 	@Override
 	public JSONObject getListByPage(Object params) {
-		logger.info("(Service-getListByPage)-分页获取资质附件列表-传入参数, params:{}", params);
+		logger.info("(QualityAttachmentService-getListByPage)-分页获取资质附件列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
@@ -36,7 +36,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 */
 	@Override
 	public JSONObject getList(Object params) {
-		logger.info("(Service-getList)-获取资质附件列表-传入参数, params:{}", params);
+		logger.info("(QualityAttachmentService-getList)-获取资质附件列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectList", params, JSONObject.class);
 		return response;
 	}
@@ -48,7 +48,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 */
 	@Override
 	public JSONObject getById(Integer id) {
-		logger.info("(Service-getById)-根据id获取资质附件-传入参数, id:{}", id);
+		logger.info("(QualityAttachmentService-getById)-根据id获取资质附件-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -60,7 +60,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 */
 	@Override
 	public JSONObject add(Object params) {
-		logger.info("(Service-add)-新增资质附件-传入参数, params:{}", params);
+		logger.info("(QualityAttachmentService-add)-新增资质附件-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/insert", params, JSONObject.class);
 		return response;
 	}
@@ -72,7 +72,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 */
 	@Override
 	public JSONObject deleteById(Integer id) {
-		logger.info("(Service-deleteById)-根据id获取资质附件-传入参数, id:{}", id);
+		logger.info("(QualityAttachmentService-deleteById)-根据id获取资质附件-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -84,7 +84,7 @@ public class QualityAttachmentServiceImpl extends BaseService implements IQualit
 	 */
 	@Override
 	public JSONObject update(Object params) {
-		logger.info("(Service-update)-修改资质附件-传入参数, params:{}", params);
+		logger.info("(QualityAttachmentService-update)-修改资质附件-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.quality_attachment+"/modify", params, JSONObject.class);
 		return response;
 	}

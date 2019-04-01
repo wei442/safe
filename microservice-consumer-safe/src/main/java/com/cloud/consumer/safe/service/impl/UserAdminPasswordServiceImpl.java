@@ -29,29 +29,29 @@ public class UserAdminPasswordServiceImpl extends BaseService implements IUserAd
 		return response;
 	}
 
-	/**
-	 * 根据userId获取用户管理密码
-	 * @param userId
-	 * @return JSONObject
-	 */
-	@Override
-	public JSONObject getByUserId(Integer userId) {
-		logger.info("(UserAdminPasswordService-getByUserId)-根据userId获取用户管理密码-传入参数, userId:{}", userId);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/selectByUserId/"+userId, null, JSONObject.class);
-		return response;
-	}
+//	/**
+//	 * 根据userId获取用户管理密码
+//	 * @param userId
+//	 * @return JSONObject
+//	 */
+//	@Override
+//	public JSONObject getByUserId(Integer userId) {
+//		logger.info("(UserAdminPasswordService-getByUserId)-根据userId获取用户管理密码-传入参数, userId:{}", userId);
+//		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/selectByUserId/"+userId, null, JSONObject.class);
+//		return response;
+//	}
 
 	/**
 	 * 根据userId和password获取用户管理密码
-	 * @param userId
-	 * @param password
+	 * @param params
 	 * @return JSONObject
 	 */
-//	public JSONObject getByUserIdPassword(Integer userId,String password) {
-//		logger.info("(UserAdminPasswordService-getByUserId)-根据userId和password获取用户管理密码-传入参数, userId:{}, password:{}", userId, password);
-//		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/selectByUserIdPassword/"+userId+"/"+password, null, JSONObject.class);
-//		return response;
-//	}
+	@Override
+	public JSONObject getByUserIdPassword(Object params) {
+		logger.info("(UserAdminPasswordService-getByUserIdPassword)-根据userId和password获取用户管理密码-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/selectByUserIdPassword", params, JSONObject.class);
+		return response;
+	}
 
 	/**
 	 * 新增用户管理密码

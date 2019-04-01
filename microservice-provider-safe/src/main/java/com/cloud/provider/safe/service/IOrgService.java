@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.po.Org;
-import com.cloud.provider.safe.vo.OrgUserVo;
+import com.cloud.provider.safe.vo.UserInfoOrgVo;
 import com.cloud.provider.safe.vo.OrgVo;
 
 public interface IOrgService {
@@ -14,7 +14,7 @@ public interface IOrgService {
      * @param param
      * @return List<OrgUserVo>
      */
-	public List<OrgUserVo> selectTreeUserList(OrgParam param);
+	public List<UserInfoOrgVo> selectTreeUserList(OrgParam param);
 
     /**
      * 查询组织机构树

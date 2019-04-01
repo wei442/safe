@@ -9,9 +9,7 @@ public class DictItem {
 
     private String itemName;
 
-    private String itemAlias;
-
-    private Integer itemLevel;
+    private Integer itemType;
 
     private Integer itemStatus;
 
@@ -53,20 +51,12 @@ public class DictItem {
         this.itemName = itemName == null ? null : itemName.trim();
     }
 
-    public String getItemAlias() {
-        return itemAlias;
+    public Integer getItemType() {
+        return itemType;
     }
 
-    public void setItemAlias(String itemAlias) {
-        this.itemAlias = itemAlias == null ? null : itemAlias.trim();
-    }
-
-    public Integer getItemLevel() {
-        return itemLevel;
-    }
-
-    public void setItemLevel(Integer itemLevel) {
-        this.itemLevel = itemLevel;
+    public void setItemType(Integer itemType) {
+        this.itemType = itemType;
     }
 
     public Integer getItemStatus() {

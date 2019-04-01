@@ -106,7 +106,7 @@ public class UserTitleController extends BaseController {
 		logger.info("===step1:【据id查询用户职务】(selectById-selectById)-传入参数, userTitleId:{}", userTitleId);
 
 		if(userTitleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userTitleId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userTitleId不能为空");
 		}
 
 		UserTitle userTitle = userTitleService.selectById(userTitleId);
@@ -133,7 +133,7 @@ public class UserTitleController extends BaseController {
 		logger.info("===step1:【据userId查询用户职务】(selectById-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId不能为空");
 		}
 
 		UserTitle userTitle = userTitleService.selectByUserId(userId);
@@ -161,8 +161,6 @@ public class UserTitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户职务】(UserTitleController-insertUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
-
 		UserTitle userTitle = req.convertToUserTitle();
 		int i = userTitleService.insert(userTitle);
 		logger.info("===step2:【添加用户职务】(UserTitleController-insertUserTitle)-插入用户职务, i:{}", i);
@@ -182,17 +180,41 @@ public class UserTitleController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer userTitleId) {
-		logger.info("===step1:【根据id删除用户职务】(selectById-deleteById)-传入参数, userTitleId:{}", userTitleId);
+		logger.info("===step1:【根据id删除用户职务】(UserTitleController-deleteById)-传入参数, userTitleId:{}", userTitleId);
 
 		if(userTitleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userTitleId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userTitleId不能为空");
 		}
 
 		int i = userTitleService.deleteById(userTitleId);
-		logger.info("===step2:【根据id删除用户职务】(UserTitleController-deleteById)-根据id查询用户职务, i:{}", i);
+		logger.info("===step2:【根据id删除用户职务】(UserTitleController-deleteById)-根据id删除用户职务, i:{}", i);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
 		logger.info("===step3:【根据id删除用户职务】(UserTitleController-deleteById)-返回信息, userTitleResponse:{}", userTitleResponse);
+		return userTitleResponse;
+	}
+
+	/**
+	 * 根据ids删除用户职务
+	 * @param userTitleIds
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据ids删除用户职务")
+	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse deleteByIds(
+		@PathVariable(value="ids",required=false) List<Integer> userTitleIds) {
+		logger.info("===step1:【根据ids删除用户职务】(UserTitleController-deleteByIds)-传入参数, userTitleIds:{}", userTitleIds);
+
+		if(userTitleIds == null || userTitleIds.isEmpty()) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userTitleIds不能为空");
+		}
+
+		int i = userTitleService.deleteByIds(userTitleIds);
+		logger.info("===step2:【根据ids删除用户职务】(UserTitleController-deleteByIds)-根据ids删除用户职务, i:{}", i);
+
+		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
+		logger.info("===step3:【根据ids删除用户职务】(UserTitleController-deleteByIds)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
 
@@ -209,7 +231,6 @@ public class UserTitleController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserTitleRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户职务】(UserTitleController-modifyUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
 
 		Integer userTitleId = req.getUserTitleId();
 		UserTitle userTitle = req.convertToUserTitle();

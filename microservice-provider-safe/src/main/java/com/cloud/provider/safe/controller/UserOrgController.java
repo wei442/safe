@@ -19,9 +19,11 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
+import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.rest.request.UserOrgRequest;
 import com.cloud.provider.safe.rest.request.page.UserOrgPageRequest;
+import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.service.IUserOrgService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.UserOrgVo;
@@ -44,6 +46,10 @@ public class UserOrgController extends BaseController {
 	//用户机构Service
 	@Autowired
 	private IUserOrgService userOrgService;
+
+	//用户信息Service
+	@Autowired
+	private IUserInfoService userInfoService;
 
 	/**
 	 * 分页查询
@@ -105,7 +111,7 @@ public class UserOrgController extends BaseController {
 		logger.info("===step1:【据id查询用户机构】(selectById-selectById)-传入参数, userOrgId:{}", userOrgId);
 
 		if(userOrgId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userOrgId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userOrgId不能为空");
 		}
 
 		UserOrg userOrg = userOrgService.selectById(userOrgId);
@@ -131,7 +137,7 @@ public class UserOrgController extends BaseController {
 		logger.info("===step1:【据userId查询用户机构】(selectById-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId不能为空");
 		}
 
 		UserOrg userOrg = userOrgService.selectByUserId(userId);
@@ -158,14 +164,33 @@ public class UserOrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户机构】(UserOrgController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+		String userAccount = req.getUserAccount();
+		String userName = req.getUserName();
+		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
+		Integer userId = null;
+		if(userInfo == null) {
+			userInfo = new UserInfo();
+			userInfo.setUserAccount(userAccount);
+			userInfo.setUserName(userName);
+			int i = userInfoService.insert(userInfo);
+			logger.info("===step2:【添加用户机构】(UserOrgController-insert)-插入用户信息, i:{}", i);
+			userId = userInfo.getId();
+		} else {
+			userId = userInfo.getId();
+			UserOrg userOrg = userOrgService.selectByUserId(userId);
+			logger.info("===step2:【添加用户机构】(UserOrgController-insert)-根据userId查询用户机构, userOrg:{}", userOrg);
+			if(userOrg != null) {
+				return new BaseRestMapResponse(SafeResultEnum.USER_ORG_EXIST);
+			}
+		}
 
 		UserOrg userOrg = req.convertToUserOrg();
+		userOrg.setUserId(userId);
 		int i = userOrgService.insert(userOrg);
-		logger.info("===step2:【添加用户机构】(UserOrgController-insert)-插入用户机构, i:{}", i);
+		logger.info("===step3:【添加用户机构】(UserOrgController-insert)-插入用户机构, i:{}", i);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户机构】(UserOrgController-insert)-返回信息, userOrgResponse:{}", userOrgResponse);
+		logger.info("===step4:【添加用户机构】(UserOrgController-insert)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
 
@@ -179,17 +204,41 @@ public class UserOrgController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer userOrgId) {
-		logger.info("===step1:【根据id删除用户机构】(selectById-deleteById)-传入参数, userOrgId:{}", userOrgId);
+		logger.info("===step1:【根据id删除用户机构】(UserOrgController-deleteById)-传入参数, userOrgId:{}", userOrgId);
 
 		if(userOrgId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userOrgId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userOrgId不能为空");
 		}
 
 		int i = userOrgService.deleteById(userOrgId);
-		logger.info("===step2:【根据id删除用户机构】(UserOrgController-deleteById)-根据id查询用户机构, i:{}", i);
+		logger.info("===step2:【根据id删除用户机构】(UserOrgController-deleteById)-根据id删除用户机构, i:{}", i);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
 		logger.info("===step3:【根据id删除用户机构】(UserOrgController-deleteById)-返回信息, userOrgResponse:{}", userOrgResponse);
+		return userOrgResponse;
+	}
+
+	/**
+	 * 根据ids删除用户机构
+	 * @param userOrgIds
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据ids删除用户机构")
+	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse deleteByIds(
+		@PathVariable(value="ids",required=false) List<Integer> userOrgIds) {
+		logger.info("===step1:【根据ids删除用户机构】(selectById-deleteById)-传入参数, userOrgIds:{}", userOrgIds);
+
+		if(userOrgIds == null || userOrgIds.isEmpty()) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userOrgIds不能为空");
+		}
+
+		int i = userOrgService.deleteByIds(userOrgIds);
+		logger.info("===step2:【根据ids删除用户机构】(UserOrgController-deleteByIds)-根据ids删除用户机构, i:{}", i);
+
+		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
+		logger.info("===step3:【根据ids删除用户机构】(UserOrgController-deleteByIds)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
 
@@ -206,8 +255,6 @@ public class UserOrgController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserOrgRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户机构】(UserOrgController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userOrgId = req.getUserOrgId();
 		UserOrg userOrg = req.convertToUserOrg();

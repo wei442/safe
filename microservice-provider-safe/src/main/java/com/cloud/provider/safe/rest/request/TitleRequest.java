@@ -23,7 +23,7 @@ public class TitleRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "职务id")
-	@NotNull(message = "职务id", groups = {ModifyGroup.class})
+	@NotNull(message = "职务id不能为空", groups = {ModifyGroup.class})
 	private Integer titleId;
 
 	@ApiModelProperty(value = "企业id")

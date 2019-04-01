@@ -140,7 +140,6 @@ public class DictItemController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增字典子项】(DictItemController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
 		JSONObject jsonDictItem = dictItemService.add(req);
 		logger.info("===step2:【新增字典子项】(DictItemController-add)-分页查询字典子项列表, jsonDictItem:{}", jsonDictItem);
 		DictItemVo dictItemVo = JSONObject.toJavaObject(jsonDictItem, DictItemVo.class);

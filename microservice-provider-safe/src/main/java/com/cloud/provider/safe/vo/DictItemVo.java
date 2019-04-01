@@ -25,13 +25,11 @@ public class DictItemVo implements Serializable {
 
 	private Integer dictItemId;
 
-    private Integer dictId;
+	private Integer dictId;
 
     private String itemName;
 
-    private String itemAlias;
-
-    private Integer itemLevel;
+    private Integer itemType;
 
     private Integer itemStatus;
 

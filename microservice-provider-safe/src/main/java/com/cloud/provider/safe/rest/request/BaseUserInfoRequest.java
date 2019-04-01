@@ -23,15 +23,15 @@ public class BaseUserInfoRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "基础用户id", required = true)
-    @NotNull(message = "基础用户id", groups = {ModifyGroup.class})
+    @NotNull(message = "基础用户id不能为空", groups = {ModifyGroup.class})
 	private Integer baseUserInfoId;
 
 	@ApiModelProperty(value = "用户账户", required = true)
-	@NotBlank(message = "用户账户", groups = {ModifyGroup.class})
+	@NotBlank(message = "用户账户不能为空", groups = {ModifyGroup.class})
     private String userAccount;
 
     @ApiModelProperty(value = "用户名称", required = true)
-	@NotBlank(message = "用户名称")
+	@NotBlank(message = "用户名称不能为空")
     private String userName;
 
     @ApiModelProperty(value = "用户英文名称")

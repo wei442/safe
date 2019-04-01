@@ -3,7 +3,7 @@ package com.cloud.provider.safe.dao.dao;
 import java.util.List;
 
 import com.cloud.provider.safe.param.UserParam;
-import com.cloud.provider.safe.vo.UserInfoVo;
+import com.cloud.provider.safe.vo.UserInfoOrgVo;
 
 public interface UserInfoDao {
 
@@ -12,6 +12,6 @@ public interface UserInfoDao {
      * @param param
      * @return List<UserInfoVo>
      */
-    public List<UserInfoVo> selectUserInfoListByOrgId(UserParam param);
+    public List<UserInfoOrgVo> selectListByOrgId(UserParam param);
 
 }

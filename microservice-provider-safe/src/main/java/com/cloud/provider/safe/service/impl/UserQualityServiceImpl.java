@@ -132,6 +132,21 @@ public class UserQualityServiceImpl implements IUserQualityService {
   		return i;
   	}
 
+ 	/**
+  	 * 根据ids删除用户资质
+  	 * @param ids
+  	 * @return Integer
+  	 */
+	public Integer deleteByIds(List<Integer> ids) {
+  		logger.info("(UserOrgService-deleteByIds)-根据ids删除用户资质-传入参数, ids:{}", ids);
+  		UserQualityExample example = new UserQualityExample();
+  		UserQualityExample.Criteria criteria = example.createCriteria();
+  		criteria.andIdIn(ids);
+		int i = userQualityMapper.deleteByExample(example);
+  		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+  		return i;
+  	}
+
     /**
      * 修改用户资质
      * @param userQuality

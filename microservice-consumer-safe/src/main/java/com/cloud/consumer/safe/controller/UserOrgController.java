@@ -20,6 +20,7 @@ import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.UserOrgIdRequest;
+import com.cloud.consumer.safe.rest.request.UserOrgIdsRequest;
 import com.cloud.consumer.safe.rest.request.UserOrgRequest;
 import com.cloud.consumer.safe.rest.request.page.UserOrgPageRequest;
 import com.cloud.consumer.safe.service.IUserOrgService;
@@ -58,6 +59,8 @@ public class UserOrgController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody UserOrgPageRequest req) {
 		logger.info("===step1:【分页查询】(UserOrgController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserOrg = userOrgService.getListByPage(req);
 		logger.info("===step2:【分页查询】(UserOrgController-getListByPage)-分页查询用户机构列表, jsonUserOrg:{}", jsonUserOrg);
@@ -85,6 +88,8 @@ public class UserOrgController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody UserOrgPageRequest req) {
 		logger.info("===step1:【不分页查询】(UserOrgController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserOrg = userOrgService.getListByPage(req);
 		logger.info("===step2:【不分页查询】(UserOrgController-getList)-不分页查询用户机构列表, jsonUserOrg:{}", jsonUserOrg);
@@ -139,14 +144,14 @@ public class UserOrgController extends BaseController {
 		@Validated @RequestBody UserOrgRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户机构】(UserOrgController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserOrg = userOrgService.add(req);
 		logger.info("===step2:【新增用户机构】(UserOrgController-add)-分页查询用户机构列表, jsonUserOrg:{}", jsonUserOrg);
-		UserOrgVo userOrgVo = JSONObject.toJavaObject(jsonUserOrg, UserOrgVo.class);
 
 		//返回信息
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.put(RetSafeConstants.RESULT, userOrgVo);
 	    logger.info("===step3:【新增用户机构】(UserOrgController-add)-返回信息, userOrgResponse:{}", userOrgResponse);
 	    return userOrgResponse;
 	}
@@ -168,12 +173,34 @@ public class UserOrgController extends BaseController {
 		Integer userOrgId = req.getUserOrgId();
 		JSONObject jsonUserOrg = userOrgService.deleteById(userOrgId);
 		logger.info("===step2:【删除用户机构】(UserOrgController-delete)-根据userOrgId删除用户机构, jsonUserOrg:{}", jsonUserOrg);
-		UserOrgVo userOrgVo = JSONObject.toJavaObject(jsonUserOrg, UserOrgVo.class);
 
 		//返回信息
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.put(RetSafeConstants.RESULT, userOrgVo);
 		logger.info("===step3:【删除用户机构】(UserOrgController-delete)-返回信息, userOrgResponse:{}", userOrgResponse);
+		return userOrgResponse;
+	}
+
+	/**
+	 * 批量删除用户机构
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "批量删除用户机构")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody UserOrgIdsRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【批量删除用户机构】(UserOrgController-batchDelete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		List<Integer> userOrgIds = req.getUserOrgIds();
+		JSONObject jsonUserOrg = userOrgService.deleteByIds(userOrgIds);
+		logger.info("===step2:【批量删除用户机构】(UserOrgController-batchDelete)-根据userOrgIds删除用户机构, jsonUserOrg:{}", jsonUserOrg);
+
+		//返回信息
+		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
+		logger.info("===step3:【批量删除用户机构】(UserOrgController-batchDelete)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
 
@@ -190,6 +217,8 @@ public class UserOrgController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody UserOrgRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户机构】(UserOrgController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserOrg = userOrgService.update(req);
 		logger.info("===step2:【修改用户机构】(UserOrgController-update)-修改用户机构, jsonUserOrg:{}", jsonUserOrg);
@@ -197,7 +226,6 @@ public class UserOrgController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.put(RetSafeConstants.RESULT, userOrgVo);
 		logger.info("===step3:【修改用户机构】(UserOrgController-update)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}

@@ -16,7 +16,7 @@ public class TitleIdRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "职务id")
-	@NotNull(message = "职务id")
+	@NotNull(message = "职务id不能为空")
 	private Integer titleId;
 
 }

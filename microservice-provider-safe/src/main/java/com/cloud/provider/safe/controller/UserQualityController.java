@@ -105,7 +105,7 @@ public class UserQualityController extends BaseController {
 		logger.info("===step1:【据id查询用户资质】(selectById-selectById)-传入参数, userQualityId:{}", userQualityId);
 
 		if(userQualityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userQualityId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userQualityId不能为空");
 		}
 
 		UserQuality userQuality = userQualityService.selectById(userQualityId);
@@ -131,7 +131,7 @@ public class UserQualityController extends BaseController {
 		logger.info("===step1:【据userId查询用户资质】(selectById-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId不能为空");
 		}
 
 		UserQuality userQuality = userQualityService.selectByUserId(userId);
@@ -158,7 +158,6 @@ public class UserQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户资质】(UserQualityController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
 		UserQuality userQuality = req.convertToUserQuality();
 		int i = userQualityService.insert(userQuality);
 		logger.info("===step2:【添加用户资质】(UserQualityController-insert)-插入用户资质, i:{}", i);
@@ -178,10 +177,10 @@ public class UserQualityController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer userQualityId) {
-		logger.info("===step1:【根据id删除用户资质】(selectById-deleteById)-传入参数, userQualityId:{}", userQualityId);
+		logger.info("===step1:【根据id删除用户资质】(UserQualityController-deleteById)-传入参数, userQualityId:{}", userQualityId);
 
 		if(userQualityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userQualityId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userQualityId不能为空");
 		}
 
 		int i = userQualityService.deleteById(userQualityId);
@@ -189,6 +188,30 @@ public class UserQualityController extends BaseController {
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
 		logger.info("===step3:【根据id删除用户资质】(UserQualityController-deleteById)-返回信息, userQualityResponse:{}", userQualityResponse);
+		return userQualityResponse;
+	}
+
+	/**
+	 * 根据ids删除用户资质
+	 * @param userQualityIds
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据ids删除用户资质")
+	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse deleteByIds(
+		@PathVariable(value="ids",required=false) List<Integer> userQualityIds) {
+		logger.info("===step1:【根据ids删除用户资质】(UserQualityController-deleteByIds)-传入参数, userQualityIds:{}", userQualityIds);
+
+		if(userQualityIds == null || userQualityIds.isEmpty()) {
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userQualityIds不能为空");
+		}
+
+		int i = userQualityService.deleteByIds(userQualityIds);
+		logger.info("===step2:【根据ids删除用户资质】(UserQualityController-deleteByIds)-根据ids删除用户资质, i:{}", i);
+
+		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
+		logger.info("===step3:【根据ids删除用户资质】(UserQualityController-deleteByIds)-返回信息, userQualityResponse:{}", userQualityResponse);
 		return userQualityResponse;
 	}
 

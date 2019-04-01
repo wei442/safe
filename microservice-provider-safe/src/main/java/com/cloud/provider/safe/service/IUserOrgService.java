@@ -37,6 +37,14 @@ public interface IUserOrgService {
 	 */
 	public UserOrg selectByUserId(Integer userId);
 
+	/**
+	 * 根据enterpriseId和userId查询用户机构
+	 * @param enterpriseId
+	 * @param userId
+	 * @return UserOrg
+	 */
+	public UserOrg selectByEnterpriseIdAndUserId(Integer enterpriseId,Integer userId);
+
     /**
      * 插入用户机构
      * @param userOrg
@@ -50,6 +58,13 @@ public interface IUserOrgService {
   	 * @return Integer
   	 */
 	public Integer deleteById(Integer id);
+
+ 	/**
+  	 * 根据ids删除用户机构
+  	 * @param ids
+  	 * @return Integer
+  	 */
+	public Integer deleteByIds(List<Integer> ids);
 
     /**
      * 修改用户机构

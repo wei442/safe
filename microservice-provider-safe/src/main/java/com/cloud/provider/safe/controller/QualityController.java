@@ -105,7 +105,7 @@ public class QualityController extends BaseController {
 		logger.info("===step1:【据id查询资质】(selectById-selectById)-传入参数, qualityId:{}", qualityId);
 
 		if(qualityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "qualityId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "qualityId不能为空");
 		}
 
 		Quality quality = qualityService.selectById(qualityId);
@@ -156,7 +156,7 @@ public class QualityController extends BaseController {
 		logger.info("===step1:【根据id删除资质】(selectById-deleteById)-传入参数, qualityId:{}", qualityId);
 
 		if(qualityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "qualityId为空");
+			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "qualityId不能为空");
 		}
 
 		int i = qualityService.deleteById(qualityId);
