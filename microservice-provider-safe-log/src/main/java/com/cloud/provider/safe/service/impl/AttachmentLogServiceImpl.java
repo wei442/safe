@@ -38,21 +38,16 @@ public class AttachmentLogServiceImpl implements IAttachmentLogService {
 	 * @return List<AttachmentLog>
 	 */
 	@Override
-	public List<AttachmentLog> selectAttachmentLogListByPage(Page<?> page, AttachmentLogPageRequest param) {
-		logger.info("(AttachmentLogService-selectAttachmentLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<AttachmentLog> selectListByPage(Page<?> page, AttachmentLogPageRequest param) {
+		logger.info("(AttachmentLogService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		AttachmentLogExample example = new AttachmentLogExample();
 		example.setOrderByClause(" id desc ");
 		AttachmentLogExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 		}
-		List<AttachmentLog> list = null;
-		try {
-			list = attachmentLogMapper.selectByExample(example);
-		} catch (Exception e) {
-			logger.error("(AttachmentLogService-selectAttachmentLogListByPage)-分页查询-事务性异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
-		}
+		
+		List<AttachmentLog> list = attachmentLogMapper.selectByExample(example);
 		return list;
 	}
 
@@ -62,16 +57,11 @@ public class AttachmentLogServiceImpl implements IAttachmentLogService {
 	 * @return Integer
 	 */
 	@Override
-	public Integer insertAttachmentLog(AttachmentLog attachmentLog) {
-		if(logger.isInfoEnabled())logger.info("(AttachmentLogService-insertAttachmentLog)-插入用户应用登录日志-传入参数, attachmentLog:{}", attachmentLog);
+	public Integer insert(AttachmentLog attachmentLog) {
+		logger.info("(AttachmentLogService-insert)-插入用户应用登录日志-传入参数, attachmentLog:{}", attachmentLog);
 		attachmentLog.setCreateTime(new Date());
 		attachmentLog.setUpdateTime(new Date());
-		int i = 0;
-		try {
-			i = attachmentLogMapper.insertSelective(attachmentLog);
-		} catch (Exception e) {
-			logger.error("(AttachmentLogService-insertAttachmentLog)-插入用户应用登录日志-事务性异常, Exception = {}, message = {}", e, e.getMessage());
-		}
+		int i = attachmentLogMapper.insertSelective(attachmentLog);
 		return i;
 	}
 

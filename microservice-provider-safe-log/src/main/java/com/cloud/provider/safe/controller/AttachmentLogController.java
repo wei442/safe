@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "附件日志")
 @RestController
-@RequestMapping(value="/base/userLoginLog")
+@RequestMapping(value="/attachment/log")
 public class AttachmentLogController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -47,23 +47,23 @@ public class AttachmentLogController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询附件日志列表")
-	@RequestMapping(value="/selectAttachmentLogListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectAttachmentLogListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody AttachmentLogPageRequest req) {
-		logger.info("===step1:【分页查询附件日志列表】(AttachmentLogController-selectAttachmentLogListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询附件日志列表】(AttachmentLogController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<AttachmentLog> list = attachmentLogService.selectAttachmentLogListByPage(page, req);
-		logger.info("===step2:【分页查询附件日志列表】(AttachmentLogController-selectAttachmentLogListByPage)-分页查询附件日志列表, list.size:{}", list == null ? null : list.size());
+		List<AttachmentLog> list = attachmentLogService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询附件日志列表】(AttachmentLogController-selectListByPage)-分页查询附件日志列表, list.size:{}", list == null ? null : list.size());
 		List<AttachmentLogVo> attachmentLogVoList = new AttachmentLogVo().convertToAttachmentLogVoList(list);
 
 		BaseRestMapResponse attachmentLogResponse = new BaseRestMapResponse();
 		attachmentLogResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(attachmentLogVoList));
-		logger.info("===step3:【分页查询附件日志列表】(AttachmentLogController-selectAttachmentLogListByPage)-返回信息, attachmentLogResponse:{}", attachmentLogResponse);
+		logger.info("===step3:【分页查询附件日志列表】(AttachmentLogController-selectListByPage)-返回信息, attachmentLogResponse:{}", attachmentLogResponse);
 		return attachmentLogResponse;
 	}
 
@@ -74,21 +74,19 @@ public class AttachmentLogController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加附件日志")
-	@RequestMapping(value="/insertAttachmentLog",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertAttachmentLog(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody AttachmentLogRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加附件日志】(AttachmentLogController-insertAttachmentLog)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
+		logger.info("===step1:【添加附件日志】(AttachmentLogController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		AttachmentLog attachmentLog = req.convertToAttachmentLog();
-		int i = attachmentLogService.insertAttachmentLog(attachmentLog);
-		logger.info("===step2:【添加附件日志】(AttachmentLogController-insertAttachmentLog)-插入附件日志, i:{}", i);
+		int i = attachmentLogService.insert(attachmentLog);
+		logger.info("===step2:【添加附件日志】(AttachmentLogController-insert)-插入附件日志, i:{}", i);
 
 		BaseRestMapResponse attachmentLogResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加附件日志】(AttachmentLogController-insertAttachmentLog)-返回信息, attachmentLogResponse:{}", attachmentLogResponse);
+		logger.info("===step3:【添加附件日志】(AttachmentLogController-insert)-返回信息, attachmentLogResponse:{}", attachmentLogResponse);
 		return attachmentLogResponse;
 	}
 

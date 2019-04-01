@@ -37,21 +37,16 @@ public class UserAdminLoginLogServiceImpl implements IUserAdminLoginLogService {
 	 * @param param
 	 * @return List<UserAdminLoginLog>
 	 */
-	public List<UserAdminLoginLog> selectUserAdminLoginLogListByPage(Page<?> page, UserAdminLoginLogPageRequest param) {
-		logger.info("(UserAdminLoginLogService-selectUserAdminLoginLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<UserAdminLoginLog> selectListByPage(Page<?> page, UserAdminLoginLogPageRequest param) {
+		logger.info("(UserAdminLoginLogService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserAdminLoginLogExample example = new UserAdminLoginLogExample();
 		example.setOrderByClause(" id desc ");
 		UserAdminLoginLogExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 		}
-		List<UserAdminLoginLog> list = null;
-		try {
-			list = userAdminLoginLogMapper.selectByExample(example);
-		} catch (Exception e) {
-			logger.error("(UserAdminLoginLogService-selectUserAdminLoginLogListByPage)-分页查询-事务性异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
-		}
+
+		List<UserAdminLoginLog> list = userAdminLoginLogMapper.selectByExample(example);
 		return list;
 	}
 
@@ -61,16 +56,11 @@ public class UserAdminLoginLogServiceImpl implements IUserAdminLoginLogService {
 	 * @return Integer
 	 */
 	@Override
-	public Integer insertUserAdminLoginLog(UserAdminLoginLog userAdminLoginLog) {
-		if(logger.isInfoEnabled())logger.info("(UserAdminLoginLogService-insertUserAdminLoginLog)-插入用户管理登录日志-传入参数, userAdminLoginLog:{}", userAdminLoginLog);
+	public Integer insert(UserAdminLoginLog userAdminLoginLog) {
+		logger.info("(UserAdminLoginLogService-insert)-插入用户管理登录日志-传入参数, userAdminLoginLog:{}", userAdminLoginLog);
 		userAdminLoginLog.setCreateTime(new Date());
 		userAdminLoginLog.setUpdateTime(new Date());
-		int i = 0;
-		try {
-			i = userAdminLoginLogMapper.insertSelective(userAdminLoginLog);
-		} catch (Exception e) {
-			logger.error("(UserAdminLoginLogService-insertUserAdminLoginLog)-插入用户管理登录日志-事务性异常, Exception = {}, message = {}", e, e.getMessage());
-		}
+		int i = userAdminLoginLogMapper.insertSelective(userAdminLoginLog);
 		return i;
 	}
 

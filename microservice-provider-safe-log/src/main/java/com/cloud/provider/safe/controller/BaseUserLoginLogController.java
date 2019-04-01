@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "基础用户登录日志")
 @RestController
-@RequestMapping(value="/base/userLoginLog")
+@RequestMapping(value="/base/user/login/log")
 public class BaseUserLoginLogController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -47,23 +47,23 @@ public class BaseUserLoginLogController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询基础用户登录日志列表")
-	@RequestMapping(value="/selectBaseUserLoginLogListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectBaseUserLoginLogListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody BaseUserLoginLogPageRequest req) {
-		logger.info("===step1:【分页查询基础用户登录日志列表】(BaseUserLoginLogController-selectBaseUserLoginLogListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询基础用户登录日志列表】(BaseUserLoginLogController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<BaseUserLoginLog> list = baseUserLoginLogService.selectBaseUserLoginLogListByPage(page, req);
-		logger.info("===step2:【分页查询基础用户登录日志列表】(BaseUserLoginLogController-selectBaseUserLoginLogListByPage)-分页查询基础用户登录日志列表, list.size:{}", list == null ? null : list.size());
+		List<BaseUserLoginLog> list = baseUserLoginLogService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询基础用户登录日志列表】(BaseUserLoginLogController-selectListByPage)-分页查询基础用户登录日志列表, list.size:{}", list == null ? null : list.size());
 		List<BaseUserLoginLogVo> baseUserLoginLogVoList = new BaseUserLoginLogVo().convertToBaseUserLoginLogVoList(list);
 
 		BaseRestMapResponse baseUserLoginLogResponse = new BaseRestMapResponse();
 		baseUserLoginLogResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(baseUserLoginLogVoList));
-		logger.info("===step3:【分页查询基础用户登录日志列表】(BaseUserLoginLogController-selectBaseUserLoginLogListByPage)-返回信息, baseUserLoginLogResponse:{}", baseUserLoginLogResponse);
+		logger.info("===step3:【分页查询基础用户登录日志列表】(BaseUserLoginLogController-selectListByPage)-返回信息, baseUserLoginLogResponse:{}", baseUserLoginLogResponse);
 		return baseUserLoginLogResponse;
 	}
 
@@ -74,21 +74,20 @@ public class BaseUserLoginLogController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加基础用户登录日志")
-	@RequestMapping(value="/insertBaseUserLoginLog",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertBaseUserLoginLog(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody BaseUserLoginLogRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加基础用户登录日志】(BaseUserLoginLogController-insertBaseUserLoginLog)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
+		logger.info("===step1:【添加基础用户登录日志】(BaseUserLoginLogController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		
 
 		BaseUserLoginLog baseUserLoginLog = req.convertToBaseUserLoginLog();
-		int i = baseUserLoginLogService.insertBaseUserLoginLog(baseUserLoginLog);
-		logger.info("===step2:【添加基础用户登录日志】(BaseUserLoginLogController-insertBaseUserLoginLog)-插入基础用户登录日志, i:{}", i);
+		int i = baseUserLoginLogService.insert(baseUserLoginLog);
+		logger.info("===step2:【添加基础用户登录日志】(BaseUserLoginLogController-insert)-插入基础用户登录日志, i:{}", i);
 
 		BaseRestMapResponse baseUserLoginLogResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加基础用户登录日志】(BaseUserLoginLogController-insertBaseUserLoginLog)-返回信息, baseUserLoginLogResponse:{}", baseUserLoginLogResponse);
+		logger.info("===step3:【添加基础用户登录日志】(BaseUserLoginLogController-insert)-返回信息, baseUserLoginLogResponse:{}", baseUserLoginLogResponse);
 		return baseUserLoginLogResponse;
 	}
 

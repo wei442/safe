@@ -14,13 +14,13 @@ public interface IAttachmentLogService {
 	 * @param param
 	 * @return List<AttachmentLog>
 	 */
-	public List<AttachmentLog> selectAttachmentLogListByPage(Page<?> page, AttachmentLogPageRequest param);
+	public List<AttachmentLog> selectListByPage(Page<?> page, AttachmentLogPageRequest param);
 
 	/**
 	 * 插入附件日志
 	 * @param attachmentLog
 	 * @return Integer
 	 */
-	public Integer insertAttachmentLog(AttachmentLog attachmentLog);
+	public Integer insert(AttachmentLog attachmentLog);
 
 }

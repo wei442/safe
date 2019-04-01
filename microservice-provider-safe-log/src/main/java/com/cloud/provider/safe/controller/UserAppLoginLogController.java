@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户应用登录日志")
 @RestController
-@RequestMapping(value="/base/userLoginLog")
+@RequestMapping(value="/user/app/login/log")
 public class UserAppLoginLogController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -47,23 +47,23 @@ public class UserAppLoginLogController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户应用登录日志列表")
-	@RequestMapping(value="/selectUserAppLoginLogListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAppLoginLogListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody UserAppLoginLogPageRequest req) {
-		logger.info("===step1:【分页查询用户应用登录日志列表】(UserAppLoginLogController-selectUserAppLoginLogListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询用户应用登录日志列表】(UserAppLoginLogController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserAppLoginLog> list = userAppLoginLogService.selectUserAppLoginLogListByPage(page, req);
-		logger.info("===step2:【分页查询用户应用登录日志列表】(UserAppLoginLogController-selectUserAppLoginLogListByPage)-分页查询用户应用登录日志列表, list.size:{}", list == null ? null : list.size());
+		List<UserAppLoginLog> list = userAppLoginLogService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询用户应用登录日志列表】(UserAppLoginLogController-selectListByPage)-分页查询用户应用登录日志列表, list.size:{}", list == null ? null : list.size());
 		List<UserAppLoginLogVo> userAppLoginLogVoList = new UserAppLoginLogVo().convertToUserAppLoginLogVoList(list);
 
 		BaseRestMapResponse userAppLoginLogResponse = new BaseRestMapResponse();
 		userAppLoginLogResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userAppLoginLogVoList));
-		logger.info("===step3:【分页查询用户应用登录日志列表】(UserAppLoginLogController-selectUserAppLoginLogListByPage)-返回信息, userAppLoginLogResponse:{}", userAppLoginLogResponse);
+		logger.info("===step3:【分页查询用户应用登录日志列表】(UserAppLoginLogController-selectListByPage)-返回信息, userAppLoginLogResponse:{}", userAppLoginLogResponse);
 		return userAppLoginLogResponse;
 	}
 
@@ -74,21 +74,19 @@ public class UserAppLoginLogController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加用户应用登录日志")
-	@RequestMapping(value="/insertUserAppLoginLog",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUserAppLoginLog(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody UserAppLoginLogRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户应用登录日志】(UserAppLoginLogController-insertUserAppLoginLog)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
+		logger.info("===step1:【添加用户应用登录日志】(UserAppLoginLogController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		UserAppLoginLog userAppLoginLog = req.convertToUserAppLoginLog();
-		int i = userAppLoginLogService.insertUserAppLoginLog(userAppLoginLog);
-		logger.info("===step2:【添加用户应用登录日志】(UserAppLoginLogController-insertUserAppLoginLog)-插入用户应用登录日志, i:{}", i);
+		int i = userAppLoginLogService.insert(userAppLoginLog);
+		logger.info("===step2:【添加用户应用登录日志】(UserAppLoginLogController-insert)-插入用户应用登录日志, i:{}", i);
 
 		BaseRestMapResponse userAppLoginLogResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户应用登录日志】(UserAppLoginLogController-insertUserAppLoginLog)-返回信息, userAppLoginLogResponse:{}", userAppLoginLogResponse);
+		logger.info("===step3:【添加用户应用登录日志】(UserAppLoginLogController-insert)-返回信息, userAppLoginLogResponse:{}", userAppLoginLogResponse);
 		return userAppLoginLogResponse;
 	}
 

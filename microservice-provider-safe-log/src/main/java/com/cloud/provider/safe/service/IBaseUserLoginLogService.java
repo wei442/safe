@@ -14,13 +14,13 @@ public interface IBaseUserLoginLogService {
 	 * @param param
 	 * @return List<BaseUserLoginLog>
 	 */
-	public List<BaseUserLoginLog> selectBaseUserLoginLogListByPage(Page<?> page, BaseUserLoginLogPageRequest param);
+	public List<BaseUserLoginLog> selectListByPage(Page<?> page, BaseUserLoginLogPageRequest param);
 
 	/**
 	 * 插入用户登录日志
 	 * @param baseUserLoginLog
 	 * @return Integer
 	 */
-	public Integer insertBaseUserLoginLog(BaseUserLoginLog baseUserLoginLog);
+	public Integer insert(BaseUserLoginLog baseUserLoginLog);
 
 }

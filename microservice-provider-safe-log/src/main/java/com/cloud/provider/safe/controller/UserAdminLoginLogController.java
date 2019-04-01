@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户管理登录日志")
 @RestController
-@RequestMapping(value="/base/userLoginLog")
+@RequestMapping(value="/user/admin/login/log")
 public class UserAdminLoginLogController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -47,23 +47,23 @@ public class UserAdminLoginLogController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户管理登录日志列表")
-	@RequestMapping(value="/selectUserAdminLoginLogListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectUserAdminLoginLogListByPage(
+	public BaseRestMapResponse selectListByPage(
 		@RequestBody UserAdminLoginLogPageRequest req) {
-		logger.info("===step1:【分页查询用户管理登录日志列表】(UserAdminLoginLogController-selectUserAdminLoginLogListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【分页查询用户管理登录日志列表】(UserAdminLoginLogController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserAdminLoginLog> list = userAdminLoginLogService.selectUserAdminLoginLogListByPage(page, req);
-		logger.info("===step2:【分页查询用户管理登录日志列表】(UserAdminLoginLogController-selectUserAdminLoginLogListByPage)-分页查询用户管理登录日志列表, list.size:{}", list == null ? null : list.size());
+		List<UserAdminLoginLog> list = userAdminLoginLogService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询用户管理登录日志列表】(UserAdminLoginLogController-selectListByPage)-分页查询用户管理登录日志列表, list.size:{}", list == null ? null : list.size());
 		List<UserAdminLoginLogVo> userAdminLoginLogVoList = new UserAdminLoginLogVo().convertToUserAdminLoginLogVoList(list);
 
 		BaseRestMapResponse userAdminLoginLogResponse = new BaseRestMapResponse();
 		userAdminLoginLogResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userAdminLoginLogVoList));
-		logger.info("===step3:【分页查询用户管理登录日志列表】(UserAdminLoginLogController-selectUserAdminLoginLogListByPage)-返回信息, userAdminLoginLogResponse:{}", userAdminLoginLogResponse);
+		logger.info("===step3:【分页查询用户管理登录日志列表】(UserAdminLoginLogController-selectListByPage)-返回信息, userAdminLoginLogResponse:{}", userAdminLoginLogResponse);
 		return userAdminLoginLogResponse;
 	}
 
@@ -74,21 +74,20 @@ public class UserAdminLoginLogController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加用户管理登录日志")
-	@RequestMapping(value="/insertUserAdminLoginLog",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUserAdminLoginLog(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody UserAdminLoginLogRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户管理登录日志】(UserAdminLoginLogController-insertUserAdminLoginLog)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加用户管理登录日志】(UserAdminLoginLogController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
 
 		UserAdminLoginLog userAdminLoginLog = req.convertToUserAdminLoginLog();
-		int i = userAdminLoginLogService.insertUserAdminLoginLog(userAdminLoginLog);
-		logger.info("===step2:【添加用户管理登录日志】(UserAdminLoginLogController-insertUserAdminLoginLog)-插入用户管理登录日志, i:{}", i);
+		int i = userAdminLoginLogService.insert(userAdminLoginLog);
+		logger.info("===step2:【添加用户管理登录日志】(UserAdminLoginLogController-insert)-插入用户管理登录日志, i:{}", i);
 
 		BaseRestMapResponse userAdminLoginLogResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户管理登录日志】(UserAdminLoginLogController-insertUserAdminLoginLog)-返回信息, userAdminLoginLogResponse:{}", userAdminLoginLogResponse);
+		logger.info("===step3:【添加用户管理登录日志】(UserAdminLoginLogController-insert)-返回信息, userAdminLoginLogResponse:{}", userAdminLoginLogResponse);
 		return userAdminLoginLogResponse;
 	}
 

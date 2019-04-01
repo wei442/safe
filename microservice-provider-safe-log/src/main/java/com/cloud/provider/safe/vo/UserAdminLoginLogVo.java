@@ -23,7 +23,7 @@ public class UserAdminLoginLogVo implements Serializable {
 
 	private Long userAdminLoginLogId;
 
-    private Integer userId;
+	private Integer userId;
 
     private String userAccount;
 
@@ -36,6 +36,8 @@ public class UserAdminLoginLogVo implements Serializable {
     private Date loginTime;
 
     private Integer logType;
+
+    private String loginMode;
 
     private String loginIp;
 

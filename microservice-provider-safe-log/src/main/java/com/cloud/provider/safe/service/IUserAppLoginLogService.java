@@ -14,13 +14,13 @@ public interface IUserAppLoginLogService {
 	 * @param param
 	 * @return List<UserAppLoginLog>
 	 */
-	public List<UserAppLoginLog> selectUserAppLoginLogListByPage(Page<?> page, UserAppLoginLogPageRequest param);
+	public List<UserAppLoginLog> selectListByPage(Page<?> page, UserAppLoginLogPageRequest param);
 
 	/**
 	 * 插入用户登录日志
 	 * @param userAppLoginLog
 	 * @return Integer
 	 */
-	public Integer insertUserAppLoginLog(UserAppLoginLog userAppLoginLog);
+	public Integer insert(UserAppLoginLog userAppLoginLog);
 
 }

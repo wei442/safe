@@ -2,8 +2,11 @@ package com.cloud.provider.safe.rest.request.page;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import com.cloud.provider.safe.base.BaseRestRequest;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,18 +19,7 @@ public class AttachmentLogPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long attachmentLogId;
-
-    private Integer attachmentId;
-
+	@ApiModelProperty(value = "附件内容", required = true)
     private String content;
-
-    private String created;
-
-    private String updated;
-
-    private Date createTime;
-
-    private Date updateTime;
 
 }

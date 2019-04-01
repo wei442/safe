@@ -37,21 +37,16 @@ public class BaseUserLoginLogServiceImpl implements IBaseUserLoginLogService {
 	 * @param param
 	 * @return List<BaseUserLoginLog>
 	 */
-	public List<BaseUserLoginLog> selectBaseUserLoginLogListByPage(Page<?> page, BaseUserLoginLogPageRequest param) {
-		logger.info("(BaseUserLoginLogService-selectBaseUserLoginLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<BaseUserLoginLog> selectListByPage(Page<?> page, BaseUserLoginLogPageRequest param) {
+		logger.info("(BaseUserLoginLogService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		BaseUserLoginLogExample example = new BaseUserLoginLogExample();
 		example.setOrderByClause(" id desc ");
 		BaseUserLoginLogExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 		}
-		List<BaseUserLoginLog> list = null;
-		try {
-			list = baseUserLoginLogMapper.selectByExample(example);
-		} catch (Exception e) {
-			logger.error("(BaseUserLoginLogService-selectBaseUserLoginLogListByPage)-分页查询-事务性异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
-		}
+		
+		List<BaseUserLoginLog> list = baseUserLoginLogMapper.selectByExample(example);
 		return list;
 	}
 
@@ -61,16 +56,11 @@ public class BaseUserLoginLogServiceImpl implements IBaseUserLoginLogService {
 	 * @return Integer
 	 */
 	@Override
-	public Integer insertBaseUserLoginLog(BaseUserLoginLog baseUserLoginLog) {
-		if(logger.isInfoEnabled())logger.info("(BaseUserLoginLogService-insertBaseUserLoginLog)-插入基础用户登录日志-传入参数, baseUserLoginLog:{}", baseUserLoginLog);
+	public Integer insert(BaseUserLoginLog baseUserLoginLog) {
+		logger.info("(BaseUserLoginLogService-insert)-插入基础用户登录日志-传入参数, baseUserLoginLog:{}", baseUserLoginLog);
 		baseUserLoginLog.setCreateTime(new Date());
 		baseUserLoginLog.setUpdateTime(new Date());
-		int i = 0;
-		try {
-			i = baseUserLoginLogMapper.insertSelective(baseUserLoginLog);
-		} catch (Exception e) {
-			logger.error("(BaseUserLoginLogService-insertBaseUserLoginLog)-插入基础用户登录日志-事务性异常, Exception = {}, message = {}", e, e.getMessage());
-		}
+		int i = baseUserLoginLogMapper.insertSelective(baseUserLoginLog);
 		return i;
 	}
 

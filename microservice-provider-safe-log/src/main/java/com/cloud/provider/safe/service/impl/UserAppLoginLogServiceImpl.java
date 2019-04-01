@@ -37,21 +37,16 @@ public class UserAppLoginLogServiceImpl implements IUserAppLoginLogService {
 	 * @param param
 	 * @return List<UserAppLoginLog>
 	 */
-	public List<UserAppLoginLog> selectUserAppLoginLogListByPage(Page<?> page, UserAppLoginLogPageRequest param) {
-		logger.info("(UserAppLoginLogService-selectUserAppLoginLogListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<UserAppLoginLog> selectListByPage(Page<?> page, UserAppLoginLogPageRequest param) {
+		logger.info("(UserAppLoginLogService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserAppLoginLogExample example = new UserAppLoginLogExample();
 		example.setOrderByClause(" id desc ");
 		UserAppLoginLogExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 		}
-		List<UserAppLoginLog> list = null;
-		try {
-			list = userAppLoginLogMapper.selectByExample(example);
-		} catch (Exception e) {
-			logger.error("(UserAppLoginLogService-selectUserAppLoginLogListByPage)-分页查询-事务性异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(SafeResultEnum.SYSTEM_ERROR);
-		}
+		
+		List<UserAppLoginLog> list = userAppLoginLogMapper.selectByExample(example);
 		return list;
 	}
 
@@ -60,16 +55,11 @@ public class UserAppLoginLogServiceImpl implements IUserAppLoginLogService {
 	 * @param userAppLoginLog
 	 * @return Integer
 	 */
-	public Integer insertUserAppLoginLog(UserAppLoginLog userAppLoginLog) {
-		if(logger.isInfoEnabled())logger.info("(UserAppLoginLogService-insertUserAppLoginLog)-插入用户应用登录日志-传入参数, userAppLoginLog:{}", userAppLoginLog);
+	public Integer insert(UserAppLoginLog userAppLoginLog) {
+		logger.info("(UserAppLoginLogService-insert)-插入用户应用登录日志-传入参数, userAppLoginLog:{}", userAppLoginLog);
 		userAppLoginLog.setCreateTime(new Date());
 		userAppLoginLog.setUpdateTime(new Date());
-		int i = 0;
-		try {
-			i = userAppLoginLogMapper.insertSelective(userAppLoginLog);
-		} catch (Exception e) {
-			logger.error("(UserAppLoginLogService-insertUserAppLoginLog)-插入用户应用登录日志-事务性异常, Exception = {}, message = {}", e, e.getMessage());
-		}
+		int i = userAppLoginLogMapper.insertSelective(userAppLoginLog);
 		return i;
 	}
 
