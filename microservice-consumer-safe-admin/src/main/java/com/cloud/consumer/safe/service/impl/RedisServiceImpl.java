@@ -40,10 +40,9 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		logger.info("(RedisService-del)-删除单个key-传入参数, key:{}", key);
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("key", key);
-//		HttpHeaders headers = this.getProviderRedisHeaders();
-//		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-//		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/del", httpEntity, JSONObject.class);
-		JSONObject response = this.redisPostForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/del", params, JSONObject.class);
+		HttpHeaders headers = this.getProviderRedisHeaders();
+		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
+		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/key/del", httpEntity, JSONObject.class);
 		logger.info("(RedisService-del)-删除单个key-返回信息, response:{}", JSONObject.toJSONString(response));
 		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		long result = -1l;
@@ -1092,11 +1091,9 @@ public class RedisServiceImpl extends BaseService implements IRedisService {
 		params.put("key", key);
 		params.put("seconds", seconds);
 		params.put("value", value);
-//		HttpHeaders headers = this.getProviderRedisHeaders();
-//		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
-//		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/setex", httpEntity, JSONObject.class);
-
-		JSONObject response = this.redisPostForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/setex", params, JSONObject.class);
+		HttpHeaders headers = this.getProviderRedisHeaders();
+		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
+		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/string/setex", httpEntity, JSONObject.class);
 		logger.info("(RedisService-setex)-设置key值和过期时间-返回信息, response:{}", JSONObject.toJSONString(response));
 		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
 		String result = "";
