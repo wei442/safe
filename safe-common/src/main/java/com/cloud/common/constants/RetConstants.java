@@ -49,25 +49,5 @@ public class RetConstants {
 	//claims
 	public static final String CLAIMS = "claims";
 
-//	/*----------------------------- 系统统一错误编码 -----------------------------*/
-//    /**
-//     * 错误编码-系统错误
-//     */
-//    public static final String SYSTEM_ERROR = "00000001";
-//    /**
-//     * 错误描述-系统错误
-//     */
-//    public static final String SYSTEM_ERROR_MSG = "事务性异常";
-//
-//    /**
-//     * 错误编码-数据不存在(数据库操作失败)
-//     * 数据库操作失败通用型编码，如果需要返回详细错误，请使用详细错误编码
-//     */
-//    public static final String DATABASE_ERROR = "00000002";
-//    /**
-//     * 错误描述-数据不存在(数据库操作失败)
-//     */
-//    public static final String DATABASE_ERROR_MSG = "数据操作失败";
-//    /*----------------------------- 系统统一错误编码 -----------------------------*/
 
 }
