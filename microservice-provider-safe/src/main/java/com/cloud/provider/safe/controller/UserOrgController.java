@@ -60,19 +60,19 @@ public class UserOrgController extends BaseController {
 	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectListByPage(
-		@RequestBody UserOrgPageRequest req) {
+		@RequestBody UserOrgPageRequest req,
+		BindingResult bindingResult) {
 		logger.info("===step1:【分页查询用户机构列表】(UserOrgController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserOrg> list = userOrgService.selectListByPage(page, req);
+		List<UserOrgVo> list = userOrgService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询用户机构列表】(UserOrgController-selectListByPage)-分页查询用户机构列表, list.size:{}", list == null ? null : list.size());
-		List<UserOrgVo> userOrgVoList = new UserOrgVo().convertToUserOrgVoList(list);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userOrgVoList));
+		userOrgResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(list));
 		logger.info("===step3:【分页查询用户机构列表】(UserOrgController-selectListByPage)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
@@ -86,14 +86,14 @@ public class UserOrgController extends BaseController {
 	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectList(
-		@RequestBody UserOrgPageRequest req) {
+		@RequestBody UserOrgPageRequest req,
+		BindingResult bindingResult) {
 		logger.info("===step1:【不分页查询用户机构列表】(UserOrgController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserOrg> list = userOrgService.selectList(req);
+		List<UserOrgVo> list = userOrgService.selectList(req);
 		logger.info("===step2:【不分页查询用户机构列表】(UserOrgController-selectList)-不分页查询用户机构列表, list.size:{}", list == null ? null : list.size());
-		List<UserOrgVo> userOrgVoList = new UserOrgVo().convertToUserOrgVoList(list);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.put(PageConstants.DATA_LIST, userOrgVoList);
+		userOrgResponse.put(PageConstants.DATA_LIST, list);
 		logger.info("===step3:【不分页查询用户机构列表】(UserOrgController-selectList)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}

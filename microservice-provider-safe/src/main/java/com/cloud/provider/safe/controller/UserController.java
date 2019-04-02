@@ -21,7 +21,9 @@ import com.cloud.provider.safe.po.UserAdminLogin;
 import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.rest.request.login.UserEnterpriseRequest;
+import com.cloud.provider.safe.rest.request.login.UserLoginFirstRequest;
 import com.cloud.provider.safe.rest.request.login.UserLoginRequest;
+import com.cloud.provider.safe.rest.request.login.UserLoginSecondRequest;
 import com.cloud.provider.safe.service.IEnterpriseService;
 import com.cloud.provider.safe.service.IUserAdminLoginService;
 import com.cloud.provider.safe.service.IUserAdminPasswordService;
@@ -30,6 +32,7 @@ import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.service.IUserService;
 import com.cloud.provider.safe.vo.EnterpriseVo;
 import com.cloud.provider.safe.vo.UserAdminLoginVo;
+import com.cloud.provider.safe.vo.UserAdminVo;
 import com.cloud.provider.safe.vo.UserInfoVo;
 
 import io.swagger.annotations.Api;
@@ -180,6 +183,112 @@ public class UserController extends BaseController {
 		logger.info("===step8:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
+
+
+
+	/**
+	 * 用户登录第一步
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "用户登录第一步")
+	@RequestMapping(value="/login/first",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse loginFirst(
+		@Validated @RequestBody UserLoginFirstRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【用户登录第一步】(UserController-loginFirst)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		String userAccount =  req.getUserAccount();
+		String userPassword = req.getUserPassword();
+
+		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
+		logger.info("===step2:【用户登录第一步】(UserController-loginFirst)-根据userAccount查询用户信息, userInfo:{}", userInfo);
+		if(userInfo == null) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ACCOUNT_NOTEXIST);
+		}
+		Integer userId = userInfo.getId();
+
+		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
+		logger.info("===step3:【用户登录第一步】(UserController-loginFirst)-根据userId查询用户管理, userAdmin:{}", userAdmin);
+		if(userAdmin == null) {
+			return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_NOTEXIST);
+		}
+
+		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserIdPassword(userId, userPassword);
+		logger.info("===step4:【用户登录第一步】(UserController-loginFirst)-根据userId和userPassword查询用户管理登录, userAdminPassword:{}", userAdminPassword);
+		if(userAdminPassword == null) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
+		}
+
+		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
+		logger.info("===step5:【用户登录第一步】(UserController-loginFirst)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+
+		UserAdminLoginVo userAdminLoginVo = new UserAdminLoginVo().convertToUserAdminLoginVo(userAdminLogin);
+		UserAdminVo userAdminVo = new UserAdminVo().convertToUserAdminVo(userAdmin);
+		UserInfoVo userInfoVo = new UserInfoVo().convertToUserInfoVo(userInfo);
+		BaseRestMapResponse userResponse = new BaseRestMapResponse();
+		userResponse.putAll((JSONObject) JSONObject.toJSON(userAdminLoginVo));
+		userResponse.putAll((JSONObject) JSONObject.toJSON(userAdminVo));
+		userResponse.putAll((JSONObject) JSONObject.toJSON(userInfoVo));
+		logger.info("===step6:【用户登录第一步】(UserController-loginFirst)-返回信息, userResponse:{}", userResponse);
+		return userResponse;
+	}
+
+	/**
+	 * 用户登录第二步
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "用户登录第二步")
+	@RequestMapping(value="/login/second",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse loginSecond(
+		@Validated @RequestBody UserLoginSecondRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【用户登录】(UserController-loginSecond)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer userId = req.getUserId();
+		Integer enterpriseId = req.getEnterpriseId();
+//		Integer userAdminLoginId = req.getUserAdminLoginId();
+
+		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
+		logger.info("===step2:【用户登录第二步】(UserController-loginSecond)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+
+		Enterprise enterprise = enterpriseService.selectById(enterpriseId);
+		logger.info("===step3:【用户登录第二步】(UserController-loginSecond)-根据enterpriseId查询企业, enterprise:{}", enterprise);
+
+		Long loginCount = userAdminLogin.getLoginCount();
+		userAdminLogin.setLoginCount(loginCount+1);
+		int i = userAdminLoginService.modify(userAdminLogin);
+		logger.info("===step4:【用户登录第二步】(UserController-loginSecond)-修改用户管理登录登录次数, i:{}", i);
+
+		EnterpriseVo enterpriseVo = new EnterpriseVo().convertToEnterpriseVo(enterprise);
+		BaseRestMapResponse userResponse = new BaseRestMapResponse();
+		userResponse.putAll((JSONObject) JSONObject.toJSON(enterpriseVo));
+		logger.info("===step5:【用户登录第二步】(UserController-loginSecond)-返回信息, userResponse:{}", userResponse);
+		return userResponse;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -5,11 +5,11 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 用户请求 UserParam
+ * 用户组织机构请求 UserOrgParam
  * @author wei.yong
  */
 @Data
-public class UserParam implements Serializable {
+public class UserOrgParam implements Serializable {
 
 	/**
      *

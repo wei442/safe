@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +17,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.constants.wheel.RetWheelConstants;
+import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
+import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
-import com.cloud.consumer.safe.rest.request.login.UserRegisterRequest;
+import com.cloud.consumer.safe.rest.request.login.UserLoginFirstPasswordRequest;
 import com.cloud.consumer.safe.rest.request.login.UserLoginRequest;
+import com.cloud.consumer.safe.rest.request.login.UserRegisterRequest;
 import com.cloud.consumer.safe.service.IUserAdminLoginService;
 import com.cloud.consumer.safe.service.IUserAdminPasswordService;
 import com.cloud.consumer.safe.service.IUserAdminService;
 import com.cloud.consumer.safe.service.IUserInfoService;
 import com.cloud.consumer.safe.service.IUserService;
-import com.cloud.consumer.safe.vo.EnterpriseVo;
+import com.cloud.consumer.safe.util.PatternUtil;
+import com.cloud.consumer.safe.vo.UserAdminLoginVo;
+import com.cloud.consumer.safe.vo.UserAdminVo;
 import com.cloud.consumer.safe.vo.UserInfoVo;
+import com.cloud.consumer.safe.vo.user.UserLoginErrorVo;
 import com.cloud.consumer.safe.vo.user.UserLoginVo;
 
 import io.swagger.annotations.Api;
@@ -82,16 +90,41 @@ public class UserController extends BaseController {
 		logger.info("===step1:【用户登录】(UserController-login)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
 
 		String userAccount = req.getUserAccount();
-
 		String userPassword = req.getUserPassword();
 		req.setUserPassword(DigestUtils.sha256Hex(userPassword));
-		JSONObject jsonUser = userService.login(req);
-        logger.info("===step3:【用户登录】(UserController-login)-用户登录, jsonUser:{}", jsonUser);
-		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUser, UserInfoVo.class);
-		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonUser, EnterpriseVo.class);
+
+//		JSONObject jsonUser = userService.login(req);
+//        logger.info("===step3:【用户登录】(UserController-login)-用户登录, jsonUser:{}", jsonUser);
+//		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUser, UserInfoVo.class);
+//		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonUser, EnterpriseVo.class);
+//		Integer userId = userInfoVo.getUserId();
+//		String userName = userInfoVo.getUserName();
+//		Integer enterpriseId = enterpriseVo.getEnterpriseId();
+
+		JSONObject jsonUserFirst = userService.loginFirst(req);
+		logger.info("===step2:【用户登录】(UserController-login)-用户登录第一步, jsonUserFirst:{}", jsonUserFirst);
+		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUserFirst, UserInfoVo.class);
+		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserFirst, UserAdminVo.class);
+		UserAdminLoginVo userAdminLoginVo = JSONObject.toJavaObject(jsonUserFirst, UserAdminLoginVo.class);
+		Integer firstLogin = userAdminLoginVo.getFirstLogin();
 		Integer userId = userInfoVo.getUserId();
 		String userName = userInfoVo.getUserName();
-		Integer enterpriseId = enterpriseVo.getEnterpriseId();
+		Integer enterpriseId = userAdminVo.getEnterpriseId();
+
+		if(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO.equals(firstLogin)) {
+			BaseRestMapResponse userErrorResponse = new BaseRestMapResponse(RetSafeAdminResultEnum.USER_FIRST_LOGIN_CHANGE_PASSWORD);
+			UserLoginErrorVo userLoginErrorVo = new UserLoginErrorVo();
+			userLoginErrorVo.setEnterpriseId(enterpriseId);
+			userLoginErrorVo.setUserId(userId);
+			userErrorResponse.put(RetWheelConstants.RESULT, userLoginErrorVo);
+			return userErrorResponse;
+		}
+
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", userId);
+		params.put("enterpriseId", enterpriseId);
+		JSONObject jsonUserSecond = userService.loginSecond(params);
+		logger.info("===step3:【用户登录】(UserController-login)-用户登录第二步, jsonUserSecond:{}", jsonUserSecond);
 
 		//设置token
 		String token = this.setToken(enterpriseId, userId, userAccount);
@@ -106,7 +139,7 @@ public class UserController extends BaseController {
         //返回信息
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
 		userResponse.put(RetWheelConstants.RESULT, userLoginVo);
-        logger.info("===step3:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
+        logger.info("===step4:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
 
@@ -168,33 +201,43 @@ public class UserController extends BaseController {
 	@RequestMapping(value="/firstlogin/updatePassword",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse updatePassword(
-		@Validated @RequestBody UserLoginRequest req,
+		@Validated @RequestBody UserLoginFirstPasswordRequest req,
 		BindingResult bindingResult) {
 		String requestIp = this.getRequestIp();
 		logger.info("===step1:【用户首次登录修改密码】(UserController-updatePassword)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
 
-		String userAccount = req.getUserAccount();
-		String userPassword = req.getUserPassword();
+		Integer userId = req.getUserId();
+//		String userAccount = req.getUserAccount();
+		String password = req.getPassword();
+		String confirmPassword = req.getConfirmPassword();
+		if(!PatternUtil.PASSWORD.matcher(password).matches()) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_RULE);
+		} else if(!PatternUtil.PASSWORD.matcher(confirmPassword).matches()) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_RULE);
+		}
+		if(!StringUtils.equals(password, confirmPassword)) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_NOT_EQUQAL);
+		}
 
-		JSONObject jsonUserInfo = userInfoService.getByUserAccount(userAccount);
-        logger.info("===step2:【用户首次登录修改密码】(UserController-updatePassword)-根据userAccount获取用户信息, jsonUserInfo:{}", jsonUserInfo);
-		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUserInfo, UserInfoVo.class);
-		Integer userId = userInfoVo.getUserId();
+//		JSONObject jsonUserInfo = userInfoService.getByUserAccount(userAccount);
+//        logger.info("===step2:【用户首次登录修改密码】(UserController-updatePassword)-根据userAccount获取用户信息, jsonUserInfo:{}", jsonUserInfo);
+//		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUserInfo, UserInfoVo.class);
+//		Integer userId = userInfoVo.getUserId();
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", userId);
-		params.put("password", DigestUtils.sha256Hex(userPassword));
+		params.put("password", DigestUtils.sha256Hex(password));
 		JSONObject jsonUserAdminPassword = userAdminPasswordService.updateByUserId(params);
-		logger.info("===step3:【用户首次登录修改密码】(UserController-updatePassword)-根据userId修改用户管理密码, jsonUserAdminPassword:{}", jsonUserAdminPassword);
+		logger.info("===step2:【用户首次登录修改密码】(UserController-updatePassword)-根据userId修改用户管理密码, jsonUserAdminPassword:{}", jsonUserAdminPassword);
 
 		params = new HashMap<String, Object>();
 		params.put("userId", userId);
 		JSONObject jsonUserAdminLogin = userAdminLoginService.updateByUserId(params);
-		logger.info("===step4:【用户首次登录修改密码】(UserController-updatePassword)-根据userId修改获取用户登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
+		logger.info("===step3:【用户首次登录修改密码】(UserController-updatePassword)-根据userId修改获取用户登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
 
         //返回信息
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-        logger.info("===step5:【用户首次登录修改密码】(UserController-updatePassword)-返回信息, userResponse:{}", userResponse);
+        logger.info("===step4:【用户首次登录修改密码】(UserController-updatePassword)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
 

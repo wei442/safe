@@ -61,15 +61,6 @@ public class BaseController {
 	@Value("${token.rsa.privateKey}")
 	protected String rsaPrivateKeyStr;
 
-	//企业id
-	protected Integer enterpriseId = null;
-
-	//用户id
-	protected final Integer userId = null;
-
-	//用户账户
-	protected final String userAccount = "";
-
 	/**
 	 * 设置token 在response header里面
 	 * @param response

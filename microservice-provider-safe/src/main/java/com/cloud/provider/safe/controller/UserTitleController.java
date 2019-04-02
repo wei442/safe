@@ -55,19 +55,19 @@ public class UserTitleController extends BaseController {
 	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectListByPage(
-		@RequestBody UserTitlePageRequest req) {
+		@RequestBody UserTitlePageRequest req,
+		BindingResult bindingResult) {
 		logger.info("===step1:【分页查询用户职务列表】(UserTitleController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserTitle> list = userTitleService.selectListByPage(page, req);
+		List<UserTitleVo> list = userTitleService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询用户职务列表】(UserTitleController-selectListByPage)-分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
-		List<UserTitleVo> userTitleVoList = new UserTitleVo().convertToUserTitleVoList(list);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userTitleVoList));
+		userTitleResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(list));
 		logger.info("===step3:【分页查询用户职务列表】(UserTitleController-selectListByPage)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
@@ -81,14 +81,14 @@ public class UserTitleController extends BaseController {
 	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectList(
-		@RequestBody UserTitlePageRequest req) {
+		@RequestBody UserTitlePageRequest req,
+		BindingResult bindingResult) {
 		logger.info("===step1:【不分页查询用户职务列表】(UserTitleController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserTitle> list = userTitleService.selectList(req);
+		List<UserTitleVo> list = userTitleService.selectList(req);
 		logger.info("===step2:【不分页查询用户职务列表】(UserTitleController-selectList)-不分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
-		List<UserTitleVo> userTitleVoList = new UserTitleVo().convertToUserTitleVoList(list);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.put(PageConstants.DATA_LIST, userTitleVoList);
+		userTitleResponse.put(PageConstants.DATA_LIST, list);
 		logger.info("===step3:【不分页查询用户职务列表】(UserTitleController-selectList)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}

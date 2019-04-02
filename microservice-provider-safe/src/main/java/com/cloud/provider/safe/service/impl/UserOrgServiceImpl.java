@@ -10,11 +10,14 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserOrgMapper;
+import com.cloud.provider.safe.dao.dao.UserOrgDao;
+import com.cloud.provider.safe.param.UserOrgParam;
 import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.po.UserOrgExample;
 import com.cloud.provider.safe.rest.request.page.UserOrgPageRequest;
 import com.cloud.provider.safe.service.IUserOrgService;
 import com.cloud.provider.safe.util.Assert;
+import com.cloud.provider.safe.vo.UserOrgVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
@@ -31,45 +34,55 @@ public class UserOrgServiceImpl implements IUserOrgService {
     @Autowired
     private UserOrgMapper userOrgMapper;
 
+    //用户机构 Dao
+    @Autowired
+    private UserOrgDao userOrgDao;
+
     /**
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<UserOrg>
+	 * @return List<UserOrgVo>
 	 */
 	@Override
-	public List<UserOrg> selectListByPage(Page<?> page, UserOrgPageRequest param) {
+	public List<UserOrgVo> selectListByPage(Page<?> page, UserOrgPageRequest param) {
 		logger.info("(UserOrgService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
-		UserOrgExample example = new UserOrgExample();
-		example.setOrderByClause(" id desc ");
-		UserOrgExample.Criteria criteria = example.createCriteria();
+		UserOrgParam userOrgParam = new UserOrgParam();
+//		userOrgParam.setOrderByClause("  ");
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
-				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+				userOrgParam.setEnterpriseId(param.getEnterpriseId());
+			}
+			if(param.getOrgId() != null) {
+				userOrgParam.setOrgId(param.getOrgId());
 			}
 		}
-		List<UserOrg> list = userOrgMapper.selectByExample(example);
+
+		List<UserOrgVo> list = userOrgDao.selectList(userOrgParam);
 		return list;
 	}
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<UserOrg>
+	 * @return List<UserOrgVo>
 	 */
 	@Override
-	public List<UserOrg> selectList(UserOrgPageRequest param) {
+	public List<UserOrgVo> selectList(UserOrgPageRequest param) {
 		logger.info("(UserOrgService-selectList)-不分页查询-传入参数, param:{}", param);
-		UserOrgExample example = new UserOrgExample();
-		example.setOrderByClause(" id desc ");
-		UserOrgExample.Criteria criteria = example.createCriteria();
+		UserOrgParam userOrgParam = new UserOrgParam();
+//		userOrgParam.setOrderByClause("  ");
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
-				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+				userOrgParam.setEnterpriseId(param.getEnterpriseId());
+			}
+			if(param.getOrgId() != null) {
+				userOrgParam.setOrgId(param.getOrgId());
 			}
 		}
-		List<UserOrg> list = userOrgMapper.selectByExample(example);
+
+		List<UserOrgVo> list = userOrgDao.selectList(userOrgParam);
 		return list;
 	}
 

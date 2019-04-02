@@ -24,7 +24,6 @@ import com.cloud.consumer.safe.rest.request.page.OrgPageRequest;
 import com.cloud.consumer.safe.service.IOrgService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.OrgVo;
-import com.cloud.consumer.safe.vo.UserInfoOrgVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
@@ -73,32 +72,32 @@ public class OrgController extends BaseController {
 	    return orgResponse;
 	}
 
-	/**
-	 * 查询组织机构树用户列表
-	 * @param req
-	 * @return BaseRestMapResponse
-	 */
-	@ApiOperation(value = "查询组织机构树用户列表")
-	@RequestMapping(value="/getTreeUserList",method={RequestMethod.POST})
-	@ResponseBody
-	public BaseRestMapResponse getTreeUserList(
-		@RequestBody OrgPageRequest req) {
-		logger.info("===step1:【查询组织机构树用户列表】(OrgController-getTreeUserList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Integer enterpriseId = this.getTokenEnterpriseId();
-		req.setEnterpriseId(enterpriseId);
-
-		JSONObject jsonOrg = orgService.getTreeUserList(req);
-		logger.info("===step2:【查询组织机构树用户列表】(OrgController-getTreeUserList)-查询组织机构树用户列表, jsonOrg:{}", jsonOrg);
-		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
-		List<UserInfoOrgVo> userInfoOrgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserInfoOrgVo>>(){});
-
-		BaseResultVo result = new BaseResultVo(userInfoOrgVoList);
-		//返回信息
-		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(RetSafeConstants.RESULT, result);
-	    logger.info("===step3:【查询组织机构树用户列表】(OrgController-getTreeUserList)-返回信息, orgResponse:{}", orgResponse);
-	    return orgResponse;
-	}
+//	/**
+//	 * 查询组织机构树用户列表
+//	 * @param req
+//	 * @return BaseRestMapResponse
+//	 */
+//	@ApiOperation(value = "查询组织机构树用户列表")
+//	@RequestMapping(value="/getTreeUserList",method={RequestMethod.POST})
+//	@ResponseBody
+//	public BaseRestMapResponse getTreeUserList(
+//		@RequestBody OrgPageRequest req) {
+//		logger.info("===step1:【查询组织机构树用户列表】(OrgController-getTreeUserList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+//		Integer enterpriseId = this.getTokenEnterpriseId();
+//		req.setEnterpriseId(enterpriseId);
+//
+//		JSONObject jsonOrg = orgService.getTreeUserList(req);
+//		logger.info("===step2:【查询组织机构树用户列表】(OrgController-getTreeUserList)-查询组织机构树用户列表, jsonOrg:{}", jsonOrg);
+//		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
+//		List<UserInfoOrgVo> userInfoOrgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserInfoOrgVo>>(){});
+//
+//		BaseResultVo result = new BaseResultVo(userInfoOrgVoList);
+//		//返回信息
+//		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
+//		orgResponse.put(RetSafeConstants.RESULT, result);
+//	    logger.info("===step3:【查询组织机构树用户列表】(OrgController-getTreeUserList)-返回信息, orgResponse:{}", orgResponse);
+//	    return orgResponse;
+//	}
 
 	/**
 	 * 获取组织机构详情

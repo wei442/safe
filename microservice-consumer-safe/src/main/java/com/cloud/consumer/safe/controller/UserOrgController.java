@@ -57,7 +57,8 @@ public class UserOrgController extends BaseController {
 	@RequestMapping(value="/getListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getListByPage(
-		@RequestBody UserOrgPageRequest req) {
+		@RequestBody UserOrgPageRequest req,
+		BindingResult bindingResult) {
 		logger.info("===step1:【分页查询】(UserOrgController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
@@ -86,7 +87,8 @@ public class UserOrgController extends BaseController {
 	@RequestMapping(value="/getList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getList(
-		@RequestBody UserOrgPageRequest req) {
+		@RequestBody UserOrgPageRequest req,
+		BindingResult bindingResult) {
 		logger.info("===step1:【不分页查询】(UserOrgController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);

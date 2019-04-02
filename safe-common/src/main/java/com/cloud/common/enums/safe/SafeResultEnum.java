@@ -18,6 +18,8 @@ public enum SafeResultEnum implements ResultEnum {
 	USER_ADMIN_PASSWORD_NOTEXIST("1010004", "您的管理密码不存在"),
 	USER_ADMIN_PASSWORD_EXIST("1010005", "您的管理密码已存在"),
 	USER_ADMIN_FIRST_LOGIN_CHANGE_PASSWORD("1010006", "您好，这是你第一次登录该企业的管理后台，请先设置管理密码"),
+	USER_ADMIN_PASSWORD_RULE("1010007", "密码长度为6到20位，必须包含数字、小写字母、大写字母"),
+	USER_ADMIN_PASSWORD_NOT_EQUQAL("1010008", "密码和确认密码不一致"),
 
 	USER_ORG_EXIST("1010007", "此手机号码已存在"),
 

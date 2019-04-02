@@ -33,6 +33,10 @@ public class UserAdminPasswordRequest implements Serializable {
 	@NotBlank(message = "密码不能为空")
     private String password;
 
+	@ApiModelProperty(value = "确认密码", required = true)
+	@NotBlank(message = "确认密码不能为空")
+	private String confirPassword;
+
     /**
 	 * 实体转换
 	 * @return UserAdminPassword

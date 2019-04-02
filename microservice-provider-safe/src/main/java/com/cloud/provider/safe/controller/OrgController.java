@@ -19,7 +19,6 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.param.OrgParam;
-import com.cloud.provider.safe.param.UserParam;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.rest.request.OrgRequest;
 import com.cloud.provider.safe.rest.request.page.OrgTreeRequest;
@@ -27,7 +26,6 @@ import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.OrgVo;
-import com.cloud.provider.safe.vo.UserInfoOrgVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -85,33 +83,33 @@ public class OrgController extends BaseController {
 		return orgResponse;
 	}
 
-	/**
-	 * 查询组织机构树用户列表
-	 * @param req
-	 * @return BaseRestMapResponse
-	 */
-	@ApiOperation(value = "查询组织机构树用户列表")
-	@RequestMapping(value="/selectTreeUserList",method={RequestMethod.POST})
-	@ResponseBody
-	public BaseRestMapResponse selectTreeUserList(
-		@RequestBody OrgTreeRequest req) {
-		logger.info("===step1:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		Integer orgId = req.getOrgId();
-		Integer enterpriseId = req.getEnterpriseId();
-
-		UserParam param = new UserParam();
-		param.setOrgId(orgId);
-		param.setEnterpriseId(enterpriseId);
-
-		List<UserInfoOrgVo> list = userInfoService.selectListByOrgId(param);
-		logger.info("===step2:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-查询组织机构树用户列表, list.size:{}", list == null ? null : list.size());
-
-		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(PageConstants.DATA_LIST, list);
-		logger.info("===step3:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-返回信息, orgResponse:{}", orgResponse);
-		return orgResponse;
-	}
+//	/**
+//	 * 查询组织机构树用户列表
+//	 * @param req
+//	 * @return BaseRestMapResponse
+//	 */
+//	@ApiOperation(value = "查询组织机构树用户列表")
+//	@RequestMapping(value="/selectTreeUserList",method={RequestMethod.POST})
+//	@ResponseBody
+//	public BaseRestMapResponse selectTreeUserList(
+//		@RequestBody OrgTreeRequest req) {
+//		logger.info("===step1:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+//
+//		Integer orgId = req.getOrgId();
+//		Integer enterpriseId = req.getEnterpriseId();
+//
+//		UserParam param = new UserParam();
+//		param.setOrgId(orgId);
+//		param.setEnterpriseId(enterpriseId);
+//
+//		List<UserInfoOrgVo> list = userInfoService.selectListByOrgId(param);
+//		logger.info("===step2:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-查询组织机构树用户列表, list.size:{}", list == null ? null : list.size());
+//
+//		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
+//		orgResponse.put(PageConstants.DATA_LIST, list);
+//		logger.info("===step3:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-返回信息, orgResponse:{}", orgResponse);
+//		return orgResponse;
+//	}
 
 	/**
 	 * 据id查询组织机构

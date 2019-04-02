@@ -10,11 +10,14 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserPostMapper;
+import com.cloud.provider.safe.dao.dao.UserPostDao;
+import com.cloud.provider.safe.param.UserPostParam;
 import com.cloud.provider.safe.po.UserPost;
 import com.cloud.provider.safe.po.UserPostExample;
 import com.cloud.provider.safe.rest.request.page.UserPostPageRequest;
 import com.cloud.provider.safe.service.IUserPostService;
 import com.cloud.provider.safe.util.Assert;
+import com.cloud.provider.safe.vo.UserPostVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
@@ -31,45 +34,55 @@ public class UserPostServiceImpl implements IUserPostService {
     @Autowired
     private UserPostMapper userPostMapper;
 
+    //用户岗位 Dao
+    @Autowired
+    private UserPostDao userPostDao;
+
     /**
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<UserPost>
+	 * @return List<UserPostVo>
 	 */
 	@Override
-	public List<UserPost> selectListByPage(Page<?> page, UserPostPageRequest param) {
+	public List<UserPostVo> selectListByPage(Page<?> page, UserPostPageRequest param) {
 		logger.info("(UserPostService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
-		UserPostExample example = new UserPostExample();
-		example.setOrderByClause(" id desc ");
-		UserPostExample.Criteria criteria = example.createCriteria();
+		UserPostParam userPostParam = new UserPostParam();
+//		userPostParam.setOrderByClause("  ");
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
-				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+				userPostParam.setEnterpriseId(param.getEnterpriseId());
+			}
+			if(param.getPostId() != null) {
+				userPostParam.setPostId(param.getPostId());
 			}
 		}
-		List<UserPost>list = userPostMapper.selectByExample(example);
+
+		List<UserPostVo> list = userPostDao.selectList(userPostParam);
 		return list;
 	}
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<UserPost>
+	 * @return List<UserPostVo>
 	 */
 	@Override
-	public List<UserPost> selectList(UserPostPageRequest param) {
+	public List<UserPostVo> selectList(UserPostPageRequest param) {
 		logger.info("(UserPostService-selectList)-不分页查询-传入参数, param:{}", param);
-		UserPostExample example = new UserPostExample();
-		example.setOrderByClause(" id desc ");
-		UserPostExample.Criteria criteria = example.createCriteria();
+		UserPostParam userPostParam = new UserPostParam();
+//		userPostParam.setOrderByClause("  ");
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
-				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+				userPostParam.setEnterpriseId(param.getEnterpriseId());
+			}
+			if(param.getPostId() != null) {
+				userPostParam.setPostId(param.getPostId());
 			}
 		}
-		List<UserPost>list = userPostMapper.selectByExample(example);
+
+		List<UserPostVo> list = userPostDao.selectList(userPostParam);
 		return list;
 	}
 
@@ -138,6 +151,7 @@ public class UserPostServiceImpl implements IUserPostService {
   	 * @param ids
   	 * @return Integer
   	 */
+	@Override
 	public Integer deleteByIds(List<Integer> ids) {
   		logger.info("(UserOrgService-deleteByIds)-根据ids删除用户岗位-传入参数, ids:{}", ids);
   		UserPostExample example = new UserPostExample();

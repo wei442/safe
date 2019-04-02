@@ -10,11 +10,14 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserTitleMapper;
+import com.cloud.provider.safe.dao.dao.UserTitleDao;
+import com.cloud.provider.safe.param.UserTitleParam;
 import com.cloud.provider.safe.po.UserTitle;
 import com.cloud.provider.safe.po.UserTitleExample;
 import com.cloud.provider.safe.rest.request.page.UserTitlePageRequest;
 import com.cloud.provider.safe.service.IUserTitleService;
 import com.cloud.provider.safe.util.Assert;
+import com.cloud.provider.safe.vo.UserTitleVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
@@ -31,45 +34,53 @@ public class UserTitleServiceImpl implements IUserTitleService {
     @Autowired
     private UserTitleMapper userTitleMapper;
 
+    //用户职务 Dao
+    @Autowired
+    private UserTitleDao userTitleDao;
+
     /**
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<UserTitle>
+	 * @return List<UserTitleVo>
 	 */
 	@Override
-	public List<UserTitle> selectListByPage(Page<?> page, UserTitlePageRequest param) {
+	public List<UserTitleVo> selectListByPage(Page<?> page, UserTitlePageRequest param) {
 		logger.info("(UserTitleService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
-		UserTitleExample example = new UserTitleExample();
-		example.setOrderByClause(" id desc ");
-		UserTitleExample.Criteria criteria = example.createCriteria();
+		UserTitleParam userTitleParam = new UserTitleParam();
+//		userTitleParam.setOrderByClause("  ");
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
-				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+				userTitleParam.setEnterpriseId(param.getEnterpriseId());
+			}
+			if(param.getTitleId() != null) {
+				userTitleParam.setTitleId(param.getTitleId());
 			}
 		}
-		List<UserTitle> list = userTitleMapper.selectByExample(example);
+		List<UserTitleVo> list = userTitleDao.selectList(userTitleParam);
 		return list;
 	}
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<UserTitle>
+	 * @return List<UserTitleVo>
 	 */
 	@Override
-	public List<UserTitle> selectList(UserTitlePageRequest param) {
+	public List<UserTitleVo> selectList(UserTitlePageRequest param) {
 		logger.info("(UserTitleService-selectList)-不分页查询-传入参数, param:{}", param);
-		UserTitleExample example = new UserTitleExample();
-		example.setOrderByClause(" id desc ");
-		UserTitleExample.Criteria criteria = example.createCriteria();
+		UserTitleParam userTitleParam = new UserTitleParam();
+//		userTitleParam.setOrderByClause("  ");
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
-				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+				userTitleParam.setEnterpriseId(param.getEnterpriseId());
+			}
+			if(param.getTitleId() != null) {
+				userTitleParam.setTitleId(param.getTitleId());
 			}
 		}
-		List<UserTitle> list = userTitleMapper.selectByExample(example);
+		List<UserTitleVo> list = userTitleDao.selectList(userTitleParam);
 		return list;
 	}
 
@@ -137,6 +148,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
   	 * @param ids
   	 * @return Integer
   	 */
+	@Override
 	public Integer deleteByIds(List<Integer> ids) {
   		logger.info("(UserOrgService-deleteById)-根据ids删除用户职务-传入参数, ids:{}", ids);
   		UserTitleExample example = new UserTitleExample();

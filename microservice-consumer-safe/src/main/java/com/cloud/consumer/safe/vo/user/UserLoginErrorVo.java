@@ -6,11 +6,11 @@ import lombok.Data;
 
 /**
  *
- * 用户登录 Vo
+ * 用户登录错误 Vo
  * @author wei.yong
  */
 @Data
-public class UserLoginVo implements Serializable {
+public class UserLoginErrorVo implements Serializable {
 
 	/**
 	 *
@@ -20,11 +20,5 @@ public class UserLoginVo implements Serializable {
 	private Integer enterpriseId;
 
 	private Integer userId;
-
-	private String userAccount;
-
-	private String userName;
-
-	private String token;
 
 }

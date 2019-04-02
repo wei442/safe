@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cloud.provider.safe.po.UserTitle;
 import com.cloud.provider.safe.rest.request.page.UserTitlePageRequest;
+import com.cloud.provider.safe.vo.UserTitleVo;
 import com.github.pagehelper.Page;
 
 public interface IUserTitleService {
@@ -12,16 +13,16 @@ public interface IUserTitleService {
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<UserTitle>
+	 * @return List<UserTitleVo>
 	 */
-	public List<UserTitle> selectListByPage(Page<?> page, UserTitlePageRequest param);
+	public List<UserTitleVo> selectListByPage(Page<?> page, UserTitlePageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<UserTitle>
+	 * @return List<UserTitleVo>
 	 */
-	public List<UserTitle> selectList(UserTitlePageRequest param);
+	public List<UserTitleVo> selectList(UserTitlePageRequest param);
 
     /**
      * 根据id查询用户职务

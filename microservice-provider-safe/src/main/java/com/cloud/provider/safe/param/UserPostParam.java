@@ -5,11 +5,11 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 用户请求 UserParam
+ * 用户岗位请求 UserPostParam
  * @author wei.yong
  */
 @Data
-public class UserParam implements Serializable {
+public class UserPostParam implements Serializable {
 
 	/**
      *
@@ -18,7 +18,7 @@ public class UserParam implements Serializable {
 
     private Integer enterpriseId;
 
-    private Integer orgId;
+    private Integer postId;
 
     //排序
     private String orderByClause;

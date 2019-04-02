@@ -208,6 +208,7 @@ public class UserAdminPasswordController extends BaseController {
 
 		Integer userId = req.getUserId();
 		String password = req.getPassword();
+//		String confirPassword = req.getConfirPassword();
 		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserId(userId);
 		logger.info("===step2:【根据userId修改用户管理密码】(UserAdminPasswordController-modifyByUserId)-根据userId查询用户管理密码, userAdminPassword:{}", userAdminPassword);
 

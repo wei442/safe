@@ -54,19 +54,19 @@ public class UserPostController extends BaseController {
 	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectListByPage(
-		@RequestBody UserPostPageRequest req) {
+		@RequestBody UserPostPageRequest req,
+		BindingResult bindingResult) {
 		logger.info("===step1:【分页查询用户岗位列表】(UserPostController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserPost> list = userPostService.selectListByPage(page, req);
+		List<UserPostVo> list = userPostService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询用户岗位列表】(UserPostController-selectListByPage)-分页查询用户岗位列表, list.size:{}", list == null ? null : list.size());
-		List<UserPostVo> userPostVoList = new UserPostVo().convertToUserPostVoList(list);
 
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
-		userPostResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userPostVoList));
+		userPostResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(list));
 		logger.info("===step3:【分页查询用户岗位列表】(UserPostController-selectListByPage)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}
@@ -80,14 +80,14 @@ public class UserPostController extends BaseController {
 	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectList(
-		@RequestBody UserPostPageRequest req) {
+		@RequestBody UserPostPageRequest req,
+		BindingResult bindingResult) {
 		logger.info("===step1:【不分页查询用户岗位列表】(UserPostController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserPost> list = userPostService.selectList(req);
+		List<UserPostVo> list = userPostService.selectList(req);
 		logger.info("===step2:【不分页查询用户岗位列表】(UserPostController-selectList)-不分页查询用户岗位列表, list.size:{}", list == null ? null : list.size());
-		List<UserPostVo> userPostVoList = new UserPostVo().convertToUserPostVoList(list);
 
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
-		userPostResponse.put(PageConstants.DATA_LIST, userPostVoList);
+		userPostResponse.put(PageConstants.DATA_LIST, list);
 		logger.info("===step3:【不分页查询用户岗位列表】(UserPostController-selectList)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}

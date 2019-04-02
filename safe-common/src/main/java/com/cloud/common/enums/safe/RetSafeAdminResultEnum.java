@@ -19,6 +19,10 @@ public enum RetSafeAdminResultEnum implements ResultEnum {
 	TOKEN_ERROR("0000007", "token错误"),
 	TOKEN_EXPIRE("0000007", "token已过期"),
 
+	USER_FIRST_LOGIN_CHANGE_PASSWORD("0000008", "您好，这是你第一次登录该企业的管理后台，请先设置管理密码"),
+
+
+
 //	/**
 //	 * 错误编码-token错误
 //	 */

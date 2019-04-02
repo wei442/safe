@@ -4,24 +4,24 @@ import java.util.List;
 
 import com.cloud.provider.safe.po.UserPost;
 import com.cloud.provider.safe.rest.request.page.UserPostPageRequest;
+import com.cloud.provider.safe.vo.UserPostVo;
 import com.github.pagehelper.Page;
 
 public interface IUserPostService {
-
     /**
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<UserPost>
+	 * @return List<UserPostVo>
 	 */
-	public List<UserPost> selectListByPage(Page<?> page, UserPostPageRequest param);
+	public List<UserPostVo> selectListByPage(Page<?> page, UserPostPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<UserPost>
+	 * @return List<UserPostVo>
 	 */
-	public List<UserPost> selectList(UserPostPageRequest param);
+	public List<UserPostVo> selectList(UserPostPageRequest param);
 
     /**
      * 根据id查询用户岗位

@@ -1,34 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.provider.safe.dao.dao.UserOrgDao">
-
-	<!-- 根据orgId查询当前组织机构下的所有人员 -->
-    <select id="selectListByOrgId" parameterType="com.cloud.provider.safe.param.UserParam" resultType="com.cloud.provider.safe.vo.UserInfoOrgVo">
+	<!-- 查询当前组织机构下的所有人员列表 -->
+    <select id="selectList" parameterType="com.cloud.provider.safe.param.UserOrgParam" resultType="com.cloud.provider.safe.vo.UserOrgVo">
         select 
-        t1.id as userId, t1.user_account as userAccount, t1.user_name_en as userNameEn, t1.nick_name as nickName, t1.user_type as userType, 
-        t1.gender as gender, t1.user_status as userStatus, t1.user_email as userEmail, t1.head_image as headImage, 
-        t1.is_delete as isDelete, t1.remark as remark, 
-    	t1.sort as sort, t1.created as created, t1.updated as updated, t1.create_time as createTime, t1.update_time as updateTime, 
-    	t2.id as userOrgId, t2.user_name as userName
-        from user_org t1, org t2, user_info t3
-        where t1.id = t2.user_id
-        where t1.is_delete = 0 
-        
-        
-        select 
-        t1.id as userId, t1.user_account as userAccount, t1.user_name_en as userNameEn, t1.nick_name as nickName, t1.user_type as userType, 
-        t1.gender as gender, t1.user_status as userStatus, t1.user_email as userEmail, t1.head_image as headImage, 
-        t1.is_delete as isDelete, t1.remark as remark, 
-    	t1.sort as sort, t1.created as created, t1.updated as updated, t1.create_time as createTime, t1.update_time as updateTime, 
-    	t2.id as userOrgId, t2.user_name as userName
-        from user_info t1
-        left join user_org t2 on t1.id = t2.user_id
-        where t1.is_delete = 0 
+    	t1.id as userOrgId, t1.enterprise_id as enterpriseId, t1.user_id as userId, t1.user_name as userName, t1.org_id as orgId, 
+    	t1.created as created, t1.updated as updated, t1.create_time as createTime, t1.update_time as updateTime, 
+        t2.user_account as userAccount, t2.user_name_en as userNameEn, t2.nick_name as nickName, 
+        t3.org_name as orgName
+        from user_org t1, user_info t2, org t3 
+        where t1.user_id = t2.id
+        and t1.org_id = t3.id 
+        and t2.is_delete = 0 
+        and t3.is_delete = 0 
         <if test="enterpriseId != null and enterpriseId != ''">
-            and t2.enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+            and t1.enterprise_id = #{enterpriseId,jdbcType=INTEGER}
         </if>
         <if test="orgId != null and orgId != ''">
-            and t2.org_id = #{orgId,jdbcType=INTEGER}
+            and t1.org_id = #{orgId,jdbcType=INTEGER}
         </if>
         <if test="orderByClause != null and orderByClause != ''">
   			order by ${orderByClause}

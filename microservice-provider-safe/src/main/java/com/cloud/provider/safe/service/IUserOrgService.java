@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.rest.request.page.UserOrgPageRequest;
+import com.cloud.provider.safe.vo.UserOrgVo;
 import com.github.pagehelper.Page;
 
 public interface IUserOrgService {
@@ -12,16 +13,16 @@ public interface IUserOrgService {
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<UserOrg>
+	 * @return List<UserOrgVo>
 	 */
-	public List<UserOrg> selectListByPage(Page<?> page, UserOrgPageRequest param);
+	public List<UserOrgVo> selectListByPage(Page<?> page, UserOrgPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<UserOrg>
+	 * @return List<UserOrgVo>
 	 */
-	public List<UserOrg> selectList(UserOrgPageRequest param);
+	public List<UserOrgVo> selectList(UserOrgPageRequest param);
 
     /**
      * 根据id查询用户机构

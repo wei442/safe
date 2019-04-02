@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 组织机构请求 Param
+ * 组织机构请求 OrgParam
  * @author wei.yong
  */
 @Data

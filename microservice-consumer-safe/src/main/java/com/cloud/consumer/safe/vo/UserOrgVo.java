@@ -18,9 +18,11 @@ public class UserOrgVo implements Serializable {
 
 	private Integer userOrgId;
 
-	private Integer enterpriseId;
+    private Integer enterpriseId;
 
     private Integer userId;
+
+    private String userName;
 
     private Integer orgId;
 
@@ -33,5 +35,13 @@ public class UserOrgVo implements Serializable {
 
     @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
+
+    private String userAccount;
+
+    private String userNameEn;
+
+    private String nickName;
+
+    private String orgName;
 
 }
