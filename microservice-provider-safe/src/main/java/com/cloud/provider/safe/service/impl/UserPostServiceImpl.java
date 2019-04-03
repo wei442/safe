@@ -86,6 +86,21 @@ public class UserPostServiceImpl implements IUserPostService {
 		return list;
 	}
 
+	/**
+	 * 根据postId查询用户岗位列表
+	 * @param postId
+	 * @return UserPost List<UserPost>
+	 */
+	public List<UserPost> selectListByPostId(Integer postId) {
+		logger.info("(UserPostService-selectListByPostId)-根据postId查询用户岗位列表-传入参数, postId:{}", postId);
+		UserPostExample example = new UserPostExample();
+		UserPostExample.Criteria criteria = example.createCriteria();
+		criteria.andPostIdEqualTo(postId);
+
+		List<UserPost> list = userPostMapper.selectByExample(example);
+		return list;
+	}
+
     /**
      * 根据id查询用户岗位
      * @param id

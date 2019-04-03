@@ -46,7 +46,7 @@ public class PatternUtil {
     public static Pattern IMG = Pattern.compile("([^\\s]+(\\.(?i)(jpg|jpeg|png|gif|bmp|JPG|JPEG|PNG|GIF|BMP))$)");
 
     /**
-     * 判断密码强度,请输入6-20位密码，必须包含大小写字母和数字
+     * 判断密码强度，请输入6-20位密码，必须包含大小写字母和数字
      */
 //    public static Pattern PASSWORD = Pattern.compile("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[^]{6,20}$");
     public static Pattern PASSWORD = Pattern.compile("^(?=.*[0-9])(?=.*[a-zA-Z])(.{6,20})$");

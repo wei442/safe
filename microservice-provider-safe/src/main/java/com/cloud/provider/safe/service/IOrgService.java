@@ -4,24 +4,23 @@ import java.util.List;
 
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.po.Org;
-import com.cloud.provider.safe.vo.UserInfoOrgVo;
 import com.cloud.provider.safe.vo.OrgVo;
 
 public interface IOrgService {
 
     /**
-     * 查询组织机构树用户
-     * @param param
-     * @return List<OrgUserVo>
-     */
-	public List<UserInfoOrgVo> selectTreeUserList(OrgParam param);
-
-    /**
-     * 查询组织机构树
+     * 查询组织机构树(正向查询自上到下)
      * @param param
      * @return List<OrgVo>
      */
     public List<OrgVo> selectTreeList(OrgParam param);
+
+    /**
+     * 查询父组织机构树(反向查询自下到上)
+     * @param param
+     * @return List<OrgVo>
+     */
+	public List<OrgVo> selectParentTreeList(OrgParam param);
 
     /**
      * 根据id查询组织机构

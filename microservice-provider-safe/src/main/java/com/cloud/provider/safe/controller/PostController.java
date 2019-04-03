@@ -20,9 +20,11 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Post;
+import com.cloud.provider.safe.po.UserPost;
 import com.cloud.provider.safe.rest.request.PostRequest;
 import com.cloud.provider.safe.rest.request.page.PostPageRequest;
 import com.cloud.provider.safe.service.IPostService;
+import com.cloud.provider.safe.service.IUserPostService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.PostVo;
 import com.github.pagehelper.Page;
@@ -44,6 +46,10 @@ public class PostController extends BaseController {
 	//岗位Service
 	@Autowired
 	private IPostService postService;
+
+	//用户岗位Service
+	@Autowired
+	private IUserPostService userPostService;
 
 	/**
 	 * 分页查询
@@ -132,7 +138,7 @@ public class PostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加岗位】(PostController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Post post = req.convertToPost();
 		int i = postService.insert(post);
@@ -153,17 +159,23 @@ public class PostController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer postId) {
-		logger.info("===step1:【根据id删除岗位】(selectById-deleteById)-传入参数, postId:{}", postId);
+		logger.info("===step1:【根据id删除岗位】(PostController-deleteById)-传入参数, postId:{}", postId);
 
 		if(postId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "postId不能为空");
 		}
 
+		List<UserPost> userPostList = userPostService.selectListByPostId(postId);
+		logger.info("===step2:【根据id删除岗位】(PostController-deleteById)-根据postId查询岗位列表, userPostList.size:{}", userPostList == null ? null : userPostList.size());
+		if(userPostList != null && !userPostList.isEmpty()) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_POST_LIST_EXIST);
+		}
+
 		int i = postService.deleteById(postId);
-		logger.info("===step2:【根据id删除岗位】(PostController-deleteById)-根据id查询岗位, i:{}", i);
+		logger.info("===step3:【根据id删除岗位】(PostController-deleteById)-根据id删除岗位, i:{}", i);
 
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除岗位】(PostController-deleteById)-返回信息, postResponse:{}", postResponse);
+		logger.info("===step4:【根据id删除岗位】(PostController-deleteById)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}
 
@@ -181,7 +193,7 @@ public class PostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改岗位】(PostController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Integer postId = req.getPostId();
 		Post post = req.convertToPost();

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.po.Enterprise;
@@ -20,9 +19,8 @@ import com.cloud.provider.safe.po.UserAdmin;
 import com.cloud.provider.safe.po.UserAdminLogin;
 import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserInfo;
-import com.cloud.provider.safe.rest.request.login.UserEnterpriseRequest;
+import com.cloud.provider.safe.rest.request.login.UserRequest;
 import com.cloud.provider.safe.rest.request.login.UserLoginFirstRequest;
-import com.cloud.provider.safe.rest.request.login.UserLoginRequest;
 import com.cloud.provider.safe.rest.request.login.UserLoginSecondRequest;
 import com.cloud.provider.safe.service.IEnterpriseService;
 import com.cloud.provider.safe.service.IUserAdminLoginService;
@@ -83,7 +81,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value="/insertUser",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insertUser(
-		@Validated @RequestBody UserEnterpriseRequest req,
+		@Validated @RequestBody UserRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户】(UserController-insertUser)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -121,68 +119,68 @@ public class UserController extends BaseController {
 		return userResponse;
 	}
 
-	/**
-	 * 用户登录
-	 * @param req
-	 * @param bindingResult
-	 * @return BaseRestMapResponse
-	 */
-	@ApiOperation(value = "用户登录")
-	@RequestMapping(value="/login",method={RequestMethod.POST})
-	@ResponseBody
-	public BaseRestMapResponse login(
-		@Validated @RequestBody UserLoginRequest req,
-		BindingResult bindingResult) {
-		logger.info("===step1:【用户登录】(UserController-login)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		String userAccount =  req.getUserAccount();
-		String userPassword = req.getUserPassword();
-
-		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
-		logger.info("===step2:【用户登录】(UserController-login)-根据userAccount查询用户信息, userInfo:{}", userInfo);
-		if(userInfo == null) {
-			return new BaseRestMapResponse(SafeResultEnum.USER_ACCOUNT_NOTEXIST);
-		}
-		Integer userId = userInfo.getId();
-
-		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
-		logger.info("===step3:【用户登录】(UserController-login)-根据userId查询用户管理, userAdmin:{}", userAdmin);
-		if(userAdmin == null) {
-			return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_NOTEXIST);
-		}
-		Integer enterpriseId = userAdmin.getEnterpriseId();
-
-		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserIdPassword(userId, userPassword);
-		logger.info("===step4:【用户登录】(UserController-login)-根据userId和userPassword查询用户管理登录, userAdminPassword:{}", userAdminPassword);
-		if(userAdminPassword == null) {
-			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
-		}
-
-		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
-		logger.info("===step5:【用户登录】(UserController-login)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
-		Integer firstLogin = userAdminLogin.getFirstLogin();
-		if(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO.equals(firstLogin)) {
-			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_FIRST_LOGIN_CHANGE_PASSWORD);
-		}
-
-		Enterprise enterprise = enterpriseService.selectById(enterpriseId);
-		logger.info("===step6:【用户登录】(UserController-login)-根据enterpriseId查询企业, enterprise:{}", enterprise);
-
-		Long loginCount = userAdminLogin.getLoginCount();
-		userAdminLogin.setLoginCount(loginCount+1);
-		int i = userAdminLoginService.modify(userAdminLogin);
-		logger.info("===step7:【用户登录】(UserController-login)-修改用户管理登录登录次数, i:{}", i);
-
-		UserInfoVo userInfoVo = new UserInfoVo().convertToUserInfoVo(userInfo);
-		EnterpriseVo enterpriseVo = new EnterpriseVo().convertToEnterpriseVo(enterprise);
-		UserAdminLoginVo userAdminLoginVo = new UserAdminLoginVo().convertToUserAdminLoginVo(userAdminLogin);
-		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-		userResponse.putAll((JSONObject) JSONObject.toJSON(userInfoVo));
-		userResponse.putAll((JSONObject) JSONObject.toJSON(enterpriseVo));
-		userResponse.putAll((JSONObject) JSONObject.toJSON(userAdminLoginVo));
-		logger.info("===step8:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
-		return userResponse;
-	}
+//	/**
+//	 * 用户登录
+//	 * @param req
+//	 * @param bindingResult
+//	 * @return BaseRestMapResponse
+//	 */
+//	@ApiOperation(value = "用户登录")
+//	@RequestMapping(value="/login",method={RequestMethod.POST})
+//	@ResponseBody
+//	public BaseRestMapResponse login(
+//		@Validated @RequestBody UserLoginRequest req,
+//		BindingResult bindingResult) {
+//		logger.info("===step1:【用户登录】(UserController-login)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+//
+//		String userAccount =  req.getUserAccount();
+//		String userPassword = req.getUserPassword();
+//
+//		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
+//		logger.info("===step2:【用户登录】(UserController-login)-根据userAccount查询用户信息, userInfo:{}", userInfo);
+//		if(userInfo == null) {
+//			return new BaseRestMapResponse(SafeResultEnum.USER_ACCOUNT_NOTEXIST);
+//		}
+//		Integer userId = userInfo.getId();
+//
+//		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
+//		logger.info("===step3:【用户登录】(UserController-login)-根据userId查询用户管理, userAdmin:{}", userAdmin);
+//		if(userAdmin == null) {
+//			return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_NOTEXIST);
+//		}
+//		Integer enterpriseId = userAdmin.getEnterpriseId();
+//
+//		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserIdPassword(userId, userPassword);
+//		logger.info("===step4:【用户登录】(UserController-login)-根据userId和userPassword查询用户管理登录, userAdminPassword:{}", userAdminPassword);
+//		if(userAdminPassword == null) {
+//			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
+//		}
+//
+//		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
+//		logger.info("===step5:【用户登录】(UserController-login)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+//		Integer firstLogin = userAdminLogin.getFirstLogin();
+//		if(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO.equals(firstLogin)) {
+//			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_FIRST_LOGIN_CHANGE_PASSWORD);
+//		}
+//
+//		Enterprise enterprise = enterpriseService.selectById(enterpriseId);
+//		logger.info("===step6:【用户登录】(UserController-login)-根据enterpriseId查询企业, enterprise:{}", enterprise);
+//
+//		Long loginCount = userAdminLogin.getLoginCount();
+//		userAdminLogin.setLoginCount(loginCount+1);
+//		int i = userAdminLoginService.modify(userAdminLogin);
+//		logger.info("===step7:【用户登录】(UserController-login)-修改用户管理登录登录次数, i:{}", i);
+//
+//		UserInfoVo userInfoVo = new UserInfoVo().convertToUserInfoVo(userInfo);
+//		EnterpriseVo enterpriseVo = new EnterpriseVo().convertToEnterpriseVo(enterprise);
+//		UserAdminLoginVo userAdminLoginVo = new UserAdminLoginVo().convertToUserAdminLoginVo(userAdminLogin);
+//		BaseRestMapResponse userResponse = new BaseRestMapResponse();
+//		userResponse.putAll((JSONObject) JSONObject.toJSON(userInfoVo));
+//		userResponse.putAll((JSONObject) JSONObject.toJSON(enterpriseVo));
+//		userResponse.putAll((JSONObject) JSONObject.toJSON(userAdminLoginVo));
+//		logger.info("===step8:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
+//		return userResponse;
+//	}
 
 
 

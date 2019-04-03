@@ -167,30 +167,30 @@ public class UserOrgController extends BaseController {
 		String userAccount = req.getUserAccount();
 		String userName = req.getUserName();
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
+		logger.info("===step2:【添加用户机构】(UserOrgController-insert)-根据userAccount查询用户信息, userInfo:{}", userInfo);
 		Integer userId = null;
 		if(userInfo == null) {
 			userInfo = new UserInfo();
 			userInfo.setUserAccount(userAccount);
 			userInfo.setUserName(userName);
 			int i = userInfoService.insert(userInfo);
-			logger.info("===step2:【添加用户机构】(UserOrgController-insert)-插入用户信息, i:{}", i);
-			userId = userInfo.getId();
-		} else {
-			userId = userInfo.getId();
-			UserOrg userOrg = userOrgService.selectByUserId(userId);
-			logger.info("===step2:【添加用户机构】(UserOrgController-insert)-根据userId查询用户机构, userOrg:{}", userOrg);
-			if(userOrg != null) {
-				return new BaseRestMapResponse(SafeResultEnum.USER_ORG_EXIST);
-			}
+			logger.info("===step2.1:【添加用户机构】(UserOrgController-insert)-插入用户信息, i:{}", i);
+		}
+		userId = userInfo.getId();
+
+		UserOrg userOrg = userOrgService.selectByUserId(userId);
+		logger.info("===step3:【添加用户机构】(UserOrgController-insert)-根据userId查询用户机构, userOrg:{}", userOrg);
+		if(userOrg != null) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ORG_EXIST);
 		}
 
-		UserOrg userOrg = req.convertToUserOrg();
+		userOrg = req.convertToUserOrg();
 		userOrg.setUserId(userId);
 		int i = userOrgService.insert(userOrg);
-		logger.info("===step3:【添加用户机构】(UserOrgController-insert)-插入用户机构, i:{}", i);
+		logger.info("===step4:【添加用户机构】(UserOrgController-insert)-插入用户机构, i:{}", i);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		logger.info("===step4:【添加用户机构】(UserOrgController-insert)-返回信息, userOrgResponse:{}", userOrgResponse);
+		logger.info("===step5:【添加用户机构】(UserOrgController-insert)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
 

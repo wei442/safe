@@ -21,11 +21,15 @@ public enum SafeResultEnum implements ResultEnum {
 	USER_ADMIN_PASSWORD_RULE("1010007", "密码长度为6到20位，必须包含数字、小写字母、大写字母"),
 	USER_ADMIN_PASSWORD_NOT_EQUQAL("1010008", "密码和确认密码不一致"),
 
-	USER_ORG_EXIST("1010007", "此手机号码已存在"),
+	USER_ORG_EXIST("1010009", "此手机号码已存在"),
+	USER_ORG_LIST_EXIST("1010010", "请先删除该部门下的人员，再删除该部门!"),
+	USER_POST_LIST_EXIST("1010011", "当前岗位有人员，无法删除!"),
 
 
 	ENTERPRISE_NOTEXIST("1020001", "您没有注册企业"),
 	ENTERPRISE_EXIST("1020002", "您已经注册企业"),
+	ORG_CHILD_LIST_EXIST("1020003", "请先删除改部门下的子部门，再删除该部门!"),
+
 
 
 //	ORDER_LIST_NOTEXIST("1031001", "订单列表不存在"),

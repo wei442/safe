@@ -13,6 +13,8 @@ public class UserOrg {
 
     private Integer orgId;
 
+    private String orgName;
+
     private String created;
 
     private String updated;
@@ -59,6 +61,14 @@ public class UserOrg {
 
     public void setOrgId(Integer orgId) {
         this.orgId = orgId;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName == null ? null : orgName.trim();
     }
 
     public String getCreated() {

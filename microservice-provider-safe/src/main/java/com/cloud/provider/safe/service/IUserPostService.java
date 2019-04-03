@@ -23,6 +23,13 @@ public interface IUserPostService {
 	 */
 	public List<UserPostVo> selectList(UserPostPageRequest param);
 
+	/**
+	 * 根据postId查询用户岗位列表
+	 * @param postId
+	 * @return UserPost List<UserPost>
+	 */
+	public List<UserPost> selectListByPostId(Integer postId);
+
     /**
      * 根据id查询用户岗位
      * @param id

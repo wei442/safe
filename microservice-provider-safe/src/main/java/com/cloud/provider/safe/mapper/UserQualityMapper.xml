@@ -5,7 +5,10 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="quality_id" jdbcType="INTEGER" property="qualityId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="attachment_id" jdbcType="INTEGER" property="attachmentId" />
+    <result column="attachment_url" jdbcType="VARCHAR" property="attachmentUrl" />
+    <result column="quality_name" jdbcType="VARCHAR" property="qualityName" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="created" jdbcType="VARCHAR" property="created" />
@@ -72,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, enterprise_id, user_id, quality_id, is_delete, remark, created, updated, create_time, 
-    update_time
+    id, enterprise_id, user_id, user_name, attachment_id, attachment_url, quality_name, 
+    is_delete, remark, created, updated, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.UserQualityExample" resultMap="BaseResultMap">
     select
@@ -107,11 +110,13 @@
   </delete>
   <insert id="insert" parameterType="com.cloud.provider.safe.po.UserQuality" useGeneratedKeys="true" keyProperty="id">
     insert into user_quality (id, enterprise_id, user_id, 
-      quality_id, is_delete, remark, 
+      user_name, attachment_id, attachment_url, 
+      quality_name, is_delete, remark, 
       created, updated, create_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{qualityId,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{attachmentId,jdbcType=INTEGER}, #{attachmentUrl,jdbcType=VARCHAR}, 
+      #{qualityName,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
       #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -127,8 +132,17 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="qualityId != null">
-        quality_id,
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="attachmentId != null">
+        attachment_id,
+      </if>
+      <if test="attachmentUrl != null">
+        attachment_url,
+      </if>
+      <if test="qualityName != null">
+        quality_name,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -159,8 +173,17 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="qualityId != null">
-        #{qualityId,jdbcType=INTEGER},
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentId != null">
+        #{attachmentId,jdbcType=INTEGER},
+      </if>
+      <if test="attachmentUrl != null">
+        #{attachmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityName != null">
+        #{qualityName,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=INTEGER},
@@ -200,8 +223,17 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.qualityId != null">
-        quality_id = #{record.qualityId,jdbcType=INTEGER},
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentId != null">
+        attachment_id = #{record.attachmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.attachmentUrl != null">
+        attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qualityName != null">
+        quality_name = #{record.qualityName,jdbcType=VARCHAR},
       </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=INTEGER},
@@ -231,7 +263,10 @@
     set id = #{record.id,jdbcType=INTEGER},
       enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      quality_id = #{record.qualityId,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      attachment_id = #{record.attachmentId,jdbcType=INTEGER},
+      attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
+      quality_name = #{record.qualityName,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
       created = #{record.created,jdbcType=VARCHAR},
@@ -251,8 +286,17 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="qualityId != null">
-        quality_id = #{qualityId,jdbcType=INTEGER},
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentId != null">
+        attachment_id = #{attachmentId,jdbcType=INTEGER},
+      </if>
+      <if test="attachmentUrl != null">
+        attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityName != null">
+        quality_name = #{qualityName,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=INTEGER},
@@ -279,7 +323,10 @@
     update user_quality
     set enterprise_id = #{enterpriseId,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
-      quality_id = #{qualityId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      attachment_id = #{attachmentId,jdbcType=INTEGER},
+      attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
+      quality_name = #{qualityName,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       created = #{created,jdbcType=VARCHAR},

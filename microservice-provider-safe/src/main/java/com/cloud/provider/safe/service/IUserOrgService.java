@@ -24,6 +24,13 @@ public interface IUserOrgService {
 	 */
 	public List<UserOrgVo> selectList(UserOrgPageRequest param);
 
+	/**
+	 * 根据orgId查询用户机构列表
+	 * @param orgId
+	 * @return List<UserOrg>
+	 */
+	public List<UserOrg> selectListByOrgId(Integer orgId);
+
     /**
      * 根据id查询用户机构
      * @param id

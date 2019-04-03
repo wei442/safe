@@ -24,7 +24,7 @@ public class OrgTreeRequest extends BaseRestRequest {
 	@NotNull(message = "企业id")
     private Integer enterpriseId;
 
-    @ApiModelProperty(value = "机构父id")
-    private Integer parentOrgId;
+//    @ApiModelProperty(value = "机构父id")
+//    private Integer parentOrgId;
 
 }

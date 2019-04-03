@@ -182,11 +182,9 @@ public class UserController extends BaseController {
 
 		JSONObject jsonUser = userService.addUser(req);
 		logger.info("===step2:【用户注册】(UserController-register)-用户注册, jsonUser:{}", jsonUser);
-		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUser, UserInfoVo.class);
 
         //返回信息
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-		userResponse.put(RetWheelConstants.RESULT, userInfoVo);
         logger.info("===step3:【用户注册】(UserController-register)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}

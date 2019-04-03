@@ -84,6 +84,22 @@ public class UserTitleServiceImpl implements IUserTitleService {
 		return list;
 	}
 
+	/**
+	 * 根据titleId查询用户职务列表
+	 * @param userId
+	 * @return List<UserTitle>
+	 */
+	@Override
+	public List<UserTitle> selectListByTitleId(Integer titleId) {
+		logger.info("(UserTitleService-selectById)-根据titleId查询用户职务列表-传入参数, titleId:{}", titleId);
+		UserTitleExample example = new UserTitleExample();
+		UserTitleExample.Criteria criteria = example.createCriteria();
+		criteria.andTitleIdEqualTo(titleId);
+		List<UserTitle> list = userTitleMapper.selectByExample(example);
+		return list;
+	}
+
+
     /**
      * 根据id查询用户职务
      * @param id

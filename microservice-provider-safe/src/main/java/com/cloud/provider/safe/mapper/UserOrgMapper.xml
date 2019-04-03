@@ -7,6 +7,7 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="org_id" jdbcType="INTEGER" property="orgId" />
+    <result column="org_name" jdbcType="VARCHAR" property="orgName" />
     <result column="created" jdbcType="VARCHAR" property="created" />
     <result column="updated" jdbcType="VARCHAR" property="updated" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -71,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, enterprise_id, user_id, user_name, org_id, created, updated, create_time, update_time
+    id, enterprise_id, user_id, user_name, org_id, org_name, created, updated, create_time, 
+    update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.UserOrgExample" resultMap="BaseResultMap">
     select
@@ -105,13 +107,13 @@
   </delete>
   <insert id="insert" parameterType="com.cloud.provider.safe.po.UserOrg" useGeneratedKeys="true" keyProperty="id">
     insert into user_org (id, enterprise_id, user_id, 
-      user_name, org_id, created, 
-      updated, create_time, update_time
-      )
+      user_name, org_id, org_name, 
+      created, updated, create_time, 
+      update_time)
     values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{userName,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, 
-      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{userName,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, #{orgName,jdbcType=VARCHAR}, 
+      #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.UserOrg" useGeneratedKeys="true" keyProperty="id">
     insert into user_org
@@ -130,6 +132,9 @@
       </if>
       <if test="orgId != null">
         org_id,
+      </if>
+      <if test="orgName != null">
+        org_name,
       </if>
       <if test="created != null">
         created,
@@ -159,6 +164,9 @@
       </if>
       <if test="orgId != null">
         #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="orgName != null">
+        #{orgName,jdbcType=VARCHAR},
       </if>
       <if test="created != null">
         #{created,jdbcType=VARCHAR},
@@ -198,6 +206,9 @@
       <if test="record.orgId != null">
         org_id = #{record.orgId,jdbcType=INTEGER},
       </if>
+      <if test="record.orgName != null">
+        org_name = #{record.orgName,jdbcType=VARCHAR},
+      </if>
       <if test="record.created != null">
         created = #{record.created,jdbcType=VARCHAR},
       </if>
@@ -222,6 +233,7 @@
       user_id = #{record.userId,jdbcType=INTEGER},
       user_name = #{record.userName,jdbcType=VARCHAR},
       org_id = #{record.orgId,jdbcType=INTEGER},
+      org_name = #{record.orgName,jdbcType=VARCHAR},
       created = #{record.created,jdbcType=VARCHAR},
       updated = #{record.updated,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -245,6 +257,9 @@
       <if test="orgId != null">
         org_id = #{orgId,jdbcType=INTEGER},
       </if>
+      <if test="orgName != null">
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
       <if test="created != null">
         created = #{created,jdbcType=VARCHAR},
       </if>
@@ -266,6 +281,7 @@
       user_id = #{userId,jdbcType=INTEGER},
       user_name = #{userName,jdbcType=VARCHAR},
       org_id = #{orgId,jdbcType=INTEGER},
+      org_name = #{orgName,jdbcType=VARCHAR},
       created = #{created,jdbcType=VARCHAR},
       updated = #{updated,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

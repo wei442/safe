@@ -24,6 +24,13 @@ public interface IUserTitleService {
 	 */
 	public List<UserTitleVo> selectList(UserTitlePageRequest param);
 
+	/**
+	 * 根据titleId查询用户职务列表
+	 * @param userId
+	 * @return List<UserTitle>
+	 */
+	public List<UserTitle> selectListByTitleId(Integer titleId);
+
     /**
      * 根据id查询用户职务
      * @param id

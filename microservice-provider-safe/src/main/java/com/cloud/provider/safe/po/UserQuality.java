@@ -9,7 +9,13 @@ public class UserQuality {
 
     private Integer userId;
 
-    private Integer qualityId;
+    private String userName;
+
+    private Integer attachmentId;
+
+    private String attachmentUrl;
+
+    private String qualityName;
 
     private Integer isDelete;
 
@@ -47,12 +53,36 @@ public class UserQuality {
         this.userId = userId;
     }
 
-    public Integer getQualityId() {
-        return qualityId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setQualityId(Integer qualityId) {
-        this.qualityId = qualityId;
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
+
+    public Integer getAttachmentId() {
+        return attachmentId;
+    }
+
+    public void setAttachmentId(Integer attachmentId) {
+        this.attachmentId = attachmentId;
+    }
+
+    public String getAttachmentUrl() {
+        return attachmentUrl;
+    }
+
+    public void setAttachmentUrl(String attachmentUrl) {
+        this.attachmentUrl = attachmentUrl == null ? null : attachmentUrl.trim();
+    }
+
+    public String getQualityName() {
+        return qualityName;
+    }
+
+    public void setQualityName(String qualityName) {
+        this.qualityName = qualityName == null ? null : qualityName.trim();
     }
 
     public Integer getIsDelete() {

@@ -20,10 +20,11 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.po.Org;
+import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.rest.request.OrgRequest;
 import com.cloud.provider.safe.rest.request.page.OrgTreeRequest;
 import com.cloud.provider.safe.service.IOrgService;
-import com.cloud.provider.safe.service.IUserInfoService;
+import com.cloud.provider.safe.service.IUserOrgService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.OrgVo;
 
@@ -45,9 +46,9 @@ public class OrgController extends BaseController {
 	@Autowired
 	private IOrgService orgService;
 
-	//用户信息Service
+	//用户机构Service
 	@Autowired
-	private IUserInfoService userInfoService;
+	private IUserOrgService userOrgService;
 
 	/**
 	 * 查询组织机构树列表
@@ -61,25 +62,50 @@ public class OrgController extends BaseController {
 		@RequestBody OrgTreeRequest req) {
 		logger.info("===step1:【查询组织机构树列表】(OrgController-selectTreeList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		Integer parentOrgId = req.getParentOrgId();
 		Integer orgId = req.getOrgId();
 		Integer enterpriseId = req.getEnterpriseId();
-
 		OrgParam param = new OrgParam();
-		param.setOrgId(orgId);
 		param.setEnterpriseId(enterpriseId);
-		if(parentOrgId == null) {
+		if(orgId == null) {
 			param.setParentOrgId(-1);
 		} else {
-			param.setParentOrgId(parentOrgId);
+			param.setParentOrgId(orgId);
 		}
-
 		List<OrgVo> list = orgService.selectTreeList(param);
 		logger.info("===step2:【查询组织机构树列表】(OrgController-selectTreeList)-查询组织机构树列表, list.size:{}", list == null ? null : list.size());
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
 		orgResponse.put(PageConstants.DATA_LIST, list);
 		logger.info("===step3:【查询组织机构树列表】(OrgController-selectTreeList)-返回信息, orgResponse:{}", orgResponse);
+		return orgResponse;
+	}
+
+	/**
+	 * 查询父组织机构树列表
+	 * @param req
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "查询父组织机构树列表")
+	@RequestMapping(value="/selectParentTreeList",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectParentTreeList(
+		@RequestBody OrgTreeRequest req) {
+		logger.info("===step1:【查询组织机构树列表】(OrgController-selectParentTreeList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer orgId = req.getOrgId();
+		Integer enterpriseId = req.getEnterpriseId();
+		OrgParam param = new OrgParam();
+		param.setEnterpriseId(enterpriseId);
+		List<OrgVo> list = null;
+		if(orgId != null) {
+			param.setOrgId(orgId);
+			list = orgService.selectParentTreeList(param);
+			logger.info("===step2:【查询父组织机构树列表】(OrgController-selectParentTreeList)-查询父组织机构树列表, list.size:{}", list);
+		}
+
+		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
+		orgResponse.put(PageConstants.DATA_LIST, list);
+		logger.info("===step3:【查询父组织机构树列表】(OrgController-selectParentTreeList)-查询父组织机构树列表, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}
 
@@ -170,17 +196,33 @@ public class OrgController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse deleteById(
 		@PathVariable(value="id",required=false) Integer orgId) {
-		logger.info("===step1:【根据id删除组织机构】(selectById-deleteById)-传入参数, orgId:{}", orgId);
+		logger.info("===step1:【根据id删除组织机构】(OrgController-deleteById)-传入参数, orgId:{}", orgId);
 
 		if(orgId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "orgId不能为空");
 		}
 
+		List<UserOrg> userOrgList = userOrgService.selectListByOrgId(orgId);
+		logger.info("===step2:【根据id删除组织机构】(OrgController-deleteById)-根据orgId查询用户组织机构列表, userOrgList.size:{}", userOrgList == null ? null : userOrgList.size());
+
+		if(userOrgList != null && userOrgList.isEmpty()) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ORG_LIST_EXIST);
+		}
+
+		OrgParam param = new OrgParam();
+		param.setParentOrgId(orgId);
+		List<OrgVo> orgVoList = orgService.selectTreeList(param);
+		logger.info("===step3:【根据id删除组织机构】(OrgController-deleteById)-根据orgId查询组织机构列表, orgVoList.size:{}", orgVoList == null ? null : orgVoList.size());
+
+		if(orgVoList != null && orgVoList.isEmpty()) {
+			return new BaseRestMapResponse(SafeResultEnum.ORG_CHILD_LIST_EXIST);
+		}
+
 		int i = orgService.deleteById(orgId);
-		logger.info("===step2:【根据id删除组织机构】(OrgController-deleteById)-根据id查询组织机构, i:{}", i);
+		logger.info("===step4:【根据id删除组织机构】(OrgController-deleteById)-根据id删除组织机构, i:{}", i);
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除组织机构】(OrgController-deleteById)-返回信息, orgResponse:{}", orgResponse);
+		logger.info("===step5:【根据id删除组织机构】(OrgController-deleteById)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}
 
