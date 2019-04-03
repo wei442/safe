@@ -24,8 +24,8 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	 */
 	@Override
 	public JSONObject getListByPage(Object params) {
-		logger.info("(Service-getListByPage)-分页获取字典子项列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectListByPage", params, JSONObject.class);
+		logger.info("(DictItemService-getListByPage)-分页获取字典子项列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict_item+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -36,8 +36,8 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	 */
 	@Override
 	public JSONObject getList(Object params) {
-		logger.info("(Service-getList)-获取字典子项列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectList", params, JSONObject.class);
+		logger.info("(DictItemService-getList)-获取字典子项列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict_item+"/selectList", params, JSONObject.class);
 		return response;
 	}
 
@@ -48,8 +48,8 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	 */
 	@Override
 	public JSONObject getById(Integer id) {
-		logger.info("(Service-getById)-根据id获取字典子项-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectById/"+id, null, JSONObject.class);
+		logger.info("(DictItemService-getById)-根据id获取字典子项-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict_item+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -60,8 +60,8 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	 */
 	@Override
 	public JSONObject add(Object params) {
-		logger.info("(Service-add)-新增字典子项-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/insert", params, JSONObject.class);
+		logger.info("(DictItemService-add)-新增字典子项-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict_item+"/insert", params, JSONObject.class);
 		return response;
 	}
 
@@ -72,8 +72,8 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	 */
 	@Override
 	public JSONObject deleteById(Integer id) {
-		logger.info("(Service-deleteById)-根据id获取字典子项-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/deleteById/"+id, null, JSONObject.class);
+		logger.info("(DictItemService-deleteById)-根据id获取字典子项-传入参数, id:{}", id);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict_item+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -84,8 +84,8 @@ public class DictItemServiceImpl extends BaseService implements IDictItemService
 	 */
 	@Override
 	public JSONObject update(Object params) {
-		logger.info("(Service-update)-修改字典子项-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/modify", params, JSONObject.class);
+		logger.info("(DictItemService-update)-修改字典子项-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict_item+"/modify", params, JSONObject.class);
 		return response;
 	}
 

@@ -12,7 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.HttpUrlConstants;
 import com.cloud.consumer.safe.service.IRedisLockService;
 
@@ -39,10 +38,10 @@ public class RedisLockServiceImpl extends BaseService implements IRedisLockServi
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/distributedLock/lock", httpEntity, JSONObject.class);
 		logger.info("(RedisLockService-lock)-锁定-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
+		String retCode = Objects.toString(response.get("retCode"), "");
 		boolean result = false;
-		if (StringUtils.equals(retCode, CommConstants.OK)) {
-			result = response.getBooleanValue(CommConstants.RESULT);
+		if (StringUtils.equals(retCode, "0000000")) {
+			result = response.getBooleanValue("result");
 		}
 		return result;
     }
@@ -61,10 +60,10 @@ public class RedisLockServiceImpl extends BaseService implements IRedisLockServi
 		HttpEntity<Object> httpEntity = new HttpEntity<Object>(params, headers);
 		JSONObject response = this.restTemplate.postForObject(HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_REDIS+"/redis/distributedLock/unlock", httpEntity, JSONObject.class);
 		logger.info("(RedisLockService-unlock)-解锁-boot返回信息, response:{}", JSONObject.toJSONString(response));
-		String retCode = Objects.toString(response.get(CommConstants.RET_CODE), "");
+		String retCode = Objects.toString(response.get("retCode"), "");
 		boolean result = false;
-		if (StringUtils.equals(retCode, CommConstants.OK)) {
-			result = response.getBooleanValue(CommConstants.RESULT);
+		if (StringUtils.equals(retCode, "0000000")) {
+			result = response.getBooleanValue("result");
 		}
 		return result;
 	}

@@ -24,7 +24,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	 */
 	@Override
 	public JSONObject getListByPage(Object params) {
-		logger.info("(Service-getListByPage)-分页获取用户管理列表-传入参数, params:{}", params);
+		logger.info("(UserAdminService-getListByPage)-分页获取用户管理列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
@@ -36,7 +36,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	 */
 	@Override
 	public JSONObject getList(Object params) {
-		logger.info("(Service-getList)-获取用户管理列表-传入参数, params:{}", params);
+		logger.info("(UserAdminService-getList)-获取用户管理列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectList", params, JSONObject.class);
 		return response;
 	}
@@ -48,7 +48,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	 */
 	@Override
 	public JSONObject getById(Integer id) {
-		logger.info("(Service-getById)-根据id获取用户管理-传入参数, id:{}", id);
+		logger.info("(UserAdminService-getById)-根据id获取用户管理-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -59,7 +59,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	 * @return JSONObject
 	 */
 	public JSONObject getByUserId(Integer userId) {
-		logger.info("(Service-getByUserId)-根据userId获取用户管理-传入参数, userId:{}", userId);
+		logger.info("(UserAdminService-getByUserId)-根据userId获取用户管理-传入参数, userId:{}", userId);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectByUserId/"+userId, null, JSONObject.class);
 		return response;
 	}
@@ -71,7 +71,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	 */
 	@Override
 	public JSONObject add(Object params) {
-		logger.info("(Service-add)-新增用户管理-传入参数, params:{}", params);
+		logger.info("(UserAdminService-add)-新增用户管理-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/insert", params, JSONObject.class);
 		return response;
 	}
@@ -83,7 +83,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	 */
 	@Override
 	public JSONObject deleteById(Integer id) {
-		logger.info("(Service-deleteById)-根据id获取用户管理-传入参数, id:{}", id);
+		logger.info("(UserAdminService-deleteById)-根据id获取用户管理-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -95,7 +95,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	 */
 	@Override
 	public JSONObject update(Object params) {
-		logger.info("(Service-update)-修改用户管理-传入参数, params:{}", params);
+		logger.info("(UserAdminService-update)-修改用户管理-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/modify", params, JSONObject.class);
 		return response;
 	}

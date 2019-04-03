@@ -3,6 +3,9 @@ package com.cloud.consumer.safe.service.impl;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +29,12 @@ import com.cloud.common.exception.SafeException;
 public class BaseService {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+	protected HttpServletRequest request;
+
+	@Autowired
+	protected HttpServletResponse response;
 
 	//rest模板
 	@Autowired
@@ -126,6 +135,5 @@ public class BaseService {
 		this.verifyResponse(t);
 		return t;
 	}
-
 
 }

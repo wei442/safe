@@ -16,7 +16,7 @@ public class PostIdRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "岗位id")
-	@NotNull(message = "岗位id")
+	@NotNull(message = "岗位id不能为空")
 	private Integer postId;
 
 }

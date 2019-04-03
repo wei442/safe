@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -35,18 +36,18 @@ public class TokenWebMvcConfigurerAdapter implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		logger.info("【Token适配器】(TokenWebMvcConfigurerAdapter-InterceptorRegistry)-增加拦截器-启动开始");
+		logger.info("【Token适配器】(TokenWebMvcConfigurerAdapter-addInterceptors)-增加拦截器-启动开始");
 		init();
         // 多个拦截器组成一个拦截器链
         // addPathPatterns 用于添加拦截规则
         // excludePathPatterns 用户排除拦截
 		//token拦截器
-//		InterceptorRegistration tokenInterceptorRegistration = registry.addInterceptor(tokenInterceptor);
-//		tokenInterceptorRegistration.addPathPatterns("/**");
-//		tokenInterceptorRegistration.excludePathPatterns(excludePaths);
-//		tokenInterceptorRegistration.excludePathPatterns(thirdUri);
-//		tokenInterceptorRegistration.excludePathPatterns(GLOBAL_ERROR);
-//		logger.info("【Token适配器】(TokenWebMvcConfigurerAdapter-InterceptorRegistry)-增加拦截器-启动结束");
+		InterceptorRegistration tokenInterceptorRegistration = registry.addInterceptor(tokenInterceptor);
+		tokenInterceptorRegistration.addPathPatterns("/**");
+		tokenInterceptorRegistration.excludePathPatterns(excludePaths);
+		tokenInterceptorRegistration.excludePathPatterns(thirdUri);
+		tokenInterceptorRegistration.excludePathPatterns(GLOBAL_ERROR);
+		logger.info("【Token适配器】(TokenWebMvcConfigurerAdapter-addInterceptors)-增加拦截器-启动结束");
     }
 
 	/**

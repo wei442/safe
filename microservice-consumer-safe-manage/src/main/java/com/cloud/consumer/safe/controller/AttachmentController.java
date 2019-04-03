@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IAttachmentService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.AttachmentVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +91,10 @@ public class AttachmentController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonAttachment.getJSONArray(PageConstants.DATA_LIST));
 		List<AttachmentVo> attachmentVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<AttachmentVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(attachmentVoList);
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
-		attachmentResponse.put(RetSafeConstants.RESULT, attachmentVoList);
+		attachmentResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(AttachmentController-getList)-返回信息, attachmentResponse:{}", attachmentResponse);
 		return attachmentResponse;
 	}
@@ -111,8 +113,6 @@ public class AttachmentController extends BaseController {
 		@Validated @RequestBody AttachmentIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取附件】(AttachmentController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer attachmentId = req.getAttachmentId();
 		JSONObject jsonAttachment = attachmentService.getById(attachmentId);
@@ -140,8 +140,6 @@ public class AttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增附件】(AttachmentController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		JSONObject jsonAttachment = attachmentService.add(req);
 		logger.info("===step2:【新增附件】(AttachmentController-add)-分页查询附件列表, jsonAttachment:{}", jsonAttachment);
 		AttachmentVo attachmentVo = JSONObject.toJavaObject(jsonAttachment, AttachmentVo.class);
@@ -166,8 +164,6 @@ public class AttachmentController extends BaseController {
 		@Validated @RequestBody AttachmentIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除附件】(AttachmentController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer attachmentId = req.getAttachmentId();
 		JSONObject jsonAttachment = attachmentService.deleteById(attachmentId);
@@ -194,9 +190,7 @@ public class AttachmentController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody AttachmentRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改附件】(AttachmentController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
 		
-
 		JSONObject jsonAttachment = attachmentService.update(req);
 		logger.info("===step2:【修改附件】(AttachmentController-update)-修改附件, jsonAttachment:{}", jsonAttachment);
 		AttachmentVo attachmentVo = JSONObject.toJavaObject(jsonAttachment, AttachmentVo.class);

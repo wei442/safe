@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IUserQualityService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.UserQualityVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,6 +58,8 @@ public class UserQualityController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody UserQualityPageRequest req) {
 		logger.info("===step1:【分页查询】(UserQualityController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserQuality = userQualityService.getListByPage(req);
 		logger.info("===step2:【分页查询】(UserQualityController-getListByPage)-分页查询用户资质列表, jsonUserQuality:{}", jsonUserQuality);
@@ -84,15 +87,18 @@ public class UserQualityController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody UserQualityPageRequest req) {
 		logger.info("===step1:【不分页查询】(UserQualityController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserQuality = userQualityService.getListByPage(req);
 		logger.info("===step2:【不分页查询】(UserQualityController-getList)-不分页查询用户资质列表, jsonUserQuality:{}", jsonUserQuality);
 		String dataListStr = JSONObject.toJSONString(jsonUserQuality.getJSONArray(PageConstants.DATA_LIST));
 		List<UserQualityVo> userQualityVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserQualityVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(userQualityVoList);
 		//返回信息
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
-		userQualityResponse.put(RetSafeConstants.RESULT, userQualityVoList);
+		userQualityResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserQualityController-getList)-返回信息, userQualityResponse:{}", userQualityResponse);
 		return userQualityResponse;
 	}
@@ -111,8 +117,6 @@ public class UserQualityController extends BaseController {
 		@Validated @RequestBody UserQualityIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户资质】(UserQualityController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userQualityId = req.getUserQualityId();
 		JSONObject jsonUserQuality = userQualityService.getById(userQualityId);
@@ -139,8 +143,8 @@ public class UserQualityController extends BaseController {
 		@Validated @RequestBody UserQualityRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户资质】(UserQualityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserQuality = userQualityService.add(req);
 		logger.info("===step2:【新增用户资质】(UserQualityController-add)-分页查询用户资质列表, jsonUserQuality:{}", jsonUserQuality);
@@ -167,8 +171,6 @@ public class UserQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户资质】(UserQualityController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		Integer userQualityId = req.getUserQualityId();
 		JSONObject jsonUserQuality = userQualityService.deleteById(userQualityId);
 		logger.info("===step2:【删除用户资质】(UserQualityController-delete)-根据userQualityId删除用户资质, jsonUserQuality:{}", jsonUserQuality);
@@ -194,8 +196,8 @@ public class UserQualityController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody UserQualityRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户资质】(UserQualityController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserQuality = userQualityService.update(req);
 		logger.info("===step2:【修改用户资质】(UserQualityController-update)-修改用户资质, jsonUserQuality:{}", jsonUserQuality);

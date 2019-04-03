@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IUserAdminLoginService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.UserAdminLoginVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +91,10 @@ public class UserAdminLoginController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonUserAdminLogin.getJSONArray(PageConstants.DATA_LIST));
 		List<UserAdminLoginVo> userAdminLoginVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserAdminLoginVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(userAdminLoginVoList);
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(RetSafeConstants.RESULT, userAdminLoginVoList);
+		userAdminLoginResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserAdminLoginController-getList)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
@@ -111,8 +113,6 @@ public class UserAdminLoginController extends BaseController {
 		@Validated @RequestBody UserAdminLoginIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户管理登录】(UserAdminLoginController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userAdminLoginId = req.getUserAdminLoginId();
 		JSONObject jsonUserAdminLogin = userAdminLoginService.getById(userAdminLoginId);
@@ -140,8 +140,6 @@ public class UserAdminLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户管理登录】(UserAdminLoginController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		JSONObject jsonUserAdminLogin = userAdminLoginService.add(req);
 		logger.info("===step2:【新增用户管理登录】(UserAdminLoginController-add)-分页查询用户管理登录列表, jsonUserAdminLogin:{}", jsonUserAdminLogin);
 		UserAdminLoginVo userAdminLoginVo = JSONObject.toJavaObject(jsonUserAdminLogin, UserAdminLoginVo.class);
@@ -166,8 +164,6 @@ public class UserAdminLoginController extends BaseController {
 		@Validated @RequestBody UserAdminLoginIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户管理登录】(UserAdminLoginController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userAdminLoginId = req.getUserAdminLoginId();
 		JSONObject jsonUserAdminLogin = userAdminLoginService.deleteById(userAdminLoginId);
@@ -194,8 +190,6 @@ public class UserAdminLoginController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody UserAdminLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理登录】(UserAdminLoginController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonUserAdminLogin = userAdminLoginService.update(req);
 		logger.info("===step2:【修改用户管理登录】(UserAdminLoginController-update)-修改用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);

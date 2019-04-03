@@ -15,6 +15,8 @@ public class PostPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
+    private Integer enterpriseId;
+
 	@ApiModelProperty(value = "岗位名称")
     private String postName;
 

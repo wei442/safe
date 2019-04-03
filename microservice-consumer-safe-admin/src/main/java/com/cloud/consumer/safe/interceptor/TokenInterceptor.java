@@ -200,10 +200,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		}
 		String payloadStr = new String(Base64.decodeBase64(payload), StandardCharsets.UTF_8);
 		JSONObject payloadJSON = JSONObject.parseObject(payloadStr);
-		String claimsStr = Objects.toString(payloadJSON.get(CommConstants.CLAIMS));
 
-		JSONObject claimsJSON = JSONObject.parseObject(claimsStr);
-		Integer userId = new Integer(Objects.toString(claimsJSON.get(CommConstants.USER_ID)));
+		Integer userId = new Integer(Objects.toString(payloadJSON.get(CommConstants.USER_ID)));
 		logger.info("【Token拦截器】(TokenInterceptor-getTokenUserId)-返回信息, userId:{}", userId);
 		return userId;
 	}

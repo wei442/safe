@@ -19,13 +19,13 @@ public class PostRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "岗位id")
-	@NotNull(message = "岗位id", groups = {UpdateGroup.class})
+	@NotNull(message = "岗位id不能为空", groups = {UpdateGroup.class})
 	private Integer postId;
 
     private Integer enterpriseId;
 
 	@ApiModelProperty(value = "岗位名称")
-	@NotBlank(message = "岗位名称")
+	@NotBlank(message = "岗位名称不能为空")
     private String postName;
 
 	@ApiModelProperty(value = "是否特殊岗位 0-否, 1-是")

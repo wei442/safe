@@ -24,7 +24,7 @@ public class BaseUserInfoServiceImpl extends BaseService implements IBaseUserInf
 	 */
 	@Override
 	public JSONObject getListByPage(Object params) {
-		logger.info("(Service-getListByPage)-分页获取基础用户信息列表-传入参数, params:{}", params);
+		logger.info("(BaseUserInfoService-getListByPage)-分页获取基础用户信息列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_info+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
@@ -36,7 +36,7 @@ public class BaseUserInfoServiceImpl extends BaseService implements IBaseUserInf
 	 */
 	@Override
 	public JSONObject getList(Object params) {
-		logger.info("(Service-getList)-获取基础用户信息列表-传入参数, params:{}", params);
+		logger.info("(BaseUserInfoService-getList)-获取基础用户信息列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_info+"/selectList", params, JSONObject.class);
 		return response;
 	}
@@ -48,7 +48,7 @@ public class BaseUserInfoServiceImpl extends BaseService implements IBaseUserInf
 	 */
 	@Override
 	public JSONObject getById(Integer id) {
-		logger.info("(Service-getById)-根据id获取基础用户信息-传入参数, id:{}", id);
+		logger.info("(BaseUserInfoService-getById)-根据id获取基础用户信息-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_info+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -60,7 +60,7 @@ public class BaseUserInfoServiceImpl extends BaseService implements IBaseUserInf
 	 */
 	@Override
 	public JSONObject add(Object params) {
-		logger.info("(Service-add)-新增基础用户信息-传入参数, params:{}", params);
+		logger.info("(BaseUserInfoService-add)-新增基础用户信息-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_info+"/insert", params, JSONObject.class);
 		return response;
 	}
@@ -72,7 +72,7 @@ public class BaseUserInfoServiceImpl extends BaseService implements IBaseUserInf
 	 */
 	@Override
 	public JSONObject deleteById(Integer id) {
-		logger.info("(Service-deleteById)-根据id获取基础用户信息-传入参数, id:{}", id);
+		logger.info("(BaseUserInfoService-deleteById)-根据id获取基础用户信息-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_info+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -84,7 +84,7 @@ public class BaseUserInfoServiceImpl extends BaseService implements IBaseUserInf
 	 */
 	@Override
 	public JSONObject update(Object params) {
-		logger.info("(Service-update)-修改基础用户信息-传入参数, params:{}", params);
+		logger.info("(BaseUserInfoService-update)-修改基础用户信息-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.base_user_info+"/modify", params, JSONObject.class);
 		return response;
 	}

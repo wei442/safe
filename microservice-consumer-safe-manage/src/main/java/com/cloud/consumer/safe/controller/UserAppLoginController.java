@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IUserAppLoginService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.UserAppLoginVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +38,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户应用登录")
 @RestController
-@RequestMapping("/user/appLogin")
+@RequestMapping("/user/app/login")
 public class UserAppLoginController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -90,9 +91,10 @@ public class UserAppLoginController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonUserAppLogin.getJSONArray(PageConstants.DATA_LIST));
 		List<UserAppLoginVo> userAppLoginVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserAppLoginVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(userAppLoginVoList);
 		//返回信息
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
-		userAppLoginResponse.put(RetSafeConstants.RESULT, userAppLoginVoList);
+		userAppLoginResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserAppLoginController-getList)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}
@@ -111,8 +113,6 @@ public class UserAppLoginController extends BaseController {
 		@Validated @RequestBody UserAppLoginIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取用户应用登录】(UserAppLoginController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userAppLoginId = req.getUserAppLoginId();
 		JSONObject jsonUserAppLogin = userAppLoginService.getById(userAppLoginId);
@@ -140,8 +140,6 @@ public class UserAppLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户应用登录】(UserAppLoginController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		JSONObject jsonUserAppLogin = userAppLoginService.add(req);
 		logger.info("===step2:【新增用户应用登录】(UserAppLoginController-add)-分页查询用户应用登录列表, jsonUserAppLogin:{}", jsonUserAppLogin);
 		UserAppLoginVo userAppLoginVo = JSONObject.toJavaObject(jsonUserAppLogin, UserAppLoginVo.class);
@@ -166,8 +164,6 @@ public class UserAppLoginController extends BaseController {
 		@Validated @RequestBody UserAppLoginIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除用户应用登录】(UserAppLoginController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer userAppLoginId = req.getUserAppLoginId();
 		JSONObject jsonUserAppLogin = userAppLoginService.deleteById(userAppLoginId);
@@ -194,8 +190,6 @@ public class UserAppLoginController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody UserAppLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户应用登录】(UserAppLoginController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonUserAppLogin = userAppLoginService.update(req);
 		logger.info("===step2:【修改用户应用登录】(UserAppLoginController-update)-修改用户应用登录, jsonUserAppLogin:{}", jsonUserAppLogin);

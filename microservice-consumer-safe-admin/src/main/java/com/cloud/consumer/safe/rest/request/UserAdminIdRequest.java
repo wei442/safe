@@ -16,7 +16,7 @@ public class UserAdminIdRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "用户管理id")
-	@NotNull(message = "用户管理id")
+	@NotNull(message = "用户管理id不能为空")
 	private Integer userAdminId;
 
 }

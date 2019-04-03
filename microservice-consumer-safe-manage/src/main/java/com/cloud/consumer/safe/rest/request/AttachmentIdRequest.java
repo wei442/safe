@@ -16,7 +16,7 @@ public class AttachmentIdRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "附件id", required = true)
-    @NotNull(message = "附件id")
+    @NotNull(message = "附件id不能为空")
 	private Integer attachmentId;
 
 }

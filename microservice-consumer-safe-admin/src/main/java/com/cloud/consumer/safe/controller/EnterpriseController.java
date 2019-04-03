@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IEnterpriseService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.EnterpriseVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +91,10 @@ public class EnterpriseController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonEnterprise.getJSONArray(PageConstants.DATA_LIST));
 		List<EnterpriseVo> enterpriseVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<EnterpriseVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(enterpriseVoList);
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, enterpriseVoList);
+		enterpriseResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(EnterpriseController-getList)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
@@ -111,8 +113,6 @@ public class EnterpriseController extends BaseController {
 		@Validated @RequestBody EnterpriseIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取企业】(EnterpriseController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer enterpriseId = req.getEnterpriseId();
 		JSONObject jsonEnterprise = enterpriseService.getById(enterpriseId);
@@ -140,8 +140,6 @@ public class EnterpriseController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增企业】(EnterpriseController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		JSONObject jsonEnterprise = enterpriseService.add(req);
 		logger.info("===step2:【新增企业】(EnterpriseController-add)-分页查询企业列表, jsonEnterprise:{}", jsonEnterprise);
 		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonEnterprise, EnterpriseVo.class);
@@ -166,8 +164,6 @@ public class EnterpriseController extends BaseController {
 		@Validated @RequestBody EnterpriseIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除企业】(EnterpriseController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer enterpriseId = req.getEnterpriseId();
 		JSONObject jsonEnterprise = enterpriseService.deleteById(enterpriseId);
@@ -194,8 +190,6 @@ public class EnterpriseController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody EnterpriseRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改企业】(EnterpriseController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonEnterprise = enterpriseService.update(req);
 		logger.info("===step2:【修改企业】(EnterpriseController-update)-修改企业, jsonEnterprise:{}", jsonEnterprise);

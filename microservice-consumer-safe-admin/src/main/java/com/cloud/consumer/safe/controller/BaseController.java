@@ -16,14 +16,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.CommConstants;
-import com.cloud.common.constants.wheel.RetWheelConstants;
-import com.cloud.common.exception.SafeException;
 import com.cloud.common.redis.keys.RedisKeysUtil;
 import com.cloud.common.security.KeyFactoryUtil;
 import com.cloud.common.util.IpUtil;
@@ -64,14 +61,6 @@ public class BaseController {
 	@Value("${token.rsa.privateKey}")
 	protected String rsaPrivateKeyStr;
 
-	//实时排名100名，因为redis存储的下标是从0开始，所以是99
-	protected final Integer realRank = 99;
-	//昨日排名100名，因为redis存储的下标是从0开始，所以是99
-	protected final Integer yesterdayRank = 99;
-
-	//排名10000个
-	protected final Integer sortRank = 10000;
-
 	/**
 	 * 设置token 在response header里面
 	 * @param response
@@ -80,8 +69,8 @@ public class BaseController {
 	protected void setResponseHeader(String token) {
 		logger.info("(BaseController-setResponseHeader)-传入参数, token:{}", token);
 		response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-		response.setHeader(RetWheelConstants.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
-		response.setHeader(RetWheelConstants.TOKEN, token);
+		response.setHeader(CommConstants.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
+		response.setHeader(CommConstants.TOKEN, token);
 		logger.info("(BaseController-setResponseHeader)-response设置header里token, token:{}", token);
 	}
 
@@ -127,7 +116,7 @@ public class BaseController {
 		logger.info("(BaseController-setToken)-声明(claims), claims:{}", claims);
 
 		String token = TokenUtil.INSTANCE.createJWT(privateKey, signatureAlgorithm, claims, issuer, audience);
-		String tokenResult = redisService.setex(tokenkey, RetWheelConstants.TWENTY_FOUR_HOUR_SECONDS_TIME, token);
+		String tokenResult = redisService.setex(tokenkey, CommConstants.TWENTY_FOUR_HOUR_SECONDS_TIME, token);
 		logger.info("(BaseController-setToken)-redis设置token-返回信息, tokenkey:{}, tokenResult:{}", tokenkey, tokenResult);
 		return token;
 	}
@@ -148,7 +137,6 @@ public class BaseController {
 			logger.info("(BaseController-clearToken)-清除token-返回信息, tokenkey:{}, l:{}", tokenkey, l);
 		}
 	}
-
 
 	/**
 	 * 获取请求ip
@@ -188,7 +176,7 @@ public class BaseController {
 	 * @return JSONObject
 	 */
 	protected JSONObject getTokenPayload() {
-		String token = request.getHeader(RetWheelConstants.TOKEN);
+		String token = request.getHeader(CommConstants.TOKEN);
 		logger.info("(BaseController-getTokenPayload)-获取token, token:{}", token);
 		if(StringUtils.isBlank(token)) {
 			return null;
@@ -208,16 +196,18 @@ public class BaseController {
 		}
 		String payloadStr = new String(Base64.decodeBase64(payload), StandardCharsets.UTF_8);
 		JSONObject payloadJSON = JSONObject.parseObject(payloadStr);
-		String claimsStr = Objects.toString(payloadJSON.get(RetWheelConstants.CLAIMS));
+		return payloadJSON;
+	}
 
-//		String claimsDecryptStr = null;
-//		try {
-//			claimsDecryptStr = AESUtils.decrypt(claimsStr, aesSecretKeyStr, aesSecretKeyStr);
-//		} catch (Exception e) {
-//			logger.error("(BaseController-getTokenPayload)-声明(claims)解密-异常, Exception = {}, message = {}",e,e.getMessage());
-//		}
-		JSONObject claimsJSON = JSONObject.parseObject(claimsStr);
-		return claimsJSON;
+	/**
+	 * 获取token(enterpriseId)
+	 * @return Integer
+	 */
+	protected Integer getTokenEnterpriseId() {
+		JSONObject payloadJSON = this.getTokenPayload();
+		Integer enterpriseId = new Integer(Objects.toString(payloadJSON.get(CommConstants.ENTERPRISE_ID)));
+		logger.info("(BaseController-getTokenEnterpriseId)-返回信息, enterpriseId:{}", enterpriseId);
+		return enterpriseId;
 	}
 
 	/**
@@ -226,7 +216,7 @@ public class BaseController {
 	 */
 	protected Integer getTokenUserId() {
 		JSONObject payloadJSON = this.getTokenPayload();
-		Integer userId = new Integer(Objects.toString(payloadJSON.get(RetWheelConstants.USER_ID)));
+		Integer userId = new Integer(Objects.toString(payloadJSON.get(CommConstants.USER_ID)));
 		logger.info("(BaseController-getTokenUserId)-返回信息, userId:{}", userId);
 		return userId;
 	}
@@ -237,7 +227,7 @@ public class BaseController {
 	 */
 	protected String getTokenUserAccount() {
 		JSONObject payloadJSON = this.getTokenPayload();
-		String userAccount = Objects.toString(payloadJSON.get(RetWheelConstants.USER_ACCOUNT));
+		String userAccount = Objects.toString(payloadJSON.get(CommConstants.USER_ACCOUNT));
 		logger.info("(BaseController-getTokenUserAccount)-返回信息, userAccount:{}", userAccount);
 		return userAccount;
 	}
@@ -246,12 +236,12 @@ public class BaseController {
 	 * 校验参数
 	 * @param bindingResult
 	 */
-	protected void bindingResult(BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-        	logger.info(">>>>>> {}.{}() valid params is error msg = {}", this.getClass().getSimpleName(), this.getRequestMethodName(), bindingResult.getFieldError().getDefaultMessage());
-            throw new SafeException("1050000", bindingResult.getFieldError().getDefaultMessage());
-        }
-    }
+//	protected void bindingResult(BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//        	logger.info(">>>>>> {}.{}() valid params is error msg = {}", this.getClass().getSimpleName(), this.getRequestMethodName(), bindingResult.getFieldError().getDefaultMessage());
+//        	throw new SafeException(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), bindingResult.getFieldError().getDefaultMessage());
+//        }
+//    }
 
 	/**
 	 * 获取请求加点URI参数为空，如：user.register.parameter.empty

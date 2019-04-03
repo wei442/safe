@@ -51,8 +51,8 @@ public class StartBoot {
     public HttpMessageConverters fastJsonHttpMessageConverters() {
 		SerializerFeature[] serializerFeature = new SerializerFeature[]{
 			SerializerFeature.PrettyFormat, SerializerFeature.MapSortField,
-			SerializerFeature.WriteNullListAsEmpty,SerializerFeature.WriteNullStringAsEmpty,
-			SerializerFeature.WriteDateUseDateFormat
+			SerializerFeature.WriteNullListAsEmpty, SerializerFeature.WriteNullStringAsEmpty,
+			SerializerFeature.WriteMapNullValue, SerializerFeature.WriteDateUseDateFormat
 		};
 		List<MediaType> mediaTypes = new ArrayList<MediaType>();
 		mediaTypes.add(MediaType.parseMediaType(MediaType.APPLICATION_JSON_UTF8_VALUE));

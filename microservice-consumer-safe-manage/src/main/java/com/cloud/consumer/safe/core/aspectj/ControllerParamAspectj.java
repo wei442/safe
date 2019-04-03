@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-@Order(1)
+@Order(2)
 public class ControllerParamAspectj {
 
 	//取得日志记录器
@@ -23,6 +23,12 @@ public class ControllerParamAspectj {
 //	@Autowired
 //	private ObjectMapper objectMapper;
 
+	/**
+	 * 环绕通知，打印方法执行时间
+	 * @param pjp
+	 * @return Object
+	 * @throws Throwable
+	 */
 	@Around("execution(* com.cloud.consumer.safe.controller.*.*(..))")
 	public Object myAroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
 

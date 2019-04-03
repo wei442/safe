@@ -24,20 +24,19 @@ public class UserAppPasswordServiceImpl extends BaseService implements IUserAppP
 	 */
 	@Override
 	public JSONObject getById(Integer id) {
-		logger.info("(Service-getById)-根据id获取用户应用密码-传入参数, id:{}", id);
+		logger.info("(UserAppPasswordService-getById)-根据id获取用户应用密码-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_password+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
 
 	/**
 	 * 根据userId和password获取用户应用密码
-	 * @param userId
-	 * @param password
+	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getByUserIdPassword(Integer userId,String password) {
-		logger.info("(Service-getByUserId)-根据userId和password获取用户应用密码-传入参数, userId:{}, password:{}", userId, password);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_password+"/selectByUserIdPassword/"+userId+"/"+password, null, JSONObject.class);
+	public JSONObject getByUserIdPassword(Object params) {
+		logger.info("(UserAdminPasswordService-getByUserIdPassword)-根据userId和password获取用户应用密码-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_password+"/selectByUserIdPassword", params, JSONObject.class);
 		return response;
 	}
 
@@ -48,7 +47,7 @@ public class UserAppPasswordServiceImpl extends BaseService implements IUserAppP
 	 */
 	@Override
 	public JSONObject add(Object params) {
-		logger.info("(Service-add)-新增用户应用密码-传入参数, params:{}", params);
+		logger.info("(UserAppPasswordService-add)-新增用户应用密码-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_password+"/insert", params, JSONObject.class);
 		return response;
 	}
@@ -60,7 +59,7 @@ public class UserAppPasswordServiceImpl extends BaseService implements IUserAppP
 	 */
 	@Override
 	public JSONObject deleteById(Integer id) {
-		logger.info("(Service-deleteById)-根据id获取用户应用密码-传入参数, id:{}", id);
+		logger.info("(UserAppPasswordService-deleteById)-根据id获取用户应用密码-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_password+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -72,7 +71,7 @@ public class UserAppPasswordServiceImpl extends BaseService implements IUserAppP
 	 */
 	@Override
 	public JSONObject update(Object params) {
-		logger.info("(Service-update)-修改用户应用密码-传入参数, params:{}", params);
+		logger.info("(UserAppPasswordService-update)-修改用户应用密码-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_password+"/modify", params, JSONObject.class);
 		return response;
 	}

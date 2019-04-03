@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IBaseUserLoginService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.BaseUserLoginVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +91,10 @@ public class BaseUserLoginController extends BaseController {
 		String dataListStr = JSONObject.toJSONString(jsonBaseUserLogin.getJSONArray(PageConstants.DATA_LIST));
 		List<BaseUserLoginVo> baseUserLoginVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<BaseUserLoginVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(baseUserLoginVoList);
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, baseUserLoginVoList);
+		baseUserLoginResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(BaseUserLoginController-getList)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}
@@ -111,8 +113,6 @@ public class BaseUserLoginController extends BaseController {
 		@Validated @RequestBody BaseUserLoginIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取基础用户登录】(BaseUserLoginController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer baseUserLoginId = req.getBaseUserLoginId();
 		JSONObject jsonBaseUserLogin = baseUserLoginService.getById(baseUserLoginId);
@@ -140,8 +140,6 @@ public class BaseUserLoginController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增基础用户登录】(BaseUserLoginController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		JSONObject jsonBaseUserLogin = baseUserLoginService.add(req);
 		logger.info("===step2:【新增基础用户登录】(BaseUserLoginController-add)-分页查询基础用户登录列表, jsonBaseUserLogin:{}", jsonBaseUserLogin);
 		BaseUserLoginVo baseUserLoginVo = JSONObject.toJavaObject(jsonBaseUserLogin, BaseUserLoginVo.class);
@@ -166,8 +164,6 @@ public class BaseUserLoginController extends BaseController {
 		@Validated @RequestBody BaseUserLoginIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除基础用户登录】(BaseUserLoginController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer baseUserLoginId = req.getBaseUserLoginId();
 		JSONObject jsonBaseUserLogin = baseUserLoginService.deleteById(baseUserLoginId);
@@ -194,8 +190,6 @@ public class BaseUserLoginController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody BaseUserLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改基础用户登录】(BaseUserLoginController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		JSONObject jsonBaseUserLogin = baseUserLoginService.update(req);
 		logger.info("===step2:【修改基础用户登录】(BaseUserLoginController-update)-修改基础用户登录, jsonBaseUserLogin:{}", jsonBaseUserLogin);

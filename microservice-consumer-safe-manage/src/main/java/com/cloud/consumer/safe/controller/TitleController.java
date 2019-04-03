@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.ITitleService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.TitleVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,6 +58,8 @@ public class TitleController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody TitlePageRequest req) {
 		logger.info("===step1:【分页查询】(TitleController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonTitle = titleService.getListByPage(req);
 		logger.info("===step2:【分页查询】(TitleController-getListByPage)-分页查询职务列表, jsonTitle:{}", jsonTitle);
@@ -84,15 +87,18 @@ public class TitleController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody TitlePageRequest req) {
 		logger.info("===step1:【不分页查询】(TitleController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonTitle = titleService.getListByPage(req);
 		logger.info("===step2:【不分页查询】(TitleController-getList)-不分页查询职务列表, jsonTitle:{}", jsonTitle);
 		String dataListStr = JSONObject.toJSONString(jsonTitle.getJSONArray(PageConstants.DATA_LIST));
 		List<TitleVo> titleVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<TitleVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(titleVoList);
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, titleVoList);
+		titleResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(TitleController-getList)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}
@@ -111,8 +117,6 @@ public class TitleController extends BaseController {
 		@Validated @RequestBody TitleIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取职务】(TitleController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer titleId = req.getTitleId();
 		JSONObject jsonTitle = titleService.getById(titleId);
@@ -139,8 +143,8 @@ public class TitleController extends BaseController {
 		@Validated @RequestBody TitleRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增职务】(TitleController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonTitle = titleService.add(req);
 		logger.info("===step2:【新增职务】(TitleController-add)-分页查询职务列表, jsonTitle:{}", jsonTitle);
@@ -167,8 +171,6 @@ public class TitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除职务】(TitleController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		Integer titleId = req.getTitleId();
 		JSONObject jsonTitle = titleService.deleteById(titleId);
 		logger.info("===step2:【删除职务】(TitleController-delete)-根据titleId删除职务, jsonTitle:{}", jsonTitle);
@@ -194,8 +196,8 @@ public class TitleController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody TitleRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改职务】(TitleController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonTitle = titleService.update(req);
 		logger.info("===step2:【修改职务】(TitleController-update)-修改职务, jsonTitle:{}", jsonTitle);

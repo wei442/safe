@@ -19,11 +19,11 @@ public class UserAppLoginRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "用户应用登录id", required = true)
-    @NotNull(message = "用户应用登录id", groups = {UpdateGroup.class})
+    @NotNull(message = "用户应用登录id不能为空", groups = {UpdateGroup.class})
 	private Integer userAppLoginId;
 
 	@ApiModelProperty(value = "用户id", required = true)
-    @NotNull(message = "用户id")
+    @NotNull(message = "用户id不能为空")
     private Integer userId;
 
 	@ApiModelProperty(value = "登录次数")

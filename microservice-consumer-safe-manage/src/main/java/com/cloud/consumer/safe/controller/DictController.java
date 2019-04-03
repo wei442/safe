@@ -26,6 +26,7 @@ import com.cloud.consumer.safe.service.IDictService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.DictVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
+import com.cloud.consumer.safe.vo.base.BaseResultVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,6 +58,8 @@ public class DictController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody DictPageRequest req) {
 		logger.info("===step1:【分页查询】(DictController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonDict = dictService.getListByPage(req);
 		logger.info("===step2:【分页查询】(DictController-getListByPage)-分页查询字典列表, jsonDict:{}", jsonDict);
@@ -84,15 +87,18 @@ public class DictController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody DictPageRequest req) {
 		logger.info("===step1:【不分页查询】(DictController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonDict = dictService.getListByPage(req);
 		logger.info("===step2:【不分页查询】(DictController-getList)-不分页查询字典列表, jsonDict:{}", jsonDict);
 		String dataListStr = JSONObject.toJSONString(jsonDict.getJSONArray(PageConstants.DATA_LIST));
 		List<DictVo> dictVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<DictVo>>(){});
 
+		BaseResultVo result = new BaseResultVo(dictVoList);
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(RetSafeConstants.RESULT, dictVoList);
+		dictResponse.put(RetSafeConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(DictController-getList)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
@@ -111,8 +117,6 @@ public class DictController extends BaseController {
 		@Validated @RequestBody DictIdRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【获取字典】(DictController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Integer dictId = req.getDictId();
 		JSONObject jsonDict = dictService.getById(dictId);
@@ -139,8 +143,8 @@ public class DictController extends BaseController {
 		@Validated @RequestBody DictRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增字典】(DictController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonDict = dictService.add(req);
 		logger.info("===step2:【新增字典】(DictController-add)-分页查询字典列表, jsonDict:{}", jsonDict);
@@ -167,8 +171,6 @@ public class DictController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除字典】(DictController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		Integer dictId = req.getDictId();
 		JSONObject jsonDict = dictService.deleteById(dictId);
 		logger.info("===step2:【删除字典】(DictController-delete)-根据dictId删除字典, jsonDict:{}", jsonDict);
@@ -194,8 +196,8 @@ public class DictController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody DictRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改字典】(DictController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonDict = dictService.update(req);
 		logger.info("===step2:【修改字典】(DictController-update)-修改字典, jsonDict:{}", jsonDict);
