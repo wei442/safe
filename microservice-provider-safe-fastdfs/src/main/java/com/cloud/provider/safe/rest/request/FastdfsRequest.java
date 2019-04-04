@@ -15,7 +15,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class AttachmentRequest implements Serializable {
+public class FastdfsRequest implements Serializable {
 
     /**
 	 *
@@ -56,17 +56,17 @@ public class AttachmentRequest implements Serializable {
 	 * req转换实体
 	 * @author wei.yong
 	 */
-	private static class AttachmentConvert extends Converter<AttachmentRequest, Attachment> {
+	private static class AttachmentConvert extends Converter<FastdfsRequest, Attachment> {
 
 		@Override
-		protected Attachment doForward(AttachmentRequest attachmentRequest) {
+		protected Attachment doForward(FastdfsRequest attachmentRequest) {
 			Attachment attachment = new Attachment();
 			BeanUtils.copyProperties(attachmentRequest, attachment);
 			return attachment;
 		}
 
 		@Override
-		protected AttachmentRequest doBackward(Attachment b) {
+		protected FastdfsRequest doBackward(Attachment b) {
 			return null;
 		}
 

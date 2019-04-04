@@ -144,6 +144,7 @@
 		<module>microservice-consumer-safe-manage</module>
 		<module>microservice-provider-safe</module>
 		<module>microservice-provider-safe-attachment</module>
+		<module>microservice-provider-safe-fastdfs</module>
 		<module>microservice-provider-safe-log</module>
 		<module>safe-common</module>
 	</modules>
