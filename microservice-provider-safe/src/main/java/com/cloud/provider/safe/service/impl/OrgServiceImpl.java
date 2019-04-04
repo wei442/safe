@@ -17,7 +17,7 @@ import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.util.Assert;
-import com.cloud.provider.safe.vo.OrgVo;
+import com.cloud.provider.safe.vo.enterprise.OrgVo;
 
 /**
  * 组织机构 OrgService

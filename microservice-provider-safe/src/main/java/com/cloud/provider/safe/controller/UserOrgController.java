@@ -21,12 +21,12 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserOrg;
-import com.cloud.provider.safe.rest.request.UserOrgRequest;
-import com.cloud.provider.safe.rest.request.page.UserOrgPageRequest;
+import com.cloud.provider.safe.rest.request.page.user.UserOrgPageRequest;
+import com.cloud.provider.safe.rest.request.user.UserOrgRequest;
 import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.service.IUserOrgService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.UserOrgVo;
+import com.cloud.provider.safe.vo.user.UserOrgVo;
 import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;

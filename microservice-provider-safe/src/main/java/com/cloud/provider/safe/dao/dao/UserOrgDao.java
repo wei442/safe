@@ -3,7 +3,7 @@ package com.cloud.provider.safe.dao.dao;
 import java.util.List;
 
 import com.cloud.provider.safe.param.UserOrgParam;
-import com.cloud.provider.safe.vo.UserOrgVo;
+import com.cloud.provider.safe.vo.user.UserOrgVo;
 
 public interface UserOrgDao {
 

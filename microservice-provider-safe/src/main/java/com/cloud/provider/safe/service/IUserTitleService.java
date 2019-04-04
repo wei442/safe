@@ -3,8 +3,8 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.UserTitle;
-import com.cloud.provider.safe.rest.request.page.UserTitlePageRequest;
-import com.cloud.provider.safe.vo.UserTitleVo;
+import com.cloud.provider.safe.rest.request.page.user.UserTitlePageRequest;
+import com.cloud.provider.safe.vo.user.UserTitleVo;
 import com.github.pagehelper.Page;
 
 public interface IUserTitleService {

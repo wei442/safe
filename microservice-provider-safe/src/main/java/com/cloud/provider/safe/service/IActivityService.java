@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.Activity;
-import com.cloud.provider.safe.rest.request.page.ActivityPageRequest;
+import com.cloud.provider.safe.rest.request.page.activity.ActivityPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IActivityService {

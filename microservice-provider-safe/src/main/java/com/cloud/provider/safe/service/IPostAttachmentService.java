@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.PostAttachment;
-import com.cloud.provider.safe.rest.request.page.PostAttachmentPageRequest;
+import com.cloud.provider.safe.rest.request.page.post.PostAttachmentPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IPostAttachmentService {

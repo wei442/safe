@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.UserInfo;
-import com.cloud.provider.safe.rest.request.page.UserInfoPageRequest;
+import com.cloud.provider.safe.rest.request.page.user.UserInfoPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IUserInfoService {

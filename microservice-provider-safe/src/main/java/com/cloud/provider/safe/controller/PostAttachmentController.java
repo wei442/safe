@@ -20,11 +20,11 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.PostAttachment;
-import com.cloud.provider.safe.rest.request.PostAttachmentRequest;
-import com.cloud.provider.safe.rest.request.page.PostAttachmentPageRequest;
+import com.cloud.provider.safe.rest.request.page.post.PostAttachmentPageRequest;
+import com.cloud.provider.safe.rest.request.post.PostAttachmentRequest;
 import com.cloud.provider.safe.service.IPostAttachmentService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.PostAttachmentVo;
+import com.cloud.provider.safe.vo.post.PostAttachmentVo;
 import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;

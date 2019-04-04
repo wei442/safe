@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.po.Org;
-import com.cloud.provider.safe.vo.OrgVo;
+import com.cloud.provider.safe.vo.enterprise.OrgVo;
 
 public interface IOrgService {
 

@@ -3,8 +3,8 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.UserOrg;
-import com.cloud.provider.safe.rest.request.page.UserOrgPageRequest;
-import com.cloud.provider.safe.vo.UserOrgVo;
+import com.cloud.provider.safe.rest.request.page.user.UserOrgPageRequest;
+import com.cloud.provider.safe.vo.user.UserOrgVo;
 import com.github.pagehelper.Page;
 
 public interface IUserOrgService {

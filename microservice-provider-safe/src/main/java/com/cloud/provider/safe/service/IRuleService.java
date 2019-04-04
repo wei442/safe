@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.Rule;
-import com.cloud.provider.safe.rest.request.page.RulePageRequest;
+import com.cloud.provider.safe.rest.request.page.activity.RulePageRequest;
 import com.github.pagehelper.Page;
 
 public interface IRuleService {

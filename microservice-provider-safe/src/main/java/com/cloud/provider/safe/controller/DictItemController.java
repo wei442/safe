@@ -20,11 +20,11 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.DictItem;
-import com.cloud.provider.safe.rest.request.DictItemRequest;
-import com.cloud.provider.safe.rest.request.page.DictItemPageRequest;
+import com.cloud.provider.safe.rest.request.dict.DictItemRequest;
+import com.cloud.provider.safe.rest.request.page.dict.DictItemPageRequest;
 import com.cloud.provider.safe.service.IDictItemService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.DictItemVo;
+import com.cloud.provider.safe.vo.dict.DictItemVo;
 import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;

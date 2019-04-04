@@ -18,13 +18,13 @@ import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
-import com.cloud.consumer.safe.rest.request.OrgIdRequest;
-import com.cloud.consumer.safe.rest.request.OrgRequest;
-import com.cloud.consumer.safe.rest.request.page.OrgPageRequest;
+import com.cloud.consumer.safe.rest.request.enterprise.OrgIdRequest;
+import com.cloud.consumer.safe.rest.request.enterprise.OrgRequest;
+import com.cloud.consumer.safe.rest.request.page.enterprise.OrgPageRequest;
 import com.cloud.consumer.safe.service.IOrgService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.OrgVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
+import com.cloud.consumer.safe.vo.enterprise.OrgVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -12,7 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.RuleAttachmentMapper;
 import com.cloud.provider.safe.po.RuleAttachment;
 import com.cloud.provider.safe.po.RuleAttachmentExample;
-import com.cloud.provider.safe.rest.request.page.RuleAttachmentPageRequest;
+import com.cloud.provider.safe.rest.request.page.activity.RuleAttachmentPageRequest;
 import com.cloud.provider.safe.service.IRuleAttachmentService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.BaseUserLogin;
-import com.cloud.provider.safe.rest.request.page.BaseUserLoginPageRequest;
+import com.cloud.provider.safe.rest.request.page.base.user.BaseUserLoginPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IBaseUserLoginService {

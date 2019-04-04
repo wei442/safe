@@ -16,10 +16,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.po.UserAppPassword;
-import com.cloud.provider.safe.rest.request.UserAppPasswordRequest;
+import com.cloud.provider.safe.rest.request.user.UserAppPasswordRequest;
 import com.cloud.provider.safe.service.IUserAppPasswordService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.UserAppPasswordVo;
+import com.cloud.provider.safe.vo.user.UserAppPasswordVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

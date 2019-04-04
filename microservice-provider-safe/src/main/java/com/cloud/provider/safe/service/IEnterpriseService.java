@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.Enterprise;
-import com.cloud.provider.safe.rest.request.page.EnterprisePageRequest;
+import com.cloud.provider.safe.rest.request.page.enterprise.EnterprisePageRequest;
 import com.github.pagehelper.Page;
 
 public interface IEnterpriseService {

@@ -14,10 +14,10 @@ import com.cloud.provider.safe.dao.dao.UserTitleDao;
 import com.cloud.provider.safe.param.UserTitleParam;
 import com.cloud.provider.safe.po.UserTitle;
 import com.cloud.provider.safe.po.UserTitleExample;
-import com.cloud.provider.safe.rest.request.page.UserTitlePageRequest;
+import com.cloud.provider.safe.rest.request.page.user.UserTitlePageRequest;
 import com.cloud.provider.safe.service.IUserTitleService;
 import com.cloud.provider.safe.util.Assert;
-import com.cloud.provider.safe.vo.UserTitleVo;
+import com.cloud.provider.safe.vo.user.UserTitleVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 

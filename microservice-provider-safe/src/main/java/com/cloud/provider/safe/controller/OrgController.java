@@ -21,12 +21,12 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.po.UserOrg;
-import com.cloud.provider.safe.rest.request.OrgRequest;
-import com.cloud.provider.safe.rest.request.page.OrgTreeRequest;
+import com.cloud.provider.safe.rest.request.enterprise.OrgRequest;
+import com.cloud.provider.safe.rest.request.page.enterprise.OrgTreeRequest;
 import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.service.IUserOrgService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.OrgVo;
+import com.cloud.provider.safe.vo.enterprise.OrgVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -14,7 +14,7 @@ import com.cloud.provider.safe.dao.UserInfoMapper;
 import com.cloud.provider.safe.dao.dao.UserOrgDao;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserInfoExample;
-import com.cloud.provider.safe.rest.request.page.UserInfoPageRequest;
+import com.cloud.provider.safe.rest.request.page.user.UserInfoPageRequest;
 import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

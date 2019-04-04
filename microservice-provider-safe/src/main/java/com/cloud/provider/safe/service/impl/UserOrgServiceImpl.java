@@ -14,10 +14,10 @@ import com.cloud.provider.safe.dao.dao.UserOrgDao;
 import com.cloud.provider.safe.param.UserOrgParam;
 import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.po.UserOrgExample;
-import com.cloud.provider.safe.rest.request.page.UserOrgPageRequest;
+import com.cloud.provider.safe.rest.request.page.user.UserOrgPageRequest;
 import com.cloud.provider.safe.service.IUserOrgService;
 import com.cloud.provider.safe.util.Assert;
-import com.cloud.provider.safe.vo.UserOrgVo;
+import com.cloud.provider.safe.vo.user.UserOrgVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 

@@ -3,7 +3,7 @@ package com.cloud.provider.safe.dao.dao;
 import java.util.List;
 
 import com.cloud.provider.safe.param.UserPostParam;
-import com.cloud.provider.safe.vo.UserPostVo;
+import com.cloud.provider.safe.vo.user.UserPostVo;
 
 public interface UserPostDao {
 

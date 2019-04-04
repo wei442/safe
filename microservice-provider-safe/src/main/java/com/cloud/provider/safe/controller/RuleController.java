@@ -20,11 +20,11 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Rule;
-import com.cloud.provider.safe.rest.request.RuleRequest;
-import com.cloud.provider.safe.rest.request.page.RulePageRequest;
+import com.cloud.provider.safe.rest.request.activity.RuleRequest;
+import com.cloud.provider.safe.rest.request.page.activity.RulePageRequest;
 import com.cloud.provider.safe.service.IRuleService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.RuleVo;
+import com.cloud.provider.safe.vo.activity.RuleVo;
 import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;

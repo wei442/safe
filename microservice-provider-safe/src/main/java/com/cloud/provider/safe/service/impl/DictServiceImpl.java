@@ -15,7 +15,7 @@ import com.cloud.provider.safe.dao.DictMapper;
 import com.cloud.provider.safe.po.Dict;
 import com.cloud.provider.safe.po.DictExample;
 import com.cloud.provider.safe.po.DictItemExample;
-import com.cloud.provider.safe.rest.request.page.DictPageRequest;
+import com.cloud.provider.safe.rest.request.page.dict.DictPageRequest;
 import com.cloud.provider.safe.service.IDictService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

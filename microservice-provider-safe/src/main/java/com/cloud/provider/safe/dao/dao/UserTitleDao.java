@@ -3,7 +3,7 @@ package com.cloud.provider.safe.dao.dao;
 import java.util.List;
 
 import com.cloud.provider.safe.param.UserTitleParam;
-import com.cloud.provider.safe.vo.UserTitleVo;
+import com.cloud.provider.safe.vo.user.UserTitleVo;
 
 public interface UserTitleDao {
 

@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
-import com.cloud.consumer.safe.rest.request.UserAdminPasswordIdRequest;
-import com.cloud.consumer.safe.rest.request.UserAdminPasswordRequest;
+import com.cloud.consumer.safe.rest.request.user.UserAdminPasswordIdRequest;
+import com.cloud.consumer.safe.rest.request.user.UserAdminPasswordRequest;
 import com.cloud.consumer.safe.service.IUserAdminPasswordService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.UserAdminPasswordVo;
+import com.cloud.consumer.safe.vo.user.UserAdminPasswordVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

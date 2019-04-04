@@ -13,7 +13,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.PostMapper;
 import com.cloud.provider.safe.po.Post;
 import com.cloud.provider.safe.po.PostExample;
-import com.cloud.provider.safe.rest.request.page.PostPageRequest;
+import com.cloud.provider.safe.rest.request.page.post.PostPageRequest;
 import com.cloud.provider.safe.service.IPostService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

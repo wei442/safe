@@ -20,11 +20,11 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserAdmin;
-import com.cloud.provider.safe.rest.request.UserAdminRequest;
-import com.cloud.provider.safe.rest.request.page.UserAdminPageRequest;
+import com.cloud.provider.safe.rest.request.page.user.UserAdminPageRequest;
+import com.cloud.provider.safe.rest.request.user.UserAdminRequest;
 import com.cloud.provider.safe.service.IUserAdminService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.UserAdminVo;
+import com.cloud.provider.safe.vo.user.UserAdminVo;
 import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;

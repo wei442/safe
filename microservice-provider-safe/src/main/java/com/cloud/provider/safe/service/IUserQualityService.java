@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.UserQuality;
-import com.cloud.provider.safe.rest.request.page.UserQualityPageRequest;
+import com.cloud.provider.safe.rest.request.page.user.UserQualityPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IUserQualityService {

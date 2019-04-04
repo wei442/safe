@@ -19,14 +19,14 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
-import com.cloud.consumer.safe.rest.request.UserQualityIdRequest;
-import com.cloud.consumer.safe.rest.request.UserQualityRequest;
-import com.cloud.consumer.safe.rest.request.page.UserQualityPageRequest;
+import com.cloud.consumer.safe.rest.request.page.user.UserQualityPageRequest;
+import com.cloud.consumer.safe.rest.request.user.UserQualityIdRequest;
+import com.cloud.consumer.safe.rest.request.user.UserQualityRequest;
 import com.cloud.consumer.safe.service.IUserQualityService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.UserQualityVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
+import com.cloud.consumer.safe.vo.user.UserQualityVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

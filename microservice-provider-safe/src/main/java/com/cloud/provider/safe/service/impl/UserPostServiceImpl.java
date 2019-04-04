@@ -14,10 +14,10 @@ import com.cloud.provider.safe.dao.dao.UserPostDao;
 import com.cloud.provider.safe.param.UserPostParam;
 import com.cloud.provider.safe.po.UserPost;
 import com.cloud.provider.safe.po.UserPostExample;
-import com.cloud.provider.safe.rest.request.page.UserPostPageRequest;
+import com.cloud.provider.safe.rest.request.page.user.UserPostPageRequest;
 import com.cloud.provider.safe.service.IUserPostService;
 import com.cloud.provider.safe.util.Assert;
-import com.cloud.provider.safe.vo.UserPostVo;
+import com.cloud.provider.safe.vo.user.UserPostVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 

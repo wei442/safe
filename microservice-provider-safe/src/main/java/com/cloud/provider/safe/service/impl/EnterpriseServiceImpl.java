@@ -15,7 +15,7 @@ import com.cloud.provider.safe.dao.OrgMapper;
 import com.cloud.provider.safe.po.Enterprise;
 import com.cloud.provider.safe.po.EnterpriseExample;
 import com.cloud.provider.safe.po.Org;
-import com.cloud.provider.safe.rest.request.page.EnterprisePageRequest;
+import com.cloud.provider.safe.rest.request.page.enterprise.EnterprisePageRequest;
 import com.cloud.provider.safe.service.IEnterpriseService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

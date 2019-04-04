@@ -12,7 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserQualityMapper;
 import com.cloud.provider.safe.po.UserQuality;
 import com.cloud.provider.safe.po.UserQualityExample;
-import com.cloud.provider.safe.rest.request.page.UserQualityPageRequest;
+import com.cloud.provider.safe.rest.request.page.user.UserQualityPageRequest;
 import com.cloud.provider.safe.service.IUserQualityService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

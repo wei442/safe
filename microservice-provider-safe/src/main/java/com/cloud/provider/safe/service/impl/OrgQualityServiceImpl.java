@@ -13,7 +13,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.OrgQualityMapper;
 import com.cloud.provider.safe.po.OrgQuality;
 import com.cloud.provider.safe.po.OrgQualityExample;
-import com.cloud.provider.safe.rest.request.page.OrgQualityPageRequest;
+import com.cloud.provider.safe.rest.request.page.enterprise.OrgQualityPageRequest;
 import com.cloud.provider.safe.service.IOrgQualityService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

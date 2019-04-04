@@ -13,7 +13,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.RuleMapper;
 import com.cloud.provider.safe.po.Rule;
 import com.cloud.provider.safe.po.RuleExample;
-import com.cloud.provider.safe.rest.request.page.RulePageRequest;
+import com.cloud.provider.safe.rest.request.page.activity.RulePageRequest;
 import com.cloud.provider.safe.service.IRuleService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

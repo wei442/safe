@@ -13,7 +13,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.TitleMapper;
 import com.cloud.provider.safe.po.Title;
 import com.cloud.provider.safe.po.TitleExample;
-import com.cloud.provider.safe.rest.request.page.TitlePageRequest;
+import com.cloud.provider.safe.rest.request.page.post.TitlePageRequest;
 import com.cloud.provider.safe.service.ITitleService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

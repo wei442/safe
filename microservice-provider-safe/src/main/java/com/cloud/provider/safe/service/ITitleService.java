@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.Title;
-import com.cloud.provider.safe.rest.request.page.TitlePageRequest;
+import com.cloud.provider.safe.rest.request.page.post.TitlePageRequest;
 import com.github.pagehelper.Page;
 
 public interface ITitleService {

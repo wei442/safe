@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.ActivityAttachment;
-import com.cloud.provider.safe.rest.request.page.ActivityAttachmentPageRequest;
+import com.cloud.provider.safe.rest.request.page.activity.ActivityAttachmentPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IActivityAttachmentService {

@@ -12,7 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserAdminLoginMapper;
 import com.cloud.provider.safe.po.UserAdminLogin;
 import com.cloud.provider.safe.po.UserAdminLoginExample;
-import com.cloud.provider.safe.rest.request.page.UserAdminLoginPageRequest;
+import com.cloud.provider.safe.rest.request.page.user.UserAdminLoginPageRequest;
 import com.cloud.provider.safe.service.IUserAdminLoginService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

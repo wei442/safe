@@ -12,7 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.ActivityAttachmentMapper;
 import com.cloud.provider.safe.po.ActivityAttachment;
 import com.cloud.provider.safe.po.ActivityAttachmentExample;
-import com.cloud.provider.safe.rest.request.page.ActivityAttachmentPageRequest;
+import com.cloud.provider.safe.rest.request.page.activity.ActivityAttachmentPageRequest;
 import com.cloud.provider.safe.service.IActivityAttachmentService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

@@ -3,8 +3,8 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.UserPost;
-import com.cloud.provider.safe.rest.request.page.UserPostPageRequest;
-import com.cloud.provider.safe.vo.UserPostVo;
+import com.cloud.provider.safe.rest.request.page.user.UserPostPageRequest;
+import com.cloud.provider.safe.vo.user.UserPostVo;
 import com.github.pagehelper.Page;
 
 public interface IUserPostService {

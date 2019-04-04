@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.DictItem;
-import com.cloud.provider.safe.rest.request.page.DictItemPageRequest;
+import com.cloud.provider.safe.rest.request.page.dict.DictItemPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IDictItemService {

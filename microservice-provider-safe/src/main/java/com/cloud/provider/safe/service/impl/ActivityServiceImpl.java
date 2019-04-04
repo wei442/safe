@@ -13,7 +13,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.ActivityMapper;
 import com.cloud.provider.safe.po.Activity;
 import com.cloud.provider.safe.po.ActivityExample;
-import com.cloud.provider.safe.rest.request.page.ActivityPageRequest;
+import com.cloud.provider.safe.rest.request.page.activity.ActivityPageRequest;
 import com.cloud.provider.safe.service.IActivityService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

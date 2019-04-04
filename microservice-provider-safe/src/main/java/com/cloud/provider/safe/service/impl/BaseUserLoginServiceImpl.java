@@ -12,7 +12,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.BaseUserLoginMapper;
 import com.cloud.provider.safe.po.BaseUserLogin;
 import com.cloud.provider.safe.po.BaseUserLoginExample;
-import com.cloud.provider.safe.rest.request.page.BaseUserLoginPageRequest;
+import com.cloud.provider.safe.rest.request.page.base.user.BaseUserLoginPageRequest;
 import com.cloud.provider.safe.service.IBaseUserLoginService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

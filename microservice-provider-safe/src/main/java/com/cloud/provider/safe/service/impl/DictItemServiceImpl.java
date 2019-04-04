@@ -13,7 +13,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.DictItemMapper;
 import com.cloud.provider.safe.po.DictItem;
 import com.cloud.provider.safe.po.DictItemExample;
-import com.cloud.provider.safe.rest.request.page.DictItemPageRequest;
+import com.cloud.provider.safe.rest.request.page.dict.DictItemPageRequest;
 import com.cloud.provider.safe.service.IDictItemService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

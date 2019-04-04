@@ -13,7 +13,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.PostAttachmentMapper;
 import com.cloud.provider.safe.po.PostAttachment;
 import com.cloud.provider.safe.po.PostAttachmentExample;
-import com.cloud.provider.safe.rest.request.page.PostAttachmentPageRequest;
+import com.cloud.provider.safe.rest.request.page.post.PostAttachmentPageRequest;
 import com.cloud.provider.safe.service.IPostAttachmentService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;

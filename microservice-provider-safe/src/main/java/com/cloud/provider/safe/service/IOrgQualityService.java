@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.OrgQuality;
-import com.cloud.provider.safe.rest.request.page.OrgQualityPageRequest;
+import com.cloud.provider.safe.rest.request.page.enterprise.OrgQualityPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IOrgQualityService {

@@ -19,12 +19,12 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
-import com.cloud.consumer.safe.rest.request.ActivityIdRequest;
-import com.cloud.consumer.safe.rest.request.ActivityRequest;
-import com.cloud.consumer.safe.rest.request.page.ActivityPageRequest;
+import com.cloud.consumer.safe.rest.request.activity.ActivityIdRequest;
+import com.cloud.consumer.safe.rest.request.activity.ActivityRequest;
+import com.cloud.consumer.safe.rest.request.page.activity.ActivityPageRequest;
 import com.cloud.consumer.safe.service.IActivityService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.ActivityVo;
+import com.cloud.consumer.safe.vo.activity.ActivityVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
 

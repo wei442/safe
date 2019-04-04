@@ -3,7 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.RuleAttachment;
-import com.cloud.provider.safe.rest.request.page.RuleAttachmentPageRequest;
+import com.cloud.provider.safe.rest.request.page.activity.RuleAttachmentPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IRuleAttachmentService {

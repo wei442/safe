@@ -21,12 +21,12 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Post;
 import com.cloud.provider.safe.po.UserPost;
-import com.cloud.provider.safe.rest.request.PostRequest;
-import com.cloud.provider.safe.rest.request.page.PostPageRequest;
+import com.cloud.provider.safe.rest.request.page.post.PostPageRequest;
+import com.cloud.provider.safe.rest.request.post.PostRequest;
 import com.cloud.provider.safe.service.IPostService;
 import com.cloud.provider.safe.service.IUserPostService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.PostVo;
+import com.cloud.provider.safe.vo.post.PostVo;
 import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;
