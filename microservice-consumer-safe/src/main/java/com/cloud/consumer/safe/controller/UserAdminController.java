@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserAdminPageRequest;
@@ -69,7 +69,7 @@ public class UserAdminController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, userAdminVoList);
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, result);
+		userAdminResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(UserAdminController-getListByPage)-返回信息, userAdminResponse:{}", userAdminResponse);
 	    return userAdminResponse;
 	}
@@ -94,7 +94,7 @@ public class UserAdminController extends BaseController {
 		BaseResultVo result = new BaseResultVo(userAdminVoList);
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, result);
+		userAdminResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserAdminController-getList)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
@@ -121,7 +121,7 @@ public class UserAdminController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, userAdminVo);
+		userAdminResponse.put(CommConstants.RESULT, userAdminVo);
 	    logger.info("===step3:【获取用户管理】(UserAdminController-get)-返回信息, userAdminResponse:{}", userAdminResponse);
 	    return userAdminResponse;
 	}
@@ -146,7 +146,7 @@ public class UserAdminController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, userAdminVo);
+		userAdminResponse.put(CommConstants.RESULT, userAdminVo);
 	    logger.info("===step3:【新增用户管理】(UserAdminController-add)-返回信息, userAdminResponse:{}", userAdminResponse);
 	    return userAdminResponse;
 	}
@@ -172,7 +172,7 @@ public class UserAdminController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, userAdminVo);
+		userAdminResponse.put(CommConstants.RESULT, userAdminVo);
 		logger.info("===step3:【删除用户管理】(UserAdminController-delete)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
@@ -197,7 +197,7 @@ public class UserAdminController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, userAdminVo);
+		userAdminResponse.put(CommConstants.RESULT, userAdminVo);
 		logger.info("===step3:【修改用户管理】(UserAdminController-update)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}

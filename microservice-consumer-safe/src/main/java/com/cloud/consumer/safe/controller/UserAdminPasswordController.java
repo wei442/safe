@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cloud.common.constants.safe.RetSafeConstants;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.rest.request.user.UserAdminPasswordIdRequest;
 import com.cloud.consumer.safe.rest.request.user.UserAdminPasswordRequest;
@@ -63,7 +63,7 @@ public class UserAdminPasswordController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
-		userAdminPasswordResponse.put(RetSafeConstants.RESULT, userAdminPasswordVo);
+		userAdminPasswordResponse.put(CommConstants.RESULT, userAdminPasswordVo);
 	    logger.info("===step3:【获取用户管理密码】(UserAdminPasswordController-getDetail)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 	    return userAdminPasswordResponse;
 	}
@@ -89,7 +89,7 @@ public class UserAdminPasswordController extends BaseController {
 //
 //		//返回信息
 //		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
-//		userAdminPasswordResponse.put(RetSafeConstants.RESULT, userAdminPasswordVo);
+//		userAdminPasswordResponse.put(CommConstants.RESULT, userAdminPasswordVo);
 //		logger.info("===step3:【根据用户id获取用户管理密码详情】(UserAdminPasswordController-getByUserId)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 //		return userAdminPasswordResponse;
 //	}
@@ -114,7 +114,7 @@ public class UserAdminPasswordController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
-		userAdminPasswordResponse.put(RetSafeConstants.RESULT, userAdminPasswordVo);
+		userAdminPasswordResponse.put(CommConstants.RESULT, userAdminPasswordVo);
 		logger.info("===step3:【根据userId和password获取用户管理密码详情】(UserAdminPasswordController-getByUserIdPassword)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 		return userAdminPasswordResponse;
 	}

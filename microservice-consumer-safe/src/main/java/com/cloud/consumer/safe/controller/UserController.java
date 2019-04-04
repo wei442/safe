@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.safe.SqlSafeConstants;
-import com.cloud.common.constants.wheel.RetWheelConstants;
 import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
@@ -116,7 +116,7 @@ public class UserController extends BaseController {
 			UserLoginErrorVo userLoginErrorVo = new UserLoginErrorVo();
 			userLoginErrorVo.setEnterpriseId(enterpriseId);
 			userLoginErrorVo.setUserId(userId);
-			userErrorResponse.put(RetWheelConstants.RESULT, userLoginErrorVo);
+			userErrorResponse.put(CommConstants.RESULT, userLoginErrorVo);
 			return userErrorResponse;
 		}
 
@@ -138,7 +138,7 @@ public class UserController extends BaseController {
 
         //返回信息
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-		userResponse.put(RetWheelConstants.RESULT, userLoginVo);
+		userResponse.put(CommConstants.RESULT, userLoginVo);
         logger.info("===step4:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
@@ -297,7 +297,7 @@ public class UserController extends BaseController {
 //
 //		//返回信息
 //		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
-//		userAdminPasswordResponse.put(RetSafeConstants.RESULT, userAdminPasswordVo);
+//		userAdminPasswordResponse.put(CommConstants.RESULT, userAdminPasswordVo);
 //	    logger.info("===step3:【新增用户管理密码】(UserAdminPasswordController-addUserAdminPassword)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 //	    return userAdminPasswordResponse;
 //	}

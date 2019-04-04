@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.dict.TitlePageRequest;
@@ -71,7 +71,7 @@ public class TitleController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, titleVoList);
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, result);
+		titleResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(TitleController-getListByPage)-返回信息, titleResponse:{}", titleResponse);
 	    return titleResponse;
 	}
@@ -98,7 +98,7 @@ public class TitleController extends BaseController {
 		BaseResultVo result = new BaseResultVo(titleVoList);
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, result);
+		titleResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(TitleController-getList)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}
@@ -125,7 +125,7 @@ public class TitleController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, titleVo);
+		titleResponse.put(CommConstants.RESULT, titleVo);
 	    logger.info("===step3:【获取职务】(TitleController-get)-返回信息, titleResponse:{}", titleResponse);
 	    return titleResponse;
 	}
@@ -152,7 +152,7 @@ public class TitleController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, titleVo);
+		titleResponse.put(CommConstants.RESULT, titleVo);
 	    logger.info("===step3:【新增职务】(TitleController-add)-返回信息, titleResponse:{}", titleResponse);
 	    return titleResponse;
 	}
@@ -178,7 +178,7 @@ public class TitleController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, titleVo);
+		titleResponse.put(CommConstants.RESULT, titleVo);
 		logger.info("===step3:【删除职务】(TitleController-delete)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}
@@ -205,7 +205,7 @@ public class TitleController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, titleVo);
+		titleResponse.put(CommConstants.RESULT, titleVo);
 		logger.info("===step3:【修改职务】(TitleController-update)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}

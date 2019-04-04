@@ -12,8 +12,14 @@ import org.springframework.stereotype.Service;
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.OrgMapper;
+import com.cloud.provider.safe.dao.dao.ActivityDao;
 import com.cloud.provider.safe.dao.dao.OrgDao;
+import com.cloud.provider.safe.dao.dao.OrgQualityDao;
+import com.cloud.provider.safe.dao.dao.UserOrgDao;
+import com.cloud.provider.safe.param.ActivityParam;
 import com.cloud.provider.safe.param.OrgParam;
+import com.cloud.provider.safe.param.OrgQualityParam;
+import com.cloud.provider.safe.param.UserOrgParam;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.util.Assert;
@@ -35,6 +41,18 @@ public class OrgServiceImpl implements IOrgService {
     //组织机构 Dao
     @Autowired
     private OrgDao orgDao;
+
+    //机构资质 Dao
+    @Autowired
+    private OrgQualityDao orgQualityDao;
+
+    //用户机构 Dao
+    @Autowired
+    private UserOrgDao userOrgDao;
+
+    //安全活动 Dao
+    @Autowired
+    private ActivityDao activityDao;
 
     /**
      * 查询组织机构树(正向查询自上到下)
@@ -217,7 +235,7 @@ public class OrgServiceImpl implements IOrgService {
      */
 	@Override
 	public Integer insert(Org org) {
-    	logger.info("(OrgService-insertOrg)-插入组织机构-传入参数, org:{}", org);
+    	logger.info("(OrgService-insert)-插入组织机构-传入参数, org:{}", org);
     	org.setIsDelete(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
     	org.setCreateTime(new Date());
     	org.setUpdateTime(new Date());
@@ -246,10 +264,29 @@ public class OrgServiceImpl implements IOrgService {
      */
 	@Override
 	public Integer modify(Org org) {
-    	logger.info("(OrgService-modifyOrg)-修改组织机构-传入参数, org:{}", org);
+    	logger.info("(OrgService-modify)-修改组织机构-传入参数, org:{}", org);
     	org.setUpdateTime(new Date());
     	int i = orgMapper.updateByPrimaryKeySelective(org);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+
+    	Integer orgId = org.getId();
+    	String orgName = org.getOrgName();
+
+        UserOrgParam userOrgParam = new UserOrgParam();
+        userOrgParam.setOrgId(orgId);
+        userOrgParam.setOrgName(orgName);
+        i =userOrgDao.updateOrgNameByOrgId(userOrgParam);
+
+        OrgQualityParam orgQualityParam = new OrgQualityParam();
+        orgQualityParam.setOrgId(orgId);
+        orgQualityParam.setOrgName(orgName);
+        i =orgQualityDao.updateOrgNameByOrgId(orgQualityParam);
+
+        ActivityParam activityParam = new ActivityParam();
+        activityParam.setOrgId(orgId);
+        activityParam.setOrgName(orgName);
+        i =activityDao.updateOrgNameByOrgId(activityParam);
+
     	return i;
     }
 

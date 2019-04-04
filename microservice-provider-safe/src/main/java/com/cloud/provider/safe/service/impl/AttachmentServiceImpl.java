@@ -89,7 +89,7 @@ public class AttachmentServiceImpl implements IAttachmentService {
      */
 	@Override
 	public Integer insert(Attachment attachment) {
-    	logger.info("(AttachmentService-insertAttachment)-插入附件-传入参数, attachment:{}", attachment);
+    	logger.info("(AttachmentService-insert)-插入附件-传入参数, attachment:{}", attachment);
     	attachment.setCreateTime(new Date());
     	attachment.setUpdateTime(new Date());
     	int i = attachmentMapper.insertSelective(attachment);
@@ -117,7 +117,7 @@ public class AttachmentServiceImpl implements IAttachmentService {
      */
 	@Override
 	public Integer modify(Attachment attachment) {
-    	logger.info("(AttachmentService-modifyAttachment)-修改附件-传入参数, attachment:{}", attachment);
+    	logger.info("(AttachmentService-modify)-修改附件-传入参数, attachment:{}", attachment);
     	attachment.setUpdateTime(new Date());
 		int i = attachmentMapper.updateByPrimaryKeySelective(attachment);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

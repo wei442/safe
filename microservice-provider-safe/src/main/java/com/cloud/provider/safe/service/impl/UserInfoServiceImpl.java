@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserInfoMapper;
-import com.cloud.provider.safe.dao.dao.UserOrgDao;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserInfoExample;
 import com.cloud.provider.safe.rest.request.page.user.UserInfoPageRequest;
@@ -32,14 +31,6 @@ public class UserInfoServiceImpl implements IUserInfoService {
     //用户信息 Mapper
     @Autowired
     private UserInfoMapper userInfoMapper;
-
-    //用户组织机构 Dao
-    @Autowired
-    private UserOrgDao userOrgDao;
-
-//    //用户信息 Dao
-//    @Autowired
-//    private UserInfoDao userInfoDao;
 
     /**
 	 * 分页查询
@@ -132,7 +123,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
      */
 	@Override
 	public Integer insert(UserInfo userInfo) {
-    	logger.info("(UserInfoService-insertUserInfo)-插入用户信息-传入参数, userInfo:{}", userInfo);
+    	logger.info("(UserInfoService-insert)-插入用户信息-传入参数, userInfo:{}", userInfo);
     	userInfo.setUserStatus(SqlSafeConstants.SQL_USER_STATUS_NORMAL);
     	userInfo.setIsDelete(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
     	userInfo.setCreateTime(new Date());
@@ -162,7 +153,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
      */
 	@Override
 	public Integer modify(UserInfo userInfo) {
-    	logger.info("(UserInfoService-modifyUserInfo)-修改用户信息-传入参数, userInfo:{}", userInfo);
+    	logger.info("(UserInfoService-modify)-修改用户信息-传入参数, userInfo:{}", userInfo);
     	userInfo.setUpdateTime(new Date());
     	int i = userInfoMapper.updateByPrimaryKeySelective(userInfo);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

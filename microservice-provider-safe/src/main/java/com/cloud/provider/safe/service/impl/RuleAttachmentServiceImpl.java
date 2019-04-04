@@ -86,7 +86,7 @@ public class RuleAttachmentServiceImpl implements IRuleAttachmentService {
      */
 	@Override
 	public Integer insert(RuleAttachment ruleAttachment) {
-    	logger.info("(RuleAttachmentService-insertRuleAttachment)-插入规范文件附件-传入参数, ruleAttachment:{}", ruleAttachment);
+    	logger.info("(RuleAttachmentService-insert)-插入规范文件附件-传入参数, ruleAttachment:{}", ruleAttachment);
     	ruleAttachment.setCreateTime(new Date());
     	ruleAttachment.setUpdateTime(new Date());
     	int i = ruleAttachmentMapper.insertSelective(ruleAttachment);
@@ -114,7 +114,7 @@ public class RuleAttachmentServiceImpl implements IRuleAttachmentService {
      */
 	@Override
 	public Integer modify(RuleAttachment ruleAttachment) {
-    	logger.info("(RuleAttachmentService-modifyRuleAttachment)-修改规范文件附件-传入参数, ruleAttachment:{}", ruleAttachment);
+    	logger.info("(RuleAttachmentService-modify)-修改规范文件附件-传入参数, ruleAttachment:{}", ruleAttachment);
     	ruleAttachment.setUpdateTime(new Date());
     	int i = ruleAttachmentMapper.updateByPrimaryKeySelective(ruleAttachment);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

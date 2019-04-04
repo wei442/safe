@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserPostPageRequest;
@@ -71,7 +71,7 @@ public class UserPostController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, userPostVoList);
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
-		userPostResponse.put(RetSafeConstants.RESULT, result);
+		userPostResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(UserPostController-getListByPage)-返回信息, userPostResponse:{}", userPostResponse);
 	    return userPostResponse;
 	}
@@ -98,7 +98,7 @@ public class UserPostController extends BaseController {
 		BaseResultVo result = new BaseResultVo(userPostVoList);
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
-		userPostResponse.put(RetSafeConstants.RESULT, result);
+		userPostResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserPostController-getList)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}
@@ -125,7 +125,7 @@ public class UserPostController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
-		userPostResponse.put(RetSafeConstants.RESULT, userPostVo);
+		userPostResponse.put(CommConstants.RESULT, userPostVo);
 	    logger.info("===step3:【获取用户岗位】(UserPostController-get)-返回信息, userPostResponse:{}", userPostResponse);
 	    return userPostResponse;
 	}

@@ -10,8 +10,6 @@ public class CommConstants {
 
 	public static final String RET_CODE = "retCode";
 	public static final String RET_MSG = "retMsg";
-//	public static final String SUB_CODE = "subCode";
-//	public static final String SUB_MSG = "subMsg";
 	public static final String RESULT = "result";
 
 	//操作成功-7个0-返回给app接口

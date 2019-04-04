@@ -41,13 +41,13 @@ public class BaseUserPasswordServiceImpl implements IBaseUserPasswordService {
     }
 
 	/**
-	 * 根据 baseUserId查询基础用户密码
+	 * 根据baseUserId查询基础用户密码
 	 * @param  baseUserId
 	 * @return BaseUserPassword
 	 */
 	@Override
 	public BaseUserPassword selectByBaseUserId(Integer baseUserId) {
-		logger.info("(BaseUserPasswordService-selectById)-根据baseUserId查询基础用户密码-传入参数,  baseUserId:{}",  baseUserId);
+		logger.info("(BaseUserPasswordService-selectByBaseUserId)-根据baseUserId查询基础用户密码-传入参数,  baseUserId:{}",  baseUserId);
 		BaseUserPasswordExample example = new BaseUserPasswordExample();
 		BaseUserPasswordExample.Criteria criteria = example.createCriteria();
 		criteria.andBaseUserIdEqualTo( baseUserId);
@@ -67,7 +67,7 @@ public class BaseUserPasswordServiceImpl implements IBaseUserPasswordService {
      */
 	@Override
 	public Integer insert(BaseUserPassword baseUserPassword) {
-    	logger.info("(BaseUserPasswordService-insertBaseUserPassword)-插入基础用户密码-传入参数, baseUserPassword:{}", baseUserPassword);
+    	logger.info("(BaseUserPasswordService-insert)-插入基础用户密码-传入参数, baseUserPassword:{}", baseUserPassword);
     	baseUserPassword.setCreateTime(new Date());
     	baseUserPassword.setUpdateTime(new Date());
     	int i = baseUserPasswordMapper.insertSelective(baseUserPassword);
@@ -95,7 +95,7 @@ public class BaseUserPasswordServiceImpl implements IBaseUserPasswordService {
      */
 	@Override
 	public Integer modify(BaseUserPassword baseUserPassword) {
-    	logger.info("(BaseUserPasswordService-modifyBaseUserPassword)-修改基础用户密码-传入参数, baseUserPassword:{}", baseUserPassword);
+    	logger.info("(BaseUserPasswordService-modify)-修改基础用户密码-传入参数, baseUserPassword:{}", baseUserPassword);
     	baseUserPassword.setUpdateTime(new Date());
 		int i = baseUserPasswordMapper.updateByPrimaryKeySelective(baseUserPassword);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

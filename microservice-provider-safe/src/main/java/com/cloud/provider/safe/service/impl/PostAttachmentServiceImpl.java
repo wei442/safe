@@ -89,7 +89,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
      */
 	@Override
 	public Integer insert(PostAttachment postAttachment) {
-    	logger.info("(PostAttachmentService-insertPostAttachment)-插入岗位附件-传入参数, postAttachment:{}", postAttachment);
+    	logger.info("(PostAttachmentService-insert)-插入岗位附件-传入参数, postAttachment:{}", postAttachment);
     	postAttachment.setIsDelete(SqlSafeConstants.SQL_POST_ATTACHMENT_IS_DELETE_NO);
     	postAttachment.setCreateTime(new Date());
     	postAttachment.setUpdateTime(new Date());
@@ -118,7 +118,7 @@ public class PostAttachmentServiceImpl implements IPostAttachmentService {
      */
 	@Override
 	public Integer modify(PostAttachment postAttachment) {
-    	logger.info("(PostAttachmentService-modifyPostAttachment)-修改岗位附件-传入参数, postAttachment:{}", postAttachment);
+    	logger.info("(PostAttachmentService-modify)-修改岗位附件-传入参数, postAttachment:{}", postAttachment);
     	postAttachment.setUpdateTime(new Date());
     	int i = postAttachmentMapper.updateByPrimaryKeySelective(postAttachment);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

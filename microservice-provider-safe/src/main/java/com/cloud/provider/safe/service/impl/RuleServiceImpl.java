@@ -95,7 +95,7 @@ public class RuleServiceImpl implements IRuleService {
      */
 	@Override
 	public Integer insert(Rule rule) {
-    	logger.info("(RuleService-insertRule)-插入规范文件-传入参数, rule:{}", rule);
+    	logger.info("(RuleService-insert)-插入规范文件-传入参数, rule:{}", rule);
     	rule.setIsDelete(SqlSafeConstants.SQL_POST_IS_DELETE_NO);
     	rule.setCreateTime(new Date());
     	rule.setUpdateTime(new Date());
@@ -124,7 +124,7 @@ public class RuleServiceImpl implements IRuleService {
      */
 	@Override
 	public Integer modify(Rule rule) {
-    	logger.info("(RuleService-modifyRule)-修改规范文件-传入参数, rule:{}", rule);
+    	logger.info("(RuleService-modify)-修改规范文件-传入参数, rule:{}", rule);
     	rule.setUpdateTime(new Date());
     	int i = ruleMapper.updateByPrimaryKeySelective(rule);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

@@ -1,6 +1,6 @@
 package com.cloud.common.enums;
 
-import com.cloud.common.constants.RetConstants;
+import com.cloud.common.constants.CommConstants;
 
 /**
  * @author wei.yong
@@ -15,7 +15,7 @@ public interface ResultEnum {
      * @date 2019-02-21 11:23
      */
     default String getCode() {
-        return RetConstants.OK;
+        return CommConstants.OK;
     }
 
     /**
@@ -25,7 +25,7 @@ public interface ResultEnum {
      * @date 2019-02-21 11:23
      */
     default String getMsg() {
-        return RetConstants.OK_MSG;
+        return CommConstants.OK_MSG;
     }
 
 }

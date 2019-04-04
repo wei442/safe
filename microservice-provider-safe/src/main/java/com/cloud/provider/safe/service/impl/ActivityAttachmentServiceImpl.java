@@ -74,7 +74,7 @@ public class ActivityAttachmentServiceImpl implements IActivityAttachmentService
 	 */
 	@Override
 	public List<ActivityAttachment> selectListByActivityId(Integer activityId) {
-		logger.info("(ActivityAttachmentService-selectById)-根据activityId查询活动附件列表-传入参数, activityId:{}", activityId);
+		logger.info("(ActivityAttachmentService-selectListByActivityId)-根据activityId查询活动附件列表-传入参数, activityId:{}", activityId);
 		ActivityAttachmentExample example = new ActivityAttachmentExample();
 		example.setOrderByClause(" id desc ");
 		ActivityAttachmentExample.Criteria criteria = example.createCriteria();
@@ -102,7 +102,7 @@ public class ActivityAttachmentServiceImpl implements IActivityAttachmentService
      */
 	@Override
 	public Integer insert(ActivityAttachment activityAttachment) {
-    	logger.info("(ActivityAttachmentService-insertActivityAttachment)-插入活动附件-传入参数, activityAttachment:{}", activityAttachment);
+    	logger.info("(ActivityAttachmentService-insert)-插入活动附件-传入参数, activityAttachment:{}", activityAttachment);
     	activityAttachment.setCreateTime(new Date());
     	activityAttachment.setUpdateTime(new Date());
     	int i = activityAttachmentMapper.insertSelective(activityAttachment);
@@ -130,7 +130,7 @@ public class ActivityAttachmentServiceImpl implements IActivityAttachmentService
   	 */
 	@Override
 	public Integer deleteByIds(List<Integer> ids) {
-  		logger.info("(UserOrgService-deleteById)-根据ids删除活动附件-传入参数, ids:{}", ids);
+  		logger.info("(UserOrgService-deleteByIds)-根据ids删除活动附件-传入参数, ids:{}", ids);
   		ActivityAttachmentExample example = new ActivityAttachmentExample();
   		ActivityAttachmentExample.Criteria criteria = example.createCriteria();
   		criteria.andIdIn(ids);
@@ -146,7 +146,7 @@ public class ActivityAttachmentServiceImpl implements IActivityAttachmentService
      */
 	@Override
 	public Integer modify(ActivityAttachment activityAttachment) {
-    	logger.info("(ActivityAttachmentService-modifyActivityAttachment)-修改活动附件-传入参数, activityAttachment:{}", activityAttachment);
+    	logger.info("(ActivityAttachmentService-modify)-修改活动附件-传入参数, activityAttachment:{}", activityAttachment);
     	activityAttachment.setUpdateTime(new Date());
 		int i = activityAttachmentMapper.updateByPrimaryKeySelective(activityAttachment);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

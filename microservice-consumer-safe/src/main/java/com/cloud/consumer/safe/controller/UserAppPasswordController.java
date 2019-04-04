@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cloud.common.constants.safe.RetSafeConstants;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.rest.request.user.UserAppPasswordIdRequest;
 import com.cloud.consumer.safe.rest.request.user.UserAppPasswordRequest;
@@ -60,7 +60,7 @@ public class UserAppPasswordController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(RetSafeConstants.RESULT, userAppPasswordVo);
+		userAppPasswordResponse.put(CommConstants.RESULT, userAppPasswordVo);
 	    logger.info("===step3:【获取用户应用密码】(UserAppPasswordController-get)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 	    return userAppPasswordResponse;
 	}
@@ -85,7 +85,7 @@ public class UserAppPasswordController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(RetSafeConstants.RESULT, userAppPasswordVo);
+		userAppPasswordResponse.put(CommConstants.RESULT, userAppPasswordVo);
 		logger.info("===step3:【根据userId和password获取用户应用密码详情】(UserAppPasswordController-getByUserIdPassword)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}
@@ -110,7 +110,7 @@ public class UserAppPasswordController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(RetSafeConstants.RESULT, userAppPasswordVo);
+		userAppPasswordResponse.put(CommConstants.RESULT, userAppPasswordVo);
 	    logger.info("===step3:【新增用户应用密码】(UserAppPasswordController-add)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 	    return userAppPasswordResponse;
 	}
@@ -136,7 +136,7 @@ public class UserAppPasswordController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(RetSafeConstants.RESULT, userAppPasswordVo);
+		userAppPasswordResponse.put(CommConstants.RESULT, userAppPasswordVo);
 		logger.info("===step3:【删除用户应用密码】(UserAppPasswordController-delete)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}
@@ -161,7 +161,7 @@ public class UserAppPasswordController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(RetSafeConstants.RESULT, userAppPasswordVo);
+		userAppPasswordResponse.put(CommConstants.RESULT, userAppPasswordVo);
 		logger.info("===step3:【修改用户应用密码】(UserAppPasswordController-update)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}

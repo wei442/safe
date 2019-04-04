@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IAttachmentService;
 
 /**
- * 附件 Service (microservice-provider-safe)
+ * 附件 AttachmentService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service

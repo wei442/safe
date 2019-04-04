@@ -51,7 +51,7 @@ public interface IUserOrgService {
 	 * @param userId
 	 * @return UserOrg
 	 */
-	public UserOrg selectByEnterpriseIdAndUserId(Integer enterpriseId,Integer userId);
+	public UserOrg selectByEnterpriseIdUserId(Integer enterpriseId,Integer userId);
 
     /**
      * 插入用户机构

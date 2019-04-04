@@ -95,7 +95,7 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
      */
 	@Override
 	public Integer insert(OrgQuality orgQuality) {
-    	logger.info("(OrgQualityService-insertOrgQuality)-插入机构资质-传入参数, orgQuality:{}", orgQuality);
+    	logger.info("(OrgQualityService-insert)-插入机构资质-传入参数, orgQuality:{}", orgQuality);
     	orgQuality.setCreateTime(new Date());
     	orgQuality.setUpdateTime(new Date());
     	int i = orgQualityMapper.insertSelective(orgQuality);
@@ -123,7 +123,7 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
      */
 	@Override
 	public Integer modify(OrgQuality orgQuality) {
-    	logger.info("(OrgQualityService-modifyOrgQuality)-修改机构资质-传入参数, orgQuality:{}", orgQuality);
+    	logger.info("(OrgQualityService-modify)-修改机构资质-传入参数, orgQuality:{}", orgQuality);
     	orgQuality.setUpdateTime(new Date());
 		int i = orgQualityMapper.updateByPrimaryKeySelective(orgQuality);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

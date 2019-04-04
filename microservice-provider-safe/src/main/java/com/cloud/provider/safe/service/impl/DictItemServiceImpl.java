@@ -95,7 +95,7 @@ public class DictItemServiceImpl implements IDictItemService {
      */
 	@Override
 	public Integer insert(DictItem dictItem) {
-    	logger.info("(DictItemService-insertDictItem)-插入字典子项-传入参数, dictItem:{}", dictItem);
+    	logger.info("(DictItemService-insert)-插入字典子项-传入参数, dictItem:{}", dictItem);
     	dictItem.setIsDelete(SqlSafeConstants.SQL_DICT_ITEM_IS_DELETE_NO);
     	dictItem.setCreateTime(new Date());
     	dictItem.setUpdateTime(new Date());
@@ -124,7 +124,7 @@ public class DictItemServiceImpl implements IDictItemService {
      */
 	@Override
 	public Integer modify(DictItem dictItem) {
-    	logger.info("(DictItemService-modifyDictItem)-修改字典子项-传入参数, dictItem:{}", dictItem);
+    	logger.info("(DictItemService-modify)-修改字典子项-传入参数, dictItem:{}", dictItem);
     	dictItem.setUpdateTime(new Date());
     	int i = dictItemMapper.updateByPrimaryKeySelective(dictItem);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

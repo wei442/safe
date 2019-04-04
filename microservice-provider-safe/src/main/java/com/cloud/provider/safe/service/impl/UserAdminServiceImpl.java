@@ -115,6 +115,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	 * @param userId
 	 * @return UserAdmin
 	 */
+	@Override
 	public UserAdmin selectByEnterpriseIdUserId(Integer enterpriseId,Integer userId) {
 		logger.info("(UserAdminService-selectByEnterpriseIdUserId)-根据enterpriseId和userId查询用户管理-传入参数, enterpriseId:{}, userId:{}", enterpriseId, userId);
 		UserAdminExample example = new UserAdminExample();
@@ -138,7 +139,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
      */
 	@Override
 	public Integer insert(UserAdmin userAdmin) {
-    	logger.info("(UserAdminService-insertUserAdmin)-插入用户管理-传入参数, userAdmin:{}", userAdmin);
+    	logger.info("(UserAdminService-insert)-插入用户管理-传入参数, userAdmin:{}", userAdmin);
     	userAdmin.setIsDelete(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
     	userAdmin.setCreateTime(new Date());
     	userAdmin.setUpdateTime(new Date());
@@ -167,7 +168,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
      */
 	@Override
 	public Integer modify(UserAdmin userAdmin) {
-    	logger.info("(UserAdminService-modifyUserAdmin)-修改用户管理-传入参数, userAdmin:{}", userAdmin);
+    	logger.info("(UserAdminService-modify)-修改用户管理-传入参数, userAdmin:{}", userAdmin);
     	userAdmin.setUpdateTime(new Date());
     	int i = userAdminMapper.updateByPrimaryKeySelective(userAdmin);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

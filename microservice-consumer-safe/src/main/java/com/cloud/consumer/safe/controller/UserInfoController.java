@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserInfoPageRequest;
@@ -69,7 +69,7 @@ public class UserInfoController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, userInfoVoList);
 		//返回信息
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(RetSafeConstants.RESULT, result);
+		userInfoResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(UserInfoController-getListByPage)-返回信息, userInfoResponse:{}", userInfoResponse);
 	    return userInfoResponse;
 	}
@@ -94,7 +94,7 @@ public class UserInfoController extends BaseController {
 		BaseResultVo result = new BaseResultVo(userInfoVoList);
 		//返回信息
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(RetSafeConstants.RESULT, result);
+		userInfoResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserInfoController-getList)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
@@ -121,7 +121,7 @@ public class UserInfoController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(RetSafeConstants.RESULT, userInfoVo);
+		userInfoResponse.put(CommConstants.RESULT, userInfoVo);
 	    logger.info("===step3:【获取用户信息】(UserInfoController-get)-返回信息, userInfoResponse:{}", userInfoResponse);
 	    return userInfoResponse;
 	}
@@ -146,7 +146,7 @@ public class UserInfoController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(RetSafeConstants.RESULT, userInfoVo);
+		userInfoResponse.put(CommConstants.RESULT, userInfoVo);
 	    logger.info("===step3:【新增用户信息】(UserInfoController-add)-返回信息, userInfoResponse:{}", userInfoResponse);
 	    return userInfoResponse;
 	}
@@ -172,7 +172,7 @@ public class UserInfoController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(RetSafeConstants.RESULT, userInfoVo);
+		userInfoResponse.put(CommConstants.RESULT, userInfoVo);
 		logger.info("===step3:【删除用户信息】(UserInfoController-delete)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
@@ -197,7 +197,7 @@ public class UserInfoController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(RetSafeConstants.RESULT, userInfoVo);
+		userInfoResponse.put(CommConstants.RESULT, userInfoVo);
 		logger.info("===step3:【修改用户信息】(UserInfoController-update)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}

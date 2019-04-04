@@ -92,7 +92,7 @@ public class UserQualityServiceImpl implements IUserQualityService {
 	 */
 	@Override
 	public UserQuality selectByUserId(Integer userId) {
-		logger.info("(UserQualityService-selectById)-根据userId查询用户资质-传入参数, userId:{}", userId);
+		logger.info("(UserQualityService-selectByUserId)-根据userId查询用户资质-传入参数, userId:{}", userId);
 		UserQualityExample example = new UserQualityExample();
 		UserQualityExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
@@ -111,7 +111,7 @@ public class UserQualityServiceImpl implements IUserQualityService {
      */
 	@Override
 	public Integer insert(UserQuality userQuality) {
-    	logger.info("(UserQualityService-insertUserQuality)-插入用户资质-传入参数, userQuality:{}", userQuality);
+    	logger.info("(UserQualityService-insert)-插入用户资质-传入参数, userQuality:{}", userQuality);
     	userQuality.setCreateTime(new Date());
     	userQuality.setUpdateTime(new Date());
     	int i = userQualityMapper.insertSelective(userQuality);
@@ -137,6 +137,7 @@ public class UserQualityServiceImpl implements IUserQualityService {
   	 * @param ids
   	 * @return Integer
   	 */
+	@Override
 	public Integer deleteByIds(List<Integer> ids) {
   		logger.info("(UserOrgService-deleteByIds)-根据ids删除用户资质-传入参数, ids:{}", ids);
   		UserQualityExample example = new UserQualityExample();
@@ -154,7 +155,7 @@ public class UserQualityServiceImpl implements IUserQualityService {
      */
 	@Override
 	public Integer modify(UserQuality userQuality) {
-    	logger.info("(UserQualityService-modifyUserQuality)-修改用户资质-传入参数, userQuality:{}", userQuality);
+    	logger.info("(UserQualityService-modify)-修改用户资质-传入参数, userQuality:{}", userQuality);
     	userQuality.setUpdateTime(new Date());
 		int i = userQualityMapper.updateByPrimaryKeySelective(userQuality);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

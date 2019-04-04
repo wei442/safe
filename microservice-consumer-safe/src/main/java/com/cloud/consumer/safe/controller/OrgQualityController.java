@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.enterprise.OrgQualityIdRequest;
@@ -69,7 +69,7 @@ public class OrgQualityController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, orgQualityVoList);
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, result);
+		orgQualityResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(OrgQualityController-getListByPage)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 	    return orgQualityResponse;
 	}
@@ -94,7 +94,7 @@ public class OrgQualityController extends BaseController {
 		BaseResultVo result = new BaseResultVo(orgQualityVoList);
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, result);
+		orgQualityResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(OrgQualityController-getList)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 		return orgQualityResponse;
 	}
@@ -121,7 +121,7 @@ public class OrgQualityController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, orgQualityVo);
+		orgQualityResponse.put(CommConstants.RESULT, orgQualityVo);
 	    logger.info("===step3:【获取机构资质】(OrgQualityController-get)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 	    return orgQualityResponse;
 	}
@@ -146,7 +146,7 @@ public class OrgQualityController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, orgQualityVo);
+		orgQualityResponse.put(CommConstants.RESULT, orgQualityVo);
 	    logger.info("===step3:【新增机构资质】(OrgQualityController-add)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 	    return orgQualityResponse;
 	}
@@ -172,7 +172,7 @@ public class OrgQualityController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, orgQualityVo);
+		orgQualityResponse.put(CommConstants.RESULT, orgQualityVo);
 		logger.info("===step3:【删除机构资质】(OrgQualityController-delete)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 		return orgQualityResponse;
 	}
@@ -197,7 +197,7 @@ public class OrgQualityController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, orgQualityVo);
+		orgQualityResponse.put(CommConstants.RESULT, orgQualityVo);
 		logger.info("===step3:【修改机构资质】(OrgQualityController-update)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 		return orgQualityResponse;
 	}

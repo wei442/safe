@@ -92,7 +92,7 @@ public class TitleServiceImpl implements ITitleService {
      */
 	@Override
 	public Integer insert(Title title) {
-    	logger.info("(TitleService-insertTitle)-插入职务-传入参数, title:{}", title);
+    	logger.info("(TitleService-insert)-插入职务-传入参数, title:{}", title);
     	title.setIsDelete(SqlSafeConstants.SQL_TITLE_IS_DELETE_NO);
     	title.setCreateTime(new Date());
     	title.setUpdateTime(new Date());
@@ -121,7 +121,7 @@ public class TitleServiceImpl implements ITitleService {
      */
 	@Override
 	public Integer modify(Title title) {
-    	logger.info("(TitleService-modifyTitle)-修改职务-传入参数, title:{}", title);
+    	logger.info("(TitleService-modify)-修改职务-传入参数, title:{}", title);
     	title.setUpdateTime(new Date());
     	int i = titleMapper.updateByPrimaryKeySelective(title);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

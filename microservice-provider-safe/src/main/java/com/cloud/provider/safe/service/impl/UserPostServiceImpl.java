@@ -91,6 +91,7 @@ public class UserPostServiceImpl implements IUserPostService {
 	 * @param postId
 	 * @return UserPost List<UserPost>
 	 */
+	@Override
 	public List<UserPost> selectListByPostId(Integer postId) {
 		logger.info("(UserPostService-selectListByPostId)-根据postId查询用户岗位列表-传入参数, postId:{}", postId);
 		UserPostExample example = new UserPostExample();
@@ -120,7 +121,7 @@ public class UserPostServiceImpl implements IUserPostService {
 	 */
 	@Override
 	public UserPost selectByUserId(Integer userId) {
-		logger.info("(UserPostService-selectById)-根据userId查询用户岗位-传入参数, userId:{}", userId);
+		logger.info("(UserPostService-selectByUserId)-根据userId查询用户岗位-传入参数, userId:{}", userId);
 		UserPostExample example = new UserPostExample();
 		UserPostExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
@@ -140,7 +141,7 @@ public class UserPostServiceImpl implements IUserPostService {
      */
 	@Override
 	public Integer insert(UserPost userPost) {
-    	logger.info("(UserPostService-insertUserPost)-插入用户岗位-传入参数, userPost:{}", userPost);
+    	logger.info("(UserPostService-insert)-插入用户岗位-传入参数, userPost:{}", userPost);
     	userPost.setCreateTime(new Date());
     	userPost.setUpdateTime(new Date());
 		int i = userPostMapper.insertSelective(userPost);
@@ -184,7 +185,7 @@ public class UserPostServiceImpl implements IUserPostService {
      */
 	@Override
 	public Integer modify(UserPost userPost) {
-    	logger.info("(UserPostService-modifyUserPost)-修改用户岗位-传入参数, userPost:{}", userPost);
+    	logger.info("(UserPostService-modify)-修改用户岗位-传入参数, userPost:{}", userPost);
     	userPost.setUpdateTime(new Date());
 		int i = userPostMapper.updateByPrimaryKeySelective(userPost);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

@@ -105,7 +105,7 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
      */
 	@Override
 	public Integer insert(UserAdminLogin userAdminLogin) {
-    	logger.info("(UserAdminLoginService-insertUserAdminLogin)-插入用户管理登录-传入参数, userAdminLogin:{}", userAdminLogin);
+    	logger.info("(UserAdminLoginService-insert)-插入用户管理登录-传入参数, userAdminLogin:{}", userAdminLogin);
     	userAdminLogin.setCreateTime(new Date());
     	userAdminLogin.setUpdateTime(new Date());
     	int i = userAdminLoginMapper.insertSelective(userAdminLogin);
@@ -133,7 +133,7 @@ public class UserAdminLoginServiceImpl implements IUserAdminLoginService {
      */
 	@Override
 	public Integer modify(UserAdminLogin userAdminLogin) {
-    	logger.info("(UserAdminLoginService-modifyUserAdminLogin)-修改用户管理登录-传入参数, userAdminLogin:{}", userAdminLogin);
+    	logger.info("(UserAdminLoginService-modify)-修改用户管理登录-传入参数, userAdminLogin:{}", userAdminLogin);
     	userAdminLogin.setUpdateTime(new Date());
     	int i = userAdminLoginMapper.updateByPrimaryKeySelective(userAdminLogin);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserAppPasswordService;
 
 /**
- * 用户应用密码 Service (microservice-provider-safe)
+ * 用户应用密码 UserAppPasswordService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -34,6 +34,7 @@ public class UserAppPasswordServiceImpl extends BaseService implements IUserAppP
 	 * @param params
 	 * @return JSONObject
 	 */
+	@Override
 	public JSONObject getByUserIdPassword(Object params) {
 		logger.info("(UserAdminPasswordService-getByUserIdPassword)-根据userId和password获取用户应用密码-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_app_password+"/selectByUserIdPassword", params, JSONObject.class);

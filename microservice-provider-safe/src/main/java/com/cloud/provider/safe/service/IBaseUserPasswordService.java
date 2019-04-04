@@ -12,7 +12,7 @@ public interface IBaseUserPasswordService {
 	public BaseUserPassword selectById(Integer id);
 
 	/**
-	 * 根据 baseUserId查询基础用户密码
+	 * 根据baseUserId查询基础用户密码
 	 * @param  baseUserId
 	 * @return BaseUserPassword
 	 */

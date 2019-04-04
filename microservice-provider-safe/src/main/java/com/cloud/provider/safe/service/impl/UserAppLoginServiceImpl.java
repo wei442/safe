@@ -85,7 +85,7 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
      */
 	@Override
 	public Integer insert(UserAppLogin userAppLogin) {
-    	logger.info("(UserAppLoginService-insertUserAppLogin)-插入用户应用登录-传入参数, userAppLogin:{}", userAppLogin);
+    	logger.info("(UserAppLoginService-insert)-插入用户应用登录-传入参数, userAppLogin:{}", userAppLogin);
     	userAppLogin.setCreateTime(new Date());
     	userAppLogin.setUpdateTime(new Date());
     	int i = userAppLoginMapper.insertSelective(userAppLogin);
@@ -113,7 +113,7 @@ public class UserAppLoginServiceImpl implements IUserAppLoginService {
      */
 	@Override
 	public Integer modify(UserAppLogin userAppLogin) {
-    	logger.info("(UserAppLoginService-modifyUserAppLogin)-修改用户应用登录-传入参数, userAppLogin:{}", userAppLogin);
+    	logger.info("(UserAppLoginService-modify)-修改用户应用登录-传入参数, userAppLogin:{}", userAppLogin);
     	userAppLogin.setUpdateTime(new Date());
     	int i = userAppLoginMapper.updateByPrimaryKeySelective(userAppLogin);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

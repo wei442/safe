@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.activity.RuleIdRequest;
@@ -71,7 +71,7 @@ public class RuleController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, ruleVoList);
 		//返回信息
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
-		ruleResponse.put(RetSafeConstants.RESULT, result);
+		ruleResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(RuleController-getListByPage)-返回信息, ruleResponse:{}", ruleResponse);
 	    return ruleResponse;
 	}
@@ -98,7 +98,7 @@ public class RuleController extends BaseController {
 		BaseResultVo result = new BaseResultVo(ruleVoList);
 		//返回信息
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
-		ruleResponse.put(RetSafeConstants.RESULT, result);
+		ruleResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(RuleController-getList)-返回信息, ruleResponse:{}", ruleResponse);
 		return ruleResponse;
 	}
@@ -125,7 +125,7 @@ public class RuleController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
-		ruleResponse.put(RetSafeConstants.RESULT, ruleVo);
+		ruleResponse.put(CommConstants.RESULT, ruleVo);
 	    logger.info("===step3:【获取规范文件】(RuleController-get)-返回信息, ruleResponse:{}", ruleResponse);
 	    return ruleResponse;
 	}
@@ -152,7 +152,7 @@ public class RuleController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
-		ruleResponse.put(RetSafeConstants.RESULT, ruleVo);
+		ruleResponse.put(CommConstants.RESULT, ruleVo);
 	    logger.info("===step3:【新增规范文件】(RuleController-add)-返回信息, ruleResponse:{}", ruleResponse);
 	    return ruleResponse;
 	}
@@ -178,7 +178,7 @@ public class RuleController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
-		ruleResponse.put(RetSafeConstants.RESULT, ruleVo);
+		ruleResponse.put(CommConstants.RESULT, ruleVo);
 		logger.info("===step3:【删除规范文件】(RuleController-delete)-返回信息, ruleResponse:{}", ruleResponse);
 		return ruleResponse;
 	}
@@ -205,7 +205,7 @@ public class RuleController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
-		ruleResponse.put(RetSafeConstants.RESULT, ruleVo);
+		ruleResponse.put(CommConstants.RESULT, ruleVo);
 		logger.info("===step3:【修改规范文件】(RuleController-update)-返回信息, ruleResponse:{}", ruleResponse);
 		return ruleResponse;
 	}

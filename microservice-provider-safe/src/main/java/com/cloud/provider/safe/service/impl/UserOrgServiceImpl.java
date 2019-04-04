@@ -139,12 +139,13 @@ public class UserOrgServiceImpl implements IUserOrgService {
 	 * @return UserOrg
 	 */
 	@Override
-	public UserOrg selectByEnterpriseIdAndUserId(Integer enterpriseId,Integer userId) {
+	public UserOrg selectByEnterpriseIdUserId(Integer enterpriseId,Integer userId) {
 		logger.info("(UserOrgService-selectByEnterpriseIdUserId)-根据enterpriseId和userId查询用户机构-传入参数, enterpriseId:{}, userId:{}", enterpriseId, userId);
 		UserOrgExample example = new UserOrgExample();
 		UserOrgExample.Criteria criteria = example.createCriteria();
 		criteria.andEnterpriseIdEqualTo(enterpriseId);
 		criteria.andUserIdEqualTo(userId);
+
 		List<UserOrg> list = userOrgMapper.selectByExample(example);
 		UserOrg userOrg = null;
 		if(list != null && !list.isEmpty()) {
@@ -160,7 +161,7 @@ public class UserOrgServiceImpl implements IUserOrgService {
      */
 	@Override
 	public Integer insert(UserOrg userOrg) {
-    	logger.info("(UserOrgService-insertUserOrg)-插入用户机构-传入参数, userOrg:{}", userOrg);
+    	logger.info("(UserOrgService-insert)-插入用户机构-传入参数, userOrg:{}", userOrg);
     	userOrg.setCreateTime(new Date());
     	userOrg.setUpdateTime(new Date());
     	int i = userOrgMapper.insertSelective(userOrg);
@@ -204,7 +205,7 @@ public class UserOrgServiceImpl implements IUserOrgService {
      */
 	@Override
 	public Integer modify(UserOrg userOrg) {
-    	logger.info("(UserOrgService-modifyUserOrg)-修改用户机构-传入参数, userOrg:{}", userOrg);
+    	logger.info("(UserOrgService-modify)-修改用户机构-传入参数, userOrg:{}", userOrg);
     	userOrg.setUpdateTime(new Date());
     	int i = userOrgMapper.updateByPrimaryKeySelective(userOrg);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

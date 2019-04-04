@@ -101,7 +101,7 @@ public class DictServiceImpl implements IDictService {
      */
 	@Override
 	public Integer insert(Dict dict) {
-    	logger.info("(DictService-insertDict)-插入字典-传入参数, dict:{}", dict);
+    	logger.info("(DictService-insert)-插入字典-传入参数, dict:{}", dict);
     	dict.setIsDelete(SqlSafeConstants.SQL_DICT_IS_DELETE_NO);
     	dict.setCreateTime(new Date());
     	dict.setUpdateTime(new Date());
@@ -136,7 +136,7 @@ public class DictServiceImpl implements IDictService {
      */
 	@Override
 	public Integer modify(Dict dict) {
-    	logger.info("(DictService-modifyDict)-修改字典-传入参数, dict:{}", dict);
+    	logger.info("(DictService-modify)-修改字典-传入参数, dict:{}", dict);
     	dict.setUpdateTime(new Date());
     	int i = dictMapper.updateByPrimaryKeySelective(dict);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.AttachmentIdRequest;
@@ -69,7 +69,7 @@ public class AttachmentController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, attachmentVoList);
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
-		attachmentResponse.put(RetSafeConstants.RESULT, result);
+		attachmentResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(AttachmentController-getListByPage)-返回信息, attachmentResponse:{}", attachmentResponse);
 	    return attachmentResponse;
 	}
@@ -94,7 +94,7 @@ public class AttachmentController extends BaseController {
 		BaseResultVo result = new BaseResultVo(attachmentVoList);
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
-		attachmentResponse.put(RetSafeConstants.RESULT, result);
+		attachmentResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(AttachmentController-getList)-返回信息, attachmentResponse:{}", attachmentResponse);
 		return attachmentResponse;
 	}
@@ -121,7 +121,7 @@ public class AttachmentController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
-		attachmentResponse.put(RetSafeConstants.RESULT, attachmentVo);
+		attachmentResponse.put(CommConstants.RESULT, attachmentVo);
 	    logger.info("===step3:【获取附件】(AttachmentController-get)-返回信息, attachmentResponse:{}", attachmentResponse);
 	    return attachmentResponse;
 	}
@@ -146,7 +146,7 @@ public class AttachmentController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
-		attachmentResponse.put(RetSafeConstants.RESULT, attachmentVo);
+		attachmentResponse.put(CommConstants.RESULT, attachmentVo);
 	    logger.info("===step3:【新增附件】(AttachmentController-add)-返回信息, attachmentResponse:{}", attachmentResponse);
 	    return attachmentResponse;
 	}
@@ -172,7 +172,7 @@ public class AttachmentController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
-		attachmentResponse.put(RetSafeConstants.RESULT, attachmentVo);
+		attachmentResponse.put(CommConstants.RESULT, attachmentVo);
 		logger.info("===step3:【删除附件】(AttachmentController-delete)-返回信息, attachmentResponse:{}", attachmentResponse);
 		return attachmentResponse;
 	}
@@ -190,14 +190,14 @@ public class AttachmentController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody AttachmentRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改附件】(AttachmentController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		
+
 		JSONObject jsonAttachment = attachmentService.update(req);
 		logger.info("===step2:【修改附件】(AttachmentController-update)-修改附件, jsonAttachment:{}", jsonAttachment);
 		AttachmentVo attachmentVo = JSONObject.toJavaObject(jsonAttachment, AttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
-		attachmentResponse.put(RetSafeConstants.RESULT, attachmentVo);
+		attachmentResponse.put(CommConstants.RESULT, attachmentVo);
 		logger.info("===step3:【修改附件】(AttachmentController-update)-返回信息, attachmentResponse:{}", attachmentResponse);
 		return attachmentResponse;
 	}

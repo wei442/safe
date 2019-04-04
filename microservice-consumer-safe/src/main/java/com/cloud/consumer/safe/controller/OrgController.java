@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.rest.request.enterprise.OrgIdRequest;
 import com.cloud.consumer.safe.rest.request.enterprise.OrgRequest;
@@ -67,7 +67,7 @@ public class OrgController extends BaseController {
 		BaseResultVo result = new BaseResultVo(orgVoList);
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(RetSafeConstants.RESULT, result);
+		orgResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【查询组织机构树列表】(OrgController-getTreeList)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}
@@ -94,7 +94,7 @@ public class OrgController extends BaseController {
 //		BaseResultVo result = new BaseResultVo(userInfoOrgVoList);
 //		//返回信息
 //		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-//		orgResponse.put(RetSafeConstants.RESULT, result);
+//		orgResponse.put(CommConstants.RESULT, result);
 //	    logger.info("===step3:【查询组织机构树用户列表】(OrgController-getTreeUserList)-返回信息, orgResponse:{}", orgResponse);
 //	    return orgResponse;
 //	}
@@ -121,7 +121,7 @@ public class OrgController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(RetSafeConstants.RESULT, orgVo);
+		orgResponse.put(CommConstants.RESULT, orgVo);
 	    logger.info("===step3:【获取组织机构】(OrgController-getDetail)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}
@@ -148,7 +148,7 @@ public class OrgController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(RetSafeConstants.RESULT, orgVo);
+		orgResponse.put(CommConstants.RESULT, orgVo);
 	    logger.info("===step3:【新增组织机构】(OrgController-add)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}
@@ -174,7 +174,7 @@ public class OrgController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(RetSafeConstants.RESULT, orgVo);
+		orgResponse.put(CommConstants.RESULT, orgVo);
 		logger.info("===step3:【删除组织机构】(OrgController-deleteOrg)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}
@@ -201,7 +201,7 @@ public class OrgController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(RetSafeConstants.RESULT, orgVo);
+		orgResponse.put(CommConstants.RESULT, orgVo);
 		logger.info("===step3:【修改组织机构】(OrgController-update)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}

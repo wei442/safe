@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.base.user.BaseUserLoginIdRequest;
@@ -69,7 +69,7 @@ public class BaseUserLoginController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, baseUserLoginVoList);
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, result);
+		baseUserLoginResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(BaseUserLoginController-getListByPage)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 	    return baseUserLoginResponse;
 	}
@@ -94,7 +94,7 @@ public class BaseUserLoginController extends BaseController {
 		BaseResultVo result = new BaseResultVo(baseUserLoginVoList);
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, result);
+		baseUserLoginResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(BaseUserLoginController-getList)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}
@@ -121,7 +121,7 @@ public class BaseUserLoginController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, baseUserLoginVo);
+		baseUserLoginResponse.put(CommConstants.RESULT, baseUserLoginVo);
 	    logger.info("===step3:【获取基础用户登录】(BaseUserLoginController-get)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 	    return baseUserLoginResponse;
 	}
@@ -146,7 +146,7 @@ public class BaseUserLoginController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, baseUserLoginVo);
+		baseUserLoginResponse.put(CommConstants.RESULT, baseUserLoginVo);
 	    logger.info("===step3:【新增基础用户登录】(BaseUserLoginController-add)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 	    return baseUserLoginResponse;
 	}
@@ -172,7 +172,7 @@ public class BaseUserLoginController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, baseUserLoginVo);
+		baseUserLoginResponse.put(CommConstants.RESULT, baseUserLoginVo);
 		logger.info("===step3:【删除基础用户登录】(BaseUserLoginController-delete)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}
@@ -197,7 +197,7 @@ public class BaseUserLoginController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, baseUserLoginVo);
+		baseUserLoginResponse.put(CommConstants.RESULT, baseUserLoginVo);
 		logger.info("===step3:【修改基础用户登录】(BaseUserLoginController-update)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}

@@ -3,7 +3,7 @@
 <mapper namespace="com.cloud.provider.safe.dao.dao.UserInfoDao">
 
 	<!-- 根据orgId查询当前组织机构下的所有人员 -->
-    <select id="selectListByOrgId" parameterType="com.cloud.provider.safe.param.UserParam" resultType="com.cloud.provider.safe.vo.UserInfoOrgVo">
+    <select id="selectListByOrgId" parameterType="com.cloud.provider.safe.param.UserParam" resultType="com.cloud.provider.safe.vo.user.UserInfoOrgVo">
         select 
         t1.id as userId, t1.user_account as userAccount, t1.user_name_en as userNameEn, t1.nick_name as nickName, t1.user_type as userType, 
         t1.gender as gender, t1.user_status as userStatus, t1.user_email as userEmail, t1.head_image as headImage, 
@@ -23,6 +23,5 @@
   			order by ${orderByClause}
         </if>
     </select>
-
   
 </mapper>

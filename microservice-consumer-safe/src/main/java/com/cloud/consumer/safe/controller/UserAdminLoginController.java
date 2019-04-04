@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserAdminLoginPageRequest;
@@ -69,7 +69,7 @@ public class UserAdminLoginController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, userAdminLoginVoList);
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(RetSafeConstants.RESULT, result);
+		userAdminLoginResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(UserAdminLoginController-getListByPage)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 	    return userAdminLoginResponse;
 	}
@@ -94,7 +94,7 @@ public class UserAdminLoginController extends BaseController {
 		BaseResultVo result = new BaseResultVo(userAdminLoginVoList);
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(RetSafeConstants.RESULT, result);
+		userAdminLoginResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserAdminLoginController-getList)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
@@ -121,7 +121,7 @@ public class UserAdminLoginController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(RetSafeConstants.RESULT, userAdminLoginVo);
+		userAdminLoginResponse.put(CommConstants.RESULT, userAdminLoginVo);
 	    logger.info("===step3:【获取用户管理登录】(UserAdminLoginController-get)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 	    return userAdminLoginResponse;
 	}
@@ -146,7 +146,7 @@ public class UserAdminLoginController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(RetSafeConstants.RESULT, userAdminLoginVo);
+		userAdminLoginResponse.put(CommConstants.RESULT, userAdminLoginVo);
 	    logger.info("===step3:【新增用户管理登录】(UserAdminLoginController-add)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 	    return userAdminLoginResponse;
 	}
@@ -172,7 +172,7 @@ public class UserAdminLoginController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(RetSafeConstants.RESULT, userAdminLoginVo);
+		userAdminLoginResponse.put(CommConstants.RESULT, userAdminLoginVo);
 		logger.info("===step3:【删除用户管理登录】(UserAdminLoginController-delete)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
@@ -197,7 +197,7 @@ public class UserAdminLoginController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(RetSafeConstants.RESULT, userAdminLoginVo);
+		userAdminLoginResponse.put(CommConstants.RESULT, userAdminLoginVo);
 		logger.info("===step3:【修改用户管理登录】(UserAdminLoginController-update)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}

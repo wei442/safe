@@ -89,7 +89,7 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
      */
 	@Override
 	public Integer insert(BaseUserInfo baseUserInfo) {
-    	logger.info("(BaseUserInfoService-insertBaseUserInfo)-插入基础用户信息-传入参数, baseUserInfo:{}", baseUserInfo);
+    	logger.info("(BaseUserInfoService-insert)-插入基础用户信息-传入参数, baseUserInfo:{}", baseUserInfo);
     	baseUserInfo.setUserStatus(SqlSafeConstants.SQL_BASE_USER_STATUS_NORMAL);
     	baseUserInfo.setIsDelete(SqlSafeConstants.SQL_BASE_USER_IS_DELETE_NO);
     	baseUserInfo.setCreateTime(new Date());
@@ -119,7 +119,7 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
      */
 	@Override
 	public Integer modify(BaseUserInfo baseUserInfo) {
-    	logger.info("(BaseUserInfoService-modifyBaseUserInfo)-修改基础用户信息-传入参数, baseUserInfo:{}", baseUserInfo);
+    	logger.info("(BaseUserInfoService-modify)-修改基础用户信息-传入参数, baseUserInfo:{}", baseUserInfo);
     	baseUserInfo.setUpdateTime(new Date());
     	int i = baseUserInfoMapper.updateByPrimaryKeySelective(baseUserInfo);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

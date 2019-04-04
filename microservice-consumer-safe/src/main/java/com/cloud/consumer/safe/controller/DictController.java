@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.dict.DictIdRequest;
@@ -71,7 +71,7 @@ public class DictController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, dictVoList);
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(RetSafeConstants.RESULT, result);
+		dictResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(DictController-getListByPage)-返回信息, dictResponse:{}", dictResponse);
 	    return dictResponse;
 	}
@@ -98,7 +98,7 @@ public class DictController extends BaseController {
 		BaseResultVo result = new BaseResultVo(dictVoList);
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(RetSafeConstants.RESULT, result);
+		dictResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(DictController-getList)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
@@ -125,7 +125,7 @@ public class DictController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(RetSafeConstants.RESULT, dictVo);
+		dictResponse.put(CommConstants.RESULT, dictVo);
 	    logger.info("===step3:【获取字典】(DictController-get)-返回信息, dictResponse:{}", dictResponse);
 	    return dictResponse;
 	}
@@ -152,7 +152,7 @@ public class DictController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(RetSafeConstants.RESULT, dictVo);
+		dictResponse.put(CommConstants.RESULT, dictVo);
 	    logger.info("===step3:【新增字典】(DictController-add)-返回信息, dictResponse:{}", dictResponse);
 	    return dictResponse;
 	}
@@ -178,7 +178,7 @@ public class DictController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(RetSafeConstants.RESULT, dictVo);
+		dictResponse.put(CommConstants.RESULT, dictVo);
 		logger.info("===step3:【删除字典】(DictController-delete)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
@@ -205,7 +205,7 @@ public class DictController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(RetSafeConstants.RESULT, dictVo);
+		dictResponse.put(CommConstants.RESULT, dictVo);
 		logger.info("===step3:【修改字典】(DictController-update)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}

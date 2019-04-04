@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.post.PostPageRequest;
@@ -71,7 +71,7 @@ public class PostController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, postVoList);
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, result);
+		postResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(PostController-getListByPage)-返回信息, postResponse:{}", postResponse);
 	    return postResponse;
 	}
@@ -98,7 +98,7 @@ public class PostController extends BaseController {
 		BaseResultVo result = new BaseResultVo(postVoList);
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, result);
+		postResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(PostController-getList)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}
@@ -125,7 +125,7 @@ public class PostController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, postVo);
+		postResponse.put(CommConstants.RESULT, postVo);
 	    logger.info("===step3:【获取岗位】(PostController-get)-返回信息, postResponse:{}", postResponse);
 	    return postResponse;
 	}
@@ -152,7 +152,7 @@ public class PostController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, postVo);
+		postResponse.put(CommConstants.RESULT, postVo);
 	    logger.info("===step3:【新增岗位】(PostController-add)-返回信息, postResponse:{}", postResponse);
 	    return postResponse;
 	}
@@ -178,7 +178,7 @@ public class PostController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, postVo);
+		postResponse.put(CommConstants.RESULT, postVo);
 		logger.info("===step3:【删除岗位】(PostController-delete)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}
@@ -205,7 +205,7 @@ public class PostController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, postVo);
+		postResponse.put(CommConstants.RESULT, postVo);
 		logger.info("===step3:【修改岗位】(PostController-update)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}

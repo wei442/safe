@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.enterprise.EnterpriseIdRequest;
@@ -69,7 +69,7 @@ public class EnterpriseController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, enterpriseVoList);
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, result);
+		enterpriseResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(EnterpriseController-getListByPage)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 	    return enterpriseResponse;
 	}
@@ -94,7 +94,7 @@ public class EnterpriseController extends BaseController {
 		BaseResultVo result = new BaseResultVo(enterpriseVoList);
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, result);
+		enterpriseResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(EnterpriseController-getList)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
@@ -121,7 +121,7 @@ public class EnterpriseController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, enterpriseVo);
+		enterpriseResponse.put(CommConstants.RESULT, enterpriseVo);
 	    logger.info("===step3:【获取企业】(EnterpriseController-get)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 	    return enterpriseResponse;
 	}
@@ -146,7 +146,7 @@ public class EnterpriseController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, enterpriseVo);
+		enterpriseResponse.put(CommConstants.RESULT, enterpriseVo);
 	    logger.info("===step3:【新增企业】(EnterpriseController-add)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 	    return enterpriseResponse;
 	}
@@ -172,7 +172,7 @@ public class EnterpriseController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, enterpriseVo);
+		enterpriseResponse.put(CommConstants.RESULT, enterpriseVo);
 		logger.info("===step3:【删除企业】(EnterpriseController-delete)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
@@ -197,7 +197,7 @@ public class EnterpriseController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, enterpriseVo);
+		enterpriseResponse.put(CommConstants.RESULT, enterpriseVo);
 		logger.info("===step3:【修改企业】(EnterpriseController-update)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}

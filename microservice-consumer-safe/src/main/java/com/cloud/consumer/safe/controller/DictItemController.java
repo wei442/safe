@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.dict.DictItemIdRequest;
@@ -69,7 +69,7 @@ public class DictItemController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, dictItemVoList);
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, result);
+		dictItemResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(DictItemController-getListByPage)-返回信息, dictItemResponse:{}", dictItemResponse);
 	    return dictItemResponse;
 	}
@@ -94,7 +94,7 @@ public class DictItemController extends BaseController {
 		BaseResultVo result = new BaseResultVo(dictItemVoList);
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, result);
+		dictItemResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(DictItemController-getList)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}
@@ -121,7 +121,7 @@ public class DictItemController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, dictItemVo);
+		dictItemResponse.put(CommConstants.RESULT, dictItemVo);
 	    logger.info("===step3:【获取字典子项】(DictItemController-get)-返回信息, dictItemResponse:{}", dictItemResponse);
 	    return dictItemResponse;
 	}
@@ -146,7 +146,7 @@ public class DictItemController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, dictItemVo);
+		dictItemResponse.put(CommConstants.RESULT, dictItemVo);
 	    logger.info("===step3:【新增字典子项】(DictItemController-add)-返回信息, dictItemResponse:{}", dictItemResponse);
 	    return dictItemResponse;
 	}
@@ -173,7 +173,7 @@ public class DictItemController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, dictItemVo);
+		dictItemResponse.put(CommConstants.RESULT, dictItemVo);
 		logger.info("===step3:【删除字典子项】(DictItemController-delete)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}
@@ -198,7 +198,7 @@ public class DictItemController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, dictItemVo);
+		dictItemResponse.put(CommConstants.RESULT, dictItemVo);
 		logger.info("===step3:【修改字典子项】(DictItemController-update)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}

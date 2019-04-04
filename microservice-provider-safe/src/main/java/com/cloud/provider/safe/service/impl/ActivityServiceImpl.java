@@ -95,7 +95,7 @@ public class ActivityServiceImpl implements IActivityService {
      */
 	@Override
 	public Integer insert(Activity activity) {
-    	logger.info("(ActivityService-insertActivity)-插入活动-传入参数, activity:{}", activity);
+    	logger.info("(ActivityService-insert)-插入活动-传入参数, activity:{}", activity);
     	activity.setCreateTime(new Date());
     	activity.setUpdateTime(new Date());
     	int i = activityMapper.insertSelective(activity);
@@ -123,7 +123,7 @@ public class ActivityServiceImpl implements IActivityService {
   	 */
 	@Override
 	public Integer deleteByIds(List<Integer> ids) {
-  		logger.info("(UserOrgService-deleteById)-根据ids删除活动-传入参数, ids:{}", ids);
+  		logger.info("(UserOrgService-deleteByIds)-根据ids删除活动-传入参数, ids:{}", ids);
   		ActivityExample example = new ActivityExample();
   		ActivityExample.Criteria criteria = example.createCriteria();
   		criteria.andIdIn(ids);
@@ -139,7 +139,7 @@ public class ActivityServiceImpl implements IActivityService {
      */
 	@Override
 	public Integer modify(Activity activity) {
-    	logger.info("(ActivityService-modifyActivity)-修改活动-传入参数, activity:{}", activity);
+    	logger.info("(ActivityService-modify)-修改活动-传入参数, activity:{}", activity);
     	activity.setUpdateTime(new Date());
 		int i = activityMapper.updateByPrimaryKeySelective(activity);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

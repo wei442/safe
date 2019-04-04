@@ -47,7 +47,7 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
 	 */
 	@Override
 	public UserAdminPassword selectByUserId(Integer userId) {
-		logger.info("(UserAdminPasswordService-selectByUserIdPassword)-根据userId查询用户管理密码-传入参数, userId:{}", userId);
+		logger.info("(UserAdminPasswordService-selectByUserId)-根据userId查询用户管理密码-传入参数, userId:{}", userId);
 		UserAdminPasswordExample example = new UserAdminPasswordExample();
 		UserAdminPasswordExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
@@ -89,7 +89,7 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
      */
 	@Override
 	public Integer insert(UserAdminPassword userAdminPassword) {
-    	logger.info("(UserAdminPasswordService-insertUserAdminPassword)-插入用户管理密码-传入参数, userAdminPassword:{}", userAdminPassword);
+    	logger.info("(UserAdminPasswordService-insert)-插入用户管理密码-传入参数, userAdminPassword:{}", userAdminPassword);
     	userAdminPassword.setCreateTime(new Date());
     	userAdminPassword.setUpdateTime(new Date());
     	int i = userAdminPasswordMapper.insertSelective(userAdminPassword);
@@ -117,7 +117,7 @@ public class UserAdminPasswordServiceImpl implements IUserAdminPasswordService {
      */
 	@Override
 	public Integer modify(UserAdminPassword userAdminPassword) {
-    	logger.info("(UserAdminPasswordService-modifyUserAdminPassword)-修改用户管理密码-传入参数, userAdminPassword:{}", userAdminPassword);
+    	logger.info("(UserAdminPasswordService-modify)-修改用户管理密码-传入参数, userAdminPassword:{}", userAdminPassword);
     	userAdminPassword.setUpdateTime(new Date());
 		int i = userAdminPasswordMapper.updateByPrimaryKeySelective(userAdminPassword);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

@@ -95,8 +95,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
      */
 	@Override
 	public Integer insert(Enterprise enterprise) {
-    	logger.info("(EnterpriseService-insertEnterprise)-插入企业-传入参数, enterprise:{}", enterprise);
-
+    	logger.info("(EnterpriseService-insert)-插入企业-传入参数, enterprise:{}", enterprise);
     	enterprise.setEnterpriseStatus(SqlSafeConstants.SQL_ENTERPRISE_STATUS_NORMAL);
     	enterprise.setCreateTime(new Date());
     	enterprise.setUpdateTime(new Date());
@@ -135,7 +134,7 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
      */
 	@Override
 	public Integer modify(Enterprise enterprise) {
-    	logger.info("(EnterpriseService-modifyEnterprise)-修改企业-传入参数, enterprise:{}", enterprise);
+    	logger.info("(EnterpriseService-modify)-修改企业-传入参数, enterprise:{}", enterprise);
     	enterprise.setUpdateTime(new Date());
     	int i = enterpriseMapper.updateByPrimaryKeySelective(enterprise);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

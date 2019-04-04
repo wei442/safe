@@ -95,7 +95,7 @@ public class PostServiceImpl implements IPostService {
      */
 	@Override
 	public Integer insert(Post post) {
-    	logger.info("(PostService-insertPost)-插入岗位-传入参数, post:{}", post);
+    	logger.info("(PostService-insert)-插入岗位-传入参数, post:{}", post);
     	post.setIsDelete(SqlSafeConstants.SQL_POST_IS_DELETE_NO);
     	post.setCreateTime(new Date());
     	post.setUpdateTime(new Date());
@@ -124,7 +124,7 @@ public class PostServiceImpl implements IPostService {
      */
 	@Override
 	public Integer modify(Post post) {
-    	logger.info("(PostService-modifyPost)-修改岗位-传入参数, post:{}", post);
+    	logger.info("(PostService-modify)-修改岗位-传入参数, post:{}", post);
     	post.setUpdateTime(new Date());
     	int i = postMapper.updateByPrimaryKeySelective(post);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

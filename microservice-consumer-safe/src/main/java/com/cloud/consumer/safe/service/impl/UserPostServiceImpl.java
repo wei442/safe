@@ -11,7 +11,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserPostService;
 
 /**
- * 用户岗位 Service (microservice-provider-safe)
+ * 用户岗位 UserPostService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service

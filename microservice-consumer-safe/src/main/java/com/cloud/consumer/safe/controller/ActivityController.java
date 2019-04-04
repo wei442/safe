@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.activity.ActivityIdRequest;
@@ -71,7 +71,7 @@ public class ActivityController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, activityVoList);
 		//返回信息
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
-		activityResponse.put(RetSafeConstants.RESULT, result);
+		activityResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(ActivityController-getListByPage)-返回信息, activityResponse:{}", activityResponse);
 	    return activityResponse;
 	}
@@ -98,7 +98,7 @@ public class ActivityController extends BaseController {
 		BaseResultVo result = new BaseResultVo(activityVoList);
 		//返回信息
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
-		activityResponse.put(RetSafeConstants.RESULT, result);
+		activityResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(ActivityController-getList)-返回信息, activityResponse:{}", activityResponse);
 		return activityResponse;
 	}
@@ -125,7 +125,7 @@ public class ActivityController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
-		activityResponse.put(RetSafeConstants.RESULT, activityVo);
+		activityResponse.put(CommConstants.RESULT, activityVo);
 	    logger.info("===step3:【获取安全活动】(ActivityController-get)-返回信息, activityResponse:{}", activityResponse);
 	    return activityResponse;
 	}
@@ -152,7 +152,7 @@ public class ActivityController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
-		activityResponse.put(RetSafeConstants.RESULT, activityVo);
+		activityResponse.put(CommConstants.RESULT, activityVo);
 	    logger.info("===step3:【新增安全活动】(ActivityController-add)-返回信息, activityResponse:{}", activityResponse);
 	    return activityResponse;
 	}
@@ -178,7 +178,7 @@ public class ActivityController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
-		activityResponse.put(RetSafeConstants.RESULT, activityVo);
+		activityResponse.put(CommConstants.RESULT, activityVo);
 		logger.info("===step3:【删除安全活动】(ActivityController-delete)-返回信息, activityResponse:{}", activityResponse);
 		return activityResponse;
 	}
@@ -205,7 +205,7 @@ public class ActivityController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
-		activityResponse.put(RetSafeConstants.RESULT, activityVo);
+		activityResponse.put(CommConstants.RESULT, activityVo);
 		logger.info("===step3:【修改安全活动】(ActivityController-update)-返回信息, activityResponse:{}", activityResponse);
 		return activityResponse;
 	}

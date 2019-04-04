@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.safe.SafeUrlConstants;
-import com.cloud.consumer.safe.service.IPostService;
+import com.cloud.consumer.safe.service.IRuleService;
 
 /**
  * 规范文件 RuleService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
-public class RuleServiceImpl extends BaseService implements IPostService {
+public class RuleServiceImpl extends BaseService implements IRuleService {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 

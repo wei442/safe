@@ -3,7 +3,7 @@
 <mapper namespace="com.cloud.provider.safe.dao.dao.UserQualityDao">
 
 	<!-- 根据userId更新用户资质用户名称 -->
-	<update id="updateUserNameByUserId" parameterType="com.cloud.provider.safe.param.UserQualityParam" >
+	<update id="updateUserNameByUserId" parameterType="com.cloud.provider.safe.param.UserQualityParam">
     	update user_quality
     	set user_name = #{userName,jdbcType=VARCHAR}
     	where user_id = #{userId,jdbcType=INTEGER}

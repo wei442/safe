@@ -39,18 +39,19 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
 		UserAppPassword userAppPassword = userAppPasswordMapper.selectByPrimaryKey(id);
 		return userAppPassword;
     }
-	
+
 	/**
 	 * 根据userId查询用户应用密码
 	 * @param userId
 	 * @return UserAppPassword
 	 */
+	@Override
 	public UserAppPassword selectByUserId(Integer userId) {
 		logger.info("(UserAppPasswordService-selectByUserId)-根据userId查询用户应用密码-传入参数, userId:{}", userId);
 		UserAppPasswordExample example = new UserAppPasswordExample();
 		UserAppPasswordExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
-		
+
 		List<UserAppPassword> list = userAppPasswordMapper.selectByExample(example);
 		UserAppPassword userAppPassword = null;
 		if(list != null && !list.isEmpty()) {
@@ -88,7 +89,7 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
      */
 	@Override
 	public Integer insert(UserAppPassword userAppPassword) {
-    	logger.info("(UserAppPasswordService-insertUserAppPassword)-插入用户应用密码-传入参数, userAppPassword:{}", userAppPassword);
+    	logger.info("(UserAppPasswordService-insert)-插入用户应用密码-传入参数, userAppPassword:{}", userAppPassword);
     	userAppPassword.setCreateTime(new Date());
     	userAppPassword.setUpdateTime(new Date());
     	int i = userAppPasswordMapper.insertSelective(userAppPassword);
@@ -116,7 +117,7 @@ public class UserAppPasswordServiceImpl implements IUserAppPasswordService {
      */
 	@Override
 	public Integer modify(UserAppPassword userAppPassword) {
-    	logger.info("(UserAppPasswordService-modifyUserAppPassword)-修改用户应用密码-传入参数, userAppPassword:{}", userAppPassword);
+    	logger.info("(UserAppPasswordService-modify)-修改用户应用密码-传入参数, userAppPassword:{}", userAppPassword);
     	userAppPassword.setUpdateTime(new Date());
 		int i = userAppPasswordMapper.updateByPrimaryKeySelective(userAppPassword);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

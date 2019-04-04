@@ -86,7 +86,7 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
      */
 	@Override
 	public Integer insert(BaseUserLogin baseUserLogin) {
-    	logger.info("(BaseUserLoginService-insertBaseUserLogin)-插入基础用户登录-传入参数, baseUserLogin:{}", baseUserLogin);
+    	logger.info("(BaseUserLoginService-insert)-插入基础用户登录-传入参数, baseUserLogin:{}", baseUserLogin);
     	baseUserLogin.setCreateTime(new Date());
     	baseUserLogin.setUpdateTime(new Date());
     	int i = baseUserLoginMapper.insertSelective(baseUserLogin);
@@ -114,7 +114,7 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
      */
 	@Override
 	public Integer modify(BaseUserLogin baseUserLogin) {
-    	logger.info("(BaseUserLoginService-modifyBaseUserLogin)-修改基础用户登录-传入参数, baseUserLogin:{}", baseUserLogin);
+    	logger.info("(BaseUserLoginService-modify)-修改基础用户登录-传入参数, baseUserLogin:{}", baseUserLogin);
     	baseUserLogin.setUpdateTime(new Date());
 		int i = baseUserLoginMapper.updateByPrimaryKeySelective(baseUserLogin);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);

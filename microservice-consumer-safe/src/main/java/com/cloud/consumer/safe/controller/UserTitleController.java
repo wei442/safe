@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserTitlePageRequest;
@@ -71,7 +71,7 @@ public class UserTitleController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, userTitleVoList);
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.put(RetSafeConstants.RESULT, result);
+		userTitleResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(UserTitleController-getListByPage)-返回信息, userTitleResponse:{}", userTitleResponse);
 	    return userTitleResponse;
 	}
@@ -98,7 +98,7 @@ public class UserTitleController extends BaseController {
 		BaseResultVo result = new BaseResultVo(userTitleVoList);
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.put(RetSafeConstants.RESULT, result);
+		userTitleResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserTitleController-getList)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
@@ -125,7 +125,7 @@ public class UserTitleController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.put(RetSafeConstants.RESULT, userTitleVo);
+		userTitleResponse.put(CommConstants.RESULT, userTitleVo);
 	    logger.info("===step3:【获取用户职务】(UserTitleController-getDetail)-返回信息, userTitleResponse:{}", userTitleResponse);
 	    return userTitleResponse;
 	}

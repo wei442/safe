@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.provider.safe.dao.dao.UserOrgDao">
 	<!-- 查询当前用户组织机构下的所有人员列表 -->
-    <select id="selectList" parameterType="com.cloud.provider.safe.param.UserOrgParam" resultType="com.cloud.provider.safe.vo.UserOrgVo">
+    <select id="selectList" parameterType="com.cloud.provider.safe.param.UserOrgParam" resultType="com.cloud.provider.safe.vo.user.UserOrgVo">
         select 
     	t1.id as userOrgId, t1.enterprise_id as enterpriseId, t1.user_id as userId, t1.user_name as userName, t1.org_id as orgId, 
     	t1.created as created, t1.updated as updated, t1.create_time as createTime, t1.update_time as updateTime, 
@@ -25,7 +25,7 @@
     </select>
 
 	<!-- 根据orgId更新机构名称 -->
-	<update id="updateOrgNameByOrgId" parameterType="com.cloud.provider.safe.param.UserOrgParam" >
+	<update id="updateOrgNameByOrgId" parameterType="com.cloud.provider.safe.param.UserOrgParam">
     	update user_org
     	set org_name = #{orgName,jdbcType=VARCHAR}
     	where org_id = #{orgId,jdbcType=INTEGER}

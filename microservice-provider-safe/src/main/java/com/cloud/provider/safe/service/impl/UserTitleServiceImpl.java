@@ -91,7 +91,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
 	 */
 	@Override
 	public List<UserTitle> selectListByTitleId(Integer titleId) {
-		logger.info("(UserTitleService-selectById)-根据titleId查询用户职务列表-传入参数, titleId:{}", titleId);
+		logger.info("(UserTitleService-selectListByTitleId)-根据titleId查询用户职务列表-传入参数, titleId:{}", titleId);
 		UserTitleExample example = new UserTitleExample();
 		UserTitleExample.Criteria criteria = example.createCriteria();
 		criteria.andTitleIdEqualTo(titleId);
@@ -119,7 +119,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
 	 */
 	@Override
 	public UserTitle selectByUserId(Integer userId) {
-		logger.info("(UserTitleService-selectById)-根据userId查询用户职务-传入参数, userId:{}", userId);
+		logger.info("(UserTitleService-selectByUserId)-根据userId查询用户职务-传入参数, userId:{}", userId);
 		UserTitleExample example = new UserTitleExample();
 		UserTitleExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
@@ -138,7 +138,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
      */
 	@Override
 	public Integer insert(UserTitle userTitle) {
-    	logger.info("(UserTitleService-insertUserTitle)-插入用户职务-传入参数, userTitle:{}", userTitle);
+    	logger.info("(UserTitleService-insert)-插入用户职务-传入参数, userTitle:{}", userTitle);
     	userTitle.setCreateTime(new Date());
     	userTitle.setUpdateTime(new Date());
     	int i = userTitleMapper.insertSelective(userTitle);
@@ -166,7 +166,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
   	 */
 	@Override
 	public Integer deleteByIds(List<Integer> ids) {
-  		logger.info("(UserOrgService-deleteById)-根据ids删除用户职务-传入参数, ids:{}", ids);
+  		logger.info("(UserOrgService-deleteByIds)-根据ids删除用户职务-传入参数, ids:{}", ids);
   		UserTitleExample example = new UserTitleExample();
   		UserTitleExample.Criteria criteria = example.createCriteria();
   		criteria.andIdIn(ids);
@@ -182,7 +182,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
      */
 	@Override
 	public Integer modify(UserTitle userTitle) {
-    	logger.info("(UserTitleService-modifyUserTitle)-修改用户职务-传入参数, userTitle:{}", userTitle);
+    	logger.info("(UserTitleService-modify)-修改用户职务-传入参数, userTitle:{}", userTitle);
     	userTitle.setUpdateTime(new Date());
 		int i = userTitleMapper.updateByPrimaryKeySelective(userTitle);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
