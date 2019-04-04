@@ -25,13 +25,15 @@ public class UserOrgVo implements Serializable {
 
 	private Integer userOrgId;
 
-    private Integer enterpriseId;
+	private Integer enterpriseId;
 
     private Integer userId;
 
     private String userName;
 
     private Integer orgId;
+
+    private String orgName;
 
     private String created;
 
@@ -48,8 +50,6 @@ public class UserOrgVo implements Serializable {
     private String userNameEn;
 
     private String nickName;
-
-    private String orgName;
 
     /**
      * 实体转换

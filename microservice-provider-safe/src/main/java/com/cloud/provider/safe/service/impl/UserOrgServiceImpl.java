@@ -91,12 +91,12 @@ public class UserOrgServiceImpl implements IUserOrgService {
 	 * @param orgId
 	 * @return List<UserOrg>
 	 */
+	@Override
 	public List<UserOrg> selectListByOrgId(Integer orgId) {
 		logger.info("(UserOrgService-selectListByOrgId)-根据orgId查询用户机构列表-传入参数, orgId:{}", orgId);
 		UserOrgExample example = new UserOrgExample();
 		UserOrgExample.Criteria criteria = example.createCriteria();
 		criteria.andOrgIdEqualTo(orgId);
-
 		List<UserOrg> list = userOrgMapper.selectByExample(example);
 		return list;
 	}

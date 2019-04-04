@@ -29,10 +29,15 @@ public class SafeUrlConstants {
 	public static final String org_quality = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/enterprise/quality";
 	//岗位
 	public static final String post = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/post";
-	//岗位附件
-	public static final String post_attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/post/attachment";
+//	//岗位附件
+//	public static final String post_attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/post/attachment";
 	//职务
 	public static final String title = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/title";
+
+	//规范文件
+	public static final String rule = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/rule";
+	//安全活动
+	public static final String activity = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/activity";
 
 	//用户信息
 	public static final String user_info = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/info";

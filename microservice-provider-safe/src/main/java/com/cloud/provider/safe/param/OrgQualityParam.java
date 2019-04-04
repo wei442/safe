@@ -9,14 +9,12 @@ import lombok.Data;
  * @author wei.yong
  */
 @Data
-public class UserOrgParam implements Serializable {
+public class OrgQualityParam implements Serializable {
 
 	/**
      *
      */
     private static final long serialVersionUID = 1L;
-
-    private Integer enterpriseId;
 
     private Integer orgId;
 

@@ -45,7 +45,7 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
 		OrgQualityExample example = new OrgQualityExample();
 		example.setOrderByClause(" id desc ");
 		OrgQualityExample.Criteria criteria = example.createCriteria();
-		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_QUALITY_IS_DELETE_NO);
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_QUALITY_IS_DELETE_NO);
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
@@ -66,7 +66,7 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
 		OrgQualityExample example = new OrgQualityExample();
 		example.setOrderByClause(" id desc ");
 		OrgQualityExample.Criteria criteria = example.createCriteria();
-		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_QUALITY_IS_DELETE_NO);
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_QUALITY_IS_DELETE_NO);
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());

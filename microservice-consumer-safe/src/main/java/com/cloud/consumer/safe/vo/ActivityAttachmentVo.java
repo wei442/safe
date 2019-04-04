@@ -9,24 +9,20 @@ import com.cloud.common.dateformat.DateFormatConstants;
 import lombok.Data;
 
 @Data
-public class UserOrgVo implements Serializable {
+public class ActivityAttachmentVo implements Serializable {
 
     /**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer userOrgId;
+	private Integer activityAttachmentId;
 
-	private Integer enterpriseId;
+	private Integer activityId;
 
-    private Integer userId;
+    private Integer attachmentId;
 
-    private String userName;
-
-    private Integer orgId;
-
-    private String orgName;
+    private String attachmentUrl;
 
     private String created;
 
@@ -37,11 +33,5 @@ public class UserOrgVo implements Serializable {
 
     @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
-
-    private String userAccount;
-
-    private String userNameEn;
-
-    private String nickName;
 
 }

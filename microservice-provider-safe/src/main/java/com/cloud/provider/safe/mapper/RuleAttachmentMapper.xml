@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cloud.provider.safe.dao.QualityMapper">
-  <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.Quality">
+<mapper namespace="com.cloud.provider.safe.dao.RuleAttachmentMapper">
+  <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.RuleAttachment">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
-    <result column="quality_name" jdbcType="VARCHAR" property="qualityName" />
-    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="rule_id" jdbcType="INTEGER" property="ruleId" />
+    <result column="attachment_id" jdbcType="BIGINT" property="attachmentId" />
+    <result column="attachment_url" jdbcType="VARCHAR" property="attachmentUrl" />
     <result column="created" jdbcType="VARCHAR" property="created" />
     <result column="updated" jdbcType="VARCHAR" property="updated" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -71,16 +70,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, enterprise_id, quality_name, is_delete, remark, created, updated, create_time, 
-    update_time
+    id, rule_id, attachment_id, attachment_url, created, updated, create_time, update_time
   </sql>
-  <select id="selectByExample" parameterType="com.cloud.provider.safe.po.QualityExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.cloud.provider.safe.po.RuleAttachmentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from quality
+    from rule_attachment
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -91,46 +89,41 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from quality
+    from rule_attachment
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from quality
+    delete from rule_attachment
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cloud.provider.safe.po.QualityExample">
-    delete from quality
+  <delete id="deleteByExample" parameterType="com.cloud.provider.safe.po.RuleAttachmentExample">
+    delete from rule_attachment
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.Quality" useGeneratedKeys="true" keyProperty="id">
-    insert into quality (id, enterprise_id, quality_name, 
-      is_delete, remark, created, 
-      updated, create_time, update_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{qualityName,jdbcType=VARCHAR}, 
-      #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, 
-      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.RuleAttachment" useGeneratedKeys="true" keyProperty="id">
+    insert into rule_attachment (id, rule_id, attachment_id, 
+      attachment_url, created, updated, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{ruleId,jdbcType=INTEGER}, #{attachmentId,jdbcType=BIGINT}, 
+      #{attachmentUrl,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Quality" useGeneratedKeys="true" keyProperty="id">
-    insert into quality
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.RuleAttachment" useGeneratedKeys="true" keyProperty="id">
+    insert into rule_attachment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="enterpriseId != null">
-        enterprise_id,
+      <if test="ruleId != null">
+        rule_id,
       </if>
-      <if test="qualityName != null">
-        quality_name,
+      <if test="attachmentId != null">
+        attachment_id,
       </if>
-      <if test="isDelete != null">
-        is_delete,
-      </if>
-      <if test="remark != null">
-        remark,
+      <if test="attachmentUrl != null">
+        attachment_url,
       </if>
       <if test="created != null">
         created,
@@ -149,17 +142,14 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="enterpriseId != null">
-        #{enterpriseId,jdbcType=INTEGER},
+      <if test="ruleId != null">
+        #{ruleId,jdbcType=INTEGER},
       </if>
-      <if test="qualityName != null">
-        #{qualityName,jdbcType=VARCHAR},
+      <if test="attachmentId != null">
+        #{attachmentId,jdbcType=BIGINT},
       </if>
-      <if test="isDelete != null">
-        #{isDelete,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
+      <if test="attachmentUrl != null">
+        #{attachmentUrl,jdbcType=VARCHAR},
       </if>
       <if test="created != null">
         #{created,jdbcType=VARCHAR},
@@ -175,29 +165,26 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cloud.provider.safe.po.QualityExample" resultType="java.lang.Long">
-    select count(*) from quality
+  <select id="countByExample" parameterType="com.cloud.provider.safe.po.RuleAttachmentExample" resultType="java.lang.Long">
+    select count(*) from rule_attachment
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update quality
+    update rule_attachment
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.enterpriseId != null">
-        enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
+      <if test="record.ruleId != null">
+        rule_id = #{record.ruleId,jdbcType=INTEGER},
       </if>
-      <if test="record.qualityName != null">
-        quality_name = #{record.qualityName,jdbcType=VARCHAR},
+      <if test="record.attachmentId != null">
+        attachment_id = #{record.attachmentId,jdbcType=BIGINT},
       </if>
-      <if test="record.isDelete != null">
-        is_delete = #{record.isDelete,jdbcType=INTEGER},
-      </if>
-      <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=VARCHAR},
+      <if test="record.attachmentUrl != null">
+        attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null">
         created = #{record.created,jdbcType=VARCHAR},
@@ -217,12 +204,11 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update quality
+    update rule_attachment
     set id = #{record.id,jdbcType=INTEGER},
-      enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
-      quality_name = #{record.qualityName,jdbcType=VARCHAR},
-      is_delete = #{record.isDelete,jdbcType=INTEGER},
-      remark = #{record.remark,jdbcType=VARCHAR},
+      rule_id = #{record.ruleId,jdbcType=INTEGER},
+      attachment_id = #{record.attachmentId,jdbcType=BIGINT},
+      attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
       created = #{record.created,jdbcType=VARCHAR},
       updated = #{record.updated,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -231,20 +217,17 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cloud.provider.safe.po.Quality">
-    update quality
+  <update id="updateByPrimaryKeySelective" parameterType="com.cloud.provider.safe.po.RuleAttachment">
+    update rule_attachment
     <set>
-      <if test="enterpriseId != null">
-        enterprise_id = #{enterpriseId,jdbcType=INTEGER},
+      <if test="ruleId != null">
+        rule_id = #{ruleId,jdbcType=INTEGER},
       </if>
-      <if test="qualityName != null">
-        quality_name = #{qualityName,jdbcType=VARCHAR},
+      <if test="attachmentId != null">
+        attachment_id = #{attachmentId,jdbcType=BIGINT},
       </if>
-      <if test="isDelete != null">
-        is_delete = #{isDelete,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
+      <if test="attachmentUrl != null">
+        attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
       </if>
       <if test="created != null">
         created = #{created,jdbcType=VARCHAR},
@@ -261,12 +244,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.Quality">
-    update quality
-    set enterprise_id = #{enterpriseId,jdbcType=INTEGER},
-      quality_name = #{qualityName,jdbcType=VARCHAR},
-      is_delete = #{isDelete,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.RuleAttachment">
+    update rule_attachment
+    set rule_id = #{ruleId,jdbcType=INTEGER},
+      attachment_id = #{attachmentId,jdbcType=BIGINT},
+      attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
       created = #{created,jdbcType=VARCHAR},
       updated = #{updated,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

@@ -5,22 +5,20 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 机构资质请求 OrgQualityParam
+ * 用户资质请求 UserQualityParam
  * @author wei.yong
  */
 @Data
-public class UserOrgParam implements Serializable {
+public class UserQualityParam implements Serializable {
 
 	/**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    private Integer enterpriseId;
+    private Integer userId;
 
-    private Integer orgId;
-
-    private String orgName;
+    private String userName;
 
     //排序
     private String orderByClause;

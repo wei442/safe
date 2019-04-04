@@ -153,17 +153,43 @@ public class SqlSafeConstants {
 	public static final Integer SQL_QUALITY_IS_DELETE_YES = 1;
 	/**********************************资质常量**********************************/
 
-	/**********************************企业资质常量**********************************/
+	/**********************************机构资质常量**********************************/
 	//删除标识 0-未删除，1-已删除
-	public static final Integer SQL_ENTERPRISE_QUALITY_IS_DELETE_NO = 0;
-	public static final Integer SQL_ENTERPRISE_QUALITY_IS_DELETE_YES = 1;
-	/**********************************企业资质常量**********************************/
+	public static final Integer SQL_ORG_QUALITY_IS_DELETE_NO = 0;
+	public static final Integer SQL_ORG_QUALITY_IS_DELETE_YES = 1;
+	/**********************************机构资质常量**********************************/
 
 	/**********************************用户资质常量**********************************/
 	//删除标识 0-未删除，1-已删除
 	public static final Integer SQL_USER_QUALITY_IS_DELETE_NO = 0;
 	public static final Integer SQL_USER_QUALITY_IS_DELETE_YES = 1;
 	/**********************************用户资质常量**********************************/
+
+	/**********************************安全活动常量**********************************/
+	//删除标识 0-未删除，1-已删除
+	public static final Integer SQL_ACTIVITY_IS_DELETE_NO = 0;
+	public static final Integer SQL_ACTIVIT_IS_DELETE_YES = 1;
+	/**********************************安全活动质常量**********************************/
+
+	/**********************************规范文件常量**********************************/
+	//规范类别 1-法律, 2-法规, 3-部门规章, 4-地方性法规, 5-标准
+	public static final Integer SQL_RULE_CATEOGORY_LAW = 1;
+	public static final Integer SQL_RULE_CATEOGORY_RULE = 2;
+	public static final Integer SQL_RULE_CATEOGORY_regulations = 3;
+	public static final Integer SQL_RULE_CATEOGORY_LOCAL_RULE = 4;
+	public static final Integer SQL_RULE_CATEOGORY_STANDARD = 5;
+
+	//规范类型 1-法律法规制度, 2-安全生产管理制度, 3-安全操作规程
+	public static final Integer SQL_RULE_TYPE_LAW_RULE = 1;
+	public static final Integer SQL_RULE_TYPE_SAFET_PRODUCTION = 2;
+	public static final Integer SQL_RULE_TYPE_SAFET_OPERATION = 3;
+
+	//删除标识 0-未删除，1-已删除
+	public static final Integer SQL_RULE_IS_DELETE_NO = 0;
+	public static final Integer SQL_RULE_IS_DELETE_YES = 1;
+	/**********************************规范文件常量**********************************/
+
+
 
 	/**********************************附件常量**********************************/
 	//附件类型 1-图片, 2-word, 3-pdf
@@ -181,12 +207,6 @@ public class SqlSafeConstants {
 	public static final Integer SQL_POST_ATTACHMENT_IS_DELETE_NO = 0;
 	public static final Integer SQL_POST_ATTACHMENT_IS_DELETE_YES = 1;
 	/**********************************岗位附件常量**********************************/
-
-	/**********************************资质附件常量**********************************/
-	//删除标识 0-未删除，1-已删除
-	public static final Integer SQL_QUALITY_ATTACHMENT_IS_DELETE_NO = 0;
-	public static final Integer SQL_QUALITY_ATTACHMENT_IS_DELETE_YES = 1;
-	/**********************************资质附件常量**********************************/
 
 
 

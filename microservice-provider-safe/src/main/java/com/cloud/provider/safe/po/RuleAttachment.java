@@ -2,16 +2,14 @@ package com.cloud.provider.safe.po;
 
 import java.util.Date;
 
-public class Quality {
+public class RuleAttachment {
     private Integer id;
 
-    private Integer enterpriseId;
+    private Integer ruleId;
 
-    private String qualityName;
+    private Long attachmentId;
 
-    private Integer isDelete;
-
-    private String remark;
+    private String attachmentUrl;
 
     private String created;
 
@@ -29,36 +27,28 @@ public class Quality {
         this.id = id;
     }
 
-    public Integer getEnterpriseId() {
-        return enterpriseId;
+    public Integer getRuleId() {
+        return ruleId;
     }
 
-    public void setEnterpriseId(Integer enterpriseId) {
-        this.enterpriseId = enterpriseId;
+    public void setRuleId(Integer ruleId) {
+        this.ruleId = ruleId;
     }
 
-    public String getQualityName() {
-        return qualityName;
+    public Long getAttachmentId() {
+        return attachmentId;
     }
 
-    public void setQualityName(String qualityName) {
-        this.qualityName = qualityName == null ? null : qualityName.trim();
+    public void setAttachmentId(Long attachmentId) {
+        this.attachmentId = attachmentId;
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
+    public String getAttachmentUrl() {
+        return attachmentUrl;
     }
 
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+    public void setAttachmentUrl(String attachmentUrl) {
+        this.attachmentUrl = attachmentUrl == null ? null : attachmentUrl.trim();
     }
 
     public String getCreated() {

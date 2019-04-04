@@ -2,7 +2,7 @@ package com.cloud.provider.safe.po;
 
 import java.util.Date;
 
-public class Activity {
+public class Rule {
     private Integer id;
 
     private Integer enterpriseId;
@@ -11,21 +11,15 @@ public class Activity {
 
     private String orgName;
 
-    private String activityName;
+    private String ruleName;
 
-    private Date activityStartTime;
-
-    private Date activityEndTime;
-
-    private String activitySite;
-
-    private String content;
-
-    private String experience;
-
-    private String lesson;
+    private String ruleNo;
 
     private String keyWord;
+
+    private Integer ruleCategory;
+
+    private Integer ruleType;
 
     private Integer isDelete;
 
@@ -71,60 +65,20 @@ public class Activity {
         this.orgName = orgName == null ? null : orgName.trim();
     }
 
-    public String getActivityName() {
-        return activityName;
+    public String getRuleName() {
+        return ruleName;
     }
 
-    public void setActivityName(String activityName) {
-        this.activityName = activityName == null ? null : activityName.trim();
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName == null ? null : ruleName.trim();
     }
 
-    public Date getActivityStartTime() {
-        return activityStartTime;
+    public String getRuleNo() {
+        return ruleNo;
     }
 
-    public void setActivityStartTime(Date activityStartTime) {
-        this.activityStartTime = activityStartTime;
-    }
-
-    public Date getActivityEndTime() {
-        return activityEndTime;
-    }
-
-    public void setActivityEndTime(Date activityEndTime) {
-        this.activityEndTime = activityEndTime;
-    }
-
-    public String getActivitySite() {
-        return activitySite;
-    }
-
-    public void setActivitySite(String activitySite) {
-        this.activitySite = activitySite == null ? null : activitySite.trim();
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
-    public String getExperience() {
-        return experience;
-    }
-
-    public void setExperience(String experience) {
-        this.experience = experience == null ? null : experience.trim();
-    }
-
-    public String getLesson() {
-        return lesson;
-    }
-
-    public void setLesson(String lesson) {
-        this.lesson = lesson == null ? null : lesson.trim();
+    public void setRuleNo(String ruleNo) {
+        this.ruleNo = ruleNo == null ? null : ruleNo.trim();
     }
 
     public String getKeyWord() {
@@ -133,6 +87,22 @@ public class Activity {
 
     public void setKeyWord(String keyWord) {
         this.keyWord = keyWord == null ? null : keyWord.trim();
+    }
+
+    public Integer getRuleCategory() {
+        return ruleCategory;
+    }
+
+    public void setRuleCategory(Integer ruleCategory) {
+        this.ruleCategory = ruleCategory;
+    }
+
+    public Integer getRuleType() {
+        return ruleType;
+    }
+
+    public void setRuleType(Integer ruleType) {
+        this.ruleType = ruleType;
     }
 
     public Integer getIsDelete() {

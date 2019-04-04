@@ -14,4 +14,11 @@ public interface UserOrgDao {
      */
     public List<UserOrgVo> selectList(UserOrgParam param);
 
+    /**
+     * 根据orgId更新用户组织机构机构名称
+     * @param param
+     * @return int
+     */
+    public int updateOrgNameByOrgId(UserOrgParam param);
+
 }
