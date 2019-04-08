@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.provider.safe.dao.dao.UserTitleDao">
+	<!-- 查询当前用户职务下的所有人员 -->
+    <select id="selectList" parameterType="com.cloud.provider.safe.param.UserTitleParam" resultType="com.cloud.provider.safe.vo.user.UserTitleVo">
+        select 
+    	t1.id as userTitleId, t1.enterprise_id as enterpriseId, t1.user_id as userId, t1.title_id as titleId, 
+    	t1.created as created, t1.updated as updated, t1.create_time as createTime, t1.update_time as updateTime, 
+    	t2.user_name as userName, t2.org_id as orgId, t3.org_name as orgName 
+    	from user_title t1, user_org t2, org t3 
+    	where t1.user_id = t2.user_id 
+    	and t2.org_id = t3.id 
+    	and t3.is_delete = 0 
+        <if test="enterpriseId != null and enterpriseId != ''">
+            and t1.enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        </if>
+        <if test="titleId != null and titleId != ''">
+            and t1.title_id = #{titleId,jdbcType=INTEGER}
+        </if>
+        <if test="orderByClause != null and orderByClause != ''">
+  			order by ${orderByClause}
+        </if>
+    </select>
+
+  
+</mapper>

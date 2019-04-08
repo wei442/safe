@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.provider.safe.dao.dao.OrgDao">
+	<!-- 根据parentOrgId查询当前组织机构列表(正向查询自上到下) -->
+    <select id="selectListByParentOrgId" parameterType="com.cloud.provider.safe.param.OrgParam" resultType="com.cloud.provider.safe.vo.enterprise.OrgVo">
+		select 
+        id as orgId, enterprise_id as enterpriseId, parent_org_id as parentOrgId, parent_org_name as parentOrgName, org_name as orgName, 
+        org_alias as orgAlias, org_telphone as orgTelphone, org_status as orgStatus, is_delete as isDelete, remark as remark, 
+    	sort as sort, created as created, updated as updated, create_time as createTime, update_time as updateTime
+        from org 
+        where is_delete = 0 
+        <if test="enterpriseId != null and enterpriseId != ''">
+			and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        </if>
+        <if test="parentOrgId != null and parentOrgId != ''">
+ 			and parent_org_id = #{parentOrgId,jdbcType=INTEGER}
+        </if>
+        <if test="orderByClause != null and orderByClause != ''">
+  			order by ${orderByClause}
+        </if>
+    </select>
+    
+	<!-- 根据orgId查询当前组织机构列表(反向查询自下到上) -->
+    <select id="selectListByOrgId" parameterType="com.cloud.provider.safe.param.OrgParam" resultType="com.cloud.provider.safe.vo.enterprise.OrgVo">
+   		select 
+        id as orgId, enterprise_id as enterpriseId, parent_org_id as parentOrgId, parent_org_name as parentOrgName, org_name as orgName, 
+        org_alias as orgAlias, org_telphone as orgTelphone, org_status as orgStatus, is_delete as isDelete, remark as remark, 
+    	sort as sort, created as created, updated as updated, create_time as createTime, update_time as updateTime
+        from org 
+        where is_delete = 0 
+        <if test="enterpriseId != null and enterpriseId != ''">
+			and enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        </if>
+        <if test="orgId != null and orgId != ''">
+ 			and id = #{orgId,jdbcType=INTEGER}
+        </if>
+        <if test="orderByClause != null and orderByClause != ''">
+          order by ${orderByClause}
+        </if>
+    </select>
+    
+    
+</mapper>
