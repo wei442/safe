@@ -51,6 +51,7 @@ public class CommConstants {
 	public static final String CLOUD = "cloud";
 
 	public static final String ENTERPRISE_ID = "enterpriseId";
+	public static final String ENTERPRISE_NAME = "enterpriseName";
 	public static final String USER_ID = "userId";
 	public static final String USER_ACCOUNT = "userAccount";
 

@@ -25,7 +25,7 @@ public class ActivityCommentServiceImpl extends BaseService implements IActivity
 	@Override
 	public JSONObject getListByPage(Object params) {
 		logger.info("(ActivityService-getListByPage)-分页获取安全活动评论列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.activity+"/selectListByPage", params, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.activity_comment+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -37,7 +37,7 @@ public class ActivityCommentServiceImpl extends BaseService implements IActivity
 	@Override
 	public JSONObject getList(Object params) {
 		logger.info("(ActivityService-getList)-获取安全活动评论列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.activity+"/selectList", params, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.activity_comment+"/selectList", params, JSONObject.class);
 		return response;
 	}
 
@@ -49,7 +49,7 @@ public class ActivityCommentServiceImpl extends BaseService implements IActivity
 	@Override
 	public JSONObject getById(Integer id) {
 		logger.info("(ActivityService-getById)-根据id获取安全活动评论-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.activity+"/selectById/"+id, null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.activity_comment+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -61,7 +61,7 @@ public class ActivityCommentServiceImpl extends BaseService implements IActivity
 	@Override
 	public JSONObject add(Object params) {
 		logger.info("(ActivityService-add)-新增安全活动评论-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.activity+"/insert", params, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.activity_comment+"/insert", params, JSONObject.class);
 		return response;
 	}
 
@@ -73,7 +73,7 @@ public class ActivityCommentServiceImpl extends BaseService implements IActivity
 	@Override
 	public JSONObject deleteById(Integer id) {
 		logger.info("(ActivityService-deleteById)-根据id获取安全活动评论-传入参数, id:{}", id);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.activity+"/deleteById/"+id, null, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.activity_comment+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
 
@@ -85,7 +85,7 @@ public class ActivityCommentServiceImpl extends BaseService implements IActivity
 	@Override
 	public JSONObject update(Object params) {
 		logger.info("(ActivityService-update)-修改安全活动评论-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.activity+"/modify", params, JSONObject.class);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.activity_comment+"/modify", params, JSONObject.class);
 		return response;
 	}
 

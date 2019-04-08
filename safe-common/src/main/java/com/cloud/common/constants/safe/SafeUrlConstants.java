@@ -40,6 +40,8 @@ public class SafeUrlConstants {
 	public static final String rule_attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/rule/attachment";
 	//安全活动
 	public static final String activity = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/activity";
+	//安全活动评论
+	public static final String activity_comment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/activity/comment";
 	//安全活动附件
 	public static final String activity_attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/activity/attachment";
 

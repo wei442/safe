@@ -63,6 +63,40 @@ public class OrgController extends BaseController {
 		logger.info("===step2:【查询组织机构树列表】(OrgController-getTreeList)-查询组织机构树列表, jsonOrg:{}", jsonOrg);
 		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
 		List<OrgVo> orgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgVo>>(){});
+		Integer orgId = null;
+		if(orgVoList != null && !orgVoList.isEmpty()) {
+			orgId = orgVoList.get(0).getOrgId();
+		}
+
+		JSONObject jsonParentOrg = orgService.getParentTreeList(orgId);
+		logger.info("===step2:【查询组织机构树列表】(OrgController-getTreeList)-查询组织机构树列表, jsonParentOrg:{}", jsonParentOrg);
+
+		BaseResultVo result = new BaseResultVo(orgVoList);
+		//返回信息
+		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
+		orgResponse.put(CommConstants.RESULT, result);
+	    logger.info("===step3:【查询组织机构树列表】(OrgController-getTreeList)-返回信息, orgResponse:{}", orgResponse);
+	    return orgResponse;
+	}
+
+	/**
+	 * 查询组织机构树列表
+	 * @param req
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "查询组织机构树列表")
+	@RequestMapping(value="/getParentTreeList",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse getParentTreeList(
+		@RequestBody OrgPageRequest req) {
+		logger.info("===step1:【查询组织机构树列表】(OrgController-getTreeList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
+
+		JSONObject jsonOrg = orgService.getParentTreeList(req);
+		logger.info("===step2:【查询组织机构树列表】(OrgController-getTreeList)-查询组织机构树列表, jsonOrg:{}", jsonOrg);
+		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
+		List<OrgVo> orgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgVo>>(){});
 
 		BaseResultVo result = new BaseResultVo(orgVoList);
 		//返回信息

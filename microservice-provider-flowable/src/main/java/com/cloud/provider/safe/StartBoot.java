@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.flowable.task.service.TaskService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,9 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 public class StartBoot {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+    private TaskService taskService;
 
 	/**
 	 * 事务管理器

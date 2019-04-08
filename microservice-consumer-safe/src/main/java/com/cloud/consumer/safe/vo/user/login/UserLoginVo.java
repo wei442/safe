@@ -19,6 +19,8 @@ public class UserLoginVo implements Serializable {
 
 	private Integer enterpriseId;
 
+	private String enterpriseName;
+
 	private Integer userId;
 
 	private String userAccount;

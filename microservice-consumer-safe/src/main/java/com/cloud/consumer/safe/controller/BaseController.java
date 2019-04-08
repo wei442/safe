@@ -92,12 +92,13 @@ public class BaseController {
 	/**
 	 * 设置token,过期时间为7*24小时
 	 * @param enterpriseId
+	 * @param enterpriseName
 	 * @param userId
 	 * @param userAccount
 	 * @return String
 	 */
-	protected String setToken(Integer enterpriseId,Integer userId,String userAccount) {
-		logger.info("(BaseController-setToken)-redis设置token-传入参数, enterpriseId:{}, userId:{}, userAccount:{}", enterpriseId, userId, userAccount);
+	protected String setToken(Integer enterpriseId,String enterpriseName,Integer userId,String userAccount) {
+		logger.info("(BaseController-setToken)-redis设置token-传入参数, enterpriseId:{}, enterpriseName:{}, userId:{}, userAccount:{}", enterpriseId, enterpriseName, userId, userAccount);
 		if(null == enterpriseId ||null == userId || StringUtils.isBlank(userAccount)) {
 			return null;
 		}
@@ -111,6 +112,7 @@ public class BaseController {
 		String audience = CommConstants.CLOUD;
 		Map<String, Object> claims = new HashMap<String, Object>();
 		claims.put(CommConstants.ENTERPRISE_ID, enterpriseId);
+		claims.put(CommConstants.ENTERPRISE_NAME, enterpriseName);
 		claims.put(CommConstants.USER_ID, userId);
 		claims.put(CommConstants.USER_ACCOUNT, userAccount);
 		logger.info("(BaseController-setToken)-声明(claims), claims:{}", claims);
@@ -208,6 +210,17 @@ public class BaseController {
 		Integer enterpriseId = new Integer(Objects.toString(payloadJSON.get(CommConstants.ENTERPRISE_ID)));
 		logger.info("(BaseController-getTokenEnterpriseId)-返回信息, enterpriseId:{}", enterpriseId);
 		return enterpriseId;
+	}
+
+	/**
+	 * 获取token(enterpriseName)
+	 * @return Integer
+	 */
+	protected String getTokenEnterpriseName() {
+		JSONObject payloadJSON = this.getTokenPayload();
+		String enterpriseName = Objects.toString(payloadJSON.get(CommConstants.ENTERPRISE_NAME));
+		logger.info("(BaseController-getTokenEnterpriseName)-返回信息, enterpriseName:{}", enterpriseName);
+		return enterpriseName;
 	}
 
 	/**

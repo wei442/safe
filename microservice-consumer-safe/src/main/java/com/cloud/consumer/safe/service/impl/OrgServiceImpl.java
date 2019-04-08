@@ -18,18 +18,6 @@ public class OrgServiceImpl extends BaseService implements IOrgService {
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * 获取组织机构树用户列表
-	 * @param params
-	 * @return JSONObject
-	 */
-	@Override
-	public JSONObject getTreeUserList(Object params) {
-		logger.info("(OrgService-getTreeUserList)-获取组织机构树用户列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/selectTreeUserList", params, JSONObject.class);
-		return response;
-	}
-
-	/**
 	 * 获取组织机构树列表
 	 * @param params
 	 * @return JSONObject
@@ -38,6 +26,17 @@ public class OrgServiceImpl extends BaseService implements IOrgService {
 	public JSONObject getTreeList(Object params) {
 		logger.info("(OrgService-getTreeList)-获取组织机构树列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/selectTreeList", params, JSONObject.class);
+		return response;
+	}
+
+	/**
+	 * 获取父组织机构树列表
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject getParentTreeList(Object params) {
+		logger.info("(OrgService-getParentTreeList)-获取父组织机构树列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/selectParentTreeList", params, JSONObject.class);
 		return response;
 	}
 
