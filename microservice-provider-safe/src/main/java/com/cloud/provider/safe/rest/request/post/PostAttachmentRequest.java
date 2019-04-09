@@ -30,10 +30,6 @@ public class PostAttachmentRequest implements Serializable {
 	@NotNull(message = "岗位id不能为空")
     private Integer postId;
 
-    @ApiModelProperty(value = "附件id", required = true)
-    @NotNull(message = "附件id不能为空")
-    private Integer attachmentId;
-
     @ApiModelProperty(value = "附件url", required = true)
 	@NotBlank(message = "附件url不能为空")
     private String attachmentUrl;

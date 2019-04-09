@@ -225,66 +225,6 @@ public class PostAttachmentExample {
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdIsNull() {
-            addCriterion("attachment_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdIsNotNull() {
-            addCriterion("attachment_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdEqualTo(Integer value) {
-            addCriterion("attachment_id =", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdNotEqualTo(Integer value) {
-            addCriterion("attachment_id <>", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdGreaterThan(Integer value) {
-            addCriterion("attachment_id >", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("attachment_id >=", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdLessThan(Integer value) {
-            addCriterion("attachment_id <", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdLessThanOrEqualTo(Integer value) {
-            addCriterion("attachment_id <=", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdIn(List<Integer> values) {
-            addCriterion("attachment_id in", values, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdNotIn(List<Integer> values) {
-            addCriterion("attachment_id not in", values, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdBetween(Integer value1, Integer value2) {
-            addCriterion("attachment_id between", value1, value2, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("attachment_id not between", value1, value2, "attachmentId");
-            return (Criteria) this;
-        }
-
         public Criteria andAttachmentUrlIsNull() {
             addCriterion("attachment_url is null");
             return (Criteria) this;

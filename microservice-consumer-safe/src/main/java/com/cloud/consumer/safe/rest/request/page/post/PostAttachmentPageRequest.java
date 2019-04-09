@@ -18,6 +18,4 @@ public class PostAttachmentPageRequest extends BaseRestRequest {
 
     private Integer postId;
 
-    private Integer attachmentId;
-
 }

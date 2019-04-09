@@ -225,66 +225,6 @@ public class RuleAttachmentExample {
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdIsNull() {
-            addCriterion("attachment_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdIsNotNull() {
-            addCriterion("attachment_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdEqualTo(Long value) {
-            addCriterion("attachment_id =", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdNotEqualTo(Long value) {
-            addCriterion("attachment_id <>", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdGreaterThan(Long value) {
-            addCriterion("attachment_id >", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("attachment_id >=", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdLessThan(Long value) {
-            addCriterion("attachment_id <", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdLessThanOrEqualTo(Long value) {
-            addCriterion("attachment_id <=", value, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdIn(List<Long> values) {
-            addCriterion("attachment_id in", values, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdNotIn(List<Long> values) {
-            addCriterion("attachment_id not in", values, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdBetween(Long value1, Long value2) {
-            addCriterion("attachment_id between", value1, value2, "attachmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAttachmentIdNotBetween(Long value1, Long value2) {
-            addCriterion("attachment_id not between", value1, value2, "attachmentId");
-            return (Criteria) this;
-        }
-
         public Criteria andAttachmentUrlIsNull() {
             addCriterion("attachment_url is null");
             return (Criteria) this;

@@ -27,6 +27,7 @@ import com.cloud.common.util.IpUtil;
 import com.cloud.consumer.safe.service.IRedisLockService;
 import com.cloud.consumer.safe.service.IRedisService;
 import com.cloud.consumer.safe.util.TokenUtil;
+import com.github.tobato.fastdfs.service.FastFileStorageClient;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -52,6 +53,10 @@ public class BaseController {
 	//redis lock Service
 	@Autowired
 	protected IRedisLockService redisLockService;
+
+	//文件操作存储客户端
+	@Autowired
+	protected FastFileStorageClient fastFileStorageClient;
 
 	//开发和线上环境配置
 	@Value("${spring.profiles.active}")

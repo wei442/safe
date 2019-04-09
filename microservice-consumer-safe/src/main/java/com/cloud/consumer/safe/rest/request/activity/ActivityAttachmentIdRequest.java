@@ -16,8 +16,6 @@ public class ActivityAttachmentIdRequest implements Serializable {
 
 	private Integer activityId;
 
-    private Integer attachmentId;
-
     private String attachmentUrl;
 
 }

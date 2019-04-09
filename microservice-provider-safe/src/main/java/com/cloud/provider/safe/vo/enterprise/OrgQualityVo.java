@@ -25,15 +25,11 @@ public class OrgQualityVo implements Serializable {
 
 	private Integer orgQualityId;
 
-	private Integer enterpriseId;
+    private Integer enterpriseId;
 
     private Integer orgId;
 
     private String orgName;
-
-    private Integer attachmentId;
-
-    private String attachmentUrl;
 
     private String qualityName;
 
@@ -53,12 +49,12 @@ public class OrgQualityVo implements Serializable {
 
     /**
      * 实体转换
-     * @param enterpriseQuality
+     * @param orgQuality
      * @return OrgQualityVo
      */
-    public OrgQualityVo convertToOrgQualityVo(OrgQuality enterpriseQuality) {
+    public OrgQualityVo convertToOrgQualityVo(OrgQuality orgQuality) {
     	OrgQualityVoConvert convert = new OrgQualityVoConvert();
-    	return convert.doBackward(enterpriseQuality);
+    	return convert.doBackward(orgQuality);
 	}
 
     /**
@@ -68,18 +64,18 @@ public class OrgQualityVo implements Serializable {
      */
     public List<OrgQualityVo> convertToOrgQualityVoList(List<OrgQuality> list) {
     	OrgQualityVoConvert convert = new OrgQualityVoConvert();
-    	List<OrgQualityVo> enterpriseQualityVoList = null;
-    	OrgQualityVo enterpriseQualityVo = null;
+    	List<OrgQualityVo> orgQualityVoList = null;
+    	OrgQualityVo orgQualityVo = null;
     	if(list != null && !list.isEmpty()) {
-    		enterpriseQualityVoList = new ArrayList<OrgQualityVo>(list.size());
+    		orgQualityVoList = new ArrayList<OrgQualityVo>(list.size());
     		ListIterator<OrgQuality> it = list.listIterator();
     		while(it.hasNext()) {
-    			OrgQuality enterpriseQuality = it.next();
-    			enterpriseQualityVo = convert.doBackward(enterpriseQuality);
-    			enterpriseQualityVoList.add(enterpriseQualityVo);
+    			OrgQuality orgQuality = it.next();
+    			orgQualityVo = convert.doBackward(orgQuality);
+    			orgQualityVoList.add(orgQualityVo);
     		}
     	}
-    	return enterpriseQualityVoList;
+    	return orgQualityVoList;
     }
 
 	/**
@@ -89,21 +85,21 @@ public class OrgQualityVo implements Serializable {
     private class OrgQualityVoConvert extends Converter<OrgQualityVo, OrgQuality> {
 
     	@Override
-    	protected OrgQuality doForward(OrgQualityVo enterpriseQualityVo) {
+    	protected OrgQuality doForward(OrgQualityVo orgQualityVo) {
     		return null;
     	}
 
     	/**
     	 * 实体转换vo
-    	 * @param enterpriseQuality
+    	 * @param orgQuality
     	 * @return OrgQualityVo
     	 */
 		@Override
-		protected OrgQualityVo doBackward(OrgQuality enterpriseQuality) {
-			OrgQualityVo enterpriseQualityVo = new OrgQualityVo();
-			BeanUtils.copyProperties(enterpriseQuality, enterpriseQualityVo);
-			enterpriseQualityVo.setOrgQualityId(enterpriseQuality.getId());
-			return enterpriseQualityVo;
+		protected OrgQualityVo doBackward(OrgQuality orgQuality) {
+			OrgQualityVo orgQualityVo = new OrgQualityVo();
+			BeanUtils.copyProperties(orgQuality, orgQualityVo);
+			orgQualityVo.setOrgQualityId(orgQuality.getId());
+			return orgQualityVo;
 		}
 
     }

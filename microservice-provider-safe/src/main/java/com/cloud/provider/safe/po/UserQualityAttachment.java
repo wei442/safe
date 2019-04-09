@@ -2,10 +2,10 @@ package com.cloud.provider.safe.po;
 
 import java.util.Date;
 
-public class RuleAttachment {
+public class UserQualityAttachment {
     private Integer id;
 
-    private Integer ruleId;
+    private Integer userQualityId;
 
     private String attachmentUrl;
 
@@ -25,12 +25,12 @@ public class RuleAttachment {
         this.id = id;
     }
 
-    public Integer getRuleId() {
-        return ruleId;
+    public Integer getUserQualityId() {
+        return userQualityId;
     }
 
-    public void setRuleId(Integer ruleId) {
-        this.ruleId = ruleId;
+    public void setUserQualityId(Integer userQualityId) {
+        this.userQualityId = userQualityId;
     }
 
     public String getAttachmentUrl() {

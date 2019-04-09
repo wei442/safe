@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
+import com.cloud.provider.safe.dao.RuleAttachmentMapper;
 import com.cloud.provider.safe.dao.RuleMapper;
 import com.cloud.provider.safe.po.Rule;
+import com.cloud.provider.safe.po.RuleAttachment;
+import com.cloud.provider.safe.po.RuleAttachmentExample;
 import com.cloud.provider.safe.po.RuleExample;
 import com.cloud.provider.safe.rest.request.page.activity.RulePageRequest;
 import com.cloud.provider.safe.service.IRuleService;
@@ -31,6 +34,10 @@ public class RuleServiceImpl implements IRuleService {
     //规范文件 Mapper
     @Autowired
     private RuleMapper ruleMapper;
+
+    //规范文件附件 Mapper
+    @Autowired
+    private RuleAttachmentMapper ruleAttachmentMapper;
 
     /**
 	 * 分页查询
@@ -89,18 +96,29 @@ public class RuleServiceImpl implements IRuleService {
     }
 
     /**
-     * 插入规范文件
-     * @param Rule
+     * 插入规范文件及附件
+     * @param rule
+     * @param ruleAttachments
      * @return Integer
      */
 	@Override
-	public Integer insert(Rule rule) {
-    	logger.info("(RuleService-insert)-插入规范文件-传入参数, rule:{}", rule);
+	public Integer insert(Rule rule, List<RuleAttachment> ruleAttachments) {
+    	logger.info("(RuleService-insert)-插入规范文件及附件-传入参数, rule:{}, ruleAttachments:{}", rule, ruleAttachments);
     	rule.setIsDelete(SqlSafeConstants.SQL_POST_IS_DELETE_NO);
     	rule.setCreateTime(new Date());
     	rule.setUpdateTime(new Date());
     	int i = ruleMapper.insertSelective(rule);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    	Integer ruleId = rule.getId();
+
+    	if(ruleAttachments != null && !ruleAttachments.isEmpty()) {
+    		for (RuleAttachment ruleAttachment : ruleAttachments) {
+    			ruleAttachment.setRuleId(ruleId);
+    			ruleAttachment.setCreateTime(new Date());
+    			ruleAttachment.setUpdateTime(new Date());
+    			i = ruleAttachmentMapper.insertSelective(ruleAttachment);
+			}
+    	}
     	return i;
     }
 
@@ -114,20 +132,43 @@ public class RuleServiceImpl implements IRuleService {
   		logger.info("(RuleService-deleteById)-根据id删除规范文件-传入参数, id:{}", id);
   		int i = ruleMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+
+  		RuleAttachmentExample example = new RuleAttachmentExample();
+		RuleAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andRuleIdEqualTo(id);
+		i = ruleAttachmentMapper.deleteByExample(example);
+		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+
   		return i;
   	}
 
     /**
-     * 修改规范文件
-     * @param Rule
+     * 修改规范文件及附件
+     * @param rule
+     * @param ruleAttachments
      * @return Integer
      */
-	@Override
-	public Integer modify(Rule rule) {
-    	logger.info("(RuleService-modify)-修改规范文件-传入参数, rule:{}", rule);
+	public Integer modify(Rule rule, List<RuleAttachment> ruleAttachments) {
+    	logger.info("(RuleService-modify)-修改规范文件及附件-传入参数, rule:{}, ruleAttachments:{}", rule, ruleAttachments);
     	rule.setUpdateTime(new Date());
     	int i = ruleMapper.updateByPrimaryKeySelective(rule);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    	Integer ruleId = rule.getId();
+
+    	RuleAttachmentExample example = new RuleAttachmentExample();
+		RuleAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andRuleIdEqualTo(ruleId);
+		i = ruleAttachmentMapper.deleteByExample(example);
+		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+
+    	if(ruleAttachments != null && !ruleAttachments.isEmpty()) {
+    		for (RuleAttachment ruleAttachment : ruleAttachments) {
+    			ruleAttachment.setRuleId(ruleId);
+    			ruleAttachment.setCreateTime(new Date());
+    			ruleAttachment.setUpdateTime(new Date());
+    			i = ruleAttachmentMapper.insertSelective(ruleAttachment);
+			}
+    	}
     	return i;
     }
 

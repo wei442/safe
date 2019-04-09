@@ -29,7 +29,7 @@ import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.AttachmentVo;
 import com.github.pagehelper.Page;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
-import com.github.tobato.fastdfs.domain.upload.FastImageFile;
+import com.github.tobato.fastdfs.domain.upload.FastFile;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 
 import io.swagger.annotations.Api;
@@ -147,10 +147,12 @@ public class AttachmentController extends BaseController {
 
 		InputStream inputStream = new ByteArrayInputStream(bytes);
 //		new BufferedInputStream(new ByteArrayInputStream(bytes));
-		FastImageFile fastImageFile = new FastImageFile(inputStream, fileSize, fileName, null);
-		StorePath storePath = fastFileStorageClient.uploadImage(fastImageFile);
+		FastFile fastImageFile = new FastFile(inputStream, fileSize, fileName, null);
+		StorePath storePath = fastFileStorageClient.uploadFile(fastImageFile);
 
 		byte[] bytes1 = fastFileStorageClient.downloadFile("", "", null);
+
+
 
 		Attachment attachment = req.convertToAttachment();
 		int i = attachmentService.insert(attachment);

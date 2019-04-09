@@ -20,8 +20,6 @@ public class PostAttachmentVo implements Serializable {
 
     private Integer postId;
 
-    private Integer attachmentId;
-
     private String attachmentUrl;
 
     private Integer isDelete;

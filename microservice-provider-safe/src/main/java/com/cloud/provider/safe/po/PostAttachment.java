@@ -7,8 +7,6 @@ public class PostAttachment {
 
     private Integer postId;
 
-    private Integer attachmentId;
-
     private String attachmentUrl;
 
     private Integer isDelete;
@@ -37,14 +35,6 @@ public class PostAttachment {
 
     public void setPostId(Integer postId) {
         this.postId = postId;
-    }
-
-    public Integer getAttachmentId() {
-        return attachmentId;
-    }
-
-    public void setAttachmentId(Integer attachmentId) {
-        this.attachmentId = attachmentId;
     }
 
     public String getAttachmentUrl() {

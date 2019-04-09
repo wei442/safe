@@ -1,5 +1,8 @@
 package com.cloud.consumer.safe.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,23 +13,29 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.CommConstants;
+import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.activity.RuleIdRequest;
 import com.cloud.consumer.safe.rest.request.activity.RuleRequest;
 import com.cloud.consumer.safe.rest.request.page.activity.RulePageRequest;
+import com.cloud.consumer.safe.service.IAttachmentService;
 import com.cloud.consumer.safe.service.IRuleService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
+import com.cloud.consumer.safe.vo.activity.RuleAttachmentVo;
 import com.cloud.consumer.safe.vo.activity.RuleVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.domain.upload.FastFile;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,6 +55,11 @@ public class RuleController extends BaseController {
 	//规范文件 Service
 	@Autowired
 	private IRuleService ruleService;
+
+	//附件 Service
+	@Autowired
+	private IAttachmentService attachmentService;
+
 
 	/**
 	 * 分页查询
@@ -140,12 +154,35 @@ public class RuleController extends BaseController {
 	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse add(
-		@Validated @RequestBody RuleRequest req,
+		@Validated @RequestBody RuleRequest req, @RequestPart("fileList") MultipartFile[] multipartFiles,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增规范文件】(RuleController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
+		List<RuleAttachmentVo> ruleAttachments = new ArrayList<RuleAttachmentVo>();
+		RuleAttachmentVo ruleAttachmentVo = null;
+		if(multipartFiles != null && multipartFiles.length >0) {
+			for (MultipartFile multipartFile : multipartFiles) {
+				ruleAttachmentVo = new RuleAttachmentVo();
+				long fileSize = multipartFile.getSize();
+				String fileName = multipartFile.getOriginalFilename();
+				InputStream inputStream = null;
+				try {
+					inputStream = multipartFile.getInputStream();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				FastFile fastImageFile = new FastFile(inputStream, fileSize, fileName, null);
+				StorePath storePath = fastFileStorageClient.uploadFile(fastImageFile);
+				String fullPath = storePath.getFullPath();
+
+				ruleAttachmentVo.setAttachmentUrl(fullPath);
+				ruleAttachments.add(ruleAttachmentVo);
+			}
+		}
+
+		req.setRuleAttachments(ruleAttachments);
 		JSONObject jsonRule = ruleService.add(req);
 		logger.info("===step2:【新增规范文件】(RuleController-add)-分页查询规范文件列表, jsonRule:{}", jsonRule);
 		RuleVo ruleVo = JSONObject.toJavaObject(jsonRule, RuleVo.class);

@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.RuleAttachment">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="rule_id" jdbcType="INTEGER" property="ruleId" />
-    <result column="attachment_id" jdbcType="BIGINT" property="attachmentId" />
     <result column="attachment_url" jdbcType="VARCHAR" property="attachmentUrl" />
     <result column="created" jdbcType="VARCHAR" property="created" />
     <result column="updated" jdbcType="VARCHAR" property="updated" />
@@ -70,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, rule_id, attachment_id, attachment_url, created, updated, create_time, update_time
+    id, rule_id, attachment_url, created, updated, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.RuleAttachmentExample" resultMap="BaseResultMap">
     select
@@ -103,12 +102,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cloud.provider.safe.po.RuleAttachment" useGeneratedKeys="true" keyProperty="id">
-    insert into rule_attachment (id, rule_id, attachment_id, 
-      attachment_url, created, updated, 
-      create_time, update_time)
-    values (#{id,jdbcType=INTEGER}, #{ruleId,jdbcType=INTEGER}, #{attachmentId,jdbcType=BIGINT}, 
-      #{attachmentUrl,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    insert into rule_attachment (id, rule_id, attachment_url, 
+      created, updated, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{ruleId,jdbcType=INTEGER}, #{attachmentUrl,jdbcType=VARCHAR}, 
+      #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.RuleAttachment" useGeneratedKeys="true" keyProperty="id">
     insert into rule_attachment
@@ -118,9 +117,6 @@
       </if>
       <if test="ruleId != null">
         rule_id,
-      </if>
-      <if test="attachmentId != null">
-        attachment_id,
       </if>
       <if test="attachmentUrl != null">
         attachment_url,
@@ -144,9 +140,6 @@
       </if>
       <if test="ruleId != null">
         #{ruleId,jdbcType=INTEGER},
-      </if>
-      <if test="attachmentId != null">
-        #{attachmentId,jdbcType=BIGINT},
       </if>
       <if test="attachmentUrl != null">
         #{attachmentUrl,jdbcType=VARCHAR},
@@ -180,9 +173,6 @@
       <if test="record.ruleId != null">
         rule_id = #{record.ruleId,jdbcType=INTEGER},
       </if>
-      <if test="record.attachmentId != null">
-        attachment_id = #{record.attachmentId,jdbcType=BIGINT},
-      </if>
       <if test="record.attachmentUrl != null">
         attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
       </if>
@@ -207,7 +197,6 @@
     update rule_attachment
     set id = #{record.id,jdbcType=INTEGER},
       rule_id = #{record.ruleId,jdbcType=INTEGER},
-      attachment_id = #{record.attachmentId,jdbcType=BIGINT},
       attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
       created = #{record.created,jdbcType=VARCHAR},
       updated = #{record.updated,jdbcType=VARCHAR},
@@ -222,9 +211,6 @@
     <set>
       <if test="ruleId != null">
         rule_id = #{ruleId,jdbcType=INTEGER},
-      </if>
-      <if test="attachmentId != null">
-        attachment_id = #{attachmentId,jdbcType=BIGINT},
       </if>
       <if test="attachmentUrl != null">
         attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
@@ -247,7 +233,6 @@
   <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.RuleAttachment">
     update rule_attachment
     set rule_id = #{ruleId,jdbcType=INTEGER},
-      attachment_id = #{attachmentId,jdbcType=BIGINT},
       attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
       created = #{created,jdbcType=VARCHAR},
       updated = #{updated,jdbcType=VARCHAR},

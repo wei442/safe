@@ -11,10 +11,6 @@ public class UserQuality {
 
     private String userName;
 
-    private Integer attachmentId;
-
-    private String attachmentUrl;
-
     private String qualityName;
 
     private Integer isDelete;
@@ -59,22 +55,6 @@ public class UserQuality {
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
-    }
-
-    public Integer getAttachmentId() {
-        return attachmentId;
-    }
-
-    public void setAttachmentId(Integer attachmentId) {
-        this.attachmentId = attachmentId;
-    }
-
-    public String getAttachmentUrl() {
-        return attachmentUrl;
-    }
-
-    public void setAttachmentUrl(String attachmentUrl) {
-        this.attachmentUrl = attachmentUrl == null ? null : attachmentUrl.trim();
     }
 
     public String getQualityName() {

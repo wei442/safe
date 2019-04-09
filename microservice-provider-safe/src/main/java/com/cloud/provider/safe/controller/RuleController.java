@@ -20,6 +20,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Rule;
+import com.cloud.provider.safe.po.RuleAttachment;
 import com.cloud.provider.safe.rest.request.activity.RuleRequest;
 import com.cloud.provider.safe.rest.request.page.activity.RulePageRequest;
 import com.cloud.provider.safe.service.IRuleService;
@@ -133,7 +134,8 @@ public class RuleController extends BaseController {
 		logger.info("===step1:【添加规范文件】(RuleController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Rule rule = req.convertToRule();
-		int i = ruleService.insert(rule);
+		List<RuleAttachment> ruleAttachments = req.getRuleAttachments();
+		int i = ruleService.insert(rule, ruleAttachments);
 		logger.info("===step2:【添加规范文件】(RuleController-insert)-插入规范文件, i:{}", i);
 
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
@@ -180,9 +182,10 @@ public class RuleController extends BaseController {
 		logger.info("===step1:【修改规范文件】(RuleController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer ruleId = req.getRuleId();
+		List<RuleAttachment> ruleAttachments = req.getRuleAttachments();
 		Rule rule = req.convertToRule();
 		rule.setId(ruleId);
-		int i = ruleService.modify(rule);
+		int i = ruleService.modify(rule, ruleAttachments);
 		logger.info("===step2:【修改规范文件】(RuleController-modify)-修改规范文件, i:{}", i);
 
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();

@@ -7,8 +7,6 @@ public class ActivityAttachment {
 
     private Integer activityId;
 
-    private Integer attachmentId;
-
     private String attachmentUrl;
 
     private String created;
@@ -33,14 +31,6 @@ public class ActivityAttachment {
 
     public void setActivityId(Integer activityId) {
         this.activityId = activityId;
-    }
-
-    public Integer getAttachmentId() {
-        return attachmentId;
-    }
-
-    public void setAttachmentId(Integer attachmentId) {
-        this.attachmentId = attachmentId;
     }
 
     public String getAttachmentUrl() {

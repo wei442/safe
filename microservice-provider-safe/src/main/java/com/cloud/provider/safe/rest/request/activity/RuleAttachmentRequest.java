@@ -21,8 +21,6 @@ public class RuleAttachmentRequest implements Serializable {
 
     private Integer ruleId;
 
-    private Long attachmentId;
-
     private String attachmentUrl;
 
     /**
