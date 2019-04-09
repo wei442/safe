@@ -165,63 +165,133 @@ public class AttachmentLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdIsNull() {
-            addCriterion("attachment_id is null");
+        public Criteria andAttachmentUrlIsNull() {
+            addCriterion("attachment_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdIsNotNull() {
-            addCriterion("attachment_id is not null");
+        public Criteria andAttachmentUrlIsNotNull() {
+            addCriterion("attachment_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdEqualTo(Integer value) {
-            addCriterion("attachment_id =", value, "attachmentId");
+        public Criteria andAttachmentUrlEqualTo(String value) {
+            addCriterion("attachment_url =", value, "attachmentUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdNotEqualTo(Integer value) {
-            addCriterion("attachment_id <>", value, "attachmentId");
+        public Criteria andAttachmentUrlNotEqualTo(String value) {
+            addCriterion("attachment_url <>", value, "attachmentUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdGreaterThan(Integer value) {
-            addCriterion("attachment_id >", value, "attachmentId");
+        public Criteria andAttachmentUrlGreaterThan(String value) {
+            addCriterion("attachment_url >", value, "attachmentUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("attachment_id >=", value, "attachmentId");
+        public Criteria andAttachmentUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("attachment_url >=", value, "attachmentUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdLessThan(Integer value) {
-            addCriterion("attachment_id <", value, "attachmentId");
+        public Criteria andAttachmentUrlLessThan(String value) {
+            addCriterion("attachment_url <", value, "attachmentUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdLessThanOrEqualTo(Integer value) {
-            addCriterion("attachment_id <=", value, "attachmentId");
+        public Criteria andAttachmentUrlLessThanOrEqualTo(String value) {
+            addCriterion("attachment_url <=", value, "attachmentUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdIn(List<Integer> values) {
-            addCriterion("attachment_id in", values, "attachmentId");
+        public Criteria andAttachmentUrlLike(String value) {
+            addCriterion("attachment_url like", value, "attachmentUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdNotIn(List<Integer> values) {
-            addCriterion("attachment_id not in", values, "attachmentId");
+        public Criteria andAttachmentUrlNotLike(String value) {
+            addCriterion("attachment_url not like", value, "attachmentUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdBetween(Integer value1, Integer value2) {
-            addCriterion("attachment_id between", value1, value2, "attachmentId");
+        public Criteria andAttachmentUrlIn(List<String> values) {
+            addCriterion("attachment_url in", values, "attachmentUrl");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("attachment_id not between", value1, value2, "attachmentId");
+        public Criteria andAttachmentUrlNotIn(List<String> values) {
+            addCriterion("attachment_url not in", values, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlBetween(String value1, String value2) {
+            addCriterion("attachment_url between", value1, value2, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentUrlNotBetween(String value1, String value2) {
+            addCriterion("attachment_url not between", value1, value2, "attachmentUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeIsNull() {
+            addCriterion("attachment_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeIsNotNull() {
+            addCriterion("attachment_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeEqualTo(Integer value) {
+            addCriterion("attachment_type =", value, "attachmentType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeNotEqualTo(Integer value) {
+            addCriterion("attachment_type <>", value, "attachmentType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeGreaterThan(Integer value) {
+            addCriterion("attachment_type >", value, "attachmentType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("attachment_type >=", value, "attachmentType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeLessThan(Integer value) {
+            addCriterion("attachment_type <", value, "attachmentType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("attachment_type <=", value, "attachmentType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeIn(List<Integer> values) {
+            addCriterion("attachment_type in", values, "attachmentType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeNotIn(List<Integer> values) {
+            addCriterion("attachment_type not in", values, "attachmentType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeBetween(Integer value1, Integer value2) {
+            addCriterion("attachment_type between", value1, value2, "attachmentType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("attachment_type not between", value1, value2, "attachmentType");
             return (Criteria) this;
         }
 

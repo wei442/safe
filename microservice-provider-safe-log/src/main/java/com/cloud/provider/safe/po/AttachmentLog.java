@@ -5,7 +5,9 @@ import java.util.Date;
 public class AttachmentLog {
     private Long id;
 
-    private Integer attachmentId;
+    private String attachmentUrl;
+
+    private Integer attachmentType;
 
     private String content;
 
@@ -25,12 +27,20 @@ public class AttachmentLog {
         this.id = id;
     }
 
-    public Integer getAttachmentId() {
-        return attachmentId;
+    public String getAttachmentUrl() {
+        return attachmentUrl;
     }
 
-    public void setAttachmentId(Integer attachmentId) {
-        this.attachmentId = attachmentId;
+    public void setAttachmentUrl(String attachmentUrl) {
+        this.attachmentUrl = attachmentUrl == null ? null : attachmentUrl.trim();
+    }
+
+    public Integer getAttachmentType() {
+        return attachmentType;
+    }
+
+    public void setAttachmentType(Integer attachmentType) {
+        this.attachmentType = attachmentType;
     }
 
     public String getContent() {
