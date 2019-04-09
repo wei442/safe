@@ -42,20 +42,20 @@ public class UserQualityAttachmentVo implements Serializable {
     /**
      * 实体转换
      * @param userQualityAttachment
-     * @return UserQualityAttachment
+     * @return UserQualityAttachmentVo
      */
-    public UserQualityAttachmentVo convertToUserQualityAttachment(UserQualityAttachment userQualityAttachment) {
-    	UserQualityAttachmentConvert convert = new UserQualityAttachmentConvert();
+    public UserQualityAttachmentVo convertToUserQualityAttachmentVo(UserQualityAttachment userQualityAttachment) {
+    	UserQualityAttachmentVoConvert convert = new UserQualityAttachmentVoConvert();
     	return convert.doBackward(userQualityAttachment);
 	}
 
     /**
      * 实体列表转换
      * @param list
-     * @return List<UserQualityAttachment>
+     * @return List<UserQualityAttachmentVo>
      */
-    public List<UserQualityAttachmentVo> convertToUserQualityAttachmentList(List<UserQualityAttachment> list) {
-    	UserQualityAttachmentConvert convert = new UserQualityAttachmentConvert();
+    public List<UserQualityAttachmentVo> convertToUserQualityAttachmentVoList(List<UserQualityAttachment> list) {
+    	UserQualityAttachmentVoConvert convert = new UserQualityAttachmentVoConvert();
     	List<UserQualityAttachmentVo> userQualityAttachmentVoList = null;
     	UserQualityAttachmentVo userQualityAttachmentVo = null;
     	if(list != null && !list.isEmpty()) {
@@ -74,7 +74,7 @@ public class UserQualityAttachmentVo implements Serializable {
 	 * 实体转换
 	 * @author wei.yong
 	 */
-    private class UserQualityAttachmentConvert extends Converter<UserQualityAttachmentVo, UserQualityAttachment> {
+    private class UserQualityAttachmentVoConvert extends Converter<UserQualityAttachmentVo, UserQualityAttachment> {
 
     	@Override
     	protected UserQualityAttachment doForward(UserQualityAttachmentVo userQualityAttachmentVo) {
@@ -84,7 +84,7 @@ public class UserQualityAttachmentVo implements Serializable {
     	/**
     	 * 实体转换vo
     	 * @param userQualityAttachment
-    	 * @return UserQualityAttachment
+    	 * @return UserQualityAttachmentVo
     	 */
 		@Override
 		protected UserQualityAttachmentVo doBackward(UserQualityAttachment userQualityAttachment) {

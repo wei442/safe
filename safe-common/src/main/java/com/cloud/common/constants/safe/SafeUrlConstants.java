@@ -26,7 +26,9 @@ public class SafeUrlConstants {
 	//组织机构
 	public static final String org = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/org";
 	//组织机构资质
-	public static final String org_quality = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/enterprise/quality";
+	public static final String org_quality = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/org/quality";
+	//组织机构资质附件
+	public static final String org_quality_attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/org/quality/attachment";
 	//岗位
 	public static final String post = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/post";
 	//岗位附件
@@ -63,6 +65,8 @@ public class SafeUrlConstants {
 	public static final String user_post = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/post";
 	//用户资质
 	public static final String user_quality = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/quality";
+	//用户资质附件
+	public static final String user_quality_attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/quality/attachment";
 	//用户职务
 	public static final String user_title = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/title";
 
