@@ -143,7 +143,6 @@
 		<module>microservice-consumer-safe-admin</module>
 		<module>microservice-consumer-safe-manage</module>
 		<module>microservice-provider-safe</module>
-		<module>microservice-provider-safe-attachment</module>
 		<module>microservice-provider-safe-flowable</module>
 		<module>microservice-provider-safe-fastdfs</module>
 		<module>microservice-provider-safe-log</module>
