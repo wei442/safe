@@ -49,7 +49,7 @@ public class RuleRequest implements Serializable {
     private String ruleNo;
 
     @ApiModelProperty(value = "关键字")
-    @NotNull(message = "关键字不能为空")
+    @NotBlank(message = "关键字不能为空")
     private String keyWord;
 
     @ApiModelProperty(value = "规范类别")
@@ -59,6 +59,14 @@ public class RuleRequest implements Serializable {
     @ApiModelProperty(value = "规范类型")
     @NotNull(message = "规范类型不能为空")
     private Integer ruleType;
+
+    @ApiModelProperty(value = "发布部门id")
+    @NotNull(message = "发布部门id不能为空")
+    private Integer publishOrgId;
+
+    @ApiModelProperty(value = "发布部门名称")
+    @NotBlank(message = "发布部门名称不能为空")
+    private String publishOrgName;
 
     @ApiModelProperty(value = "备注")
     private String remark;

@@ -36,6 +36,11 @@
 			<version>1.2.10</version>
 		</dependency>
    		<!-- spring boot end -->
+ 		<dependency>
+		    <groupId>org.flowable</groupId>
+		    <artifactId>flowable-spring-boot-starter-basic</artifactId>
+		    <version>6.4.1</version>
+		</dependency>
 	    
 	    <!-- commons start -->
         <dependency>
@@ -136,13 +141,6 @@
 		    <groupId>joda-time</groupId>
 		    <artifactId>joda-time</artifactId>
 		</dependency>
-		
-		<dependency>
-		    <groupId>org.flowable</groupId>
-		    <artifactId>flowable-spring-boot-starter-basic</artifactId>
-		    <version>6.4.1</version>
-		</dependency>
-
 		
 		
         <!-- 通用工具类 -->

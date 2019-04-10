@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +25,13 @@ import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.activity.RuleIdRequest;
 import com.cloud.consumer.safe.rest.request.activity.RuleRequest;
 import com.cloud.consumer.safe.rest.request.page.activity.RulePageRequest;
-import com.cloud.consumer.safe.service.IAttachmentService;
+import com.cloud.consumer.safe.service.IFastdfsClientService;
 import com.cloud.consumer.safe.service.IRuleService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.activity.RuleAttachmentVo;
 import com.cloud.consumer.safe.vo.activity.RuleVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
-import com.github.tobato.fastdfs.domain.fdfs.StorePath;
-import com.github.tobato.fastdfs.domain.upload.FastFile;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,10 +52,9 @@ public class RuleController extends BaseController {
 	@Autowired
 	private IRuleService ruleService;
 
-	//附件 Service
+	//fastdfs Service
 	@Autowired
-	private IAttachmentService attachmentService;
-
+	private IFastdfsClientService fastdfsClientService;
 
 	/**
 	 * 分页查询
@@ -160,29 +155,20 @@ public class RuleController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		List<RuleAttachmentVo> ruleAttachments = new ArrayList<RuleAttachmentVo>();
+		List<RuleAttachmentVo> ruleAttachments = null;
 		RuleAttachmentVo ruleAttachmentVo = null;
 		if(multipartFiles != null && multipartFiles.length >0) {
+			ruleAttachments = new ArrayList<RuleAttachmentVo>();
 			for (MultipartFile multipartFile : multipartFiles) {
 				ruleAttachmentVo = new RuleAttachmentVo();
-				long fileSize = multipartFile.getSize();
-				String fileName = multipartFile.getOriginalFilename();
-				InputStream inputStream = null;
-				try {
-					inputStream = multipartFile.getInputStream();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				FastFile fastImageFile = new FastFile(inputStream, fileSize, fileName, null);
-				StorePath storePath = fastFileStorageClient.uploadFile(fastImageFile);
-				String fullPath = storePath.getFullPath();
 
-				ruleAttachmentVo.setAttachmentUrl(fullPath);
+				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				ruleAttachmentVo.setAttachmentUrl(fileUrl);
 				ruleAttachments.add(ruleAttachmentVo);
 			}
 		}
-
 		req.setRuleAttachments(ruleAttachments);
+
 		JSONObject jsonRule = ruleService.add(req);
 		logger.info("===step2:【新增规范文件】(RuleController-add)-分页查询规范文件列表, jsonRule:{}", jsonRule);
 		RuleVo ruleVo = JSONObject.toJavaObject(jsonRule, RuleVo.class);
@@ -230,11 +216,25 @@ public class RuleController extends BaseController {
 	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse update(
-		@Validated({ UpdateGroup.class }) @RequestBody RuleRequest req,
+		@Validated({ UpdateGroup.class }) @RequestBody RuleRequest req, @RequestPart("fileList") MultipartFile[] multipartFiles,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改规范文件】(RuleController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
+
+		List<RuleAttachmentVo> ruleAttachments = null;
+		RuleAttachmentVo ruleAttachmentVo = null;
+		if(multipartFiles != null && multipartFiles.length >0) {
+			ruleAttachments = new ArrayList<RuleAttachmentVo>();
+			for (MultipartFile multipartFile : multipartFiles) {
+				ruleAttachmentVo = new RuleAttachmentVo();
+
+				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				ruleAttachmentVo.setAttachmentUrl(fileUrl);
+				ruleAttachments.add(ruleAttachmentVo);
+			}
+		}
+		req.setRuleAttachments(ruleAttachments);
 
 		JSONObject jsonRule = ruleService.update(req);
 		logger.info("===step2:【修改规范文件】(RuleController-update)-修改规范文件, jsonRule:{}", jsonRule);

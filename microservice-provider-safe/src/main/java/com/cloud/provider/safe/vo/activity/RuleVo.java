@@ -41,6 +41,10 @@ public class RuleVo implements Serializable {
 
     private Integer ruleType;
 
+    private Integer publishOrgId;
+
+    private String publishOrgName;
+
     private Integer isDelete;
 
     private String remark;

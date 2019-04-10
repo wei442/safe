@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.flowable.task.service.TaskService;
+import org.flowable.engine.RepositoryService;
+import org.flowable.engine.RuntimeService;
+import org.flowable.engine.TaskService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -47,9 +50,6 @@ public class StartBoot {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-    private TaskService taskService;
-
 	/**
 	 * 事务管理器
 	 */
@@ -60,6 +60,24 @@ public class StartBoot {
 	 * 实施事务的业务逻辑层(service)
 	 */
 	private static final String AOP_POINTCUT_EXPRESSION = "execution(* com.cloud.provider.safe.service..*.*(..))";
+
+	@Bean
+    public CommandLineRunner init(final RepositoryService repositoryService,
+                                  final RuntimeService runtimeService,
+                                  final TaskService taskService) {
+
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... strings) throws Exception {
+                System.out.println("Number of process definitions : "
+                	+ repositoryService.createProcessDefinitionQuery().count());
+                System.out.println("Number of tasks : " + taskService.createTaskQuery().count());
+                runtimeService.startProcessInstanceByKey("oneTaskProcess");
+                System.out.println("Number of tasks after process start: "
+                    + taskService.createTaskQuery().count());
+            }
+        };
+    }
 
 	/**
 	 * 使用fastjson

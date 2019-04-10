@@ -45,6 +45,9 @@ public class RuleAttachmentServiceImpl implements IRuleAttachmentService {
 		example.setOrderByClause(" id desc ");
 		RuleAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getRuleId() != null) {
+				criteria.andRuleIdEqualTo(param.getRuleId());
+			}
 		}
 		List<RuleAttachment> list = ruleAttachmentMapper.selectByExample(example);
 		return list;
@@ -62,6 +65,9 @@ public class RuleAttachmentServiceImpl implements IRuleAttachmentService {
 		example.setOrderByClause(" id desc ");
 		RuleAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getRuleId() != null) {
+				criteria.andRuleIdEqualTo(param.getRuleId());
+			}
 		}
 		List<RuleAttachment> list = ruleAttachmentMapper.selectByExample(example);
 		return list;

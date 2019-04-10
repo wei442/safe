@@ -11,6 +11,8 @@
     <result column="key_word" jdbcType="VARCHAR" property="keyWord" />
     <result column="rule_category" jdbcType="INTEGER" property="ruleCategory" />
     <result column="rule_type" jdbcType="INTEGER" property="ruleType" />
+    <result column="publish_org_id" jdbcType="INTEGER" property="publishOrgId" />
+    <result column="publish_org_name" jdbcType="VARCHAR" property="publishOrgName" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="created" jdbcType="VARCHAR" property="created" />
@@ -78,7 +80,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, enterprise_id, org_id, org_name, rule_name, rule_no, key_word, rule_category, 
-    rule_type, is_delete, remark, created, updated, create_time, update_time
+    rule_type, publish_org_id, publish_org_name, is_delete, remark, created, updated, 
+    create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.RuleExample" resultMap="BaseResultMap">
     select
@@ -114,15 +117,15 @@
     insert into rule (id, enterprise_id, org_id, 
       org_name, rule_name, rule_no, 
       key_word, rule_category, rule_type, 
-      is_delete, remark, created, 
-      updated, create_time, update_time
-      )
+      publish_org_id, publish_org_name, is_delete, 
+      remark, created, updated, 
+      create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
       #{orgName,jdbcType=VARCHAR}, #{ruleName,jdbcType=VARCHAR}, #{ruleNo,jdbcType=VARCHAR}, 
       #{keyWord,jdbcType=VARCHAR}, #{ruleCategory,jdbcType=INTEGER}, #{ruleType,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, 
-      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{publishOrgId,jdbcType=INTEGER}, #{publishOrgName,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Rule" useGeneratedKeys="true" keyProperty="id">
     insert into rule
@@ -153,6 +156,12 @@
       </if>
       <if test="ruleType != null">
         rule_type,
+      </if>
+      <if test="publishOrgId != null">
+        publish_org_id,
+      </if>
+      <if test="publishOrgName != null">
+        publish_org_name,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -200,6 +209,12 @@
       </if>
       <if test="ruleType != null">
         #{ruleType,jdbcType=INTEGER},
+      </if>
+      <if test="publishOrgId != null">
+        #{publishOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="publishOrgName != null">
+        #{publishOrgName,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=INTEGER},
@@ -257,6 +272,12 @@
       <if test="record.ruleType != null">
         rule_type = #{record.ruleType,jdbcType=INTEGER},
       </if>
+      <if test="record.publishOrgId != null">
+        publish_org_id = #{record.publishOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="record.publishOrgName != null">
+        publish_org_name = #{record.publishOrgName,jdbcType=VARCHAR},
+      </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=INTEGER},
       </if>
@@ -291,6 +312,8 @@
       key_word = #{record.keyWord,jdbcType=VARCHAR},
       rule_category = #{record.ruleCategory,jdbcType=INTEGER},
       rule_type = #{record.ruleType,jdbcType=INTEGER},
+      publish_org_id = #{record.publishOrgId,jdbcType=INTEGER},
+      publish_org_name = #{record.publishOrgName,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
       created = #{record.created,jdbcType=VARCHAR},
@@ -328,6 +351,12 @@
       <if test="ruleType != null">
         rule_type = #{ruleType,jdbcType=INTEGER},
       </if>
+      <if test="publishOrgId != null">
+        publish_org_id = #{publishOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="publishOrgName != null">
+        publish_org_name = #{publishOrgName,jdbcType=VARCHAR},
+      </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=INTEGER},
       </if>
@@ -359,6 +388,8 @@
       key_word = #{keyWord,jdbcType=VARCHAR},
       rule_category = #{ruleCategory,jdbcType=INTEGER},
       rule_type = #{ruleType,jdbcType=INTEGER},
+      publish_org_id = #{publishOrgId,jdbcType=INTEGER},
+      publish_org_name = #{publishOrgName,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       created = #{created,jdbcType=VARCHAR},

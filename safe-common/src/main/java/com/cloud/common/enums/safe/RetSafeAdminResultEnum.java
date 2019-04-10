@@ -21,6 +21,12 @@ public enum RetSafeAdminResultEnum implements ResultEnum {
 
 	USER_FIRST_LOGIN_CHANGE_PASSWORD("0000008", "您好，这是你第一次登录该企业的管理后台，请先设置管理密码"),
 
+	FASTDFS_FILE_INFO_ERROR("0000008", "文件信息失败"),
+	FASTDFS_UPLOAD_FILE_ERROR("0000008", "上传文件失败"),
+	FASTDFS_UPLOAD_IMAGE_ERROR("0000008", "上传图片失败"),
+	FASTDFS_DELETE_FILE_ERROR("0000008", "删除文件失败"),
+	FASTDFS_DOWNLOAD_ERROR("0000008", "文件下载失败"),
+
 
 
 //	/**

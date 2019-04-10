@@ -21,6 +21,10 @@ public class Rule {
 
     private Integer ruleType;
 
+    private Integer publishOrgId;
+
+    private String publishOrgName;
+
     private Integer isDelete;
 
     private String remark;
@@ -103,6 +107,22 @@ public class Rule {
 
     public void setRuleType(Integer ruleType) {
         this.ruleType = ruleType;
+    }
+
+    public Integer getPublishOrgId() {
+        return publishOrgId;
+    }
+
+    public void setPublishOrgId(Integer publishOrgId) {
+        this.publishOrgId = publishOrgId;
+    }
+
+    public String getPublishOrgName() {
+        return publishOrgName;
+    }
+
+    public void setPublishOrgName(String publishOrgName) {
+        this.publishOrgName = publishOrgName == null ? null : publishOrgName.trim();
     }
 
     public Integer getIsDelete() {

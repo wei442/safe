@@ -685,6 +685,136 @@ public class RuleExample {
             return (Criteria) this;
         }
 
+        public Criteria andPublishOrgIdIsNull() {
+            addCriterion("publish_org_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgIdIsNotNull() {
+            addCriterion("publish_org_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgIdEqualTo(Integer value) {
+            addCriterion("publish_org_id =", value, "publishOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgIdNotEqualTo(Integer value) {
+            addCriterion("publish_org_id <>", value, "publishOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgIdGreaterThan(Integer value) {
+            addCriterion("publish_org_id >", value, "publishOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("publish_org_id >=", value, "publishOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgIdLessThan(Integer value) {
+            addCriterion("publish_org_id <", value, "publishOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgIdLessThanOrEqualTo(Integer value) {
+            addCriterion("publish_org_id <=", value, "publishOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgIdIn(List<Integer> values) {
+            addCriterion("publish_org_id in", values, "publishOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgIdNotIn(List<Integer> values) {
+            addCriterion("publish_org_id not in", values, "publishOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgIdBetween(Integer value1, Integer value2) {
+            addCriterion("publish_org_id between", value1, value2, "publishOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("publish_org_id not between", value1, value2, "publishOrgId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameIsNull() {
+            addCriterion("publish_org_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameIsNotNull() {
+            addCriterion("publish_org_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameEqualTo(String value) {
+            addCriterion("publish_org_name =", value, "publishOrgName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameNotEqualTo(String value) {
+            addCriterion("publish_org_name <>", value, "publishOrgName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameGreaterThan(String value) {
+            addCriterion("publish_org_name >", value, "publishOrgName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameGreaterThanOrEqualTo(String value) {
+            addCriterion("publish_org_name >=", value, "publishOrgName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameLessThan(String value) {
+            addCriterion("publish_org_name <", value, "publishOrgName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameLessThanOrEqualTo(String value) {
+            addCriterion("publish_org_name <=", value, "publishOrgName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameLike(String value) {
+            addCriterion("publish_org_name like", value, "publishOrgName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameNotLike(String value) {
+            addCriterion("publish_org_name not like", value, "publishOrgName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameIn(List<String> values) {
+            addCriterion("publish_org_name in", values, "publishOrgName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameNotIn(List<String> values) {
+            addCriterion("publish_org_name not in", values, "publishOrgName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameBetween(String value1, String value2) {
+            addCriterion("publish_org_name between", value1, value2, "publishOrgName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishOrgNameNotBetween(String value1, String value2) {
+            addCriterion("publish_org_name not between", value1, value2, "publishOrgName");
+            return (Criteria) this;
+        }
+
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;

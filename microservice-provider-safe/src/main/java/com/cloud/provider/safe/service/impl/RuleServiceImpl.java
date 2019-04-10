@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,9 @@ public class RuleServiceImpl implements IRuleService {
 			if(param.getEnterpriseId() != null) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
+			if(StringUtils.isNotBlank(param.getRuleName())) {
+				criteria.andRuleNameLike(param.getRuleName()+"%");
+			}
 		}
 		List<Rule> list = ruleMapper.selectByExample(example);
 		return list;
@@ -77,6 +81,9 @@ public class RuleServiceImpl implements IRuleService {
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
+			if(StringUtils.isNotBlank(param.getRuleName())) {
+				criteria.andRuleNameLike(param.getRuleName()+"%");
 			}
 		}
 		List<Rule> list = ruleMapper.selectByExample(example);
@@ -148,6 +155,7 @@ public class RuleServiceImpl implements IRuleService {
      * @param ruleAttachments
      * @return Integer
      */
+	@Override
 	public Integer modify(Rule rule, List<RuleAttachment> ruleAttachments) {
     	logger.info("(RuleService-modify)-修改规范文件及附件-传入参数, rule:{}, ruleAttachments:{}", rule, ruleAttachments);
     	rule.setUpdateTime(new Date());

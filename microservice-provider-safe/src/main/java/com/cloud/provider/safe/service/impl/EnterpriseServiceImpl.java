@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,9 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 		EnterpriseExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_IS_DELETE_NO);
 		if(param != null) {
+			if(StringUtils.isNotBlank(param.getEnterpriseName())) {
+				criteria.andEnterpriseNameLike(param.getEnterpriseName()+"%");
+			}
 		}
 		List<Enterprise> list = enterpriseMapper.selectByExample(example);
 		return list;
@@ -71,6 +75,9 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 		EnterpriseExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_IS_DELETE_NO);
 		if(param != null) {
+			if(StringUtils.isNotBlank(param.getEnterpriseName())) {
+				criteria.andEnterpriseNameLike(param.getEnterpriseName()+"%");
+			}
 		}
 		List<Enterprise> list = enterpriseMapper.selectByExample(example);
 		return list;
