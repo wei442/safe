@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.OrgQuality;
+import com.cloud.provider.safe.po.OrgQualityAttachment;
 import com.cloud.provider.safe.rest.request.page.enterprise.OrgQualityPageRequest;
 import com.github.pagehelper.Page;
 
@@ -31,11 +32,12 @@ public interface IOrgQualityService {
 	public OrgQuality selectById(Integer id);
 
     /**
-     * 插入机构资质
+     * 插入机构资质及附件
      * @param orgQuality
+     * @param orgQualityAttachments
      * @return Integer
      */
-	public Integer insert(OrgQuality orgQuality);
+	public Integer insert(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachments);
 
 	/**
   	 * 根据id删除机构资质
@@ -45,10 +47,11 @@ public interface IOrgQualityService {
 	public Integer deleteById(Integer id);
 
     /**
-     * 修改机构资质
+     * 修改机构资质及附件
      * @param orgQuality
+     * @param orgQualityAttachments
      * @return Integer
      */
-	public Integer modify(OrgQuality orgQuality);
+	public Integer modify(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachments);
 
 }

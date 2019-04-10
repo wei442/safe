@@ -1,12 +1,14 @@
 package com.cloud.provider.safe.rest.request.user;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.BeanUtils;
 
 import com.cloud.provider.safe.po.UserQuality;
+import com.cloud.provider.safe.po.UserQualityAttachment;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.google.common.base.Converter;
 
@@ -39,6 +41,8 @@ public class UserQualityRequest implements Serializable {
 
 	@ApiModelProperty(value = "备注")
     private String remark;
+
+	private List<UserQualityAttachment> userQualityAttachments;
 
     /**
 	 * 实体转换

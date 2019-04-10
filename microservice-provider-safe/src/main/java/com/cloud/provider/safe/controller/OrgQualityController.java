@@ -20,6 +20,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.OrgQuality;
+import com.cloud.provider.safe.po.OrgQualityAttachment;
 import com.cloud.provider.safe.rest.request.enterprise.OrgQualityRequest;
 import com.cloud.provider.safe.rest.request.page.enterprise.OrgQualityPageRequest;
 import com.cloud.provider.safe.service.IOrgQualityService;
@@ -133,7 +134,8 @@ public class OrgQualityController extends BaseController {
 		logger.info("===step1:【添加机构资质】(OrgQualityController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		OrgQuality orgQuality = req.convertToOrgQuality();
-		int i = orgQualityService.insert(orgQuality);
+		List<OrgQualityAttachment> orgQualityAttachments = req.getOrgQualityAttachments();
+		int i = orgQualityService.insert(orgQuality, orgQualityAttachments);
 		logger.info("===step2:【添加机构资质】(OrgQualityController-insert)-插入机构资质, i:{}", i);
 
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
@@ -180,9 +182,10 @@ public class OrgQualityController extends BaseController {
 		logger.info("===step1:【修改机构资质】(OrgQualityController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer orgQualityId = req.getOrgQualityId();
+		List<OrgQualityAttachment> orgQualityAttachments = req.getOrgQualityAttachments();
 		OrgQuality orgQuality = req.convertToOrgQuality();
 		orgQuality.setId(orgQualityId);
-		int i = orgQualityService.modify(orgQuality);
+		int i = orgQualityService.modify(orgQuality, orgQualityAttachments);
 		logger.info("===step2:【修改机构资质】(OrgQualityController-modify)-修改机构资质, i:{}", i);
 
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();

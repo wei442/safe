@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cloud.common.enums.safe.SafeResultEnum;
+import com.cloud.provider.safe.dao.UserQualityAttachmentMapper;
 import com.cloud.provider.safe.dao.UserQualityMapper;
 import com.cloud.provider.safe.po.UserQuality;
+import com.cloud.provider.safe.po.UserQualityAttachment;
+import com.cloud.provider.safe.po.UserQualityAttachmentExample;
 import com.cloud.provider.safe.po.UserQualityExample;
 import com.cloud.provider.safe.rest.request.page.user.UserQualityPageRequest;
 import com.cloud.provider.safe.service.IUserQualityService;
@@ -30,6 +33,10 @@ public class UserQualityServiceImpl implements IUserQualityService {
     //用户资质 Mapper
     @Autowired
     private UserQualityMapper userQualityMapper;
+
+    //用户资质附件 Mapper
+    @Autowired
+    private UserQualityAttachmentMapper userQualityAttachmentMapper;
 
     /**
 	 * 分页查询
@@ -105,17 +112,28 @@ public class UserQualityServiceImpl implements IUserQualityService {
 	}
 
     /**
-     * 插入用户资质
+     * 插入用户资质及附件
      * @param userQuality
+     * @param userQualityAttachments
      * @return Integer
      */
-	@Override
-	public Integer insert(UserQuality userQuality) {
-    	logger.info("(UserQualityService-insert)-插入用户资质-传入参数, userQuality:{}", userQuality);
+	public Integer insert(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachments) {
+    	logger.info("(UserQualityService-insert)-插入用户资质及附件-传入参数, userQuality:{}, userQualityAttachments:{}", userQuality, userQualityAttachments);
     	userQuality.setCreateTime(new Date());
     	userQuality.setUpdateTime(new Date());
     	int i = userQualityMapper.insertSelective(userQuality);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    	Integer userQualityId = userQuality.getId();
+
+    	if(userQualityAttachments != null && !userQualityAttachments.isEmpty()) {
+    		for (UserQualityAttachment userQualityAttachment : userQualityAttachments) {
+    			userQualityAttachment.setUserQualityId(userQualityId);
+    			userQualityAttachment.setCreateTime(new Date());
+    			userQualityAttachment.setUpdateTime(new Date());
+    			i = userQualityAttachmentMapper.insertSelective(userQualityAttachment);
+			}
+    	}
+
     	return i;
     }
 
@@ -129,6 +147,12 @@ public class UserQualityServiceImpl implements IUserQualityService {
   		logger.info("(UserQualityService-deleteById)-根据id删除用户资质-传入参数, id:{}", id);
 		int i = userQualityMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+
+  		UserQualityAttachmentExample example = new UserQualityAttachmentExample();
+  		UserQualityAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andUserQualityIdEqualTo(id);
+		i = userQualityAttachmentMapper.deleteByExample(example);
+		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
 
@@ -149,16 +173,32 @@ public class UserQualityServiceImpl implements IUserQualityService {
   	}
 
     /**
-     * 修改用户资质
+     * 修改用户资质及附件
      * @param userQuality
+     * @param userQualityAttachments
      * @return Integer
      */
-	@Override
-	public Integer modify(UserQuality userQuality) {
-    	logger.info("(UserQualityService-modify)-修改用户资质-传入参数, userQuality:{}", userQuality);
+	public Integer modify(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachments) {
+    	logger.info("(UserQualityService-modify)-修改用户资质及附件-传入参数, userQuality:{}, userQualityAttachments:{}", userQuality, userQualityAttachments);
     	userQuality.setUpdateTime(new Date());
 		int i = userQualityMapper.updateByPrimaryKeySelective(userQuality);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    	Integer userQualityId = userQuality.getId();
+
+    	UserQualityAttachmentExample example = new UserQualityAttachmentExample();
+  		UserQualityAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andUserQualityIdEqualTo(userQualityId);
+		i = userQualityAttachmentMapper.deleteByExample(example);
+		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+
+		if(userQualityAttachments != null && !userQualityAttachments.isEmpty()) {
+    		for (UserQualityAttachment userQualityAttachment : userQualityAttachments) {
+    			userQualityAttachment.setUserQualityId(userQualityId);
+    			userQualityAttachment.setCreateTime(new Date());
+    			userQualityAttachment.setUpdateTime(new Date());
+    			i = userQualityAttachmentMapper.insertSelective(userQualityAttachment);
+			}
+    	}
     	return i;
     }
 

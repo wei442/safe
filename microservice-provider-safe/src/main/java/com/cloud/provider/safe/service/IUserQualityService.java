@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.UserQuality;
+import com.cloud.provider.safe.po.UserQualityAttachment;
 import com.cloud.provider.safe.rest.request.page.user.UserQualityPageRequest;
 import com.github.pagehelper.Page;
 
@@ -38,11 +39,12 @@ public interface IUserQualityService {
 	public UserQuality selectByUserId(Integer userId);
 
     /**
-     * 插入用户资质
+     * 插入用户资质及附件
      * @param userQuality
+     * @param userQualityAttachments
      * @return Integer
      */
-	public Integer insert(UserQuality userQuality);
+	public Integer insert(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachments);
 
  	/**
   	 * 根据id删除用户资质
@@ -59,10 +61,11 @@ public interface IUserQualityService {
 	public Integer deleteByIds(List<Integer> ids);
 
     /**
-     * 修改用户资质
+     * 修改用户资质及附件
      * @param userQuality
+     * @param userQualityAttachments
      * @return Integer
      */
-	public Integer modify(UserQuality userQuality);
+	public Integer modify(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachments);
 
 }

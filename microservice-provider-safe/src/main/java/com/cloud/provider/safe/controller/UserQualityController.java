@@ -20,6 +20,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserQuality;
+import com.cloud.provider.safe.po.UserQualityAttachment;
 import com.cloud.provider.safe.rest.request.page.user.UserQualityPageRequest;
 import com.cloud.provider.safe.rest.request.user.UserQualityRequest;
 import com.cloud.provider.safe.service.IUserQualityService;
@@ -159,7 +160,8 @@ public class UserQualityController extends BaseController {
 		logger.info("===step1:【添加用户资质】(UserQualityController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		UserQuality userQuality = req.convertToUserQuality();
-		int i = userQualityService.insert(userQuality);
+		List<UserQualityAttachment> userQualityAttachments = req.getUserQualityAttachments();
+		int i = userQualityService.insert(userQuality, userQualityAttachments);
 		logger.info("===step2:【添加用户资质】(UserQualityController-insert)-插入用户资质, i:{}", i);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
@@ -229,11 +231,11 @@ public class UserQualityController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户资质】(UserQualityController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
 		Integer userQualityId = req.getUserQualityId();
+		List<UserQualityAttachment> userQualityAttachments = req.getUserQualityAttachments();
 		UserQuality userQuality = req.convertToUserQuality();
 		userQuality.setId(userQualityId);
-		int i = userQualityService.modify(userQuality);
+		int i = userQualityService.modify(userQuality, userQualityAttachments);
 		logger.info("===step2:【修改用户资质】(UserQualityController-modify)-修改用户资质, i:{}", i);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();

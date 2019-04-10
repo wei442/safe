@@ -45,6 +45,9 @@ public class OrgQualityAttachmentServiceImpl implements IOrgQualityAttachmentSer
 		example.setOrderByClause(" id desc ");
 		OrgQualityAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getOrgQualityId() != null) {
+				criteria.andOrgQualityIdEqualTo(param.getOrgQualityId());
+			}
 		}
 		List<OrgQualityAttachment> list = orgQualityAttachmentMapper.selectByExample(example);
 		return list;
@@ -62,6 +65,9 @@ public class OrgQualityAttachmentServiceImpl implements IOrgQualityAttachmentSer
 		example.setOrderByClause(" id desc ");
 		OrgQualityAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getOrgQualityId() != null) {
+				criteria.andOrgQualityIdEqualTo(param.getOrgQualityId());
+			}
 		}
 		List<OrgQualityAttachment> list = orgQualityAttachmentMapper.selectByExample(example);
 		return list;
@@ -72,16 +78,16 @@ public class OrgQualityAttachmentServiceImpl implements IOrgQualityAttachmentSer
 	 * @param orgQualityId
 	 * @return List<OrgQualityAttachment>
 	 */
-	@Override
-	public List<OrgQualityAttachment> selectListByOrgQualityId(Integer orgQualityId) {
-		logger.info("(OrgQualityAttachmentService-selectListByOrgQualityId)-根据orgQualityId查询机构资质附件列表-传入参数, orgQualityId:{}", orgQualityId);
-		OrgQualityAttachmentExample example = new OrgQualityAttachmentExample();
-		example.setOrderByClause(" id desc ");
-		OrgQualityAttachmentExample.Criteria criteria = example.createCriteria();
-		criteria.andOrgQualityIdEqualTo(orgQualityId);
-		List<OrgQualityAttachment> list = orgQualityAttachmentMapper.selectByExample(example);
-		return list;
-	}
+//	@Override
+//	public List<OrgQualityAttachment> selectListByOrgQualityId(Integer orgQualityId) {
+//		logger.info("(OrgQualityAttachmentService-selectListByOrgQualityId)-根据orgQualityId查询机构资质附件列表-传入参数, orgQualityId:{}", orgQualityId);
+//		OrgQualityAttachmentExample example = new OrgQualityAttachmentExample();
+//		example.setOrderByClause(" id desc ");
+//		OrgQualityAttachmentExample.Criteria criteria = example.createCriteria();
+//		criteria.andOrgQualityIdEqualTo(orgQualityId);
+//		List<OrgQualityAttachment> list = orgQualityAttachmentMapper.selectByExample(example);
+//		return list;
+//	}
 
     /**
      * 根据id查询机构资质附件

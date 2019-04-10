@@ -1,6 +1,7 @@
 package com.cloud.provider.safe.rest.request.enterprise;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.BeanUtils;
 
 import com.cloud.provider.safe.po.OrgQuality;
+import com.cloud.provider.safe.po.OrgQualityAttachment;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.google.common.base.Converter;
 
@@ -49,6 +51,8 @@ public class OrgQualityRequest implements Serializable {
     @ApiModelProperty(value = "资质名称", required = true)
     @NotBlank(message = "资质名称不能为空")
     private String qualityName;
+
+    private List<OrgQualityAttachment> orgQualityAttachments;
 
     /**
 	 * 实体转换

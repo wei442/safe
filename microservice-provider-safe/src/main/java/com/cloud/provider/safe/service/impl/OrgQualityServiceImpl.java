@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
+import com.cloud.provider.safe.dao.OrgQualityAttachmentMapper;
 import com.cloud.provider.safe.dao.OrgQualityMapper;
 import com.cloud.provider.safe.po.OrgQuality;
+import com.cloud.provider.safe.po.OrgQualityAttachment;
+import com.cloud.provider.safe.po.OrgQualityAttachmentExample;
 import com.cloud.provider.safe.po.OrgQualityExample;
 import com.cloud.provider.safe.rest.request.page.enterprise.OrgQualityPageRequest;
 import com.cloud.provider.safe.service.IOrgQualityService;
@@ -31,6 +34,10 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
     //机构资质 Mapper
     @Autowired
     private OrgQualityMapper orgQualityMapper;
+
+    //机构资质附件 Mapper
+    @Autowired
+    private OrgQualityAttachmentMapper orgQualityAttachmentMapper;
 
     /**
 	 * 分页查询
@@ -89,17 +96,28 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
     }
 
     /**
-     * 插入机构资质
+     * 插入机构资质及附件
      * @param orgQuality
+     * @param orgQualityAttachments
      * @return Integer
      */
 	@Override
-	public Integer insert(OrgQuality orgQuality) {
-    	logger.info("(OrgQualityService-insert)-插入机构资质-传入参数, orgQuality:{}", orgQuality);
+	public Integer insert(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachments) {
+    	logger.info("(OrgQualityService-insert)-插入机构资质及附件-传入参数, orgQuality:{}, orgQualityAttachments:{}", orgQuality, orgQualityAttachments);
     	orgQuality.setCreateTime(new Date());
     	orgQuality.setUpdateTime(new Date());
     	int i = orgQualityMapper.insertSelective(orgQuality);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    	Integer orgQualityId = orgQuality.getId();
+
+    	if(orgQualityAttachments != null && !orgQualityAttachments.isEmpty()) {
+    		for (OrgQualityAttachment orgQualityAttachment : orgQualityAttachments) {
+    			orgQualityAttachment.setOrgQualityId(orgQualityId);
+    			orgQualityAttachment.setCreateTime(new Date());
+    			orgQualityAttachment.setUpdateTime(new Date());
+    			i = orgQualityAttachmentMapper.insertSelective(orgQualityAttachment);
+			}
+    	}
     	return i;
     }
 
@@ -113,20 +131,42 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
   		logger.info("(OrgQualityService-deleteById)-根据id删除机构资质-传入参数, id:{}", id);
   		int i = orgQualityMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+
+  		OrgQualityAttachmentExample example = new OrgQualityAttachmentExample();
+  		OrgQualityAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andOrgQualityIdEqualTo(id);
+		i = orgQualityAttachmentMapper.deleteByExample(example);
+		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
 
     /**
-     * 修改机构资质
+     * 修改机构资质及附件
      * @param orgQuality
+     * @param orgQualityAttachments
      * @return Integer
      */
-	@Override
-	public Integer modify(OrgQuality orgQuality) {
-    	logger.info("(OrgQualityService-modify)-修改机构资质-传入参数, orgQuality:{}", orgQuality);
+	public Integer modify(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachments) {
+    	logger.info("(OrgQualityService-modify)-修改机构资质及附件-传入参数, orgQuality:{}, orgQualityAttachments:{}", orgQuality, orgQualityAttachments);
     	orgQuality.setUpdateTime(new Date());
 		int i = orgQualityMapper.updateByPrimaryKeySelective(orgQuality);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    	Integer orgQualityId = orgQuality.getId();
+
+    	OrgQualityAttachmentExample example = new OrgQualityAttachmentExample();
+  		OrgQualityAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andOrgQualityIdEqualTo(orgQualityId);
+		i = orgQualityAttachmentMapper.deleteByExample(example);
+		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+
+    	if(orgQualityAttachments != null && !orgQualityAttachments.isEmpty()) {
+    		for (OrgQualityAttachment orgQualityAttachment : orgQualityAttachments) {
+    			orgQualityAttachment.setOrgQualityId(orgQualityId);
+    			orgQualityAttachment.setCreateTime(new Date());
+    			orgQualityAttachment.setUpdateTime(new Date());
+    			i = orgQualityAttachmentMapper.insertSelective(orgQualityAttachment);
+			}
+    	}
     	return i;
     }
 

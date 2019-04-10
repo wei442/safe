@@ -28,7 +28,7 @@ public interface IOrgQualityAttachmentService {
 	 * @param orgQualityId
 	 * @return List<OrgQualityAttachment>
 	 */
-	public List<OrgQualityAttachment> selectListByOrgQualityId(Integer orgQualityId);
+//	public List<OrgQualityAttachment> selectListByOrgQualityId(Integer orgQualityId);
 
     /**
      * 根据id查询机构资质附件

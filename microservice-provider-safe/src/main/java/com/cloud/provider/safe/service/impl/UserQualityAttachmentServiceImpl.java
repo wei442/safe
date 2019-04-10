@@ -45,6 +45,9 @@ public class UserQualityAttachmentServiceImpl implements IUserQualityAttachmentS
 		example.setOrderByClause(" id desc ");
 		UserQualityAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getUserQualityId() != null) {
+				criteria.andUserQualityIdEqualTo(param.getUserQualityId());
+			}
 		}
 		List<UserQualityAttachment> list = userQualityAttachmentMapper.selectByExample(example);
 		return list;
@@ -62,6 +65,9 @@ public class UserQualityAttachmentServiceImpl implements IUserQualityAttachmentS
 		example.setOrderByClause(" id desc ");
 		UserQualityAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getUserQualityId() != null) {
+				criteria.andUserQualityIdEqualTo(param.getUserQualityId());
+			}
 		}
 		List<UserQualityAttachment> list = userQualityAttachmentMapper.selectByExample(example);
 		return list;
@@ -72,16 +78,16 @@ public class UserQualityAttachmentServiceImpl implements IUserQualityAttachmentS
 	 * @param userQualityId
 	 * @return List<UserQualityAttachment>
 	 */
-	@Override
-	public List<UserQualityAttachment> selectListByUserQualityId(Integer userQualityId) {
-		logger.info("(UserQualityAttachmentService-selectListByUserQualityId)-根据userQualityId查询用户资质附件列表-传入参数, userQualityId:{}", userQualityId);
-		UserQualityAttachmentExample example = new UserQualityAttachmentExample();
-		example.setOrderByClause(" id desc ");
-		UserQualityAttachmentExample.Criteria criteria = example.createCriteria();
-		criteria.andUserQualityIdEqualTo(userQualityId);
-		List<UserQualityAttachment> list = userQualityAttachmentMapper.selectByExample(example);
-		return list;
-	}
+//	@Override
+//	public List<UserQualityAttachment> selectListByUserQualityId(Integer userQualityId) {
+//		logger.info("(UserQualityAttachmentService-selectListByUserQualityId)-根据userQualityId查询用户资质附件列表-传入参数, userQualityId:{}", userQualityId);
+//		UserQualityAttachmentExample example = new UserQualityAttachmentExample();
+//		example.setOrderByClause(" id desc ");
+//		UserQualityAttachmentExample.Criteria criteria = example.createCriteria();
+//		criteria.andUserQualityIdEqualTo(userQualityId);
+//		List<UserQualityAttachment> list = userQualityAttachmentMapper.selectByExample(example);
+//		return list;
+//	}
 
     /**
      * 根据id查询用户资质附件
