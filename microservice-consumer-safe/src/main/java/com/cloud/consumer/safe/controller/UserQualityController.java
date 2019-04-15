@@ -1,5 +1,6 @@
 package com.cloud.consumer.safe.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,20 +11,23 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.CommConstants;
+import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserQualityPageRequest;
+import com.cloud.consumer.safe.rest.request.user.UserQualityAttachmentRequest;
 import com.cloud.consumer.safe.rest.request.user.UserQualityIdRequest;
 import com.cloud.consumer.safe.rest.request.user.UserQualityRequest;
+import com.cloud.consumer.safe.service.IFastdfsClientService;
 import com.cloud.consumer.safe.service.IUserQualityService;
-import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
 import com.cloud.consumer.safe.vo.user.UserQualityVo;
@@ -46,6 +50,10 @@ public class UserQualityController extends BaseController {
 	//用户资质 Service
 	@Autowired
 	private IUserQualityService userQualityService;
+
+	//fastdfs Service
+	@Autowired
+	private IFastdfsClientService fastdfsClientService;
 
 	/**
 	 * 分页查询
@@ -90,7 +98,7 @@ public class UserQualityController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonUserQuality = userQualityService.getListByPage(req);
+		JSONObject jsonUserQuality = userQualityService.getList(req);
 		logger.info("===step2:【不分页查询】(UserQualityController-getList)-不分页查询用户资质列表, jsonUserQuality:{}", jsonUserQuality);
 		String dataListStr = JSONObject.toJSONString(jsonUserQuality.getJSONArray(PageConstants.DATA_LIST));
 		List<UserQualityVo> userQualityVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserQualityVo>>(){});
@@ -113,20 +121,20 @@ public class UserQualityController extends BaseController {
 	@ApiOperation(value = "获取用户资质详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserQualityIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户资质】(UserQualityController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户资质】(UserQualityController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userQualityId = req.getUserQualityId();
 		JSONObject jsonUserQuality = userQualityService.getById(userQualityId);
-		logger.info("===step2:【获取用户资质】(UserQualityController-get)-根据userQualityId获取用户资质, jsonUserQuality:{}", jsonUserQuality);
+		logger.info("===step2:【获取用户资质】(UserQualityController-getDetail)-根据userQualityId获取用户资质, jsonUserQuality:{}", jsonUserQuality);
 		UserQualityVo userQualityVo = JSONObject.toJavaObject(jsonUserQuality, UserQualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
 		userQualityResponse.put(CommConstants.RESULT, userQualityVo);
-	    logger.info("===step3:【获取用户资质】(UserQualityController-get)-返回信息, userQualityResponse:{}", userQualityResponse);
+	    logger.info("===step3:【获取用户资质】(UserQualityController-getDetail)-返回信息, userQualityResponse:{}", userQualityResponse);
 	    return userQualityResponse;
 	}
 
@@ -140,11 +148,29 @@ public class UserQualityController extends BaseController {
 	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse add(
-		@Validated @RequestBody UserQualityRequest req,
+		UserQualityRequest req, @RequestPart("fileList") MultipartFile[] multipartFiles,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户资质】(UserQualityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
+		//暂时
+		req.setUserId(-1);
+
+		List<UserQualityAttachmentRequest> userQualityAttachmentList = null;
+		UserQualityAttachmentRequest userQualityAttachmentRequest = null;
+		if(multipartFiles != null && multipartFiles.length >0) {
+			userQualityAttachmentList = new ArrayList<UserQualityAttachmentRequest>();
+			for (MultipartFile multipartFile : multipartFiles) {
+				userQualityAttachmentRequest = new UserQualityAttachmentRequest();
+
+				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				String filename = multipartFile.getOriginalFilename();
+				userQualityAttachmentRequest.setName(filename);
+				userQualityAttachmentRequest.setUrl(fileUrl);
+				userQualityAttachmentList.add(userQualityAttachmentRequest);
+			}
+		}
+		req.setUserQualityAttachmentList(userQualityAttachmentList);
 
 		JSONObject jsonUserQuality = userQualityService.add(req);
 		logger.info("===step2:【新增用户资质】(UserQualityController-add)-分页查询用户资质列表, jsonUserQuality:{}", jsonUserQuality);
@@ -193,11 +219,27 @@ public class UserQualityController extends BaseController {
 	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse update(
-		@Validated({ UpdateGroup.class }) @RequestBody UserQualityRequest req,
+		UserQualityRequest req, @RequestPart("fileList") MultipartFile[] multipartFiles,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户资质】(UserQualityController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
+
+		List<UserQualityAttachmentRequest> userQualityAttachmentList = null;
+		UserQualityAttachmentRequest userQualityAttachmentRequest = null;
+		if(multipartFiles != null && multipartFiles.length >0) {
+			userQualityAttachmentList = new ArrayList<UserQualityAttachmentRequest>();
+			for (MultipartFile multipartFile : multipartFiles) {
+				userQualityAttachmentRequest = new UserQualityAttachmentRequest();
+
+				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				String filename = multipartFile.getOriginalFilename();
+				userQualityAttachmentRequest.setName(filename);
+				userQualityAttachmentRequest.setUrl(fileUrl);
+				userQualityAttachmentList.add(userQualityAttachmentRequest);
+			}
+		}
+		req.setUserQualityAttachmentList(userQualityAttachmentList);
 
 		JSONObject jsonUserQuality = userQualityService.update(req);
 		logger.info("===step2:【修改用户资质】(UserQualityController-update)-修改用户资质, jsonUserQuality:{}", jsonUserQuality);

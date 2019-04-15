@@ -20,6 +20,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Activity;
+import com.cloud.provider.safe.po.ActivityAttachment;
 import com.cloud.provider.safe.rest.request.activity.ActivityRequest;
 import com.cloud.provider.safe.rest.request.page.activity.ActivityPageRequest;
 import com.cloud.provider.safe.service.IActivityService;
@@ -36,7 +37,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "活动")
 @RestController
-@RequestMapping(value="/activity/")
+@RequestMapping(value="/activity")
 public class ActivityController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -133,7 +134,8 @@ public class ActivityController extends BaseController {
 		logger.info("===step1:【添加活动】(ActivityController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Activity activity = req.convertToActivity();
-		int i = activityService.insert(activity);
+		List<ActivityAttachment> activityAttachmentList = req.convertToActivityAttachmentList();
+		int i = activityService.insert(activity, activityAttachmentList);
 		logger.info("===step2:【添加活动】(ActivityController-insert)-插入活动, i:{}", i);
 
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
@@ -181,8 +183,9 @@ public class ActivityController extends BaseController {
 
 		Integer activityId = req.getActivityId();
 		Activity activity = req.convertToActivity();
+		List<ActivityAttachment> activityAttachmentList = req.convertToActivityAttachmentList();
 		activity.setId(activityId);
-		int i = activityService.modify(activity);
+		int i = activityService.modify(activity, activityAttachmentList);
 		logger.info("===step2:【修改活动】(ActivityController-modify)-修改活动, i:{}", i);
 
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();

@@ -113,20 +113,20 @@ public class DictController extends BaseController {
 	@ApiOperation(value = "获取字典详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody DictIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取字典】(DictController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取字典】(DictController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer dictId = req.getDictId();
 		JSONObject jsonDict = dictService.getById(dictId);
-		logger.info("===step2:【获取字典】(DictController-get)-根据dictId获取字典, jsonDict:{}", jsonDict);
+		logger.info("===step2:【获取字典】(DictController-getDetail)-根据dictId获取字典, jsonDict:{}", jsonDict);
 		DictVo dictVo = JSONObject.toJavaObject(jsonDict, DictVo.class);
 
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
 		dictResponse.put(CommConstants.RESULT, dictVo);
-	    logger.info("===step3:【获取字典】(DictController-get)-返回信息, dictResponse:{}", dictResponse);
+	    logger.info("===step3:【获取字典】(DictController-getDetail)-返回信息, dictResponse:{}", dictResponse);
 	    return dictResponse;
 	}
 

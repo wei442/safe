@@ -134,8 +134,8 @@ public class OrgQualityController extends BaseController {
 		logger.info("===step1:【添加机构资质】(OrgQualityController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		OrgQuality orgQuality = req.convertToOrgQuality();
-		List<OrgQualityAttachment> orgQualityAttachments = req.getOrgQualityAttachments();
-		int i = orgQualityService.insert(orgQuality, orgQualityAttachments);
+		List<OrgQualityAttachment> orgQualityAttachmentList = req.convertToOrgQualityAttachmentList();
+		int i = orgQualityService.insert(orgQuality, orgQualityAttachmentList);
 		logger.info("===step2:【添加机构资质】(OrgQualityController-insert)-插入机构资质, i:{}", i);
 
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
@@ -182,7 +182,7 @@ public class OrgQualityController extends BaseController {
 		logger.info("===step1:【修改机构资质】(OrgQualityController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer orgQualityId = req.getOrgQualityId();
-		List<OrgQualityAttachment> orgQualityAttachments = req.getOrgQualityAttachments();
+		List<OrgQualityAttachment> orgQualityAttachments = req.convertToOrgQualityAttachmentList();
 		OrgQuality orgQuality = req.convertToOrgQuality();
 		orgQuality.setId(orgQualityId);
 		int i = orgQualityService.modify(orgQuality, orgQualityAttachments);

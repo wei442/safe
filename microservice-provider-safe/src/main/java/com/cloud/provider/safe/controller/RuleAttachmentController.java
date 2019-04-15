@@ -132,8 +132,6 @@ public class RuleAttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加规范文件附件】(RuleAttachmentController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
-
 		RuleAttachment ruleAttachment = req.convertToRuleAttachment();
 		int i = ruleAttachmentService.insert(ruleAttachment);
 		logger.info("===step2:【添加规范文件附件】(RuleAttachmentController-insert)-插入规范文件附件, i:{}", i);
@@ -191,6 +189,5 @@ public class RuleAttachmentController extends BaseController {
 		logger.info("===step3:【修改规范文件附件】(RuleAttachmentController-modify)-返回信息, ruleAttachmentResponse:{}", ruleAttachmentResponse);
 		return ruleAttachmentResponse;
 	}
-
 
 }

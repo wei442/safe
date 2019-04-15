@@ -23,13 +23,6 @@ public interface IUserQualityAttachmentService {
 	 */
 	public List<UserQualityAttachment> selectList(UserQualityAttachmentPageRequest param);
 
-	/**
-	 * 根据userQualityId查询用户资质附件列表
-	 * @param userQualityId
-	 * @return List<UserQualityAttachment>
-	 */
-//	public List<UserQualityAttachment> selectListByUserQualityId(Integer userQualityId);
-
     /**
      * 根据id查询用户资质附件
      * @param id

@@ -109,20 +109,20 @@ public class UserAppLoginController extends BaseController {
 	@ApiOperation(value = "获取用户应用登录详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserAppLoginIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户应用登录】(UserAppLoginController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户应用登录】(UserAppLoginController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userAppLoginId = req.getUserAppLoginId();
 		JSONObject jsonUserAppLogin = userAppLoginService.getById(userAppLoginId);
-		logger.info("===step2:【获取用户应用登录】(UserAppLoginController-get)-根据userAppLoginId获取用户应用登录, jsonUserAppLogin:{}", jsonUserAppLogin);
+		logger.info("===step2:【获取用户应用登录】(UserAppLoginController-getDetail)-根据userAppLoginId获取用户应用登录, jsonUserAppLogin:{}", jsonUserAppLogin);
 		UserAppLoginVo userAppLoginVo = JSONObject.toJavaObject(jsonUserAppLogin, UserAppLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
 		userAppLoginResponse.put(CommConstants.RESULT, userAppLoginVo);
-	    logger.info("===step3:【获取用户应用登录】(UserAppLoginController-get)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
+	    logger.info("===step3:【获取用户应用登录】(UserAppLoginController-getDetail)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 	    return userAppLoginResponse;
 	}
 

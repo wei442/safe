@@ -109,20 +109,20 @@ public class EnterpriseController extends BaseController {
 	@ApiOperation(value = "获取企业详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody EnterpriseIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取企业】(EnterpriseController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取企业】(EnterpriseController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer enterpriseId = req.getEnterpriseId();
 		JSONObject jsonEnterprise = enterpriseService.getById(enterpriseId);
-		logger.info("===step2:【获取企业】(EnterpriseController-get)-根据enterpriseId获取企业, jsonEnterprise:{}", jsonEnterprise);
+		logger.info("===step2:【获取企业】(EnterpriseController-getDetail)-根据enterpriseId获取企业, jsonEnterprise:{}", jsonEnterprise);
 		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonEnterprise, EnterpriseVo.class);
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
 		enterpriseResponse.put(CommConstants.RESULT, enterpriseVo);
-	    logger.info("===step3:【获取企业】(EnterpriseController-get)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+	    logger.info("===step3:【获取企业】(EnterpriseController-getDetail)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 	    return enterpriseResponse;
 	}
 

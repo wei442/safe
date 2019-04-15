@@ -17,7 +17,7 @@ public class UserQualityAttachmentPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "用户资质id", required = true)
+	@ApiModelProperty(value = "用户资质id")
     @NotNull(message = "用户资质id不能为空")
 	private Integer userQualityId;
 

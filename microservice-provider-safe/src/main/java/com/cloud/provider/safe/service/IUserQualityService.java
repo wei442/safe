@@ -41,10 +41,10 @@ public interface IUserQualityService {
     /**
      * 插入用户资质及附件
      * @param userQuality
-     * @param userQualityAttachments
+     * @param userQualityAttachmentList
      * @return Integer
      */
-	public Integer insert(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachments);
+	public Integer insert(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachmentList);
 
  	/**
   	 * 根据id删除用户资质
@@ -63,9 +63,9 @@ public interface IUserQualityService {
     /**
      * 修改用户资质及附件
      * @param userQuality
-     * @param userQualityAttachments
+     * @param userQualityAttachmentList
      * @return Integer
      */
-	public Integer modify(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachments);
+	public Integer modify(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachmentList);
 
 }

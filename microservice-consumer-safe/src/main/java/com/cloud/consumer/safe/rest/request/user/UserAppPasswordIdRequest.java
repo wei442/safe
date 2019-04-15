@@ -15,7 +15,7 @@ public class UserAppPasswordIdRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户应用密码id", required = true)
+    @ApiModelProperty(value = "用户应用密码id")
     @NotNull(message = "用户应用密码id不能为空")
 	private Integer userAppPasswordId;
 

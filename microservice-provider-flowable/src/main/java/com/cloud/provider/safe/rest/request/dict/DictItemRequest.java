@@ -22,15 +22,15 @@ public class DictItemRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "字典子项id", required = true)
+	@ApiModelProperty(value = "字典子项id")
     @NotNull(message = "字典子项id不能为空", groups = {ModifyGroup.class})
 	private Integer dictItemId;
 
-	@ApiModelProperty(value = "字典id", required = true)
+	@ApiModelProperty(value = "字典id")
     @NotNull(message = "字典id不能为空")
     private Integer dictId;
 
-	@ApiModelProperty(value = "字典子项名称d", required = true)
+	@ApiModelProperty(value = "字典子项名称d")
 	@NotBlank(message = "字典子项名称不能为空")
     private String itemName;
 

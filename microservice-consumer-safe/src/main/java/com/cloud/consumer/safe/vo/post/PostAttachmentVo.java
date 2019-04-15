@@ -18,13 +18,11 @@ public class PostAttachmentVo implements Serializable {
 
 	private Integer postAttachmentId;
 
-    private Integer postId;
+	private Integer postId;
 
-    private String attachmentUrl;
+    private String name;
 
-    private Integer isDelete;
-
-    private String remark;
+    private String url;
 
     private String created;
 

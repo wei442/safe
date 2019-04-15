@@ -17,11 +17,11 @@ public class UserPostPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "企业id", required = true)
+	@ApiModelProperty(value = "企业id")
     @NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 
-	@ApiModelProperty(value = "岗位id", required = true)
+	@ApiModelProperty(value = "岗位id")
     @NotNull(message = "岗位id不能为空")
     private Integer postId;
 

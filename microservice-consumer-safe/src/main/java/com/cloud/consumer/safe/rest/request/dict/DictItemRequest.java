@@ -18,7 +18,7 @@ public class DictItemRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "字典子项id", required = true)
+	@ApiModelProperty(value = "字典子项id")
     @NotNull(message = "字典子项id不能为空", groups = {UpdateGroup.class})
 	private Integer dictItemId;
 

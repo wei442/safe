@@ -116,20 +116,20 @@ public class UserOrgController extends BaseController {
 	@ApiOperation(value = "获取用户机构详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserOrgIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户机构】(UserOrgController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户机构】(UserOrgController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userOrgId = req.getUserOrgId();
 		JSONObject jsonUserOrg = userOrgService.getById(userOrgId);
-		logger.info("===step2:【获取用户机构】(UserOrgController-get)-根据userOrgId获取用户机构, jsonUserOrg:{}", jsonUserOrg);
+		logger.info("===step2:【获取用户机构】(UserOrgController-getDetail)-根据userOrgId获取用户机构, jsonUserOrg:{}", jsonUserOrg);
 		UserOrgVo userOrgVo = JSONObject.toJavaObject(jsonUserOrg, UserOrgVo.class);
 
 		//返回信息
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
 		userOrgResponse.put(CommConstants.RESULT, userOrgVo);
-	    logger.info("===step3:【获取用户机构】(UserOrgController-get)-返回信息, userOrgResponse:{}", userOrgResponse);
+	    logger.info("===step3:【获取用户机构】(UserOrgController-getDetail)-返回信息, userOrgResponse:{}", userOrgResponse);
 	    return userOrgResponse;
 	}
 

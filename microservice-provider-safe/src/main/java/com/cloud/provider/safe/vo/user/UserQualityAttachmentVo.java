@@ -27,7 +27,9 @@ public class UserQualityAttachmentVo implements Serializable {
 
 	private Integer userQualityId;
 
-    private String attachmentUrl;
+    private String name;
+
+    private String url;
 
     private String created;
 

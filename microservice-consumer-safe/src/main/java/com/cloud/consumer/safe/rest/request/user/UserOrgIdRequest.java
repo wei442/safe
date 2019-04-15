@@ -15,7 +15,7 @@ public class UserOrgIdRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "用户机构id", required = true)
+	@ApiModelProperty(value = "用户机构id")
     @NotNull(message = "用户机构id不能为空")
 	private Integer userOrgId;
 

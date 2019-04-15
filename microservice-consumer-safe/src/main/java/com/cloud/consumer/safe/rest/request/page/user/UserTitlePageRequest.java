@@ -19,7 +19,7 @@ public class UserTitlePageRequest extends BaseRestRequest {
 
 	private Integer enterpriseId;
 
-	@ApiModelProperty(value = "职务id", required = true)
+	@ApiModelProperty(value = "职务id")
     @NotNull(message = "职务id不能为空")
 	private Integer titleId;
 

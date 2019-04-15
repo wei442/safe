@@ -113,20 +113,20 @@ public class UserPostController extends BaseController {
 	@ApiOperation(value = "获取用户岗位详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserPostIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户岗位】(UserPostController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户岗位】(UserPostController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userPostId = req.getUserPostId();
 		JSONObject jsonUserPost = userPostService.getById(userPostId);
-		logger.info("===step2:【获取用户岗位】(UserPostController-get)-根据userPostId获取用户岗位, jsonUserPost:{}", jsonUserPost);
+		logger.info("===step2:【获取用户岗位】(UserPostController-getDetail)-根据userPostId获取用户岗位, jsonUserPost:{}", jsonUserPost);
 		UserPostVo userPostVo = JSONObject.toJavaObject(jsonUserPost, UserPostVo.class);
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
 		userPostResponse.put(CommConstants.RESULT, userPostVo);
-	    logger.info("===step3:【获取用户岗位】(UserPostController-get)-返回信息, userPostResponse:{}", userPostResponse);
+	    logger.info("===step3:【获取用户岗位】(UserPostController-getDetail)-返回信息, userPostResponse:{}", userPostResponse);
 	    return userPostResponse;
 	}
 

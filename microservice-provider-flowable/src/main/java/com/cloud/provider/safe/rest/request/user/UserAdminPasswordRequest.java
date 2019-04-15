@@ -21,19 +21,19 @@ public class UserAdminPasswordRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "用户管理密码id", required = true)
+	@ApiModelProperty(value = "用户管理密码id")
     @NotNull(message = "用户管理密码id不能为空", groups = {ModifyGroup.class})
 	private Integer userAdminPasswordId;
 
-	@ApiModelProperty(value = "用户id", required = true)
+	@ApiModelProperty(value = "用户id")
     @NotNull(message = "用户id不能为空")
     private Integer userId;
 
-	@ApiModelProperty(value = "密码", required = true)
+	@ApiModelProperty(value = "密码")
 	@NotBlank(message = "密码不能为空")
     private String password;
 
-	@ApiModelProperty(value = "确认密码", required = true)
+	@ApiModelProperty(value = "确认密码")
 	@NotBlank(message = "确认密码不能为空")
 	private String confirPassword;
 

@@ -160,8 +160,8 @@ public class UserQualityController extends BaseController {
 		logger.info("===step1:【添加用户资质】(UserQualityController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		UserQuality userQuality = req.convertToUserQuality();
-		List<UserQualityAttachment> userQualityAttachments = req.getUserQualityAttachments();
-		int i = userQualityService.insert(userQuality, userQualityAttachments);
+		List<UserQualityAttachment> userQualityAttachmentList = req.convertToUserQualityAttachmentList();
+		int i = userQualityService.insert(userQuality, userQualityAttachmentList);
 		logger.info("===step2:【添加用户资质】(UserQualityController-insert)-插入用户资质, i:{}", i);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
@@ -232,10 +232,10 @@ public class UserQualityController extends BaseController {
 		logger.info("===step1:【修改用户资质】(UserQualityController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userQualityId = req.getUserQualityId();
-		List<UserQualityAttachment> userQualityAttachments = req.getUserQualityAttachments();
+		List<UserQualityAttachment> userQualityAttachmentList = req.convertToUserQualityAttachmentList();
 		UserQuality userQuality = req.convertToUserQuality();
 		userQuality.setId(userQualityId);
-		int i = userQualityService.modify(userQuality, userQualityAttachments);
+		int i = userQualityService.modify(userQuality, userQualityAttachmentList);
 		logger.info("===step2:【修改用户资质】(UserQualityController-modify)-修改用户资质, i:{}", i);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();

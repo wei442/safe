@@ -27,7 +27,9 @@ public class ActivityAttachmentVo implements Serializable {
 
 	private Integer activityId;
 
-    private String attachmentUrl;
+    private String name;
+
+    private String url;
 
     private String created;
 

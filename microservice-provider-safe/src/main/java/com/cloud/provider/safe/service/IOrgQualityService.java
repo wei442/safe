@@ -34,10 +34,10 @@ public interface IOrgQualityService {
     /**
      * 插入机构资质及附件
      * @param orgQuality
-     * @param orgQualityAttachments
+     * @param orgQualityAttachmentList
      * @return Integer
      */
-	public Integer insert(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachments);
+	public Integer insert(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachmentList);
 
 	/**
   	 * 根据id删除机构资质
@@ -49,9 +49,9 @@ public interface IOrgQualityService {
     /**
      * 修改机构资质及附件
      * @param orgQuality
-     * @param orgQualityAttachments
+     * @param orgQualityAttachmentList
      * @return Integer
      */
-	public Integer modify(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachments);
+	public Integer modify(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachmentList);
 
 }

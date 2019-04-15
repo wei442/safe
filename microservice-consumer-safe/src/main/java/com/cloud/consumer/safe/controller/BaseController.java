@@ -100,10 +100,12 @@ public class BaseController {
 	 * @param enterpriseName
 	 * @param userId
 	 * @param userAccount
+	 * @param orgId
+	 * @param orgName
 	 * @return String
 	 */
-	protected String setToken(Integer enterpriseId,String enterpriseName,Integer userId,String userAccount) {
-		logger.info("(BaseController-setToken)-redis设置token-传入参数, enterpriseId:{}, enterpriseName:{}, userId:{}, userAccount:{}", enterpriseId, enterpriseName, userId, userAccount);
+	protected String setToken(Integer enterpriseId,String enterpriseName,Integer userId,String userAccount,Integer orgId,String orgName) {
+		logger.info("(BaseController-setToken)-redis设置token-传入参数, enterpriseId:{}, enterpriseName:{}, userId:{}, userAccount:{}, orgId:{}, orgName:{}", enterpriseId, enterpriseName, userId, userAccount, orgId, orgName);
 		if(null == enterpriseId ||null == userId || StringUtils.isBlank(userAccount)) {
 			return null;
 		}
@@ -120,6 +122,9 @@ public class BaseController {
 		claims.put(CommConstants.ENTERPRISE_NAME, enterpriseName);
 		claims.put(CommConstants.USER_ID, userId);
 		claims.put(CommConstants.USER_ACCOUNT, userAccount);
+		claims.put(CommConstants.ORG_ID, orgId);
+		claims.put(CommConstants.ORG_NAME, orgName);
+
 		logger.info("(BaseController-setToken)-声明(claims), claims:{}", claims);
 
 		String token = TokenUtil.INSTANCE.createJWT(privateKey, signatureAlgorithm, claims, issuer, audience);
@@ -248,6 +253,28 @@ public class BaseController {
 		String userAccount = Objects.toString(payloadJSON.get(CommConstants.USER_ACCOUNT));
 		logger.info("(BaseController-getTokenUserAccount)-返回信息, userAccount:{}", userAccount);
 		return userAccount;
+	}
+
+	/**
+	 * 获取token(orgId)
+	 * @return Integer
+	 */
+	protected Integer getTokenOrgId() {
+		JSONObject payloadJSON = this.getTokenPayload();
+		Integer orgId = new Integer(Objects.toString(payloadJSON.get(CommConstants.ORG_ID)));
+		logger.info("(BaseController-getTokenOrgId)-返回信息, orgId:{}", orgId);
+		return orgId;
+	}
+
+	/**
+	 * 获取token(orgName)
+	 * @return String
+	 */
+	protected String getTokenOrgName() {
+		JSONObject payloadJSON = this.getTokenPayload();
+		String orgName = Objects.toString(payloadJSON.get(CommConstants.ORG_NAME));
+		logger.info("(BaseController-getTokenOrgName)-返回信息, orgName:{}", orgName);
+		return orgName;
 	}
 
 	/**

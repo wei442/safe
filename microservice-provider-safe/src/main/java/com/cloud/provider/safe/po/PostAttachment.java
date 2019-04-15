@@ -7,11 +7,9 @@ public class PostAttachment {
 
     private Integer postId;
 
-    private String attachmentUrl;
+    private String name;
 
-    private Integer isDelete;
-
-    private String remark;
+    private String url;
 
     private String created;
 
@@ -37,28 +35,20 @@ public class PostAttachment {
         this.postId = postId;
     }
 
-    public String getAttachmentUrl() {
-        return attachmentUrl;
+    public String getName() {
+        return name;
     }
 
-    public void setAttachmentUrl(String attachmentUrl) {
-        this.attachmentUrl = attachmentUrl == null ? null : attachmentUrl.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
+    public String getUrl() {
+        return url;
     }
 
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+    public void setUrl(String url) {
+        this.url = url == null ? null : url.trim();
     }
 
     public String getCreated() {

@@ -23,19 +23,19 @@ public class UserAppLoginLogRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "用户应用登录日志id", required = true)
+	@ApiModelProperty(value = "用户应用登录日志id")
     @NotNull(message = "用户应用登录日志id不能为空", groups = {ModifyGroup.class})
 	private Long userAppLoginLogId;
 
-	@ApiModelProperty(value = "用户id", required = true)
+	@ApiModelProperty(value = "用户id")
     @NotNull(message = "用户id不能为空")
     private Integer userId;
 
-	@ApiModelProperty(value = "手机号码", required = true)
+	@ApiModelProperty(value = "手机号码")
     @NotBlank(message = "手机号码不能为空")
     private String userAccount;
 
-	@ApiModelProperty(value = "用户名称", required = true)
+	@ApiModelProperty(value = "用户名称")
     @NotBlank(message = "用户名称")
     private String userName;
 

@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
+import com.cloud.provider.safe.dao.ActivityAttachmentMapper;
 import com.cloud.provider.safe.dao.ActivityMapper;
 import com.cloud.provider.safe.po.Activity;
+import com.cloud.provider.safe.po.ActivityAttachment;
+import com.cloud.provider.safe.po.ActivityAttachmentExample;
 import com.cloud.provider.safe.po.ActivityExample;
 import com.cloud.provider.safe.rest.request.page.activity.ActivityPageRequest;
 import com.cloud.provider.safe.service.IActivityService;
@@ -31,6 +34,10 @@ public class ActivityServiceImpl implements IActivityService {
     //活动 Mapper
     @Autowired
     private ActivityMapper activityMapper;
+
+    //活动附件 Mapper
+    @Autowired
+    private ActivityAttachmentMapper activityAttachmentMapper;
 
     /**
 	 * 分页查询
@@ -89,17 +96,27 @@ public class ActivityServiceImpl implements IActivityService {
     }
 
     /**
-     * 插入活动
+     * 插入活动及附件
      * @param activity
+     * @param activityAttachmentList
      * @return Integer
      */
-	@Override
-	public Integer insert(Activity activity) {
-    	logger.info("(ActivityService-insert)-插入活动-传入参数, activity:{}", activity);
+	public Integer insert(Activity activity, List<ActivityAttachment> activityAttachmentList) {
+    	logger.info("(ActivityService-insert)-插入活动及附件-传入参数, activity:{}, activityAttachmentList:{}", activity, activityAttachmentList);
     	activity.setCreateTime(new Date());
     	activity.setUpdateTime(new Date());
     	int i = activityMapper.insertSelective(activity);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    	Integer activityId = activity.getId();
+
+    	if(activityAttachmentList != null && !activityAttachmentList.isEmpty()) {
+    		for (ActivityAttachment activityAttachment : activityAttachmentList) {
+    			activityAttachment.setActivityId(activityId);
+    			activityAttachment.setCreateTime(new Date());
+    			activityAttachment.setUpdateTime(new Date());
+    			i = activityAttachmentMapper.insertSelective(activityAttachment);
+			}
+    	}
     	return i;
     }
 
@@ -113,6 +130,11 @@ public class ActivityServiceImpl implements IActivityService {
   		logger.info("(ActivityService-deleteById)-根据id删除活动-传入参数, id:{}", id);
 		int i = activityMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+
+  		ActivityAttachmentExample example = new ActivityAttachmentExample();
+  		ActivityAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andActivityIdEqualTo(id);
+		i = activityAttachmentMapper.deleteByExample(example);
   		return i;
   	}
 
@@ -133,16 +155,31 @@ public class ActivityServiceImpl implements IActivityService {
   	}
 
     /**
-     * 修改活动
+     * 修改活动及附件
      * @param activity
+     * @param activityAttachmentList
      * @return Integer
      */
-	@Override
-	public Integer modify(Activity activity) {
-    	logger.info("(ActivityService-modify)-修改活动-传入参数, activity:{}", activity);
+	public Integer modify(Activity activity, List<ActivityAttachment> activityAttachmentList) {
+    	logger.info("(ActivityService-modify)-修改活动及附件-传入参数, activity:{}, activityAttachmentList:{}", activity, activityAttachmentList);
     	activity.setUpdateTime(new Date());
 		int i = activityMapper.updateByPrimaryKeySelective(activity);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    	Integer activityId = activity.getId();
+
+    	ActivityAttachmentExample example = new ActivityAttachmentExample();
+  		ActivityAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andActivityIdEqualTo(activityId);
+		i = activityAttachmentMapper.deleteByExample(example);
+
+    	if(activityAttachmentList != null && !activityAttachmentList.isEmpty()) {
+    		for (ActivityAttachment activityAttachment : activityAttachmentList) {
+    			activityAttachment.setActivityId(activityId);
+    			activityAttachment.setCreateTime(new Date());
+    			activityAttachment.setUpdateTime(new Date());
+    			i = activityAttachmentMapper.insertSelective(activityAttachment);
+			}
+    	}
     	return i;
     }
 

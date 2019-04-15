@@ -2,7 +2,6 @@ package com.cloud.provider.safe.rest.request.post;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.BeanUtils;
@@ -26,16 +25,23 @@ public class PostAttachmentRequest implements Serializable {
 	@NotNull(message = "岗位附件id不能为空", groups = {ModifyGroup.class})
 	private Integer postAttachmentId;
 
-	@ApiModelProperty(value = "岗位id", required = true)
+	@ApiModelProperty(value = "岗位id")
 	@NotNull(message = "岗位id不能为空")
     private Integer postId;
 
-    @ApiModelProperty(value = "附件url", required = true)
-	@NotBlank(message = "附件url不能为空")
-    private String attachmentUrl;
+	@ApiModelProperty(value = "附件名称")
+    @NotNull(message = "附件名称不能为空")
+    private String name;
 
-	@ApiModelProperty(value = "备注")
-    private String remark;
+    @ApiModelProperty(value = "附件url")
+    @NotNull(message = "附件url不能为空")
+    private String url;
+
+    @ApiModelProperty(value = "创建人")
+    private String created;
+
+    @ApiModelProperty(value = "修改人")
+    private String updated;
 
     /**
 	 * 实体转换

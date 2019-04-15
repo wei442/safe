@@ -19,11 +19,11 @@ public class UserLoginSecondRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户id", required = true)
+    @ApiModelProperty(value = "用户id")
     @NotNull(message = "用户id不能为空")
     private Integer userId;
 
-	@ApiModelProperty(value = "企业id", required = true)
+	@ApiModelProperty(value = "企业id")
     @NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 

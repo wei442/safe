@@ -19,7 +19,7 @@ public class UserPostPageRequest extends BaseRestRequest {
 
 	private Integer enterpriseId;
 
-	@ApiModelProperty(value = "岗位id", required = true)
+	@ApiModelProperty(value = "岗位id")
     @NotNull(message = "岗位id不能为空")
     private Integer postId;
 

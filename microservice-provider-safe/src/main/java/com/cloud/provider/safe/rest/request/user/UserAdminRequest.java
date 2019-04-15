@@ -25,11 +25,11 @@ public class UserAdminRequest implements Serializable {
 	@NotNull(message = "用户管理id不能为空", groups = {ModifyGroup.class})
 	private Integer userAdminId;
 
-	@ApiModelProperty(value = "企业id", required = true)
+	@ApiModelProperty(value = "企业id")
 	@NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 
-	@ApiModelProperty(value = "用户id", required = true)
+	@ApiModelProperty(value = "用户id")
     @NotNull(message = "用户id不能为空")
     private Integer userId;
 

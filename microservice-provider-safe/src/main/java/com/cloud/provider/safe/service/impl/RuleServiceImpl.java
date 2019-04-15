@@ -58,6 +58,9 @@ public class RuleServiceImpl implements IRuleService {
 			if(param.getEnterpriseId() != null) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
+			if(param.getRuleType() != null) {
+				criteria.andRuleTypeEqualTo(param.getRuleType());
+			}
 			if(StringUtils.isNotBlank(param.getRuleName())) {
 				criteria.andRuleNameLike(param.getRuleName()+"%");
 			}
@@ -82,6 +85,9 @@ public class RuleServiceImpl implements IRuleService {
 			if(param.getEnterpriseId() != null) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
+			if(param.getRuleType() != null) {
+				criteria.andRuleTypeEqualTo(param.getRuleType());
+			}
 			if(StringUtils.isNotBlank(param.getRuleName())) {
 				criteria.andRuleNameLike(param.getRuleName()+"%");
 			}
@@ -105,12 +111,12 @@ public class RuleServiceImpl implements IRuleService {
     /**
      * 插入规范文件及附件
      * @param rule
-     * @param ruleAttachments
+     * @param ruleAttachmentList
      * @return Integer
      */
 	@Override
-	public Integer insert(Rule rule, List<RuleAttachment> ruleAttachments) {
-    	logger.info("(RuleService-insert)-插入规范文件及附件-传入参数, rule:{}, ruleAttachments:{}", rule, ruleAttachments);
+	public Integer insert(Rule rule, List<RuleAttachment> ruleAttachmentList) {
+    	logger.info("(RuleService-insert)-插入规范文件及附件-传入参数, rule:{}, ruleAttachmentList:{}", rule, ruleAttachmentList);
     	rule.setIsDelete(SqlSafeConstants.SQL_POST_IS_DELETE_NO);
     	rule.setCreateTime(new Date());
     	rule.setUpdateTime(new Date());
@@ -118,8 +124,8 @@ public class RuleServiceImpl implements IRuleService {
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	Integer ruleId = rule.getId();
 
-    	if(ruleAttachments != null && !ruleAttachments.isEmpty()) {
-    		for (RuleAttachment ruleAttachment : ruleAttachments) {
+    	if(ruleAttachmentList != null && !ruleAttachmentList.isEmpty()) {
+    		for (RuleAttachment ruleAttachment : ruleAttachmentList) {
     			ruleAttachment.setRuleId(ruleId);
     			ruleAttachment.setCreateTime(new Date());
     			ruleAttachment.setUpdateTime(new Date());
@@ -144,7 +150,6 @@ public class RuleServiceImpl implements IRuleService {
 		RuleAttachmentExample.Criteria criteria = example.createCriteria();
 		criteria.andRuleIdEqualTo(id);
 		i = ruleAttachmentMapper.deleteByExample(example);
-		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
 
   		return i;
   	}
@@ -152,12 +157,12 @@ public class RuleServiceImpl implements IRuleService {
     /**
      * 修改规范文件及附件
      * @param rule
-     * @param ruleAttachments
+     * @param ruleAttachmentList
      * @return Integer
      */
 	@Override
-	public Integer modify(Rule rule, List<RuleAttachment> ruleAttachments) {
-    	logger.info("(RuleService-modify)-修改规范文件及附件-传入参数, rule:{}, ruleAttachments:{}", rule, ruleAttachments);
+	public Integer modify(Rule rule, List<RuleAttachment> ruleAttachmentList) {
+    	logger.info("(RuleService-modify)-修改规范文件及附件-传入参数, rule:{}, ruleAttachmentList:{}", rule, ruleAttachmentList);
     	rule.setUpdateTime(new Date());
     	int i = ruleMapper.updateByPrimaryKeySelective(rule);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
@@ -167,10 +172,9 @@ public class RuleServiceImpl implements IRuleService {
 		RuleAttachmentExample.Criteria criteria = example.createCriteria();
 		criteria.andRuleIdEqualTo(ruleId);
 		i = ruleAttachmentMapper.deleteByExample(example);
-		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
 
-    	if(ruleAttachments != null && !ruleAttachments.isEmpty()) {
-    		for (RuleAttachment ruleAttachment : ruleAttachments) {
+    	if(ruleAttachmentList != null && !ruleAttachmentList.isEmpty()) {
+    		for (RuleAttachment ruleAttachment : ruleAttachmentList) {
     			ruleAttachment.setRuleId(ruleId);
     			ruleAttachment.setCreateTime(new Date());
     			ruleAttachment.setUpdateTime(new Date());

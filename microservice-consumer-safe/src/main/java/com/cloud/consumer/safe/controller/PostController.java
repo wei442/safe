@@ -113,20 +113,20 @@ public class PostController extends BaseController {
 	@ApiOperation(value = "获取岗位详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody PostIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取岗位】(PostController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取岗位】(PostController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer postId = req.getPostId();
 		JSONObject jsonPost = postService.getById(postId);
-		logger.info("===step2:【获取岗位】(PostController-get)-根据postId获取岗位, jsonPost:{}", jsonPost);
+		logger.info("===step2:【获取岗位】(PostController-getDetail)-根据postId获取岗位, jsonPost:{}", jsonPost);
 		PostVo postVo = JSONObject.toJavaObject(jsonPost, PostVo.class);
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
 		postResponse.put(CommConstants.RESULT, postVo);
-	    logger.info("===step3:【获取岗位】(PostController-get)-返回信息, postResponse:{}", postResponse);
+	    logger.info("===step3:【获取岗位】(PostController-getDetail)-返回信息, postResponse:{}", postResponse);
 	    return postResponse;
 	}
 

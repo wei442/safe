@@ -48,20 +48,20 @@ public class UserAppPasswordController extends BaseController {
 	@ApiOperation(value = "获取用户应用密码详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserAppPasswordIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户应用密码】(UserAppPasswordController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户应用密码】(UserAppPasswordController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userAppPasswordId = req.getUserAppPasswordId();
 		JSONObject jsonUserAppPassword = userAppPasswordService.getById(userAppPasswordId);
-		logger.info("===step2:【获取用户应用密码】(UserAppPasswordController-get)-根据userAppPasswordId获取用户应用密码, jsonUserAppPassword:{}", jsonUserAppPassword);
+		logger.info("===step2:【获取用户应用密码】(UserAppPasswordController-getDetail)-根据userAppPasswordId获取用户应用密码, jsonUserAppPassword:{}", jsonUserAppPassword);
 		UserAppPasswordVo userAppPasswordVo = JSONObject.toJavaObject(jsonUserAppPassword, UserAppPasswordVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
 		userAppPasswordResponse.put(CommConstants.RESULT, userAppPasswordVo);
-	    logger.info("===step3:【获取用户应用密码】(UserAppPasswordController-get)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
+	    logger.info("===step3:【获取用户应用密码】(UserAppPasswordController-getDetail)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 	    return userAppPasswordResponse;
 	}
 

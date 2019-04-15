@@ -4,7 +4,8 @@
   <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.OrgQualityAttachment">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="org_quality_id" jdbcType="INTEGER" property="orgQualityId" />
-    <result column="attachment_url" jdbcType="VARCHAR" property="attachmentUrl" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="created" jdbcType="VARCHAR" property="created" />
     <result column="updated" jdbcType="VARCHAR" property="updated" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, org_quality_id, attachment_url, created, updated, create_time, update_time
+    id, org_quality_id, name, url, created, updated, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.OrgQualityAttachmentExample" resultMap="BaseResultMap">
     select
@@ -102,12 +103,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cloud.provider.safe.po.OrgQualityAttachment" useGeneratedKeys="true" keyProperty="id">
-    insert into org_quality_attachment (id, org_quality_id, attachment_url, 
-      created, updated, create_time, 
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{orgQualityId,jdbcType=INTEGER}, #{attachmentUrl,jdbcType=VARCHAR}, 
-      #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into org_quality_attachment (id, org_quality_id, name, 
+      url, created, updated, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{orgQualityId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.OrgQualityAttachment" useGeneratedKeys="true" keyProperty="id">
     insert into org_quality_attachment
@@ -118,8 +119,11 @@
       <if test="orgQualityId != null">
         org_quality_id,
       </if>
-      <if test="attachmentUrl != null">
-        attachment_url,
+      <if test="name != null">
+        name,
+      </if>
+      <if test="url != null">
+        url,
       </if>
       <if test="created != null">
         created,
@@ -141,8 +145,11 @@
       <if test="orgQualityId != null">
         #{orgQualityId,jdbcType=INTEGER},
       </if>
-      <if test="attachmentUrl != null">
-        #{attachmentUrl,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
       </if>
       <if test="created != null">
         #{created,jdbcType=VARCHAR},
@@ -173,8 +180,11 @@
       <if test="record.orgQualityId != null">
         org_quality_id = #{record.orgQualityId,jdbcType=INTEGER},
       </if>
-      <if test="record.attachmentUrl != null">
-        attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
       </if>
       <if test="record.created != null">
         created = #{record.created,jdbcType=VARCHAR},
@@ -197,7 +207,8 @@
     update org_quality_attachment
     set id = #{record.id,jdbcType=INTEGER},
       org_quality_id = #{record.orgQualityId,jdbcType=INTEGER},
-      attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
       created = #{record.created,jdbcType=VARCHAR},
       updated = #{record.updated,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -212,8 +223,11 @@
       <if test="orgQualityId != null">
         org_quality_id = #{orgQualityId,jdbcType=INTEGER},
       </if>
-      <if test="attachmentUrl != null">
-        attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="created != null">
         created = #{created,jdbcType=VARCHAR},
@@ -233,7 +247,8 @@
   <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.OrgQualityAttachment">
     update org_quality_attachment
     set org_quality_id = #{orgQualityId,jdbcType=INTEGER},
-      attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
       created = #{created,jdbcType=VARCHAR},
       updated = #{updated,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

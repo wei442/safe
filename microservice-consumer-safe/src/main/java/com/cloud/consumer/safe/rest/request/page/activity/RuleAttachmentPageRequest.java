@@ -16,6 +16,4 @@ public class RuleAttachmentPageRequest extends BaseRestRequest {
 
     private Integer ruleId;
 
-    private String attachmentUrl;
-
 }

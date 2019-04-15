@@ -23,7 +23,7 @@ public class UserAdminRequest implements Serializable {
 
     private Integer enterpriseId;
 
-	@ApiModelProperty(value = "用户id", required = true)
+	@ApiModelProperty(value = "用户id")
     @NotNull(message = "用户id不能为空")
     private Integer userId;
 

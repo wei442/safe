@@ -73,22 +73,6 @@ public class UserQualityAttachmentServiceImpl implements IUserQualityAttachmentS
 		return list;
 	}
 
-	/**
-	 * 根据userQualityId查询用户资质附件列表
-	 * @param userQualityId
-	 * @return List<UserQualityAttachment>
-	 */
-//	@Override
-//	public List<UserQualityAttachment> selectListByUserQualityId(Integer userQualityId) {
-//		logger.info("(UserQualityAttachmentService-selectListByUserQualityId)-根据userQualityId查询用户资质附件列表-传入参数, userQualityId:{}", userQualityId);
-//		UserQualityAttachmentExample example = new UserQualityAttachmentExample();
-//		example.setOrderByClause(" id desc ");
-//		UserQualityAttachmentExample.Criteria criteria = example.createCriteria();
-//		criteria.andUserQualityIdEqualTo(userQualityId);
-//		List<UserQualityAttachment> list = userQualityAttachmentMapper.selectByExample(example);
-//		return list;
-//	}
-
     /**
      * 根据id查询用户资质附件
      * @param id

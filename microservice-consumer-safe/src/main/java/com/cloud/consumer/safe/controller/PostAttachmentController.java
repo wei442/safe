@@ -113,20 +113,20 @@ public class PostAttachmentController extends BaseController {
 	@ApiOperation(value = "获取岗位附件详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody PostAttachmentIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取岗位附件】(PostAttachmentController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取岗位附件】(PostAttachmentController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer postAttachmentId = req.getPostAttachmentId();
 		JSONObject jsonPostAttachment = postAttachmentService.getById(postAttachmentId);
-		logger.info("===step2:【获取岗位附件】(PostAttachmentController-get)-根据postAttachmentId获取岗位附件, jsonPostAttachment:{}", jsonPostAttachment);
+		logger.info("===step2:【获取岗位附件】(PostAttachmentController-getDetail)-根据postAttachmentId获取岗位附件, jsonPostAttachment:{}", jsonPostAttachment);
 		PostAttachmentVo postAttachmentVo = JSONObject.toJavaObject(jsonPostAttachment, PostAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse postAttachmentResponse = new BaseRestMapResponse();
 		postAttachmentResponse.put(CommConstants.RESULT, postAttachmentVo);
-	    logger.info("===step3:【获取岗位附件】(PostAttachmentController-get)-返回信息, postAttachmentResponse:{}", postAttachmentResponse);
+	    logger.info("===step3:【获取岗位附件】(PostAttachmentController-getDetail)-返回信息, postAttachmentResponse:{}", postAttachmentResponse);
 	    return postAttachmentResponse;
 	}
 

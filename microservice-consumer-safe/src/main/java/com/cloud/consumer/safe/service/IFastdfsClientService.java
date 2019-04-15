@@ -1,8 +1,13 @@
 package com.cloud.consumer.safe.service;
 
+import java.io.InputStream;
+import java.util.Set;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.tobato.fastdfs.domain.fdfs.FileInfo;
+import com.github.tobato.fastdfs.domain.fdfs.MetaData;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 
 public interface IFastdfsClientService {
 
@@ -15,10 +20,30 @@ public interface IFastdfsClientService {
 
     /**
      * 上传文件
+     * @param inputStream
+     * @param fileSize
+     * @param fileExtName
+     * @param metaDataSet
+     * @return StorePath
+     */
+	public StorePath uploadFile(InputStream inputStream, long fileSize, String fileExtName, Set<MetaData> metaDataSet);
+
+    /**
+     * 上传文件
      * @param file 文件对象
      * @return String
      */
     public String uploadFile(MultipartFile file);
+
+    /**
+     * 上传图片
+     * @param inputStream
+     * @param fileSize
+     * @param fileExtName
+     * @param metaDataSet
+     * @return StorePath
+     */
+	public StorePath uploadImage(InputStream inputStream, long fileSize, String fileExtName, Set<MetaData> metaDataSet);
 
     /**
      * 上传图片

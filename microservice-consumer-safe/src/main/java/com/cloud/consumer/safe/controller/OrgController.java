@@ -1,6 +1,8 @@
 package com.cloud.consumer.safe.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +70,9 @@ public class OrgController extends BaseController {
 			orgId = orgVoList.get(0).getOrgId();
 		}
 
-		JSONObject jsonParentOrg = orgService.getParentTreeList(orgId);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("orgId", orgId);
+		JSONObject jsonParentOrg = orgService.getParentTreeList(params);
 		logger.info("===step2:【查询组织机构树列表】(OrgController-getTreeList)-查询组织机构树列表, jsonParentOrg:{}", jsonParentOrg);
 
 		BaseResultVo result = new BaseResultVo(orgVoList);

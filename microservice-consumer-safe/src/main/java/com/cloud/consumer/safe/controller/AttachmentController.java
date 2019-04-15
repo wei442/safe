@@ -109,20 +109,20 @@ public class AttachmentController extends BaseController {
 	@ApiOperation(value = "获取附件详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody AttachmentIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取附件】(AttachmentController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取附件】(AttachmentController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer attachmentId = req.getAttachmentId();
 		JSONObject jsonAttachment = attachmentService.getById(attachmentId);
-		logger.info("===step2:【获取附件】(AttachmentController-get)-根据attachmentId获取附件, jsonAttachment:{}", jsonAttachment);
+		logger.info("===step2:【获取附件】(AttachmentController-getDetail)-根据attachmentId获取附件, jsonAttachment:{}", jsonAttachment);
 		AttachmentVo attachmentVo = JSONObject.toJavaObject(jsonAttachment, AttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse attachmentResponse = new BaseRestMapResponse();
 		attachmentResponse.put(CommConstants.RESULT, attachmentVo);
-	    logger.info("===step3:【获取附件】(AttachmentController-get)-返回信息, attachmentResponse:{}", attachmentResponse);
+	    logger.info("===step3:【获取附件】(AttachmentController-getDetail)-返回信息, attachmentResponse:{}", attachmentResponse);
 	    return attachmentResponse;
 	}
 

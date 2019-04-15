@@ -21,15 +21,15 @@ public class AttachmentLogRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "附件id", required = true)
+	@ApiModelProperty(value = "附件id")
     @NotNull(message = "附件id不能为空", groups = {ModifyGroup.class})
 	private Long attachmentLogId;
 
-	@ApiModelProperty(value = "附件id", required = true)
+	@ApiModelProperty(value = "附件id")
     @NotNull(message = "附件id不能为空")
     private Integer attachmentId;
 
-	@ApiModelProperty(value = "附件内容", required = true)
+	@ApiModelProperty(value = "附件内容")
     @NotNull(message = "附件内容不能为空")
     private String content;
 

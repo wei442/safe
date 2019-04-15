@@ -113,20 +113,20 @@ public class TitleController extends BaseController {
 	@ApiOperation(value = "获取职务详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody TitleIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取职务】(TitleController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取职务】(TitleController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer titleId = req.getTitleId();
 		JSONObject jsonTitle = titleService.getById(titleId);
-		logger.info("===step2:【获取职务】(TitleController-get)-根据titleId获取职务, jsonTitle:{}", jsonTitle);
+		logger.info("===step2:【获取职务】(TitleController-getDetail)-根据titleId获取职务, jsonTitle:{}", jsonTitle);
 		TitleVo titleVo = JSONObject.toJavaObject(jsonTitle, TitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
 		titleResponse.put(CommConstants.RESULT, titleVo);
-	    logger.info("===step3:【获取职务】(TitleController-get)-返回信息, titleResponse:{}", titleResponse);
+	    logger.info("===step3:【获取职务】(TitleController-getDetail)-返回信息, titleResponse:{}", titleResponse);
 	    return titleResponse;
 	}
 

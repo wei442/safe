@@ -90,7 +90,7 @@ public class ActivityAttachmentController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonActivityAttachment = activityAttachmentService.getListByPage(req);
+		JSONObject jsonActivityAttachment = activityAttachmentService.getList(req);
 		logger.info("===step2:【不分页查询】(ActivityAttachmentController-getList)-不分页查询安全活动附件列表, jsonActivityAttachment:{}", jsonActivityAttachment);
 		String dataListStr = JSONObject.toJSONString(jsonActivityAttachment.getJSONArray(PageConstants.DATA_LIST));
 		List<ActivityAttachmentVo> activityAttachmentVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<ActivityAttachmentVo>>(){});
@@ -113,20 +113,20 @@ public class ActivityAttachmentController extends BaseController {
 	@ApiOperation(value = "获取安全活动附件详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody ActivityAttachmentIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取安全活动附件】(ActivityAttachmentController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取安全活动附件】(ActivityAttachmentController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer activityAttachmentId = req.getActivityAttachmentId();
 		JSONObject jsonActivityAttachment = activityAttachmentService.getById(activityAttachmentId);
-		logger.info("===step2:【获取安全活动附件】(ActivityAttachmentController-get)-根据activityAttachmentId获取安全活动附件, jsonActivityAttachment:{}", jsonActivityAttachment);
+		logger.info("===step2:【获取安全活动附件】(ActivityAttachmentController-getDetail)-根据activityAttachmentId获取安全活动附件, jsonActivityAttachment:{}", jsonActivityAttachment);
 		ActivityAttachmentVo activityAttachmentVo = JSONObject.toJavaObject(jsonActivityAttachment, ActivityAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityAttachmentResponse = new BaseRestMapResponse();
 		activityAttachmentResponse.put(CommConstants.RESULT, activityAttachmentVo);
-	    logger.info("===step3:【获取安全活动附件】(ActivityAttachmentController-get)-返回信息, activityAttachmentResponse:{}", activityAttachmentResponse);
+	    logger.info("===step3:【获取安全活动附件】(ActivityAttachmentController-getDetail)-返回信息, activityAttachmentResponse:{}", activityAttachmentResponse);
 	    return activityAttachmentResponse;
 	}
 

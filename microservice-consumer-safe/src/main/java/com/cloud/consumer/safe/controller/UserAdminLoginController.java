@@ -109,20 +109,20 @@ public class UserAdminLoginController extends BaseController {
 	@ApiOperation(value = "获取用户管理登录详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserAdminLoginIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户管理登录】(UserAdminLoginController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户管理登录】(UserAdminLoginController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userAdminLoginId = req.getUserAdminLoginId();
 		JSONObject jsonUserAdminLogin = userAdminLoginService.getById(userAdminLoginId);
-		logger.info("===step2:【获取用户管理登录】(UserAdminLoginController-get)-根据userAdminLoginId获取用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
+		logger.info("===step2:【获取用户管理登录】(UserAdminLoginController-getDetail)-根据userAdminLoginId获取用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
 		UserAdminLoginVo userAdminLoginVo = JSONObject.toJavaObject(jsonUserAdminLogin, UserAdminLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.put(CommConstants.RESULT, userAdminLoginVo);
-	    logger.info("===step3:【获取用户管理登录】(UserAdminLoginController-get)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
+	    logger.info("===step3:【获取用户管理登录】(UserAdminLoginController-getDetail)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 	    return userAdminLoginResponse;
 	}
 

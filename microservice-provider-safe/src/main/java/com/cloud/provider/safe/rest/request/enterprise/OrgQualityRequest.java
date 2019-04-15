@@ -1,7 +1,9 @@
 package com.cloud.provider.safe.rest.request.enterprise;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -24,35 +26,28 @@ public class OrgQualityRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "机构资质id", required = true)
+	@ApiModelProperty(value = "机构资质id")
     @NotNull(message = "机构资质id不能为空", groups = {ModifyGroup.class})
 	private Integer orgQualityId;
 
-	@ApiModelProperty(value = "企业id", required = true)
+	@ApiModelProperty(value = "企业id")
     @NotNull(message = "企业id不能为空")
 	private Integer enterpriseId;
 
-	@ApiModelProperty(value = "机构id", required = true)
+	@ApiModelProperty(value = "机构id")
     @NotNull(message = "机构id不能为空")
     private Integer orgId;
 
-	@ApiModelProperty(value = "机构名称", required = true)
+	@ApiModelProperty(value = "机构名称")
     @NotBlank(message = "机构名称不能为空")
     private String orgName;
 
-    @ApiModelProperty(value = "附件id", required = true)
-    @NotNull(message = "附件id不能为空")
-    private Integer attachmentId;
-
-    @ApiModelProperty(value = "附件url", required = true)
-    @NotBlank(message = "附件url不能为空")
-    private String attachmentUrl;
-
-    @ApiModelProperty(value = "资质名称", required = true)
+    @ApiModelProperty(value = "资质名称")
     @NotBlank(message = "资质名称不能为空")
     private String qualityName;
 
-    private List<OrgQualityAttachment> orgQualityAttachments;
+    @ApiModelProperty(value = "机构资质附件列表")
+    private List<OrgQualityAttachmentRequest> orgQualityAttachmentList;
 
     /**
 	 * 实体转换
@@ -62,6 +57,24 @@ public class OrgQualityRequest implements Serializable {
 		OrgQualityConvert convert = new OrgQualityConvert();
 		return convert.doForward(this);
 	}
+
+	/**
+     * 实体列表转换
+     * @return List<OrgQualityAttachment>
+     */
+    public List<OrgQualityAttachment> convertToOrgQualityAttachmentList() {
+    	OrgQualityAttachmentConvert convert = new OrgQualityAttachmentConvert();
+    	List<OrgQualityAttachment> orgQualityAttachmentListNew = null;
+    	if(orgQualityAttachmentList != null && !orgQualityAttachmentList.isEmpty()) {
+    		orgQualityAttachmentListNew = new ArrayList<OrgQualityAttachment>(orgQualityAttachmentList.size());
+    		ListIterator<OrgQualityAttachmentRequest> it = orgQualityAttachmentList.listIterator();
+    		while(it.hasNext()) {
+    			OrgQualityAttachmentRequest orgQualityAttachmentRequest = it.next();
+    			orgQualityAttachmentListNew.add(convert.doForward(orgQualityAttachmentRequest));
+    		}
+    	}
+    	return orgQualityAttachmentListNew;
+    }
 
 	/**
 	 * req转换实体
@@ -78,6 +91,26 @@ public class OrgQualityRequest implements Serializable {
 
 		@Override
 		protected OrgQualityRequest doBackward(OrgQuality b) {
+			return null;
+		}
+
+	}
+
+	/**
+	 * req转换实体
+	 * @author wei.yong
+	 */
+	private static class OrgQualityAttachmentConvert extends Converter<OrgQualityAttachmentRequest, OrgQualityAttachment> {
+
+		@Override
+		protected OrgQualityAttachment doForward(OrgQualityAttachmentRequest orgQualityAttachmentRequest) {
+			OrgQualityAttachment orgQualityAttachment = new OrgQualityAttachment();
+			BeanUtils.copyProperties(orgQualityAttachmentRequest, orgQualityAttachment);
+			return orgQualityAttachment;
+		}
+
+		@Override
+		protected OrgQualityAttachmentRequest doBackward(OrgQualityAttachment b) {
 			return null;
 		}
 

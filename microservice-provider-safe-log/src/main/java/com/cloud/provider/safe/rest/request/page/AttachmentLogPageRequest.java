@@ -19,7 +19,7 @@ public class AttachmentLogPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "附件内容", required = true)
+	@ApiModelProperty(value = "附件内容")
     private String content;
 
 }

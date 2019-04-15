@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.Activity;
+import com.cloud.provider.safe.po.ActivityAttachment;
 import com.cloud.provider.safe.rest.request.page.activity.ActivityPageRequest;
 import com.github.pagehelper.Page;
 
@@ -31,11 +32,12 @@ public interface IActivityService {
 	public Activity selectById(Integer id);
 
     /**
-     * 插入活动
+     * 插入活动及附件
      * @param activity
+     * @param activityAttachmentList
      * @return Integer
      */
-	public Integer insert(Activity activity);
+	public Integer insert(Activity activity, List<ActivityAttachment> activityAttachmentList);
 
 	/**
   	 * 根据id删除活动
@@ -52,10 +54,11 @@ public interface IActivityService {
 	public Integer deleteByIds(List<Integer> ids);
 
     /**
-     * 修改活动
+     * 修改活动及附件
      * @param activity
+     * @param activityAttachmentList
      * @return Integer
      */
-	public Integer modify(Activity activity);
+	public Integer modify(Activity activity, List<ActivityAttachment> activityAttachmentList);
 
 }

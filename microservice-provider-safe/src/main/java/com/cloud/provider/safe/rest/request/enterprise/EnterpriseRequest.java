@@ -22,11 +22,11 @@ public class EnterpriseRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "企业id", required = true)
+	@ApiModelProperty(value = "企业id")
     @NotNull(message = "企业id不能为空", groups = {ModifyGroup.class})
 	private Integer enterpriseId;
 
-	@ApiModelProperty(value = "企业名称", required = true)
+	@ApiModelProperty(value = "企业名称")
 	@NotBlank(message = "企业名称不能为空")
     private String enterpriseName;
 

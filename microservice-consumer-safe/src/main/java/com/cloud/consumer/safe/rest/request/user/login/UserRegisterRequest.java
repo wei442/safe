@@ -19,15 +19,15 @@ public class UserRegisterRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "手机号码", required = true)
+    @ApiModelProperty(value = "手机号码")
 	@NotBlank(message = "手机号码不能为空")
     private String userAccount;
 
-    @ApiModelProperty(value = "用户名称", required = true)
+    @ApiModelProperty(value = "用户名称")
 	@NotBlank(message = "用户名称不能为空")
     private String userName;
 
-    @ApiModelProperty(value = "企业名称", required = true)
+    @ApiModelProperty(value = "企业名称")
 	@NotBlank(message = "企业名称")
     private String enterpriseName;
 

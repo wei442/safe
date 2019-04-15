@@ -90,7 +90,7 @@ public class RuleAttachmentController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonRuleAttachment = ruleAttachmentService.getListByPage(req);
+		JSONObject jsonRuleAttachment = ruleAttachmentService.getList(req);
 		logger.info("===step2:【不分页查询】(RuleAttachmentController-getList)-不分页查询规范文件附件列表, jsonRuleAttachment:{}", jsonRuleAttachment);
 		String dataListStr = JSONObject.toJSONString(jsonRuleAttachment.getJSONArray(PageConstants.DATA_LIST));
 		List<RuleAttachmentVo> ruleAttachmentVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<RuleAttachmentVo>>(){});
@@ -113,20 +113,20 @@ public class RuleAttachmentController extends BaseController {
 	@ApiOperation(value = "获取规范文件附件详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody RuleAttachmentIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取规范文件附件】(RuleAttachmentController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取规范文件附件】(RuleAttachmentController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer ruleAttachmentId = req.getRuleAttachmentId();
 		JSONObject jsonRuleAttachment = ruleAttachmentService.getById(ruleAttachmentId);
-		logger.info("===step2:【获取规范文件附件】(RuleAttachmentController-get)-根据ruleAttachmentId获取规范文件附件, jsonRuleAttachment:{}", jsonRuleAttachment);
+		logger.info("===step2:【获取规范文件附件】(RuleAttachmentController-getDetail)-根据ruleAttachmentId获取规范文件附件, jsonRuleAttachment:{}", jsonRuleAttachment);
 		RuleAttachmentVo ruleAttachmentVo = JSONObject.toJavaObject(jsonRuleAttachment, RuleAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse ruleAttachmentResponse = new BaseRestMapResponse();
 		ruleAttachmentResponse.put(CommConstants.RESULT, ruleAttachmentVo);
-	    logger.info("===step3:【获取规范文件附件】(RuleAttachmentController-get)-返回信息, ruleAttachmentResponse:{}", ruleAttachmentResponse);
+	    logger.info("===step3:【获取规范文件附件】(RuleAttachmentController-getDetail)-返回信息, ruleAttachmentResponse:{}", ruleAttachmentResponse);
 	    return ruleAttachmentResponse;
 	}
 

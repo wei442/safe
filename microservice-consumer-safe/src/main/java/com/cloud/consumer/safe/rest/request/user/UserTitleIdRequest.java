@@ -15,7 +15,7 @@ public class UserTitleIdRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "用户职务id", required = true)
+	@ApiModelProperty(value = "用户职务id")
     @NotNull(message = "用户职务id不能为空")
 	private Integer userTitleId;
 

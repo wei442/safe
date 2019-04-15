@@ -1,7 +1,9 @@
 package com.cloud.provider.safe.rest.request.activity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -71,7 +73,14 @@ public class RuleRequest implements Serializable {
     @ApiModelProperty(value = "备注")
     private String remark;
 
-    private List<RuleAttachment> ruleAttachments;
+    @ApiModelProperty(value = "创建人")
+    private String created;
+
+    @ApiModelProperty(value = "修改人")
+    private String updated;
+
+    @ApiModelProperty(value = "规范附件列表")
+    private List<RuleAttachmentRequest> ruleAttachmentList;
 
     /**
 	 * 实体转换
@@ -81,6 +90,24 @@ public class RuleRequest implements Serializable {
 		RuleConvert convert = new RuleConvert();
 		return convert.doForward(this);
 	}
+
+    /**
+     * 实体列表转换
+     * @return List<RuleAttachment>
+     */
+    public List<RuleAttachment> convertToRuleAttachmentList() {
+    	RuleAttachmentConvert convert = new RuleAttachmentConvert();
+    	List<RuleAttachment> ruleAttachmentListNew = null;
+    	if(ruleAttachmentList != null && !ruleAttachmentList.isEmpty()) {
+    		ruleAttachmentListNew = new ArrayList<RuleAttachment>(ruleAttachmentList.size());
+    		ListIterator<RuleAttachmentRequest> it = ruleAttachmentList.listIterator();
+    		while(it.hasNext()) {
+    			RuleAttachmentRequest ruleAttachmentRequest = it.next();
+    			ruleAttachmentListNew.add(convert.doForward(ruleAttachmentRequest));
+    		}
+    	}
+    	return ruleAttachmentListNew;
+    }
 
 	/**
 	 * req转换实体
@@ -97,6 +124,26 @@ public class RuleRequest implements Serializable {
 
 		@Override
 		protected RuleRequest doBackward(Rule b) {
+			return null;
+		}
+
+	}
+
+	/**
+	 * req转换实体
+	 * @author wei.yong
+	 */
+	private static class RuleAttachmentConvert extends Converter<RuleAttachmentRequest, RuleAttachment> {
+
+		@Override
+		protected RuleAttachment doForward(RuleAttachmentRequest ruleAttachmentRequest) {
+			RuleAttachment ruleAttachment = new RuleAttachment();
+			BeanUtils.copyProperties(ruleAttachmentRequest, ruleAttachment);
+			return ruleAttachment;
+		}
+
+		@Override
+		protected RuleAttachmentRequest doBackward(RuleAttachment b) {
 			return null;
 		}
 

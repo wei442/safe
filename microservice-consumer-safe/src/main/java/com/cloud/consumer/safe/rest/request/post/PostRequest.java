@@ -1,10 +1,12 @@
 package com.cloud.consumer.safe.rest.request.post;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.cloud.consumer.safe.rest.request.activity.RuleAttachmentRequest;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -39,5 +41,8 @@ public class PostRequest implements Serializable {
 
 	@ApiModelProperty(value = "排序")
     private Integer sort;
+
+    @ApiModelProperty(value = "规范文件附件列表")
+    private List<RuleAttachmentRequest> ruleAttachmentList;
 
 }

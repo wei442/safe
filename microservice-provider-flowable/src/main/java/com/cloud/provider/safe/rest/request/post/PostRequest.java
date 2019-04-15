@@ -23,15 +23,15 @@ public class PostRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "岗位id", required = true)
+	@ApiModelProperty(value = "岗位id")
 	@NotNull(message = "岗位id不能为空", groups = {ModifyGroup.class})
 	private Integer postId;
 
-	@ApiModelProperty(value = "企业id", required = true)
+	@ApiModelProperty(value = "企业id")
 	@NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 
-	@ApiModelProperty(value = "岗位名称", required = true)
+	@ApiModelProperty(value = "岗位名称")
 	@NotBlank(message = "岗位名称不能为空")
     private String postName;
 

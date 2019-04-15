@@ -22,15 +22,15 @@ public class BaseUserPasswordRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "字典子项id", required = true)
+	@ApiModelProperty(value = "字典子项id")
     @NotNull(message = "字典子项id不能为空", groups = {ModifyGroup.class})
 	private Integer baseUserPasswordId;
 
-	@ApiModelProperty(value = "基础用户id不能为空", required = true)
+	@ApiModelProperty(value = "基础用户id不能为空")
     @NotNull(message = "基础用户id不能为空")
     private Integer baseUserId;
 
-	@ApiModelProperty(value = "密码", required = true)
+	@ApiModelProperty(value = "密码")
 	@NotBlank(message = "密码不能为空")
     private String password;
 

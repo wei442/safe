@@ -17,7 +17,7 @@ public class RuleAttachmentPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "规范id", required = true)
+	@ApiModelProperty(value = "规范id")
     @NotNull(message = "规范id不能为空")
     private Integer ruleId;
 

@@ -109,20 +109,20 @@ public class UserInfoController extends BaseController {
 	@ApiOperation(value = "获取用户信息详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserInfoIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户信息】(UserInfoController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户信息】(UserInfoController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userId = req.getUserId();
 		JSONObject jsonUserInfo = userInfoService.getById(userId);
-		logger.info("===step2:【获取用户信息】(UserInfoController-get)-根据userInfoId获取用户信息, jsonUserInfo:{}", jsonUserInfo);
+		logger.info("===step2:【获取用户信息】(UserInfoController-getDetail)-根据userInfoId获取用户信息, jsonUserInfo:{}", jsonUserInfo);
 		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUserInfo, UserInfoVo.class);
 
 		//返回信息
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
 		userInfoResponse.put(CommConstants.RESULT, userInfoVo);
-	    logger.info("===step3:【获取用户信息】(UserInfoController-get)-返回信息, userInfoResponse:{}", userInfoResponse);
+	    logger.info("===step3:【获取用户信息】(UserInfoController-getDetail)-返回信息, userInfoResponse:{}", userInfoResponse);
 	    return userInfoResponse;
 	}
 

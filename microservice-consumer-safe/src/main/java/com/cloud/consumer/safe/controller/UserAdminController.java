@@ -109,20 +109,20 @@ public class UserAdminController extends BaseController {
 	@ApiOperation(value = "获取用户管理详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserAdminIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户管理】(UserAdminController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户管理】(UserAdminController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userAdminId = req.getUserAdminId();
 		JSONObject jsonUserAdmin = userAdminService.getById(userAdminId);
-		logger.info("===step2:【获取用户管理】(UserAdminController-get)-根据userAdminId获取用户管理, jsonUserAdmin:{}", jsonUserAdmin);
+		logger.info("===step2:【获取用户管理】(UserAdminController-getDetail)-根据userAdminId获取用户管理, jsonUserAdmin:{}", jsonUserAdmin);
 		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserAdmin, UserAdminVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
 		userAdminResponse.put(CommConstants.RESULT, userAdminVo);
-	    logger.info("===step3:【获取用户管理】(UserAdminController-get)-返回信息, userAdminResponse:{}", userAdminResponse);
+	    logger.info("===step3:【获取用户管理】(UserAdminController-getDetail)-返回信息, userAdminResponse:{}", userAdminResponse);
 	    return userAdminResponse;
 	}
 

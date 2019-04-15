@@ -114,19 +114,20 @@ public class UserQualityServiceImpl implements IUserQualityService {
     /**
      * 插入用户资质及附件
      * @param userQuality
-     * @param userQualityAttachments
+     * @param userQualityAttachmentList
      * @return Integer
      */
-	public Integer insert(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachments) {
-    	logger.info("(UserQualityService-insert)-插入用户资质及附件-传入参数, userQuality:{}, userQualityAttachments:{}", userQuality, userQualityAttachments);
+	@Override
+	public Integer insert(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachmentList) {
+    	logger.info("(UserQualityService-insert)-插入用户资质及附件-传入参数, userQuality:{}, userQualityAttachmentList:{}", userQuality, userQualityAttachmentList);
     	userQuality.setCreateTime(new Date());
     	userQuality.setUpdateTime(new Date());
     	int i = userQualityMapper.insertSelective(userQuality);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	Integer userQualityId = userQuality.getId();
 
-    	if(userQualityAttachments != null && !userQualityAttachments.isEmpty()) {
-    		for (UserQualityAttachment userQualityAttachment : userQualityAttachments) {
+    	if(userQualityAttachmentList != null && !userQualityAttachmentList.isEmpty()) {
+    		for (UserQualityAttachment userQualityAttachment : userQualityAttachmentList) {
     			userQualityAttachment.setUserQualityId(userQualityId);
     			userQualityAttachment.setCreateTime(new Date());
     			userQualityAttachment.setUpdateTime(new Date());
@@ -152,7 +153,6 @@ public class UserQualityServiceImpl implements IUserQualityService {
   		UserQualityAttachmentExample.Criteria criteria = example.createCriteria();
 		criteria.andUserQualityIdEqualTo(id);
 		i = userQualityAttachmentMapper.deleteByExample(example);
-		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
 
@@ -175,11 +175,12 @@ public class UserQualityServiceImpl implements IUserQualityService {
     /**
      * 修改用户资质及附件
      * @param userQuality
-     * @param userQualityAttachments
+     * @param userQualityAttachmentList
      * @return Integer
      */
-	public Integer modify(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachments) {
-    	logger.info("(UserQualityService-modify)-修改用户资质及附件-传入参数, userQuality:{}, userQualityAttachments:{}", userQuality, userQualityAttachments);
+	@Override
+	public Integer modify(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachmentList) {
+    	logger.info("(UserQualityService-modify)-修改用户资质及附件-传入参数, userQuality:{}, userQualityAttachmentList:{}", userQuality, userQualityAttachmentList);
     	userQuality.setUpdateTime(new Date());
 		int i = userQualityMapper.updateByPrimaryKeySelective(userQuality);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
@@ -191,8 +192,8 @@ public class UserQualityServiceImpl implements IUserQualityService {
 		i = userQualityAttachmentMapper.deleteByExample(example);
 		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
 
-		if(userQualityAttachments != null && !userQualityAttachments.isEmpty()) {
-    		for (UserQualityAttachment userQualityAttachment : userQualityAttachments) {
+		if(userQualityAttachmentList != null && !userQualityAttachmentList.isEmpty()) {
+    		for (UserQualityAttachment userQualityAttachment : userQualityAttachmentList) {
     			userQualityAttachment.setUserQualityId(userQualityId);
     			userQualityAttachment.setCreateTime(new Date());
     			userQualityAttachment.setUpdateTime(new Date());

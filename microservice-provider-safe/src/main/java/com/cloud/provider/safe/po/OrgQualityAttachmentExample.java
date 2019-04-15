@@ -225,73 +225,143 @@ public class OrgQualityAttachmentExample {
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlIsNull() {
-            addCriterion("attachment_url is null");
+        public Criteria andNameIsNull() {
+            addCriterion("name is null");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlIsNotNull() {
-            addCriterion("attachment_url is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlEqualTo(String value) {
-            addCriterion("attachment_url =", value, "attachmentUrl");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("name =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlNotEqualTo(String value) {
-            addCriterion("attachment_url <>", value, "attachmentUrl");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("name <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlGreaterThan(String value) {
-            addCriterion("attachment_url >", value, "attachmentUrl");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("name >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("attachment_url >=", value, "attachmentUrl");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("name >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlLessThan(String value) {
-            addCriterion("attachment_url <", value, "attachmentUrl");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("name <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlLessThanOrEqualTo(String value) {
-            addCriterion("attachment_url <=", value, "attachmentUrl");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("name <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlLike(String value) {
-            addCriterion("attachment_url like", value, "attachmentUrl");
+        public Criteria andNameLike(String value) {
+            addCriterion("name like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlNotLike(String value) {
-            addCriterion("attachment_url not like", value, "attachmentUrl");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("name not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlIn(List<String> values) {
-            addCriterion("attachment_url in", values, "attachmentUrl");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("name in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlNotIn(List<String> values) {
-            addCriterion("attachment_url not in", values, "attachmentUrl");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("name not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlBetween(String value1, String value2) {
-            addCriterion("attachment_url between", value1, value2, "attachmentUrl");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("name between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andAttachmentUrlNotBetween(String value1, String value2) {
-            addCriterion("attachment_url not between", value1, value2, "attachmentUrl");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("name not between", value1, value2, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlIsNull() {
+            addCriterion("url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlIsNotNull() {
+            addCriterion("url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlEqualTo(String value) {
+            addCriterion("url =", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlNotEqualTo(String value) {
+            addCriterion("url <>", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlGreaterThan(String value) {
+            addCriterion("url >", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("url >=", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlLessThan(String value) {
+            addCriterion("url <", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlLessThanOrEqualTo(String value) {
+            addCriterion("url <=", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlLike(String value) {
+            addCriterion("url like", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlNotLike(String value) {
+            addCriterion("url not like", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlIn(List<String> values) {
+            addCriterion("url in", values, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlNotIn(List<String> values) {
+            addCriterion("url not in", values, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlBetween(String value1, String value2) {
+            addCriterion("url between", value1, value2, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlNotBetween(String value1, String value2) {
+            addCriterion("url not between", value1, value2, "url");
             return (Criteria) this;
         }
 

@@ -26,15 +26,15 @@ public class PostAttachmentRequest implements Serializable {
 	@NotNull(message = "岗位附件id不能为空", groups = {ModifyGroup.class})
 	private Integer postAttachmentId;
 
-	@ApiModelProperty(value = "岗位id", required = true)
+	@ApiModelProperty(value = "岗位id")
 	@NotNull(message = "岗位id不能为空")
     private Integer postId;
 
-    @ApiModelProperty(value = "附件id", required = true)
+    @ApiModelProperty(value = "附件id")
     @NotNull(message = "附件id不能为空")
     private Integer attachmentId;
 
-    @ApiModelProperty(value = "附件url", required = true)
+    @ApiModelProperty(value = "附件url")
 	@NotBlank(message = "附件url不能为空")
     private String attachmentUrl;
 

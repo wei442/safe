@@ -34,10 +34,10 @@ public interface IRuleService {
     /**
      * 插入规范文件及附件
      * @param rule
-     * @param ruleAttachments
+     * @param ruleAttachmentList
      * @return Integer
      */
-	public Integer insert(Rule rule, List<RuleAttachment> ruleAttachments);
+	public Integer insert(Rule rule, List<RuleAttachment> ruleAttachmentList);
 
  	/**
   	 * 根据id删除规范文件
@@ -49,9 +49,9 @@ public interface IRuleService {
     /**
      * 修改规范文件及附件
      * @param rule
-     * @param ruleAttachments
+     * @param ruleAttachmentList
      * @return Integer
      */
-	public Integer modify(Rule rule, List<RuleAttachment> ruleAttachments);
+	public Integer modify(Rule rule, List<RuleAttachment> ruleAttachmentList);
 
 }

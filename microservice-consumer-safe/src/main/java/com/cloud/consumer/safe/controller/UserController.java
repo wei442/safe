@@ -35,6 +35,7 @@ import com.cloud.consumer.safe.vo.enterprise.EnterpriseVo;
 import com.cloud.consumer.safe.vo.user.UserAdminLoginVo;
 import com.cloud.consumer.safe.vo.user.UserAdminVo;
 import com.cloud.consumer.safe.vo.user.UserInfoVo;
+import com.cloud.consumer.safe.vo.user.UserOrgVo;
 import com.cloud.consumer.safe.vo.user.login.UserLoginErrorVo;
 import com.cloud.consumer.safe.vo.user.login.UserLoginVo;
 
@@ -94,14 +95,6 @@ public class UserController extends BaseController {
 		String userPassword = req.getUserPassword();
 		req.setUserPassword(DigestUtils.sha256Hex(userPassword));
 
-//		JSONObject jsonUser = userService.login(req);
-//        logger.info("===step3:【用户登录】(UserController-login)-用户登录, jsonUser:{}", jsonUser);
-//		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUser, UserInfoVo.class);
-//		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonUser, EnterpriseVo.class);
-//		Integer userId = userInfoVo.getUserId();
-//		String userName = userInfoVo.getUserName();
-//		Integer enterpriseId = enterpriseVo.getEnterpriseId();
-
 		JSONObject jsonUserFirst = userService.loginFirst(req);
 		logger.info("===step2:【用户登录】(UserController-login)-用户登录第一步, jsonUserFirst:{}", jsonUserFirst);
 		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUserFirst, UserInfoVo.class);
@@ -127,10 +120,13 @@ public class UserController extends BaseController {
 		JSONObject jsonUserSecond = userService.loginSecond(params);
 		logger.info("===step3:【用户登录】(UserController-login)-用户登录第二步, jsonUserSecond:{}", jsonUserSecond);
 		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonUserSecond, EnterpriseVo.class);
+		UserOrgVo userOrgVo = JSONObject.toJavaObject(jsonUserSecond, UserOrgVo.class);
 		String enterpriseName = enterpriseVo.getEnterpriseName();
+	    Integer orgId = userOrgVo.getOrgId();
+	    String orgName = userOrgVo.getOrgName();
 
 		//设置token
-		String token = this.setToken(enterpriseId, enterpriseName, userId, userAccount);
+		String token = this.setToken(enterpriseId, enterpriseName, userId, userAccount, orgId, orgName);
 
 		UserLoginVo userLoginVo = new UserLoginVo();
 		userLoginVo.setToken(token);

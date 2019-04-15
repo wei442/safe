@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.activity.RuleAttachmentVo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -55,9 +54,16 @@ public class RuleRequest implements Serializable {
     @NotNull(message = "规范类型不能为空")
     private Integer ruleType;
 
+    @ApiModelProperty(value = "发布部门id")
+    private Integer publishOrgId;
+
+    @ApiModelProperty(value = "发布部门名称")
+    private String publishOrgName;
+
     @ApiModelProperty(value = "备注")
     private String remark;
 
-    private List<RuleAttachmentVo> ruleAttachments;
+    @ApiModelProperty(value = "规范文件附件列表")
+    private List<RuleAttachmentRequest> ruleAttachmentList;
 
 }

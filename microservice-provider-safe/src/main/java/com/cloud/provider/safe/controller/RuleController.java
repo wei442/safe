@@ -134,8 +134,8 @@ public class RuleController extends BaseController {
 		logger.info("===step1:【添加规范文件】(RuleController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Rule rule = req.convertToRule();
-		List<RuleAttachment> ruleAttachments = req.getRuleAttachments();
-		int i = ruleService.insert(rule, ruleAttachments);
+		List<RuleAttachment> ruleAttachmentList = req.convertToRuleAttachmentList();
+		int i = ruleService.insert(rule, ruleAttachmentList);
 		logger.info("===step2:【添加规范文件】(RuleController-insert)-插入规范文件, i:{}", i);
 
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
@@ -182,10 +182,10 @@ public class RuleController extends BaseController {
 		logger.info("===step1:【修改规范文件】(RuleController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer ruleId = req.getRuleId();
-		List<RuleAttachment> ruleAttachments = req.getRuleAttachments();
+		List<RuleAttachment> ruleAttachmentList = req.convertToRuleAttachmentList();
 		Rule rule = req.convertToRule();
 		rule.setId(ruleId);
-		int i = ruleService.modify(rule, ruleAttachments);
+		int i = ruleService.modify(rule, ruleAttachmentList);
 		logger.info("===step2:【修改规范文件】(RuleController-modify)-修改规范文件, i:{}", i);
 
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();

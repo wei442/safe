@@ -23,7 +23,7 @@ public class ActivityRequest implements Serializable {
 
 	private Integer activityId;
 
-	@ApiModelProperty(value = "企业id", required = true)
+	@ApiModelProperty(value = "企业id")
     @NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 

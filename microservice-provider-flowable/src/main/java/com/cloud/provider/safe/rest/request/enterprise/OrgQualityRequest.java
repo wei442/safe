@@ -22,31 +22,31 @@ public class OrgQualityRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "机构资质id", required = true)
+	@ApiModelProperty(value = "机构资质id")
     @NotNull(message = "机构资质id不能为空", groups = {ModifyGroup.class})
 	private Integer orgQualityId;
 
-	@ApiModelProperty(value = "企业id", required = true)
+	@ApiModelProperty(value = "企业id")
     @NotNull(message = "企业id不能为空")
 	private Integer enterpriseId;
 
-	@ApiModelProperty(value = "机构id", required = true)
+	@ApiModelProperty(value = "机构id")
     @NotNull(message = "机构id不能为空")
     private Integer orgId;
 
-	@ApiModelProperty(value = "机构名称", required = true)
+	@ApiModelProperty(value = "机构名称")
     @NotBlank(message = "机构名称不能为空")
     private String orgName;
 
-    @ApiModelProperty(value = "附件id", required = true)
+    @ApiModelProperty(value = "附件id")
     @NotNull(message = "附件id不能为空")
     private Integer attachmentId;
 
-    @ApiModelProperty(value = "附件url", required = true)
+    @ApiModelProperty(value = "附件url")
     @NotBlank(message = "附件url不能为空")
     private String attachmentUrl;
 
-    @ApiModelProperty(value = "资质名称", required = true)
+    @ApiModelProperty(value = "资质名称")
     @NotBlank(message = "资质名称不能为空")
     private String qualityName;
 

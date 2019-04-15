@@ -14,7 +14,7 @@ public class UserAdminPasswordIdRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "用户管理密码id", required = true)
+	@ApiModelProperty(value = "用户管理密码id")
     @NotNull(message = "用户管理密码id不能为空")
 	private Integer userAdminPasswordId;
 

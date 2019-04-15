@@ -15,7 +15,7 @@ public class FastdfsRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "文件url", required = true)
+	@ApiModelProperty(value = "文件url")
 	@NotBlank(message = "文件url为空")
 	private String fileUrl;
 

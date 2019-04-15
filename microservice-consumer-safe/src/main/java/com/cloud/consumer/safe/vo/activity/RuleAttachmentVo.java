@@ -20,7 +20,9 @@ public class RuleAttachmentVo implements Serializable {
 
     private Integer ruleId;
 
-    private String attachmentUrl;
+    private String name;
+
+    private String url;
 
     private String created;
 

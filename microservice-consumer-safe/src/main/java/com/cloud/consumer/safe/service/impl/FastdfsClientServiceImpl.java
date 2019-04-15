@@ -1,7 +1,9 @@
 package com.cloud.consumer.safe.service.impl;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.Set;
 
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import com.cloud.common.exception.SafeException;
 import com.cloud.consumer.safe.service.IFastdfsClientService;
 import com.github.tobato.fastdfs.domain.conn.FdfsWebServer;
 import com.github.tobato.fastdfs.domain.fdfs.FileInfo;
+import com.github.tobato.fastdfs.domain.fdfs.MetaData;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 
@@ -24,7 +27,7 @@ public class FastdfsClientServiceImpl extends BaseService implements IFastdfsCli
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-    private FastFileStorageClient storageClient;
+    private FastFileStorageClient fastFileStorageClient;
 
     @Autowired
     private FdfsWebServer fdfsWebServer;
@@ -40,12 +43,33 @@ public class FastdfsClientServiceImpl extends BaseService implements IFastdfsCli
     	FileInfo fileInfo = null;
         try {
         	StorePath storePath = StorePath.parseFromUrl(fileUrl);
-        	fileInfo = storageClient.queryFileInfo(storePath.getGroup(), storePath.getPath());
+        	fileInfo = fastFileStorageClient.queryFileInfo(storePath.getGroup(), storePath.getPath());
         } catch (Exception e) {
 			logger.error("(FastdfsClientService-queryFileInfo)-查询文件异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_FILE_INFO_ERROR);
         }
         return fileInfo;
+    }
+
+    /**
+     * 上传文件
+     * @param inputStream
+     * @param fileSize
+     * @param fileExtName
+     * @param metaDataSet
+     * @return StorePath
+     */
+	@Override
+	public StorePath uploadFile(InputStream inputStream, long fileSize, String fileExtName, Set<MetaData> metaDataSet) {
+    	logger.info("(FastdfsClientService-uploadFile)-传入参数, inputStream:{}, fileExtName:{}, fileExtName:{}, metaDataSet:{}", inputStream, fileSize, fileExtName, metaDataSet);
+        StorePath storePath = null;
+        try {
+            storePath = fastFileStorageClient.uploadFile(inputStream, fileSize, fileExtName, metaDataSet);
+        } catch (Exception e) {
+			logger.error("(FastdfsClientService-uploadFile)-上传文件异常, Exception = {}, message = {}", e, e.getMessage());
+			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_UPLOAD_FILE_ERROR);
+        }
+        return storePath;
     }
 
     /**
@@ -58,12 +82,34 @@ public class FastdfsClientServiceImpl extends BaseService implements IFastdfsCli
     	logger.info("(FastdfsClientService-uploadFile)-传入参数, file:{}", file);
         StorePath storePath = null;
         try {
-            storePath = storageClient.uploadFile(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
+            storePath = fastFileStorageClient.uploadFile(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
         } catch (Exception e) {
 			logger.error("(FastdfsClientService-uploadFile)-上传文件异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_UPLOAD_FILE_ERROR);
         }
-        return getResAccessUrl(storePath);
+        return getAccessUrl(storePath);
+    }
+
+    /**
+     * 上传图片
+     * @param inputStream
+     * @param fileSize
+     * @param fileExtName
+     * @param metaDataSet
+     * @return StorePath
+     */
+	@Override
+	public StorePath uploadImage(InputStream inputStream, long fileSize, String fileExtName, Set<MetaData> metaDataSet) {
+    	logger.info("(FastdfsClientService-uploadImage)-传入参数, inputStream:{}, fileExtName:{}, fileExtName:{}, metaDataSet:{}", inputStream, fileSize, fileExtName, metaDataSet);
+    	StorePath storePath = null;
+    	try {
+    		storePath = fastFileStorageClient.uploadImageAndCrtThumbImage(inputStream, fileSize, fileExtName, metaDataSet);
+        } catch (Exception e) {
+			logger.error("(FastdfsClientService-uploadImage)-删除文件异常, Exception = {}, message = {}", e, e.getMessage());
+			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_UPLOAD_IMAGE_ERROR);
+        }
+
+    	return storePath;
     }
 
     /**
@@ -76,13 +122,13 @@ public class FastdfsClientServiceImpl extends BaseService implements IFastdfsCli
     	logger.info("(FastdfsClientService-uploadImage)-传入参数, file:{}", file);
     	StorePath storePath = null;
     	try {
-    		storePath = storageClient.uploadImageAndCrtThumbImage(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
+    		storePath = fastFileStorageClient.uploadImageAndCrtThumbImage(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
         } catch (Exception e) {
 			logger.error("(FastdfsClientService-deleteFile)-删除文件异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_UPLOAD_IMAGE_ERROR);
         }
 
-    	return getResAccessUrl(storePath);
+    	return getAccessUrl(storePath);
     }
 
     /**
@@ -94,7 +140,7 @@ public class FastdfsClientServiceImpl extends BaseService implements IFastdfsCli
     	logger.info("(FastdfsClientService-deleteFile)-传入参数, fileUrl:{}", fileUrl);
         try {
             StorePath storePath = StorePath.parseFromUrl(fileUrl);
-            storageClient.deleteFile(storePath.getGroup(), storePath.getPath());
+            fastFileStorageClient.deleteFile(storePath.getGroup(), storePath.getPath());
         } catch (Exception e) {
 			logger.error("(FastdfsClientService-deleteFile)-删除文件异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_DELETE_FILE_ERROR);
@@ -113,7 +159,7 @@ public class FastdfsClientServiceImpl extends BaseService implements IFastdfsCli
     	T t = null;
 		try {
 			StorePath storePath = StorePath.parseFromUrl(fileUrl);
-			t = storageClient.downloadFile(storePath.getGroup(), storePath.getPath(), null);
+			t = fastFileStorageClient.downloadFile(storePath.getGroup(), storePath.getPath(), null);
         } catch (Exception e) {
 			logger.error("(FastdfsClientService-downloadFile)-下载文件异常, Exception = {}, message = {}", e, e.getMessage());
 			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_DOWNLOAD_ERROR);
@@ -130,8 +176,8 @@ public class FastdfsClientServiceImpl extends BaseService implements IFastdfsCli
 //     */
 //    public String uploadFile(File file) throws IOException {
 //        FileInputStream inputStream = new FileInputStream (file);
-//        StorePath storePath = storageClient.uploadFile(inputStream, file.length(), FilenameUtils.getExtension(file.getName()), null);
-//        return getResAccessUrl(storePath);
+//        StorePath storePath = fastFileStorageClient.uploadFile(inputStream, file.length(), FilenameUtils.getExtension(file.getName()), null);
+//        return getAccessUrl(storePath);
 //    }
 
     /**
@@ -143,8 +189,8 @@ public class FastdfsClientServiceImpl extends BaseService implements IFastdfsCli
     public String uploadFile(String content, String fileExtension) {
         byte[] buff = content.getBytes(Charset.forName("UTF-8"));
         ByteArrayInputStream stream = new ByteArrayInputStream(buff);
-        StorePath storePath = storageClient.uploadFile(stream, buff.length, fileExtension,null);
-        return getResAccessUrl(storePath);
+        StorePath storePath = fastFileStorageClient.uploadFile(stream, buff.length, fileExtension,null);
+        return getAccessUrl(storePath);
     }
 
     /**
@@ -152,9 +198,9 @@ public class FastdfsClientServiceImpl extends BaseService implements IFastdfsCli
      * @param storePath
      * @return String
      */
-    private String getResAccessUrl(StorePath storePath) {
-    	logger.info("(FastdfsClientService-getResAccessUrl)-传入参数, storePath:{}", storePath);
-        String fileUrl = fdfsWebServer.getWebServerUrl() + storePath.getFullPath();
+    private String getAccessUrl(StorePath storePath) {
+    	logger.info("(FastdfsClientService-getAccessUrl)-传入参数, storePath:{}", storePath);
+        String fileUrl = fdfsWebServer.getWebServerUrl() + "/" + storePath.getFullPath();
         return fileUrl;
     }
 

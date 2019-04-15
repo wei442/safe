@@ -1,5 +1,6 @@
 package com.cloud.consumer.safe.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,8 +11,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
@@ -19,11 +22,12 @@ import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
+import com.cloud.consumer.safe.rest.request.activity.ActivityAttachmentRequest;
 import com.cloud.consumer.safe.rest.request.activity.ActivityIdRequest;
 import com.cloud.consumer.safe.rest.request.activity.ActivityRequest;
 import com.cloud.consumer.safe.rest.request.page.activity.ActivityPageRequest;
 import com.cloud.consumer.safe.service.IActivityService;
-import com.cloud.consumer.safe.validator.group.UpdateGroup;
+import com.cloud.consumer.safe.service.IFastdfsClientService;
 import com.cloud.consumer.safe.vo.activity.ActivityVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
@@ -46,6 +50,10 @@ public class ActivityController extends BaseController {
 	//安全活动 Service
 	@Autowired
 	private IActivityService activityService;
+
+	//fastdfs Service
+	@Autowired
+	private IFastdfsClientService fastdfsClientService;
 
 	/**
 	 * 分页查询
@@ -113,20 +121,20 @@ public class ActivityController extends BaseController {
 	@ApiOperation(value = "获取安全活动详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody ActivityIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取安全活动】(ActivityController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取安全活动】(ActivityController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer activityId = req.getActivityId();
 		JSONObject jsonActivity = activityService.getById(activityId);
-		logger.info("===step2:【获取安全活动】(ActivityController-get)-根据activityId获取安全活动, jsonActivity:{}", jsonActivity);
+		logger.info("===step2:【获取安全活动】(ActivityController-getDetail)-根据activityId获取安全活动, jsonActivity:{}", jsonActivity);
 		ActivityVo activityVo = JSONObject.toJavaObject(jsonActivity, ActivityVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
 		activityResponse.put(CommConstants.RESULT, activityVo);
-	    logger.info("===step3:【获取安全活动】(ActivityController-get)-返回信息, activityResponse:{}", activityResponse);
+	    logger.info("===step3:【获取安全活动】(ActivityController-getDetail)-返回信息, activityResponse:{}", activityResponse);
 	    return activityResponse;
 	}
 
@@ -140,11 +148,27 @@ public class ActivityController extends BaseController {
 	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse add(
-		@Validated @RequestBody ActivityRequest req,
+		ActivityRequest req, @RequestPart("fileList") MultipartFile[] multipartFiles,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增安全活动】(ActivityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
+
+		List<ActivityAttachmentRequest> activityAttachmentList = null;
+		ActivityAttachmentRequest activityAttachmentRequest = null;
+		if(multipartFiles != null && multipartFiles.length >0) {
+			activityAttachmentList = new ArrayList<ActivityAttachmentRequest>();
+			for (MultipartFile multipartFile : multipartFiles) {
+				activityAttachmentRequest = new ActivityAttachmentRequest();
+
+				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				String filename = multipartFile.getOriginalFilename();
+				activityAttachmentRequest.setName(filename);
+				activityAttachmentRequest.setUrl(fileUrl);
+				activityAttachmentList.add(activityAttachmentRequest);
+			}
+		}
+		req.setActivityAttachmentList(activityAttachmentList);
 
 		JSONObject jsonActivity = activityService.add(req);
 		logger.info("===step2:【新增安全活动】(ActivityController-add)-分页查询安全活动列表, jsonActivity:{}", jsonActivity);
@@ -193,11 +217,27 @@ public class ActivityController extends BaseController {
 	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse update(
-		@Validated({ UpdateGroup.class }) @RequestBody ActivityRequest req,
+		ActivityRequest req, @RequestPart("fileList") MultipartFile[] multipartFiles,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改安全活动】(ActivityController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
+
+		List<ActivityAttachmentRequest> activityAttachmentList = null;
+		ActivityAttachmentRequest activityAttachmentRequest = null;
+		if(multipartFiles != null && multipartFiles.length >0) {
+			activityAttachmentList = new ArrayList<ActivityAttachmentRequest>();
+			for (MultipartFile multipartFile : multipartFiles) {
+				activityAttachmentRequest = new ActivityAttachmentRequest();
+
+				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				String filename = multipartFile.getOriginalFilename();
+				activityAttachmentRequest.setName(filename);
+				activityAttachmentRequest.setUrl(fileUrl);
+				activityAttachmentList.add(activityAttachmentRequest);
+			}
+		}
+		req.setActivityAttachmentList(activityAttachmentList);
 
 		JSONObject jsonActivity = activityService.update(req);
 		logger.info("===step2:【修改安全活动】(ActivityController-update)-修改安全活动, jsonActivity:{}", jsonActivity);

@@ -90,7 +90,7 @@ public class ActivityCommentController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonActivityComment = activityCommentService.getListByPage(req);
+		JSONObject jsonActivityComment = activityCommentService.getList(req);
 		logger.info("===step2:【不分页查询】(ActivityCommentController-getList)-不分页查询安全活动评论列表, jsonActivityComment:{}", jsonActivityComment);
 		String dataListStr = JSONObject.toJSONString(jsonActivityComment.getJSONArray(PageConstants.DATA_LIST));
 		List<ActivityCommentVo> activityCommentVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<ActivityCommentVo>>(){});
@@ -113,20 +113,20 @@ public class ActivityCommentController extends BaseController {
 	@ApiOperation(value = "获取安全活动评论详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody ActivityCommentIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取安全活动评论】(ActivityCommentController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取安全活动评论】(ActivityCommentController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer activityCommentId = req.getActivityCommentId();
 		JSONObject jsonActivityComment = activityCommentService.getById(activityCommentId);
-		logger.info("===step2:【获取安全活动评论】(ActivityCommentController-get)-根据activityCommentId获取安全活动评论, jsonActivityComment:{}", jsonActivityComment);
+		logger.info("===step2:【获取安全活动评论】(ActivityCommentController-getDetail)-根据activityCommentId获取安全活动评论, jsonActivityComment:{}", jsonActivityComment);
 		ActivityCommentVo activityCommentVo = JSONObject.toJavaObject(jsonActivityComment, ActivityCommentVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityCommentResponse = new BaseRestMapResponse();
 		activityCommentResponse.put(CommConstants.RESULT, activityCommentVo);
-	    logger.info("===step3:【获取安全活动评论】(ActivityCommentController-get)-返回信息, activityCommentResponse:{}", activityCommentResponse);
+	    logger.info("===step3:【获取安全活动评论】(ActivityCommentController-getDetail)-返回信息, activityCommentResponse:{}", activityCommentResponse);
 	    return activityCommentResponse;
 	}
 
