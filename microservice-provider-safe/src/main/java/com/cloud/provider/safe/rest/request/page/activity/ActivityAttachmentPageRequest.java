@@ -17,12 +17,8 @@ public class ActivityAttachmentPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "企业id")
-    @NotNull(message = "企业id不能为空")
-    private Integer enterpriseId;
-
-	@ApiModelProperty(value = "职务id")
-    @NotNull(message = "职务id不能为空")
-	private Integer titleId;
+	@ApiModelProperty(value = "活动id")
+	@NotNull(message = "活动id不能为空")
+	private Integer activityId;
 
 }

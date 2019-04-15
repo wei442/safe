@@ -38,7 +38,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "基础用户登录")
 @RestController
-@RequestMapping("/base/userLogin")
+@RequestMapping("/base/user/login")
 public class BaseUserLoginController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -86,7 +86,7 @@ public class BaseUserLoginController extends BaseController {
 		@RequestBody BaseUserLoginPageRequest req) {
 		logger.info("===step1:【不分页查询】(BaseUserLoginController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonBaseUserLogin = baseUserLoginService.getListByPage(req);
+		JSONObject jsonBaseUserLogin = baseUserLoginService.getList(req);
 		logger.info("===step2:【不分页查询】(BaseUserLoginController-getList)-不分页查询基础用户登录列表, jsonBaseUserLogin:{}", jsonBaseUserLogin);
 		String dataListStr = JSONObject.toJSONString(jsonBaseUserLogin.getJSONArray(PageConstants.DATA_LIST));
 		List<BaseUserLoginVo> baseUserLoginVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<BaseUserLoginVo>>(){});

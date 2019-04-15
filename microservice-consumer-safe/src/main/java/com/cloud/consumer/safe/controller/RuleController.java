@@ -31,7 +31,6 @@ import com.cloud.consumer.safe.rest.request.activity.RuleIdRequest;
 import com.cloud.consumer.safe.rest.request.activity.RuleRequest;
 import com.cloud.consumer.safe.rest.request.page.activity.RulePageRequest;
 import com.cloud.consumer.safe.service.IFastdfsClientService;
-import com.cloud.consumer.safe.service.IRuleAttachmentService;
 import com.cloud.consumer.safe.service.IRuleService;
 import com.cloud.consumer.safe.vo.activity.RuleVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
@@ -55,10 +54,6 @@ public class RuleController extends BaseController {
 	//规范文件 Service
 	@Autowired
 	private IRuleService ruleService;
-
-	//规范文件附件 Service
-	@Autowired
-	private IRuleAttachmentService ruleAttachmentService;
 
 	//fastdfs Service
 	@Autowired
@@ -107,7 +102,7 @@ public class RuleController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonRule = ruleService.getListByPage(req);
+		JSONObject jsonRule = ruleService.getList(req);
 		logger.info("===step2:【不分页查询】(RuleController-getList)-不分页查询规范文件列表, jsonRule:{}", jsonRule);
 		String dataListStr = JSONObject.toJSONString(jsonRule.getJSONArray(PageConstants.DATA_LIST));
 		List<RuleVo> ruleVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<RuleVo>>(){});

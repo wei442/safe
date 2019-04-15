@@ -45,6 +45,9 @@ public class ActivityCommentServiceImpl implements IActivityCommentService {
 		example.setOrderByClause(" id desc ");
 		ActivityCommentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getActivityId() != null) {
+				criteria.andActivityIdEqualTo(param.getActivityId());
+			}
 		}
 		List<ActivityComment> list = activityCommentMapper.selectByExample(example);
 		return list;
@@ -62,6 +65,9 @@ public class ActivityCommentServiceImpl implements IActivityCommentService {
 		example.setOrderByClause(" id desc ");
 		ActivityCommentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getActivityId() != null) {
+				criteria.andActivityIdEqualTo(param.getActivityId());
+			}
 		}
 		List<ActivityComment> list = activityCommentMapper.selectByExample(example);
 		return list;

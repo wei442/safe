@@ -86,7 +86,7 @@ public class BaseUserInfoController extends BaseController {
 		@RequestBody BaseUserInfoPageRequest req) {
 		logger.info("===step1:【不分页查询】(BaseUserInfoController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonBaseUserInfo = baseUserInfoService.getListByPage(req);
+		JSONObject jsonBaseUserInfo = baseUserInfoService.getList(req);
 		logger.info("===step2:【不分页查询】(BaseUserInfoController-getList)-不分页查询基础用户信息列表, jsonBaseUserInfo:{}", jsonBaseUserInfo);
 		String dataListStr = JSONObject.toJSONString(jsonBaseUserInfo.getJSONArray(PageConstants.DATA_LIST));
 		List<BaseUserInfoVo> baseUserInfoVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<BaseUserInfoVo>>(){});

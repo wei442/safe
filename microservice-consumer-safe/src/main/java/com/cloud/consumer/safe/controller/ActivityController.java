@@ -98,7 +98,7 @@ public class ActivityController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonActivity = activityService.getListByPage(req);
+		JSONObject jsonActivity = activityService.getList(req);
 		logger.info("===step2:【不分页查询】(ActivityController-getList)-不分页查询安全活动列表, jsonActivity:{}", jsonActivity);
 		String dataListStr = JSONObject.toJSONString(jsonActivity.getJSONArray(PageConstants.DATA_LIST));
 		List<ActivityVo> activityVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<ActivityVo>>(){});

@@ -90,7 +90,7 @@ public class PostAttachmentController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonPostAttachment = postAttachmentService.getListByPage(req);
+		JSONObject jsonPostAttachment = postAttachmentService.getList(req);
 		logger.info("===step2:【不分页查询】(PostAttachmentController-getList)-不分页查询岗位附件列表, jsonPostAttachment:{}", jsonPostAttachment);
 		String dataListStr = JSONObject.toJSONString(jsonPostAttachment.getJSONArray(PageConstants.DATA_LIST));
 		List<PostAttachmentVo> postAttachmentVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<PostAttachmentVo>>(){});

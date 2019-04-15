@@ -90,7 +90,7 @@ public class PostController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonPost = postService.getListByPage(req);
+		JSONObject jsonPost = postService.getList(req);
 		logger.info("===step2:【不分页查询】(PostController-getList)-不分页查询岗位列表, jsonPost:{}", jsonPost);
 		String dataListStr = JSONObject.toJSONString(jsonPost.getJSONArray(PageConstants.DATA_LIST));
 		List<PostVo> postVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<PostVo>>(){});

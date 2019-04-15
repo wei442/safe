@@ -86,7 +86,7 @@ public class UserAppLoginController extends BaseController {
 		@RequestBody UserAppLoginPageRequest req) {
 		logger.info("===step1:【不分页查询】(UserAppLoginController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonUserAppLogin = userAppLoginService.getListByPage(req);
+		JSONObject jsonUserAppLogin = userAppLoginService.getList(req);
 		logger.info("===step2:【不分页查询】(UserAppLoginController-getList)-不分页查询用户应用登录列表, jsonUserAppLogin:{}", jsonUserAppLogin);
 		String dataListStr = JSONObject.toJSONString(jsonUserAppLogin.getJSONArray(PageConstants.DATA_LIST));
 		List<UserAppLoginVo> userAppLoginVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserAppLoginVo>>(){});

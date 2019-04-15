@@ -42,7 +42,7 @@ public class OrgQualityAttachmentServiceImpl implements IOrgQualityAttachmentSer
 		logger.info("(OrgQualityAttachmentService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		OrgQualityAttachmentExample example = new OrgQualityAttachmentExample();
-		example.setOrderByClause(" id desc ");
+		example.setOrderByClause(" id asc ");
 		OrgQualityAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 			if(param.getOrgQualityId() != null) {
@@ -62,7 +62,7 @@ public class OrgQualityAttachmentServiceImpl implements IOrgQualityAttachmentSer
 	public List<OrgQualityAttachment> selectList(OrgQualityAttachmentPageRequest param) {
 		logger.info("(OrgQualityAttachmentService-selectList)-不分页查询-传入参数, param:{}", param);
 		OrgQualityAttachmentExample example = new OrgQualityAttachmentExample();
-		example.setOrderByClause(" id desc ");
+		example.setOrderByClause(" id asc ");
 		OrgQualityAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 			if(param.getOrgQualityId() != null) {

@@ -42,7 +42,7 @@ public class RuleAttachmentServiceImpl implements IRuleAttachmentService {
 		logger.info("(RuleAttachmentService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		RuleAttachmentExample example = new RuleAttachmentExample();
-		example.setOrderByClause(" id desc ");
+		example.setOrderByClause(" id asc ");
 		RuleAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 			if(param.getRuleId() != null) {
@@ -62,7 +62,7 @@ public class RuleAttachmentServiceImpl implements IRuleAttachmentService {
 	public List<RuleAttachment> selectList(RuleAttachmentPageRequest param) {
 		logger.info("(RuleAttachmentService-selectList)-不分页查询-传入参数, param:{}", param);
 		RuleAttachmentExample example = new RuleAttachmentExample();
-		example.setOrderByClause(" id desc ");
+		example.setOrderByClause(" id asc ");
 		RuleAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 			if(param.getRuleId() != null) {

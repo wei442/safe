@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.CommConstants;
+import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.dict.TitlePageRequest;
@@ -90,7 +90,7 @@ public class TitleController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonTitle = titleService.getListByPage(req);
+		JSONObject jsonTitle = titleService.getList(req);
 		logger.info("===step2:【不分页查询】(TitleController-getList)-不分页查询职务列表, jsonTitle:{}", jsonTitle);
 		String dataListStr = JSONObject.toJSONString(jsonTitle.getJSONArray(PageConstants.DATA_LIST));
 		List<TitleVo> titleVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<TitleVo>>(){});

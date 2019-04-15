@@ -42,9 +42,12 @@ public class ActivityAttachmentServiceImpl implements IActivityAttachmentService
 		logger.info("(ActivityAttachmentService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		ActivityAttachmentExample example = new ActivityAttachmentExample();
-		example.setOrderByClause(" id desc ");
+		example.setOrderByClause(" id asc ");
 		ActivityAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getActivityId() != null) {
+				criteria.andActivityIdEqualTo(param.getActivityId());
+			}
 		}
 		List<ActivityAttachment> list = activityAttachmentMapper.selectByExample(example);
 		return list;
@@ -59,9 +62,12 @@ public class ActivityAttachmentServiceImpl implements IActivityAttachmentService
 	public List<ActivityAttachment> selectList(ActivityAttachmentPageRequest param) {
 		logger.info("(ActivityAttachmentService-selectList)-不分页查询-传入参数, param:{}", param);
 		ActivityAttachmentExample example = new ActivityAttachmentExample();
-		example.setOrderByClause(" id desc ");
+		example.setOrderByClause(" id asc ");
 		ActivityAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
+			if(param.getActivityId() != null) {
+				criteria.andActivityIdEqualTo(param.getActivityId());
+			}
 		}
 		List<ActivityAttachment> list = activityAttachmentMapper.selectByExample(example);
 		return list;

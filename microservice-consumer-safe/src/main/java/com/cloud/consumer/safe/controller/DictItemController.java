@@ -86,7 +86,7 @@ public class DictItemController extends BaseController {
 		@RequestBody DictItemPageRequest req) {
 		logger.info("===step1:【不分页查询】(DictItemController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonDictItem = dictItemService.getListByPage(req);
+		JSONObject jsonDictItem = dictItemService.getList(req);
 		logger.info("===step2:【不分页查询】(DictItemController-getList)-不分页查询字典子项列表, jsonDictItem:{}", jsonDictItem);
 		String dataListStr = JSONObject.toJSONString(jsonDictItem.getJSONArray(PageConstants.DATA_LIST));
 		List<DictItemVo> dictItemVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<DictItemVo>>(){});

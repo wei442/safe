@@ -1,4 +1,4 @@
-package com.cloud.provider.safe.controller;
+package com.cloud.consumer.safe.controller;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -21,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
-import com.cloud.provider.safe.base.BaseRestMapResponse;
-import com.cloud.provider.safe.rest.request.fastdfs.FastdfsRequest;
-import com.cloud.provider.safe.vo.fastdfs.FastdfsVo;
+import com.cloud.consumer.safe.base.BaseRestMapResponse;
+import com.cloud.consumer.safe.rest.request.fastdfs.FastdfsRequest;
+import com.cloud.consumer.safe.vo.fastdfs.FastdfsVo;
 import com.github.tobato.fastdfs.domain.conn.FdfsWebServer;
 import com.github.tobato.fastdfs.domain.fdfs.FileInfo;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;

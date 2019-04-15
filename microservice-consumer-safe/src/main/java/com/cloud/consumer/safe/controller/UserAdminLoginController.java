@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.CommConstants;
+import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserAdminLoginPageRequest;
@@ -38,7 +38,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "用户管理登录")
 @RestController
-@RequestMapping("/user/adminLogin")
+@RequestMapping("/user/admin/login")
 public class UserAdminLoginController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -86,7 +86,7 @@ public class UserAdminLoginController extends BaseController {
 		@RequestBody UserAdminLoginPageRequest req) {
 		logger.info("===step1:【不分页查询】(UserAdminLoginController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonUserAdminLogin = userAdminLoginService.getListByPage(req);
+		JSONObject jsonUserAdminLogin = userAdminLoginService.getList(req);
 		logger.info("===step2:【不分页查询】(UserAdminLoginController-getList)-不分页查询用户管理登录列表, jsonUserAdminLogin:{}", jsonUserAdminLogin);
 		String dataListStr = JSONObject.toJSONString(jsonUserAdminLogin.getJSONArray(PageConstants.DATA_LIST));
 		List<UserAdminLoginVo> userAdminLoginVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserAdminLoginVo>>(){});

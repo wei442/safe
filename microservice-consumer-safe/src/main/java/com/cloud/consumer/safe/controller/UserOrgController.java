@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.CommConstants;
+import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserOrgPageRequest;
@@ -93,7 +93,7 @@ public class UserOrgController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonUserOrg = userOrgService.getListByPage(req);
+		JSONObject jsonUserOrg = userOrgService.getList(req);
 		logger.info("===step2:【不分页查询】(UserOrgController-getList)-不分页查询用户机构列表, jsonUserOrg:{}", jsonUserOrg);
 		String dataListStr = JSONObject.toJSONString(jsonUserOrg.getJSONArray(PageConstants.DATA_LIST));
 		List<UserOrgVo> userOrgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserOrgVo>>(){});

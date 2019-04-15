@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.CommConstants;
+import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserAdminPageRequest;
@@ -86,7 +86,7 @@ public class UserAdminController extends BaseController {
 		@RequestBody UserAdminPageRequest req) {
 		logger.info("===step1:【不分页查询】(UserAdminController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonUserAdmin = userAdminService.getListByPage(req);
+		JSONObject jsonUserAdmin = userAdminService.getList(req);
 		logger.info("===step2:【不分页查询】(UserAdminController-getList)-不分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
 		String dataListStr = JSONObject.toJSONString(jsonUserAdmin.getJSONArray(PageConstants.DATA_LIST));
 		List<UserAdminVo> userAdminVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserAdminVo>>(){});

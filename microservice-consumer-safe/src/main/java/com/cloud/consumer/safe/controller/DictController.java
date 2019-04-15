@@ -90,7 +90,7 @@ public class DictController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonDict = dictService.getListByPage(req);
+		JSONObject jsonDict = dictService.getList(req);
 		logger.info("===step2:【不分页查询】(DictController-getList)-不分页查询字典列表, jsonDict:{}", jsonDict);
 		String dataListStr = JSONObject.toJSONString(jsonDict.getJSONArray(PageConstants.DATA_LIST));
 		List<DictVo> dictVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<DictVo>>(){});

@@ -86,7 +86,7 @@ public class AttachmentController extends BaseController {
 		@RequestBody AttachmentPageRequest req) {
 		logger.info("===step1:【不分页查询】(AttachmentController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonAttachment = attachmentService.getListByPage(req);
+		JSONObject jsonAttachment = attachmentService.getList(req);
 		logger.info("===step2:【不分页查询】(AttachmentController-getList)-不分页查询附件列表, jsonAttachment:{}", jsonAttachment);
 		String dataListStr = JSONObject.toJSONString(jsonAttachment.getJSONArray(PageConstants.DATA_LIST));
 		List<AttachmentVo> attachmentVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<AttachmentVo>>(){});

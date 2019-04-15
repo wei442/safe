@@ -49,7 +49,7 @@ public class UserQualityServiceImpl implements IUserQualityService {
 		logger.info("(UserQualityService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserQualityExample example = new UserQualityExample();
-		example.setOrderByClause(" id desc ");
+		example.setOrderByClause(" id asc ");
 		UserQualityExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
@@ -69,7 +69,7 @@ public class UserQualityServiceImpl implements IUserQualityService {
 	public List<UserQuality> selectList(UserQualityPageRequest param) {
 		logger.info("(UserQualityService-selectList)-不分页查询-传入参数, param:{}", param);
 		UserQualityExample example = new UserQualityExample();
-		example.setOrderByClause(" id desc ");
+		example.setOrderByClause(" id asc ");
 		UserQualityExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {

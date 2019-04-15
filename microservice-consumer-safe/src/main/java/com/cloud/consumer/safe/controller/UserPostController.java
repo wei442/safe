@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.CommConstants;
+import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserPostPageRequest;
@@ -90,7 +90,7 @@ public class UserPostController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonUserPost = userPostService.getListByPage(req);
+		JSONObject jsonUserPost = userPostService.getList(req);
 		logger.info("===step2:【不分页查询】(UserPostController-getList)-不分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
 		String dataListStr = JSONObject.toJSONString(jsonUserPost.getJSONArray(PageConstants.DATA_LIST));
 		List<UserPostVo> userPostVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserPostVo>>(){});

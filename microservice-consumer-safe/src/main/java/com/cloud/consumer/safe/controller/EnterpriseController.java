@@ -86,7 +86,7 @@ public class EnterpriseController extends BaseController {
 		@RequestBody EnterprisePageRequest req) {
 		logger.info("===step1:【不分页查询】(EnterpriseController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonEnterprise = enterpriseService.getListByPage(req);
+		JSONObject jsonEnterprise = enterpriseService.getList(req);
 		logger.info("===step2:【不分页查询】(EnterpriseController-getList)-不分页查询企业列表, jsonEnterprise:{}", jsonEnterprise);
 		String dataListStr = JSONObject.toJSONString(jsonEnterprise.getJSONArray(PageConstants.DATA_LIST));
 		List<EnterpriseVo> enterpriseVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<EnterpriseVo>>(){});

@@ -94,7 +94,7 @@ public class OrgQualityController extends BaseController {
 		@RequestBody OrgQualityPageRequest req) {
 		logger.info("===step1:【不分页查询】(OrgQualityController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonOrgQuality = orgQualityService.getListByPage(req);
+		JSONObject jsonOrgQuality = orgQualityService.getList(req);
 		logger.info("===step2:【不分页查询】(OrgQualityController-getList)-不分页查询机构资质列表, jsonOrgQuality:{}", jsonOrgQuality);
 		String dataListStr = JSONObject.toJSONString(jsonOrgQuality.getJSONArray(PageConstants.DATA_LIST));
 		List<OrgQualityVo> orgQualityVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgQualityVo>>(){});
