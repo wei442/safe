@@ -27,7 +27,7 @@ import com.cloud.consumer.safe.rest.request.activity.ActivityIdRequest;
 import com.cloud.consumer.safe.rest.request.activity.ActivityRequest;
 import com.cloud.consumer.safe.rest.request.page.activity.ActivityPageRequest;
 import com.cloud.consumer.safe.service.IActivityService;
-import com.cloud.consumer.safe.service.IFastdfsClientService;
+import com.cloud.consumer.safe.service.IFastdfsService;
 import com.cloud.consumer.safe.vo.activity.ActivityVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
@@ -53,7 +53,7 @@ public class ActivityController extends BaseController {
 
 	//fastdfs Service
 	@Autowired
-	private IFastdfsClientService fastdfsClientService;
+	private IFastdfsService fastdfsService;
 
 	/**
 	 * 分页查询
@@ -161,7 +161,7 @@ public class ActivityController extends BaseController {
 			for (MultipartFile multipartFile : multipartFiles) {
 				activityAttachmentRequest = new ActivityAttachmentRequest();
 
-				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				String fileUrl = fastdfsService.uploadFile(multipartFile);
 				String filename = multipartFile.getOriginalFilename();
 				activityAttachmentRequest.setName(filename);
 				activityAttachmentRequest.setUrl(fileUrl);
@@ -230,7 +230,7 @@ public class ActivityController extends BaseController {
 			for (MultipartFile multipartFile : multipartFiles) {
 				activityAttachmentRequest = new ActivityAttachmentRequest();
 
-				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				String fileUrl = fastdfsService.uploadFile(multipartFile);
 				String filename = multipartFile.getOriginalFilename();
 				activityAttachmentRequest.setName(filename);
 				activityAttachmentRequest.setUrl(fileUrl);

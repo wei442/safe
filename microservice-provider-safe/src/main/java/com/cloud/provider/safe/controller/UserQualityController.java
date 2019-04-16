@@ -232,10 +232,11 @@ public class UserQualityController extends BaseController {
 		logger.info("===step1:【修改用户资质】(UserQualityController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userQualityId = req.getUserQualityId();
+		List<Integer> userQualityAttachmentIds = req.getUserQualityAttachmentIds();
 		List<UserQualityAttachment> userQualityAttachmentList = req.convertToUserQualityAttachmentList();
 		UserQuality userQuality = req.convertToUserQuality();
 		userQuality.setId(userQualityId);
-		int i = userQualityService.modify(userQuality, userQualityAttachmentList);
+		int i = userQualityService.modify(userQuality, userQualityAttachmentIds, userQualityAttachmentList);
 		logger.info("===step2:【修改用户资质】(UserQualityController-modify)-修改用户资质, i:{}", i);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();

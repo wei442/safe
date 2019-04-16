@@ -66,7 +66,7 @@ public class RuleRequest implements Serializable {
     @ApiModelProperty(value = "规范附件ids")
     private List<Integer> ruleAttachmentIds;
 
-    @ApiModelProperty(value = "新增规范文件附件列表")
+    @ApiModelProperty(value = "新规范文件附件列表")
     private List<RuleAttachmentRequest> ruleAttachmentList;
 
 }

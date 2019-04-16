@@ -182,10 +182,11 @@ public class ActivityController extends BaseController {
 		logger.info("===step1:【修改活动】(ActivityController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer activityId = req.getActivityId();
+		List<Integer> activityAttachmentIds = req.getActivityAttachmentIds();
 		Activity activity = req.convertToActivity();
 		List<ActivityAttachment> activityAttachmentList = req.convertToActivityAttachmentList();
 		activity.setId(activityId);
-		int i = activityService.modify(activity, activityAttachmentList);
+		int i = activityService.modify(activity, activityAttachmentIds, activityAttachmentList);
 		logger.info("===step2:【修改活动】(ActivityController-modify)-修改活动, i:{}", i);
 
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();

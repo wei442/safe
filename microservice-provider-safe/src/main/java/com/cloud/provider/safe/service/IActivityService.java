@@ -56,9 +56,10 @@ public interface IActivityService {
     /**
      * 修改活动及附件
      * @param activity
+     * @param activityAttachmentIds
      * @param activityAttachmentList
      * @return Integer
      */
-	public Integer modify(Activity activity, List<ActivityAttachment> activityAttachmentList);
+	public Integer modify(Activity activity, List<Integer> activityAttachmentIds, List<ActivityAttachment> activityAttachmentList);
 
 }

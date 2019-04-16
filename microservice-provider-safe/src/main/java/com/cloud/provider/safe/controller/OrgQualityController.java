@@ -182,10 +182,11 @@ public class OrgQualityController extends BaseController {
 		logger.info("===step1:【修改机构资质】(OrgQualityController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer orgQualityId = req.getOrgQualityId();
+		List<Integer> orgQualityAttachmentIds = req.getOrgQualityAttachmentIds();
 		List<OrgQualityAttachment> orgQualityAttachments = req.convertToOrgQualityAttachmentList();
 		OrgQuality orgQuality = req.convertToOrgQuality();
 		orgQuality.setId(orgQualityId);
-		int i = orgQualityService.modify(orgQuality, orgQualityAttachments);
+		int i = orgQualityService.modify(orgQuality, orgQualityAttachmentIds, orgQualityAttachments);
 		logger.info("===step2:【修改机构资质】(OrgQualityController-modify)-修改机构资质, i:{}", i);
 
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();

@@ -30,7 +30,7 @@ import com.cloud.consumer.safe.rest.request.activity.RuleAttachmentRequest;
 import com.cloud.consumer.safe.rest.request.activity.RuleIdRequest;
 import com.cloud.consumer.safe.rest.request.activity.RuleRequest;
 import com.cloud.consumer.safe.rest.request.page.activity.RulePageRequest;
-import com.cloud.consumer.safe.service.IFastdfsClientService;
+import com.cloud.consumer.safe.service.IFastdfsService;
 import com.cloud.consumer.safe.service.IRuleService;
 import com.cloud.consumer.safe.vo.activity.RuleVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
@@ -57,7 +57,7 @@ public class RuleController extends BaseController {
 
 	//fastdfs Service
 	@Autowired
-	private IFastdfsClientService fastdfsClientService;
+	private IFastdfsService fastdfsService;
 
 	/**
 	 * 分页查询
@@ -222,7 +222,7 @@ public class RuleController extends BaseController {
 			for (MultipartFile multipartFile : multipartFiles) {
 				ruleAttachmentRequest = new RuleAttachmentRequest();
 
-				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				String fileUrl = fastdfsService.uploadFile(multipartFile);
 				String filename = multipartFile.getOriginalFilename();
 				ruleAttachmentRequest.setName(filename);
 				ruleAttachmentRequest.setUrl(fileUrl);
@@ -345,7 +345,7 @@ public class RuleController extends BaseController {
 			for (MultipartFile multipartFile : multipartFiles) {
 				ruleAttachmentRequest = new RuleAttachmentRequest();
 
-				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				String fileUrl = fastdfsService.uploadFile(multipartFile);
 				String filename = multipartFile.getOriginalFilename();
 				ruleAttachmentRequest.setName(filename);
 				ruleAttachmentRequest.setUrl(fileUrl);

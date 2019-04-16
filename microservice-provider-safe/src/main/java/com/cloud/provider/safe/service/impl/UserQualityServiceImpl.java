@@ -175,12 +175,13 @@ public class UserQualityServiceImpl implements IUserQualityService {
     /**
      * 修改用户资质及附件
      * @param userQuality
+     * @param userQualityAttachmentIds
      * @param userQualityAttachmentList
      * @return Integer
      */
 	@Override
-	public Integer modify(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachmentList) {
-    	logger.info("(UserQualityService-modify)-修改用户资质及附件-传入参数, userQuality:{}, userQualityAttachmentList:{}", userQuality, userQualityAttachmentList);
+	public Integer modify(UserQuality userQuality, List<Integer> userQualityAttachmentIds, List<UserQualityAttachment> userQualityAttachmentList) {
+    	logger.info("(UserQualityService-modify)-修改用户资质及附件-传入参数, userQuality:{}, userQualityAttachmentIds:{}, userQualityAttachmentList:{}", userQuality, userQualityAttachmentIds, userQualityAttachmentList);
     	userQuality.setUpdateTime(new Date());
 		int i = userQualityMapper.updateByPrimaryKeySelective(userQuality);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
@@ -189,8 +190,10 @@ public class UserQualityServiceImpl implements IUserQualityService {
     	UserQualityAttachmentExample example = new UserQualityAttachmentExample();
   		UserQualityAttachmentExample.Criteria criteria = example.createCriteria();
 		criteria.andUserQualityIdEqualTo(userQualityId);
+		if(userQualityAttachmentIds != null && !userQualityAttachmentIds.isEmpty()) {
+    		criteria.andIdNotIn(userQualityAttachmentIds);
+    	}
 		i = userQualityAttachmentMapper.deleteByExample(example);
-		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
 
 		if(userQualityAttachmentList != null && !userQualityAttachmentList.isEmpty()) {
     		for (UserQualityAttachment userQualityAttachment : userQualityAttachmentList) {

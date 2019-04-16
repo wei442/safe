@@ -49,9 +49,10 @@ public interface IOrgQualityService {
     /**
      * 修改机构资质及附件
      * @param orgQuality
+     * @param orgQualityAttachmentIds
      * @param orgQualityAttachmentList
      * @return Integer
      */
-	public Integer modify(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachmentList);
+	public Integer modify(OrgQuality orgQuality, List<Integer> orgQualityAttachmentIds, List<OrgQualityAttachment> orgQualityAttachmentList);
 
 }

@@ -26,7 +26,7 @@ import com.cloud.consumer.safe.rest.request.page.user.UserQualityPageRequest;
 import com.cloud.consumer.safe.rest.request.user.UserQualityAttachmentRequest;
 import com.cloud.consumer.safe.rest.request.user.UserQualityIdRequest;
 import com.cloud.consumer.safe.rest.request.user.UserQualityRequest;
-import com.cloud.consumer.safe.service.IFastdfsClientService;
+import com.cloud.consumer.safe.service.IFastdfsService;
 import com.cloud.consumer.safe.service.IUserQualityService;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
@@ -53,7 +53,7 @@ public class UserQualityController extends BaseController {
 
 	//fastdfs Service
 	@Autowired
-	private IFastdfsClientService fastdfsClientService;
+	private IFastdfsService fastdfsService;
 
 	/**
 	 * 分页查询
@@ -163,7 +163,7 @@ public class UserQualityController extends BaseController {
 			for (MultipartFile multipartFile : multipartFiles) {
 				userQualityAttachmentRequest = new UserQualityAttachmentRequest();
 
-				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				String fileUrl = fastdfsService.uploadImage(multipartFile);
 				String filename = multipartFile.getOriginalFilename();
 				userQualityAttachmentRequest.setName(filename);
 				userQualityAttachmentRequest.setUrl(fileUrl);
@@ -232,7 +232,7 @@ public class UserQualityController extends BaseController {
 			for (MultipartFile multipartFile : multipartFiles) {
 				userQualityAttachmentRequest = new UserQualityAttachmentRequest();
 
-				String fileUrl = fastdfsClientService.uploadFile(multipartFile);
+				String fileUrl = fastdfsService.uploadImage(multipartFile);
 				String filename = multipartFile.getOriginalFilename();
 				userQualityAttachmentRequest.setName(filename);
 				userQualityAttachmentRequest.setUrl(fileUrl);

@@ -71,7 +71,10 @@ public class ActivityRequest implements Serializable {
     @ApiModelProperty(value = "备注")
     private String remark;
 
-    @ApiModelProperty(value = "活动附件列表")
+    @ApiModelProperty(value = "活动附件ids")
+    private List<Integer> activityAttachmentIds;
+
+    @ApiModelProperty(value = "新活动附件列表")
     private List<ActivityAttachmentRequest> activityAttachmentList;
 
 }

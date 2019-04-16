@@ -37,7 +37,10 @@ public class UserQualityRequest implements Serializable {
     @NotBlank(message = "资质名称不能为空")
     private String qualityName;
 
-    @ApiModelProperty(value = "用户资质附件列表")
+    @ApiModelProperty(value = "用户资质附件ids")
+    private List<Integer> userQualityAttachmentIds;
+
+    @ApiModelProperty(value = "新用户资质附件列表")
     private List<UserQualityAttachmentRequest> userQualityAttachmentList;
 
 }

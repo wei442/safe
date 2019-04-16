@@ -9,7 +9,7 @@ import com.github.tobato.fastdfs.domain.fdfs.FileInfo;
 import com.github.tobato.fastdfs.domain.fdfs.MetaData;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 
-public interface IFastdfsClientService {
+public interface IFastdfsService {
 
     /**
      * 查询文件信息

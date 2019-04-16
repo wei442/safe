@@ -63,9 +63,10 @@ public interface IUserQualityService {
     /**
      * 修改用户资质及附件
      * @param userQuality
+     * @param userQualityAttachmentIds
      * @param userQualityAttachmentList
      * @return Integer
      */
-	public Integer modify(UserQuality userQuality, List<UserQualityAttachment> userQualityAttachmentList);
+	public Integer modify(UserQuality userQuality, List<Integer> userQualityAttachmentIds, List<UserQualityAttachment> userQualityAttachmentList);
 
 }

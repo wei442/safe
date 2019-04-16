@@ -142,12 +142,13 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
     /**
      * 修改机构资质及附件
      * @param orgQuality
+     * @param orgQualityAttachmentIds
      * @param orgQualityAttachmentList
      * @return Integer
      */
 	@Override
-	public Integer modify(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachmentList) {
-    	logger.info("(OrgQualityService-modify)-修改机构资质及附件-传入参数, orgQuality:{}, orgQualityAttachmentList:{}", orgQuality, orgQualityAttachmentList);
+	public Integer modify(OrgQuality orgQuality, List<Integer> orgQualityAttachmentIds, List<OrgQualityAttachment> orgQualityAttachmentList) {
+    	logger.info("(OrgQualityService-modify)-修改机构资质及附件-传入参数, orgQuality:{}, orgQualityAttachmentIds:{}, orgQualityAttachmentList:{}", orgQuality, orgQualityAttachmentIds, orgQualityAttachmentList);
     	orgQuality.setUpdateTime(new Date());
 		int i = orgQualityMapper.updateByPrimaryKeySelective(orgQuality);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
@@ -156,8 +157,10 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
     	OrgQualityAttachmentExample example = new OrgQualityAttachmentExample();
   		OrgQualityAttachmentExample.Criteria criteria = example.createCriteria();
 		criteria.andOrgQualityIdEqualTo(orgQualityId);
+		if(orgQualityAttachmentIds != null && !orgQualityAttachmentIds.isEmpty()) {
+    		criteria.andIdNotIn(orgQualityAttachmentIds);
+    	}
 		i = orgQualityAttachmentMapper.deleteByExample(example);
-		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
 
     	if(orgQualityAttachmentList != null && !orgQualityAttachmentList.isEmpty()) {
     		for (OrgQualityAttachment orgQualityAttachment : orgQualityAttachmentList) {

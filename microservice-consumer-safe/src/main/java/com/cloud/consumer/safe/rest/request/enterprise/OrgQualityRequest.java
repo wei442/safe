@@ -37,7 +37,10 @@ public class OrgQualityRequest implements Serializable {
     @NotBlank(message = "资质名称不能为空")
     private String qualityName;
 
-    @ApiModelProperty(value = "机构资质附件列表")
+    @ApiModelProperty(value = "机构资质ids")
+    private List<Integer> orgQualityAttachmentIds;
+
+    @ApiModelProperty(value = "新机构资质附件列表")
     private List<OrgQualityAttachmentRequest> orgQualityAttachmentList;
 
 }

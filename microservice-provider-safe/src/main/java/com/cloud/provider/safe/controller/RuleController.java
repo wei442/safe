@@ -290,7 +290,6 @@ public class RuleController extends BaseController {
 		    }
 	    }
 
-
 		List<Integer> ruleAttachmentIds = req.getRuleAttachmentIds();
 		List<RuleAttachment> ruleAttachmentList = req.convertToRuleAttachmentList();
 		Rule rule = req.convertToRule();
