@@ -305,7 +305,7 @@ public class UserController extends BaseController {
 //
 //		String userAccount =  req.getUserAccount();
 //		if(StringUtils.isBlank(userAccount)) {
-//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "用户账户不能为空");
+//			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "用户账户不能为空");
 //		}
 //
 //		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
@@ -355,9 +355,9 @@ public class UserController extends BaseController {
 //		String userPassword = req.getUserPassword();
 //		Integer userId = req.getUserId();
 //		if(StringUtils.isBlank(userPassword)) {
-//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "用户密码不能为空");
+//			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "用户密码不能为空");
 //		} else if(userId == null) {
-//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "用户id不能为空");
+//			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "用户id不能为空");
 //		}
 //		UserInfo userInfo = userInfoService.selectById(userId);
 //		logger.info("===step2:【用户登录第二步】(UserController-loginSecond)-根据userId查询用户信息, userInfo:{}", userInfo);

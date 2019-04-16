@@ -1,5 +1,8 @@
 package com.cloud.provider.safe.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -60,13 +63,22 @@ public class FastdfsController extends BaseController {
 	@RequestMapping(value="/uploadFile",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse uploadFile(
-		MultipartFile file,
+		@Validated @RequestBody FastdfsRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【上传文件】(FastdfsController-uploadFile)-请求参数, file:{}", file);
+		logger.info("===step1:【上传文件】(FastdfsController-uploadFile)-请求参数, req:{}", req);
+
+		byte[] bytes = req.getBytes();
+		String fileName = req.getFileName();
+		Long fileSize = req.getFileSize();
+		if(bytes == null || bytes.length == 0) {
+		}
+
+		InputStream inputStream = new ByteArrayInputStream(bytes);
+
 
 		StorePath storePath = null;
 		try {
-            storePath = fastFileStorageClient.uploadFile(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
+            storePath = fastFileStorageClient.uploadFile(inputStream, fileSize, fileName, null);
             logger.info("===step2:【上传文件】(FastdfsController-uploadFile)-上传文件, storePath:{}", storePath);
         } catch (Exception e) {
 			logger.error("===step2.1:【上传文件】(FastdfsController-uploadFile)-上传文件异常, Exception = {}, message = {}", e, e.getMessage());

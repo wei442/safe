@@ -106,7 +106,7 @@ public class UserQualityController extends BaseController {
 		logger.info("===step1:【据id查询用户资质】(selectById-selectById)-传入参数, userQualityId:{}", userQualityId);
 
 		if(userQualityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userQualityId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userQualityId不能为空");
 		}
 
 		UserQuality userQuality = userQualityService.selectById(userQualityId);
@@ -132,7 +132,7 @@ public class UserQualityController extends BaseController {
 		logger.info("===step1:【据userId查询用户资质】(selectById-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userId不能为空");
 		}
 
 		UserQuality userQuality = userQualityService.selectByUserId(userId);
@@ -182,7 +182,7 @@ public class UserQualityController extends BaseController {
 		logger.info("===step1:【根据id删除用户资质】(UserQualityController-deleteById)-传入参数, userQualityId:{}", userQualityId);
 
 		if(userQualityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userQualityId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userQualityId不能为空");
 		}
 
 		int i = userQualityService.deleteById(userQualityId);
@@ -206,7 +206,7 @@ public class UserQualityController extends BaseController {
 		logger.info("===step1:【根据ids删除用户资质】(UserQualityController-deleteByIds)-传入参数, userQualityIds:{}", userQualityIds);
 
 		if(userQualityIds == null || userQualityIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userQualityIds不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userQualityIds不能为空");
 		}
 
 		int i = userQualityService.deleteByIds(userQualityIds);

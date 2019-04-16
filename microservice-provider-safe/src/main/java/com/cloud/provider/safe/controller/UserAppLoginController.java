@@ -105,7 +105,7 @@ public class UserAppLoginController extends BaseController {
 		logger.info("===step1:【据id查询用户应用登录】(selectById-selectById)-传入参数, userAppLoginId:{}", userAppLoginId);
 
 		if(userAppLoginId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAppLoginId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAppLoginId不能为空");
 		}
 
 		UserAppLogin userAppLogin = userAppLoginService.selectById(userAppLoginId);
@@ -154,7 +154,7 @@ public class UserAppLoginController extends BaseController {
 		logger.info("===step1:【根据id删除用户应用登录】(selectById-deleteById)-传入参数, userAppLoginId:{}", userAppLoginId);
 
 		if(userAppLoginId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAppLoginId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAppLoginId不能为空");
 		}
 
 		int i = userAppLoginService.deleteById(userAppLoginId);

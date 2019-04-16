@@ -106,7 +106,7 @@ public class UserInfoController extends BaseController {
 		logger.info("===step1:【据id查询用户信息】(selectById-selectById)-传入参数, userInfoId:{}", userInfoId);
 
 		if(userInfoId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userInfoId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userInfoId不能为空");
 		}
 
 		UserInfo userInfo = userInfoService.selectById(userInfoId);
@@ -132,7 +132,7 @@ public class UserInfoController extends BaseController {
 		logger.info("===step1:【据userAccount查询用户信息】(selectById-selectById)-传入参数, userAccount:{}", userAccount);
 
 		if(StringUtils.isBlank(userAccount)) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAccount不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAccount不能为空");
 		}
 
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
@@ -181,7 +181,7 @@ public class UserInfoController extends BaseController {
 		logger.info("===step1:【根据id删除用户信息】(selectById-deleteById)-传入参数, userInfoId:{}", userInfoId);
 
 		if(userInfoId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userInfoId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userInfoId不能为空");
 		}
 
 		int i = userInfoService.deleteById(userInfoId);

@@ -49,9 +49,10 @@ public interface IRuleService {
     /**
      * 修改规范文件及附件
      * @param rule
+     * @param ruleAttachmentIds
      * @param ruleAttachmentList
      * @return Integer
      */
-	public Integer modify(Rule rule, List<RuleAttachment> ruleAttachmentList);
+	public Integer modify(Rule rule, List<Integer> ruleAttachmentIds, List<RuleAttachment> ruleAttachmentList);
 
 }

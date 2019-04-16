@@ -52,7 +52,7 @@ public class BaseUserPasswordController extends BaseController {
 		logger.info("===step1:【据id查询基础用户密码】(selectById-selectById)-传入参数, baseUserPasswordId:{}", baseUserPasswordId);
 
 		if(baseUserPasswordId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "baseUserPasswordId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "baseUserPasswordId不能为空");
 		}
 
 		BaseUserPassword baseUserPassword = baseUserPasswordService.selectById(baseUserPasswordId);
@@ -78,7 +78,7 @@ public class BaseUserPasswordController extends BaseController {
 		logger.info("===step1:【据baseUserId查询基础用户密码】(selectById-selectById)-传入参数, baseUserPasswordId:{}", baseUserId);
 
 		if(baseUserId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "baseUserId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "baseUserId不能为空");
 		}
 
 		BaseUserPassword baseUserPassword = baseUserPasswordService.selectByBaseUserId(baseUserId);
@@ -129,7 +129,7 @@ public class BaseUserPasswordController extends BaseController {
 		logger.info("===step1:【根据id删除基础用户密码】(selectById-deleteById)-传入参数, baseUserPasswordId:{}", baseUserPasswordId);
 
 		if(baseUserPasswordId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "baseUserPasswordId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "baseUserPasswordId不能为空");
 		}
 
 		int i = baseUserPasswordService.deleteById(baseUserPasswordId);

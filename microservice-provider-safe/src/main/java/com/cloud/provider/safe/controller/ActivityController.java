@@ -106,7 +106,7 @@ public class ActivityController extends BaseController {
 		logger.info("===step1:【据id查询活动】(selectById-selectById)-传入参数, activityId:{}", activityId);
 
 		if(activityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "activityId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "activityId不能为空");
 		}
 
 		Activity activity = activityService.selectById(activityId);
@@ -156,7 +156,7 @@ public class ActivityController extends BaseController {
 		logger.info("===step1:【根据id删除活动】(selectById-deleteById)-传入参数, activityId:{}", activityId);
 
 		if(activityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "activityId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "activityId不能为空");
 		}
 
 		int i = activityService.deleteById(activityId);

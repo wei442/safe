@@ -105,7 +105,7 @@ public class UserAdminController extends BaseController {
 		logger.info("===step1:【据id查询用户管理】(UserAdminController-selectById)-传入参数, userAdminId:{}", userAdminId);
 
 		if(userAdminId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAdminId不能为空");
 		}
 
 		UserAdmin userAdmin = userAdminService.selectById(userAdminId);
@@ -131,7 +131,7 @@ public class UserAdminController extends BaseController {
 		logger.info("===step1:【据userId查询用户管理】(UserAdminController-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userId不能为空");
 		}
 
 		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
@@ -207,7 +207,7 @@ public class UserAdminController extends BaseController {
 		logger.info("===step1:【根据id删除用户管理】(selectById-deleteById)-传入参数, userAdminId:{}", userAdminId);
 
 		if(userAdminId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAdminId不能为空");
 		}
 
 		int i = userAdminService.deleteById(userAdminId);

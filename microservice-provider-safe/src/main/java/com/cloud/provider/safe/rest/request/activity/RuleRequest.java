@@ -79,7 +79,10 @@ public class RuleRequest implements Serializable {
     @ApiModelProperty(value = "修改人")
     private String updated;
 
-    @ApiModelProperty(value = "规范附件列表")
+    @ApiModelProperty(value = "规范附件ids")
+    private List<Integer> ruleAttachmentIds;
+
+    @ApiModelProperty(value = "新增规范附件列表")
     private List<RuleAttachmentRequest> ruleAttachmentList;
 
     /**

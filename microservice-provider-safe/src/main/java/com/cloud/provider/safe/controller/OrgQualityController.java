@@ -106,7 +106,7 @@ public class OrgQualityController extends BaseController {
 		logger.info("===step1:【据id查询机构资质】(selectById-selectById)-传入参数, orgQualityId:{}", orgQualityId);
 
 		if(orgQualityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "orgQualityId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "orgQualityId不能为空");
 		}
 
 		OrgQuality orgQuality = orgQualityService.selectById(orgQualityId);
@@ -156,7 +156,7 @@ public class OrgQualityController extends BaseController {
 		logger.info("===step1:【根据id删除机构资质】(selectById-deleteById)-传入参数, orgQualityId:{}", orgQualityId);
 
 		if(orgQualityId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "orgQualityId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "orgQualityId不能为空");
 		}
 
 		int i = orgQualityService.deleteById(orgQualityId);

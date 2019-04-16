@@ -111,7 +111,7 @@ public class PostController extends BaseController {
 		logger.info("===step1:【据id查询岗位】(selectById-selectById)-传入参数, postId:{}", postId);
 
 		if(postId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "postId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "postId不能为空");
 		}
 
 		Post post = postService.selectById(postId);
@@ -162,7 +162,7 @@ public class PostController extends BaseController {
 		logger.info("===step1:【根据id删除岗位】(PostController-deleteById)-传入参数, postId:{}", postId);
 
 		if(postId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "postId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "postId不能为空");
 		}
 
 		List<UserPost> userPostList = userPostService.selectListByPostId(postId);

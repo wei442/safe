@@ -106,7 +106,7 @@ public class UserTitleController extends BaseController {
 		logger.info("===step1:【据id查询用户职务】(selectById-selectById)-传入参数, userTitleId:{}", userTitleId);
 
 		if(userTitleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userTitleId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userTitleId不能为空");
 		}
 
 		UserTitle userTitle = userTitleService.selectById(userTitleId);
@@ -133,7 +133,7 @@ public class UserTitleController extends BaseController {
 		logger.info("===step1:【据userId查询用户职务】(selectById-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userId不能为空");
 		}
 
 		UserTitle userTitle = userTitleService.selectByUserId(userId);
@@ -183,7 +183,7 @@ public class UserTitleController extends BaseController {
 		logger.info("===step1:【根据id删除用户职务】(UserTitleController-deleteById)-传入参数, userTitleId:{}", userTitleId);
 
 		if(userTitleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userTitleId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userTitleId不能为空");
 		}
 
 		int i = userTitleService.deleteById(userTitleId);
@@ -207,7 +207,7 @@ public class UserTitleController extends BaseController {
 		logger.info("===step1:【根据ids删除用户职务】(UserTitleController-deleteByIds)-传入参数, userTitleIds:{}", userTitleIds);
 
 		if(userTitleIds == null || userTitleIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userTitleIds不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userTitleIds不能为空");
 		}
 
 		int i = userTitleService.deleteByIds(userTitleIds);

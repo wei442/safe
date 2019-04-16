@@ -150,7 +150,7 @@ public class OrgController extends BaseController {
 		logger.info("===step1:【据id查询组织机构】(selectById-selectById)-传入参数, orgId:{}", orgId);
 
 		if(orgId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "orgId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "orgId不能为空");
 		}
 
 		Org org = orgService.selectById(orgId);
@@ -199,7 +199,7 @@ public class OrgController extends BaseController {
 		logger.info("===step1:【根据id删除组织机构】(OrgController-deleteById)-传入参数, orgId:{}", orgId);
 
 		if(orgId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "orgId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "orgId不能为空");
 		}
 
 		List<UserOrg> userOrgList = userOrgService.selectListByOrgId(orgId);

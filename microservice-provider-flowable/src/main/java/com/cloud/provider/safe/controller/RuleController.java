@@ -105,7 +105,7 @@ public class RuleController extends BaseController {
 		logger.info("===step1:【据id查询规范文件】(selectById-selectById)-传入参数, ruleId:{}", ruleId);
 
 		if(ruleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "ruleId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "ruleId不能为空");
 		}
 
 		Rule rule = ruleService.selectById(ruleId);
@@ -154,7 +154,7 @@ public class RuleController extends BaseController {
 		logger.info("===step1:【根据id删除规范文件】(RuleController-deleteById)-传入参数, ruleId:{}", ruleId);
 
 		if(ruleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "ruleId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "ruleId不能为空");
 		}
 
 		int i = ruleService.deleteById(ruleId);

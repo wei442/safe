@@ -105,7 +105,7 @@ public class RuleAttachmentController extends BaseController {
 		logger.info("===step1:【据id查询规范文件附件】(selectById-selectById)-传入参数, ruleAttachmentId:{}", ruleAttachmentId);
 
 		if(ruleAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "ruleAttachmentId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "ruleAttachmentId不能为空");
 		}
 
 		RuleAttachment ruleAttachment = ruleAttachmentService.selectById(ruleAttachmentId);
@@ -154,7 +154,7 @@ public class RuleAttachmentController extends BaseController {
 		logger.info("===step1:【根据id删除规范文件附件】(selectById-deleteById)-传入参数, ruleAttachmentId:{}", ruleAttachmentId);
 
 		if(ruleAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "ruleAttachmentId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "ruleAttachmentId不能为空");
 		}
 
 		int i = ruleAttachmentService.deleteById(ruleAttachmentId);

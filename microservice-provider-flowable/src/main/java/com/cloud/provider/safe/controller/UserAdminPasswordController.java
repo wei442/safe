@@ -53,7 +53,7 @@ public class UserAdminPasswordController extends BaseController {
 		logger.info("===step1:【据id查询用户管理密码】(selectById-selectById)-传入参数, userAdminPasswordId:{}", userAdminPasswordId);
 
 		if(userAdminPasswordId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminPasswordId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAdminPasswordId不能为空");
 		}
 
 		UserAdminPassword userAdminPassword = userAdminPasswordService.selectById(userAdminPasswordId);
@@ -80,7 +80,7 @@ public class UserAdminPasswordController extends BaseController {
 //		logger.info("===step1:【根据userId查询用管理密码】(UserAdminPasswordController-selectByUserIdPassword)-传入参数, userId:{}", userId);
 //
 //		if(userId == null) {
-//			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId不能为空");
+//			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userId不能为空");
 //		}
 //
 //		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserId(userId);
@@ -156,7 +156,7 @@ public class UserAdminPasswordController extends BaseController {
 		logger.info("===step1:【根据id删除用户管理密码】(selectById-deleteById)-传入参数, userAdminPasswordId:{}", userAdminPasswordId);
 
 		if(userAdminPasswordId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAdminPasswordId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAdminPasswordId不能为空");
 		}
 
 		int i = userAdminPasswordService.deleteById(userAdminPasswordId);

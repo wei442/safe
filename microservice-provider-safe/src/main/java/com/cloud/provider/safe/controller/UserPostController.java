@@ -105,7 +105,7 @@ public class UserPostController extends BaseController {
 		logger.info("===step1:【据id查询用户岗位】(selectById-selectById)-传入参数, userPostId:{}", userPostId);
 
 		if(userPostId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userPostId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userPostId不能为空");
 		}
 
 		UserPost userPost = userPostService.selectById(userPostId);
@@ -131,7 +131,7 @@ public class UserPostController extends BaseController {
 		logger.info("===step1:【据userId查询用户岗位】(selectById-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userId不能为空");
 		}
 
 		UserPost userPost = userPostService.selectByUserId(userId);
@@ -180,7 +180,7 @@ public class UserPostController extends BaseController {
 		logger.info("===step1:【根据id删除用户岗位】(UserPostController-deleteById)-传入参数, userPostId:{}", userPostId);
 
 		if(userPostId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userPostId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userPostId不能为空");
 		}
 
 		int i = userPostService.deleteById(userPostId);
@@ -204,7 +204,7 @@ public class UserPostController extends BaseController {
 		logger.info("===step1:【根据ids删除用户岗位】(UserPostController-deleteByIds)-传入参数, userPostIds:{}", userPostIds);
 
 		if(userPostIds == null || userPostIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userPostIds不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userPostIds不能为空");
 		}
 
 		int i = userPostService.deleteByIds(userPostIds);

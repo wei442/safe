@@ -105,7 +105,7 @@ public class DictItemController extends BaseController {
 		logger.info("===step1:【据id查询字典子项】(selectById-selectById)-传入参数, dictItemId:{}", dictItemId);
 
 		if(dictItemId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "dictItemId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dictItemId不能为空");
 		}
 
 		DictItem dictItem = dictItemService.selectById(dictItemId);
@@ -154,7 +154,7 @@ public class DictItemController extends BaseController {
 		logger.info("===step1:【根据id删除字典子项】(selectById-deleteById)-传入参数, dictItemId:{}", dictItemId);
 
 		if(dictItemId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "dictItemId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dictItemId不能为空");
 		}
 
 		int i = dictItemService.deleteById(dictItemId);

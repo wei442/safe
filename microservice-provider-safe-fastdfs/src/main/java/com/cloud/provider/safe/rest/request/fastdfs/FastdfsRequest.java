@@ -19,4 +19,10 @@ public class FastdfsRequest implements Serializable {
 	@NotBlank(message = "文件url为空")
 	private String fileUrl;
 
+	private String fileName;
+
+	private Long fileSize;
+
+	private byte[] bytes;
+
 }

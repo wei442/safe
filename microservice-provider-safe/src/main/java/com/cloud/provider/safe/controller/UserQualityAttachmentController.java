@@ -105,7 +105,7 @@ public class UserQualityAttachmentController extends BaseController {
 		logger.info("===step1:【据id查询用户资质附件】(selectById-selectById)-传入参数, userQualityAttachmentId:{}", userQualityAttachmentId);
 
 		if(userQualityAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userQualityAttachmentId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userQualityAttachmentId不能为空");
 		}
 
 		UserQualityAttachment userQualityAttachment = userQualityAttachmentService.selectById(userQualityAttachmentId);
@@ -154,7 +154,7 @@ public class UserQualityAttachmentController extends BaseController {
 		logger.info("===step1:【根据id删除用户资质附件】(selectById-deleteById)-传入参数, userQualityAttachmentId:{}", userQualityAttachmentId);
 
 		if(userQualityAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userQualityAttachmentId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userQualityAttachmentId不能为空");
 		}
 
 		int i = userQualityAttachmentService.deleteById(userQualityAttachmentId);

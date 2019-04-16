@@ -2,11 +2,11 @@ package com.cloud.provider.safe.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.PageConstants;
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
@@ -24,7 +25,6 @@ import com.cloud.provider.safe.po.RuleAttachment;
 import com.cloud.provider.safe.rest.request.activity.RuleRequest;
 import com.cloud.provider.safe.rest.request.page.activity.RulePageRequest;
 import com.cloud.provider.safe.service.IRuleService;
-import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.activity.RuleVo;
 import com.github.pagehelper.Page;
 
@@ -106,7 +106,7 @@ public class RuleController extends BaseController {
 		logger.info("===step1:【据id查询规范文件】(selectById-selectById)-传入参数, ruleId:{}", ruleId);
 
 		if(ruleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "ruleId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "ruleId不能为空");
 		}
 
 		Rule rule = ruleService.selectById(ruleId);
@@ -129,9 +129,62 @@ public class RuleController extends BaseController {
 	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insert(
-		@Validated @RequestBody RuleRequest req,
+		@RequestBody RuleRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加规范文件】(RuleController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer enterpriseId = req.getEnterpriseId();
+		String ruleName = req.getRuleName();
+	    Integer ruleCategory = req.getRuleCategory();
+	    String ruleNo = req.getRuleNo();
+	    Integer orgId = req.getOrgId();
+	    String orgName = req.getOrgName();
+	    String keyWord = req.getKeyWord();
+	    Integer ruleType = req.getRuleType();
+	    if(enterpriseId == null) {
+	    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "企业id不能为空");
+	    } else  if(ruleType == null) {
+	    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "规范类型不能为空");
+	    }
+	    if(SqlSafeConstants.SQL_RULE_TYPE_LAW_RULE.equals(ruleType)) {
+	    	if(StringUtils.isBlank(ruleName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "名称不能为空");
+	    	} else if(ruleCategory == null) {
+	    		return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "规范类别不能为空");
+	    	} else if(StringUtils.isBlank(ruleNo)) {
+	    		return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "法规标号不能为空");
+	    	} else if(orgId == null) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "所属公司或大区id不能为空");
+		    } else if(StringUtils.isBlank(orgName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "所属公司或大区不能为空");
+		    } else if(StringUtils.isBlank(keyWord)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "关键字不能为空");
+		    }
+	    } else if(SqlSafeConstants.SQL_RULE_TYPE_SAFET_PRODUCTION.equals(ruleType)) {
+	    	if(StringUtils.isBlank(ruleName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "制度名称不能为空");
+	    	} else if(StringUtils.isBlank(ruleNo)) {
+	    		return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "制度标号不能为空");
+	    	} else if(orgId == null) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "适用范围id不能为空");
+		    } else if(StringUtils.isBlank(orgName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "适用范围不能为空");
+		    } else if(StringUtils.isBlank(keyWord)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "关键字不能为空");
+		    }
+	    } else if(SqlSafeConstants.SQL_RULE_TYPE_SAFET_OPERATION.equals(ruleType)) {
+	    	if(StringUtils.isBlank(ruleName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "名称不能为空");
+	    	} else if(StringUtils.isBlank(ruleNo)) {
+	    		return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "文件标号不能为空");
+	    	} else if(orgId == null) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "适用范围id不能为空");
+		    } else if(StringUtils.isBlank(orgName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "适用范围不能为空");
+		    } else if(StringUtils.isBlank(keyWord)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "关键字不能为空");
+		    }
+	    }
 
 		Rule rule = req.convertToRule();
 		List<RuleAttachment> ruleAttachmentList = req.convertToRuleAttachmentList();
@@ -156,7 +209,7 @@ public class RuleController extends BaseController {
 		logger.info("===step1:【根据id删除规范文件】(RuleController-deleteById)-传入参数, ruleId:{}", ruleId);
 
 		if(ruleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "ruleId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "ruleId不能为空");
 		}
 
 		int i = ruleService.deleteById(ruleId);
@@ -177,15 +230,72 @@ public class RuleController extends BaseController {
 	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse modify(
-		@Validated({ ModifyGroup.class }) @RequestBody RuleRequest req,
+		@RequestBody RuleRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改规范文件】(RuleController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer ruleId = req.getRuleId();
+		Integer enterpriseId = req.getEnterpriseId();
+		String ruleName = req.getRuleName();
+	    Integer ruleCategory = req.getRuleCategory();
+	    String ruleNo = req.getRuleNo();
+	    Integer orgId = req.getOrgId();
+	    String orgName = req.getOrgName();
+	    String keyWord = req.getKeyWord();
+	    Integer ruleType = req.getRuleType();
+	    if(ruleId == null) {
+	    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "规范id不能为空");
+	    } else if(enterpriseId == null) {
+	    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "企业id不能为空");
+	    } else  if(ruleType == null) {
+	    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "规范类型不能为空");
+	    }
+	    if(SqlSafeConstants.SQL_RULE_TYPE_LAW_RULE.equals(ruleType)) {
+	    	if(StringUtils.isBlank(ruleName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "名称不能为空");
+	    	} else if(ruleCategory == null) {
+	    		return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "规范类别不能为空");
+	    	} else if(StringUtils.isBlank(ruleNo)) {
+	    		return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "法规标号不能为空");
+	    	} else if(orgId == null) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "所属公司或大区id不能为空");
+		    } else if(StringUtils.isBlank(orgName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "所属公司或大区不能为空");
+		    } else if(StringUtils.isBlank(keyWord)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "关键字不能为空");
+		    }
+	    } else if(SqlSafeConstants.SQL_RULE_TYPE_SAFET_PRODUCTION.equals(ruleType)) {
+	    	if(StringUtils.isBlank(ruleName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "制度名称不能为空");
+	    	} else if(StringUtils.isBlank(ruleNo)) {
+	    		return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "制度标号不能为空");
+	    	} else if(orgId == null) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "适用范围id不能为空");
+		    } else if(StringUtils.isBlank(orgName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "适用范围不能为空");
+		    } else if(StringUtils.isBlank(keyWord)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "关键字不能为空");
+		    }
+	    } else if(SqlSafeConstants.SQL_RULE_TYPE_SAFET_OPERATION.equals(ruleType)) {
+	    	if(StringUtils.isBlank(ruleName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "名称不能为空");
+	    	} else if(StringUtils.isBlank(ruleNo)) {
+	    		return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "文件标号不能为空");
+	    	} else if(orgId == null) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "适用范围id不能为空");
+		    } else if(StringUtils.isBlank(orgName)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "适用范围不能为空");
+		    } else if(StringUtils.isBlank(keyWord)) {
+		    	return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "关键字不能为空");
+		    }
+	    }
+
+
+		List<Integer> ruleAttachmentIds = req.getRuleAttachmentIds();
 		List<RuleAttachment> ruleAttachmentList = req.convertToRuleAttachmentList();
 		Rule rule = req.convertToRule();
 		rule.setId(ruleId);
-		int i = ruleService.modify(rule, ruleAttachmentList);
+		int i = ruleService.modify(rule, ruleAttachmentIds, ruleAttachmentList);
 		logger.info("===step2:【修改规范文件】(RuleController-modify)-修改规范文件, i:{}", i);
 
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();

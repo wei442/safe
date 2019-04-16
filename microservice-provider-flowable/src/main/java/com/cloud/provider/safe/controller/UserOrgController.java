@@ -111,7 +111,7 @@ public class UserOrgController extends BaseController {
 		logger.info("===step1:【据id查询用户机构】(selectById-selectById)-传入参数, userOrgId:{}", userOrgId);
 
 		if(userOrgId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userOrgId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userOrgId不能为空");
 		}
 
 		UserOrg userOrg = userOrgService.selectById(userOrgId);
@@ -137,7 +137,7 @@ public class UserOrgController extends BaseController {
 		logger.info("===step1:【据userId查询用户机构】(selectById-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userId不能为空");
 		}
 
 		UserOrg userOrg = userOrgService.selectByUserId(userId);
@@ -207,7 +207,7 @@ public class UserOrgController extends BaseController {
 		logger.info("===step1:【根据id删除用户机构】(UserOrgController-deleteById)-传入参数, userOrgId:{}", userOrgId);
 
 		if(userOrgId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userOrgId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userOrgId不能为空");
 		}
 
 		int i = userOrgService.deleteById(userOrgId);
@@ -231,7 +231,7 @@ public class UserOrgController extends BaseController {
 		logger.info("===step1:【根据ids删除用户机构】(selectById-deleteById)-传入参数, userOrgIds:{}", userOrgIds);
 
 		if(userOrgIds == null || userOrgIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userOrgIds不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userOrgIds不能为空");
 		}
 
 		int i = userOrgService.deleteByIds(userOrgIds);

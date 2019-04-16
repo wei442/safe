@@ -105,7 +105,7 @@ public class BaseUserLoginController extends BaseController {
 		logger.info("===step1:【据id查询基础用户登录】(selectById-selectById)-传入参数, baseUserLoginId:{}", baseUserLoginId);
 
 		if(baseUserLoginId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "baseUserLoginId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "baseUserLoginId不能为空");
 		}
 
 		BaseUserLogin baseUserLogin = baseUserLoginService.selectById(baseUserLoginId);
@@ -156,7 +156,7 @@ public class BaseUserLoginController extends BaseController {
 		logger.info("===step1:【根据id删除基础用户登录】(selectById-deleteById)-传入参数, baseUserLoginId:{}", baseUserLoginId);
 
 		if(baseUserLoginId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "baseUserLoginId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "baseUserLoginId不能为空");
 		}
 
 		int i = baseUserLoginService.deleteById(baseUserLoginId);

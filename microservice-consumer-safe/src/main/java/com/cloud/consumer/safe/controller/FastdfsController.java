@@ -27,6 +27,7 @@ import com.cloud.consumer.safe.vo.fastdfs.FastdfsVo;
 import com.github.tobato.fastdfs.domain.conn.FdfsWebServer;
 import com.github.tobato.fastdfs.domain.fdfs.FileInfo;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.domain.proto.storage.DownloadByteArray;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 
 import io.swagger.annotations.Api;
@@ -162,8 +163,8 @@ public class FastdfsController extends BaseController {
 
 		String fileUrl = req.getFileUrl();
 		StorePath storePath = StorePath.parseFromUrl(fileUrl);
-		logger.info("===step1:【下载文件】(FastdfsController-downloadFile)-请求参数, storePath.getGroup():{}, storePath.getFullPath():{}", storePath.getGroup(), storePath.getFullPath());
-		byte[] bytes = fastFileStorageClient.downloadFile(storePath.getGroup(), storePath.getPath(), null);
+		logger.info("===step1:【下载文件】(FastdfsController-downloadFile)-请求参数, storePath.getGroup():{}, storePath.getFullPath():{}", storePath.getGroup(), storePath.getPath());
+		byte[] bytes = fastFileStorageClient.downloadFile(storePath.getGroup(), storePath.getPath(), new DownloadByteArray());
 		logger.info("===step2:【下载文件】(FastdfsController-downloadFile)-下载文件, bytes.length:{}", bytes == null ? null : bytes.length);
 		String fileName = StringUtils.substringAfterLast(fileUrl, "/");
 

@@ -52,7 +52,7 @@ public class UserAppPasswordController extends BaseController {
 		logger.info("===step1:【据id查询用户应用密码】(selectById-selectById)-传入参数, userAppPasswordId:{}", userAppPasswordId);
 
 		if(userAppPasswordId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAppPasswordId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAppPasswordId不能为空");
 		}
 
 		UserAppPassword userAppPassword = userAppPasswordService.selectById(userAppPasswordId);
@@ -128,7 +128,7 @@ public class UserAppPasswordController extends BaseController {
 		logger.info("===step1:【根据id删除用户应用密码】(selectById-deleteById)-传入参数, userAppPasswordId:{}", userAppPasswordId);
 
 		if(userAppPasswordId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "userAppPasswordId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAppPasswordId不能为空");
 		}
 
 		int i = userAppPasswordService.deleteById(userAppPasswordId);

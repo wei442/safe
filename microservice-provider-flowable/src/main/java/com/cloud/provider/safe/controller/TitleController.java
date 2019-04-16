@@ -105,7 +105,7 @@ public class TitleController extends BaseController {
 		logger.info("===step1:【据id查询职务】(selectById-selectById)-传入参数, TitleId:{}", TitleId);
 
 		if(TitleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "TitleId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "TitleId不能为空");
 		}
 
 		Title Title = TitleService.selectById(TitleId);
@@ -154,7 +154,7 @@ public class TitleController extends BaseController {
 		logger.info("===step1:【根据id删除职务】(selectById-deleteById)-传入参数, TitleId:{}", TitleId);
 
 		if(TitleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "TitleId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "TitleId不能为空");
 		}
 
 		int i = TitleService.deleteById(TitleId);

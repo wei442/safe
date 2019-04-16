@@ -105,7 +105,7 @@ public class ActivityAttachmentController extends BaseController {
 		logger.info("===step1:【据id查询活动附件】(selectById-selectById)-传入参数, activityAttachmentId:{}", activityAttachmentId);
 
 		if(activityAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "activityAttachmentId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "activityAttachmentId不能为空");
 		}
 
 		ActivityAttachment activityAttachment = activityAttachmentService.selectById(activityAttachmentId);
@@ -154,7 +154,7 @@ public class ActivityAttachmentController extends BaseController {
 		logger.info("===step1:【根据id删除活动附件】(selectById-deleteById)-传入参数, activityAttachmentId:{}", activityAttachmentId);
 
 		if(activityAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "activityAttachmentId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "activityAttachmentId不能为空");
 		}
 
 		int i = activityAttachmentService.deleteById(activityAttachmentId);

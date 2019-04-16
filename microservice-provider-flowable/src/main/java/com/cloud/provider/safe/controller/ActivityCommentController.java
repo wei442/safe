@@ -105,7 +105,7 @@ public class ActivityCommentController extends BaseController {
 		logger.info("===step1:【据id查询活动评论】(selectById-selectById)-传入参数, activityCommentId:{}", activityCommentId);
 
 		if(activityCommentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "activityCommentId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "activityCommentId不能为空");
 		}
 
 		ActivityComment activityComment = activityCommentService.selectById(activityCommentId);
@@ -154,7 +154,7 @@ public class ActivityCommentController extends BaseController {
 		logger.info("===step1:【根据id删除活动评论】(selectById-deleteById)-传入参数, activityCommentId:{}", activityCommentId);
 
 		if(activityCommentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "activityCommentId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "activityCommentId不能为空");
 		}
 
 		int i = activityCommentService.deleteById(activityCommentId);

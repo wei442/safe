@@ -157,20 +157,23 @@ public class RuleServiceImpl implements IRuleService {
     /**
      * 修改规范文件及附件
      * @param rule
+     * @param ruleAttachmentIds
      * @param ruleAttachmentList
      * @return Integer
      */
-	@Override
-	public Integer modify(Rule rule, List<RuleAttachment> ruleAttachmentList) {
-    	logger.info("(RuleService-modify)-修改规范文件及附件-传入参数, rule:{}, ruleAttachmentList:{}", rule, ruleAttachmentList);
+	public Integer modify(Rule rule, List<Integer> ruleAttachmentIds, List<RuleAttachment> ruleAttachmentList) {
+    	logger.info("(RuleService-modify)-修改规范文件及附件-传入参数, rule:{}, ruleAttachmentIds:{}, ruleAttachmentList:{}", rule, ruleAttachmentIds, ruleAttachmentList);
     	rule.setUpdateTime(new Date());
     	int i = ruleMapper.updateByPrimaryKeySelective(rule);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	Integer ruleId = rule.getId();
 
     	RuleAttachmentExample example = new RuleAttachmentExample();
-		RuleAttachmentExample.Criteria criteria = example.createCriteria();
-		criteria.andRuleIdEqualTo(ruleId);
+    	RuleAttachmentExample.Criteria criteria = example.createCriteria();
+    	criteria.andRuleIdEqualTo(ruleId);
+    	if(ruleAttachmentIds != null && !ruleAttachmentIds.isEmpty()) {
+    		criteria.andIdNotIn(ruleAttachmentIds);
+    	}
 		i = ruleAttachmentMapper.deleteByExample(example);
 
     	if(ruleAttachmentList != null && !ruleAttachmentList.isEmpty()) {

@@ -105,7 +105,7 @@ public class OrgQualityAttachmentController extends BaseController {
 		logger.info("===step1:【据id查询机构资质附件】(selectById-selectById)-传入参数, orgQualityAttachmentId:{}", orgQualityAttachmentId);
 
 		if(orgQualityAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "orgQualityAttachmentId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "orgQualityAttachmentId不能为空");
 		}
 
 		OrgQualityAttachment orgQualityAttachment = orgQualityAttachmentService.selectById(orgQualityAttachmentId);
@@ -154,7 +154,7 @@ public class OrgQualityAttachmentController extends BaseController {
 		logger.info("===step1:【根据id删除机构资质附件】(selectById-deleteById)-传入参数, orgQualityAttachmentId:{}", orgQualityAttachmentId);
 
 		if(orgQualityAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.FIELD_EMPTY.getCode(), "orgQualityAttachmentId不能为空");
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "orgQualityAttachmentId不能为空");
 		}
 
 		int i = orgQualityAttachmentService.deleteById(orgQualityAttachmentId);
