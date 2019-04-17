@@ -94,6 +94,24 @@ public class DictServiceImpl implements IDictService {
 		return dict;
     }
 
+	/**
+	 * 根据dictCode查询字典
+	 * @param dictCode
+	 * @return Dict
+	 */
+	public Dict selectByDictCod(String dictCode) {
+		logger.info("(DictService-selectList)-不分页查询-传入参数, dictCode:{}", dictCode);
+		DictExample example = new DictExample();
+		DictExample.Criteria criteria = example.createCriteria();
+		criteria.andDictCodeEqualTo(dictCode);
+		List<Dict> list = dictMapper.selectByExample(example);
+		Dict dict = null;
+		if(list != null && !list.isEmpty()) {
+			dict = list.get(0);
+		}
+		return dict;
+	}
+
     /**
      * 插入字典
      * @param dict

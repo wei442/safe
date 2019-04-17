@@ -147,7 +147,7 @@ public class OrgController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer orgId) {
-		logger.info("===step1:【据id查询组织机构】(selectById-selectById)-传入参数, orgId:{}", orgId);
+		logger.info("===step1:【据id查询组织机构】(OrgController-selectById)-传入参数, orgId:{}", orgId);
 
 		if(orgId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "orgId不能为空");

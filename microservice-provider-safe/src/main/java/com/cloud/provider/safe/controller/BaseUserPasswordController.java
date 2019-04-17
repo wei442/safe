@@ -49,7 +49,7 @@ public class BaseUserPasswordController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer baseUserPasswordId) {
-		logger.info("===step1:【据id查询基础用户密码】(selectById-selectById)-传入参数, baseUserPasswordId:{}", baseUserPasswordId);
+		logger.info("===step1:【据id查询基础用户密码】(BaseUserPasswordController-selectById)-传入参数, baseUserPasswordId:{}", baseUserPasswordId);
 
 		if(baseUserPasswordId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "baseUserPasswordId不能为空");
@@ -105,7 +105,7 @@ public class BaseUserPasswordController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加基础用户密码】(BaseUserPasswordController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		BaseUserPassword baseUserPassword = req.convertToBaseUserPassword();
 		int i = baseUserPasswordService.insert(baseUserPassword);
@@ -154,7 +154,7 @@ public class BaseUserPasswordController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改基础用户密码】(BaseUserPasswordController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Integer baseUserPasswordId = req.getBaseUserPasswordId();
 		BaseUserPassword baseUserPassword = req.convertToBaseUserPassword();

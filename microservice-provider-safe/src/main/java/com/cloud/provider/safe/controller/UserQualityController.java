@@ -103,7 +103,7 @@ public class UserQualityController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userQualityId) {
-		logger.info("===step1:【据id查询用户资质】(selectById-selectById)-传入参数, userQualityId:{}", userQualityId);
+		logger.info("===step1:【据id查询用户资质】(UserQualityController-selectById)-传入参数, userQualityId:{}", userQualityId);
 
 		if(userQualityId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userQualityId不能为空");
@@ -129,7 +129,7 @@ public class UserQualityController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectByUserId(
 		@PathVariable(value="userId",required=false) Integer userId) {
-		logger.info("===step1:【据userId查询用户资质】(selectById-selectByUserId)-传入参数, userId:{}", userId);
+		logger.info("===step1:【据userId查询用户资质】(UserQualityController-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userId不能为空");

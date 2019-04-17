@@ -102,7 +102,7 @@ public class OrgQualityAttachmentController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer orgQualityAttachmentId) {
-		logger.info("===step1:【据id查询机构资质附件】(selectById-selectById)-传入参数, orgQualityAttachmentId:{}", orgQualityAttachmentId);
+		logger.info("===step1:【据id查询机构资质附件】(OrgQualityAttachmentController-selectById)-传入参数, orgQualityAttachmentId:{}", orgQualityAttachmentId);
 
 		if(orgQualityAttachmentId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "orgQualityAttachmentId不能为空");

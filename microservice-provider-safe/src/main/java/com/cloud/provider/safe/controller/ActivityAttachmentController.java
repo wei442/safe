@@ -102,7 +102,7 @@ public class ActivityAttachmentController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer activityAttachmentId) {
-		logger.info("===step1:【据id查询活动附件】(selectById-selectById)-传入参数, activityAttachmentId:{}", activityAttachmentId);
+		logger.info("===step1:【据id查询活动附件】(ActivityAttachmentController-selectById)-传入参数, activityAttachmentId:{}", activityAttachmentId);
 
 		if(activityAttachmentId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "activityAttachmentId不能为空");

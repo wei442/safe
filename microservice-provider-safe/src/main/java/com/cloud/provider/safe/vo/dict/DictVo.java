@@ -27,6 +27,8 @@ public class DictVo implements Serializable {
 
     private Integer enterpriseId;
 
+    private String dictCode;
+
     private String dictName;
 
     private Integer dictType;

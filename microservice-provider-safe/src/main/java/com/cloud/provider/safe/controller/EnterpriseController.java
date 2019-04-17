@@ -72,7 +72,6 @@ public class EnterpriseController extends BaseController {
 		return enterpriseResponse;
 	}
 
-
 	/**
 	 * 不分页查询
 	 * @param req
@@ -105,7 +104,7 @@ public class EnterpriseController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer enterpriseId) {
-		logger.info("===step1:【据id查询企业】(selectById-selectById)-传入参数, enterpriseId:{}", enterpriseId);
+		logger.info("===step1:【据id查询企业】(EnterpriseController-selectById)-传入参数, enterpriseId:{}", enterpriseId);
 
 		if(enterpriseId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "enterpriseId不能为空");
@@ -135,7 +134,7 @@ public class EnterpriseController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加企业】(EnterpriseController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Enterprise enterprise = req.convertToEnterprise();
 		int i = enterpriseService.insert(enterprise);
@@ -185,7 +184,7 @@ public class EnterpriseController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改企业】(EnterpriseController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Integer enterpriseId = req.getEnterpriseId();
 		Enterprise enterprise = req.convertToEnterprise();

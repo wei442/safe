@@ -103,7 +103,7 @@ public class UserInfoController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userInfoId) {
-		logger.info("===step1:【据id查询用户信息】(selectById-selectById)-传入参数, userInfoId:{}", userInfoId);
+		logger.info("===step1:【据id查询用户信息】(UserInfoController-selectById)-传入参数, userInfoId:{}", userInfoId);
 
 		if(userInfoId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userInfoId不能为空");
@@ -129,7 +129,7 @@ public class UserInfoController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectByUserAccount(
 		@PathVariable(value="userAccount",required=false) String userAccount) {
-		logger.info("===step1:【据userAccount查询用户信息】(selectById-selectById)-传入参数, userAccount:{}", userAccount);
+		logger.info("===step1:【据userAccount查询用户信息】(UserInfoController-selectByUserAccount)-传入参数, userAccount:{}", userAccount);
 
 		if(StringUtils.isBlank(userAccount)) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAccount不能为空");

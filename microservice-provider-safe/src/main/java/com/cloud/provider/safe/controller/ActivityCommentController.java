@@ -102,7 +102,7 @@ public class ActivityCommentController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer activityCommentId) {
-		logger.info("===step1:【据id查询活动评论】(selectById-selectById)-传入参数, activityCommentId:{}", activityCommentId);
+		logger.info("===step1:【据id查询活动评论】(ActivityCommentController-selectById)-传入参数, activityCommentId:{}", activityCommentId);
 
 		if(activityCommentId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "activityCommentId不能为空");

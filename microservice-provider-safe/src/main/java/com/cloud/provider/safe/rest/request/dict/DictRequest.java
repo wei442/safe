@@ -30,6 +30,10 @@ public class DictRequest implements Serializable {
     @NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 
+	@ApiModelProperty(value = "字典编码")
+	@NotBlank(message = "字典编码不能为空")
+	private String dictCode;
+
 	@ApiModelProperty(value = "字典名称")
 	@NotBlank(message = "字典名称不能为空")
     private String dictName;

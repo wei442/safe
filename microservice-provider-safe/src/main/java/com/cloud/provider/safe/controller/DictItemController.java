@@ -102,7 +102,7 @@ public class DictItemController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer dictItemId) {
-		logger.info("===step1:【据id查询字典子项】(selectById-selectById)-传入参数, dictItemId:{}", dictItemId);
+		logger.info("===step1:【据id查询字典子项】(DictItemController-selectById)-传入参数, dictItemId:{}", dictItemId);
 
 		if(dictItemId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dictItemId不能为空");

@@ -102,7 +102,7 @@ public class BaseUserInfoController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer baseUserInfoId) {
-		logger.info("===step1:【据id查询基础用户信息】(selectById-selectById)-传入参数, baseUserInfoId:{}", baseUserInfoId);
+		logger.info("===step1:【据id查询基础用户信息】(BaseUserInfoController-selectById)-传入参数, baseUserInfoId:{}", baseUserInfoId);
 
 		if(baseUserInfoId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "baseUserInfoId不能为空");
@@ -132,7 +132,7 @@ public class BaseUserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加基础用户信息】(BaseUserInfoController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		BaseUserInfo baseUserInfo = req.convertToBaseUserInfo();
 		int i = baseUserInfoService.insert(baseUserInfo);
@@ -181,7 +181,7 @@ public class BaseUserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改基础用户信息】(BaseUserInfoController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
+
 
 		Integer baseUserInfoId = req.getBaseUserInfoId();
 		BaseUserInfo baseUserInfo = req.convertToBaseUserInfo();

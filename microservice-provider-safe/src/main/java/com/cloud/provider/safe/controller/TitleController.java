@@ -102,7 +102,7 @@ public class TitleController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer TitleId) {
-		logger.info("===step1:【据id查询职务】(selectById-selectById)-传入参数, TitleId:{}", TitleId);
+		logger.info("===step1:【据id查询职务】(TitleController-selectById)-传入参数, TitleId:{}", TitleId);
 
 		if(TitleId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "TitleId不能为空");

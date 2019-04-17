@@ -102,7 +102,7 @@ public class PostAttachmentController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer postAttachmentId) {
-		logger.info("===step1:【据id查询岗位附件】(selectById-selectById)-传入参数, postAttachmentId:{}", postAttachmentId);
+		logger.info("===step1:【据id查询岗位附件】(PostAttachmentController-selectById)-传入参数, postAttachmentId:{}", postAttachmentId);
 
 		if(postAttachmentId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "postAttachmentId不能为空");
@@ -131,8 +131,6 @@ public class PostAttachmentController extends BaseController {
 		@Validated @RequestBody PostAttachmentRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加岗位附件】(PostAttachmentController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		PostAttachment postAttachment = req.convertToPostAttachment();
 		int i = postAttachmentService.insert(postAttachment);
@@ -181,8 +179,6 @@ public class PostAttachmentController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改岗位附件】(PostAttachmentController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		Integer postAttachmentId = req.getPostAttachmentId();
 		PostAttachment postAttachment = req.convertToPostAttachment();
 		postAttachment.setId(postAttachmentId);
@@ -193,6 +189,5 @@ public class PostAttachmentController extends BaseController {
 		logger.info("===step3:【修改岗位附件】(PostAttachmentController-modify)-返回信息, postAttachmentResponse:{}", postAttachmentResponse);
 		return postAttachmentResponse;
 	}
-
 
 }

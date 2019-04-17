@@ -21,6 +21,9 @@ public class DictPageRequest extends BaseRestRequest {
     @NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 
+	@ApiModelProperty(value = "字典编码")
+	private String dictCode;
+
 	@ApiModelProperty(value = "字典名称")
     private String dictName;
 

@@ -30,6 +30,13 @@ public interface IDictService {
      */
 	public Dict selectById(Integer id);
 
+	/**
+	 * 根据dictCode查询字典
+	 * @param dictCode
+	 * @return Dict
+	 */
+	public Dict selectByDictCod(String dictCode);
+
     /**
      * 插入字典
      * @param dict

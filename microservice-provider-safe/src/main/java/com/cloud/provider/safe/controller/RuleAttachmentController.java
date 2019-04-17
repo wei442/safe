@@ -102,7 +102,7 @@ public class RuleAttachmentController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer ruleAttachmentId) {
-		logger.info("===step1:【据id查询规范文件附件】(selectById-selectById)-传入参数, ruleAttachmentId:{}", ruleAttachmentId);
+		logger.info("===step1:【据id查询规范文件附件】(RuleAttachmentController-selectById)-传入参数, ruleAttachmentId:{}", ruleAttachmentId);
 
 		if(ruleAttachmentId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "ruleAttachmentId不能为空");

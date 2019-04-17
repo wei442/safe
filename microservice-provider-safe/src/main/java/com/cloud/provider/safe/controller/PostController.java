@@ -108,7 +108,7 @@ public class PostController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer postId) {
-		logger.info("===step1:【据id查询岗位】(selectById-selectById)-传入参数, postId:{}", postId);
+		logger.info("===step1:【据id查询岗位】(PostController-selectById)-传入参数, postId:{}", postId);
 
 		if(postId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "postId不能为空");
@@ -137,8 +137,6 @@ public class PostController extends BaseController {
 		@Validated @RequestBody PostRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加岗位】(PostController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-
 
 		Post post = req.convertToPost();
 		int i = postService.insert(post);
@@ -193,8 +191,6 @@ public class PostController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改岗位】(PostController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
-
 		Integer postId = req.getPostId();
 		Post post = req.convertToPost();
 		post.setId(postId);
@@ -205,6 +201,5 @@ public class PostController extends BaseController {
 		logger.info("===step3:【修改岗位】(PostController-modify)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}
-
 
 }

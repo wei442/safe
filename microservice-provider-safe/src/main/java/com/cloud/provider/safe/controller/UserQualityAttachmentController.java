@@ -102,7 +102,7 @@ public class UserQualityAttachmentController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userQualityAttachmentId) {
-		logger.info("===step1:【据id查询用户资质附件】(selectById-selectById)-传入参数, userQualityAttachmentId:{}", userQualityAttachmentId);
+		logger.info("===step1:【据id查询用户资质附件】(UserQualityAttachmentController-selectById)-传入参数, userQualityAttachmentId:{}", userQualityAttachmentId);
 
 		if(userQualityAttachmentId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userQualityAttachmentId不能为空");

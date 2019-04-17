@@ -103,7 +103,7 @@ public class ActivityController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer activityId) {
-		logger.info("===step1:【据id查询活动】(selectById-selectById)-传入参数, activityId:{}", activityId);
+		logger.info("===step1:【据id查询活动】(ActivityController-selectById)-传入参数, activityId:{}", activityId);
 
 		if(activityId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "activityId不能为空");

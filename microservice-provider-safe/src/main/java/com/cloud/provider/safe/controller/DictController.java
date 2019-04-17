@@ -2,6 +2,7 @@ package com.cloud.provider.safe.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +94,7 @@ public class DictController extends BaseController {
 	}
 
 	/**
-	 * 据id查询字典
+	 * 根据id查询字典
 	 * @param dictId
 	 * @return BaseRestMapResponse
 	 */
@@ -102,7 +103,7 @@ public class DictController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer dictId) {
-		logger.info("===step1:【据id查询字典】(selectById-selectById)-传入参数, dictId:{}", dictId);
+		logger.info("===step1:【据id查询字典】(DictController-selectById)-传入参数, dictId:{}", dictId);
 
 		if(dictId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dictId不能为空");
@@ -119,6 +120,32 @@ public class DictController extends BaseController {
 	}
 
 	/**
+	 * 根据dictCode查询字典
+	 * @param dictCode
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "根据dictCode查询字典")
+	@RequestMapping(value="/selectByDictCode/{dictCode}",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectByDictCode(
+		@PathVariable(value="dictCode",required=false) String dictCode) {
+		logger.info("===step1:【根据dictCode查询字典】(DictController-selectByDictCode)-传入参数, dictCode:{}", dictCode);
+
+		if(StringUtils.isBlank(dictCode)) {
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dictCode不能为空");
+		}
+
+		Dict dict = dictService.selectByDictCod(dictCode);
+		logger.info("===step2:【根据dictCode查询字典】(DictController-selectByDictCode)-根据dictCode查询字典, dict:{}", dict);
+		DictVo dictVo = new DictVo().convertToDictVo(dict);
+
+		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
+		dictResponse.putAll((JSONObject) JSONObject.toJSON(dictVo));
+		logger.info("===step3:【根据dictCode查询字典】(DictController-selectByDictCode)-返回信息, dictResponse:{}", dictResponse);
+		return dictResponse;
+	}
+
+	/**
 	 * 添加字典
 	 * @param req
 	 * @param bindingResult
@@ -131,8 +158,6 @@ public class DictController extends BaseController {
 		@Validated @RequestBody DictRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加字典】(DictController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		
 
 		Dict dict = req.convertToDict();
 		int i = dictService.insert(dict);
@@ -181,8 +206,6 @@ public class DictController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改字典】(DictController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		
-
 		Integer dictId = req.getDictId();
 		Dict dict = req.convertToDict();
 		dict.setId(dictId);
@@ -193,6 +216,5 @@ public class DictController extends BaseController {
 		logger.info("===step3:【修改字典】(DictController-modify)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
-
 
 }

@@ -102,7 +102,7 @@ public class UserAppLoginController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userAppLoginId) {
-		logger.info("===step1:【据id查询用户应用登录】(selectById-selectById)-传入参数, userAppLoginId:{}", userAppLoginId);
+		logger.info("===step1:【据id查询用户应用登录】(UserAppLoginController-selectById)-传入参数, userAppLoginId:{}", userAppLoginId);
 
 		if(userAppLoginId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAppLoginId不能为空");

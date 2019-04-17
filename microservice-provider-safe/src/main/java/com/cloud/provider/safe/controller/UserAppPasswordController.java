@@ -49,7 +49,7 @@ public class UserAppPasswordController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userAppPasswordId) {
-		logger.info("===step1:【据id查询用户应用密码】(selectById-selectById)-传入参数, userAppPasswordId:{}", userAppPasswordId);
+		logger.info("===step1:【据id查询用户应用密码】(UserAppPasswordController-selectById)-传入参数, userAppPasswordId:{}", userAppPasswordId);
 
 		if(userAppPasswordId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userAppPasswordId不能为空");

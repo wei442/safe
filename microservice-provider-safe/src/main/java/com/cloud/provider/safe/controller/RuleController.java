@@ -103,7 +103,7 @@ public class RuleController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer ruleId) {
-		logger.info("===step1:【据id查询规范文件】(selectById-selectById)-传入参数, ruleId:{}", ruleId);
+		logger.info("===step1:【据id查询规范文件】(RuleController-selectById)-传入参数, ruleId:{}", ruleId);
 
 		if(ruleId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "ruleId不能为空");

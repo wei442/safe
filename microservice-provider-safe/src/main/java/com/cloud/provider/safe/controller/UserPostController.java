@@ -102,7 +102,7 @@ public class UserPostController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectById(
 		@PathVariable(value="id",required=false) Integer userPostId) {
-		logger.info("===step1:【据id查询用户岗位】(selectById-selectById)-传入参数, userPostId:{}", userPostId);
+		logger.info("===step1:【据id查询用户岗位】(UserPostController-selectById)-传入参数, userPostId:{}", userPostId);
 
 		if(userPostId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userPostId不能为空");
@@ -128,7 +128,7 @@ public class UserPostController extends BaseController {
 	@ResponseBody
 	public BaseRestMapResponse selectByUserId(
 		@PathVariable(value="userId",required=false) Integer userId) {
-		logger.info("===step1:【据userId查询用户岗位】(selectById-selectByUserId)-传入参数, userId:{}", userId);
+		logger.info("===step1:【据userId查询用户岗位】(UserPostController-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userId不能为空");
