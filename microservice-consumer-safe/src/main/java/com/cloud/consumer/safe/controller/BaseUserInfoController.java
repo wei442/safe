@@ -142,11 +142,9 @@ public class BaseUserInfoController extends BaseController {
 
 		JSONObject jsonBaseUserInfo = baseUserInfoService.add(req);
 		logger.info("===step2:【新增基础用户信息】(BaseUserInfoController-add)-分页查询基础用户信息列表, jsonBaseUserInfo:{}", jsonBaseUserInfo);
-		BaseUserInfoVo baseUserInfoVo = JSONObject.toJavaObject(jsonBaseUserInfo, BaseUserInfoVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
-		baseUserInfoResponse.put(CommConstants.RESULT, baseUserInfoVo);
 	    logger.info("===step3:【新增基础用户信息】(BaseUserInfoController-add)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
 	    return baseUserInfoResponse;
 	}
@@ -168,11 +166,9 @@ public class BaseUserInfoController extends BaseController {
 		Integer baseUserId = req.getBaseUserId();
 		JSONObject jsonBaseUserInfo = baseUserInfoService.deleteById(baseUserId);
 		logger.info("===step2:【删除基础用户信息】(BaseUserInfoController-delete)-根据baseUserInfoId删除基础用户信息, jsonBaseUserInfo:{}", jsonBaseUserInfo);
-		BaseUserInfoVo baseUserInfoVo = JSONObject.toJavaObject(jsonBaseUserInfo, BaseUserInfoVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
-		baseUserInfoResponse.put(CommConstants.RESULT, baseUserInfoVo);
 		logger.info("===step3:【删除基础用户信息】(BaseUserInfoController-delete)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
 		return baseUserInfoResponse;
 	}
@@ -193,11 +189,9 @@ public class BaseUserInfoController extends BaseController {
 
 		JSONObject jsonBaseUserInfo = baseUserInfoService.update(req);
 		logger.info("===step2:【修改基础用户信息】(BaseUserInfoController-update)-修改基础用户信息, jsonBaseUserInfo:{}", jsonBaseUserInfo);
-		BaseUserInfoVo baseUserInfoVo = JSONObject.toJavaObject(jsonBaseUserInfo, BaseUserInfoVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
-		baseUserInfoResponse.put(CommConstants.RESULT, baseUserInfoVo);
 		logger.info("===step3:【修改基础用户信息】(BaseUserInfoController-update)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
 		return baseUserInfoResponse;
 	}

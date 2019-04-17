@@ -146,11 +146,9 @@ public class PostAttachmentController extends BaseController {
 
 		JSONObject jsonPostAttachment = postAttachmentService.add(req);
 		logger.info("===step2:【新增岗位附件】(PostAttachmentController-add)-分页查询岗位附件列表, jsonPostAttachment:{}", jsonPostAttachment);
-		PostAttachmentVo postAttachmentVo = JSONObject.toJavaObject(jsonPostAttachment, PostAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse postAttachmentResponse = new BaseRestMapResponse();
-		postAttachmentResponse.put(CommConstants.RESULT, postAttachmentVo);
 	    logger.info("===step3:【新增岗位附件】(PostAttachmentController-add)-返回信息, postAttachmentResponse:{}", postAttachmentResponse);
 	    return postAttachmentResponse;
 	}
@@ -172,11 +170,9 @@ public class PostAttachmentController extends BaseController {
 		Integer postAttachmentId = req.getPostAttachmentId();
 		JSONObject jsonPostAttachment = postAttachmentService.deleteById(postAttachmentId);
 		logger.info("===step2:【删除岗位附件】(PostAttachmentController-delete)-根据postAttachmentId删除岗位附件, jsonPostAttachment:{}", jsonPostAttachment);
-		PostAttachmentVo postAttachmentVo = JSONObject.toJavaObject(jsonPostAttachment, PostAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse postAttachmentResponse = new BaseRestMapResponse();
-		postAttachmentResponse.put(CommConstants.RESULT, postAttachmentVo);
 		logger.info("===step3:【删除岗位附件】(PostAttachmentController-delete)-返回信息, postAttachmentResponse:{}", postAttachmentResponse);
 		return postAttachmentResponse;
 	}
@@ -197,11 +193,9 @@ public class PostAttachmentController extends BaseController {
 
 		JSONObject jsonPostAttachment = postAttachmentService.update(req);
 		logger.info("===step2:【修改岗位附件】(PostAttachmentController-update)-修改岗位附件, jsonPostAttachment:{}", jsonPostAttachment);
-		PostAttachmentVo postAttachmentVo = JSONObject.toJavaObject(jsonPostAttachment, PostAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse postAttachmentResponse = new BaseRestMapResponse();
-		postAttachmentResponse.put(CommConstants.RESULT, postAttachmentVo);
 		logger.info("===step3:【修改岗位附件】(PostAttachmentController-update)-返回信息, postAttachmentResponse:{}", postAttachmentResponse);
 		return postAttachmentResponse;
 	}

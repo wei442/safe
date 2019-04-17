@@ -142,11 +142,9 @@ public class UserAppLoginController extends BaseController {
 
 		JSONObject jsonUserAppLogin = userAppLoginService.add(req);
 		logger.info("===step2:【新增用户应用登录】(UserAppLoginController-add)-分页查询用户应用登录列表, jsonUserAppLogin:{}", jsonUserAppLogin);
-		UserAppLoginVo userAppLoginVo = JSONObject.toJavaObject(jsonUserAppLogin, UserAppLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
-		userAppLoginResponse.put(CommConstants.RESULT, userAppLoginVo);
 	    logger.info("===step3:【新增用户应用登录】(UserAppLoginController-add)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 	    return userAppLoginResponse;
 	}
@@ -157,7 +155,7 @@ public class UserAppLoginController extends BaseController {
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "新增用户应用登录")
+	@ApiOperation(value = "删除用户应用登录")
 	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse delete(
@@ -168,11 +166,9 @@ public class UserAppLoginController extends BaseController {
 		Integer userAppLoginId = req.getUserAppLoginId();
 		JSONObject jsonUserAppLogin = userAppLoginService.deleteById(userAppLoginId);
 		logger.info("===step2:【删除用户应用登录】(UserAppLoginController-delete)-根据userAppLoginId删除用户应用登录, jsonUserAppLogin:{}", jsonUserAppLogin);
-		UserAppLoginVo userAppLoginVo = JSONObject.toJavaObject(jsonUserAppLogin, UserAppLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
-		userAppLoginResponse.put(CommConstants.RESULT, userAppLoginVo);
 		logger.info("===step3:【删除用户应用登录】(UserAppLoginController-delete)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}

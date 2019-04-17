@@ -148,11 +148,9 @@ public class PostController extends BaseController {
 
 		JSONObject jsonPost = postService.add(req);
 		logger.info("===step2:【新增岗位】(PostController-add)-分页查询岗位列表, jsonPost:{}", jsonPost);
-		PostVo postVo = JSONObject.toJavaObject(jsonPost, PostVo.class);
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(CommConstants.RESULT, postVo);
 	    logger.info("===step3:【新增岗位】(PostController-add)-返回信息, postResponse:{}", postResponse);
 	    return postResponse;
 	}
@@ -174,11 +172,9 @@ public class PostController extends BaseController {
 		Integer postId = req.getPostId();
 		JSONObject jsonPost = postService.deleteById(postId);
 		logger.info("===step2:【删除岗位】(PostController-delete)-根据postId删除岗位, jsonPost:{}", jsonPost);
-		PostVo postVo = JSONObject.toJavaObject(jsonPost, PostVo.class);
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(CommConstants.RESULT, postVo);
 		logger.info("===step3:【删除岗位】(PostController-delete)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}
@@ -201,11 +197,9 @@ public class PostController extends BaseController {
 
 		JSONObject jsonPost = postService.update(req);
 		logger.info("===step2:【修改岗位】(PostController-update)-修改岗位, jsonPost:{}", jsonPost);
-		PostVo postVo = JSONObject.toJavaObject(jsonPost, PostVo.class);
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(CommConstants.RESULT, postVo);
 		logger.info("===step3:【修改岗位】(PostController-update)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}

@@ -42,7 +42,7 @@ public class UserQualityAttachmentServiceImpl implements IUserQualityAttachmentS
 		logger.info("(UserQualityAttachmentService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserQualityAttachmentExample example = new UserQualityAttachmentExample();
-		example.setOrderByClause(" id desc ");
+		example.setOrderByClause(" id asc ");
 		UserQualityAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 			if(param.getUserQualityId() != null) {
@@ -62,7 +62,7 @@ public class UserQualityAttachmentServiceImpl implements IUserQualityAttachmentS
 	public List<UserQualityAttachment> selectList(UserQualityAttachmentPageRequest param) {
 		logger.info("(UserQualityAttachmentService-selectList)-不分页查询-传入参数, param:{}", param);
 		UserQualityAttachmentExample example = new UserQualityAttachmentExample();
-		example.setOrderByClause(" id desc ");
+		example.setOrderByClause(" id asc ");
 		UserQualityAttachmentExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 			if(param.getUserQualityId() != null) {

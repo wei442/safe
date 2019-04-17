@@ -148,11 +148,9 @@ public class TitleController extends BaseController {
 
 		JSONObject jsonTitle = titleService.add(req);
 		logger.info("===step2:【新增职务】(TitleController-add)-分页查询职务列表, jsonTitle:{}", jsonTitle);
-		TitleVo titleVo = JSONObject.toJavaObject(jsonTitle, TitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(CommConstants.RESULT, titleVo);
 	    logger.info("===step3:【新增职务】(TitleController-add)-返回信息, titleResponse:{}", titleResponse);
 	    return titleResponse;
 	}
@@ -174,11 +172,9 @@ public class TitleController extends BaseController {
 		Integer titleId = req.getTitleId();
 		JSONObject jsonTitle = titleService.deleteById(titleId);
 		logger.info("===step2:【删除职务】(TitleController-delete)-根据titleId删除职务, jsonTitle:{}", jsonTitle);
-		TitleVo titleVo = JSONObject.toJavaObject(jsonTitle, TitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(CommConstants.RESULT, titleVo);
 		logger.info("===step3:【删除职务】(TitleController-delete)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}
@@ -201,11 +197,9 @@ public class TitleController extends BaseController {
 
 		JSONObject jsonTitle = titleService.update(req);
 		logger.info("===step2:【修改职务】(TitleController-update)-修改职务, jsonTitle:{}", jsonTitle);
-		TitleVo titleVo = JSONObject.toJavaObject(jsonTitle, TitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(CommConstants.RESULT, titleVo);
 		logger.info("===step3:【修改职务】(TitleController-update)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}

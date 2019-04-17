@@ -142,11 +142,9 @@ public class BaseUserLoginController extends BaseController {
 
 		JSONObject jsonBaseUserLogin = baseUserLoginService.add(req);
 		logger.info("===step2:【新增基础用户登录】(BaseUserLoginController-add)-分页查询基础用户登录列表, jsonBaseUserLogin:{}", jsonBaseUserLogin);
-		BaseUserLoginVo baseUserLoginVo = JSONObject.toJavaObject(jsonBaseUserLogin, BaseUserLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(CommConstants.RESULT, baseUserLoginVo);
 	    logger.info("===step3:【新增基础用户登录】(BaseUserLoginController-add)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 	    return baseUserLoginResponse;
 	}
@@ -168,11 +166,9 @@ public class BaseUserLoginController extends BaseController {
 		Integer baseUserLoginId = req.getBaseUserLoginId();
 		JSONObject jsonBaseUserLogin = baseUserLoginService.deleteById(baseUserLoginId);
 		logger.info("===step2:【删除基础用户登录】(BaseUserLoginController-delete)-根据baseUserLoginId删除基础用户登录, jsonBaseUserLogin:{}", jsonBaseUserLogin);
-		BaseUserLoginVo baseUserLoginVo = JSONObject.toJavaObject(jsonBaseUserLogin, BaseUserLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(CommConstants.RESULT, baseUserLoginVo);
 		logger.info("===step3:【删除基础用户登录】(BaseUserLoginController-delete)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}
@@ -193,11 +189,9 @@ public class BaseUserLoginController extends BaseController {
 
 		JSONObject jsonBaseUserLogin = baseUserLoginService.update(req);
 		logger.info("===step2:【修改基础用户登录】(BaseUserLoginController-update)-修改基础用户登录, jsonBaseUserLogin:{}", jsonBaseUserLogin);
-		BaseUserLoginVo baseUserLoginVo = JSONObject.toJavaObject(jsonBaseUserLogin, BaseUserLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(CommConstants.RESULT, baseUserLoginVo);
 		logger.info("===step3:【修改基础用户登录】(BaseUserLoginController-update)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}

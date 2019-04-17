@@ -24,10 +24,6 @@ public class OrgQualityVo implements Serializable {
 
     private String orgName;
 
-    private Integer attachmentId;
-
-    private String attachmentUrl;
-
     private String qualityName;
 
     private Integer isDelete;

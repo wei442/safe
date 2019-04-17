@@ -142,11 +142,9 @@ public class UserAdminController extends BaseController {
 
 		JSONObject jsonUserAdmin = userAdminService.add(req);
 		logger.info("===step2:【新增用户管理】(UserAdminController-add)-分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
-		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserAdmin, UserAdminVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(CommConstants.RESULT, userAdminVo);
 	    logger.info("===step3:【新增用户管理】(UserAdminController-add)-返回信息, userAdminResponse:{}", userAdminResponse);
 	    return userAdminResponse;
 	}
@@ -168,11 +166,9 @@ public class UserAdminController extends BaseController {
 		Integer userAdminId = req.getUserAdminId();
 		JSONObject jsonUserAdmin = userAdminService.deleteById(userAdminId);
 		logger.info("===step2:【删除用户管理】(UserAdminController-delete)-根据userAdminId删除用户管理, jsonUserAdmin:{}", jsonUserAdmin);
-		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserAdmin, UserAdminVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(CommConstants.RESULT, userAdminVo);
 		logger.info("===step3:【删除用户管理】(UserAdminController-delete)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
@@ -193,11 +189,9 @@ public class UserAdminController extends BaseController {
 
 		JSONObject jsonUserAdmin = userAdminService.update(req);
 		logger.info("===step2:【修改用户管理】(UserAdminController-update)-修改用户管理, jsonUserAdmin:{}", jsonUserAdmin);
-		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserAdmin, UserAdminVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(CommConstants.RESULT, userAdminVo);
 		logger.info("===step3:【修改用户管理】(UserAdminController-update)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}

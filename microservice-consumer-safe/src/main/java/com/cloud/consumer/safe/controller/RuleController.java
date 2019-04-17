@@ -257,11 +257,9 @@ public class RuleController extends BaseController {
 		Integer ruleId = req.getRuleId();
 		JSONObject jsonRule = ruleService.deleteById(ruleId);
 		logger.info("===step2:【删除规范文件】(RuleController-delete)-根据ruleId删除规范文件, jsonRule:{}", jsonRule);
-		RuleVo ruleVo = JSONObject.toJavaObject(jsonRule, RuleVo.class);
 
 		//返回信息
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
-		ruleResponse.put(CommConstants.RESULT, ruleVo);
 		logger.info("===step3:【删除规范文件】(RuleController-delete)-返回信息, ruleResponse:{}", ruleResponse);
 		return ruleResponse;
 	}

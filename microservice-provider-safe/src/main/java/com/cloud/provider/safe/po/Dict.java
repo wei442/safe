@@ -7,6 +7,8 @@ public class Dict {
 
     private Integer enterpriseId;
 
+    private String dictCode;
+
     private String dictName;
 
     private Integer dictType;
@@ -41,6 +43,14 @@ public class Dict {
 
     public void setEnterpriseId(Integer enterpriseId) {
         this.enterpriseId = enterpriseId;
+    }
+
+    public String getDictCode() {
+        return dictCode;
+    }
+
+    public void setDictCode(String dictCode) {
+        this.dictCode = dictCode == null ? null : dictCode.trim();
     }
 
     public String getDictName() {

@@ -142,11 +142,9 @@ public class UserInfoController extends BaseController {
 
 		JSONObject jsonUserInfo = userInfoService.add(req);
 		logger.info("===step2:【新增用户信息】(UserInfoController-add)-分页查询用户信息列表, jsonUserInfo:{}", jsonUserInfo);
-		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUserInfo, UserInfoVo.class);
 
 		//返回信息
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(CommConstants.RESULT, userInfoVo);
 	    logger.info("===step3:【新增用户信息】(UserInfoController-add)-返回信息, userInfoResponse:{}", userInfoResponse);
 	    return userInfoResponse;
 	}
@@ -168,11 +166,9 @@ public class UserInfoController extends BaseController {
 		Integer userId = req.getUserId();
 		JSONObject jsonUserInfo = userInfoService.deleteById(userId);
 		logger.info("===step2:【删除用户信息】(UserInfoController-delete)-根据userInfoId删除用户信息, jsonUserInfo:{}", jsonUserInfo);
-		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUserInfo, UserInfoVo.class);
 
 		//返回信息
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(CommConstants.RESULT, userInfoVo);
 		logger.info("===step3:【删除用户信息】(UserInfoController-delete)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
@@ -193,11 +189,9 @@ public class UserInfoController extends BaseController {
 
 		JSONObject jsonUserInfo = userInfoService.update(req);
 		logger.info("===step2:【修改用户信息】(UserInfoController-update)-修改用户信息, jsonUserInfo:{}", jsonUserInfo);
-		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUserInfo, UserInfoVo.class);
 
 		//返回信息
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(CommConstants.RESULT, userInfoVo);
 		logger.info("===step3:【修改用户信息】(UserInfoController-update)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}

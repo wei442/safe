@@ -43,8 +43,8 @@ public class ActivityRequest implements Serializable {
     @NotBlank(message = "机构名称不能为空")
     private String orgName;
 
-    @ApiModelProperty(value = "机构名称")
-    @NotBlank(message = "机构名称不能为空")
+    @ApiModelProperty(value = "活动名称")
+    @NotBlank(message = "活动名称不能为空")
     private String activityName;
 
     @ApiModelProperty(value = "活动开始时间")

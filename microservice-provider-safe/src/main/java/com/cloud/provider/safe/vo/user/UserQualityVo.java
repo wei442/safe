@@ -29,7 +29,9 @@ public class UserQualityVo implements Serializable {
 
     private Integer userId;
 
-    private Integer qualityId;
+    private String userName;
+
+    private String qualityName;
 
     private Integer isDelete;
 

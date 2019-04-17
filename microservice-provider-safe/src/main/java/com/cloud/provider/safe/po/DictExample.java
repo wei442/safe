@@ -225,6 +225,76 @@ public class DictExample {
             return (Criteria) this;
         }
 
+        public Criteria andDictCodeIsNull() {
+            addCriterion("dict_code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeIsNotNull() {
+            addCriterion("dict_code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeEqualTo(String value) {
+            addCriterion("dict_code =", value, "dictCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeNotEqualTo(String value) {
+            addCriterion("dict_code <>", value, "dictCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeGreaterThan(String value) {
+            addCriterion("dict_code >", value, "dictCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("dict_code >=", value, "dictCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeLessThan(String value) {
+            addCriterion("dict_code <", value, "dictCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeLessThanOrEqualTo(String value) {
+            addCriterion("dict_code <=", value, "dictCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeLike(String value) {
+            addCriterion("dict_code like", value, "dictCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeNotLike(String value) {
+            addCriterion("dict_code not like", value, "dictCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeIn(List<String> values) {
+            addCriterion("dict_code in", values, "dictCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeNotIn(List<String> values) {
+            addCriterion("dict_code not in", values, "dictCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeBetween(String value1, String value2) {
+            addCriterion("dict_code between", value1, value2, "dictCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDictCodeNotBetween(String value1, String value2) {
+            addCriterion("dict_code not between", value1, value2, "dictCode");
+            return (Criteria) this;
+        }
+
         public Criteria andDictNameIsNull() {
             addCriterion("dict_name is null");
             return (Criteria) this;

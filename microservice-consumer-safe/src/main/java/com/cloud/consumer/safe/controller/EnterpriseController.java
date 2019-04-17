@@ -142,11 +142,9 @@ public class EnterpriseController extends BaseController {
 
 		JSONObject jsonEnterprise = enterpriseService.add(req);
 		logger.info("===step2:【新增企业】(EnterpriseController-add)-分页查询企业列表, jsonEnterprise:{}", jsonEnterprise);
-		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonEnterprise, EnterpriseVo.class);
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(CommConstants.RESULT, enterpriseVo);
 	    logger.info("===step3:【新增企业】(EnterpriseController-add)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 	    return enterpriseResponse;
 	}
@@ -168,11 +166,9 @@ public class EnterpriseController extends BaseController {
 		Integer enterpriseId = req.getEnterpriseId();
 		JSONObject jsonEnterprise = enterpriseService.deleteById(enterpriseId);
 		logger.info("===step2:【删除企业】(EnterpriseController-delete)-根据enterpriseId删除企业, jsonEnterprise:{}", jsonEnterprise);
-		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonEnterprise, EnterpriseVo.class);
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(CommConstants.RESULT, enterpriseVo);
 		logger.info("===step3:【删除企业】(EnterpriseController-delete)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
@@ -193,11 +189,9 @@ public class EnterpriseController extends BaseController {
 
 		JSONObject jsonEnterprise = enterpriseService.update(req);
 		logger.info("===step2:【修改企业】(EnterpriseController-update)-修改企业, jsonEnterprise:{}", jsonEnterprise);
-		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonEnterprise, EnterpriseVo.class);
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(CommConstants.RESULT, enterpriseVo);
 		logger.info("===step3:【修改企业】(EnterpriseController-update)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}

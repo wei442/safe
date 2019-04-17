@@ -106,11 +106,9 @@ public class UserAppPasswordController extends BaseController {
 
 		JSONObject jsonUserAppPassword = userAppPasswordService.add(req);
 		logger.info("===step2:【新增用户应用密码】(UserAppPasswordController-add)-分页查询用户应用密码列表, jsonUserAppPassword:{}", jsonUserAppPassword);
-		UserAppPasswordVo userAppPasswordVo = JSONObject.toJavaObject(jsonUserAppPassword, UserAppPasswordVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(CommConstants.RESULT, userAppPasswordVo);
 	    logger.info("===step3:【新增用户应用密码】(UserAppPasswordController-add)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 	    return userAppPasswordResponse;
 	}
@@ -132,11 +130,9 @@ public class UserAppPasswordController extends BaseController {
 		Integer userAppPasswordId = req.getUserAppPasswordId();
 		JSONObject jsonUserAppPassword = userAppPasswordService.deleteById(userAppPasswordId);
 		logger.info("===step2:【删除用户应用密码】(UserAppPasswordController-delete)-根据userAppPasswordId删除用户应用密码, jsonUserAppPassword:{}", jsonUserAppPassword);
-		UserAppPasswordVo userAppPasswordVo = JSONObject.toJavaObject(jsonUserAppPassword, UserAppPasswordVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(CommConstants.RESULT, userAppPasswordVo);
 		logger.info("===step3:【删除用户应用密码】(UserAppPasswordController-delete)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}
@@ -157,11 +153,9 @@ public class UserAppPasswordController extends BaseController {
 
 		JSONObject jsonUserAppPassword = userAppPasswordService.update(req);
 		logger.info("===step2:【修改用户应用密码】(UserAppPasswordController-update)-修改用户应用密码, jsonUserAppPassword:{}", jsonUserAppPassword);
-		UserAppPasswordVo userAppPasswordVo = JSONObject.toJavaObject(jsonUserAppPassword, UserAppPasswordVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(CommConstants.RESULT, userAppPasswordVo);
 		logger.info("===step3:【修改用户应用密码】(UserAppPasswordController-update)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}

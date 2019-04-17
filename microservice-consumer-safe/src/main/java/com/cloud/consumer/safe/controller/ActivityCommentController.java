@@ -146,11 +146,9 @@ public class ActivityCommentController extends BaseController {
 
 		JSONObject jsonActivityComment = activityCommentService.add(req);
 		logger.info("===step2:【新增安全活动评论】(ActivityCommentController-add)-分页查询安全活动评论列表, jsonActivityComment:{}", jsonActivityComment);
-		ActivityCommentVo activityCommentVo = JSONObject.toJavaObject(jsonActivityComment, ActivityCommentVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityCommentResponse = new BaseRestMapResponse();
-		activityCommentResponse.put(CommConstants.RESULT, activityCommentVo);
 	    logger.info("===step3:【新增安全活动评论】(ActivityCommentController-add)-返回信息, activityCommentResponse:{}", activityCommentResponse);
 	    return activityCommentResponse;
 	}
@@ -172,11 +170,9 @@ public class ActivityCommentController extends BaseController {
 		Integer activityCommentId = req.getActivityCommentId();
 		JSONObject jsonActivityComment = activityCommentService.deleteById(activityCommentId);
 		logger.info("===step2:【删除安全活动评论】(ActivityCommentController-delete)-根据activityCommentId删除安全活动评论, jsonActivityComment:{}", jsonActivityComment);
-		ActivityCommentVo activityCommentVo = JSONObject.toJavaObject(jsonActivityComment, ActivityCommentVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityCommentResponse = new BaseRestMapResponse();
-		activityCommentResponse.put(CommConstants.RESULT, activityCommentVo);
 		logger.info("===step3:【删除安全活动评论】(ActivityCommentController-delete)-返回信息, activityCommentResponse:{}", activityCommentResponse);
 		return activityCommentResponse;
 	}
@@ -197,11 +193,9 @@ public class ActivityCommentController extends BaseController {
 
 		JSONObject jsonActivityComment = activityCommentService.update(req);
 		logger.info("===step2:【修改安全活动评论】(ActivityCommentController-update)-修改安全活动评论, jsonActivityComment:{}", jsonActivityComment);
-		ActivityCommentVo activityCommentVo = JSONObject.toJavaObject(jsonActivityComment, ActivityCommentVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityCommentResponse = new BaseRestMapResponse();
-		activityCommentResponse.put(CommConstants.RESULT, activityCommentVo);
 		logger.info("===step3:【修改安全活动评论】(ActivityCommentController-update)-返回信息, activityCommentResponse:{}", activityCommentResponse);
 		return activityCommentResponse;
 	}

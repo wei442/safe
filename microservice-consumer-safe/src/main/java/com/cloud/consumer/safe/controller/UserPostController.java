@@ -148,7 +148,6 @@ public class UserPostController extends BaseController {
 
 		JSONObject jsonUserPost = userPostService.add(req);
 		logger.info("===step2:【新增用户岗位】(UserPostController-add)-分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
-		UserPostVo userPostVo = JSONObject.toJavaObject(jsonUserPost, UserPostVo.class);
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
@@ -173,7 +172,6 @@ public class UserPostController extends BaseController {
 		Integer userPostId = req.getUserPostId();
 		JSONObject jsonUserPost = userPostService.deleteById(userPostId);
 		logger.info("===step2:【删除用户岗位】(UserPostController-delete)-根据userPostId删除用户岗位, jsonUserPost:{}", jsonUserPost);
-		UserPostVo userPostVo = JSONObject.toJavaObject(jsonUserPost, UserPostVo.class);
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
@@ -199,7 +197,6 @@ public class UserPostController extends BaseController {
 
 		JSONObject jsonUserPost = userPostService.update(req);
 		logger.info("===step2:【修改用户岗位】(UserPostController-update)-修改用户岗位, jsonUserPost:{}", jsonUserPost);
-		UserPostVo userPostVo = JSONObject.toJavaObject(jsonUserPost, UserPostVo.class);
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();

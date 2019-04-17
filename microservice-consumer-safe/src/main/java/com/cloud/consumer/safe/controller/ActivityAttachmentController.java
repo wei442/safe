@@ -146,11 +146,9 @@ public class ActivityAttachmentController extends BaseController {
 
 		JSONObject jsonActivityAttachment = activityAttachmentService.add(req);
 		logger.info("===step2:【新增安全活动附件】(ActivityAttachmentController-add)-分页查询安全活动附件列表, jsonActivityAttachment:{}", jsonActivityAttachment);
-		ActivityAttachmentVo activityAttachmentVo = JSONObject.toJavaObject(jsonActivityAttachment, ActivityAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityAttachmentResponse = new BaseRestMapResponse();
-		activityAttachmentResponse.put(CommConstants.RESULT, activityAttachmentVo);
 	    logger.info("===step3:【新增安全活动附件】(ActivityAttachmentController-add)-返回信息, activityAttachmentResponse:{}", activityAttachmentResponse);
 	    return activityAttachmentResponse;
 	}
@@ -172,11 +170,9 @@ public class ActivityAttachmentController extends BaseController {
 		Integer activityAttachmentId = req.getActivityAttachmentId();
 		JSONObject jsonActivityAttachment = activityAttachmentService.deleteById(activityAttachmentId);
 		logger.info("===step2:【删除安全活动附件】(ActivityAttachmentController-delete)-根据activityAttachmentId删除安全活动附件, jsonActivityAttachment:{}", jsonActivityAttachment);
-		ActivityAttachmentVo activityAttachmentVo = JSONObject.toJavaObject(jsonActivityAttachment, ActivityAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityAttachmentResponse = new BaseRestMapResponse();
-		activityAttachmentResponse.put(CommConstants.RESULT, activityAttachmentVo);
 		logger.info("===step3:【删除安全活动附件】(ActivityAttachmentController-delete)-返回信息, activityAttachmentResponse:{}", activityAttachmentResponse);
 		return activityAttachmentResponse;
 	}
@@ -197,11 +193,9 @@ public class ActivityAttachmentController extends BaseController {
 
 		JSONObject jsonActivityAttachment = activityAttachmentService.update(req);
 		logger.info("===step2:【修改安全活动附件】(ActivityAttachmentController-update)-修改安全活动附件, jsonActivityAttachment:{}", jsonActivityAttachment);
-		ActivityAttachmentVo activityAttachmentVo = JSONObject.toJavaObject(jsonActivityAttachment, ActivityAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityAttachmentResponse = new BaseRestMapResponse();
-		activityAttachmentResponse.put(CommConstants.RESULT, activityAttachmentVo);
 		logger.info("===step3:【修改安全活动附件】(ActivityAttachmentController-update)-返回信息, activityAttachmentResponse:{}", activityAttachmentResponse);
 		return activityAttachmentResponse;
 	}

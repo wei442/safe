@@ -182,11 +182,9 @@ public class OrgController extends BaseController {
 
 		JSONObject jsonOrg = orgService.add(req);
 		logger.info("===step2:【新增组织机构】(OrgController-add)-分页查询组织机构列表, jsonOrg:{}", jsonOrg);
-		OrgVo orgVo = JSONObject.toJavaObject(jsonOrg, OrgVo.class);
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(CommConstants.RESULT, orgVo);
 	    logger.info("===step3:【新增组织机构】(OrgController-add)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}
@@ -208,11 +206,9 @@ public class OrgController extends BaseController {
 		Integer orgId = req.getOrgId();
 		JSONObject jsonOrg = orgService.deleteById(orgId);
 		logger.info("===step2:【删除组织机构】(OrgController-deleteOrg)-根据orgId删除组织机构, jsonOrg:{}", jsonOrg);
-		OrgVo orgVo = JSONObject.toJavaObject(jsonOrg, OrgVo.class);
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(CommConstants.RESULT, orgVo);
 		logger.info("===step3:【删除组织机构】(OrgController-deleteOrg)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}
@@ -235,11 +231,9 @@ public class OrgController extends BaseController {
 
 		JSONObject jsonOrg = orgService.update(req);
 		logger.info("===step2:【修改组织机构】(OrgController-update)-修改组织机构, jsonOrg:{}", jsonOrg);
-		OrgVo orgVo = JSONObject.toJavaObject(jsonOrg, OrgVo.class);
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(CommConstants.RESULT, orgVo);
 		logger.info("===step3:【修改组织机构】(OrgController-update)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}

@@ -25,7 +25,7 @@ public class OrgQualityVo implements Serializable {
 
 	private Integer orgQualityId;
 
-    private Integer enterpriseId;
+	private Integer enterpriseId;
 
     private Integer orgId;
 

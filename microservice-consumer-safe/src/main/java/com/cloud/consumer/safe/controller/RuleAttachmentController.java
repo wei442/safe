@@ -146,11 +146,9 @@ public class RuleAttachmentController extends BaseController {
 
 		JSONObject jsonRuleAttachment = ruleAttachmentService.add(req);
 		logger.info("===step2:【新增规范文件附件】(RuleAttachmentController-add)-分页查询规范文件附件列表, jsonRuleAttachment:{}", jsonRuleAttachment);
-		RuleAttachmentVo ruleAttachmentVo = JSONObject.toJavaObject(jsonRuleAttachment, RuleAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse ruleAttachmentResponse = new BaseRestMapResponse();
-		ruleAttachmentResponse.put(CommConstants.RESULT, ruleAttachmentVo);
 	    logger.info("===step3:【新增规范文件附件】(RuleAttachmentController-add)-返回信息, ruleAttachmentResponse:{}", ruleAttachmentResponse);
 	    return ruleAttachmentResponse;
 	}
@@ -172,11 +170,9 @@ public class RuleAttachmentController extends BaseController {
 		Integer ruleAttachmentId = req.getRuleAttachmentId();
 		JSONObject jsonRuleAttachment = ruleAttachmentService.deleteById(ruleAttachmentId);
 		logger.info("===step2:【删除规范文件附件】(RuleAttachmentController-delete)-根据ruleAttachmentId删除规范文件附件, jsonRuleAttachment:{}", jsonRuleAttachment);
-		RuleAttachmentVo ruleAttachmentVo = JSONObject.toJavaObject(jsonRuleAttachment, RuleAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse ruleAttachmentResponse = new BaseRestMapResponse();
-		ruleAttachmentResponse.put(CommConstants.RESULT, ruleAttachmentVo);
 		logger.info("===step3:【删除规范文件附件】(RuleAttachmentController-delete)-返回信息, ruleAttachmentResponse:{}", ruleAttachmentResponse);
 		return ruleAttachmentResponse;
 	}
@@ -197,11 +193,9 @@ public class RuleAttachmentController extends BaseController {
 
 		JSONObject jsonRuleAttachment = ruleAttachmentService.update(req);
 		logger.info("===step2:【修改规范文件附件】(RuleAttachmentController-update)-修改规范文件附件, jsonRuleAttachment:{}", jsonRuleAttachment);
-		RuleAttachmentVo ruleAttachmentVo = JSONObject.toJavaObject(jsonRuleAttachment, RuleAttachmentVo.class);
 
 		//返回信息
 		BaseRestMapResponse ruleAttachmentResponse = new BaseRestMapResponse();
-		ruleAttachmentResponse.put(CommConstants.RESULT, ruleAttachmentVo);
 		logger.info("===step3:【修改规范文件附件】(RuleAttachmentController-update)-返回信息, ruleAttachmentResponse:{}", ruleAttachmentResponse);
 		return ruleAttachmentResponse;
 	}

@@ -3,6 +3,7 @@ package com.cloud.consumer.safe.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
+import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserQualityPageRequest;
@@ -156,6 +158,11 @@ public class UserQualityController extends BaseController {
 		//暂时
 		req.setUserId(-1);
 
+		String qualityName = req.getQualityName();
+		if(StringUtils.isBlank(qualityName)) {
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "资质名称不能为空");
+		}
+
 		List<UserQualityAttachmentRequest> userQualityAttachmentList = null;
 		UserQualityAttachmentRequest userQualityAttachmentRequest = null;
 		if(multipartFiles != null && multipartFiles.length >0) {
@@ -174,11 +181,9 @@ public class UserQualityController extends BaseController {
 
 		JSONObject jsonUserQuality = userQualityService.add(req);
 		logger.info("===step2:【新增用户资质】(UserQualityController-add)-分页查询用户资质列表, jsonUserQuality:{}", jsonUserQuality);
-		UserQualityVo userQualityVo = JSONObject.toJavaObject(jsonUserQuality, UserQualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
-		userQualityResponse.put(CommConstants.RESULT, userQualityVo);
 	    logger.info("===step3:【新增用户资质】(UserQualityController-add)-返回信息, userQualityResponse:{}", userQualityResponse);
 	    return userQualityResponse;
 	}
@@ -200,11 +205,9 @@ public class UserQualityController extends BaseController {
 		Integer userQualityId = req.getUserQualityId();
 		JSONObject jsonUserQuality = userQualityService.deleteById(userQualityId);
 		logger.info("===step2:【删除用户资质】(UserQualityController-delete)-根据userQualityId删除用户资质, jsonUserQuality:{}", jsonUserQuality);
-		UserQualityVo userQualityVo = JSONObject.toJavaObject(jsonUserQuality, UserQualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
-		userQualityResponse.put(CommConstants.RESULT, userQualityVo);
 		logger.info("===step3:【删除用户资质】(UserQualityController-delete)-返回信息, userQualityResponse:{}", userQualityResponse);
 		return userQualityResponse;
 	}
@@ -225,6 +228,14 @@ public class UserQualityController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
+		Integer userQualityId = req.getUserQualityId();
+		String qualityName = req.getQualityName();
+		if(userQualityId == null) {
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "用户资质id不能为空");
+		} else if(StringUtils.isBlank(qualityName)) {
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "资质名称不能为空");
+		}
+
 		List<UserQualityAttachmentRequest> userQualityAttachmentList = null;
 		UserQualityAttachmentRequest userQualityAttachmentRequest = null;
 		if(multipartFiles != null && multipartFiles.length >0) {
@@ -243,11 +254,9 @@ public class UserQualityController extends BaseController {
 
 		JSONObject jsonUserQuality = userQualityService.update(req);
 		logger.info("===step2:【修改用户资质】(UserQualityController-update)-修改用户资质, jsonUserQuality:{}", jsonUserQuality);
-		UserQualityVo userQualityVo = JSONObject.toJavaObject(jsonUserQuality, UserQualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
-		userQualityResponse.put(CommConstants.RESULT, userQualityVo);
 		logger.info("===step3:【修改用户资质】(UserQualityController-update)-返回信息, userQualityResponse:{}", userQualityResponse);
 		return userQualityResponse;
 	}

@@ -2,6 +2,7 @@ package com.cloud.consumer.safe.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -151,8 +152,13 @@ public class ActivityController extends BaseController {
 		ActivityRequest req, @RequestPart("fileList") MultipartFile[] multipartFiles,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增安全活动】(ActivityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Integer enterpriseId = this.getTokenEnterpriseId();
+		JSONObject payloadJSON = this.getTokenPayload();
+		Integer enterpriseId = new Integer(Objects.toString(payloadJSON.get(CommConstants.ENTERPRISE_ID)));
+		Integer orgId = new Integer(Objects.toString(payloadJSON.get(CommConstants.ORG_ID)));
+		String orgName = Objects.toString(payloadJSON.get(CommConstants.ORG_NAME));
 		req.setEnterpriseId(enterpriseId);
+		req.setOrgId(orgId);
+		req.setOrgName(orgName);
 
 		List<ActivityAttachmentRequest> activityAttachmentList = null;
 		ActivityAttachmentRequest activityAttachmentRequest = null;
@@ -172,11 +178,9 @@ public class ActivityController extends BaseController {
 
 		JSONObject jsonActivity = activityService.add(req);
 		logger.info("===step2:【新增安全活动】(ActivityController-add)-分页查询安全活动列表, jsonActivity:{}", jsonActivity);
-		ActivityVo activityVo = JSONObject.toJavaObject(jsonActivity, ActivityVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
-		activityResponse.put(CommConstants.RESULT, activityVo);
 	    logger.info("===step3:【新增安全活动】(ActivityController-add)-返回信息, activityResponse:{}", activityResponse);
 	    return activityResponse;
 	}
@@ -198,11 +202,9 @@ public class ActivityController extends BaseController {
 		Integer activityId = req.getActivityId();
 		JSONObject jsonActivity = activityService.deleteById(activityId);
 		logger.info("===step2:【删除安全活动】(ActivityController-delete)-根据activityId删除安全活动, jsonActivity:{}", jsonActivity);
-		ActivityVo activityVo = JSONObject.toJavaObject(jsonActivity, ActivityVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
-		activityResponse.put(CommConstants.RESULT, activityVo);
 		logger.info("===step3:【删除安全活动】(ActivityController-delete)-返回信息, activityResponse:{}", activityResponse);
 		return activityResponse;
 	}
@@ -241,11 +243,9 @@ public class ActivityController extends BaseController {
 
 		JSONObject jsonActivity = activityService.update(req);
 		logger.info("===step2:【修改安全活动】(ActivityController-update)-修改安全活动, jsonActivity:{}", jsonActivity);
-		ActivityVo activityVo = JSONObject.toJavaObject(jsonActivity, ActivityVo.class);
 
 		//返回信息
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
-		activityResponse.put(CommConstants.RESULT, activityVo);
 		logger.info("===step3:【修改安全活动】(ActivityController-update)-返回信息, activityResponse:{}", activityResponse);
 		return activityResponse;
 	}

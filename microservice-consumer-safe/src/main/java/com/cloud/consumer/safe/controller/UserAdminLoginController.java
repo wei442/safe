@@ -142,11 +142,9 @@ public class UserAdminLoginController extends BaseController {
 
 		JSONObject jsonUserAdminLogin = userAdminLoginService.add(req);
 		logger.info("===step2:【新增用户管理登录】(UserAdminLoginController-add)-分页查询用户管理登录列表, jsonUserAdminLogin:{}", jsonUserAdminLogin);
-		UserAdminLoginVo userAdminLoginVo = JSONObject.toJavaObject(jsonUserAdminLogin, UserAdminLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(CommConstants.RESULT, userAdminLoginVo);
 	    logger.info("===step3:【新增用户管理登录】(UserAdminLoginController-add)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 	    return userAdminLoginResponse;
 	}
@@ -157,7 +155,7 @@ public class UserAdminLoginController extends BaseController {
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "新删除用户管理登录")
+	@ApiOperation(value = "删除用户管理登录")
 	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse delete(
@@ -168,11 +166,9 @@ public class UserAdminLoginController extends BaseController {
 		Integer userAdminLoginId = req.getUserAdminLoginId();
 		JSONObject jsonUserAdminLogin = userAdminLoginService.deleteById(userAdminLoginId);
 		logger.info("===step2:【删除用户管理登录】(UserAdminLoginController-delete)-根据userAdminLoginId删除用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
-		UserAdminLoginVo userAdminLoginVo = JSONObject.toJavaObject(jsonUserAdminLogin, UserAdminLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(CommConstants.RESULT, userAdminLoginVo);
 		logger.info("===step3:【删除用户管理登录】(UserAdminLoginController-delete)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
@@ -193,11 +189,9 @@ public class UserAdminLoginController extends BaseController {
 
 		JSONObject jsonUserAdminLogin = userAdminLoginService.update(req);
 		logger.info("===step2:【修改用户管理登录】(UserAdminLoginController-update)-修改用户管理登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
-		UserAdminLoginVo userAdminLoginVo = JSONObject.toJavaObject(jsonUserAdminLogin, UserAdminLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(CommConstants.RESULT, userAdminLoginVo);
 		logger.info("===step3:【修改用户管理登录】(UserAdminLoginController-update)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}

@@ -148,11 +148,9 @@ public class DictController extends BaseController {
 
 		JSONObject jsonDict = dictService.add(req);
 		logger.info("===step2:【新增字典】(DictController-add)-分页查询字典列表, jsonDict:{}", jsonDict);
-		DictVo dictVo = JSONObject.toJavaObject(jsonDict, DictVo.class);
 
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(CommConstants.RESULT, dictVo);
 	    logger.info("===step3:【新增字典】(DictController-add)-返回信息, dictResponse:{}", dictResponse);
 	    return dictResponse;
 	}
@@ -174,11 +172,9 @@ public class DictController extends BaseController {
 		Integer dictId = req.getDictId();
 		JSONObject jsonDict = dictService.deleteById(dictId);
 		logger.info("===step2:【删除字典】(DictController-delete)-根据dictId删除字典, jsonDict:{}", jsonDict);
-		DictVo dictVo = JSONObject.toJavaObject(jsonDict, DictVo.class);
 
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(CommConstants.RESULT, dictVo);
 		logger.info("===step3:【删除字典】(DictController-delete)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
@@ -201,11 +197,9 @@ public class DictController extends BaseController {
 
 		JSONObject jsonDict = dictService.update(req);
 		logger.info("===step2:【修改字典】(DictController-update)-修改字典, jsonDict:{}", jsonDict);
-		DictVo dictVo = JSONObject.toJavaObject(jsonDict, DictVo.class);
 
 		//返回信息
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(CommConstants.RESULT, dictVo);
 		logger.info("===step3:【修改字典】(DictController-update)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}

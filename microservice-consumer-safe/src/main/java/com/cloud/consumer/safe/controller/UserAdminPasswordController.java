@@ -150,7 +150,7 @@ public class UserAdminPasswordController extends BaseController {
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "新删除用户管理密码")
+	@ApiOperation(value = "删除用户管理密码")
 	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse delete(

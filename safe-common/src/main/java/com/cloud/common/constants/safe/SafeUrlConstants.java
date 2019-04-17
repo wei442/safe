@@ -10,8 +10,6 @@ public class SafeUrlConstants {
 
 	//企业
 	public static final String enterprise = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/enterprise";
-	//附件
-	public static final String attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/attachment";
 	//基础用户信息
 	public static final String base_user_info = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/base/user/info";
 	//基础用户密码
