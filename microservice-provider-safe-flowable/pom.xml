@@ -7,12 +7,12 @@
 		<artifactId>safe</artifactId>
 		<version>${revision}</version>
 	</parent>
-	<artifactId>microservice-provider-flowable</artifactId>
+	<artifactId>microservice-provider-safe-flowable</artifactId>
 	<!-- 开发版本 -->
 	<!-- 正式版本 
 	<version>0.0.1-RELEASE</version>
 	-->
-	<name>microservice-provider-flowable</name>
+	<name>microservice-provider-safe-flowable</name>
 
     <dependencies>
         <!-- 安全 -->
