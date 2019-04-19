@@ -36,8 +36,6 @@ public class ActivityVo implements Serializable {
 
     private String lesson;
 
-    private String keyWord;
-
     private Integer isDelete;
 
     private String remark;

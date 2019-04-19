@@ -95,14 +95,16 @@ public class DictServiceImpl implements IDictService {
     }
 
 	/**
-	 * 根据dictCode查询字典
+	 * 根据enterpriseId和dictCode查询字典
+	 * @param enterpriseId
 	 * @param dictCode
 	 * @return Dict
 	 */
-	public Dict selectByDictCod(String dictCode) {
-		logger.info("(DictService-selectList)-不分页查询-传入参数, dictCode:{}", dictCode);
+	public Dict selectByEnterpriseIdDictCode(Integer enterpriseId,String dictCode) {
+		logger.info("(DictService-selectByDictCode)-根据enterpriseId和dictCode查询字典-传入参数, enterpriseId:{}, dictCode:{}", enterpriseId, dictCode);
 		DictExample example = new DictExample();
 		DictExample.Criteria criteria = example.createCriteria();
+		criteria.andEnterpriseIdEqualTo(enterpriseId);
 		criteria.andDictCodeEqualTo(dictCode);
 		List<Dict> list = dictMapper.selectByExample(example);
 		Dict dict = null;

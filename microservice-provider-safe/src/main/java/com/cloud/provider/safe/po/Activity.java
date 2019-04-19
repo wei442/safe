@@ -25,8 +25,6 @@ public class Activity {
 
     private String lesson;
 
-    private String keyWord;
-
     private Integer isDelete;
 
     private String remark;
@@ -125,14 +123,6 @@ public class Activity {
 
     public void setLesson(String lesson) {
         this.lesson = lesson == null ? null : lesson.trim();
-    }
-
-    public String getKeyWord() {
-        return keyWord;
-    }
-
-    public void setKeyWord(String keyWord) {
-        this.keyWord = keyWord == null ? null : keyWord.trim();
     }
 
     public Integer getIsDelete() {

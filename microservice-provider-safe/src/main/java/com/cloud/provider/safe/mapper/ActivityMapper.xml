@@ -13,7 +13,6 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="experience" jdbcType="VARCHAR" property="experience" />
     <result column="lesson" jdbcType="VARCHAR" property="lesson" />
-    <result column="key_word" jdbcType="VARCHAR" property="keyWord" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="created" jdbcType="VARCHAR" property="created" />
@@ -81,8 +80,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, enterprise_id, org_id, org_name, activity_name, activity_start_time, activity_end_time, 
-    activity_site, content, experience, lesson, key_word, is_delete, remark, created, 
-    updated, create_time, update_time
+    activity_site, content, experience, lesson, is_delete, remark, created, updated, 
+    create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.ActivityExample" resultMap="BaseResultMap">
     select
@@ -118,17 +117,15 @@
     insert into activity (id, enterprise_id, org_id, 
       org_name, activity_name, activity_start_time, 
       activity_end_time, activity_site, content, 
-      experience, lesson, key_word, 
-      is_delete, remark, created, 
-      updated, create_time, update_time
-      )
+      experience, lesson, is_delete, 
+      remark, created, updated, 
+      create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
       #{orgName,jdbcType=VARCHAR}, #{activityName,jdbcType=VARCHAR}, #{activityStartTime,jdbcType=TIMESTAMP}, 
       #{activityEndTime,jdbcType=TIMESTAMP}, #{activitySite,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{experience,jdbcType=VARCHAR}, #{lesson,jdbcType=VARCHAR}, #{keyWord,jdbcType=VARCHAR}, 
-      #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, 
-      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{experience,jdbcType=VARCHAR}, #{lesson,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Activity" useGeneratedKeys="true" keyProperty="id">
     insert into activity
@@ -165,9 +162,6 @@
       </if>
       <if test="lesson != null">
         lesson,
-      </if>
-      <if test="keyWord != null">
-        key_word,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -221,9 +215,6 @@
       </if>
       <if test="lesson != null">
         #{lesson,jdbcType=VARCHAR},
-      </if>
-      <if test="keyWord != null">
-        #{keyWord,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=INTEGER},
@@ -287,9 +278,6 @@
       <if test="record.lesson != null">
         lesson = #{record.lesson,jdbcType=VARCHAR},
       </if>
-      <if test="record.keyWord != null">
-        key_word = #{record.keyWord,jdbcType=VARCHAR},
-      </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=INTEGER},
       </if>
@@ -326,7 +314,6 @@
       content = #{record.content,jdbcType=VARCHAR},
       experience = #{record.experience,jdbcType=VARCHAR},
       lesson = #{record.lesson,jdbcType=VARCHAR},
-      key_word = #{record.keyWord,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
       created = #{record.created,jdbcType=VARCHAR},
@@ -370,9 +357,6 @@
       <if test="lesson != null">
         lesson = #{lesson,jdbcType=VARCHAR},
       </if>
-      <if test="keyWord != null">
-        key_word = #{keyWord,jdbcType=VARCHAR},
-      </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=INTEGER},
       </if>
@@ -406,7 +390,6 @@
       content = #{content,jdbcType=VARCHAR},
       experience = #{experience,jdbcType=VARCHAR},
       lesson = #{lesson,jdbcType=VARCHAR},
-      key_word = #{keyWord,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       created = #{created,jdbcType=VARCHAR},

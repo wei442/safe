@@ -71,10 +71,6 @@ public class ActivityRequest implements Serializable {
     @NotBlank(message = "活动教训不能为空")
     private String lesson;
 
-    @ApiModelProperty(value = "关键字")
-    @NotBlank(message = "关键字不能为空")
-    private String keyWord;
-
     @ApiModelProperty(value = "备注")
     private String remark;
 

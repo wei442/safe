@@ -2,7 +2,6 @@ package com.cloud.provider.safe.controller;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Dict;
+import com.cloud.provider.safe.rest.request.dict.DictCodeRequest;
 import com.cloud.provider.safe.rest.request.dict.DictRequest;
 import com.cloud.provider.safe.rest.request.page.dict.DictPageRequest;
 import com.cloud.provider.safe.service.IDictService;
@@ -120,28 +120,29 @@ public class DictController extends BaseController {
 	}
 
 	/**
-	 * 根据dictCode查询字典
-	 * @param dictCode
+	 * 根据enterpriseId和dictCode查询字典
+	 * @param req
+	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据dictCode查询字典")
-	@RequestMapping(value="/selectByDictCode/{dictCode}",method={RequestMethod.POST})
+	@ApiOperation(value = "根据enterpriseId和dictCode查询字典")
+	@RequestMapping(value="/selectByEnterpriseIdDictCode",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectByDictCode(
-		@PathVariable(value="dictCode",required=false) String dictCode) {
-		logger.info("===step1:【根据dictCode查询字典】(DictController-selectByDictCode)-传入参数, dictCode:{}", dictCode);
+	public BaseRestMapResponse selectByEnterpriseIdDictCode(
+		@Validated @RequestBody DictCodeRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【根据enterpriseId和dictCode查询字典】(DictController-selectByEnterpriseIdDictCode)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		if(StringUtils.isBlank(dictCode)) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dictCode不能为空");
-		}
+		Integer enterpriseId = req.getEnterpriseId();
+		String dictCode = req.getDictCode();
 
-		Dict dict = dictService.selectByDictCod(dictCode);
-		logger.info("===step2:【根据dictCode查询字典】(DictController-selectByDictCode)-根据dictCode查询字典, dict:{}", dict);
+		Dict dict = dictService.selectByEnterpriseIdDictCode(enterpriseId, dictCode);
+		logger.info("===step2:【根据enterpriseId和dictCode查询字典】(DictController-selectByEnterpriseIdDictCode)-根据enterpriseId和dictCode查询字典, dict:{}", dict);
 		DictVo dictVo = new DictVo().convertToDictVo(dict);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
 		dictResponse.putAll((JSONObject) JSONObject.toJSON(dictVo));
-		logger.info("===step3:【根据dictCode查询字典】(DictController-selectByDictCode)-返回信息, dictResponse:{}", dictResponse);
+		logger.info("===step3:【根据enterpriseId和dictCode查询字典】(DictController-selectByEnterpriseIdDictCode)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
 

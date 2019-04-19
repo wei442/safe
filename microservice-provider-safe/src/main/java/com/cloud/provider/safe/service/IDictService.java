@@ -31,11 +31,12 @@ public interface IDictService {
 	public Dict selectById(Integer id);
 
 	/**
-	 * 根据dictCode查询字典
+	 * 根据enterpriseId和dictCode查询字典
+	 * @param enterpriseId
 	 * @param dictCode
 	 * @return Dict
 	 */
-	public Dict selectByDictCod(String dictCode);
+	public Dict selectByEnterpriseIdDictCode(Integer enterpriseId,String dictCode);
 
     /**
      * 插入字典
