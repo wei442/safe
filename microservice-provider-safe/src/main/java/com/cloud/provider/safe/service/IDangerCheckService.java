@@ -2,9 +2,8 @@ package com.cloud.provider.safe.service;
 
 import java.util.List;
 
-import com.cloud.provider.safe.po.UserTitle;
-import com.cloud.provider.safe.rest.request.page.user.UserTitlePageRequest;
-import com.cloud.provider.safe.vo.user.UserTitleVo;
+import com.cloud.provider.safe.po.DangerCheck;
+import com.cloud.provider.safe.rest.request.page.danger.DangerCheckPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IDangerCheckService {
@@ -13,64 +12,57 @@ public interface IDangerCheckService {
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<UserTitleVo>
+	 * @return List<DangerCheck>
 	 */
-	public List<UserTitleVo> selectListByPage(Page<?> page, UserTitlePageRequest param);
+	public List<DangerCheck> selectListByPage(Page<?> page, DangerCheckPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<UserTitleVo>
+	 * @return List<DangerCheck>
 	 */
-	public List<UserTitleVo> selectList(UserTitlePageRequest param);
-
-	/**
-	 * 根据titleId查询用户职务列表
-	 * @param userId
-	 * @return List<UserTitle>
-	 */
-	public List<UserTitle> selectListByTitleId(Integer titleId);
+	public List<DangerCheck> selectList(DangerCheckPageRequest param);
 
     /**
-     * 根据id查询用户职务
+     * 根据id查询隐患抽查
      * @param id
-     * @return UserTitle
+     * @return DangerCheck
      */
-	public UserTitle selectById(Integer id);
+	public DangerCheck selectById(Integer id);
 
 	/**
-	 * 根据userId查询用户职务
+	 * 根据userId查询隐患抽查
 	 * @param userId
-	 * @return UserTitle
+	 * @return DangerCheck
 	 */
-	public UserTitle selectByUserId(Integer userId);
+	public DangerCheck selectByUserId(Integer userId);
 
     /**
-     * 插入用户职务
-     * @param userTitle
+     * 插入隐患抽查
+     * @param dangerCheck
      * @return Integer
      */
-	public Integer insert(UserTitle userTitle);
+	public Integer insert(DangerCheck dangerCheck);
 
 	/**
-  	 * 根据id删除用户职务
+  	 * 根据id删除隐患抽查
   	 * @param id
   	 * @return Integer
   	 */
 	public Integer deleteById(Integer id);
 
  	/**
-  	 * 根据ids删除用户职务
+  	 * 根据ids删除隐患抽查
   	 * @param ids
   	 * @return Integer
   	 */
 	public Integer deleteByIds(List<Integer> ids);
 
     /**
-     * 修改用户职务
-     * @param userTitle
+     * 修改隐患抽查
+     * @param dangerCheck
      * @return Integer
      */
-	public Integer modify(UserTitle userTitle);
+	public Integer modify(DangerCheck dangerCheck);
 
 }

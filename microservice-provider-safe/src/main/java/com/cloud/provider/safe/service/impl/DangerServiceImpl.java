@@ -10,164 +10,164 @@ import org.springframework.stereotype.Service;
 
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
-import com.cloud.provider.safe.dao.OrgQualityAttachmentMapper;
-import com.cloud.provider.safe.dao.OrgQualityMapper;
-import com.cloud.provider.safe.po.OrgQuality;
-import com.cloud.provider.safe.po.OrgQualityAttachment;
-import com.cloud.provider.safe.po.OrgQualityAttachmentExample;
-import com.cloud.provider.safe.po.OrgQualityExample;
-import com.cloud.provider.safe.rest.request.page.enterprise.OrgQualityPageRequest;
-import com.cloud.provider.safe.service.IOrgQualityService;
+import com.cloud.provider.safe.dao.DangerAttachmentMapper;
+import com.cloud.provider.safe.dao.DangerMapper;
+import com.cloud.provider.safe.po.Danger;
+import com.cloud.provider.safe.po.DangerAttachment;
+import com.cloud.provider.safe.po.DangerAttachmentExample;
+import com.cloud.provider.safe.po.DangerExample;
+import com.cloud.provider.safe.rest.request.page.danger.DangerPageRequest;
+import com.cloud.provider.safe.service.IDangerService;
 import com.cloud.provider.safe.util.Assert;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
 /**
- * 机构资质 OrgQualityService
+ * 隐患 DangerService
  * @author wei.yong
  */
 @Service
-public class DangerServiceImpl implements IOrgQualityService {
+public class DangerServiceImpl implements IDangerService {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    //机构资质 Mapper
+    //隐患 Mapper
     @Autowired
-    private OrgQualityMapper orgQualityMapper;
+    private DangerMapper dangerMapper;
 
-    //机构资质附件 Mapper
+    //隐患附件 Mapper
     @Autowired
-    private OrgQualityAttachmentMapper orgQualityAttachmentMapper;
+    private DangerAttachmentMapper dangerAttachmentMapper;
 
     /**
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<OrgQuality>
+	 * @return List<Danger>
 	 */
 	@Override
-	public List<OrgQuality> selectListByPage(Page<?> page, OrgQualityPageRequest param) {
-		logger.info("(OrgQualityService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<Danger> selectListByPage(Page<?> page, DangerPageRequest param) {
+		logger.info("(DangerService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
-		OrgQualityExample example = new OrgQualityExample();
+		DangerExample example = new DangerExample();
 		example.setOrderByClause(" id desc ");
-		OrgQualityExample.Criteria criteria = example.createCriteria();
+		DangerExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_QUALITY_IS_DELETE_NO);
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 		}
-		List<OrgQuality> list = orgQualityMapper.selectByExample(example);
+		List<Danger> list = dangerMapper.selectByExample(example);
 		return list;
 	}
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<OrgQuality>
+	 * @return List<Danger>
 	 */
 	@Override
-	public List<OrgQuality> selectList(OrgQualityPageRequest param) {
-		logger.info("(OrgQualityService-selectList)-不分页查询-传入参数, param:{}", param);
-		OrgQualityExample example = new OrgQualityExample();
+	public List<Danger> selectList(DangerPageRequest param) {
+		logger.info("(DangerService-selectList)-不分页查询-传入参数, param:{}", param);
+		DangerExample example = new DangerExample();
 		example.setOrderByClause(" id desc ");
-		OrgQualityExample.Criteria criteria = example.createCriteria();
+		DangerExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_QUALITY_IS_DELETE_NO);
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 		}
-		List<OrgQuality> list = orgQualityMapper.selectByExample(example);
+		List<Danger> list = dangerMapper.selectByExample(example);
 		return list;
 	}
 
     /**
-     * 根据id查询机构资质
+     * 根据id查询隐患
      * @param id
-     * @return OrgQuality
+     * @return Danger
      */
 	@Override
-	public OrgQuality selectById(Integer id) {
-    	logger.info("(OrgQualityService-selectById)-根据id查询机构资质-传入参数, id:{}", id);
-		OrgQuality orgQuality = orgQualityMapper.selectByPrimaryKey(id);
-		return orgQuality;
+	public Danger selectById(Integer id) {
+    	logger.info("(DangerService-selectById)-根据id查询隐患-传入参数, id:{}", id);
+		Danger danger = dangerMapper.selectByPrimaryKey(id);
+		return danger;
     }
 
     /**
-     * 插入机构资质及附件
-     * @param orgQuality
-     * @param orgQualityAttachmentList
+     * 插入隐患及附件
+     * @param danger
+     * @param dangerAttachmentList
      * @return Integer
      */
 	@Override
-	public Integer insert(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachmentList) {
-    	logger.info("(OrgQualityService-insert)-插入机构资质及附件-传入参数, orgQuality:{}, orgQualityAttachmentList:{}", orgQuality, orgQualityAttachmentList);
-    	orgQuality.setCreateTime(new Date());
-    	orgQuality.setUpdateTime(new Date());
-    	int i = orgQualityMapper.insertSelective(orgQuality);
+	public Integer insert(Danger danger, List<DangerAttachment> dangerAttachmentList) {
+    	logger.info("(DangerService-insert)-插入隐患及附件-传入参数, danger:{}, dangerAttachmentList:{}", danger, dangerAttachmentList);
+    	danger.setCreateTime(new Date());
+    	danger.setUpdateTime(new Date());
+    	int i = dangerMapper.insertSelective(danger);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
-    	Integer orgQualityId = orgQuality.getId();
+    	Integer dangerId = danger.getId();
 
-    	if(orgQualityAttachmentList != null && !orgQualityAttachmentList.isEmpty()) {
-    		for (OrgQualityAttachment orgQualityAttachment : orgQualityAttachmentList) {
-    			orgQualityAttachment.setOrgQualityId(orgQualityId);
-    			orgQualityAttachment.setCreateTime(new Date());
-    			orgQualityAttachment.setUpdateTime(new Date());
-    			i = orgQualityAttachmentMapper.insertSelective(orgQualityAttachment);
+    	if(dangerAttachmentList != null && !dangerAttachmentList.isEmpty()) {
+    		for (DangerAttachment dangerAttachment : dangerAttachmentList) {
+    			dangerAttachment.setDangerId(dangerId);
+    			dangerAttachment.setCreateTime(new Date());
+    			dangerAttachment.setUpdateTime(new Date());
+    			i = dangerAttachmentMapper.insertSelective(dangerAttachment);
 			}
     	}
     	return i;
     }
 
  	/**
-  	 * 根据id删除机构资质
+  	 * 根据id删除隐患
   	 * @param id
   	 * @return Integer
   	 */
 	@Override
 	public Integer deleteById(Integer id) {
-  		logger.info("(OrgQualityService-deleteById)-根据id删除机构资质-传入参数, id:{}", id);
-  		int i = orgQualityMapper.deleteByPrimaryKey(id);
+  		logger.info("(DangerService-deleteById)-根据id删除隐患-传入参数, id:{}", id);
+  		int i = dangerMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
 
-  		OrgQualityAttachmentExample example = new OrgQualityAttachmentExample();
-  		OrgQualityAttachmentExample.Criteria criteria = example.createCriteria();
-		criteria.andOrgQualityIdEqualTo(id);
-		i = orgQualityAttachmentMapper.deleteByExample(example);
+  		DangerAttachmentExample example = new DangerAttachmentExample();
+  		DangerAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andDangerIdEqualTo(id);
+		i = dangerAttachmentMapper.deleteByExample(example);
   		return i;
   	}
 
     /**
-     * 修改机构资质及附件
-     * @param orgQuality
-     * @param orgQualityAttachmentIds
-     * @param orgQualityAttachmentList
+     * 修改隐患及附件
+     * @param danger
+     * @param dangerAttachmentIds
+     * @param dangerAttachmentList
      * @return Integer
      */
 	@Override
-	public Integer modify(OrgQuality orgQuality, List<Integer> orgQualityAttachmentIds, List<OrgQualityAttachment> orgQualityAttachmentList) {
-    	logger.info("(OrgQualityService-modify)-修改机构资质及附件-传入参数, orgQuality:{}, orgQualityAttachmentIds:{}, orgQualityAttachmentList:{}", orgQuality, orgQualityAttachmentIds, orgQualityAttachmentList);
-    	orgQuality.setUpdateTime(new Date());
-		int i = orgQualityMapper.updateByPrimaryKeySelective(orgQuality);
+	public Integer modify(Danger danger, List<Integer> dangerAttachmentIds, List<DangerAttachment> dangerAttachmentList) {
+    	logger.info("(DangerService-modify)-修改隐患及附件-传入参数, danger:{}, dangerAttachmentIds:{}, dangerAttachmentList:{}", danger, dangerAttachmentIds, dangerAttachmentList);
+    	danger.setUpdateTime(new Date());
+		int i = dangerMapper.updateByPrimaryKeySelective(danger);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
-    	Integer orgQualityId = orgQuality.getId();
+    	Integer dangerId = danger.getId();
 
-    	OrgQualityAttachmentExample example = new OrgQualityAttachmentExample();
-  		OrgQualityAttachmentExample.Criteria criteria = example.createCriteria();
-		criteria.andOrgQualityIdEqualTo(orgQualityId);
-		if(orgQualityAttachmentIds != null && !orgQualityAttachmentIds.isEmpty()) {
-    		criteria.andIdNotIn(orgQualityAttachmentIds);
+    	DangerAttachmentExample example = new DangerAttachmentExample();
+  		DangerAttachmentExample.Criteria criteria = example.createCriteria();
+		criteria.andDangerIdEqualTo(dangerId);
+		if(dangerAttachmentIds != null && !dangerAttachmentIds.isEmpty()) {
+    		criteria.andIdNotIn(dangerAttachmentIds);
     	}
-		i = orgQualityAttachmentMapper.deleteByExample(example);
+		i = dangerAttachmentMapper.deleteByExample(example);
 
-    	if(orgQualityAttachmentList != null && !orgQualityAttachmentList.isEmpty()) {
-    		for (OrgQualityAttachment orgQualityAttachment : orgQualityAttachmentList) {
-    			orgQualityAttachment.setOrgQualityId(orgQualityId);
-    			orgQualityAttachment.setCreateTime(new Date());
-    			orgQualityAttachment.setUpdateTime(new Date());
-    			i = orgQualityAttachmentMapper.insertSelective(orgQualityAttachment);
+    	if(dangerAttachmentList != null && !dangerAttachmentList.isEmpty()) {
+    		for (DangerAttachment dangerAttachment : dangerAttachmentList) {
+    			dangerAttachment.setDangerId(dangerId);
+    			dangerAttachment.setCreateTime(new Date());
+    			dangerAttachment.setUpdateTime(new Date());
+    			i = dangerAttachmentMapper.insertSelective(dangerAttachment);
 			}
     	}
     	return i;

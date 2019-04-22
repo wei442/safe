@@ -2,8 +2,8 @@ package com.cloud.provider.safe.service;
 
 import java.util.List;
 
-import com.cloud.provider.safe.po.OrgQualityAttachment;
-import com.cloud.provider.safe.rest.request.page.enterprise.OrgQualityAttachmentPageRequest;
+import com.cloud.provider.safe.po.DangerAttachment;
+import com.cloud.provider.safe.rest.request.page.danger.DangerAttachmentPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IDangerAttachmentService {
@@ -12,57 +12,50 @@ public interface IDangerAttachmentService {
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<OrgQualityAttachment>
+	 * @return List<DangerAttachment>
 	 */
-	public List<OrgQualityAttachment> selectListByPage(Page<?> page, OrgQualityAttachmentPageRequest param);
+	public List<DangerAttachment> selectListByPage(Page<?> page, DangerAttachmentPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<OrgQualityAttachment>
+	 * @return List<DangerAttachment>
 	 */
-	public List<OrgQualityAttachment> selectList(OrgQualityAttachmentPageRequest param);
-
-	/**
-	 * 根据orgQualityId查询机构资质附件列表
-	 * @param orgQualityId
-	 * @return List<OrgQualityAttachment>
-	 */
-//	public List<OrgQualityAttachment> selectListByOrgQualityId(Integer orgQualityId);
+	public List<DangerAttachment> selectList(DangerAttachmentPageRequest param);
 
     /**
-     * 根据id查询机构资质附件
+     * 根据id查询隐患附件
      * @param id
-     * @return OrgQualityAttachment
+     * @return DangerAttachment
      */
-	public OrgQualityAttachment selectById(Integer id);
+	public DangerAttachment selectById(Integer id);
 
     /**
-     * 插入机构资质附件
-     * @param orgQualityAttachment
+     * 插入隐患附件
+     * @param dangerAttachment
      * @return Integer
      */
-	public Integer insert(OrgQualityAttachment orgQualityAttachment);
+	public Integer insert(DangerAttachment dangerAttachment);
 
 	/**
-  	 * 根据id删除机构资质附件
+  	 * 根据id删除隐患附件
   	 * @param id
   	 * @return Integer
   	 */
 	public Integer deleteById(Integer id);
 
  	/**
-  	 * 根据ids删除机构资质附件
+  	 * 根据ids删除隐患附件
   	 * @param ids
   	 * @return Integer
   	 */
 	public Integer deleteByIds(List<Integer> ids);
 
     /**
-     * 修改机构资质附件
-     * @param orgQualityAttachment
+     * 修改隐患附件
+     * @param dangerAttachment
      * @return Integer
      */
-	public Integer modify(OrgQualityAttachment orgQualityAttachment);
+	public Integer modify(DangerAttachment dangerAttachment);
 
 }

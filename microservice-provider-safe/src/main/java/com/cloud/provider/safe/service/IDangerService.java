@@ -2,9 +2,9 @@ package com.cloud.provider.safe.service;
 
 import java.util.List;
 
-import com.cloud.provider.safe.po.OrgQuality;
-import com.cloud.provider.safe.po.OrgQualityAttachment;
-import com.cloud.provider.safe.rest.request.page.enterprise.OrgQualityPageRequest;
+import com.cloud.provider.safe.po.Danger;
+import com.cloud.provider.safe.po.DangerAttachment;
+import com.cloud.provider.safe.rest.request.page.danger.DangerPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IDangerService {
@@ -13,46 +13,46 @@ public interface IDangerService {
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<OrgQuality>
+	 * @return List<Danger>
 	 */
-	public List<OrgQuality> selectListByPage(Page<?> page, OrgQualityPageRequest param);
+	public List<Danger> selectListByPage(Page<?> page, DangerPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<OrgQuality>
+	 * @return List<Danger>
 	 */
-	public List<OrgQuality> selectList(OrgQualityPageRequest param);
+	public List<Danger> selectList(DangerPageRequest param);
 
     /**
-     * 根据id查询机构资质
+     * 根据id查询隐患
      * @param id
-     * @return OrgQuality
+     * @return Danger
      */
-	public OrgQuality selectById(Integer id);
+	public Danger selectById(Integer id);
 
     /**
-     * 插入机构资质及附件
-     * @param orgQuality
-     * @param orgQualityAttachmentList
+     * 插入隐患及附件
+     * @param danger
+     * @param dangerAttachmentList
      * @return Integer
      */
-	public Integer insert(OrgQuality orgQuality, List<OrgQualityAttachment> orgQualityAttachmentList);
+	public Integer insert(Danger danger, List<DangerAttachment> dangerAttachmentList);
 
 	/**
-  	 * 根据id删除机构资质
+  	 * 根据id删除隐患
   	 * @param id
   	 * @return Integer
   	 */
 	public Integer deleteById(Integer id);
 
     /**
-     * 修改机构资质及附件
-     * @param orgQuality
-     * @param orgQualityAttachmentIds
-     * @param orgQualityAttachmentList
+     * 修改隐患及附件
+     * @param danger
+     * @param dangerAttachmentIds
+     * @param dangerAttachmentList
      * @return Integer
      */
-	public Integer modify(OrgQuality orgQuality, List<Integer> orgQualityAttachmentIds, List<OrgQualityAttachment> orgQualityAttachmentList);
+	public Integer modify(Danger danger, List<Integer> dangerAttachmentIds, List<DangerAttachment> dangerAttachmentList);
 
 }
