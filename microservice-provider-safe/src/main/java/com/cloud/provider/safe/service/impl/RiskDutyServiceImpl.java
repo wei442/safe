@@ -9,182 +9,130 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cloud.common.enums.safe.SafeResultEnum;
-import com.cloud.provider.safe.dao.UserTitleMapper;
-import com.cloud.provider.safe.dao.dao.UserTitleDao;
-import com.cloud.provider.safe.param.UserTitleParam;
-import com.cloud.provider.safe.po.UserTitle;
-import com.cloud.provider.safe.po.UserTitleExample;
-import com.cloud.provider.safe.rest.request.page.user.UserTitlePageRequest;
-import com.cloud.provider.safe.service.IUserTitleService;
+import com.cloud.provider.safe.dao.RiskDutyMapper;
+import com.cloud.provider.safe.po.RiskDuty;
+import com.cloud.provider.safe.po.RiskDutyExample;
+import com.cloud.provider.safe.rest.request.page.risk.RiskDutyPageRequest;
+import com.cloud.provider.safe.service.IRiskDutyService;
 import com.cloud.provider.safe.util.Assert;
-import com.cloud.provider.safe.vo.user.UserTitleVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 
 /**
- * 用户职务 UserTitleService
+ * 风险责任 RiskDutyService
  * @author wei.yong
  */
 @Service
-public class RiskDutyServiceImpl implements IUserTitleService {
+public class RiskDutyServiceImpl implements IRiskDutyService {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    //用户职务 Mapper
+    //风险责任 Mapper
     @Autowired
-    private UserTitleMapper userTitleMapper;
-
-    //用户职务 Dao
-    @Autowired
-    private UserTitleDao userTitleDao;
+    private RiskDutyMapper riskDutyMapper;
 
     /**
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<UserTitleVo>
+	 * @return List<RiskDuty>
 	 */
 	@Override
-	public List<UserTitleVo> selectListByPage(Page<?> page, UserTitlePageRequest param) {
-		logger.info("(UserTitleService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+	public List<RiskDuty> selectListByPage(Page<?> page, RiskDutyPageRequest param) {
+		logger.info("(RiskDutyService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
-		UserTitleParam userTitleParam = new UserTitleParam();
-//		userTitleParam.setOrderByClause("  ");
+		RiskDutyExample example = new RiskDutyExample();
+		example.setOrderByClause(" id desc ");
+		RiskDutyExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
-				userTitleParam.setEnterpriseId(param.getEnterpriseId());
-			}
-			if(param.getTitleId() != null) {
-				userTitleParam.setTitleId(param.getTitleId());
-			}
 		}
-		List<UserTitleVo> list = userTitleDao.selectList(userTitleParam);
+		List<RiskDuty> list = riskDutyMapper.selectByExample(example);
 		return list;
 	}
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<UserTitleVo>
+	 * @return List<RiskDuty>
 	 */
 	@Override
-	public List<UserTitleVo> selectList(UserTitlePageRequest param) {
-		logger.info("(UserTitleService-selectList)-不分页查询-传入参数, param:{}", param);
-		UserTitleParam userTitleParam = new UserTitleParam();
-//		userTitleParam.setOrderByClause("  ");
+	public List<RiskDuty> selectList(RiskDutyPageRequest param) {
+		logger.info("(RiskDutyService-selectList)-不分页查询-传入参数, param:{}", param);
+		RiskDutyExample example = new RiskDutyExample();
+		example.setOrderByClause(" id desc ");
+		RiskDutyExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
-				userTitleParam.setEnterpriseId(param.getEnterpriseId());
-			}
-			if(param.getTitleId() != null) {
-				userTitleParam.setTitleId(param.getTitleId());
-			}
 		}
-		List<UserTitleVo> list = userTitleDao.selectList(userTitleParam);
+		List<RiskDuty> list = riskDutyMapper.selectByExample(example);
 		return list;
 	}
-
-	/**
-	 * 根据titleId查询用户职务列表
-	 * @param userId
-	 * @return List<UserTitle>
-	 */
-	@Override
-	public List<UserTitle> selectListByTitleId(Integer titleId) {
-		logger.info("(UserTitleService-selectListByTitleId)-根据titleId查询用户职务列表-传入参数, titleId:{}", titleId);
-		UserTitleExample example = new UserTitleExample();
-		UserTitleExample.Criteria criteria = example.createCriteria();
-		criteria.andTitleIdEqualTo(titleId);
-		List<UserTitle> list = userTitleMapper.selectByExample(example);
-		return list;
-	}
-
 
     /**
-     * 根据id查询用户职务
+     * 根据id查询风险责任
      * @param id
-     * @return UserTitle
+     * @return RiskDuty
      */
 	@Override
-	public UserTitle selectById(Integer id) {
-    	logger.info("(UserTitleService-selectById)-根据id查询用户职务-传入参数, id:{}", id);
-		UserTitle userTitle = userTitleMapper.selectByPrimaryKey(id);
-		return userTitle;
+	public RiskDuty selectById(Integer id) {
+    	logger.info("(RiskDutyService-selectById)-根据id查询风险责任-传入参数, id:{}", id);
+		RiskDuty riskDuty = riskDutyMapper.selectByPrimaryKey(id);
+		return riskDuty;
     }
 
-	/**
-	 * 根据userId查询用户职务
-	 * @param userId
-	 * @return UserTitle
-	 */
-	@Override
-	public UserTitle selectByUserId(Integer userId) {
-		logger.info("(UserTitleService-selectByUserId)-根据userId查询用户职务-传入参数, userId:{}", userId);
-		UserTitleExample example = new UserTitleExample();
-		UserTitleExample.Criteria criteria = example.createCriteria();
-		criteria.andUserIdEqualTo(userId);
-		List<UserTitle> list = userTitleMapper.selectByExample(example);
-		UserTitle userTitle = null;
-		if(list != null && !list.isEmpty()) {
-			userTitle = list.get(0);
-		}
-		return userTitle;
-	}
-
     /**
-     * 插入用户职务
-     * @param userTitle
+     * 插入风险责任
+     * @param riskDuty
      * @return Integer
      */
 	@Override
-	public Integer insert(UserTitle userTitle) {
-    	logger.info("(UserTitleService-insert)-插入用户职务-传入参数, userTitle:{}", userTitle);
-    	userTitle.setCreateTime(new Date());
-    	userTitle.setUpdateTime(new Date());
-    	int i = userTitleMapper.insertSelective(userTitle);
+	public Integer insert(RiskDuty riskDuty) {
+    	logger.info("(RiskDutyService-insert)-插入风险责任-传入参数, riskDuty:{}", riskDuty);
+    	riskDuty.setCreateTime(new Date());
+    	riskDuty.setUpdateTime(new Date());
+    	int i = riskDutyMapper.insertSelective(riskDuty);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
 
  	/**
-  	 * 根据id删除用户职务
+  	 * 根据id删除风险责任
   	 * @param id
   	 * @return Integer
   	 */
 	@Override
 	public Integer deleteById(Integer id) {
-  		logger.info("(UserTitleService-deleteById)-根据id删除用户职务-传入参数, id:{}", id);
-		int i = userTitleMapper.deleteByPrimaryKey(id);
+  		logger.info("(RiskDutyService-deleteById)-根据id删除风险责任-传入参数, id:{}", id);
+		int i = riskDutyMapper.deleteByPrimaryKey(id);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
 
  	/**
-  	 * 根据ids删除用户职务
+  	 * 根据ids删除风险责任
   	 * @param ids
   	 * @return Integer
   	 */
 	@Override
 	public Integer deleteByIds(List<Integer> ids) {
-  		logger.info("(UserOrgService-deleteByIds)-根据ids删除用户职务-传入参数, ids:{}", ids);
-  		UserTitleExample example = new UserTitleExample();
-  		UserTitleExample.Criteria criteria = example.createCriteria();
+  		logger.info("(UserOrgService-deleteByIds)-根据ids删除风险责任-传入参数, ids:{}", ids);
+  		RiskDutyExample example = new RiskDutyExample();
+  		RiskDutyExample.Criteria criteria = example.createCriteria();
   		criteria.andIdIn(ids);
-		int i = userTitleMapper.deleteByExample(example);
+		int i = riskDutyMapper.deleteByExample(example);
   		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
   		return i;
   	}
 
     /**
-     * 修改用户职务
-     * @param userTitle
+     * 修改风险责任
+     * @param riskDuty
      * @return Integer
      */
 	@Override
-	public Integer modify(UserTitle userTitle) {
-    	logger.info("(UserTitleService-modify)-修改用户职务-传入参数, userTitle:{}", userTitle);
-    	userTitle.setUpdateTime(new Date());
-		int i = userTitleMapper.updateByPrimaryKeySelective(userTitle);
+	public Integer modify(RiskDuty riskDuty) {
+    	logger.info("(RiskDutyService-modify)-修改风险责任-传入参数, riskDuty:{}", riskDuty);
+    	riskDuty.setUpdateTime(new Date());
+		int i = riskDutyMapper.updateByPrimaryKeySelective(riskDuty);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

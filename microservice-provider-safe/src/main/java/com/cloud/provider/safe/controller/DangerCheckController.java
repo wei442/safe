@@ -19,57 +19,57 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
-import com.cloud.provider.safe.po.UserTitle;
-import com.cloud.provider.safe.rest.request.page.user.UserTitlePageRequest;
-import com.cloud.provider.safe.rest.request.user.UserTitleRequest;
-import com.cloud.provider.safe.service.IUserTitleService;
+import com.cloud.provider.safe.po.DangerCheck;
+import com.cloud.provider.safe.rest.request.danger.DangerCheckRequest;
+import com.cloud.provider.safe.rest.request.page.danger.DangerCheckPageRequest;
+import com.cloud.provider.safe.service.IDangerCheckService;
 import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.user.UserTitleVo;
+import com.cloud.provider.safe.vo.danger.DangerCheckVo;
 import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * 用户职务 UserTitleController
+ * 隐患排查 DangerCheckController
  * @author wei.yong
  */
-@Api(tags = "用户职务")
+@Api(tags = "隐患排查")
 @RestController
-@RequestMapping(value="/user/title")
+@RequestMapping(value="/danger/check")
 public class DangerCheckController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	//用户职务Service
+	//隐患排查Service
 	@Autowired
-	private IUserTitleService userTitleService;
+	private IDangerCheckService dangerCheckService;
 
 	/**
 	 * 分页查询
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "分页查询用户职务列表")
+	@ApiOperation(value = "分页查询隐患排查列表")
 	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectListByPage(
-		@RequestBody UserTitlePageRequest req,
-		BindingResult bindingResult) {
-		logger.info("===step1:【分页查询用户职务列表】(UserTitleController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		@RequestBody DangerCheckPageRequest req) {
+		logger.info("===step1:【分页查询隐患排查列表】(DangerCheckController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserTitleVo> list = userTitleService.selectListByPage(page, req);
-		logger.info("===step2:【分页查询用户职务列表】(UserTitleController-selectListByPage)-分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
+		List<DangerCheck> list = dangerCheckService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询隐患排查列表】(DangerCheckController-selectListByPage)-分页查询隐患排查列表, list.size:{}", list == null ? null : list.size());
+		List<DangerCheckVo> dangerCheckVoList = new DangerCheckVo().convertToDangerCheckVoList(list);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(list));
-		logger.info("===step3:【分页查询用户职务列表】(UserTitleController-selectListByPage)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
+		dangerCheckResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(dangerCheckVoList));
+		logger.info("===step3:【分页查询隐患排查列表】(DangerCheckController-selectListByPage)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
+		return dangerCheckResponse;
 	}
 
 	/**
@@ -77,170 +77,170 @@ public class DangerCheckController extends BaseController {
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "不分页查询用户职务列表")
+	@ApiOperation(value = "不分页查询隐患排查")
 	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectList(
-		@RequestBody UserTitlePageRequest req,
-		BindingResult bindingResult) {
-		logger.info("===step1:【不分页查询用户职务列表】(UserTitleController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserTitleVo> list = userTitleService.selectList(req);
-		logger.info("===step2:【不分页查询用户职务列表】(UserTitleController-selectList)-不分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
+		@RequestBody DangerCheckPageRequest req) {
+		logger.info("===step1:【不分页查询隐患排查列表】(DangerCheckController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<DangerCheck> list = dangerCheckService.selectList(req);
+		logger.info("===step2:【不分页查询隐患排查列表】(DangerCheckController-selectList)-不分页查询隐患排查列表, list.size:{}", list == null ? null : list.size());
+		List<DangerCheckVo> dangerCheckVoList = new DangerCheckVo().convertToDangerCheckVoList(list);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.put(PageConstants.DATA_LIST, list);
-		logger.info("===step3:【不分页查询用户职务列表】(UserTitleController-selectList)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
+		dangerCheckResponse.put(PageConstants.DATA_LIST, dangerCheckVoList);
+		logger.info("===step3:【不分页查询隐患排查列表】(DangerCheckController-selectList)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
+		return dangerCheckResponse;
 	}
 
 	/**
-	 * 据id查询用户职务
-	 * @param userTitleId
+	 * 据id查询隐患排查
+	 * @param dangerCheckId
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据id查询用户职务")
+	@ApiOperation(value = "根据id查询隐患排查")
 	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectById(
-		@PathVariable(value="id",required=false) Integer userTitleId) {
-		logger.info("===step1:【据id查询用户职务】(UserTitleController-selectById)-传入参数, userTitleId:{}", userTitleId);
+		@PathVariable(value="id",required=false) Integer dangerCheckId) {
+		logger.info("===step1:【据id查询隐患排查】(DangerCheckController-selectById)-传入参数, dangerCheckId:{}", dangerCheckId);
 
-		if(userTitleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userTitleId不能为空");
+		if(dangerCheckId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dangerCheckId不能为空");
 		}
 
-		UserTitle userTitle = userTitleService.selectById(userTitleId);
-		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
-		logger.info("===step2:【据id查询用户职务】(UserTitleController-selectById)-根据id查询用户职务, userTitle:{}", userTitle);
-		UserTitleVo userTitleVo = new UserTitleVo().convertToUserTitleVo(userTitle);
+		DangerCheck dangerCheck = dangerCheckService.selectById(dangerCheckId);
+		Assert.thanOrEqualZreo(dangerCheck, SafeResultEnum.DATABASE_NOTEXIST);
+		logger.info("===step2:【据id查询隐患排查】(DangerCheckController-selectById)-根据id查询隐患排查, dangerCheck:{}", dangerCheck);
+		DangerCheckVo dangerCheckVo = new DangerCheckVo().convertToDangerCheckVo(dangerCheck);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.putAll((JSONObject) JSONObject.toJSON(userTitleVo));
-		logger.info("===step3:【据id查询用户职务】(UserTitleController-selectById)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
+		dangerCheckResponse.putAll((JSONObject) JSONObject.toJSON(dangerCheckVo));
+		logger.info("===step3:【据id查询隐患排查】(DangerCheckController-selectById)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
+		return dangerCheckResponse;
 	}
 
 	/**
-	 * 据userId查询用户职务
+	 * 据userId查询隐患排查
 	 * @param userId
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据id查询用户职务")
+	@ApiOperation(value = "根据id查询隐患排查")
 	@RequestMapping(value="/selectByUserId/{userId}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectByUserId(
 		@PathVariable(value="userId",required=false) Integer userId) {
-		logger.info("===step1:【据userId查询用户职务】(UserTitleController-selectByUserId)-传入参数, userId:{}", userId);
+		logger.info("===step1:【据userId查询隐患排查】(DangerCheckController-selectByUserId)-传入参数, userId:{}", userId);
 
 		if(userId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userId不能为空");
 		}
 
-		UserTitle userTitle = userTitleService.selectByUserId(userId);
-		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
-		logger.info("===step2:【据userId查询用户职务】(UserTitleController-selectByUserId)-根据userId查询用户职务, userTitle:{}", userTitle);
-		UserTitleVo userTitleVo = new UserTitleVo().convertToUserTitleVo(userTitle);
+		DangerCheck dangerCheck = dangerCheckService.selectByUserId(userId);
+		Assert.thanOrEqualZreo(dangerCheck, SafeResultEnum.DATABASE_NOTEXIST);
+		logger.info("===step2:【据userId查询隐患排查】(DangerCheckController-selectByUserId)-根据userId查询隐患排查, dangerCheck:{}", dangerCheck);
+		DangerCheckVo dangerCheckVo = new DangerCheckVo().convertToDangerCheckVo(dangerCheck);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.putAll((JSONObject) JSONObject.toJSON(userTitleVo));
-		logger.info("===step3:【据userId查询用户职务】(UserTitleController-selectByUserId)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
+		dangerCheckResponse.putAll((JSONObject) JSONObject.toJSON(dangerCheckVo));
+		logger.info("===step3:【据userId查询隐患排查】(DangerCheckController-selectByUserId)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
+		return dangerCheckResponse;
 	}
 
 	/**
-	 * 添加用户职务
+	 * 添加隐患排查
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "添加用户职务")
-	@RequestMapping(value="/insertUserTitle",method={RequestMethod.POST})
+	@ApiOperation(value = "添加隐患排查")
+	@RequestMapping(value="/insertDangerCheck",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insert(
-		@Validated @RequestBody UserTitleRequest req,
+		@Validated @RequestBody DangerCheckRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户职务】(UserTitleController-insertUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加隐患排查】(DangerCheckController-insertDangerCheck)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		UserTitle userTitle = req.convertToUserTitle();
-		int i = userTitleService.insert(userTitle);
-		logger.info("===step2:【添加用户职务】(UserTitleController-insertUserTitle)-插入用户职务, i:{}", i);
+		DangerCheck dangerCheck = req.convertToDangerCheck();
+		int i = dangerCheckService.insert(dangerCheck);
+		logger.info("===step2:【添加隐患排查】(DangerCheckController-insertDangerCheck)-插入隐患排查, i:{}", i);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户职务】(UserTitleController-insertUserTitle)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
+		logger.info("===step3:【添加隐患排查】(DangerCheckController-insertDangerCheck)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
+		return dangerCheckResponse;
 	}
 
 	/**
-	 * 根据id删除用户职务
-	 * @param userTitleId
+	 * 根据id删除隐患排查
+	 * @param dangerCheckId
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据id删除用户职务")
+	@ApiOperation(value = "根据id删除隐患排查")
 	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteById(
-		@PathVariable(value="id",required=false) Integer userTitleId) {
-		logger.info("===step1:【根据id删除用户职务】(UserTitleController-deleteById)-传入参数, userTitleId:{}", userTitleId);
+		@PathVariable(value="id",required=false) Integer dangerCheckId) {
+		logger.info("===step1:【根据id删除隐患排查】(DangerCheckController-deleteById)-传入参数, dangerCheckId:{}", dangerCheckId);
 
-		if(userTitleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userTitleId不能为空");
+		if(dangerCheckId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dangerCheckId不能为空");
 		}
 
-		int i = userTitleService.deleteById(userTitleId);
-		logger.info("===step2:【根据id删除用户职务】(UserTitleController-deleteById)-根据id删除用户职务, i:{}", i);
+		int i = dangerCheckService.deleteById(dangerCheckId);
+		logger.info("===step2:【根据id删除隐患排查】(DangerCheckController-deleteById)-根据id删除隐患排查, i:{}", i);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除用户职务】(UserTitleController-deleteById)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
+		logger.info("===step3:【根据id删除隐患排查】(DangerCheckController-deleteById)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
+		return dangerCheckResponse;
 	}
 
 	/**
-	 * 根据ids删除用户职务
-	 * @param userTitleIds
+	 * 根据ids删除隐患排查
+	 * @param dangerCheckIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据ids删除用户职务")
+	@ApiOperation(value = "根据ids删除隐患排查")
 	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteByIds(
-		@PathVariable(value="ids",required=false) List<Integer> userTitleIds) {
-		logger.info("===step1:【根据ids删除用户职务】(UserTitleController-deleteByIds)-传入参数, userTitleIds:{}", userTitleIds);
+		@PathVariable(value="ids",required=false) List<Integer> dangerCheckIds) {
+		logger.info("===step1:【根据ids删除隐患排查】(DangerCheckController-deleteByIds)-传入参数, dangerCheckIds:{}", dangerCheckIds);
 
-		if(userTitleIds == null || userTitleIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userTitleIds不能为空");
+		if(dangerCheckIds == null || dangerCheckIds.isEmpty()) {
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dangerCheckIds不能为空");
 		}
 
-		int i = userTitleService.deleteByIds(userTitleIds);
-		logger.info("===step2:【根据ids删除用户职务】(UserTitleController-deleteByIds)-根据ids删除用户职务, i:{}", i);
+		int i = dangerCheckService.deleteByIds(dangerCheckIds);
+		logger.info("===step2:【根据ids删除隐患排查】(DangerCheckController-deleteByIds)-根据ids删除隐患排查, i:{}", i);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据ids删除用户职务】(UserTitleController-deleteByIds)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
+		logger.info("===step3:【根据ids删除隐患排查】(DangerCheckController-deleteByIds)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
+		return dangerCheckResponse;
 	}
 
 	/**
-	 * 修改用户职务
+	 * 修改隐患排查
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "修改用户职务")
-	@RequestMapping(value="/modifyUserTitle",method={RequestMethod.POST})
+	@ApiOperation(value = "修改隐患排查")
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse modify(
-		@Validated({ ModifyGroup.class }) @RequestBody UserTitleRequest req,
+		@Validated({ ModifyGroup.class }) @RequestBody DangerCheckRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户职务】(UserTitleController-modifyUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改隐患排查】(DangerCheckController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		Integer userTitleId = req.getUserTitleId();
-		UserTitle userTitle = req.convertToUserTitle();
-		userTitle.setId(userTitleId);
-		int i = userTitleService.modify(userTitle);
-		logger.info("===step2:【修改用户职务】(UserTitleController-modifyUserTitle)-修改用户职务, i:{}", i);
+		Integer dangerCheckId = req.getDangerCheckId();
+		DangerCheck dangerCheck = req.convertToDangerCheck();
+		dangerCheck.setId(dangerCheckId);
+		int i = dangerCheckService.modify(dangerCheck);
+		logger.info("===step2:【修改隐患排查】(DangerCheckController-modify)-修改隐患排查, i:{}", i);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改用户职务】(UserTitleController-modifyUserTitle)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
+		logger.info("===step3:【修改隐患排查】(DangerCheckController-modify)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
+		return dangerCheckResponse;
 	}
 
 }

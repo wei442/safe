@@ -25,7 +25,7 @@ public class DangerVo implements Serializable {
 
 	private Integer dangerId;
 
-    private Integer enterpriseId;
+	private Integer enterpriseId;
 
     private Integer orgId;
 
@@ -45,9 +45,9 @@ public class DangerVo implements Serializable {
 
     private Integer dangerUserId;
 
-    private String dangeUserAccount;
+    private String dangerUserAccount;
 
-    private String dangeUserName;
+    private String dangerUserName;
 
     private Integer isDelete;
 

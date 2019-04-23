@@ -2,9 +2,8 @@ package com.cloud.provider.safe.service;
 
 import java.util.List;
 
-import com.cloud.provider.safe.po.UserTitle;
-import com.cloud.provider.safe.rest.request.page.user.UserTitlePageRequest;
-import com.cloud.provider.safe.vo.user.UserTitleVo;
+import com.cloud.provider.safe.po.RiskCheck;
+import com.cloud.provider.safe.rest.request.page.risk.RiskCheckPageRequest;
 import com.github.pagehelper.Page;
 
 public interface IRiskCheckService {
@@ -13,64 +12,50 @@ public interface IRiskCheckService {
 	 * 分页查询
 	 * @param page
 	 * @param param
-	 * @return List<UserTitleVo>
+	 * @return List<RiskCheck>
 	 */
-	public List<UserTitleVo> selectListByPage(Page<?> page, UserTitlePageRequest param);
+	public List<RiskCheck> selectListByPage(Page<?> page, RiskCheckPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
-	 * @return List<UserTitleVo>
+	 * @return List<RiskCheck>
 	 */
-	public List<UserTitleVo> selectList(UserTitlePageRequest param);
-
-	/**
-	 * 根据titleId查询用户职务列表
-	 * @param userId
-	 * @return List<UserTitle>
-	 */
-	public List<UserTitle> selectListByTitleId(Integer titleId);
+	public List<RiskCheck> selectList(RiskCheckPageRequest param);
 
     /**
-     * 根据id查询用户职务
+     * 根据id查询风险排查
      * @param id
-     * @return UserTitle
+     * @return RiskCheck
      */
-	public UserTitle selectById(Integer id);
-
-	/**
-	 * 根据userId查询用户职务
-	 * @param userId
-	 * @return UserTitle
-	 */
-	public UserTitle selectByUserId(Integer userId);
+	public RiskCheck selectById(Integer id);
 
     /**
-     * 插入用户职务
-     * @param userTitle
+     * 插入风险排查
+     * @param riskCheck
      * @return Integer
      */
-	public Integer insert(UserTitle userTitle);
+	public Integer insert(RiskCheck riskCheck);
 
-	/**
-  	 * 根据id删除用户职务
+ 	/**
+  	 * 根据id删除风险排查
   	 * @param id
   	 * @return Integer
   	 */
 	public Integer deleteById(Integer id);
 
  	/**
-  	 * 根据ids删除用户职务
+  	 * 根据ids删除风险排查
   	 * @param ids
   	 * @return Integer
   	 */
 	public Integer deleteByIds(List<Integer> ids);
 
     /**
-     * 修改用户职务
-     * @param userTitle
+     * 修改风险排查
+     * @param riskCheck
      * @return Integer
      */
-	public Integer modify(UserTitle userTitle);
+	public Integer modify(RiskCheck riskCheck);
 
 }

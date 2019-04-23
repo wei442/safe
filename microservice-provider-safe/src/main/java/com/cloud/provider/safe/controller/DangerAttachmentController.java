@@ -19,56 +19,56 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
-import com.cloud.provider.safe.po.OrgQualityAttachment;
-import com.cloud.provider.safe.rest.request.enterprise.OrgQualityAttachmentRequest;
-import com.cloud.provider.safe.rest.request.page.enterprise.OrgQualityAttachmentPageRequest;
-import com.cloud.provider.safe.service.IOrgQualityAttachmentService;
+import com.cloud.provider.safe.po.DangerAttachment;
+import com.cloud.provider.safe.rest.request.danger.DangerAttachmentRequest;
+import com.cloud.provider.safe.rest.request.page.danger.DangerAttachmentPageRequest;
+import com.cloud.provider.safe.service.IDangerAttachmentService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.enterprise.OrgQualityAttachmentVo;
+import com.cloud.provider.safe.vo.danger.DangerAttachmentVo;
 import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * 机构资质附件 OrgQualityAttachmentController
+ * 隐患附件 DangerAttachmentController
  * @author wei.yong
  */
-@Api(tags = "机构资质附件")
+@Api(tags = "隐患附件")
 @RestController
-@RequestMapping(value="/org/quality/attachment")
+@RequestMapping(value="/danger/attachment")
 public class DangerAttachmentController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	//机构资质附件Service
+	//隐患附件Service
 	@Autowired
-	private IOrgQualityAttachmentService orgQualityAttachmentService;
+	private IDangerAttachmentService dangerAttachmentService;
 
 	/**
 	 * 分页查询
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "分页查询机构资质附件列表")
+	@ApiOperation(value = "分页查询隐患附件列表")
 	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectListByPage(
-		@RequestBody OrgQualityAttachmentPageRequest req) {
-		logger.info("===step1:【分页查询机构资质附件列表】(OrgQualityAttachmentController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		@RequestBody DangerAttachmentPageRequest req) {
+		logger.info("===step1:【分页查询隐患附件列表】(DangerAttachmentController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<OrgQualityAttachment> list = orgQualityAttachmentService.selectListByPage(page, req);
-		logger.info("===step2:【分页查询机构资质附件列表】(OrgQualityAttachmentController-selectListByPage)-分页查询机构资质附件列表, list.size:{}", list == null ? null : list.size());
-		List<OrgQualityAttachmentVo> orgQualityAttachmentVoList = new OrgQualityAttachmentVo().convertToOrgQualityAttachmentVoList(list);
+		List<DangerAttachment> list = dangerAttachmentService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询隐患附件列表】(DangerAttachmentController-selectListByPage)-分页查询隐患附件列表, list.size:{}", list == null ? null : list.size());
+		List<DangerAttachmentVo> dangerAttachmentVoList = new DangerAttachmentVo().convertToDangerAttachmentVoList(list);
 
-		BaseRestMapResponse orgQualityAttachmentResponse = new BaseRestMapResponse();
-		orgQualityAttachmentResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(orgQualityAttachmentVoList));
-		logger.info("===step3:【分页查询机构资质附件列表】(OrgQualityAttachmentController-selectListByPage)-返回信息, orgQualityAttachmentResponse:{}", orgQualityAttachmentResponse);
-		return orgQualityAttachmentResponse;
+		BaseRestMapResponse dangerAttachmentResponse = new BaseRestMapResponse();
+		dangerAttachmentResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(dangerAttachmentVoList));
+		logger.info("===step3:【分页查询隐患附件列表】(DangerAttachmentController-selectListByPage)-返回信息, dangerAttachmentResponse:{}", dangerAttachmentResponse);
+		return dangerAttachmentResponse;
 	}
 
 	/**
@@ -76,118 +76,118 @@ public class DangerAttachmentController extends BaseController {
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "不分页查询机构资质附件列表")
+	@ApiOperation(value = "不分页查询隐患附件列表")
 	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectList(
-		@RequestBody OrgQualityAttachmentPageRequest req) {
-		logger.info("===step1:【不分页查询机构资质附件列表】(OrgQualityAttachmentController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<OrgQualityAttachment> list = orgQualityAttachmentService.selectList(req);
-		logger.info("===step2:【不分页查询机构资质附件列表】(OrgQualityAttachmentController-selectList)-不分页查询机构资质附件列表, list.size:{}", list == null ? null : list.size());
-		List<OrgQualityAttachmentVo> orgQualityAttachmentVoList = new OrgQualityAttachmentVo().convertToOrgQualityAttachmentVoList(list);
+		@RequestBody DangerAttachmentPageRequest req) {
+		logger.info("===step1:【不分页查询隐患附件列表】(DangerAttachmentController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<DangerAttachment> list = dangerAttachmentService.selectList(req);
+		logger.info("===step2:【不分页查询隐患附件列表】(DangerAttachmentController-selectList)-不分页查询隐患附件列表, list.size:{}", list == null ? null : list.size());
+		List<DangerAttachmentVo> dangerAttachmentVoList = new DangerAttachmentVo().convertToDangerAttachmentVoList(list);
 
-		BaseRestMapResponse orgQualityAttachmentResponse = new BaseRestMapResponse();
-		orgQualityAttachmentResponse.put(PageConstants.DATA_LIST, orgQualityAttachmentVoList);
-		logger.info("===step3:【不分页查询机构资质附件列表】(OrgQualityAttachmentController-selectList)-返回信息, orgQualityAttachmentResponse:{}", orgQualityAttachmentResponse);
-		return orgQualityAttachmentResponse;
+		BaseRestMapResponse dangerAttachmentResponse = new BaseRestMapResponse();
+		dangerAttachmentResponse.put(PageConstants.DATA_LIST, dangerAttachmentVoList);
+		logger.info("===step3:【不分页查询隐患附件列表】(DangerAttachmentController-selectList)-返回信息, dangerAttachmentResponse:{}", dangerAttachmentResponse);
+		return dangerAttachmentResponse;
 	}
 
 	/**
-	 * 据id查询机构资质附件
-	 * @param orgQualityAttachmentId
+	 * 据id查询隐患附件
+	 * @param dangerAttachmentId
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据id查询机构资质附件")
+	@ApiOperation(value = "根据id查询隐患附件")
 	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectById(
-		@PathVariable(value="id",required=false) Integer orgQualityAttachmentId) {
-		logger.info("===step1:【据id查询机构资质附件】(OrgQualityAttachmentController-selectById)-传入参数, orgQualityAttachmentId:{}", orgQualityAttachmentId);
+		@PathVariable(value="id",required=false) Integer dangerAttachmentId) {
+		logger.info("===step1:【据id查询隐患附件】(DangerAttachmentController-selectById)-传入参数, dangerAttachmentId:{}", dangerAttachmentId);
 
-		if(orgQualityAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "orgQualityAttachmentId不能为空");
+		if(dangerAttachmentId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dangerAttachmentId不能为空");
 		}
 
-		OrgQualityAttachment orgQualityAttachment = orgQualityAttachmentService.selectById(orgQualityAttachmentId);
-		logger.info("===step2:【据id查询机构资质附件】(OrgQualityAttachmentController-selectById)-根据id查询机构资质附件, orgQualityAttachment:{}", orgQualityAttachment);
-		OrgQualityAttachmentVo orgQualityAttachmentVo = new OrgQualityAttachmentVo().convertToOrgQualityAttachmentVo(orgQualityAttachment);
+		DangerAttachment dangerAttachment = dangerAttachmentService.selectById(dangerAttachmentId);
+		logger.info("===step2:【据id查询隐患附件】(DangerAttachmentController-selectById)-根据id查询隐患附件, dangerAttachment:{}", dangerAttachment);
+		DangerAttachmentVo dangerAttachmentVo = new DangerAttachmentVo().convertToDangerAttachmentVo(dangerAttachment);
 
-		BaseRestMapResponse orgQualityAttachmentResponse = new BaseRestMapResponse();
-		orgQualityAttachmentResponse.putAll((JSONObject) JSONObject.toJSON(orgQualityAttachmentVo));
-		logger.info("===step3:【据id查询机构资质附件】(OrgQualityAttachmentController-selectById)-返回信息, orgQualityAttachmentResponse:{}", orgQualityAttachmentResponse);
-		return orgQualityAttachmentResponse;
+		BaseRestMapResponse dangerAttachmentResponse = new BaseRestMapResponse();
+		dangerAttachmentResponse.putAll((JSONObject) JSONObject.toJSON(dangerAttachmentVo));
+		logger.info("===step3:【据id查询隐患附件】(DangerAttachmentController-selectById)-返回信息, dangerAttachmentResponse:{}", dangerAttachmentResponse);
+		return dangerAttachmentResponse;
 	}
 
 	/**
-	 * 添加机构资质附件
+	 * 添加隐患附件
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "添加机构资质附件")
+	@ApiOperation(value = "添加隐患附件")
 	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insert(
-		@Validated @RequestBody OrgQualityAttachmentRequest req,
+		@Validated @RequestBody DangerAttachmentRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加机构资质附件】(OrgQualityAttachmentController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加隐患附件】(DangerAttachmentController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		OrgQualityAttachment orgQualityAttachment = req.convertToOrgQualityAttachment();
-		int i = orgQualityAttachmentService.insert(orgQualityAttachment);
-		logger.info("===step2:【添加机构资质附件】(OrgQualityAttachmentController-insert)-插入机构资质附件, i:{}", i);
+		DangerAttachment dangerAttachment = req.convertToDangerAttachment();
+		int i = dangerAttachmentService.insert(dangerAttachment);
+		logger.info("===step2:【添加隐患附件】(DangerAttachmentController-insert)-插入隐患附件, i:{}", i);
 
-		BaseRestMapResponse orgQualityAttachmentResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加机构资质附件】(OrgQualityAttachmentController-insert)-返回信息, orgQualityAttachmentResponse:{}", orgQualityAttachmentResponse);
-		return orgQualityAttachmentResponse;
+		BaseRestMapResponse dangerAttachmentResponse = new BaseRestMapResponse();
+		logger.info("===step3:【添加隐患附件】(DangerAttachmentController-insert)-返回信息, dangerAttachmentResponse:{}", dangerAttachmentResponse);
+		return dangerAttachmentResponse;
 	}
 
 	/**
-	 * 根据id删除机构资质附件
-	 * @param orgQualityAttachmentId
+	 * 根据id删除隐患附件
+	 * @param dangerAttachmentId
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据id删除机构资质附件")
+	@ApiOperation(value = "根据id删除隐患附件")
 	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteById(
-		@PathVariable(value="id",required=false) Integer orgQualityAttachmentId) {
-		logger.info("===step1:【根据id删除机构资质附件】(selectById-deleteById)-传入参数, orgQualityAttachmentId:{}", orgQualityAttachmentId);
+		@PathVariable(value="id",required=false) Integer dangerAttachmentId) {
+		logger.info("===step1:【根据id删除隐患附件】(selectById-deleteById)-传入参数, dangerAttachmentId:{}", dangerAttachmentId);
 
-		if(orgQualityAttachmentId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "orgQualityAttachmentId不能为空");
+		if(dangerAttachmentId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dangerAttachmentId不能为空");
 		}
 
-		int i = orgQualityAttachmentService.deleteById(orgQualityAttachmentId);
-		logger.info("===step2:【根据id删除机构资质附件】(OrgQualityAttachmentController-deleteById)-根据id查询机构资质附件, i:{}", i);
+		int i = dangerAttachmentService.deleteById(dangerAttachmentId);
+		logger.info("===step2:【根据id删除隐患附件】(DangerAttachmentController-deleteById)-根据id查询隐患附件, i:{}", i);
 
-		BaseRestMapResponse orgQualityAttachmentResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除机构资质附件】(OrgQualityAttachmentController-deleteById)-返回信息, orgQualityAttachmentResponse:{}", orgQualityAttachmentResponse);
-		return orgQualityAttachmentResponse;
+		BaseRestMapResponse dangerAttachmentResponse = new BaseRestMapResponse();
+		logger.info("===step3:【根据id删除隐患附件】(DangerAttachmentController-deleteById)-返回信息, dangerAttachmentResponse:{}", dangerAttachmentResponse);
+		return dangerAttachmentResponse;
 	}
 
 	/**
-	 * 修改机构资质附件
+	 * 修改隐患附件
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "修改机构资质附件")
+	@ApiOperation(value = "修改隐患附件")
 	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse modify(
-		@Validated({ ModifyGroup.class }) @RequestBody OrgQualityAttachmentRequest req,
+		@Validated({ ModifyGroup.class }) @RequestBody DangerAttachmentRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改机构资质附件】(OrgQualityAttachmentController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改隐患附件】(DangerAttachmentController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		Integer orgQualityAttachmentId = req.getOrgQualityAttachmentId();
-		OrgQualityAttachment orgQualityAttachment = req.convertToOrgQualityAttachment();
-		orgQualityAttachment.setId(orgQualityAttachmentId);
-		int i = orgQualityAttachmentService.modify(orgQualityAttachment);
-		logger.info("===step2:【修改机构资质附件】(OrgQualityAttachmentController-modify)-修改机构资质附件, i:{}", i);
+		Integer dangerAttachmentId = req.getDangerAttachmentId();
+		DangerAttachment dangerAttachment = req.convertToDangerAttachment();
+		dangerAttachment.setId(dangerAttachmentId);
+		int i = dangerAttachmentService.modify(dangerAttachment);
+		logger.info("===step2:【修改隐患附件】(DangerAttachmentController-modify)-修改隐患附件, i:{}", i);
 
-		BaseRestMapResponse orgQualityAttachmentResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改机构资质附件】(OrgQualityAttachmentController-modify)-返回信息, orgQualityAttachmentResponse:{}", orgQualityAttachmentResponse);
-		return orgQualityAttachmentResponse;
+		BaseRestMapResponse dangerAttachmentResponse = new BaseRestMapResponse();
+		logger.info("===step3:【修改隐患附件】(DangerAttachmentController-modify)-返回信息, dangerAttachmentResponse:{}", dangerAttachmentResponse);
+		return dangerAttachmentResponse;
 	}
 
 }

@@ -13,8 +13,8 @@
     <result column="danger_time" jdbcType="TIMESTAMP" property="dangerTime" />
     <result column="danger_desc" jdbcType="VARCHAR" property="dangerDesc" />
     <result column="danger_user_id" jdbcType="INTEGER" property="dangerUserId" />
-    <result column="dange_user_account" jdbcType="VARCHAR" property="dangeUserAccount" />
-    <result column="dange_user_name" jdbcType="VARCHAR" property="dangeUserName" />
+    <result column="danger_user_account" jdbcType="VARCHAR" property="dangerUserAccount" />
+    <result column="danger_user_name" jdbcType="VARCHAR" property="dangerUserName" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
@@ -83,8 +83,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, enterprise_id, org_id, org_name, danger_site, danger_level, danger_category, 
-    danger_sub_category, danger_time, danger_desc, danger_user_id, dange_user_account, 
-    dange_user_name, is_delete, remark, sort, created, updated, create_time, update_time
+    danger_sub_category, danger_time, danger_desc, danger_user_id, danger_user_account, 
+    danger_user_name, is_delete, remark, sort, created, updated, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.DangerExample" resultMap="BaseResultMap">
     select
@@ -120,15 +120,15 @@
     insert into danger (id, enterprise_id, org_id, 
       org_name, danger_site, danger_level, 
       danger_category, danger_sub_category, danger_time, 
-      danger_desc, danger_user_id, dange_user_account, 
-      dange_user_name, is_delete, remark, 
+      danger_desc, danger_user_id, danger_user_account, 
+      danger_user_name, is_delete, remark, 
       sort, created, updated, 
       create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
       #{orgName,jdbcType=VARCHAR}, #{dangerSite,jdbcType=VARCHAR}, #{dangerLevel,jdbcType=INTEGER}, 
       #{dangerCategory,jdbcType=VARCHAR}, #{dangerSubCategory,jdbcType=VARCHAR}, #{dangerTime,jdbcType=TIMESTAMP}, 
-      #{dangerDesc,jdbcType=VARCHAR}, #{dangerUserId,jdbcType=INTEGER}, #{dangeUserAccount,jdbcType=VARCHAR}, 
-      #{dangeUserName,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{dangerDesc,jdbcType=VARCHAR}, #{dangerUserId,jdbcType=INTEGER}, #{dangerUserAccount,jdbcType=VARCHAR}, 
+      #{dangerUserName,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
       #{sort,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -168,11 +168,11 @@
       <if test="dangerUserId != null">
         danger_user_id,
       </if>
-      <if test="dangeUserAccount != null">
-        dange_user_account,
+      <if test="dangerUserAccount != null">
+        danger_user_account,
       </if>
-      <if test="dangeUserName != null">
-        dange_user_name,
+      <if test="dangerUserName != null">
+        danger_user_name,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -230,11 +230,11 @@
       <if test="dangerUserId != null">
         #{dangerUserId,jdbcType=INTEGER},
       </if>
-      <if test="dangeUserAccount != null">
-        #{dangeUserAccount,jdbcType=VARCHAR},
+      <if test="dangerUserAccount != null">
+        #{dangerUserAccount,jdbcType=VARCHAR},
       </if>
-      <if test="dangeUserName != null">
-        #{dangeUserName,jdbcType=VARCHAR},
+      <if test="dangerUserName != null">
+        #{dangerUserName,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=INTEGER},
@@ -301,11 +301,11 @@
       <if test="record.dangerUserId != null">
         danger_user_id = #{record.dangerUserId,jdbcType=INTEGER},
       </if>
-      <if test="record.dangeUserAccount != null">
-        dange_user_account = #{record.dangeUserAccount,jdbcType=VARCHAR},
+      <if test="record.dangerUserAccount != null">
+        danger_user_account = #{record.dangerUserAccount,jdbcType=VARCHAR},
       </if>
-      <if test="record.dangeUserName != null">
-        dange_user_name = #{record.dangeUserName,jdbcType=VARCHAR},
+      <if test="record.dangerUserName != null">
+        danger_user_name = #{record.dangerUserName,jdbcType=VARCHAR},
       </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=INTEGER},
@@ -346,8 +346,8 @@
       danger_time = #{record.dangerTime,jdbcType=TIMESTAMP},
       danger_desc = #{record.dangerDesc,jdbcType=VARCHAR},
       danger_user_id = #{record.dangerUserId,jdbcType=INTEGER},
-      dange_user_account = #{record.dangeUserAccount,jdbcType=VARCHAR},
-      dange_user_name = #{record.dangeUserName,jdbcType=VARCHAR},
+      danger_user_account = #{record.dangerUserAccount,jdbcType=VARCHAR},
+      danger_user_name = #{record.dangerUserName,jdbcType=VARCHAR},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
       sort = #{record.sort,jdbcType=INTEGER},
@@ -392,11 +392,11 @@
       <if test="dangerUserId != null">
         danger_user_id = #{dangerUserId,jdbcType=INTEGER},
       </if>
-      <if test="dangeUserAccount != null">
-        dange_user_account = #{dangeUserAccount,jdbcType=VARCHAR},
+      <if test="dangerUserAccount != null">
+        danger_user_account = #{dangerUserAccount,jdbcType=VARCHAR},
       </if>
-      <if test="dangeUserName != null">
-        dange_user_name = #{dangeUserName,jdbcType=VARCHAR},
+      <if test="dangerUserName != null">
+        danger_user_name = #{dangerUserName,jdbcType=VARCHAR},
       </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=INTEGER},
@@ -434,8 +434,8 @@
       danger_time = #{dangerTime,jdbcType=TIMESTAMP},
       danger_desc = #{dangerDesc,jdbcType=VARCHAR},
       danger_user_id = #{dangerUserId,jdbcType=INTEGER},
-      dange_user_account = #{dangeUserAccount,jdbcType=VARCHAR},
-      dange_user_name = #{dangeUserName,jdbcType=VARCHAR},
+      danger_user_account = #{dangerUserAccount,jdbcType=VARCHAR},
+      danger_user_name = #{dangerUserName,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       sort = #{sort,jdbcType=INTEGER},

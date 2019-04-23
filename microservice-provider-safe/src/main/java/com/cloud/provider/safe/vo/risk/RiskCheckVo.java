@@ -23,9 +23,9 @@ public class RiskCheckVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long riskCheckId;
+	private Integer riskCheckId;
 
-    private Integer riskId;
+	private Integer riskId;
 
     private String effect;
 

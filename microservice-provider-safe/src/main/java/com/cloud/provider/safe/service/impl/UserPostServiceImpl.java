@@ -149,6 +149,18 @@ public class UserPostServiceImpl implements IUserPostService {
     	return i;
     }
 
+	/**
+	 * 批量插入
+	 * @param list
+	 * @return Integer
+	 */
+	@Override
+	public Integer insertList(List<UserPost> list) {
+		logger.info("(UserPostService-insertList)-插入用户岗位-传入参数, list:{}", list);
+		int i = userPostDao.insertList(list);
+		return i;
+	}
+
  	/**
   	 * 根据id删除用户岗位
   	 * @param id

@@ -24,10 +24,6 @@ public class UserOrgRequest implements Serializable {
 
 	private Integer enterpriseId;
 
-//	@ApiModelProperty(value = "用户id")
-//    @NotNull(message = "用户id不能为空")
-//    private Integer userId;
-
 	@ApiModelProperty(value = "机构id")
     @NotNull(message = "机构id不能为空")
     private Integer orgId;

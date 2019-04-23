@@ -42,6 +42,13 @@ public interface IUserPostService {
 	public JSONObject add(Object params);
 
 	/**
+	 * 新增批量用户岗位
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject addList(Object params);
+
+	/**
 	 * 根据id删除用户岗位
 	 * @param id
 	 * @return JSONObject

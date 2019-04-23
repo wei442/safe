@@ -4,15 +4,12 @@
 	<!-- 查询当前用户组织机构下的所有人员列表 -->
     <select id="selectList" parameterType="com.cloud.provider.safe.param.UserOrgParam" resultType="com.cloud.provider.safe.vo.user.UserOrgVo">
         select 
-    	t1.id as userOrgId, t1.enterprise_id as enterpriseId, t1.user_id as userId, t1.user_name as userName, t1.org_id as orgId, 
+    	t1.id as userOrgId, t1.enterprise_id as enterpriseId, t1.user_id as userId, t1.org_id as orgId, t1.org_name as orgName, 
     	t1.created as created, t1.updated as updated, t1.create_time as createTime, t1.update_time as updateTime, 
-        t2.user_account as userAccount, t2.user_name_en as userNameEn, t2.nick_name as nickName, 
-        t3.org_name as orgName
-        from user_org t1, user_info t2, org t3 
+        t2.user_account as userAccount, t2.user_name as userName
+        from user_org t1, user_info t2
         where t1.user_id = t2.id
-        and t1.org_id = t3.id 
         and t2.is_delete = 0 
-        and t3.is_delete = 0 
         <if test="enterpriseId != null and enterpriseId != ''">
             and t1.enterprise_id = #{enterpriseId,jdbcType=INTEGER}
         </if>

@@ -41,6 +41,8 @@ public class UserPostVo implements Serializable {
     @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
 
+    private String userAccount;
+
     private String userName;
 
     private Integer orgId;

@@ -10,7 +10,7 @@ public interface RiskCheckMapper {
 
     int deleteByExample(RiskCheckExample example);
 
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(RiskCheck record);
 
@@ -18,7 +18,7 @@ public interface RiskCheckMapper {
 
     List<RiskCheck> selectByExample(RiskCheckExample example);
 
-    RiskCheck selectByPrimaryKey(Long id);
+    RiskCheck selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") RiskCheck record, @Param("example") RiskCheckExample example);
 

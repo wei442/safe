@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.provider.safe.dao.RiskCheckMapper">
   <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.RiskCheck">
-    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="risk_id" jdbcType="INTEGER" property="riskId" />
     <result column="effect" jdbcType="VARCHAR" property="effect" />
     <result column="check_user_id" jdbcType="INTEGER" property="checkUserId" />
@@ -90,15 +90,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from risk_check
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from risk_check
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.cloud.provider.safe.po.RiskCheckExample">
     delete from risk_check
@@ -111,7 +111,7 @@
       check_user_id, check_user_account, check_user_name, 
       check_time, created, updated, 
       create_time, update_time)
-    values (#{id,jdbcType=BIGINT}, #{riskId,jdbcType=INTEGER}, #{effect,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{riskId,jdbcType=INTEGER}, #{effect,jdbcType=VARCHAR}, 
       #{checkUserId,jdbcType=INTEGER}, #{checkUserAccount,jdbcType=VARCHAR}, #{checkUserName,jdbcType=VARCHAR}, 
       #{checkTime,jdbcType=TIMESTAMP}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
@@ -155,7 +155,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=BIGINT},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="riskId != null">
         #{riskId,jdbcType=INTEGER},
@@ -199,7 +199,7 @@
     update risk_check
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.riskId != null">
         risk_id = #{record.riskId,jdbcType=INTEGER},
@@ -238,7 +238,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update risk_check
-    set id = #{record.id,jdbcType=BIGINT},
+    set id = #{record.id,jdbcType=INTEGER},
       risk_id = #{record.riskId,jdbcType=INTEGER},
       effect = #{record.effect,jdbcType=VARCHAR},
       check_user_id = #{record.checkUserId,jdbcType=INTEGER},
@@ -287,7 +287,7 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.RiskCheck">
     update risk_check
@@ -301,6 +301,6 @@
       updated = #{updated,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

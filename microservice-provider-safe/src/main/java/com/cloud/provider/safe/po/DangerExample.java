@@ -815,143 +815,143 @@ public class DangerExample {
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountIsNull() {
-            addCriterion("dange_user_account is null");
+        public Criteria andDangerUserAccountIsNull() {
+            addCriterion("danger_user_account is null");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountIsNotNull() {
-            addCriterion("dange_user_account is not null");
+        public Criteria andDangerUserAccountIsNotNull() {
+            addCriterion("danger_user_account is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountEqualTo(String value) {
-            addCriterion("dange_user_account =", value, "dangeUserAccount");
+        public Criteria andDangerUserAccountEqualTo(String value) {
+            addCriterion("danger_user_account =", value, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountNotEqualTo(String value) {
-            addCriterion("dange_user_account <>", value, "dangeUserAccount");
+        public Criteria andDangerUserAccountNotEqualTo(String value) {
+            addCriterion("danger_user_account <>", value, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountGreaterThan(String value) {
-            addCriterion("dange_user_account >", value, "dangeUserAccount");
+        public Criteria andDangerUserAccountGreaterThan(String value) {
+            addCriterion("danger_user_account >", value, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountGreaterThanOrEqualTo(String value) {
-            addCriterion("dange_user_account >=", value, "dangeUserAccount");
+        public Criteria andDangerUserAccountGreaterThanOrEqualTo(String value) {
+            addCriterion("danger_user_account >=", value, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountLessThan(String value) {
-            addCriterion("dange_user_account <", value, "dangeUserAccount");
+        public Criteria andDangerUserAccountLessThan(String value) {
+            addCriterion("danger_user_account <", value, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountLessThanOrEqualTo(String value) {
-            addCriterion("dange_user_account <=", value, "dangeUserAccount");
+        public Criteria andDangerUserAccountLessThanOrEqualTo(String value) {
+            addCriterion("danger_user_account <=", value, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountLike(String value) {
-            addCriterion("dange_user_account like", value, "dangeUserAccount");
+        public Criteria andDangerUserAccountLike(String value) {
+            addCriterion("danger_user_account like", value, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountNotLike(String value) {
-            addCriterion("dange_user_account not like", value, "dangeUserAccount");
+        public Criteria andDangerUserAccountNotLike(String value) {
+            addCriterion("danger_user_account not like", value, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountIn(List<String> values) {
-            addCriterion("dange_user_account in", values, "dangeUserAccount");
+        public Criteria andDangerUserAccountIn(List<String> values) {
+            addCriterion("danger_user_account in", values, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountNotIn(List<String> values) {
-            addCriterion("dange_user_account not in", values, "dangeUserAccount");
+        public Criteria andDangerUserAccountNotIn(List<String> values) {
+            addCriterion("danger_user_account not in", values, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountBetween(String value1, String value2) {
-            addCriterion("dange_user_account between", value1, value2, "dangeUserAccount");
+        public Criteria andDangerUserAccountBetween(String value1, String value2) {
+            addCriterion("danger_user_account between", value1, value2, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserAccountNotBetween(String value1, String value2) {
-            addCriterion("dange_user_account not between", value1, value2, "dangeUserAccount");
+        public Criteria andDangerUserAccountNotBetween(String value1, String value2) {
+            addCriterion("danger_user_account not between", value1, value2, "dangerUserAccount");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameIsNull() {
-            addCriterion("dange_user_name is null");
+        public Criteria andDangerUserNameIsNull() {
+            addCriterion("danger_user_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameIsNotNull() {
-            addCriterion("dange_user_name is not null");
+        public Criteria andDangerUserNameIsNotNull() {
+            addCriterion("danger_user_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameEqualTo(String value) {
-            addCriterion("dange_user_name =", value, "dangeUserName");
+        public Criteria andDangerUserNameEqualTo(String value) {
+            addCriterion("danger_user_name =", value, "dangerUserName");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameNotEqualTo(String value) {
-            addCriterion("dange_user_name <>", value, "dangeUserName");
+        public Criteria andDangerUserNameNotEqualTo(String value) {
+            addCriterion("danger_user_name <>", value, "dangerUserName");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameGreaterThan(String value) {
-            addCriterion("dange_user_name >", value, "dangeUserName");
+        public Criteria andDangerUserNameGreaterThan(String value) {
+            addCriterion("danger_user_name >", value, "dangerUserName");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameGreaterThanOrEqualTo(String value) {
-            addCriterion("dange_user_name >=", value, "dangeUserName");
+        public Criteria andDangerUserNameGreaterThanOrEqualTo(String value) {
+            addCriterion("danger_user_name >=", value, "dangerUserName");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameLessThan(String value) {
-            addCriterion("dange_user_name <", value, "dangeUserName");
+        public Criteria andDangerUserNameLessThan(String value) {
+            addCriterion("danger_user_name <", value, "dangerUserName");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameLessThanOrEqualTo(String value) {
-            addCriterion("dange_user_name <=", value, "dangeUserName");
+        public Criteria andDangerUserNameLessThanOrEqualTo(String value) {
+            addCriterion("danger_user_name <=", value, "dangerUserName");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameLike(String value) {
-            addCriterion("dange_user_name like", value, "dangeUserName");
+        public Criteria andDangerUserNameLike(String value) {
+            addCriterion("danger_user_name like", value, "dangerUserName");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameNotLike(String value) {
-            addCriterion("dange_user_name not like", value, "dangeUserName");
+        public Criteria andDangerUserNameNotLike(String value) {
+            addCriterion("danger_user_name not like", value, "dangerUserName");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameIn(List<String> values) {
-            addCriterion("dange_user_name in", values, "dangeUserName");
+        public Criteria andDangerUserNameIn(List<String> values) {
+            addCriterion("danger_user_name in", values, "dangerUserName");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameNotIn(List<String> values) {
-            addCriterion("dange_user_name not in", values, "dangeUserName");
+        public Criteria andDangerUserNameNotIn(List<String> values) {
+            addCriterion("danger_user_name not in", values, "dangerUserName");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameBetween(String value1, String value2) {
-            addCriterion("dange_user_name between", value1, value2, "dangeUserName");
+        public Criteria andDangerUserNameBetween(String value1, String value2) {
+            addCriterion("danger_user_name between", value1, value2, "dangerUserName");
             return (Criteria) this;
         }
 
-        public Criteria andDangeUserNameNotBetween(String value1, String value2) {
-            addCriterion("dange_user_name not between", value1, value2, "dangeUserName");
+        public Criteria andDangerUserNameNotBetween(String value1, String value2) {
+            addCriterion("danger_user_name not between", value1, value2, "dangerUserName");
             return (Criteria) this;
         }
 

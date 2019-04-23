@@ -19,57 +19,57 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
-import com.cloud.provider.safe.po.UserTitle;
-import com.cloud.provider.safe.rest.request.page.user.UserTitlePageRequest;
-import com.cloud.provider.safe.rest.request.user.UserTitleRequest;
-import com.cloud.provider.safe.service.IUserTitleService;
+import com.cloud.provider.safe.po.Risk;
+import com.cloud.provider.safe.rest.request.page.risk.RiskPageRequest;
+import com.cloud.provider.safe.rest.request.risk.RiskRequest;
+import com.cloud.provider.safe.service.IRiskService;
 import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
-import com.cloud.provider.safe.vo.user.UserTitleVo;
+import com.cloud.provider.safe.vo.risk.RiskVo;
 import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * 用户职务 UserTitleController
+ * 风险 RiskController
  * @author wei.yong
  */
-@Api(tags = "用户职务")
+@Api(tags = "风险")
 @RestController
-@RequestMapping(value="/user/title")
+@RequestMapping(value="/risk")
 public class RiskController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	//用户职务Service
+	//风险Service
 	@Autowired
-	private IUserTitleService userTitleService;
+	private IRiskService riskService;
 
 	/**
 	 * 分页查询
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "分页查询用户职务列表")
+	@ApiOperation(value = "分页查询风险列表")
 	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectListByPage(
-		@RequestBody UserTitlePageRequest req,
-		BindingResult bindingResult) {
-		logger.info("===step1:【分页查询用户职务列表】(UserTitleController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		@RequestBody RiskPageRequest req) {
+		logger.info("===step1:【分页查询风险列表】(RiskController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer pageNum = req.getPageNum();
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserTitleVo> list = userTitleService.selectListByPage(page, req);
-		logger.info("===step2:【分页查询用户职务列表】(UserTitleController-selectListByPage)-分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
+		List<Risk> list = riskService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询风险列表】(RiskController-selectListByPage)-分页查询风险列表, list.size:{}", list == null ? null : list.size());
+		List<RiskVo> riskVoList = new RiskVo().convertToRiskVoList(list);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(list));
-		logger.info("===step3:【分页查询用户职务列表】(UserTitleController-selectListByPage)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
+		riskResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(riskVoList));
+		logger.info("===step3:【分页查询风险列表】(RiskController-selectListByPage)-返回信息, riskResponse:{}", riskResponse);
+		return riskResponse;
 	}
 
 	/**
@@ -77,170 +77,143 @@ public class RiskController extends BaseController {
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "不分页查询用户职务列表")
+	@ApiOperation(value = "不分页查询风险")
 	@RequestMapping(value="/selectList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectList(
-		@RequestBody UserTitlePageRequest req,
-		BindingResult bindingResult) {
-		logger.info("===step1:【不分页查询用户职务列表】(UserTitleController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserTitleVo> list = userTitleService.selectList(req);
-		logger.info("===step2:【不分页查询用户职务列表】(UserTitleController-selectList)-不分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
+		@RequestBody RiskPageRequest req) {
+		logger.info("===step1:【不分页查询风险列表】(RiskController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<Risk> list = riskService.selectList(req);
+		logger.info("===step2:【不分页查询风险列表】(RiskController-selectList)-不分页查询风险列表, list.size:{}", list == null ? null : list.size());
+		List<RiskVo> riskVoList = new RiskVo().convertToRiskVoList(list);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.put(PageConstants.DATA_LIST, list);
-		logger.info("===step3:【不分页查询用户职务列表】(UserTitleController-selectList)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
+		riskResponse.put(PageConstants.DATA_LIST, riskVoList);
+		logger.info("===step3:【不分页查询风险列表】(RiskController-selectList)-返回信息, riskResponse:{}", riskResponse);
+		return riskResponse;
 	}
 
 	/**
-	 * 据id查询用户职务
-	 * @param userTitleId
+	 * 据id查询风险
+	 * @param riskId
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据id查询用户职务")
+	@ApiOperation(value = "根据id查询风险")
 	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectById(
-		@PathVariable(value="id",required=false) Integer userTitleId) {
-		logger.info("===step1:【据id查询用户职务】(UserTitleController-selectById)-传入参数, userTitleId:{}", userTitleId);
+		@PathVariable(value="id",required=false) Integer riskId) {
+		logger.info("===step1:【据id查询风险】(RiskController-selectById)-传入参数, riskId:{}", riskId);
 
-		if(userTitleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userTitleId不能为空");
+		if(riskId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "riskId不能为空");
 		}
 
-		UserTitle userTitle = userTitleService.selectById(userTitleId);
-		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
-		logger.info("===step2:【据id查询用户职务】(UserTitleController-selectById)-根据id查询用户职务, userTitle:{}", userTitle);
-		UserTitleVo userTitleVo = new UserTitleVo().convertToUserTitleVo(userTitle);
+		Risk risk = riskService.selectById(riskId);
+		Assert.thanOrEqualZreo(risk, SafeResultEnum.DATABASE_NOTEXIST);
+		logger.info("===step2:【据id查询风险】(RiskController-selectById)-根据id查询风险, risk:{}", risk);
+		RiskVo riskVo = new RiskVo().convertToRiskVo(risk);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.putAll((JSONObject) JSONObject.toJSON(userTitleVo));
-		logger.info("===step3:【据id查询用户职务】(UserTitleController-selectById)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
+		riskResponse.putAll((JSONObject) JSONObject.toJSON(riskVo));
+		logger.info("===step3:【据id查询风险】(RiskController-selectById)-返回信息, riskResponse:{}", riskResponse);
+		return riskResponse;
 	}
 
 	/**
-	 * 据userId查询用户职务
-	 * @param userId
-	 * @return BaseRestMapResponse
-	 */
-	@ApiOperation(value = "根据id查询用户职务")
-	@RequestMapping(value="/selectByUserId/{userId}",method={RequestMethod.POST})
-	@ResponseBody
-	public BaseRestMapResponse selectByUserId(
-		@PathVariable(value="userId",required=false) Integer userId) {
-		logger.info("===step1:【据userId查询用户职务】(UserTitleController-selectByUserId)-传入参数, userId:{}", userId);
-
-		if(userId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userId不能为空");
-		}
-
-		UserTitle userTitle = userTitleService.selectByUserId(userId);
-		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
-		logger.info("===step2:【据userId查询用户职务】(UserTitleController-selectByUserId)-根据userId查询用户职务, userTitle:{}", userTitle);
-		UserTitleVo userTitleVo = new UserTitleVo().convertToUserTitleVo(userTitle);
-
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.putAll((JSONObject) JSONObject.toJSON(userTitleVo));
-		logger.info("===step3:【据userId查询用户职务】(UserTitleController-selectByUserId)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
-	}
-
-	/**
-	 * 添加用户职务
+	 * 添加风险
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "添加用户职务")
-	@RequestMapping(value="/insertUserTitle",method={RequestMethod.POST})
+	@ApiOperation(value = "添加风险")
+	@RequestMapping(value="/insertRisk",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insert(
-		@Validated @RequestBody UserTitleRequest req,
+		@Validated @RequestBody RiskRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户职务】(UserTitleController-insertUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加风险】(RiskController-insertRisk)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		UserTitle userTitle = req.convertToUserTitle();
-		int i = userTitleService.insert(userTitle);
-		logger.info("===step2:【添加用户职务】(UserTitleController-insertUserTitle)-插入用户职务, i:{}", i);
+		Risk risk = req.convertToRisk();
+		int i = riskService.insert(risk);
+		logger.info("===step2:【添加风险】(RiskController-insertRisk)-插入风险, i:{}", i);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户职务】(UserTitleController-insertUserTitle)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
+		logger.info("===step3:【添加风险】(RiskController-insertRisk)-返回信息, riskResponse:{}", riskResponse);
+		return riskResponse;
 	}
 
 	/**
-	 * 根据id删除用户职务
-	 * @param userTitleId
+	 * 根据id删除风险
+	 * @param riskId
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据id删除用户职务")
+	@ApiOperation(value = "根据id删除风险")
 	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteById(
-		@PathVariable(value="id",required=false) Integer userTitleId) {
-		logger.info("===step1:【根据id删除用户职务】(UserTitleController-deleteById)-传入参数, userTitleId:{}", userTitleId);
+		@PathVariable(value="id",required=false) Integer riskId) {
+		logger.info("===step1:【根据id删除风险】(RiskController-deleteById)-传入参数, riskId:{}", riskId);
 
-		if(userTitleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userTitleId不能为空");
+		if(riskId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "riskId不能为空");
 		}
 
-		int i = userTitleService.deleteById(userTitleId);
-		logger.info("===step2:【根据id删除用户职务】(UserTitleController-deleteById)-根据id删除用户职务, i:{}", i);
+		int i = riskService.deleteById(riskId);
+		logger.info("===step2:【根据id删除风险】(RiskController-deleteById)-根据id删除风险, i:{}", i);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除用户职务】(UserTitleController-deleteById)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
+		logger.info("===step3:【根据id删除风险】(RiskController-deleteById)-返回信息, riskResponse:{}", riskResponse);
+		return riskResponse;
 	}
 
 	/**
-	 * 根据ids删除用户职务
-	 * @param userTitleIds
+	 * 根据ids删除风险
+	 * @param riskIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据ids删除用户职务")
+	@ApiOperation(value = "根据ids删除风险")
 	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteByIds(
-		@PathVariable(value="ids",required=false) List<Integer> userTitleIds) {
-		logger.info("===step1:【根据ids删除用户职务】(UserTitleController-deleteByIds)-传入参数, userTitleIds:{}", userTitleIds);
+		@PathVariable(value="ids",required=false) List<Integer> riskIds) {
+		logger.info("===step1:【根据ids删除风险】(RiskController-deleteByIds)-传入参数, riskIds:{}", riskIds);
 
-		if(userTitleIds == null || userTitleIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userTitleIds不能为空");
+		if(riskIds == null || riskIds.isEmpty()) {
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "riskIds不能为空");
 		}
 
-		int i = userTitleService.deleteByIds(userTitleIds);
-		logger.info("===step2:【根据ids删除用户职务】(UserTitleController-deleteByIds)-根据ids删除用户职务, i:{}", i);
+		int i = riskService.deleteByIds(riskIds);
+		logger.info("===step2:【根据ids删除风险】(RiskController-deleteByIds)-根据ids删除风险, i:{}", i);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据ids删除用户职务】(UserTitleController-deleteByIds)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
+		logger.info("===step3:【根据ids删除风险】(RiskController-deleteByIds)-返回信息, riskResponse:{}", riskResponse);
+		return riskResponse;
 	}
 
 	/**
-	 * 修改用户职务
+	 * 修改风险
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "修改用户职务")
-	@RequestMapping(value="/modifyUserTitle",method={RequestMethod.POST})
+	@ApiOperation(value = "修改风险")
+	@RequestMapping(value="/modifyRisk",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse modify(
-		@Validated({ ModifyGroup.class }) @RequestBody UserTitleRequest req,
+		@Validated({ ModifyGroup.class }) @RequestBody RiskRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户职务】(UserTitleController-modifyUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改风险】(RiskController-modifyRisk)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		Integer userTitleId = req.getUserTitleId();
-		UserTitle userTitle = req.convertToUserTitle();
-		userTitle.setId(userTitleId);
-		int i = userTitleService.modify(userTitle);
-		logger.info("===step2:【修改用户职务】(UserTitleController-modifyUserTitle)-修改用户职务, i:{}", i);
+		Integer riskId = req.getRiskId();
+		Risk risk = req.convertToRisk();
+		risk.setId(riskId);
+		int i = riskService.modify(risk);
+		logger.info("===step2:【修改风险】(RiskController-modifyRisk)-修改风险, i:{}", i);
 
-		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改用户职务】(UserTitleController-modifyUserTitle)-返回信息, userTitleResponse:{}", userTitleResponse);
-		return userTitleResponse;
+		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
+		logger.info("===step3:【修改风险】(RiskController-modifyRisk)-返回信息, riskResponse:{}", riskResponse);
+		return riskResponse;
 	}
 
 }

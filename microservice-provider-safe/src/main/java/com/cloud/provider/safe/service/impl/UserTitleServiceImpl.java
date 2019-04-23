@@ -99,7 +99,6 @@ public class UserTitleServiceImpl implements IUserTitleService {
 		return list;
 	}
 
-
     /**
      * 根据id查询用户职务
      * @param id

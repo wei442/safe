@@ -20,9 +20,11 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Title;
+import com.cloud.provider.safe.po.UserTitle;
 import com.cloud.provider.safe.rest.request.page.post.TitlePageRequest;
 import com.cloud.provider.safe.rest.request.post.TitleRequest;
 import com.cloud.provider.safe.service.ITitleService;
+import com.cloud.provider.safe.service.IUserTitleService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.post.TitleVo;
 import com.github.pagehelper.Page;
@@ -44,6 +46,10 @@ public class TitleController extends BaseController {
 	//职务Service
 	@Autowired
 	private ITitleService TitleService;
+
+	//用户职务Service
+	@Autowired
+	private IUserTitleService userTitleService;
 
 	/**
 	 * 分页查询
@@ -150,18 +156,24 @@ public class TitleController extends BaseController {
 	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteById(
-		@PathVariable(value="id",required=false) Integer TitleId) {
-		logger.info("===step1:【根据id删除职务】(selectById-deleteById)-传入参数, TitleId:{}", TitleId);
+		@PathVariable(value="id",required=false) Integer titleId) {
+		logger.info("===step1:【根据id删除职务】(selectById-deleteById)-传入参数, titleId:{}", titleId);
 
-		if(TitleId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "TitleId不能为空");
+		if(titleId == null) {
+			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "titleId不能为空");
 		}
 
-		int i = TitleService.deleteById(TitleId);
-		logger.info("===step2:【根据id删除职务】(TitleController-deleteById)-根据id查询职务, i:{}", i);
+		List<UserTitle> userTitleList = userTitleService.selectListByTitleId(titleId);
+		logger.info("===step2:【根据id删除职务】(PostController-deleteById)-根据titleId查询职务列表, userTitleList.size:{}", userTitleList == null ? null : userTitleList.size());
+		if(userTitleList != null && !userTitleList.isEmpty()) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_TITLE_LIST_EXIST);
+		}
+
+		int i = TitleService.deleteById(titleId);
+		logger.info("===step3:【根据id删除职务】(TitleController-deleteById)-根据id查询职务, i:{}", i);
 
 		BaseRestMapResponse TitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除职务】(TitleController-deleteById)-返回信息, TitleResponse:{}", TitleResponse);
+		logger.info("===step4:【根据id删除职务】(TitleController-deleteById)-返回信息, TitleResponse:{}", TitleResponse);
 		return TitleResponse;
 	}
 

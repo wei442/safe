@@ -21,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserPost;
 import com.cloud.provider.safe.rest.request.page.user.UserPostPageRequest;
+import com.cloud.provider.safe.rest.request.user.UserPostListRequest;
 import com.cloud.provider.safe.rest.request.user.UserPostRequest;
 import com.cloud.provider.safe.service.IUserPostService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
@@ -164,6 +165,29 @@ public class UserPostController extends BaseController {
 
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
 		logger.info("===step3:【添加用户岗位】(UserPostController-insert)-返回信息, userPostResponse:{}", userPostResponse);
+		return userPostResponse;
+	}
+
+	/**
+	 * 批量添加用户岗位
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "批量添加用户岗位")
+	@RequestMapping(value="/insertList",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse insertList(
+		@Validated @RequestBody UserPostListRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【批量添加用户岗位】(UserPostController-insertList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		List<UserPost> userPostList = req.getUserPostList();
+		int i = userPostService.insertList(userPostList);
+		logger.info("===step2:【批量添加用户岗位】(UserPostController-insertList)-批量插入用户岗位, i:{}", i);
+
+		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
+		logger.info("===step3:【批量添加用户岗位】(UserPostController-insertList)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}
 

@@ -51,6 +51,13 @@ public interface IUserPostService {
      */
 	public Integer insert(UserPost userPost);
 
+	/**
+	 * 批量插入
+	 * @param list
+	 * @return Integer
+	 */
+	public Integer insertList(List<UserPost> list);
+
  	/**
   	 * 根据id删除用户岗位
   	 * @param id

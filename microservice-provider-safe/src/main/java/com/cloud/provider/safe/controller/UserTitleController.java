@@ -225,21 +225,21 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改用户职务")
-	@RequestMapping(value="/modifyUserTitle",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody UserTitleRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改用户职务】(UserTitleController-modifyUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改用户职务】(UserTitleController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userTitleId = req.getUserTitleId();
 		UserTitle userTitle = req.convertToUserTitle();
 		userTitle.setId(userTitleId);
 		int i = userTitleService.modify(userTitle);
-		logger.info("===step2:【修改用户职务】(UserTitleController-modifyUserTitle)-修改用户职务, i:{}", i);
+		logger.info("===step2:【修改用户职务】(UserTitleController-modify)-修改用户职务, i:{}", i);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改用户职务】(UserTitleController-modifyUserTitle)-返回信息, userTitleResponse:{}", userTitleResponse);
+		logger.info("===step3:【修改用户职务】(UserTitleController-modify)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
 

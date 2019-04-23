@@ -80,6 +80,18 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 	}
 
 	/**
+	 * 新增批量用户岗位
+	 * @param params
+	 * @return JSONObject
+	 */
+	@Override
+	public JSONObject addList(Object params) {
+		logger.info("(UserPostService-addList)-新增批量用户岗位-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/insertList", params, JSONObject.class);
+		return response;
+	}
+
+	/**
 	 * 根据id删除用户岗位
 	 * @param id
 	 * @return JSONObject

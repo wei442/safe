@@ -1,5 +1,6 @@
 package com.cloud.consumer.safe.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,7 +21,9 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserPostPageRequest;
+import com.cloud.consumer.safe.rest.request.user.UserInfoIdRequest;
 import com.cloud.consumer.safe.rest.request.user.UserPostIdRequest;
+import com.cloud.consumer.safe.rest.request.user.UserPostListRequest;
 import com.cloud.consumer.safe.rest.request.user.UserPostRequest;
 import com.cloud.consumer.safe.service.IUserPostService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
@@ -147,11 +150,51 @@ public class UserPostController extends BaseController {
 		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserPost = userPostService.add(req);
-		logger.info("===step2:【新增用户岗位】(UserPostController-add)-分页查询用户岗位列表, jsonUserPost:{}", jsonUserPost);
+		logger.info("===step2:【新增用户岗位】(UserPostController-add)-新增用户岗位列表, jsonUserPost:{}", jsonUserPost);
 
 		//返回信息
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
 	    logger.info("===step3:【新增用户岗位】(UserPostController-add)-返回信息, userPostResponse:{}", userPostResponse);
+	    return userPostResponse;
+	}
+
+	/**
+	 * 批量新增用户岗位
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "批量新增用户岗位")
+	@RequestMapping(value="/addList",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse addList(
+		@Validated @RequestBody UserPostListRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【批量新增用户岗位】(UserPostController-addList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		Integer postId = req.getPostId();
+
+		List<UserPostRequest> userPostList = null;
+		List<UserInfoIdRequest> userList = req.getUserList();
+		if(userList != null && !userList.isEmpty()) {
+			userPostList = new ArrayList<UserPostRequest>();
+			UserPostRequest userPostRequest = null;
+			for (UserInfoIdRequest userInfoIdRequest : userList) {
+				userPostRequest = new UserPostRequest();
+				userPostRequest.setEnterpriseId(enterpriseId);
+				userPostRequest.setUserId(userInfoIdRequest.getUserId());
+				userPostRequest.setPostId(postId);
+				userPostList.add(userPostRequest);
+			}
+		}
+		req.setUserPostList(userPostList);
+
+		JSONObject jsonUserPost = userPostService.addList(req);
+		logger.info("===step2:【批量新增用户岗位】(UserPostController-addList)-批量新增用户岗位列表, jsonUserPost:{}", jsonUserPost);
+
+		//返回信息
+		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
+	    logger.info("===step3:【批量新增用户岗位】(UserPostController-addList)-返回信息, userPostResponse:{}", userPostResponse);
 	    return userPostResponse;
 	}
 

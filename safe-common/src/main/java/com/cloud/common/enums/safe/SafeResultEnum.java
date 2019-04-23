@@ -24,6 +24,7 @@ public enum SafeResultEnum implements ResultEnum {
 	USER_ORG_EXIST("1010009", "此手机号码已存在"),
 	USER_ORG_LIST_EXIST("1010010", "请先删除该部门下的人员，再删除该部门!"),
 	USER_POST_LIST_EXIST("1010011", "当前岗位有人员，无法删除!"),
+	USER_TITLE_LIST_EXIST("1010012", "当前职务有人员，无法删除!"),
 
 
 	ENTERPRISE_NOTEXIST("1020001", "您没有注册企业"),

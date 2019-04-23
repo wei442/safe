@@ -25,9 +25,9 @@ public class Danger {
 
     private Integer dangerUserId;
 
-    private String dangeUserAccount;
+    private String dangerUserAccount;
 
-    private String dangeUserName;
+    private String dangerUserName;
 
     private Integer isDelete;
 
@@ -131,20 +131,20 @@ public class Danger {
         this.dangerUserId = dangerUserId;
     }
 
-    public String getDangeUserAccount() {
-        return dangeUserAccount;
+    public String getDangerUserAccount() {
+        return dangerUserAccount;
     }
 
-    public void setDangeUserAccount(String dangeUserAccount) {
-        this.dangeUserAccount = dangeUserAccount == null ? null : dangeUserAccount.trim();
+    public void setDangerUserAccount(String dangerUserAccount) {
+        this.dangerUserAccount = dangerUserAccount == null ? null : dangerUserAccount.trim();
     }
 
-    public String getDangeUserName() {
-        return dangeUserName;
+    public String getDangerUserName() {
+        return dangerUserName;
     }
 
-    public void setDangeUserName(String dangeUserName) {
-        this.dangeUserName = dangeUserName == null ? null : dangeUserName.trim();
+    public void setDangerUserName(String dangerUserName) {
+        this.dangerUserName = dangerUserName == null ? null : dangerUserName.trim();
     }
 
     public Integer getIsDelete() {
