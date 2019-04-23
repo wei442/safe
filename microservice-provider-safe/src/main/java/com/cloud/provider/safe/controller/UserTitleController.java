@@ -21,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserTitle;
 import com.cloud.provider.safe.rest.request.page.user.UserTitlePageRequest;
+import com.cloud.provider.safe.rest.request.user.UserTitleListRequest;
 import com.cloud.provider.safe.rest.request.user.UserTitleRequest;
 import com.cloud.provider.safe.service.IUserTitleService;
 import com.cloud.provider.safe.util.Assert;
@@ -154,19 +155,42 @@ public class UserTitleController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加用户职务")
-	@RequestMapping(value="/insertUserTitle",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insert(
 		@Validated @RequestBody UserTitleRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户职务】(UserTitleController-insertUserTitle)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加用户职务】(UserTitleController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		UserTitle userTitle = req.convertToUserTitle();
 		int i = userTitleService.insert(userTitle);
-		logger.info("===step2:【添加用户职务】(UserTitleController-insertUserTitle)-插入用户职务, i:{}", i);
+		logger.info("===step2:【添加用户职务】(UserTitleController-insert)-插入用户职务, i:{}", i);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加用户职务】(UserTitleController-insertUserTitle)-返回信息, userTitleResponse:{}", userTitleResponse);
+		logger.info("===step3:【添加用户职务】(UserTitleController-insert)-返回信息, userTitleResponse:{}", userTitleResponse);
+		return userTitleResponse;
+	}
+
+	/**
+	 * 批量添加用户职务
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "批量添加用户职务")
+	@RequestMapping(value="/insertList",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse insertList(
+		@Validated @RequestBody UserTitleListRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【批量添加用户职务】(UserTitleController-insertList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		List<UserTitle> userTitleList = req.getUserTitleList();
+		int i = userTitleService.insertList(userTitleList);
+		logger.info("===step2:【批量添加用户职务】(UserTitleController-insertList)-批量插入用户职务, i:{}", i);
+
+		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
+		logger.info("===step3:【批量添加用户职务】(UserTitleController-insertList)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
 

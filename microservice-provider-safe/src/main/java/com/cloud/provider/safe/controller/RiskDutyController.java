@@ -127,19 +127,19 @@ public class RiskDutyController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加风险责任")
-	@RequestMapping(value="/insertRiskDuty",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insert(
 		@Validated @RequestBody RiskDutyRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加风险责任】(RiskDutyController-insertRiskDuty)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加风险责任】(RiskDutyController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		RiskDuty riskDuty = req.convertToRiskDuty();
 		int i = riskDutyService.insert(riskDuty);
-		logger.info("===step2:【添加风险责任】(RiskDutyController-insertRiskDuty)-插入风险责任, i:{}", i);
+		logger.info("===step2:【添加风险责任】(RiskDutyController-insert)-插入风险责任, i:{}", i);
 
 		BaseRestMapResponse riskDutyResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加风险责任】(RiskDutyController-insertRiskDuty)-返回信息, riskDutyResponse:{}", riskDutyResponse);
+		logger.info("===step3:【添加风险责任】(RiskDutyController-insert)-返回信息, riskDutyResponse:{}", riskDutyResponse);
 		return riskDutyResponse;
 	}
 

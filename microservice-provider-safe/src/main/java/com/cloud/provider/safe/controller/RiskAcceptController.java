@@ -132,14 +132,14 @@ public class RiskAcceptController extends BaseController {
 	public BaseRestMapResponse insert(
 		@Validated @RequestBody RiskAcceptRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加风险验收】(RiskAcceptController-insertRiskAccept)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加风险验收】(RiskAcceptController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		RiskAccept riskAccept = req.convertToRiskAccept();
 		int i = riskAcceptService.insert(riskAccept);
-		logger.info("===step2:【添加风险验收】(RiskAcceptController-insertRiskAccept)-插入风险验收, i:{}", i);
+		logger.info("===step2:【添加风险验收】(RiskAcceptController-insert)-插入风险验收, i:{}", i);
 
 		BaseRestMapResponse riskAcceptResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加风险验收】(RiskAcceptController-insertRiskAccept)-返回信息, riskAcceptResponse:{}", riskAcceptResponse);
+		logger.info("===step3:【添加风险验收】(RiskAcceptController-insert)-返回信息, riskAcceptResponse:{}", riskAcceptResponse);
 		return riskAcceptResponse;
 	}
 

@@ -127,19 +127,19 @@ public class RiskController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加风险")
-	@RequestMapping(value="/insertRisk",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insert(
 		@Validated @RequestBody RiskRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加风险】(RiskController-insertRisk)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加风险】(RiskController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Risk risk = req.convertToRisk();
 		int i = riskService.insert(risk);
-		logger.info("===step2:【添加风险】(RiskController-insertRisk)-插入风险, i:{}", i);
+		logger.info("===step2:【添加风险】(RiskController-insert)-插入风险, i:{}", i);
 
 		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加风险】(RiskController-insertRisk)-返回信息, riskResponse:{}", riskResponse);
+		logger.info("===step3:【添加风险】(RiskController-insert)-返回信息, riskResponse:{}", riskResponse);
 		return riskResponse;
 	}
 
@@ -198,21 +198,21 @@ public class RiskController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "修改风险")
-	@RequestMapping(value="/modifyRisk",method={RequestMethod.POST})
+	@RequestMapping(value="/modify",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse modify(
 		@Validated({ ModifyGroup.class }) @RequestBody RiskRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【修改风险】(RiskController-modifyRisk)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【修改风险】(RiskController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer riskId = req.getRiskId();
 		Risk risk = req.convertToRisk();
 		risk.setId(riskId);
 		int i = riskService.modify(risk);
-		logger.info("===step2:【修改风险】(RiskController-modifyRisk)-修改风险, i:{}", i);
+		logger.info("===step2:【修改风险】(RiskController-modify)-修改风险, i:{}", i);
 
 		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
-		logger.info("===step3:【修改风险】(RiskController-modifyRisk)-返回信息, riskResponse:{}", riskResponse);
+		logger.info("===step3:【修改风险】(RiskController-modify)-返回信息, riskResponse:{}", riskResponse);
 		return riskResponse;
 	}
 

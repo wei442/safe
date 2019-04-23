@@ -145,6 +145,18 @@ public class UserTitleServiceImpl implements IUserTitleService {
     	return i;
     }
 
+	/**
+	 * 批量插入
+	 * @param list
+	 * @return Integer
+	 */
+	@Override
+	public Integer insertList(List<UserTitle> list) {
+		logger.info("(UserPostService-insertList)-插入用户职务-传入参数, list:{}", list);
+		int i = userTitleDao.insertList(list);
+		return i;
+	}
+
  	/**
   	 * 根据id删除用户职务
   	 * @param id

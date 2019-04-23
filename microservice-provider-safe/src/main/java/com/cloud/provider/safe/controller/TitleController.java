@@ -191,8 +191,6 @@ public class TitleController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改职务】(TitleController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
-
 		Integer TitleId = req.getTitleId();
 		Title Title = req.convertToTitle();
 		Title.setId(TitleId);

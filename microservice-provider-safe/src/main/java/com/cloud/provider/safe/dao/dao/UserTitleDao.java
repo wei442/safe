@@ -3,6 +3,7 @@ package com.cloud.provider.safe.dao.dao;
 import java.util.List;
 
 import com.cloud.provider.safe.param.UserTitleParam;
+import com.cloud.provider.safe.po.UserTitle;
 import com.cloud.provider.safe.vo.user.UserTitleVo;
 
 public interface UserTitleDao {
@@ -13,5 +14,12 @@ public interface UserTitleDao {
      * @return List<UserTitleVo>
      */
     public List<UserTitleVo> selectList(UserTitleParam param);
+
+    /**
+     * 批量插入
+     * @param list
+     * @return int
+     */
+    public int insertList(List<UserTitle> list);
 
 }

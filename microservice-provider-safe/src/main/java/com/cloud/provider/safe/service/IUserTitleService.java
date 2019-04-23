@@ -53,6 +53,13 @@ public interface IUserTitleService {
 	public Integer insert(UserTitle userTitle);
 
 	/**
+	 * 批量插入
+	 * @param list
+	 * @return Integer
+	 */
+	public Integer insertList(List<UserTitle> list);
+
+	/**
   	 * 根据id删除用户职务
   	 * @param id
   	 * @return Integer

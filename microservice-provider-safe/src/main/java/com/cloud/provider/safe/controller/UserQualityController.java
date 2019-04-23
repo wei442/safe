@@ -154,7 +154,7 @@ public class UserQualityController extends BaseController {
 	@ApiOperation(value = "添加用户资质")
 	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUserQuality(
+	public BaseRestMapResponse insert(
 		@Validated @RequestBody UserQualityRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户资质】(UserQualityController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));

@@ -127,19 +127,19 @@ public class RiskCheckController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加风险排查")
-	@RequestMapping(value="/insertRiskCheck",method={RequestMethod.POST})
+	@RequestMapping(value="/insert",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insert(
 		@Validated @RequestBody RiskCheckRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加风险排查】(RiskCheckController-insertRiskCheck)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加风险排查】(RiskCheckController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		RiskCheck riskCheck = req.convertToRiskCheck();
 		int i = riskCheckService.insert(riskCheck);
-		logger.info("===step2:【添加风险排查】(RiskCheckController-insertRiskCheck)-插入风险排查, i:{}", i);
+		logger.info("===step2:【添加风险排查】(RiskCheckController-insert)-插入风险排查, i:{}", i);
 
 		BaseRestMapResponse riskCheckResponse = new BaseRestMapResponse();
-		logger.info("===step3:【添加风险排查】(RiskCheckController-insertRiskCheck)-返回信息, riskCheckResponse:{}", riskCheckResponse);
+		logger.info("===step3:【添加风险排查】(RiskCheckController-insert)-返回信息, riskCheckResponse:{}", riskCheckResponse);
 		return riskCheckResponse;
 	}
 
