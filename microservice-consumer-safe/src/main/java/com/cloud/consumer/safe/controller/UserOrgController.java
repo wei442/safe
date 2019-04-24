@@ -196,8 +196,7 @@ public class UserOrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【批量删除用户机构】(UserOrgController-batchDelete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		List<Integer> userOrgIds = req.getUserOrgIds();
-		JSONObject jsonUserOrg = userOrgService.deleteByIds(userOrgIds);
+		JSONObject jsonUserOrg = userOrgService.batchDelete(req);
 		logger.info("===step2:【批量删除用户机构】(UserOrgController-batchDelete)-根据userOrgIds删除用户机构, jsonUserOrg:{}", jsonUserOrg);
 
 		//返回信息
