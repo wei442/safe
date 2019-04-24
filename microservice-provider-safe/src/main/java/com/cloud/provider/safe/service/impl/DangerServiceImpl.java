@@ -139,6 +139,22 @@ public class DangerServiceImpl implements IDangerService {
   		return i;
   	}
 
+ 	/**
+  	 * 根据ids删除隐患
+  	 * @param ids
+  	 * @return Integer
+  	 */
+	@Override
+	public Integer deleteByIds(List<Integer> ids) {
+  		logger.info("(DangerService-deleteByIds)-根据ids删除隐患-传入参数, ids:{}", ids);
+  		DangerAttachmentExample example = new DangerAttachmentExample();
+  		DangerAttachmentExample.Criteria criteria = example.createCriteria();
+  		criteria.andIdIn(ids);
+		int i = dangerAttachmentMapper.deleteByExample(example);
+  		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+  		return i;
+  	}
+
     /**
      * 修改隐患及附件
      * @param danger

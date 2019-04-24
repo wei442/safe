@@ -23,6 +23,7 @@ import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserPostPageRequest;
 import com.cloud.consumer.safe.rest.request.user.UserInfoIdRequest;
 import com.cloud.consumer.safe.rest.request.user.UserPostIdRequest;
+import com.cloud.consumer.safe.rest.request.user.UserPostIdsRequest;
 import com.cloud.consumer.safe.rest.request.user.UserPostListRequest;
 import com.cloud.consumer.safe.rest.request.user.UserPostRequest;
 import com.cloud.consumer.safe.service.IUserPostService;
@@ -220,6 +221,29 @@ public class UserPostController extends BaseController {
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
 		logger.info("===step3:【删除用户岗位】(UserPostController-delete)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
+	}
+
+	/**
+	 * 批量删除用户岗位
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "批量删除用户岗位")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody UserPostIdsRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【批量删除用户岗位】(UserOrgController-batchDelete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		JSONObject jsonUserPost = userPostService.batchDelete(req);
+		logger.info("===step2:【批量删除用户岗位】(UserOrgController-batchDelete)-根据userPostIds删除用户岗位, jsonUserPost:{}", jsonUserPost);
+
+		//返回信息
+		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
+		logger.info("===step3:【批量删除用户岗位】(UserOrgController-batchDelete)-返回信息, userOrgResponse:{}", userOrgResponse);
+		return userOrgResponse;
 	}
 
 	/**

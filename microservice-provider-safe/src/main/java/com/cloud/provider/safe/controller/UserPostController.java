@@ -21,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserPost;
 import com.cloud.provider.safe.rest.request.page.user.UserPostPageRequest;
+import com.cloud.provider.safe.rest.request.user.UserPostIdsRequest;
 import com.cloud.provider.safe.rest.request.user.UserPostListRequest;
 import com.cloud.provider.safe.rest.request.user.UserPostRequest;
 import com.cloud.provider.safe.service.IUserPostService;
@@ -216,26 +217,23 @@ public class UserPostController extends BaseController {
 	}
 
 	/**
-	 * 根据ids删除用户岗位
+	 * 批量删除用户岗位
 	 * @param userPostIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据ids删除用户岗位")
-	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ApiOperation(value = "批量删除用户岗位")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteByIds(
-		@PathVariable(value="ids",required=false) List<Integer> userPostIds) {
-		logger.info("===step1:【根据ids删除用户岗位】(UserPostController-deleteByIds)-传入参数, userPostIds:{}", userPostIds);
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody UserPostIdsRequest req) {
+		logger.info("===step1:【批量删除用户岗位】(UserPostController-batchDelete)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		if(userPostIds == null || userPostIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userPostIds不能为空");
-		}
-
+		List<Integer> userPostIds = req.getUserPostIds();
 		int i = userPostService.deleteByIds(userPostIds);
-		logger.info("===step2:【根据ids删除用户岗位】(UserPostController-deleteByIds)-根据ids删除用户岗位, i:{}", i);
+		logger.info("===step2:【批量删除用户岗位】(UserPostController-batchDelete)-根据userPostIds删除用户岗位, i:{}", i);
 
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据ids删除用户岗位】(UserPostController-deleteByIds)-返回信息, userPostResponse:{}", userPostResponse);
+		logger.info("===step3:【批量删除用户岗位】(UserPostController-batchDelete)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}
 

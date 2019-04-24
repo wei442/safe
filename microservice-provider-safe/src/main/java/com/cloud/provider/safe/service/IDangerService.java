@@ -46,6 +46,13 @@ public interface IDangerService {
   	 */
 	public Integer deleteById(Integer id);
 
+ 	/**
+  	 * 根据ids删除隐患
+  	 * @param ids
+  	 * @return Integer
+  	 */
+	public Integer deleteByIds(List<Integer> ids);
+
     /**
      * 修改隐患及附件
      * @param danger

@@ -21,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.RiskDuty;
 import com.cloud.provider.safe.rest.request.page.risk.RiskDutyPageRequest;
+import com.cloud.provider.safe.rest.request.risk.RiskDutyIdsRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskDutyRequest;
 import com.cloud.provider.safe.service.IRiskDutyService;
 import com.cloud.provider.safe.util.Assert;
@@ -168,26 +169,23 @@ public class RiskDutyController extends BaseController {
 	}
 
 	/**
-	 * 根据ids删除风险责任
+	 * 批量删除风险责任
 	 * @param riskDutyIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据ids删除风险责任")
-	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ApiOperation(value = "批量删除风险责任")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteByIds(
-		@PathVariable(value="ids",required=false) List<Integer> riskDutyIds) {
-		logger.info("===step1:【根据ids删除风险责任】(RiskDutyController-deleteByIds)-传入参数, riskDutyIds:{}", riskDutyIds);
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody RiskDutyIdsRequest req) {
+		logger.info("===step1:【批量删除风险责任】(RiskDutyController-batchDelete)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		if(riskDutyIds == null || riskDutyIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "riskDutyIds不能为空");
-		}
-
+		List<Integer> riskDutyIds = req.getRiskDutyIds();
 		int i = riskDutyService.deleteByIds(riskDutyIds);
-		logger.info("===step2:【根据ids删除风险责任】(RiskDutyController-deleteByIds)-根据ids删除风险责任, i:{}", i);
+		logger.info("===step2:【批量删除风险责任】(RiskDutyController-batchDelete)-根据riskDutyIds删除风险责任, i:{}", i);
 
 		BaseRestMapResponse riskDutyResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据ids删除风险责任】(RiskDutyController-deleteByIds)-返回信息, riskDutyResponse:{}", riskDutyResponse);
+		logger.info("===step3:【批量删除风险责任】(RiskDutyController-batchDelete)-返回信息, riskDutyResponse:{}", riskDutyResponse);
 		return riskDutyResponse;
 	}
 

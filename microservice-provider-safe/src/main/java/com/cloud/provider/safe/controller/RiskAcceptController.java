@@ -21,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.RiskAccept;
 import com.cloud.provider.safe.rest.request.page.risk.RiskAcceptPageRequest;
+import com.cloud.provider.safe.rest.request.risk.RiskAcceptIdsRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskAcceptRequest;
 import com.cloud.provider.safe.service.IRiskAcceptService;
 import com.cloud.provider.safe.util.Assert;
@@ -168,26 +169,23 @@ public class RiskAcceptController extends BaseController {
 	}
 
 	/**
-	 * 根据ids删除风险验收
+	 * 批量删除风险验收
 	 * @param riskAcceptIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据ids删除风险验收")
-	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ApiOperation(value = "批量删除风险验收")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteByIds(
-		@PathVariable(value="ids",required=false) List<Integer> riskAcceptIds) {
-		logger.info("===step1:【根据ids删除风险验收】(RiskAcceptController-deleteByIds)-传入参数, riskAcceptIds:{}", riskAcceptIds);
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody RiskAcceptIdsRequest req) {
+		logger.info("===step1:【批量删除风险验收】(RiskAcceptController-batchDelete)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		if(riskAcceptIds == null || riskAcceptIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "riskAcceptIds不能为空");
-		}
-
+		List<Integer> riskAcceptIds = req.getRiskAcceptIds();
 		int i = riskAcceptService.deleteByIds(riskAcceptIds);
-		logger.info("===step2:【根据ids删除风险验收】(RiskAcceptController-deleteByIds)-根据ids删除风险验收, i:{}", i);
+		logger.info("===step2:【批量删除风险验收】(RiskAcceptController-batchDelete)-根据riskAcceptIds删除风险验收, i:{}", i);
 
 		BaseRestMapResponse riskAcceptResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据ids删除风险验收】(RiskAcceptController-deleteByIds)-返回信息, riskAcceptResponse:{}", riskAcceptResponse);
+		logger.info("===step3:【批量删除风险验收】(RiskAcceptController-batchDelete)-返回信息, riskAcceptResponse:{}", riskAcceptResponse);
 		return riskAcceptResponse;
 	}
 

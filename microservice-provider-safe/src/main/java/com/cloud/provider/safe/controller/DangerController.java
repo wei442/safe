@@ -21,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Danger;
 import com.cloud.provider.safe.po.DangerAttachment;
+import com.cloud.provider.safe.rest.request.danger.DangerIdsRequest;
 import com.cloud.provider.safe.rest.request.danger.DangerRequest;
 import com.cloud.provider.safe.rest.request.page.danger.DangerPageRequest;
 import com.cloud.provider.safe.service.IDangerService;
@@ -144,26 +145,23 @@ public class DangerController extends BaseController {
 	}
 
 	/**
-	 * 根据id删除隐患
-	 * @param dangerId
+	 * 批量删除隐患
+	 * @param dangerIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据id删除隐患")
-	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
+	@ApiOperation(value = "批量删除隐患")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteById(
-		@PathVariable(value="id",required=false) Integer dangerId) {
-		logger.info("===step1:【根据id删除隐患】(selectById-deleteById)-传入参数, dangerId:{}", dangerId);
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody DangerIdsRequest req) {
+		logger.info("===step1:【批量删除隐患】(DangerController-batchDelete)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		if(dangerId == null) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dangerId不能为空");
-		}
-
-		int i = dangerService.deleteById(dangerId);
-		logger.info("===step2:【根据id删除隐患】(DangerController-deleteById)-根据id查询隐患, i:{}", i);
+		List<Integer> dangerIds = req.getDangerIds();
+		int i = dangerService.deleteByIds(dangerIds);
+		logger.info("===step2:【批量删除隐患】(DangerController-batchDelete)-根据dangerIds删除隐患, i:{}", i);
 
 		BaseRestMapResponse dangerResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据id删除隐患】(DangerController-deleteById)-返回信息, dangerResponse:{}", dangerResponse);
+		logger.info("===step3:【批量删除隐患】(DangerController-batchDelete)-返回信息, dangerResponse:{}", dangerResponse);
 		return dangerResponse;
 	}
 

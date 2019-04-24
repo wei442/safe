@@ -22,6 +22,7 @@ import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserQuality;
 import com.cloud.provider.safe.po.UserQualityAttachment;
 import com.cloud.provider.safe.rest.request.page.user.UserQualityPageRequest;
+import com.cloud.provider.safe.rest.request.user.UserQualityIdsRequest;
 import com.cloud.provider.safe.rest.request.user.UserQualityRequest;
 import com.cloud.provider.safe.service.IUserQualityService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
@@ -194,28 +195,26 @@ public class UserQualityController extends BaseController {
 	}
 
 	/**
-	 * 根据ids删除用户资质
+	 * 批量删除用户资质
 	 * @param userQualityIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据ids删除用户资质")
-	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ApiOperation(value = "批量删除用户资质")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteByIds(
-		@PathVariable(value="ids",required=false) List<Integer> userQualityIds) {
-		logger.info("===step1:【根据ids删除用户资质】(UserQualityController-deleteByIds)-传入参数, userQualityIds:{}", userQualityIds);
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody UserQualityIdsRequest req) {
+		logger.info("===step1:【批量删除用户资质】(UserQualityController-batchDelete)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		if(userQualityIds == null || userQualityIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userQualityIds不能为空");
-		}
-
+		List<Integer> userQualityIds = req.getUserQualityIds();
 		int i = userQualityService.deleteByIds(userQualityIds);
-		logger.info("===step2:【根据ids删除用户资质】(UserQualityController-deleteByIds)-根据ids删除用户资质, i:{}", i);
+		logger.info("===step2:【批量删除用户资质】(UserQualityController-batchDelete)-根据userQualityIds删除用户资质, i:{}", i);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据ids删除用户资质】(UserQualityController-deleteByIds)-返回信息, userQualityResponse:{}", userQualityResponse);
+		logger.info("===step3:【批量删除用户资质】(UserQualityController-batchDelete)-返回信息, userQualityResponse:{}", userQualityResponse);
 		return userQualityResponse;
 	}
+
 
 	/**
 	 * 修改用户资质

@@ -20,6 +20,7 @@ import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.DangerCheck;
+import com.cloud.provider.safe.rest.request.danger.DangerCheckIdsRequest;
 import com.cloud.provider.safe.rest.request.danger.DangerCheckRequest;
 import com.cloud.provider.safe.rest.request.page.danger.DangerCheckPageRequest;
 import com.cloud.provider.safe.service.IDangerCheckService;
@@ -195,26 +196,23 @@ public class DangerCheckController extends BaseController {
 	}
 
 	/**
-	 * 根据ids删除隐患排查
+	 * 批量删除隐患排查
 	 * @param dangerCheckIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据ids删除隐患排查")
-	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ApiOperation(value = "批量删除隐患排查")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteByIds(
-		@PathVariable(value="ids",required=false) List<Integer> dangerCheckIds) {
-		logger.info("===step1:【根据ids删除隐患排查】(DangerCheckController-deleteByIds)-传入参数, dangerCheckIds:{}", dangerCheckIds);
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody DangerCheckIdsRequest req) {
+		logger.info("===step1:【批量删除隐患排查】(DangerCheckController-batchDelete)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		if(dangerCheckIds == null || dangerCheckIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "dangerCheckIds不能为空");
-		}
-
+		List<Integer> dangerCheckIds = req.getDangerCheckIds();
 		int i = dangerCheckService.deleteByIds(dangerCheckIds);
-		logger.info("===step2:【根据ids删除隐患排查】(DangerCheckController-deleteByIds)-根据ids删除隐患排查, i:{}", i);
+		logger.info("===step2:【批量删除隐患排查】(DangerCheckController-batchDelete)-根据dangerCheckIds删除隐患排查, i:{}", i);
 
 		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据ids删除隐患排查】(DangerCheckController-deleteByIds)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
+		logger.info("===step3:【批量删除隐患排查】(DangerCheckController-batchDelete)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
 		return dangerCheckResponse;
 	}
 

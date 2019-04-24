@@ -21,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.RiskCheck;
 import com.cloud.provider.safe.rest.request.page.risk.RiskCheckPageRequest;
+import com.cloud.provider.safe.rest.request.risk.RiskCheckIdsRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskCheckRequest;
 import com.cloud.provider.safe.service.IRiskCheckService;
 import com.cloud.provider.safe.util.Assert;
@@ -168,26 +169,23 @@ public class RiskCheckController extends BaseController {
 	}
 
 	/**
-	 * 根据ids删除风险排查
+	 * 批量删除风险排查
 	 * @param riskCheckIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据ids删除风险排查")
-	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ApiOperation(value = "批量删除风险排查")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteByIds(
-		@PathVariable(value="ids",required=false) List<Integer> riskCheckIds) {
-		logger.info("===step1:【根据ids删除风险排查】(RiskCheckController-deleteByIds)-传入参数, riskCheckIds:{}", riskCheckIds);
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody RiskCheckIdsRequest req) {
+		logger.info("===step1:【批量删除风险排查】(RiskCheckController-batchDelete)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		if(riskCheckIds == null || riskCheckIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "riskCheckIds不能为空");
-		}
-
+		List<Integer> riskCheckIds = req.getRiskCheckIds();
 		int i = riskCheckService.deleteByIds(riskCheckIds);
-		logger.info("===step2:【根据ids删除风险排查】(RiskCheckController-deleteByIds)-根据ids删除风险排查, i:{}", i);
+		logger.info("===step2:【批量删除风险排查】(RiskCheckController-batchDelete)-根据riskCheckIds删除风险排查, i:{}", i);
 
 		BaseRestMapResponse riskCheckResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据ids删除风险排查】(RiskCheckController-deleteByIds)-返回信息, riskCheckResponse:{}", riskCheckResponse);
+		logger.info("===step3:【批量删除风险排查】(RiskCheckController-batchDelete)-返回信息, riskCheckResponse:{}", riskCheckResponse);
 		return riskCheckResponse;
 	}
 

@@ -21,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.Risk;
 import com.cloud.provider.safe.rest.request.page.risk.RiskPageRequest;
+import com.cloud.provider.safe.rest.request.risk.RiskIdsRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskRequest;
 import com.cloud.provider.safe.service.IRiskService;
 import com.cloud.provider.safe.util.Assert;
@@ -168,26 +169,23 @@ public class RiskController extends BaseController {
 	}
 
 	/**
-	 * 根据ids删除风险
+	 * 批量删除风险
 	 * @param riskIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据ids删除风险")
-	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ApiOperation(value = "批量删除风险")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteByIds(
-		@PathVariable(value="ids",required=false) List<Integer> riskIds) {
-		logger.info("===step1:【根据ids删除风险】(RiskController-deleteByIds)-传入参数, riskIds:{}", riskIds);
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody RiskIdsRequest req) {
+		logger.info("===step1:【批量删除风险】(RiskController-batchDelete)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		if(riskIds == null || riskIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "riskIds不能为空");
-		}
-
+		List<Integer> riskIds = req.getRiskIds();
 		int i = riskService.deleteByIds(riskIds);
-		logger.info("===step2:【根据ids删除风险】(RiskController-deleteByIds)-根据ids删除风险, i:{}", i);
+		logger.info("===step2:【批量删除风险】(RiskController-batchDelete)-根据riskIds删除风险, i:{}", i);
 
 		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据ids删除风险】(RiskController-deleteByIds)-返回信息, riskResponse:{}", riskResponse);
+		logger.info("===step3:【批量删除风险】(RiskController-batchDelete)-返回信息, riskResponse:{}", riskResponse);
 		return riskResponse;
 	}
 

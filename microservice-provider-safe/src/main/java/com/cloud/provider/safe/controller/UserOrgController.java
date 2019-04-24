@@ -22,6 +22,7 @@ import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.rest.request.page.user.UserOrgPageRequest;
+import com.cloud.provider.safe.rest.request.user.UserOrgIdsRequest;
 import com.cloud.provider.safe.rest.request.user.UserOrgRequest;
 import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.service.IUserOrgService;
@@ -219,28 +220,26 @@ public class UserOrgController extends BaseController {
 	}
 
 	/**
-	 * 根据ids删除用户机构
+	 * 批量删除用户机构
 	 * @param userOrgIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据ids删除用户机构")
-	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ApiOperation(value = "批量删除用户机构")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteByIds(
-		@PathVariable(value="ids",required=false) List<Integer> userOrgIds) {
-		logger.info("===step1:【根据ids删除用户机构】(selectById-deleteById)-传入参数, userOrgIds:{}", userOrgIds);
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody UserOrgIdsRequest req) {
+		logger.info("===step1:【批量删除用户机构】(UserOrgController-batchDelete)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		if(userOrgIds == null || userOrgIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userOrgIds不能为空");
-		}
-
+		List<Integer> userOrgIds = req.getUserOrgIds();
 		int i = userOrgService.deleteByIds(userOrgIds);
-		logger.info("===step2:【根据ids删除用户机构】(UserOrgController-deleteByIds)-根据ids删除用户机构, i:{}", i);
+		logger.info("===step2:【批量删除用户机构】(UserOrgController-batchDelete)-根据userOrgIds删除用户机构, i:{}", i);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据ids删除用户机构】(UserOrgController-deleteByIds)-返回信息, userOrgResponse:{}", userOrgResponse);
+		logger.info("===step3:【批量删除用户机构】(UserOrgController-batchDelete)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
+
 
 	/**
 	 * 修改用户机构

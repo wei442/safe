@@ -21,6 +21,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserTitle;
 import com.cloud.provider.safe.rest.request.page.user.UserTitlePageRequest;
+import com.cloud.provider.safe.rest.request.user.UserTitleIdsRequest;
 import com.cloud.provider.safe.rest.request.user.UserTitleListRequest;
 import com.cloud.provider.safe.rest.request.user.UserTitleRequest;
 import com.cloud.provider.safe.service.IUserTitleService;
@@ -219,28 +220,26 @@ public class UserTitleController extends BaseController {
 	}
 
 	/**
-	 * 根据ids删除用户职务
+	 * 批量删除用户职务
 	 * @param userTitleIds
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据ids删除用户职务")
-	@RequestMapping(value="/deleteByIds/{ids}",method={RequestMethod.POST})
+	@ApiOperation(value = "批量删除用户职务")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteByIds(
-		@PathVariable(value="ids",required=false) List<Integer> userTitleIds) {
-		logger.info("===step1:【根据ids删除用户职务】(UserTitleController-deleteByIds)-传入参数, userTitleIds:{}", userTitleIds);
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody UserTitleIdsRequest req) {
+		logger.info("===step1:【批量删除用户职务】(UserTitleController-batchDelete)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		if(userTitleIds == null || userTitleIds.isEmpty()) {
-			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "userTitleIds不能为空");
-		}
-
+		List<Integer> userTitleIds = req.getUserTitleIds();
 		int i = userTitleService.deleteByIds(userTitleIds);
-		logger.info("===step2:【根据ids删除用户职务】(UserTitleController-deleteByIds)-根据ids删除用户职务, i:{}", i);
+		logger.info("===step2:【批量删除用户职务】(UserTitleController-batchDelete)-根据userTitleIds删除用户职务, i:{}", i);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		logger.info("===step3:【根据ids删除用户职务】(UserTitleController-deleteByIds)-返回信息, userTitleResponse:{}", userTitleResponse);
+		logger.info("===step3:【批量删除用户职务】(UserTitleController-batchDelete)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}
+
 
 	/**
 	 * 修改用户职务

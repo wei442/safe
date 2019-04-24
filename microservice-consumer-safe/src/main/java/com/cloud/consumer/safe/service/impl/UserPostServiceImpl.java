@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -104,14 +102,14 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 	}
 
 	/**
-	 * 根据ids删除用户岗位
+	 * 批量删除用户岗位
 	 * @param ids
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteByIds(List<Integer> ids) {
-		logger.info("(UserPostService-deleteByIds)-根据ids获取用户岗位-传入参数, ids:{}", ids);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/deleteByIds/"+ids, null, JSONObject.class);
+	public JSONObject batchDelete(Object params) {
+		logger.info("(UserPostService-batchDelete)-批量删除用户岗位-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/batchDelete", params, JSONObject.class);
 		return response;
 	}
 
