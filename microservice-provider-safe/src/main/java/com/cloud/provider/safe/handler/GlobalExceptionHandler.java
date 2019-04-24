@@ -24,7 +24,6 @@ public class GlobalExceptionHandler {
 
 	@InitBinder
     public void initBinder(WebDataBinder binder) {
-//        System.out.println("============应用到所有@RequestMapping注解方法，在其执行之前初始化数据绑定器");
     }
 
 	/**
@@ -37,7 +36,7 @@ public class GlobalExceptionHandler {
 	public BaseRestMapResponse exceptionHandler(Exception e) {
 		if (e instanceof SafeException) {
 			SafeException ex = (SafeException) e;
-			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-自定义异常, Exception = {}, message = {}", e, e.getMessage());
+			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-自定义异常, Exception = {}, message = {}", ex, ex.getMessage());
 			return new BaseRestMapResponse(ex.getErrorCode(), ex.getMessage());
 		}
 //		if (e instanceof SQLException) {

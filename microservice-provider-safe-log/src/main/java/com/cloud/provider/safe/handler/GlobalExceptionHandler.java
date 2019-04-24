@@ -36,14 +36,9 @@ public class GlobalExceptionHandler {
 	public BaseRestMapResponse exceptionHandler(Exception e) {
 		if (e instanceof SafeException) {
 			SafeException ex = (SafeException) e;
-			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-自定义异常, Exception = {}, message = {}", e, e.getMessage());
+			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-自定义异常, Exception = {}, message = {}", ex, ex.getMessage());
 			return new BaseRestMapResponse(ex.getErrorCode(), ex.getMessage());
 		}
-//		if (e instanceof SQLException) {
-//			SQLException ex = (SQLException) e;
-//			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-sql异常, Exception = {}, message = {}", ex, ex.getMessage());
-//			return new BaseRestMapResponse(SafeResultEnum.SYSTEM_ERROR);
-//		}
 		if (e instanceof DataAccessException) {
 			DataAccessException ex = (DataAccessException) e;
 			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-数据访问异常, Exception = {}, message = {}", ex, ex.getMessage());

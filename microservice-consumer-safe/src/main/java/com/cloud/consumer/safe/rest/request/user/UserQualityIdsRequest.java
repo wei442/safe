@@ -9,15 +9,15 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class UserPostIdsRequest implements Serializable {
+public class UserQualityIdsRequest implements Serializable {
 
     /**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "用户岗位ids")
-	@NotEmpty(message = "用户岗位ids不能为空")
-	private List<Integer> userPostIds;
+	@ApiModelProperty(value = "用户资质ids")
+	@NotEmpty(message = "用户资质ids不能为空")
+	private List<Integer> userQualityIds;
 
 }

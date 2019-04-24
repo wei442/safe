@@ -74,4 +74,19 @@ public class SafeUrlConstants {
 	//用户
 	public static final String user = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user";
 
+	//风险
+	public static final String risk = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/risk";
+	//风险验收
+	public static final String risk_accept = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/risk/accept";
+	//风险排查
+	public static final String risk_check = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/risk/check";
+	//风险责任
+	public static final String risk_duty = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/risk/duty";
+	//隐患
+	public static final String danger = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/danger";
+	//隐患排查
+	public static final String danger_check = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/danger/check";
+	//隐患附件
+	public static final String danger_attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/danger/attachment";
+
 }

@@ -160,7 +160,7 @@ public class UserQualityAttachmentController extends BaseController {
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "新增用户资质附件")
+	@ApiOperation(value = "删除用户资质附件")
 	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse delete(

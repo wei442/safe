@@ -27,6 +27,7 @@ import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserQualityPageRequest;
 import com.cloud.consumer.safe.rest.request.user.UserQualityAttachmentRequest;
 import com.cloud.consumer.safe.rest.request.user.UserQualityIdRequest;
+import com.cloud.consumer.safe.rest.request.user.UserQualityIdsRequest;
 import com.cloud.consumer.safe.rest.request.user.UserQualityRequest;
 import com.cloud.consumer.safe.service.IFastdfsService;
 import com.cloud.consumer.safe.service.IUserQualityService;
@@ -194,7 +195,7 @@ public class UserQualityController extends BaseController {
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "新增用户资质")
+	@ApiOperation(value = "删除用户资质")
 	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse delete(
@@ -210,6 +211,29 @@ public class UserQualityController extends BaseController {
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
 		logger.info("===step3:【删除用户资质】(UserQualityController-delete)-返回信息, userQualityResponse:{}", userQualityResponse);
 		return userQualityResponse;
+	}
+
+	/**
+	 * 批量删除用户资质
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "批量删除用户资质")
+	@RequestMapping(value="/batchDelete",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse batchDelete(
+		@Validated @RequestBody UserQualityIdsRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【批量删除用户资质】(UserOrgController-batchDelete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		JSONObject jsonUserQuality = userQualityService.batchDelete(req);
+		logger.info("===step2:【批量删除用户资质】(UserOrgController-batchDelete)-根据userQualityIds删除用户资质, jsonUserQuality:{}", jsonUserQuality);
+
+		//返回信息
+		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
+		logger.info("===step3:【批量删除用户资质】(UserOrgController-batchDelete)-返回信息, userOrgResponse:{}", userOrgResponse);
+		return userOrgResponse;
 	}
 
 	/**
