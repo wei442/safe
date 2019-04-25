@@ -79,6 +79,25 @@ public class BaseUserLoginServiceImpl implements IBaseUserLoginService {
 		return baseUserLogin;
     }
 
+	/**
+	 * 根据baseUserId查询基础用户登录
+	 * @param baseUserId
+	 * @return UserAdminLogin
+	 */
+	public BaseUserLogin selectByBaseUserId(Integer baseUserId) {
+		logger.info("(BaseUserLoginService-selectByBaseUserId)-根据baseUserId查询基础用户登录-传入参数, baseUserId:{}", baseUserId);
+		BaseUserLoginExample example = new BaseUserLoginExample();
+		BaseUserLoginExample.Criteria criteria = example.createCriteria();
+		criteria.andBaseUserIdEqualTo(baseUserId);
+		List<BaseUserLogin> list = baseUserLoginMapper.selectByExample(example);
+
+		BaseUserLogin baseUserLogin = null;
+		if(list != null && !list.isEmpty()) {
+			baseUserLogin = list.get(0);
+		}
+		return baseUserLogin;
+	}
+
     /**
      * 插入基础用户登录
      * @param baseUserLogin

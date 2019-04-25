@@ -70,19 +70,6 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		return list;
 	}
 
-//	/**
-//	 * 根据orgId查询当前组织机构下的所有人员
-//	 * @param param
-//	 * @return List<UserInfoVo>
-//	 */
-//	@Override
-//	public List<UserOrgVo> selectListByOrgId(UserOrgParam param) {
-//		logger.info("(UserInfoService-selectListByOrgId)-根据orgId查询当前组织机构下的所有人员-传入参数, param:{}", param);
-//		param.setOrderByClause(" t2.id asc ");
-//		List<UserOrgVo> list = userOrgDao.selectList(param);
-//		return list;
-//	}
-
     /**
      * 根据id查询用户信息
      * @param id

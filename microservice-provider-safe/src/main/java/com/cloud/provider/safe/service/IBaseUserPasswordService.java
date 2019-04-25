@@ -18,6 +18,14 @@ public interface IBaseUserPasswordService {
 	 */
 	public BaseUserPassword selectByBaseUserId(Integer baseUserId);
 
+	/**
+	 * 根据baseUserId和password查询基础用户密码
+	 * @param  baseUserId
+	 * @param  password
+	 * @return BaseUserPassword
+	 */
+	public BaseUserPassword selectByBaseUserIdPassword(Integer baseUserId,String password);
+
     /**
      * 插入基础用户密码
      * @param baseUserPassword

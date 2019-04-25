@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
-import com.cloud.consumer.safe.rest.request.DictItemIdRequest;
-import com.cloud.consumer.safe.rest.request.DictItemRequest;
-import com.cloud.consumer.safe.rest.request.page.DictItemPageRequest;
+import com.cloud.consumer.safe.rest.request.dict.DictItemIdRequest;
+import com.cloud.consumer.safe.rest.request.dict.DictItemRequest;
+import com.cloud.consumer.safe.rest.request.page.dict.DictItemPageRequest;
 import com.cloud.consumer.safe.service.IDictItemService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.DictItemVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
+import com.cloud.consumer.safe.vo.dict.DictItemVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -69,7 +69,7 @@ public class DictItemController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, dictItemVoList);
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, result);
+		dictItemResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(DictItemController-getListByPage)-返回信息, dictItemResponse:{}", dictItemResponse);
 	    return dictItemResponse;
 	}
@@ -86,7 +86,7 @@ public class DictItemController extends BaseController {
 		@RequestBody DictItemPageRequest req) {
 		logger.info("===step1:【不分页查询】(DictItemController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonDictItem = dictItemService.getListByPage(req);
+		JSONObject jsonDictItem = dictItemService.getList(req);
 		logger.info("===step2:【不分页查询】(DictItemController-getList)-不分页查询字典子项列表, jsonDictItem:{}", jsonDictItem);
 		String dataListStr = JSONObject.toJSONString(jsonDictItem.getJSONArray(PageConstants.DATA_LIST));
 		List<DictItemVo> dictItemVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<DictItemVo>>(){});
@@ -94,7 +94,7 @@ public class DictItemController extends BaseController {
 		BaseResultVo result = new BaseResultVo(dictItemVoList);
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, result);
+		dictItemResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(DictItemController-getList)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}
@@ -109,20 +109,20 @@ public class DictItemController extends BaseController {
 	@ApiOperation(value = "获取字典子项详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody DictItemIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取字典子项】(DictItemController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取字典子项】(DictItemController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer dictItemId = req.getDictItemId();
 		JSONObject jsonDictItem = dictItemService.getById(dictItemId);
-		logger.info("===step2:【获取字典子项】(DictItemController-get)-根据dictItemId获取字典子项, jsonDictItem:{}", jsonDictItem);
+		logger.info("===step2:【获取字典子项】(DictItemController-getDetail)-根据dictItemId获取字典子项, jsonDictItem:{}", jsonDictItem);
 		DictItemVo dictItemVo = JSONObject.toJavaObject(jsonDictItem, DictItemVo.class);
 
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, dictItemVo);
-	    logger.info("===step3:【获取字典子项】(DictItemController-get)-返回信息, dictItemResponse:{}", dictItemResponse);
+		dictItemResponse.put(CommConstants.RESULT, dictItemVo);
+	    logger.info("===step3:【获取字典子项】(DictItemController-getDetail)-返回信息, dictItemResponse:{}", dictItemResponse);
 	    return dictItemResponse;
 	}
 
@@ -142,11 +142,9 @@ public class DictItemController extends BaseController {
 
 		JSONObject jsonDictItem = dictItemService.add(req);
 		logger.info("===step2:【新增字典子项】(DictItemController-add)-分页查询字典子项列表, jsonDictItem:{}", jsonDictItem);
-		DictItemVo dictItemVo = JSONObject.toJavaObject(jsonDictItem, DictItemVo.class);
 
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, dictItemVo);
 	    logger.info("===step3:【新增字典子项】(DictItemController-add)-返回信息, dictItemResponse:{}", dictItemResponse);
 	    return dictItemResponse;
 	}
@@ -165,15 +163,12 @@ public class DictItemController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【删除字典子项】(DictItemController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
 		Integer dictItemId = req.getDictItemId();
 		JSONObject jsonDictItem = dictItemService.deleteById(dictItemId);
 		logger.info("===step2:【删除字典子项】(DictItemController-delete)-根据dictItemId删除字典子项, jsonDictItem:{}", jsonDictItem);
-		DictItemVo dictItemVo = JSONObject.toJavaObject(jsonDictItem, DictItemVo.class);
 
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, dictItemVo);
 		logger.info("===step3:【删除字典子项】(DictItemController-delete)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}
@@ -194,11 +189,9 @@ public class DictItemController extends BaseController {
 
 		JSONObject jsonDictItem = dictItemService.update(req);
 		logger.info("===step2:【修改字典子项】(DictItemController-update)-修改字典子项, jsonDictItem:{}", jsonDictItem);
-		DictItemVo dictItemVo = JSONObject.toJavaObject(jsonDictItem, DictItemVo.class);
 
 		//返回信息
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.put(RetSafeConstants.RESULT, dictItemVo);
 		logger.info("===step3:【修改字典子项】(DictItemController-update)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}

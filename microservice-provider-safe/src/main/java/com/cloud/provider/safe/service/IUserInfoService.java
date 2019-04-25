@@ -23,13 +23,6 @@ public interface IUserInfoService {
 	 */
 	public List<UserInfo> selectList(UserInfoPageRequest param);
 
-//	/**
-//	 * 根据orgId查询当前组织机构下的所有人员
-//	 * @param param
-//	 * @return List<UserInfoVo>
-//	 */
-//	public List<UserInfoOrgVo> selectListByOrgId(UserParam param);
-
     /**
      * 根据id查询用户信息
      * @param id

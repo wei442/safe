@@ -82,6 +82,26 @@ public class BaseUserInfoServiceImpl implements IBaseUserInfoService {
 		return baseUserInfo;
     }
 
+   /**
+    * 根据userAccount查询基础用户信息
+    * @param userAccount
+    * @return BaseUserInfo
+    */
+	public BaseUserInfo selectByUserAccount(String userAccount) {
+		logger.info("(BaseUserInfoService-selectByUserAccount)-根据userAccount查询基础用户信息-传入参数, userAccount:{}", userAccount);
+		BaseUserInfoExample example = new BaseUserInfoExample();
+		BaseUserInfoExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_BASE_USER_IS_DELETE_NO);
+		criteria.andUserAccountEqualTo(userAccount);
+
+		List<BaseUserInfo> list = baseUserInfoMapper.selectByExample(example);
+		BaseUserInfo baseUserInfo = null;
+		if(list != null && !list.isEmpty()) {
+			baseUserInfo = list.get(0);
+		}
+		return baseUserInfo;
+    }
+
     /**
      * 插入基础用户信息
      * @param baseUserInfo

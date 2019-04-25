@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
-import com.cloud.consumer.safe.rest.request.UserAdminIdRequest;
-import com.cloud.consumer.safe.rest.request.UserAdminRequest;
-import com.cloud.consumer.safe.rest.request.page.UserAdminPageRequest;
+import com.cloud.consumer.safe.rest.request.page.user.UserAdminPageRequest;
+import com.cloud.consumer.safe.rest.request.user.UserAdminIdRequest;
+import com.cloud.consumer.safe.rest.request.user.UserAdminRequest;
 import com.cloud.consumer.safe.service.IUserAdminService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.UserAdminVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
+import com.cloud.consumer.safe.vo.user.UserAdminVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -69,7 +69,7 @@ public class UserAdminController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, userAdminVoList);
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, result);
+		userAdminResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(UserAdminController-getListByPage)-返回信息, userAdminResponse:{}", userAdminResponse);
 	    return userAdminResponse;
 	}
@@ -86,7 +86,7 @@ public class UserAdminController extends BaseController {
 		@RequestBody UserAdminPageRequest req) {
 		logger.info("===step1:【不分页查询】(UserAdminController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonUserAdmin = userAdminService.getListByPage(req);
+		JSONObject jsonUserAdmin = userAdminService.getList(req);
 		logger.info("===step2:【不分页查询】(UserAdminController-getList)-不分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
 		String dataListStr = JSONObject.toJSONString(jsonUserAdmin.getJSONArray(PageConstants.DATA_LIST));
 		List<UserAdminVo> userAdminVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserAdminVo>>(){});
@@ -94,7 +94,7 @@ public class UserAdminController extends BaseController {
 		BaseResultVo result = new BaseResultVo(userAdminVoList);
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, result);
+		userAdminResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserAdminController-getList)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
@@ -109,20 +109,20 @@ public class UserAdminController extends BaseController {
 	@ApiOperation(value = "获取用户管理详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserAdminIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户管理】(UserAdminController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户管理】(UserAdminController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userAdminId = req.getUserAdminId();
 		JSONObject jsonUserAdmin = userAdminService.getById(userAdminId);
-		logger.info("===step2:【获取用户管理】(UserAdminController-get)-根据userAdminId获取用户管理, jsonUserAdmin:{}", jsonUserAdmin);
+		logger.info("===step2:【获取用户管理】(UserAdminController-getDetail)-根据userAdminId获取用户管理, jsonUserAdmin:{}", jsonUserAdmin);
 		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserAdmin, UserAdminVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, userAdminVo);
-	    logger.info("===step3:【获取用户管理】(UserAdminController-get)-返回信息, userAdminResponse:{}", userAdminResponse);
+		userAdminResponse.put(CommConstants.RESULT, userAdminVo);
+	    logger.info("===step3:【获取用户管理】(UserAdminController-getDetail)-返回信息, userAdminResponse:{}", userAdminResponse);
 	    return userAdminResponse;
 	}
 
@@ -142,11 +142,9 @@ public class UserAdminController extends BaseController {
 
 		JSONObject jsonUserAdmin = userAdminService.add(req);
 		logger.info("===step2:【新增用户管理】(UserAdminController-add)-分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
-		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserAdmin, UserAdminVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, userAdminVo);
 	    logger.info("===step3:【新增用户管理】(UserAdminController-add)-返回信息, userAdminResponse:{}", userAdminResponse);
 	    return userAdminResponse;
 	}
@@ -168,11 +166,9 @@ public class UserAdminController extends BaseController {
 		Integer userAdminId = req.getUserAdminId();
 		JSONObject jsonUserAdmin = userAdminService.deleteById(userAdminId);
 		logger.info("===step2:【删除用户管理】(UserAdminController-delete)-根据userAdminId删除用户管理, jsonUserAdmin:{}", jsonUserAdmin);
-		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserAdmin, UserAdminVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, userAdminVo);
 		logger.info("===step3:【删除用户管理】(UserAdminController-delete)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
@@ -193,11 +189,9 @@ public class UserAdminController extends BaseController {
 
 		JSONObject jsonUserAdmin = userAdminService.update(req);
 		logger.info("===step2:【修改用户管理】(UserAdminController-update)-修改用户管理, jsonUserAdmin:{}", jsonUserAdmin);
-		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserAdmin, UserAdminVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(RetSafeConstants.RESULT, userAdminVo);
 		logger.info("===step3:【修改用户管理】(UserAdminController-update)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}

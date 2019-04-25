@@ -17,25 +17,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.safe.SqlSafeConstants;
-import com.cloud.common.constants.wheel.RetWheelConstants;
 import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
-import com.cloud.consumer.safe.rest.request.login.UserLoginFirstPasswordRequest;
-import com.cloud.consumer.safe.rest.request.login.UserLoginRequest;
-import com.cloud.consumer.safe.rest.request.login.UserRegisterRequest;
+import com.cloud.consumer.safe.rest.request.user.login.UserLoginFirstPasswordRequest;
+import com.cloud.consumer.safe.rest.request.user.login.UserLoginRequest;
+import com.cloud.consumer.safe.rest.request.user.login.UserRegisterRequest;
 import com.cloud.consumer.safe.service.IUserAdminLoginService;
 import com.cloud.consumer.safe.service.IUserAdminPasswordService;
 import com.cloud.consumer.safe.service.IUserAdminService;
 import com.cloud.consumer.safe.service.IUserInfoService;
 import com.cloud.consumer.safe.service.IUserService;
 import com.cloud.consumer.safe.util.PatternUtil;
-import com.cloud.consumer.safe.vo.UserAdminLoginVo;
-import com.cloud.consumer.safe.vo.UserAdminVo;
-import com.cloud.consumer.safe.vo.UserInfoVo;
-import com.cloud.consumer.safe.vo.user.UserLoginErrorVo;
-import com.cloud.consumer.safe.vo.user.UserLoginVo;
+import com.cloud.consumer.safe.vo.enterprise.EnterpriseVo;
+import com.cloud.consumer.safe.vo.enterprise.OrgVo;
+import com.cloud.consumer.safe.vo.user.UserAdminLoginVo;
+import com.cloud.consumer.safe.vo.user.UserAdminVo;
+import com.cloud.consumer.safe.vo.user.UserInfoVo;
+import com.cloud.consumer.safe.vo.user.UserOrgVo;
+import com.cloud.consumer.safe.vo.user.login.UserLoginErrorVo;
+import com.cloud.consumer.safe.vo.user.login.UserLoginVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -93,14 +96,6 @@ public class UserController extends BaseController {
 		String userPassword = req.getUserPassword();
 		req.setUserPassword(DigestUtils.sha256Hex(userPassword));
 
-//		JSONObject jsonUser = userService.login(req);
-//        logger.info("===step3:【用户登录】(UserController-login)-用户登录, jsonUser:{}", jsonUser);
-//		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUser, UserInfoVo.class);
-//		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonUser, EnterpriseVo.class);
-//		Integer userId = userInfoVo.getUserId();
-//		String userName = userInfoVo.getUserName();
-//		Integer enterpriseId = enterpriseVo.getEnterpriseId();
-
 		JSONObject jsonUserFirst = userService.loginFirst(req);
 		logger.info("===step2:【用户登录】(UserController-login)-用户登录第一步, jsonUserFirst:{}", jsonUserFirst);
 		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUserFirst, UserInfoVo.class);
@@ -116,7 +111,7 @@ public class UserController extends BaseController {
 			UserLoginErrorVo userLoginErrorVo = new UserLoginErrorVo();
 			userLoginErrorVo.setEnterpriseId(enterpriseId);
 			userLoginErrorVo.setUserId(userId);
-			userErrorResponse.put(RetWheelConstants.RESULT, userLoginErrorVo);
+			userErrorResponse.put(CommConstants.RESULT, userLoginErrorVo);
 			return userErrorResponse;
 		}
 
@@ -125,20 +120,27 @@ public class UserController extends BaseController {
 		params.put("enterpriseId", enterpriseId);
 		JSONObject jsonUserSecond = userService.loginSecond(params);
 		logger.info("===step3:【用户登录】(UserController-login)-用户登录第二步, jsonUserSecond:{}", jsonUserSecond);
+		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonUserSecond, EnterpriseVo.class);
+		UserOrgVo userOrgVo = JSONObject.toJavaObject(jsonUserSecond, UserOrgVo.class);
+		OrgVo orgVo = JSONObject.toJavaObject(jsonUserSecond, OrgVo.class);
+		String enterpriseName = enterpriseVo.getEnterpriseName();
+	    Integer orgId = userOrgVo.getOrgId();
+	    String orgName = orgVo.getOrgName();
 
 		//设置token
-		String token = this.setToken(enterpriseId, userId, userAccount);
+		String token = this.setToken(enterpriseId, enterpriseName, userId, userAccount, orgId, orgName);
 
 		UserLoginVo userLoginVo = new UserLoginVo();
 		userLoginVo.setToken(token);
 		userLoginVo.setEnterpriseId(enterpriseId);
+		userLoginVo.setEnterpriseName(enterpriseName);
 		userLoginVo.setUserId(userId);
 		userLoginVo.setUserAccount(userAccount);
 		userLoginVo.setUserName(userName);
 
         //返回信息
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-		userResponse.put(RetWheelConstants.RESULT, userLoginVo);
+		userResponse.put(CommConstants.RESULT, userLoginVo);
         logger.info("===step4:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
@@ -297,7 +299,7 @@ public class UserController extends BaseController {
 //
 //		//返回信息
 //		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
-//		userAdminPasswordResponse.put(RetSafeConstants.RESULT, userAdminPasswordVo);
+//		userAdminPasswordResponse.put(CommConstants.RESULT, userAdminPasswordVo);
 //	    logger.info("===step3:【新增用户管理密码】(UserAdminPasswordController-addUserAdminPassword)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
 //	    return userAdminPasswordResponse;
 //	}

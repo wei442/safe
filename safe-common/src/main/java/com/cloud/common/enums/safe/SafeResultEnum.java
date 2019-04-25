@@ -30,6 +30,8 @@ public enum SafeResultEnum implements ResultEnum {
 	ENTERPRISE_NOTEXIST("1020001", "您没有注册企业"),
 	ENTERPRISE_EXIST("1020002", "您已经注册企业"),
 	ORG_CHILD_LIST_EXIST("1020003", "请先删除改部门下的子部门，再删除该部门!"),
+	BASE_USER_ACCOUNT_NOTEXIST("1020004", "您的账号不存在"),
+	BASE_USER_PASSWORD_ERROR("1020005", "您的密码错误"),
 
 
 

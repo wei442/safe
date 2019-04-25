@@ -60,6 +60,27 @@ public class BaseUserPasswordServiceImpl implements IBaseUserPasswordService {
 		return baseUserPassword;
 	}
 
+	/**
+	 * 根据baseUserId和password查询基础用户密码
+	 * @param  baseUserId
+	 * @param  password
+	 * @return BaseUserPassword
+	 */
+	public BaseUserPassword selectByBaseUserIdPassword(Integer baseUserId,String password) {
+		logger.info("(BaseUserPasswordService-selectByBaseUserId)-根据baseUserId和password查询基础用户密码-传入参数,  baseUserId:{},  password:{}",  baseUserId, password);
+		BaseUserPasswordExample example = new BaseUserPasswordExample();
+		BaseUserPasswordExample.Criteria criteria = example.createCriteria();
+		criteria.andBaseUserIdEqualTo( baseUserId);
+		criteria.andPasswordEqualTo(password);
+
+		List<BaseUserPassword> list = baseUserPasswordMapper.selectByExample(example);
+		BaseUserPassword baseUserPassword = null;
+		if(list != null && !list.isEmpty()) {
+			baseUserPassword = list.get(0);
+		}
+		return baseUserPassword;
+	}
+
     /**
      * 插入基础用户密码
      * @param baseUserPassword

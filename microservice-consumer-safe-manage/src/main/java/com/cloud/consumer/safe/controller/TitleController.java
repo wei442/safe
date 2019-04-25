@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
-import com.cloud.consumer.safe.rest.request.TitleIdRequest;
-import com.cloud.consumer.safe.rest.request.TitleRequest;
-import com.cloud.consumer.safe.rest.request.page.TitlePageRequest;
+import com.cloud.consumer.safe.rest.request.page.dict.TitlePageRequest;
+import com.cloud.consumer.safe.rest.request.post.TitleIdRequest;
+import com.cloud.consumer.safe.rest.request.post.TitleRequest;
 import com.cloud.consumer.safe.service.ITitleService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.TitleVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
+import com.cloud.consumer.safe.vo.post.TitleVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -71,7 +71,7 @@ public class TitleController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, titleVoList);
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, result);
+		titleResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(TitleController-getListByPage)-返回信息, titleResponse:{}", titleResponse);
 	    return titleResponse;
 	}
@@ -90,7 +90,7 @@ public class TitleController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonTitle = titleService.getListByPage(req);
+		JSONObject jsonTitle = titleService.getList(req);
 		logger.info("===step2:【不分页查询】(TitleController-getList)-不分页查询职务列表, jsonTitle:{}", jsonTitle);
 		String dataListStr = JSONObject.toJSONString(jsonTitle.getJSONArray(PageConstants.DATA_LIST));
 		List<TitleVo> titleVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<TitleVo>>(){});
@@ -98,7 +98,7 @@ public class TitleController extends BaseController {
 		BaseResultVo result = new BaseResultVo(titleVoList);
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, result);
+		titleResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(TitleController-getList)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}
@@ -113,20 +113,20 @@ public class TitleController extends BaseController {
 	@ApiOperation(value = "获取职务详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody TitleIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取职务】(TitleController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取职务】(TitleController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer titleId = req.getTitleId();
 		JSONObject jsonTitle = titleService.getById(titleId);
-		logger.info("===step2:【获取职务】(TitleController-get)-根据titleId获取职务, jsonTitle:{}", jsonTitle);
+		logger.info("===step2:【获取职务】(TitleController-getDetail)-根据titleId获取职务, jsonTitle:{}", jsonTitle);
 		TitleVo titleVo = JSONObject.toJavaObject(jsonTitle, TitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, titleVo);
-	    logger.info("===step3:【获取职务】(TitleController-get)-返回信息, titleResponse:{}", titleResponse);
+		titleResponse.put(CommConstants.RESULT, titleVo);
+	    logger.info("===step3:【获取职务】(TitleController-getDetail)-返回信息, titleResponse:{}", titleResponse);
 	    return titleResponse;
 	}
 
@@ -148,11 +148,9 @@ public class TitleController extends BaseController {
 
 		JSONObject jsonTitle = titleService.add(req);
 		logger.info("===step2:【新增职务】(TitleController-add)-分页查询职务列表, jsonTitle:{}", jsonTitle);
-		TitleVo titleVo = JSONObject.toJavaObject(jsonTitle, TitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, titleVo);
 	    logger.info("===step3:【新增职务】(TitleController-add)-返回信息, titleResponse:{}", titleResponse);
 	    return titleResponse;
 	}
@@ -174,11 +172,9 @@ public class TitleController extends BaseController {
 		Integer titleId = req.getTitleId();
 		JSONObject jsonTitle = titleService.deleteById(titleId);
 		logger.info("===step2:【删除职务】(TitleController-delete)-根据titleId删除职务, jsonTitle:{}", jsonTitle);
-		TitleVo titleVo = JSONObject.toJavaObject(jsonTitle, TitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, titleVo);
 		logger.info("===step3:【删除职务】(TitleController-delete)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}
@@ -201,11 +197,9 @@ public class TitleController extends BaseController {
 
 		JSONObject jsonTitle = titleService.update(req);
 		logger.info("===step2:【修改职务】(TitleController-update)-修改职务, jsonTitle:{}", jsonTitle);
-		TitleVo titleVo = JSONObject.toJavaObject(jsonTitle, TitleVo.class);
 
 		//返回信息
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.put(RetSafeConstants.RESULT, titleVo);
 		logger.info("===step3:【修改职务】(TitleController-update)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}

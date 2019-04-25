@@ -1,7 +1,9 @@
 package com.cloud.consumer.safe.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,23 +12,27 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
+import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
-import com.cloud.consumer.safe.rest.request.OrgQualityIdRequest;
-import com.cloud.consumer.safe.rest.request.OrgQualityRequest;
-import com.cloud.consumer.safe.rest.request.page.OrgQualityPageRequest;
+import com.cloud.consumer.safe.rest.request.enterprise.OrgQualityAttachmentRequest;
+import com.cloud.consumer.safe.rest.request.enterprise.OrgQualityIdRequest;
+import com.cloud.consumer.safe.rest.request.enterprise.OrgQualityRequest;
+import com.cloud.consumer.safe.rest.request.page.enterprise.OrgQualityPageRequest;
+import com.cloud.consumer.safe.service.IFastdfsService;
 import com.cloud.consumer.safe.service.IOrgQualityService;
-import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.OrgQualityVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
+import com.cloud.consumer.safe.vo.enterprise.OrgQualityVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,6 +52,10 @@ public class OrgQualityController extends BaseController {
 	//机构资质 Service
 	@Autowired
 	private IOrgQualityService orgQualityService;
+
+	//fastdfs Service
+	@Autowired
+	private IFastdfsService fastdfsService;
 
 	/**
 	 * 分页查询
@@ -69,7 +79,7 @@ public class OrgQualityController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, orgQualityVoList);
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, result);
+		orgQualityResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(OrgQualityController-getListByPage)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 	    return orgQualityResponse;
 	}
@@ -86,7 +96,7 @@ public class OrgQualityController extends BaseController {
 		@RequestBody OrgQualityPageRequest req) {
 		logger.info("===step1:【不分页查询】(OrgQualityController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonOrgQuality = orgQualityService.getListByPage(req);
+		JSONObject jsonOrgQuality = orgQualityService.getList(req);
 		logger.info("===step2:【不分页查询】(OrgQualityController-getList)-不分页查询机构资质列表, jsonOrgQuality:{}", jsonOrgQuality);
 		String dataListStr = JSONObject.toJSONString(jsonOrgQuality.getJSONArray(PageConstants.DATA_LIST));
 		List<OrgQualityVo> orgQualityVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgQualityVo>>(){});
@@ -94,7 +104,7 @@ public class OrgQualityController extends BaseController {
 		BaseResultVo result = new BaseResultVo(orgQualityVoList);
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, result);
+		orgQualityResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(OrgQualityController-getList)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 		return orgQualityResponse;
 	}
@@ -109,20 +119,20 @@ public class OrgQualityController extends BaseController {
 	@ApiOperation(value = "获取机构资质详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody OrgQualityIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取机构资质】(OrgQualityController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取机构资质】(OrgQualityController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer orgQualityId = req.getOrgQualityId();
 		JSONObject jsonOrgQuality = orgQualityService.getById(orgQualityId);
-		logger.info("===step2:【获取机构资质】(OrgQualityController-get)-根据orgQualityId获取机构资质, jsonOrgQuality:{}", jsonOrgQuality);
+		logger.info("===step2:【获取机构资质】(OrgQualityController-getDetail)-根据orgQualityId获取机构资质, jsonOrgQuality:{}", jsonOrgQuality);
 		OrgQualityVo orgQualityVo = JSONObject.toJavaObject(jsonOrgQuality, OrgQualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, orgQualityVo);
-	    logger.info("===step3:【获取机构资质】(OrgQualityController-get)-返回信息, orgQualityResponse:{}", orgQualityResponse);
+		orgQualityResponse.put(CommConstants.RESULT, orgQualityVo);
+	    logger.info("===step3:【获取机构资质】(OrgQualityController-getDetail)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 	    return orgQualityResponse;
 	}
 
@@ -136,17 +146,40 @@ public class OrgQualityController extends BaseController {
 	@RequestMapping(value="/add",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse add(
-		@Validated @RequestBody OrgQualityRequest req,
+		OrgQualityRequest req, @RequestPart("fileList") MultipartFile[] multipartFiles,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增机构资质】(OrgQualityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
+		//暂时
+		req.setOrgId(-1);
+
+		String qualityName = req.getQualityName();
+		if(StringUtils.isBlank(qualityName)) {
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "资质名称不能为空");
+		}
+
+		List<OrgQualityAttachmentRequest> orgQualityAttachmentList = null;
+		OrgQualityAttachmentRequest orgQualityAttachmentRequest = null;
+		if(multipartFiles != null && multipartFiles.length >0) {
+			orgQualityAttachmentList = new ArrayList<OrgQualityAttachmentRequest>();
+			for (MultipartFile multipartFile : multipartFiles) {
+				orgQualityAttachmentRequest = new OrgQualityAttachmentRequest();
+
+				String fileUrl = fastdfsService.uploadImage(multipartFile);
+				String filename = multipartFile.getOriginalFilename();
+				orgQualityAttachmentRequest.setName(filename);
+				orgQualityAttachmentRequest.setUrl(fileUrl);
+				orgQualityAttachmentList.add(orgQualityAttachmentRequest);
+			}
+		}
+		req.setOrgQualityAttachmentList(orgQualityAttachmentList);
 
 		JSONObject jsonOrgQuality = orgQualityService.add(req);
 		logger.info("===step2:【新增机构资质】(OrgQualityController-add)-分页查询机构资质列表, jsonOrgQuality:{}", jsonOrgQuality);
-		OrgQualityVo orgQualityVo = JSONObject.toJavaObject(jsonOrgQuality, OrgQualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, orgQualityVo);
 	    logger.info("===step3:【新增机构资质】(OrgQualityController-add)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 	    return orgQualityResponse;
 	}
@@ -168,11 +201,9 @@ public class OrgQualityController extends BaseController {
 		Integer orgQualityId = req.getOrgQualityId();
 		JSONObject jsonOrgQuality = orgQualityService.deleteById(orgQualityId);
 		logger.info("===step2:【删除机构资质】(OrgQualityController-delete)-根据orgQualityId删除机构资质, jsonOrgQuality:{}", jsonOrgQuality);
-		OrgQualityVo orgQualityVo = JSONObject.toJavaObject(jsonOrgQuality, OrgQualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, orgQualityVo);
 		logger.info("===step3:【删除机构资质】(OrgQualityController-delete)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 		return orgQualityResponse;
 	}
@@ -187,17 +218,41 @@ public class OrgQualityController extends BaseController {
 	@RequestMapping(value="/update",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse update(
-		@Validated({ UpdateGroup.class }) @RequestBody OrgQualityRequest req,
+		OrgQualityRequest req, @RequestPart("fileList") MultipartFile[] multipartFiles,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改机构资质】(OrgQualityController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
+
+		Integer orgQualityId = req.getOrgQualityId();
+		String qualityName = req.getQualityName();
+		if(orgQualityId == null) {
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "机构资质id不能为空");
+		} else if(StringUtils.isBlank(qualityName)) {
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "资质名称不能为空");
+		}
+
+		List<OrgQualityAttachmentRequest> orgQualityAttachmentList = null;
+		OrgQualityAttachmentRequest orgQualityAttachmentRequest = null;
+		if(multipartFiles != null && multipartFiles.length >0) {
+			orgQualityAttachmentList = new ArrayList<OrgQualityAttachmentRequest>();
+			for (MultipartFile multipartFile : multipartFiles) {
+				orgQualityAttachmentRequest = new OrgQualityAttachmentRequest();
+
+				String fileUrl = fastdfsService.uploadImage(multipartFile);
+				String filename = multipartFile.getOriginalFilename();
+				orgQualityAttachmentRequest.setName(filename);
+				orgQualityAttachmentRequest.setUrl(fileUrl);
+				orgQualityAttachmentList.add(orgQualityAttachmentRequest);
+			}
+		}
+		req.setOrgQualityAttachmentList(orgQualityAttachmentList);
 
 		JSONObject jsonOrgQuality = orgQualityService.update(req);
 		logger.info("===step2:【修改机构资质】(OrgQualityController-update)-修改机构资质, jsonOrgQuality:{}", jsonOrgQuality);
-		OrgQualityVo orgQualityVo = JSONObject.toJavaObject(jsonOrgQuality, OrgQualityVo.class);
 
 		//返回信息
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(RetSafeConstants.RESULT, orgQualityVo);
 		logger.info("===step3:【修改机构资质】(OrgQualityController-update)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 		return orgQualityResponse;
 	}

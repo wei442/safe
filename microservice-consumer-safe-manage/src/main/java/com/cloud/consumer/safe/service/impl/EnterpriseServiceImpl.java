@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IEnterpriseService;
 
 /**
- * 企业 Service (microservice-provider-safe)
+ * 企业 EnterpriseService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service

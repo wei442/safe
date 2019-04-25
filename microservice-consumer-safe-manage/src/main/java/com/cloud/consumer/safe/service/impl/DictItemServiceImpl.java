@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IDictItemService;
 
 /**
- * 字典子项 Service (microservice-provider-safe)
+ * 字典子项 DictItemService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service

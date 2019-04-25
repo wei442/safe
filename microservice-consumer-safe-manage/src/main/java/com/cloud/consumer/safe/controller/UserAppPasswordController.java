@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cloud.common.constants.safe.RetSafeConstants;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
-import com.cloud.consumer.safe.rest.request.UserAppPasswordIdRequest;
-import com.cloud.consumer.safe.rest.request.UserAppPasswordRequest;
+import com.cloud.consumer.safe.rest.request.user.UserAppPasswordIdRequest;
+import com.cloud.consumer.safe.rest.request.user.UserAppPasswordRequest;
 import com.cloud.consumer.safe.service.IUserAppPasswordService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.UserAppPasswordVo;
+import com.cloud.consumer.safe.vo.user.UserAppPasswordVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,20 +48,20 @@ public class UserAppPasswordController extends BaseController {
 	@ApiOperation(value = "获取用户应用密码详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserAppPasswordIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户应用密码】(UserAppPasswordController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户应用密码】(UserAppPasswordController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userAppPasswordId = req.getUserAppPasswordId();
 		JSONObject jsonUserAppPassword = userAppPasswordService.getById(userAppPasswordId);
-		logger.info("===step2:【获取用户应用密码】(UserAppPasswordController-get)-根据userAppPasswordId获取用户应用密码, jsonUserAppPassword:{}", jsonUserAppPassword);
+		logger.info("===step2:【获取用户应用密码】(UserAppPasswordController-getDetail)-根据userAppPasswordId获取用户应用密码, jsonUserAppPassword:{}", jsonUserAppPassword);
 		UserAppPasswordVo userAppPasswordVo = JSONObject.toJavaObject(jsonUserAppPassword, UserAppPasswordVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(RetSafeConstants.RESULT, userAppPasswordVo);
-	    logger.info("===step3:【获取用户应用密码】(UserAppPasswordController-get)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
+		userAppPasswordResponse.put(CommConstants.RESULT, userAppPasswordVo);
+	    logger.info("===step3:【获取用户应用密码】(UserAppPasswordController-getDetail)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 	    return userAppPasswordResponse;
 	}
 
@@ -85,7 +85,7 @@ public class UserAppPasswordController extends BaseController {
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(RetSafeConstants.RESULT, userAppPasswordVo);
+		userAppPasswordResponse.put(CommConstants.RESULT, userAppPasswordVo);
 		logger.info("===step3:【根据userId和password获取用户应用密码详情】(UserAppPasswordController-getByUserIdPassword)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}
@@ -106,11 +106,9 @@ public class UserAppPasswordController extends BaseController {
 
 		JSONObject jsonUserAppPassword = userAppPasswordService.add(req);
 		logger.info("===step2:【新增用户应用密码】(UserAppPasswordController-add)-分页查询用户应用密码列表, jsonUserAppPassword:{}", jsonUserAppPassword);
-		UserAppPasswordVo userAppPasswordVo = JSONObject.toJavaObject(jsonUserAppPassword, UserAppPasswordVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(RetSafeConstants.RESULT, userAppPasswordVo);
 	    logger.info("===step3:【新增用户应用密码】(UserAppPasswordController-add)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 	    return userAppPasswordResponse;
 	}
@@ -121,7 +119,7 @@ public class UserAppPasswordController extends BaseController {
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "新增用户应用密码")
+	@ApiOperation(value = "删除用户应用密码")
 	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse delete(
@@ -132,11 +130,9 @@ public class UserAppPasswordController extends BaseController {
 		Integer userAppPasswordId = req.getUserAppPasswordId();
 		JSONObject jsonUserAppPassword = userAppPasswordService.deleteById(userAppPasswordId);
 		logger.info("===step2:【删除用户应用密码】(UserAppPasswordController-delete)-根据userAppPasswordId删除用户应用密码, jsonUserAppPassword:{}", jsonUserAppPassword);
-		UserAppPasswordVo userAppPasswordVo = JSONObject.toJavaObject(jsonUserAppPassword, UserAppPasswordVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(RetSafeConstants.RESULT, userAppPasswordVo);
 		logger.info("===step3:【删除用户应用密码】(UserAppPasswordController-delete)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}
@@ -157,11 +153,9 @@ public class UserAppPasswordController extends BaseController {
 
 		JSONObject jsonUserAppPassword = userAppPasswordService.update(req);
 		logger.info("===step2:【修改用户应用密码】(UserAppPasswordController-update)-修改用户应用密码, jsonUserAppPassword:{}", jsonUserAppPassword);
-		UserAppPasswordVo userAppPasswordVo = JSONObject.toJavaObject(jsonUserAppPassword, UserAppPasswordVo.class);
 
 		//返回信息
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
-		userAppPasswordResponse.put(RetSafeConstants.RESULT, userAppPasswordVo);
 		logger.info("===step3:【修改用户应用密码】(UserAppPasswordController-update)-返回信息, userAppPasswordResponse:{}", userAppPasswordResponse);
 		return userAppPasswordResponse;
 	}

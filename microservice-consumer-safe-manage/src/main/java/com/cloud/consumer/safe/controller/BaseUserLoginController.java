@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
-import com.cloud.consumer.safe.rest.request.BaseUserLoginIdRequest;
-import com.cloud.consumer.safe.rest.request.BaseUserLoginRequest;
-import com.cloud.consumer.safe.rest.request.page.BaseUserLoginPageRequest;
+import com.cloud.consumer.safe.rest.request.base.user.BaseUserLoginIdRequest;
+import com.cloud.consumer.safe.rest.request.base.user.BaseUserLoginRequest;
+import com.cloud.consumer.safe.rest.request.page.base.user.BaseUserLoginPageRequest;
 import com.cloud.consumer.safe.service.IBaseUserLoginService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.BaseUserLoginVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
+import com.cloud.consumer.safe.vo.base.user.BaseUserLoginVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,7 +38,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "基础用户登录")
 @RestController
-@RequestMapping("/base/userLogin")
+@RequestMapping("/base/user/login")
 public class BaseUserLoginController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -69,7 +69,7 @@ public class BaseUserLoginController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, baseUserLoginVoList);
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, result);
+		baseUserLoginResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(BaseUserLoginController-getListByPage)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 	    return baseUserLoginResponse;
 	}
@@ -86,7 +86,7 @@ public class BaseUserLoginController extends BaseController {
 		@RequestBody BaseUserLoginPageRequest req) {
 		logger.info("===step1:【不分页查询】(BaseUserLoginController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		JSONObject jsonBaseUserLogin = baseUserLoginService.getListByPage(req);
+		JSONObject jsonBaseUserLogin = baseUserLoginService.getList(req);
 		logger.info("===step2:【不分页查询】(BaseUserLoginController-getList)-不分页查询基础用户登录列表, jsonBaseUserLogin:{}", jsonBaseUserLogin);
 		String dataListStr = JSONObject.toJSONString(jsonBaseUserLogin.getJSONArray(PageConstants.DATA_LIST));
 		List<BaseUserLoginVo> baseUserLoginVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<BaseUserLoginVo>>(){});
@@ -94,7 +94,7 @@ public class BaseUserLoginController extends BaseController {
 		BaseResultVo result = new BaseResultVo(baseUserLoginVoList);
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, result);
+		baseUserLoginResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(BaseUserLoginController-getList)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}
@@ -109,20 +109,20 @@ public class BaseUserLoginController extends BaseController {
 	@ApiOperation(value = "获取基础用户登录详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody BaseUserLoginIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取基础用户登录】(BaseUserLoginController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取基础用户登录】(BaseUserLoginController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer baseUserLoginId = req.getBaseUserLoginId();
 		JSONObject jsonBaseUserLogin = baseUserLoginService.getById(baseUserLoginId);
-		logger.info("===step2:【获取基础用户登录】(BaseUserLoginController-get)-根据baseUserLoginId获取基础用户登录, jsonBaseUserLogin:{}", jsonBaseUserLogin);
+		logger.info("===step2:【获取基础用户登录】(BaseUserLoginController-getDetail)-根据baseUserLoginId获取基础用户登录, jsonBaseUserLogin:{}", jsonBaseUserLogin);
 		BaseUserLoginVo baseUserLoginVo = JSONObject.toJavaObject(jsonBaseUserLogin, BaseUserLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, baseUserLoginVo);
-	    logger.info("===step3:【获取基础用户登录】(BaseUserLoginController-get)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
+		baseUserLoginResponse.put(CommConstants.RESULT, baseUserLoginVo);
+	    logger.info("===step3:【获取基础用户登录】(BaseUserLoginController-getDetail)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 	    return baseUserLoginResponse;
 	}
 
@@ -142,11 +142,9 @@ public class BaseUserLoginController extends BaseController {
 
 		JSONObject jsonBaseUserLogin = baseUserLoginService.add(req);
 		logger.info("===step2:【新增基础用户登录】(BaseUserLoginController-add)-分页查询基础用户登录列表, jsonBaseUserLogin:{}", jsonBaseUserLogin);
-		BaseUserLoginVo baseUserLoginVo = JSONObject.toJavaObject(jsonBaseUserLogin, BaseUserLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, baseUserLoginVo);
 	    logger.info("===step3:【新增基础用户登录】(BaseUserLoginController-add)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 	    return baseUserLoginResponse;
 	}
@@ -168,11 +166,9 @@ public class BaseUserLoginController extends BaseController {
 		Integer baseUserLoginId = req.getBaseUserLoginId();
 		JSONObject jsonBaseUserLogin = baseUserLoginService.deleteById(baseUserLoginId);
 		logger.info("===step2:【删除基础用户登录】(BaseUserLoginController-delete)-根据baseUserLoginId删除基础用户登录, jsonBaseUserLogin:{}", jsonBaseUserLogin);
-		BaseUserLoginVo baseUserLoginVo = JSONObject.toJavaObject(jsonBaseUserLogin, BaseUserLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, baseUserLoginVo);
 		logger.info("===step3:【删除基础用户登录】(BaseUserLoginController-delete)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}
@@ -193,11 +189,9 @@ public class BaseUserLoginController extends BaseController {
 
 		JSONObject jsonBaseUserLogin = baseUserLoginService.update(req);
 		logger.info("===step2:【修改基础用户登录】(BaseUserLoginController-update)-修改基础用户登录, jsonBaseUserLogin:{}", jsonBaseUserLogin);
-		BaseUserLoginVo baseUserLoginVo = JSONObject.toJavaObject(jsonBaseUserLogin, BaseUserLoginVo.class);
 
 		//返回信息
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(RetSafeConstants.RESULT, baseUserLoginVo);
 		logger.info("===step3:【修改基础用户登录】(BaseUserLoginController-update)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}

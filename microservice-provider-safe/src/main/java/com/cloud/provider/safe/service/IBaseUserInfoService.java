@@ -30,6 +30,13 @@ public interface IBaseUserInfoService {
      */
 	public BaseUserInfo selectById(Integer id);
 
+   /**
+    * 根据userAccount查询基础用户信息
+    * @param userAccount
+    * @return BaseUserInfo
+    */
+	public BaseUserInfo selectByUserAccount(String userAccount);
+
     /**
      * 插入用户信息
      * @param baseUserInfo

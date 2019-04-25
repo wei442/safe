@@ -42,18 +42,6 @@ public class UserServiceImpl extends BaseService implements IUserService {
 	}
 
 	/**
-	 * 用户登录
-	 * @param params
-	 * @return JSONObject
-	 */
-	@Override
-	public JSONObject login(Object params) {
-		logger.info("(UserService-login)-用户登录-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/login", params, JSONObject.class);
-		return response;
-	}
-
-	/**
 	 * 新增用户
 	 * @param params
 	 * @return JSONObject

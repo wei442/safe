@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
-import com.cloud.consumer.safe.rest.request.UserOrgIdRequest;
-import com.cloud.consumer.safe.rest.request.UserOrgIdsRequest;
-import com.cloud.consumer.safe.rest.request.UserOrgRequest;
-import com.cloud.consumer.safe.rest.request.page.UserOrgPageRequest;
+import com.cloud.consumer.safe.rest.request.page.user.UserOrgPageRequest;
+import com.cloud.consumer.safe.rest.request.user.UserOrgIdRequest;
+import com.cloud.consumer.safe.rest.request.user.UserOrgIdsRequest;
+import com.cloud.consumer.safe.rest.request.user.UserOrgRequest;
 import com.cloud.consumer.safe.service.IUserOrgService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.UserOrgVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
+import com.cloud.consumer.safe.vo.user.UserOrgVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -73,7 +73,7 @@ public class UserOrgController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, userOrgVoList);
 		//返回信息
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.put(RetSafeConstants.RESULT, result);
+		userOrgResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(UserOrgController-getListByPage)-返回信息, userOrgResponse:{}", userOrgResponse);
 	    return userOrgResponse;
 	}
@@ -93,7 +93,7 @@ public class UserOrgController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonUserOrg = userOrgService.getListByPage(req);
+		JSONObject jsonUserOrg = userOrgService.getList(req);
 		logger.info("===step2:【不分页查询】(UserOrgController-getList)-不分页查询用户机构列表, jsonUserOrg:{}", jsonUserOrg);
 		String dataListStr = JSONObject.toJSONString(jsonUserOrg.getJSONArray(PageConstants.DATA_LIST));
 		List<UserOrgVo> userOrgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserOrgVo>>(){});
@@ -101,7 +101,7 @@ public class UserOrgController extends BaseController {
 		BaseResultVo result = new BaseResultVo(userOrgVoList);
 		//返回信息
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.put(RetSafeConstants.RESULT, result);
+		userOrgResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(UserOrgController-getList)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
@@ -116,20 +116,20 @@ public class UserOrgController extends BaseController {
 	@ApiOperation(value = "获取用户机构详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody UserOrgIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取用户机构】(UserOrgController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取用户机构】(UserOrgController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer userOrgId = req.getUserOrgId();
 		JSONObject jsonUserOrg = userOrgService.getById(userOrgId);
-		logger.info("===step2:【获取用户机构】(UserOrgController-get)-根据userOrgId获取用户机构, jsonUserOrg:{}", jsonUserOrg);
+		logger.info("===step2:【获取用户机构】(UserOrgController-getDetail)-根据userOrgId获取用户机构, jsonUserOrg:{}", jsonUserOrg);
 		UserOrgVo userOrgVo = JSONObject.toJavaObject(jsonUserOrg, UserOrgVo.class);
 
 		//返回信息
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.put(RetSafeConstants.RESULT, userOrgVo);
-	    logger.info("===step3:【获取用户机构】(UserOrgController-get)-返回信息, userOrgResponse:{}", userOrgResponse);
+		userOrgResponse.put(CommConstants.RESULT, userOrgVo);
+	    logger.info("===step3:【获取用户机构】(UserOrgController-getDetail)-返回信息, userOrgResponse:{}", userOrgResponse);
 	    return userOrgResponse;
 	}
 
@@ -164,7 +164,7 @@ public class UserOrgController extends BaseController {
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "新增用户机构")
+	@ApiOperation(value = "删除用户机构")
 	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse delete(
@@ -196,8 +196,7 @@ public class UserOrgController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【批量删除用户机构】(UserOrgController-batchDelete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		List<Integer> userOrgIds = req.getUserOrgIds();
-		JSONObject jsonUserOrg = userOrgService.deleteByIds(userOrgIds);
+		JSONObject jsonUserOrg = userOrgService.batchDelete(req);
 		logger.info("===step2:【批量删除用户机构】(UserOrgController-batchDelete)-根据userOrgIds删除用户机构, jsonUserOrg:{}", jsonUserOrg);
 
 		//返回信息

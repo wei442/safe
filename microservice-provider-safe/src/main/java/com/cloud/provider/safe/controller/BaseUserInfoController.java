@@ -132,8 +132,6 @@ public class BaseUserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加基础用户信息】(BaseUserInfoController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
-
 		BaseUserInfo baseUserInfo = req.convertToBaseUserInfo();
 		int i = baseUserInfoService.insert(baseUserInfo);
 		logger.info("===step2:【添加基础用户信息】(BaseUserInfoController-insert)-插入基础用户信息, i:{}", i);
@@ -180,8 +178,6 @@ public class BaseUserInfoController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody BaseUserInfoRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改基础用户信息】(BaseUserInfoController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-
 
 		Integer baseUserInfoId = req.getBaseUserInfoId();
 		BaseUserInfo baseUserInfo = req.convertToBaseUserInfo();

@@ -30,6 +30,13 @@ public interface IBaseUserLoginService {
      */
 	public BaseUserLogin selectById(Integer id);
 
+	/**
+	 * 根据baseUserId查询基础用户登录
+	 * @param baseUserId
+	 * @return UserAdminLogin
+	 */
+	public BaseUserLogin selectByBaseUserId(Integer baseUserId);
+
     /**
      * 插入基础用户登录
      * @param baseUserLogin

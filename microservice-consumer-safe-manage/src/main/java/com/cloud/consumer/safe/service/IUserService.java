@@ -19,13 +19,6 @@ public interface IUserService {
 	public JSONObject loginSecond(Object params);
 
 	/**
-	 * 用户登录
-	 * @param params
-	 * @return JSONObject
-	 */
-	public JSONObject login(Object params);
-
-	/**
 	 * 新增用户
 	 * @param params
 	 * @return JSONObject

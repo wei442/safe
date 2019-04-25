@@ -105,8 +105,6 @@ public class BaseUserPasswordController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加基础用户密码】(BaseUserPasswordController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
-
 		BaseUserPassword baseUserPassword = req.convertToBaseUserPassword();
 		int i = baseUserPasswordService.insert(baseUserPassword);
 		logger.info("===step2:【添加基础用户密码】(BaseUserPasswordController-insert)-插入基础用户密码, i:{}", i);
@@ -153,8 +151,6 @@ public class BaseUserPasswordController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody BaseUserPasswordRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改基础用户密码】(BaseUserPasswordController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-
 
 		Integer baseUserPasswordId = req.getBaseUserPasswordId();
 		BaseUserPassword baseUserPassword = req.convertToBaseUserPassword();

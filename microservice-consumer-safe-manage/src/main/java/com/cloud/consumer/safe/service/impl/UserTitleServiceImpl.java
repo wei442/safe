@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserTitleService;
 
 /**
- * 用户职务 Service (microservice-provider-safe)
+ * 用户职务 UserTitleService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -92,14 +90,14 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	}
 
 	/**
-	 * 根据ids删除用户职务
+	 * 批量删除用户职务
 	 * @param ids
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteByIds(List<Integer> ids) {
-		logger.info("(UserTitleService-deleteByIds)-根据ids获取用户职务-传入参数, ids:{}", ids);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/deleteByIds/"+ids, null, JSONObject.class);
+	public JSONObject batchDelete(Object params) {
+		logger.info("(UserTitleService-batchDelete)-批量删除用户职务-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/batchDelete", params, JSONObject.class);
 		return response;
 	}
 
