@@ -196,20 +196,20 @@ public class OrgController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "删除组织机构")
-	@RequestMapping(value="/deleteOrg",method={RequestMethod.POST})
+	@RequestMapping(value="/delete",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse deleteOrg(
+	public BaseRestMapResponse delete(
 		@Validated @RequestBody OrgIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【删除组织机构】(OrgController-deleteOrg)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【删除组织机构】(OrgController-delete)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer orgId = req.getOrgId();
 		JSONObject jsonOrg = orgService.deleteById(orgId);
-		logger.info("===step2:【删除组织机构】(OrgController-deleteOrg)-根据orgId删除组织机构, jsonOrg:{}", jsonOrg);
+		logger.info("===step2:【删除组织机构】(OrgController-delete)-根据orgId删除组织机构, jsonOrg:{}", jsonOrg);
 
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		logger.info("===step3:【删除组织机构】(OrgController-deleteOrg)-返回信息, orgResponse:{}", orgResponse);
+		logger.info("===step3:【删除组织机构】(OrgController-delete)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}
 

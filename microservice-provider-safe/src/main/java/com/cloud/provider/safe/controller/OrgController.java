@@ -205,7 +205,7 @@ public class OrgController extends BaseController {
 		List<UserOrg> userOrgList = userOrgService.selectListByOrgId(orgId);
 		logger.info("===step2:【根据id删除组织机构】(OrgController-deleteById)-根据orgId查询用户组织机构列表, userOrgList.size:{}", userOrgList == null ? null : userOrgList.size());
 
-		if(userOrgList != null && userOrgList.isEmpty()) {
+		if(userOrgList != null && !userOrgList.isEmpty()) {
 			return new BaseRestMapResponse(SafeResultEnum.USER_ORG_LIST_EXIST);
 		}
 
@@ -214,7 +214,7 @@ public class OrgController extends BaseController {
 		List<OrgVo> orgVoList = orgService.selectTreeList(param);
 		logger.info("===step3:【根据id删除组织机构】(OrgController-deleteById)-根据orgId查询组织机构列表, orgVoList.size:{}", orgVoList == null ? null : orgVoList.size());
 
-		if(orgVoList != null && orgVoList.isEmpty()) {
+		if(orgVoList != null && !orgVoList.isEmpty()) {
 			return new BaseRestMapResponse(SafeResultEnum.ORG_CHILD_LIST_EXIST);
 		}
 

@@ -1,4 +1,4 @@
-package com.cloud.consumer.safe.vo.dict;
+package com.cloud.consumer.safe.vo.risk;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,24 +9,36 @@ import com.cloud.common.dateformat.DateFormatConstants;
 import lombok.Data;
 
 @Data
-public class DictVo implements Serializable {
+public class RiskVo implements Serializable {
 
     /**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer dictId;
+	private Integer riskId;
 
     private Integer enterpriseId;
 
-    private String dictCode;
+    private String riskCode;
 
-    private String dictName;
+    private String riskWorkPlace;
 
-    private Integer dictType;
+    private String riskCategory;
 
-    private Integer dictStatus;
+    private String riskReason;
+
+    private String riskLevel;
+
+    private String controlReason;
+
+    private String controlMethod;
+
+    private Integer riskStatus;
+
+    private Integer isDanger;
+
+    private String frequency;
 
     private Integer isDelete;
 

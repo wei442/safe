@@ -1,4 +1,4 @@
-package com.cloud.consumer.safe.vo.user;
+package com.cloud.consumer.safe.vo.danger;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,20 +9,36 @@ import com.cloud.common.dateformat.DateFormatConstants;
 import lombok.Data;
 
 @Data
-public class UserOrgVo implements Serializable {
+public class DangerCheckVo implements Serializable {
 
     /**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer userOrgId;
+	private Integer dangerCheckId;
 
-	private Integer enterpriseId;
-
-    private Integer userId;
+    private Integer enterpriseId;
 
     private Integer orgId;
+
+    private String orgName;
+
+    private Integer dangerId;
+
+    private String title;
+
+    private Date checkTime;
+
+    private Integer checkUserId;
+
+    private String checkUserAccount;
+
+    private String checkUserName;
+
+    private Integer isDelete;
+
+    private String remark;
 
     private String created;
 
@@ -33,9 +49,5 @@ public class UserOrgVo implements Serializable {
 
     @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
-
-    private String userAccount;
-
-    private String userName;
 
 }

@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.po.Enterprise;
+import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.po.UserAdmin;
 import com.cloud.provider.safe.po.UserAdminLogin;
 import com.cloud.provider.safe.po.UserAdminPassword;
@@ -32,6 +33,7 @@ import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.service.IUserOrgService;
 import com.cloud.provider.safe.service.IUserService;
 import com.cloud.provider.safe.vo.enterprise.EnterpriseVo;
+import com.cloud.provider.safe.vo.enterprise.OrgVo;
 import com.cloud.provider.safe.vo.user.UserAdminLoginVo;
 import com.cloud.provider.safe.vo.user.UserAdminVo;
 import com.cloud.provider.safe.vo.user.UserInfoVo;
@@ -206,11 +208,16 @@ public class UserController extends BaseController {
 
 		UserOrg userOrg = userOrgService.selectByEnterpriseIdUserId(enterpriseId, userId);
 		logger.info("===step4:【用户登录第二步】(UserController-loginSecond)-根据enterpriseId和userId查询用户机构, userOrg:{}", userOrg);
+		Integer orgId = userOrg.getOrgId();
+
+		Org org = orgService.selectById(orgId);
+		logger.info("===step5:【用户登录第二步】(UserController-loginSecond)-根据orgId查询机构, org:{}", org);
+		OrgVo orgVo = new OrgVo().convertToOrgVo(org);
 
 		Long loginCount = userAdminLogin.getLoginCount();
 		userAdminLogin.setLoginCount(loginCount+1);
 		int i = userAdminLoginService.modify(userAdminLogin);
-		logger.info("===step5:【用户登录第二步】(UserController-loginSecond)-修改用户管理登录登录次数, i:{}", i);
+		logger.info("===step6:【用户登录第二步】(UserController-loginSecond)-修改用户管理登录登录次数, i:{}", i);
 
 		EnterpriseVo enterpriseVo = new EnterpriseVo().convertToEnterpriseVo(enterprise);
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
@@ -219,7 +226,8 @@ public class UserController extends BaseController {
 			UserOrgVo userOrgVo = new UserOrgVo().convertToUserOrgVo(userOrg);
 			userResponse.putAll((JSONObject) JSONObject.toJSON(userOrgVo));
 		}
-		logger.info("===step6:【用户登录第二步】(UserController-loginSecond)-返回信息, userResponse:{}", userResponse);
+		userResponse.putAll((JSONObject) JSONObject.toJSON(orgVo));
+		logger.info("===step7:【用户登录第二步】(UserController-loginSecond)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
 
