@@ -94,21 +94,21 @@ public class BaseUserInfoController extends BaseController {
 
 	/**
 	 * 据id查询基础用户信息
-	 * @param baseUserInfoId
+	 * @param baseUserId
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询基础用户信息")
 	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectById(
-		@PathVariable(value="id",required=false) Integer baseUserInfoId) {
-		logger.info("===step1:【据id查询基础用户信息】(BaseUserInfoController-selectById)-传入参数, baseUserInfoId:{}", baseUserInfoId);
+		@PathVariable(value="id",required=false) Integer baseUserId) {
+		logger.info("===step1:【据id查询基础用户信息】(BaseUserInfoController-selectById)-传入参数, baseUserId:{}", baseUserId);
 
-		if(baseUserInfoId == null) {
+		if(baseUserId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "baseUserInfoId不能为空");
 		}
 
-		BaseUserInfo baseUserInfo = baseUserInfoService.selectById(baseUserInfoId);
+		BaseUserInfo baseUserInfo = baseUserInfoService.selectById(baseUserId);
 		logger.info("===step2:【据id查询基础用户信息】(BaseUserInfoController-selectById)-根据id查询基础用户信息, baseUserInfo:{}", baseUserInfo);
 		BaseUserInfoVo baseUserInfoVo = new BaseUserInfoVo().convertToBaseUserInfoVo(baseUserInfo);
 
@@ -143,21 +143,21 @@ public class BaseUserInfoController extends BaseController {
 
 	/**
 	 * 根据id删除基础用户信息
-	 * @param baseUserInfoId
+	 * @param baseUserId
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除基础用户信息")
 	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteById(
-		@PathVariable(value="id",required=false) Integer baseUserInfoId) {
-		logger.info("===step1:【根据id删除基础用户信息】(selectById-deleteById)-传入参数, baseUserInfoId:{}", baseUserInfoId);
+		@PathVariable(value="id",required=false) Integer baseUserId) {
+		logger.info("===step1:【根据id删除基础用户信息】(selectById-deleteById)-传入参数, baseUserId:{}", baseUserId);
 
-		if(baseUserInfoId == null) {
+		if(baseUserId == null) {
 			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "baseUserInfoId不能为空");
 		}
 
-		int i = baseUserInfoService.deleteById(baseUserInfoId);
+		int i = baseUserInfoService.deleteById(baseUserId);
 		logger.info("===step2:【根据id删除基础用户信息】(BaseUserInfoController-deleteById)-根据id查询基础用户信息, i:{}", i);
 
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
@@ -179,9 +179,9 @@ public class BaseUserInfoController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改基础用户信息】(BaseUserInfoController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		Integer baseUserInfoId = req.getBaseUserInfoId();
+		Integer baseUserId = req.getBaseUserId();
 		BaseUserInfo baseUserInfo = req.convertToBaseUserInfo();
-		baseUserInfo.setId(baseUserInfoId);
+		baseUserInfo.setId(baseUserId);
 		int i = baseUserInfoService.modify(baseUserInfo);
 		logger.info("===step2:【修改基础用户信息】(BaseUserInfoController-modify)-修改基础用户信息, i:{}", i);
 

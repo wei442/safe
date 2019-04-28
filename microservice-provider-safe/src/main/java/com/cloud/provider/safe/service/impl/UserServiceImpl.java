@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cloud.common.constants.safe.SqlSafeConstants;
-import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.constants.Constants;
 import com.cloud.provider.safe.dao.EnterpriseMapper;
 import com.cloud.provider.safe.dao.OrgMapper;
@@ -28,7 +27,6 @@ import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.service.IUserService;
-import com.cloud.provider.safe.util.Assert;
 
 /**
  * 用户 UserService
@@ -82,14 +80,12 @@ public class UserServiceImpl implements IUserService {
     	userInfo.setCreateTime(new Date());
     	userInfo.setUpdateTime(new Date());
     	int i = userInfoMapper.insertSelective(userInfo);
-    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	Integer userId = userInfo.getId();
 
     	enterprise.setEnterpriseStatus(SqlSafeConstants.SQL_ENTERPRISE_STATUS_NORMAL);
     	enterprise.setCreateTime(new Date());
     	enterprise.setUpdateTime(new Date());
     	i = enterpriseMapper.insertSelective(enterprise);
-    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	Integer enterpriseId = enterprise.getId();
     	String enterpriseName = enterprise.getEnterpriseName();
 
@@ -108,27 +104,6 @@ public class UserServiceImpl implements IUserService {
     	userAdminLogin.setCreateTime(new Date());
     	userAdminLogin.setUpdateTime(new Date());
     	i = userAdminLoginMapper.insertSelective(userAdminLogin);
-    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
-
-    	Org org = new Org();
-    	org.setEnterpriseId(enterpriseId);
-    	org.setOrgName(enterpriseName);
-    	org.setOrgAlias(enterpriseName);
-    	org.setIsDelete(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
-    	org.setCreateTime(new Date());
-    	org.setUpdateTime(new Date());
-    	i = orgMapper.insertSelective(org);
-    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
-    	Integer orgId = org.getId();
-
-    	UserOrg userOrg = new UserOrg();
-    	userOrg.setEnterpriseId(enterpriseId);
-    	userOrg.setUserId(userId);
-    	userOrg.setOrgId(orgId);
-    	userOrg.setCreateTime(new Date());
-    	userOrg.setUpdateTime(new Date());
-    	i = userOrgMapper.insertSelective(userOrg);
-    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
 
     	//首次注册密码为空
     	UserAdminPassword userAdminPassword = new UserAdminPassword();
@@ -140,7 +115,24 @@ public class UserServiceImpl implements IUserService {
     	userAdminPassword.setCreateTime(new Date());
     	userAdminPassword.setUpdateTime(new Date());
     	i = userAdminPasswordMapper.insertSelective(userAdminPassword);
-    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+
+    	Org org = new Org();
+    	org.setEnterpriseId(enterpriseId);
+    	org.setOrgName(enterpriseName);
+    	org.setOrgAlias(enterpriseName);
+    	org.setIsDelete(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
+    	org.setCreateTime(new Date());
+    	org.setUpdateTime(new Date());
+    	i = orgMapper.insertSelective(org);
+    	Integer orgId = org.getId();
+
+    	UserOrg userOrg = new UserOrg();
+    	userOrg.setEnterpriseId(enterpriseId);
+    	userOrg.setUserId(userId);
+    	userOrg.setOrgId(orgId);
+    	userOrg.setCreateTime(new Date());
+    	userOrg.setUpdateTime(new Date());
+    	i = userOrgMapper.insertSelective(userOrg);
 
     	return i;
     }

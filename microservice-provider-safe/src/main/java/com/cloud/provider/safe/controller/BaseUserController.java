@@ -21,14 +21,6 @@ import com.cloud.provider.safe.rest.request.user.login.UserLoginFirstRequest;
 import com.cloud.provider.safe.service.IBaseUserInfoService;
 import com.cloud.provider.safe.service.IBaseUserLoginService;
 import com.cloud.provider.safe.service.IBaseUserPasswordService;
-import com.cloud.provider.safe.service.IEnterpriseService;
-import com.cloud.provider.safe.service.IOrgService;
-import com.cloud.provider.safe.service.IUserAdminLoginService;
-import com.cloud.provider.safe.service.IUserAdminPasswordService;
-import com.cloud.provider.safe.service.IUserAdminService;
-import com.cloud.provider.safe.service.IUserInfoService;
-import com.cloud.provider.safe.service.IUserOrgService;
-import com.cloud.provider.safe.service.IUserService;
 import com.cloud.provider.safe.vo.base.user.BaseUserInfoVo;
 import com.cloud.provider.safe.vo.base.user.BaseUserLoginVo;
 import com.cloud.provider.safe.vo.base.user.BaseUserPasswordVo;
@@ -46,38 +38,6 @@ import io.swagger.annotations.ApiOperation;
 public class BaseUserController extends BaseController {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	//用户 Service
-	@Autowired
-	private IUserService userService;
-
-	//用户信息Service
-	@Autowired
-	private IUserInfoService userInfoService;
-
-	//企业Service
-	@Autowired
-	private IEnterpriseService enterpriseService;
-
-	//用户管理Service
-	@Autowired
-	private IUserAdminService userAdminService;
-
-	//用户管理登录Service
-	@Autowired
-	private IUserAdminLoginService userAdminLoginService;
-
-	//用户管理密码Service
-	@Autowired
-	private IUserAdminPasswordService userAdminPasswordService;
-
-	//用户机构Service
-	@Autowired
-	private IUserOrgService userOrgService;
-
-	//组织机构Service
-	@Autowired
-	private IOrgService orgService;
 
 	//基础用户信息Service
 	@Autowired

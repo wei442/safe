@@ -16,6 +16,8 @@ public class OrgQualityParam implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+	private Integer enterpriseId;
+
     private Integer orgId;
 
     private String orgName;

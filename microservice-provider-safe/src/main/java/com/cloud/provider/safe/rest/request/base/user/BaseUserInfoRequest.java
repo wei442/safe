@@ -24,7 +24,7 @@ public class BaseUserInfoRequest implements Serializable {
 
 	@ApiModelProperty(value = "基础用户id")
     @NotNull(message = "基础用户id不能为空", groups = {ModifyGroup.class})
-	private Integer baseUserInfoId;
+	private Integer baseUserId;
 
 	@ApiModelProperty(value = "用户账户")
 	@NotBlank(message = "用户账户不能为空", groups = {ModifyGroup.class})

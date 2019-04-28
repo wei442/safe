@@ -58,6 +58,8 @@ public class EnterpriseController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody EnterprisePageRequest req) {
 		logger.info("===step1:【分页查询】(EnterpriseController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonEnterprise = enterpriseService.getListByPage(req);
 		logger.info("===step2:【分页查询】(EnterpriseController-getListByPage)-分页查询企业列表, jsonEnterprise:{}", jsonEnterprise);
@@ -85,6 +87,8 @@ public class EnterpriseController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody EnterprisePageRequest req) {
 		logger.info("===step1:【不分页查询】(EnterpriseController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonEnterprise = enterpriseService.getList(req);
 		logger.info("===step2:【不分页查询】(EnterpriseController-getList)-不分页查询企业列表, jsonEnterprise:{}", jsonEnterprise);

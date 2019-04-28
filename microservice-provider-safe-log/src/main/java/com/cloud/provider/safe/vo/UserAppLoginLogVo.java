@@ -8,6 +8,8 @@ import java.util.ListIterator;
 
 import org.springframework.beans.BeanUtils;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.cloud.common.dateformat.DateFormatConstants;
 import com.cloud.provider.safe.po.UserAppLoginLog;
 import com.google.common.base.Converter;
 
@@ -23,7 +25,7 @@ public class UserAppLoginLogVo implements Serializable {
 
 	private Long userAppLoginLogId;
 
-    private Integer userId;
+	private Integer userId;
 
     private String userAccount;
 
@@ -37,10 +39,14 @@ public class UserAppLoginLogVo implements Serializable {
 
     private Integer logType;
 
+    private String loginMode;
+
     private String loginIp;
 
+    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date createTime;
 
+    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
 
     /**

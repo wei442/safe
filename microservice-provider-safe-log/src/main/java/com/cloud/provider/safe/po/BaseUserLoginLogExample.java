@@ -555,6 +555,76 @@ public class BaseUserLoginLogExample {
             return (Criteria) this;
         }
 
+        public Criteria andLoginModeIsNull() {
+            addCriterion("login_mode is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeIsNotNull() {
+            addCriterion("login_mode is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeEqualTo(String value) {
+            addCriterion("login_mode =", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeNotEqualTo(String value) {
+            addCriterion("login_mode <>", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeGreaterThan(String value) {
+            addCriterion("login_mode >", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeGreaterThanOrEqualTo(String value) {
+            addCriterion("login_mode >=", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeLessThan(String value) {
+            addCriterion("login_mode <", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeLessThanOrEqualTo(String value) {
+            addCriterion("login_mode <=", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeLike(String value) {
+            addCriterion("login_mode like", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeNotLike(String value) {
+            addCriterion("login_mode not like", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeIn(List<String> values) {
+            addCriterion("login_mode in", values, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeNotIn(List<String> values) {
+            addCriterion("login_mode not in", values, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeBetween(String value1, String value2) {
+            addCriterion("login_mode between", value1, value2, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeNotBetween(String value1, String value2) {
+            addCriterion("login_mode not between", value1, value2, "loginMode");
+            return (Criteria) this;
+        }
+
         public Criteria andLoginIpIsNull() {
             addCriterion("login_ip is null");
             return (Criteria) this;
@@ -622,146 +692,6 @@ public class BaseUserLoginLogExample {
 
         public Criteria andLoginIpNotBetween(String value1, String value2) {
             addCriterion("login_ip not between", value1, value2, "loginIp");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedIsNull() {
-            addCriterion("created is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedIsNotNull() {
-            addCriterion("created is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedEqualTo(String value) {
-            addCriterion("created =", value, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedNotEqualTo(String value) {
-            addCriterion("created <>", value, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedGreaterThan(String value) {
-            addCriterion("created >", value, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedGreaterThanOrEqualTo(String value) {
-            addCriterion("created >=", value, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedLessThan(String value) {
-            addCriterion("created <", value, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedLessThanOrEqualTo(String value) {
-            addCriterion("created <=", value, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedLike(String value) {
-            addCriterion("created like", value, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedNotLike(String value) {
-            addCriterion("created not like", value, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedIn(List<String> values) {
-            addCriterion("created in", values, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedNotIn(List<String> values) {
-            addCriterion("created not in", values, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedBetween(String value1, String value2) {
-            addCriterion("created between", value1, value2, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedNotBetween(String value1, String value2) {
-            addCriterion("created not between", value1, value2, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedIsNull() {
-            addCriterion("updated is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedIsNotNull() {
-            addCriterion("updated is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedEqualTo(String value) {
-            addCriterion("updated =", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedNotEqualTo(String value) {
-            addCriterion("updated <>", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedGreaterThan(String value) {
-            addCriterion("updated >", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedGreaterThanOrEqualTo(String value) {
-            addCriterion("updated >=", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedLessThan(String value) {
-            addCriterion("updated <", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedLessThanOrEqualTo(String value) {
-            addCriterion("updated <=", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedLike(String value) {
-            addCriterion("updated like", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedNotLike(String value) {
-            addCriterion("updated not like", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedIn(List<String> values) {
-            addCriterion("updated in", values, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedNotIn(List<String> values) {
-            addCriterion("updated not in", values, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedBetween(String value1, String value2) {
-            addCriterion("updated between", value1, value2, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedNotBetween(String value1, String value2) {
-            addCriterion("updated not between", value1, value2, "updated");
             return (Criteria) this;
         }
 

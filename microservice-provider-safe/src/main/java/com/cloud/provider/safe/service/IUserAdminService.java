@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cloud.provider.safe.po.UserAdmin;
 import com.cloud.provider.safe.rest.request.page.user.UserAdminPageRequest;
+import com.cloud.provider.safe.vo.user.UserAdminVo;
 import com.github.pagehelper.Page;
 
 public interface IUserAdminService {
@@ -14,14 +15,14 @@ public interface IUserAdminService {
 	 * @param param
 	 * @return List<UserAdmin>
 	 */
-	public List<UserAdmin> selectListByPage(Page<?> page, UserAdminPageRequest param);
+	public List<UserAdminVo> selectListByPage(Page<?> page, UserAdminPageRequest param);
 
 	/**
 	 * 不分页查询
 	 * @param param
 	 * @return List<UserAdmin>
 	 */
-	public List<UserAdmin> selectList(UserAdminPageRequest param);
+	public List<UserAdminVo> selectList(UserAdminPageRequest param);
 
 	/**
 	 * 根据userId查询用户管理
@@ -37,6 +38,14 @@ public interface IUserAdminService {
 	 * @return UserAdmin
 	 */
 	public UserAdmin selectByEnterpriseIdUserId(Integer enterpriseId,Integer userId);
+
+	/**
+	 * 根据enterpriseId和adminType查询用户管理
+	 * @param enterpriseId
+	 * @param adminType
+	 * @return UserAdmin
+	 */
+	public UserAdmin selectByEnterpriseIdAdminType(Integer enterpriseId,Integer adminType);
 
     /**
      * 根据id查询用户管理
@@ -65,5 +74,20 @@ public interface IUserAdminService {
      * @return Integer
      */
 	public Integer modify(UserAdmin userAdmin);
+
+	/**
+	 * 更改主管理员
+	 * @param oldUserAdmin
+	 * @param newUserAdmin
+	 * @return Integer
+	 */
+	public Integer changeAdminMaster(UserAdmin oldUserAdmin,UserAdmin newUserAdmin);
+
+	/**
+     * 插入子管理员
+     * @param userAdmin
+     * @return Integer
+     */
+	public Integer insertAdminSlave(UserAdmin userAdmin);
 
 }

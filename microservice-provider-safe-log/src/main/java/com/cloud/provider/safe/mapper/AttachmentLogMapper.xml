@@ -3,13 +3,12 @@
 <mapper namespace="com.cloud.provider.safe.dao.AttachmentLogMapper">
   <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.AttachmentLog">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="attachment_name" jdbcType="VARCHAR" property="attachmentName" />
     <result column="attachment_url" jdbcType="VARCHAR" property="attachmentUrl" />
     <result column="attachment_type" jdbcType="INTEGER" property="attachmentType" />
     <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="created" jdbcType="VARCHAR" property="created" />
-    <result column="updated" jdbcType="VARCHAR" property="updated" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, attachment_url, attachment_type, content, created, updated, create_time, update_time
+    id, attachment_name, attachment_url, attachment_type, content, update_time, create_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.AttachmentLogExample" resultMap="BaseResultMap">
     select
@@ -102,19 +101,22 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.AttachmentLog">
-    insert into attachment_log (id, attachment_url, attachment_type, 
-      content, created, updated, 
-      create_time, update_time)
-    values (#{id,jdbcType=BIGINT}, #{attachmentUrl,jdbcType=VARCHAR}, #{attachmentType,jdbcType=INTEGER}, 
-      #{content,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.AttachmentLog" useGeneratedKeys="true" keyProperty="id">
+    insert into attachment_log (id, attachment_name, attachment_url, 
+      attachment_type, content, update_time, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{attachmentName,jdbcType=VARCHAR}, #{attachmentUrl,jdbcType=VARCHAR}, 
+      #{attachmentType,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.AttachmentLog">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.AttachmentLog" useGeneratedKeys="true" keyProperty="id">
     insert into attachment_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="attachmentName != null">
+        attachment_name,
       </if>
       <if test="attachmentUrl != null">
         attachment_url,
@@ -125,22 +127,19 @@
       <if test="content != null">
         content,
       </if>
-      <if test="created != null">
-        created,
-      </if>
-      <if test="updated != null">
-        updated,
+      <if test="updateTime != null">
+        update_time,
       </if>
       <if test="createTime != null">
         create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="attachmentName != null">
+        #{attachmentName,jdbcType=VARCHAR},
       </if>
       <if test="attachmentUrl != null">
         #{attachmentUrl,jdbcType=VARCHAR},
@@ -151,17 +150,11 @@
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="created != null">
-        #{created,jdbcType=VARCHAR},
-      </if>
-      <if test="updated != null">
-        #{updated,jdbcType=VARCHAR},
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -177,6 +170,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.attachmentName != null">
+        attachment_name = #{record.attachmentName,jdbcType=VARCHAR},
+      </if>
       <if test="record.attachmentUrl != null">
         attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
       </if>
@@ -186,17 +182,11 @@
       <if test="record.content != null">
         content = #{record.content,jdbcType=VARCHAR},
       </if>
-      <if test="record.created != null">
-        created = #{record.created,jdbcType=VARCHAR},
-      </if>
-      <if test="record.updated != null">
-        updated = #{record.updated,jdbcType=VARCHAR},
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -206,13 +196,12 @@
   <update id="updateByExample" parameterType="map">
     update attachment_log
     set id = #{record.id,jdbcType=BIGINT},
+      attachment_name = #{record.attachmentName,jdbcType=VARCHAR},
       attachment_url = #{record.attachmentUrl,jdbcType=VARCHAR},
       attachment_type = #{record.attachmentType,jdbcType=INTEGER},
       content = #{record.content,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=VARCHAR},
-      updated = #{record.updated,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -220,6 +209,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.cloud.provider.safe.po.AttachmentLog">
     update attachment_log
     <set>
+      <if test="attachmentName != null">
+        attachment_name = #{attachmentName,jdbcType=VARCHAR},
+      </if>
       <if test="attachmentUrl != null">
         attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
       </if>
@@ -229,30 +221,23 @@
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="created != null">
-        created = #{created,jdbcType=VARCHAR},
-      </if>
-      <if test="updated != null">
-        updated = #{updated,jdbcType=VARCHAR},
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.AttachmentLog">
     update attachment_log
-    set attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
+    set attachment_name = #{attachmentName,jdbcType=VARCHAR},
+      attachment_url = #{attachmentUrl,jdbcType=VARCHAR},
       attachment_type = #{attachmentType,jdbcType=INTEGER},
       content = #{content,jdbcType=VARCHAR},
-      created = #{created,jdbcType=VARCHAR},
-      updated = #{updated,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

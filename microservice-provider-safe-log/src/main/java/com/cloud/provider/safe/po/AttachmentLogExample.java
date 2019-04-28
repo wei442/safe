@@ -165,6 +165,76 @@ public class AttachmentLogExample {
             return (Criteria) this;
         }
 
+        public Criteria andAttachmentNameIsNull() {
+            addCriterion("attachment_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameIsNotNull() {
+            addCriterion("attachment_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameEqualTo(String value) {
+            addCriterion("attachment_name =", value, "attachmentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameNotEqualTo(String value) {
+            addCriterion("attachment_name <>", value, "attachmentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameGreaterThan(String value) {
+            addCriterion("attachment_name >", value, "attachmentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameGreaterThanOrEqualTo(String value) {
+            addCriterion("attachment_name >=", value, "attachmentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameLessThan(String value) {
+            addCriterion("attachment_name <", value, "attachmentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameLessThanOrEqualTo(String value) {
+            addCriterion("attachment_name <=", value, "attachmentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameLike(String value) {
+            addCriterion("attachment_name like", value, "attachmentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameNotLike(String value) {
+            addCriterion("attachment_name not like", value, "attachmentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameIn(List<String> values) {
+            addCriterion("attachment_name in", values, "attachmentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameNotIn(List<String> values) {
+            addCriterion("attachment_name not in", values, "attachmentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameBetween(String value1, String value2) {
+            addCriterion("attachment_name between", value1, value2, "attachmentName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAttachmentNameNotBetween(String value1, String value2) {
+            addCriterion("attachment_name not between", value1, value2, "attachmentName");
+            return (Criteria) this;
+        }
+
         public Criteria andAttachmentUrlIsNull() {
             addCriterion("attachment_url is null");
             return (Criteria) this;
@@ -365,143 +435,63 @@ public class AttachmentLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreatedIsNull() {
-            addCriterion("created is null");
+        public Criteria andUpdateTimeIsNull() {
+            addCriterion("update_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedIsNotNull() {
-            addCriterion("created is not null");
+        public Criteria andUpdateTimeIsNotNull() {
+            addCriterion("update_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedEqualTo(String value) {
-            addCriterion("created =", value, "created");
+        public Criteria andUpdateTimeEqualTo(Date value) {
+            addCriterion("update_time =", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotEqualTo(String value) {
-            addCriterion("created <>", value, "created");
+        public Criteria andUpdateTimeNotEqualTo(Date value) {
+            addCriterion("update_time <>", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedGreaterThan(String value) {
-            addCriterion("created >", value, "created");
+        public Criteria andUpdateTimeGreaterThan(Date value) {
+            addCriterion("update_time >", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedGreaterThanOrEqualTo(String value) {
-            addCriterion("created >=", value, "created");
+        public Criteria andUpdateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("update_time >=", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedLessThan(String value) {
-            addCriterion("created <", value, "created");
+        public Criteria andUpdateTimeLessThan(Date value) {
+            addCriterion("update_time <", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedLessThanOrEqualTo(String value) {
-            addCriterion("created <=", value, "created");
+        public Criteria andUpdateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("update_time <=", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedLike(String value) {
-            addCriterion("created like", value, "created");
+        public Criteria andUpdateTimeIn(List<Date> values) {
+            addCriterion("update_time in", values, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotLike(String value) {
-            addCriterion("created not like", value, "created");
+        public Criteria andUpdateTimeNotIn(List<Date> values) {
+            addCriterion("update_time not in", values, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedIn(List<String> values) {
-            addCriterion("created in", values, "created");
+        public Criteria andUpdateTimeBetween(Date value1, Date value2) {
+            addCriterion("update_time between", value1, value2, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedNotIn(List<String> values) {
-            addCriterion("created not in", values, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedBetween(String value1, String value2) {
-            addCriterion("created between", value1, value2, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreatedNotBetween(String value1, String value2) {
-            addCriterion("created not between", value1, value2, "created");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedIsNull() {
-            addCriterion("updated is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedIsNotNull() {
-            addCriterion("updated is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedEqualTo(String value) {
-            addCriterion("updated =", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedNotEqualTo(String value) {
-            addCriterion("updated <>", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedGreaterThan(String value) {
-            addCriterion("updated >", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedGreaterThanOrEqualTo(String value) {
-            addCriterion("updated >=", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedLessThan(String value) {
-            addCriterion("updated <", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedLessThanOrEqualTo(String value) {
-            addCriterion("updated <=", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedLike(String value) {
-            addCriterion("updated like", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedNotLike(String value) {
-            addCriterion("updated not like", value, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedIn(List<String> values) {
-            addCriterion("updated in", values, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedNotIn(List<String> values) {
-            addCriterion("updated not in", values, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedBetween(String value1, String value2) {
-            addCriterion("updated between", value1, value2, "updated");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdatedNotBetween(String value1, String value2) {
-            addCriterion("updated not between", value1, value2, "updated");
+        public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("update_time not between", value1, value2, "updateTime");
             return (Criteria) this;
         }
 
@@ -562,66 +552,6 @@ public class AttachmentLogExample {
 
         public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
             addCriterion("create_time not between", value1, value2, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeIsNull() {
-            addCriterion("update_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeIsNotNull() {
-            addCriterion("update_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeEqualTo(Date value) {
-            addCriterion("update_time =", value, "updateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeNotEqualTo(Date value) {
-            addCriterion("update_time <>", value, "updateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeGreaterThan(Date value) {
-            addCriterion("update_time >", value, "updateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("update_time >=", value, "updateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeLessThan(Date value) {
-            addCriterion("update_time <", value, "updateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeLessThanOrEqualTo(Date value) {
-            addCriterion("update_time <=", value, "updateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeIn(List<Date> values) {
-            addCriterion("update_time in", values, "updateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeNotIn(List<Date> values) {
-            addCriterion("update_time not in", values, "updateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeBetween(Date value1, Date value2) {
-            addCriterion("update_time between", value1, value2, "updateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
-            addCriterion("update_time not between", value1, value2, "updateTime");
             return (Criteria) this;
         }
     }

@@ -16,13 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.PageConstants;
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserAdmin;
+import com.cloud.provider.safe.po.UserInfo;
+import com.cloud.provider.safe.rest.request.enterprise.EnterpriseIdRequest;
 import com.cloud.provider.safe.rest.request.page.user.UserAdminPageRequest;
+import com.cloud.provider.safe.rest.request.user.UserAdminMasterRequest;
 import com.cloud.provider.safe.rest.request.user.UserAdminRequest;
+import com.cloud.provider.safe.rest.request.user.UserAdminSlaveRequest;
 import com.cloud.provider.safe.service.IUserAdminService;
+import com.cloud.provider.safe.service.IUserInfoService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.user.UserAdminVo;
 import com.github.pagehelper.Page;
@@ -45,6 +51,10 @@ public class UserAdminController extends BaseController {
 	@Autowired
 	private IUserAdminService userAdminService;
 
+	//用户信息Service
+	@Autowired
+	private IUserInfoService userInfoService;
+
 	/**
 	 * 分页查询
 	 * @param req
@@ -61,12 +71,11 @@ public class UserAdminController extends BaseController {
 		Integer pageSize = req.getPageSize();
 
 		Page<?> page = new Page<>(pageNum, pageSize);
-		List<UserAdmin> list = userAdminService.selectListByPage(page, req);
+		List<UserAdminVo> list = userAdminService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询用户管理列表】(UserAdminController-selectListByPage)-分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
-		List<UserAdminVo> userAdminVoList = new UserAdminVo().convertToUserAdminVoList(list);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userAdminVoList));
+		userAdminResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(list));
 		logger.info("===step3:【分页查询用户管理列表】(UserAdminController-selectListByPage)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
@@ -82,12 +91,11 @@ public class UserAdminController extends BaseController {
 	public BaseRestMapResponse selectList(
 		@RequestBody UserAdminPageRequest req) {
 		logger.info("===step1:【不分页查询用户管理列表】(UserAdminController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		List<UserAdmin> list = userAdminService.selectList(req);
+		List<UserAdminVo> list = userAdminService.selectList(req);
 		logger.info("===step2:【不分页查询用户管理列表】(UserAdminController-selectList)-不分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
-		List<UserAdminVo> userAdminVoList = new UserAdminVo().convertToUserAdminVoList(list);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.put(PageConstants.DATA_LIST, userAdminVoList);
+		userAdminResponse.put(PageConstants.DATA_LIST, list);
 		logger.info("===step3:【不分页查询用户管理列表】(UserAdminController-selectList)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
@@ -144,30 +152,71 @@ public class UserAdminController extends BaseController {
 		return userAdminResponse;
 	}
 
+//	/**
+//	 * 根据enterpriseId和userId查询用户管理
+//	 * @param req
+//	 * @param bindingResult
+//	 * @return BaseRestMapResponse
+//	 */
+//	@ApiOperation(value = "根据userId查询用户管理")
+//	@RequestMapping(value="/selectByEnterpriseIdUserId",method={RequestMethod.POST})
+//	@ResponseBody
+//	public BaseRestMapResponse selectByEnterpriseIdUserId(
+//		@Validated @RequestBody UserAdminRequest req,
+//		BindingResult bindingResult) {
+//		logger.info("===step1:【根据enterpriseId和userId查询用户管理】(UserAdminController-selectByEnterpriseIdUserId)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+//
+//		Integer enterpriseId = req.getEnterpriseId();
+//		Integer userId = req.getUserId();
+//
+//		UserAdmin userAdmin = userAdminService.selectByEnterpriseIdUserId(enterpriseId, userId);
+//		logger.info("===step2:【根据enterpriseId和userId查询用户管理】(UserAdminController-selectByEnterpriseIdUserId)-根据enterpriseId和userId查询用户管理, userAdmin:{}", userAdmin);
+//		UserAdminVo userAdminVo = new UserAdminVo().convertToUserAdminVo(userAdmin);
+//
+//		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
+//		userAdminResponse.putAll((JSONObject) JSONObject.toJSON(userAdminVo));
+//		logger.info("===step3:【根据enterpriseId和userId查询用户管理】(UserAdminController-selectByEnterpriseIdUserId)-返回信息, userAdminResponse:{}", userAdminResponse);
+//		return userAdminResponse;
+//	}
+
 	/**
-	 * 根据enterpriseId和userId查询用户管理
+	 * 查询用户主管理员
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "根据userId查询用户管理")
-	@RequestMapping(value="/selectByEnterpriseIdUserId",method={RequestMethod.POST})
+	@ApiOperation(value = "查询用户主管理员")
+	@RequestMapping(value="/selectMaster",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse selectByEnterpriseIdUserId(
-		@Validated @RequestBody UserAdminRequest req,
+	public BaseRestMapResponse selectMaster(
+		@Validated @RequestBody EnterpriseIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【根据enterpriseId和userId查询用户管理】(UserAdminController-selectByEnterpriseIdUserId)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【查询用户主管理员】(UserAdminController-selectMaster)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer enterpriseId = req.getEnterpriseId();
-		Integer userId = req.getUserId();
+		Integer adminType = SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER;
 
-		UserAdmin userAdmin = userAdminService.selectByEnterpriseIdUserId(enterpriseId, userId);
-		logger.info("===step2:【根据enterpriseId和userId查询用户管理】(UserAdminController-selectByEnterpriseIdUserId)-根据enterpriseId和userId查询用户管理, userAdmin:{}", userAdmin);
+		UserAdmin userAdmin = userAdminService.selectByEnterpriseIdAdminType(enterpriseId, adminType);
+		logger.info("===step2:【查询用户主管理员】(UserAdminController-selectMaster)-根据enterpriseId和adminType查询用户管理, userAdmin:{}", userAdmin);
+		if(userAdmin == null) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_MASTER_NOT_EXIST);
+		}
 		UserAdminVo userAdminVo = new UserAdminVo().convertToUserAdminVo(userAdmin);
+		Integer userId = userAdminVo.getUserId();
+
+		UserInfo userInfo = userInfoService.selectById(userId);
+		if(userInfo == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
+		logger.info("===step3:【查询用户主管理员】(UserAdminController-selectMaster)-根据userId查询用户信息, userInfo:{}", userInfo);
+		String userAccount = userInfo.getUserAccount();
+		String userName = userInfo.getUserName();
+		userAdminVo.setUserAccount(userAccount);
+		userAdminVo.setUserName(userName);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
 		userAdminResponse.putAll((JSONObject) JSONObject.toJSON(userAdminVo));
-		logger.info("===step3:【根据enterpriseId和userId查询用户管理】(UserAdminController-selectByEnterpriseIdUserId)-返回信息, userAdminResponse:{}", userAdminResponse);
+		logger.info("===step4:【查询用户主管理员】(UserAdminController-selectMaster)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 
@@ -240,6 +289,123 @@ public class UserAdminController extends BaseController {
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
 		logger.info("===step3:【修改用户管理】(UserAdminController-modify)-返回信息, userAdminResponse:{}", userAdminResponse);
+		return userAdminResponse;
+	}
+
+	/**
+	 * 更改主管理员
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "更改主管理员")
+	@RequestMapping(value="/changeMaster",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse changeMaster(
+		@Validated @RequestBody UserAdminMasterRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【更改主管理员】(UserAdminController-changeMaster)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer userAdminId = req.getUserAdminId();
+		Integer enterpriseId = req.getEnterpriseId();
+		Integer userId = req.getUserId();
+
+		UserAdmin userAdmin = userAdminService.selectByEnterpriseIdUserId(enterpriseId, userId);
+		logger.info("===step2:【更改主管理员】(UserAdminController-changeMaster)-根据enterpriseId和userId查询用户管理, userAdmin:{}", userAdmin);
+		Integer adminType = userAdmin.getAdminType();
+		if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE.equals(adminType)) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_SLAVE_EXIST);
+		}
+
+		UserAdmin oldUserAdmin = userAdminService.selectById(userAdminId);
+		UserAdmin newUserAdmin = req.convertToUserAdmin();
+		int i = userAdminService.changeAdminMaster(oldUserAdmin, newUserAdmin);
+		logger.info("===step3:【更改主管理员】(UserAdminController-changeMaster)-更改主管理员, i:{}", i);
+
+		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
+		logger.info("===step4:【更改主管理员】(UserAdminController-changeMaster)-返回信息, userAdminResponse:{}", userAdminResponse);
+		return userAdminResponse;
+	}
+
+	/**
+	 * 添加子管理员
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "添加子管理员")
+	@RequestMapping(value="/insertSlave",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse insertSlave(
+		@Validated @RequestBody UserAdminSlaveRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【添加子管理员】(UserAdminController-insertSlave)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer userAdminId = req.getUserAdminId();
+		Integer enterpriseId = req.getEnterpriseId();
+		Integer userId = req.getUserId();
+
+		UserAdmin userAdmin = userAdminService.selectById(userAdminId);
+		logger.info("===step2:【添加子管理员】(UserAdminController-insertSlave)-根据userAdminId查询用户管理, userAdmin:{}", userAdmin);
+		Integer adminType = userAdmin.getAdminType();
+		if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER.equals(adminType)) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_MASTER_NOT_INSERT);
+		}
+
+		userAdmin = userAdminService.selectByEnterpriseIdUserId(enterpriseId, userId);
+		logger.info("===step3:【添加子管理员】(UserAdminController-insertSlave)-根据enterpriseId和userId查询用户管理, userAdmin:{}", userAdmin);
+		adminType = userAdmin.getAdminType();
+		if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE.equals(adminType)) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_SLAVE_EXIST);
+		}
+
+		userAdmin = req.convertToUserAdmin();
+		int i = userAdminService.insertAdminSlave(userAdmin);
+		logger.info("===step4:【添加子管理员】(UserAdminController-insertSlave)-插入用户管理, i:{}", i);
+
+		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
+		logger.info("===step5:【添加子管理员】(UserAdminController-insertSlave)-返回信息, userAdminResponse:{}", userAdminResponse);
+		return userAdminResponse;
+	}
+
+	/**
+	 * 添加子管理员
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "修改子管理员")
+	@RequestMapping(value="/modifySlave",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse modifySlave(
+		@Validated @RequestBody UserAdminSlaveRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【添加子管理员】(UserAdminController-insertSlave)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer userAdminId = req.getUserAdminId();
+		Integer enterpriseId = req.getEnterpriseId();
+		Integer userId = req.getUserId();
+
+		UserAdmin userAdmin = userAdminService.selectById(userAdminId);
+		logger.info("===step2:【添加子管理员】(UserAdminController-insertSlave)-根据userAdminId查询用户管理, userAdmin:{}", userAdmin);
+		Integer adminType = userAdmin.getAdminType();
+		if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER.equals(adminType)) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_MASTER_NOT_INSERT);
+		}
+
+		userAdmin = userAdminService.selectByEnterpriseIdUserId(enterpriseId, userId);
+		logger.info("===step3:【添加子管理员】(UserAdminController-insertSlave)-根据enterpriseId和userId查询用户管理, userAdmin:{}", userAdmin);
+		adminType = userAdmin.getAdminType();
+		if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE.equals(adminType)) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_SLAVE_EXIST);
+		}
+
+		userAdmin = req.convertToUserAdmin();
+		int i = userAdminService.insertAdminSlave(userAdmin);
+		logger.info("===step4:【添加子管理员】(UserAdminController-insertSlave)-插入用户管理, i:{}", i);
+
+		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
+		logger.info("===step5:【添加子管理员】(UserAdminController-insertSlave)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 

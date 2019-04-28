@@ -5,19 +5,17 @@ import java.util.Date;
 public class AttachmentLog {
     private Long id;
 
+    private String attachmentName;
+
     private String attachmentUrl;
 
     private Integer attachmentType;
 
     private String content;
 
-    private String created;
-
-    private String updated;
+    private Date updateTime;
 
     private Date createTime;
-
-    private Date updateTime;
 
     public Long getId() {
         return id;
@@ -25,6 +23,14 @@ public class AttachmentLog {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getAttachmentName() {
+        return attachmentName;
+    }
+
+    public void setAttachmentName(String attachmentName) {
+        this.attachmentName = attachmentName == null ? null : attachmentName.trim();
     }
 
     public String getAttachmentUrl() {
@@ -51,20 +57,12 @@ public class AttachmentLog {
         this.content = content == null ? null : content.trim();
     }
 
-    public String getCreated() {
-        return created;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public Date getCreateTime() {
@@ -73,13 +71,5 @@ public class AttachmentLog {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 }

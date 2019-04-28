@@ -20,11 +20,14 @@ public enum SafeResultEnum implements ResultEnum {
 	USER_ADMIN_FIRST_LOGIN_CHANGE_PASSWORD("1010006", "您好，这是你第一次登录该企业的管理后台，请先设置管理密码"),
 	USER_ADMIN_PASSWORD_RULE("1010007", "密码长度为6到20位，必须包含数字、小写字母、大写字母"),
 	USER_ADMIN_PASSWORD_NOT_EQUQAL("1010008", "密码和确认密码不一致"),
+	USER_ADMIN_MASTER_NOT_EXIST("1010009", "主管理员不存在"),
+	USER_ADMIN_MASTER_NOT_INSERT("1010010", "不允许添加主管理员"),
+	USER_ADMIN_SLAVE_EXIST("1010011", "此子管理员已存在"),
 
-	USER_ORG_EXIST("1010009", "此手机号码已存在"),
-	USER_ORG_LIST_EXIST("1010010", "请先删除该部门下的人员，再删除该部门!"),
-	USER_POST_LIST_EXIST("1010011", "当前岗位有人员，无法删除!"),
-	USER_TITLE_LIST_EXIST("1010012", "当前职务有人员，无法删除!"),
+	USER_ORG_EXIST("1010011", "此手机号码已存在"),
+	USER_ORG_LIST_EXIST("1010012", "请先删除该部门下的人员，再删除该部门!"),
+	USER_POST_LIST_EXIST("1010013", "当前岗位有人员，无法删除!"),
+	USER_TITLE_LIST_EXIST("1010014", "当前职务有人员，无法删除!"),
 
 
 	ENTERPRISE_NOTEXIST("1020001", "您没有注册企业"),

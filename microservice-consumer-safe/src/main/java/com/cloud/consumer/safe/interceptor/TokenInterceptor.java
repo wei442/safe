@@ -65,9 +65,9 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		String ip = IpUtil.getIpAddr(request);
 		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-请求url, 请求ip:{}, requestUrl:{}", ip, requestUrl);
 
-		String apiGatewayWheel = request.getHeader(ZuulConstants.API_GATEWAY);
-		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-请求网关, 请求网关:{}", apiGatewayWheel);
-		if(!StringUtils.equals(apiGatewayWheel, ZuulConstants.API_GATEWAY_SAFE_ADMIN)) {
+		String apiGateway = request.getHeader(ZuulConstants.API_GATEWAY);
+		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-请求网关, 请求网关:{}", apiGateway);
+		if(!StringUtils.equals(apiGateway, ZuulConstants.API_GATEWAY_SAFE_ADMIN)) {
 			String respStr = this.addRetMsg(RetSafeAdminResultEnum.NETWORK_ERROR);
 			logger.info("【Token拦截器】(TokenInterceptor-preHandle)-非法请求, respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);

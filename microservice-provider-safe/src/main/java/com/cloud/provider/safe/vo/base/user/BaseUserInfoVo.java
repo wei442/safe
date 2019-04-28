@@ -23,7 +23,7 @@ public class BaseUserInfoVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer baseUserInfoId;
+	private Integer baseUserId;
 
     private String userAccount;
 
@@ -104,7 +104,7 @@ public class BaseUserInfoVo implements Serializable {
 		protected BaseUserInfoVo doBackward(BaseUserInfo baseUserInfo) {
 			BaseUserInfoVo baseUserInfoVo = new BaseUserInfoVo();
 			BeanUtils.copyProperties(baseUserInfo, baseUserInfoVo);
-			baseUserInfoVo.setBaseUserInfoId(baseUserInfo.getId());
+			baseUserInfoVo.setBaseUserId(baseUserInfo.getId());
 			return baseUserInfoVo;
 		}
 

@@ -15,6 +15,8 @@ public class EnterprisePageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private Integer enterpriseId;
+
 	@ApiModelProperty(value = "企业名称")
     private String enterpriseName;
 

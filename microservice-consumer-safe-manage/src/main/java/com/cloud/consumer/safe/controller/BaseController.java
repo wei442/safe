@@ -66,6 +66,9 @@ public class BaseController {
 	@Value("${token.rsa.privateKey}")
 	protected String rsaPrivateKeyStr;
 
+	//企业id -2 表示从安全管理员过来的
+	private Integer enterpriseId = -2;
+
 	/**
 	 * 设置token 在response header里面
 	 * @param response
@@ -96,21 +99,19 @@ public class BaseController {
 
 	/**
 	 * 设置token,过期时间为7*24小时
-	 * @param enterpriseId
+	 * @param baseUserId
 	 * @param enterpriseName
 	 * @param userId
 	 * @param userAccount
-	 * @param orgId
-	 * @param orgName
 	 * @return String
 	 */
-	protected String setToken(Integer enterpriseId,String enterpriseName,Integer userId,String userAccount,Integer orgId,String orgName) {
-		logger.info("(BaseController-setToken)-redis设置token-传入参数, enterpriseId:{}, enterpriseName:{}, userId:{}, userAccount:{}, orgId:{}, orgName:{}", enterpriseId, enterpriseName, userId, userAccount, orgId, orgName);
-		if(null == enterpriseId ||null == userId || StringUtils.isBlank(userAccount)) {
+	protected String setToken(Integer baseUserId,String userAccount) {
+		logger.info("(BaseController-setToken)-redis设置token-传入参数, userId:{}, userAccount:{}", baseUserId, userAccount);
+		if(null == baseUserId || StringUtils.isBlank(userAccount)) {
 			return null;
 		}
 
-		String tokenkey = RedisKeysUtil.CN_CLOUD_SAFE_ADMIN_LOGIN_TOKEN + userId;
+		String tokenkey = RedisKeysUtil.CN_CLOUD_SAFE_MANAGE_LOGIN_TOKEN + baseUserId;
 
 		PrivateKey privateKey = KeyFactoryUtil.INSTANCE.generateRSAPrivateKey(rsaPrivateKeyStr);
 		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.RS512;
@@ -118,13 +119,8 @@ public class BaseController {
 		String issuer = CommConstants.CLOUD;
 		String audience = CommConstants.CLOUD;
 		Map<String, Object> claims = new HashMap<String, Object>();
-		claims.put(CommConstants.ENTERPRISE_ID, enterpriseId);
-		claims.put(CommConstants.ENTERPRISE_NAME, enterpriseName);
-		claims.put(CommConstants.USER_ID, userId);
+		claims.put(CommConstants.BASE_USER_ID, baseUserId);
 		claims.put(CommConstants.USER_ACCOUNT, userAccount);
-		claims.put(CommConstants.ORG_ID, orgId);
-		claims.put(CommConstants.ORG_NAME, orgName);
-
 		logger.info("(BaseController-setToken)-声明(claims), claims:{}", claims);
 
 		String token = TokenUtil.INSTANCE.createJWT(privateKey, signatureAlgorithm, claims, issuer, audience);
@@ -143,7 +139,7 @@ public class BaseController {
 			return ;
 		}
 
-		String tokenkey = RedisKeysUtil.CN_CLOUD_SAFE_ADMIN_LOGIN_TOKEN + userId;
+		String tokenkey = RedisKeysUtil.CN_CLOUD_SAFE_MANAGE_LOGIN_TOKEN + userId;
 		if(redisService.exists(tokenkey)) {
 			long l = redisService.del(tokenkey);
 			logger.info("(BaseController-clearToken)-清除token-返回信息, tokenkey:{}, l:{}", tokenkey, l);
@@ -211,37 +207,16 @@ public class BaseController {
 		return payloadJSON;
 	}
 
-	/**
-	 * 获取token(enterpriseId)
-	 * @return Integer
-	 */
-	protected Integer getTokenEnterpriseId() {
-		JSONObject payloadJSON = this.getTokenPayload();
-		Integer enterpriseId = new Integer(Objects.toString(payloadJSON.get(CommConstants.ENTERPRISE_ID)));
-		logger.info("(BaseController-getTokenEnterpriseId)-返回信息, enterpriseId:{}", enterpriseId);
-		return enterpriseId;
-	}
 
 	/**
-	 * 获取token(enterpriseName)
+	 * 获取token(baseUserId)
 	 * @return Integer
 	 */
-	protected String getTokenEnterpriseName() {
+	protected Integer getTokenBaseUserId() {
 		JSONObject payloadJSON = this.getTokenPayload();
-		String enterpriseName = Objects.toString(payloadJSON.get(CommConstants.ENTERPRISE_NAME));
-		logger.info("(BaseController-getTokenEnterpriseName)-返回信息, enterpriseName:{}", enterpriseName);
-		return enterpriseName;
-	}
-
-	/**
-	 * 获取token(userId)
-	 * @return Integer
-	 */
-	protected Integer getTokenUserId() {
-		JSONObject payloadJSON = this.getTokenPayload();
-		Integer userId = new Integer(Objects.toString(payloadJSON.get(CommConstants.USER_ID)));
-		logger.info("(BaseController-getTokenUserId)-返回信息, userId:{}", userId);
-		return userId;
+		Integer baseUserId = new Integer(Objects.toString(payloadJSON.get(CommConstants.BASE_USER_ID)));
+		logger.info("(BaseController-getTokenBaseUserId)-返回信息, baseUserId:{}", baseUserId);
+		return baseUserId;
 	}
 
 	/**
@@ -256,25 +231,13 @@ public class BaseController {
 	}
 
 	/**
-	 * 获取token(orgId)
+	 * 获取token(enterpriseId)
 	 * @return Integer
 	 */
-	protected Integer getTokenOrgId() {
-		JSONObject payloadJSON = this.getTokenPayload();
-		Integer orgId = new Integer(Objects.toString(payloadJSON.get(CommConstants.ORG_ID)));
-		logger.info("(BaseController-getTokenOrgId)-返回信息, orgId:{}", orgId);
-		return orgId;
-	}
-
-	/**
-	 * 获取token(orgName)
-	 * @return String
-	 */
-	protected String getTokenOrgName() {
-		JSONObject payloadJSON = this.getTokenPayload();
-		String orgName = Objects.toString(payloadJSON.get(CommConstants.ORG_NAME));
-		logger.info("(BaseController-getTokenOrgName)-返回信息, orgName:{}", orgName);
-		return orgName;
+	protected Integer getTokenEnterpriseId() {
+		Integer enterpriseId = this.enterpriseId;
+		logger.info("(BaseController-getTokenEnterpriseId)-返回信息, enterpriseId:{}", enterpriseId);
+		return enterpriseId;
 	}
 
 	/**

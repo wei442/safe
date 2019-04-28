@@ -17,11 +17,9 @@ public class BaseUserLoginLog {
 
     private Date loginTime;
 
+    private String loginMode;
+
     private String loginIp;
-
-    private String created;
-
-    private String updated;
 
     private Date createTime;
 
@@ -83,28 +81,20 @@ public class BaseUserLoginLog {
         this.loginTime = loginTime;
     }
 
+    public String getLoginMode() {
+        return loginMode;
+    }
+
+    public void setLoginMode(String loginMode) {
+        this.loginMode = loginMode == null ? null : loginMode.trim();
+    }
+
     public String getLoginIp() {
         return loginIp;
     }
 
     public void setLoginIp(String loginIp) {
         this.loginIp = loginIp == null ? null : loginIp.trim();
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created == null ? null : created.trim();
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated == null ? null : updated.trim();
     }
 
     public Date getCreateTime() {

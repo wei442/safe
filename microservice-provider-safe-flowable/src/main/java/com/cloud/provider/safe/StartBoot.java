@@ -79,6 +79,18 @@ public class StartBoot {
         };
     }
 
+//	@Bean
+//	public CommandLineRunner init(final MyService myService) {
+//
+//	    return new CommandLineRunner() {
+//	    	@Override
+//			public void run(String... strings) throws Exception {
+//	        	myService.createDemoUsers();
+//	        }
+//	    };
+//	}
+
+
 	/**
 	 * 使用fastjson
 	 * @return HttpMessageConverters

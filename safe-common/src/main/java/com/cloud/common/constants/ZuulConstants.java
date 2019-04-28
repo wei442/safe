@@ -13,6 +13,8 @@ public class ZuulConstants {
 	public static final String API_GATEWAY = "microservicet.api.gateway";
 	//微服务api网关-安全管理
 	public static final String API_GATEWAY_SAFE_ADMIN = "microservicet.api.gateway.safe.admin";
+	//微服务api网关-安全管理员
+	public static final String API_GATEWAY_SAFE_MANAGE = "microservicet.api.gateway.safe.manage";
 	/*--------------------------- 安全管理平台 -----------------------------*/
 	/*--------------------------- 网关  -----------------------------*/
 

@@ -58,8 +58,6 @@ public class ActivityCommentController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody ActivityCommentPageRequest req) {
 		logger.info("===step1:【分页查询】(ActivityCommentController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Integer enterpriseId = this.getTokenEnterpriseId();
-		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonActivityComment = activityCommentService.getListByPage(req);
 		logger.info("===step2:【分页查询】(ActivityCommentController-getListByPage)-分页查询安全活动评论列表, jsonActivityComment:{}", jsonActivityComment);
@@ -87,8 +85,6 @@ public class ActivityCommentController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody ActivityCommentPageRequest req) {
 		logger.info("===step1:【不分页查询】(ActivityCommentController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Integer enterpriseId = this.getTokenEnterpriseId();
-		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonActivityComment = activityCommentService.getList(req);
 		logger.info("===step2:【不分页查询】(ActivityCommentController-getList)-不分页查询安全活动评论列表, jsonActivityComment:{}", jsonActivityComment);

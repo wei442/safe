@@ -120,11 +120,9 @@ public class SqlSafeConstants {
 	/**********************************用户应用登录日志常量**********************************/
 
 	/**********************************用户管理常量**********************************/
-	//管理类型 1-主管理员, 2-子管理员, 3-负责人, 4-主管
+	//管理类型 1-主管理员, 2-子管理员
 	public static final Integer SQL_USER_ADMIN_TYPE_MASTER = 1;
 	public static final Integer SQL_USER_ADMIN_TYPE_SLAVE = 2;
-	public static final Integer SQL_USER_ADMIN_TYPE_FUZE = 3;
-	public static final Integer SQL_USER_ADMIN_TYPE_ZHU = 4;
 
 	//删除标识 0-未删除，1-已删除
 	public static final Integer SQL_USER_ADMIN_IS_DELETE_NO = 0;
@@ -192,14 +190,9 @@ public class SqlSafeConstants {
 
 
 	/**********************************附件常量**********************************/
-	//附件类型 1-图片, 2-word, 3-pdf
+	//附件类型 1-图片, 2-文件
 	public static final Integer SQL_ATTACHMENT_TYPE_PIC = 1;
-	public static final Integer SQL_ATTACHMENT_TYPE_WORD = 2;
-	public static final Integer SQL_ATTACHMENT_TYPE_PDF = 3;
-
-	//删除标识 0-未删除，1-已删除
-	public static final Integer SQL_ATTACHMENT_IS_DELETE_NO = 0;
-	public static final Integer SQL_ATTACHMENT_IS_DELETE_YES = 1;
+	public static final Integer SQL_ATTACHMENT_TYPE_FILE = 2;
 	/**********************************附件常量**********************************/
 
 	/**********************************岗位附件常量**********************************/

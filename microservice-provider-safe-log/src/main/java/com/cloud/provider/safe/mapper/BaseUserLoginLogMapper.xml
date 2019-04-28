@@ -9,9 +9,8 @@
     <result column="base_user_name_en" jdbcType="VARCHAR" property="baseUserNameEn" />
     <result column="login_type" jdbcType="INTEGER" property="loginType" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="login_mode" jdbcType="VARCHAR" property="loginMode" />
     <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
-    <result column="created" jdbcType="VARCHAR" property="created" />
-    <result column="updated" jdbcType="VARCHAR" property="updated" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -75,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, base_user_id, base_user_account, base_user_name, base_user_name_en, login_type, 
-    login_time, login_ip, created, updated, create_time, update_time
+    login_time, login_mode, login_ip, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.BaseUserLoginLogExample" resultMap="BaseResultMap">
     select
@@ -107,19 +106,17 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.BaseUserLoginLog">
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.BaseUserLoginLog" useGeneratedKeys="true" keyProperty="id">
     insert into base_user_login_log (id, base_user_id, base_user_account, 
       base_user_name, base_user_name_en, login_type, 
-      login_time, login_ip, created, 
-      updated, create_time, update_time
-      )
+      login_time, login_mode, login_ip, 
+      create_time, update_time)
     values (#{id,jdbcType=BIGINT}, #{baseUserId,jdbcType=INTEGER}, #{baseUserAccount,jdbcType=VARCHAR}, 
       #{baseUserName,jdbcType=VARCHAR}, #{baseUserNameEn,jdbcType=VARCHAR}, #{loginType,jdbcType=INTEGER}, 
-      #{loginTime,jdbcType=TIMESTAMP}, #{loginIp,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, 
-      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{loginTime,jdbcType=TIMESTAMP}, #{loginMode,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.BaseUserLoginLog">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.BaseUserLoginLog" useGeneratedKeys="true" keyProperty="id">
     insert into base_user_login_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -143,14 +140,11 @@
       <if test="loginTime != null">
         login_time,
       </if>
+      <if test="loginMode != null">
+        login_mode,
+      </if>
       <if test="loginIp != null">
         login_ip,
-      </if>
-      <if test="created != null">
-        created,
-      </if>
-      <if test="updated != null">
-        updated,
       </if>
       <if test="createTime != null">
         create_time,
@@ -181,14 +175,11 @@
       <if test="loginTime != null">
         #{loginTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="loginMode != null">
+        #{loginMode,jdbcType=VARCHAR},
+      </if>
       <if test="loginIp != null">
         #{loginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null">
-        #{created,jdbcType=VARCHAR},
-      </if>
-      <if test="updated != null">
-        #{updated,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -228,14 +219,11 @@
       <if test="record.loginTime != null">
         login_time = #{record.loginTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.loginMode != null">
+        login_mode = #{record.loginMode,jdbcType=VARCHAR},
+      </if>
       <if test="record.loginIp != null">
         login_ip = #{record.loginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="record.created != null">
-        created = #{record.created,jdbcType=VARCHAR},
-      </if>
-      <if test="record.updated != null">
-        updated = #{record.updated,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -257,9 +245,8 @@
       base_user_name_en = #{record.baseUserNameEn,jdbcType=VARCHAR},
       login_type = #{record.loginType,jdbcType=INTEGER},
       login_time = #{record.loginTime,jdbcType=TIMESTAMP},
+      login_mode = #{record.loginMode,jdbcType=VARCHAR},
       login_ip = #{record.loginIp,jdbcType=VARCHAR},
-      created = #{record.created,jdbcType=VARCHAR},
-      updated = #{record.updated,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -287,14 +274,11 @@
       <if test="loginTime != null">
         login_time = #{loginTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="loginMode != null">
+        login_mode = #{loginMode,jdbcType=VARCHAR},
+      </if>
       <if test="loginIp != null">
         login_ip = #{loginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null">
-        created = #{created,jdbcType=VARCHAR},
-      </if>
-      <if test="updated != null">
-        updated = #{updated,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -313,9 +297,8 @@
       base_user_name_en = #{baseUserNameEn,jdbcType=VARCHAR},
       login_type = #{loginType,jdbcType=INTEGER},
       login_time = #{loginTime,jdbcType=TIMESTAMP},
+      login_mode = #{loginMode,jdbcType=VARCHAR},
       login_ip = #{loginIp,jdbcType=VARCHAR},
-      created = #{created,jdbcType=VARCHAR},
-      updated = #{updated,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

@@ -16,6 +16,8 @@ public class UserQualityParam implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    private Integer enterpriseId;
+
     private Integer userId;
 
     private String userName;

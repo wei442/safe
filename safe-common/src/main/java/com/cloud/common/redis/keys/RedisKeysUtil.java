@@ -18,14 +18,23 @@ public final class RedisKeysUtil {
 
 	//////////////////////////// 缓存key START //////////////////////////////////////
 
-	/*----------------------------------------- 安全管理平台 -----------------------------------------*/
 	/*----------------------------------------- 应用公共key -----------------------------------------*/
+	/*----------------------------------------- 安全管理平台 -----------------------------------------*/
 	/**
-	 * @Title   project：microservice-consumer-safe
-	 * @Description keyName：安全（safe）admin 管理后台登录 token
+	 * @Title   project：microservice-consumer-safe-admin
+	 * @Description keyName：安全（safe）admin 安全管理后台登录 token
 	 */
 	public static final String CN_CLOUD_SAFE_ADMIN_LOGIN_TOKEN = "cn:cloud:safe:admin:login:token:";
+
 	/*----------------------------------------- 安全管理平台 -----------------------------------------*/
+
+	/*----------------------------------------- 安全管理员平台 -----------------------------------------*/
+	/**
+	 * @Title   project：microservice-consumer-safe-manage
+	 * @Description keyName：安全（safe）manage 安全管理员后台登录 token
+	 */
+	public static final String CN_CLOUD_SAFE_MANAGE_LOGIN_TOKEN = "cn:cloud:safe:manage:login:token:";
+	/*----------------------------------------- 安全管理员平台 -----------------------------------------*/
 	/*----------------------------------------- 应用公共key -----------------------------------------*/
 
 

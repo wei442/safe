@@ -18,10 +18,10 @@ import com.cloud.provider.safe.service.MyService;
 import io.swagger.annotations.Api;
 
 /**
- * 活动附件 ActivityAttachmentController
+ * 活动附件 MyRestController
  * @author wei.yong
  */
-@Api(tags = "活动附件")
+@Api(tags = "myRest")
 @RestController
 @RequestMapping(value="/myRest")
 public class MyRestController extends BaseController {

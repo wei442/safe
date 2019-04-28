@@ -134,8 +134,6 @@ public class EnterpriseController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加企业】(EnterpriseController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-
-
 		Enterprise enterprise = req.convertToEnterprise();
 		int i = enterpriseService.insert(enterprise);
 		logger.info("===step2:【添加企业】(EnterpriseController-insert)-插入企业, i:{}", i);
@@ -183,8 +181,6 @@ public class EnterpriseController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody EnterpriseRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改企业】(EnterpriseController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-
 
 		Integer enterpriseId = req.getEnterpriseId();
 		Enterprise enterprise = req.convertToEnterprise();

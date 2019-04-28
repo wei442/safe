@@ -36,11 +36,19 @@
 			<version>1.2.10</version>
 		</dependency>
    		<!-- spring boot end -->
- 		<dependency>
-		    <groupId>org.flowable</groupId>
-		    <artifactId>flowable-spring-boot-starter-basic</artifactId>
+		<!-- https://mvnrepository.com/artifact/org.flowable/flowable-spring-boot-starter -->
+		<dependency>
+			<groupId>org.flowable</groupId>
+		    <artifactId>flowable-spring-boot-starter</artifactId>
 		    <version>6.4.1</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.flowable</groupId>
+		    <artifactId>flowable-spring-boot-starter-rest</artifactId>
+		    <version>6.4.1</version>
+		</dependency>
+
+		
 	    
 	    <!-- commons start -->
         <dependency>

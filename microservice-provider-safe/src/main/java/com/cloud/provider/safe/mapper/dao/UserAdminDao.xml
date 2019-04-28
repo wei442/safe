@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.provider.safe.dao.dao.UserAdminDao">
+
+	<!-- 查询用户管理用户 -->
+    <select id="selectList" parameterType="com.cloud.provider.safe.param.UserAdminParam" resultType="com.cloud.provider.safe.vo.user.UserAdminVo">
+        select 
+    	t1.id as userAdminId, t1.enterprise_id as enterpriseId, t1.user_id as userId, t1.admin_name as adminName, 
+    	t1.admin_type as adminType, t1.created as created, t1.updated as updated, t1.create_time as createTime, t1.update_time as updateTime,
+    	t2.user_account as userAccount, t2.user_name as userName  
+    	from user_admin t1, user_info t2
+        where t1.user_id = t2.id
+        and t1.admin_type != 1 
+  		and t1.is_delete = 0 
+        <if test="enterpriseId != null and enterpriseId != ''">
+            and t1.enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        </if>
+        <if test="orderByClause != null and orderByClause != ''">
+  			order by ${orderByClause}
+        </if>
+    </select>
+
 </mapper>

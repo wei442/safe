@@ -54,6 +54,9 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 		EnterpriseExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
+				criteria.andIdEqualTo(param.getEnterpriseId());
+			}
 			if(StringUtils.isNotBlank(param.getEnterpriseName())) {
 				criteria.andEnterpriseNameLike(param.getEnterpriseName()+"%");
 			}
@@ -75,6 +78,9 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
 		EnterpriseExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ENTERPRISE_IS_DELETE_NO);
 		if(param != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
+				criteria.andIdEqualTo(param.getEnterpriseId());
+			}
 			if(StringUtils.isNotBlank(param.getEnterpriseName())) {
 				criteria.andEnterpriseNameLike(param.getEnterpriseName()+"%");
 			}

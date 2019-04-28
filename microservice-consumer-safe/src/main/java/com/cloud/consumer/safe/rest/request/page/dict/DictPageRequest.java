@@ -15,6 +15,8 @@ public class DictPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private Integer enterpriseId;
+
     @ApiModelProperty(value = "字典名称")
     private String dictName;
 

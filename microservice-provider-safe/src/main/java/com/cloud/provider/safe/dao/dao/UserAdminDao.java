@@ -1,30 +1,17 @@
 package com.cloud.provider.safe.dao.dao;
 
-import com.cloud.provider.safe.po.UserAdmin;
-import com.cloud.provider.safe.po.UserAdminExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+
+import com.cloud.provider.safe.param.UserAdminParam;
+import com.cloud.provider.safe.vo.user.UserAdminVo;
 
 public interface UserAdminDao {
-    long countByExample(UserAdminExample example);
 
-    int deleteByExample(UserAdminExample example);
+    /**
+     * 查询用户管理用户
+     * @param param
+     * @return List<UserAdminVo>
+     */
+    public List<UserAdminVo> selectList(UserAdminParam param);
 
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(UserAdmin record);
-
-    int insertSelective(UserAdmin record);
-
-    List<UserAdmin> selectByExample(UserAdminExample example);
-
-    UserAdmin selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") UserAdmin record, @Param("example") UserAdminExample example);
-
-    int updateByExample(@Param("record") UserAdmin record, @Param("example") UserAdminExample example);
-
-    int updateByPrimaryKeySelective(UserAdmin record);
-
-    int updateByPrimaryKey(UserAdmin record);
 }

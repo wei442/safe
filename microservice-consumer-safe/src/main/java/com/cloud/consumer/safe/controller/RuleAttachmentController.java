@@ -58,8 +58,6 @@ public class RuleAttachmentController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody RuleAttachmentPageRequest req) {
 		logger.info("===step1:【分页查询】(RuleAttachmentController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Integer enterpriseId = this.getTokenEnterpriseId();
-		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonRuleAttachment = ruleAttachmentService.getListByPage(req);
 		logger.info("===step2:【分页查询】(RuleAttachmentController-getListByPage)-分页查询规范文件附件列表, jsonRuleAttachment:{}", jsonRuleAttachment);
@@ -87,8 +85,6 @@ public class RuleAttachmentController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody RuleAttachmentPageRequest req) {
 		logger.info("===step1:【不分页查询】(RuleAttachmentController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Integer enterpriseId = this.getTokenEnterpriseId();
-		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonRuleAttachment = ruleAttachmentService.getList(req);
 		logger.info("===step2:【不分页查询】(RuleAttachmentController-getList)-不分页查询规范文件附件列表, jsonRuleAttachment:{}", jsonRuleAttachment);

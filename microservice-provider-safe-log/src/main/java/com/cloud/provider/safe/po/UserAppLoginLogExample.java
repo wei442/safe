@@ -615,6 +615,76 @@ public class UserAppLoginLogExample {
             return (Criteria) this;
         }
 
+        public Criteria andLoginModeIsNull() {
+            addCriterion("login_mode is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeIsNotNull() {
+            addCriterion("login_mode is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeEqualTo(String value) {
+            addCriterion("login_mode =", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeNotEqualTo(String value) {
+            addCriterion("login_mode <>", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeGreaterThan(String value) {
+            addCriterion("login_mode >", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeGreaterThanOrEqualTo(String value) {
+            addCriterion("login_mode >=", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeLessThan(String value) {
+            addCriterion("login_mode <", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeLessThanOrEqualTo(String value) {
+            addCriterion("login_mode <=", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeLike(String value) {
+            addCriterion("login_mode like", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeNotLike(String value) {
+            addCriterion("login_mode not like", value, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeIn(List<String> values) {
+            addCriterion("login_mode in", values, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeNotIn(List<String> values) {
+            addCriterion("login_mode not in", values, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeBetween(String value1, String value2) {
+            addCriterion("login_mode between", value1, value2, "loginMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginModeNotBetween(String value1, String value2) {
+            addCriterion("login_mode not between", value1, value2, "loginMode");
+            return (Criteria) this;
+        }
+
         public Criteria andLoginIpIsNull() {
             addCriterion("login_ip is null");
             return (Criteria) this;
