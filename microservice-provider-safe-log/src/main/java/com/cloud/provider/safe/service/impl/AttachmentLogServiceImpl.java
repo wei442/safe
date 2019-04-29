@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cloud.common.enums.safe.SafeResultEnum;
-import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.AttachmentLogMapper;
 import com.cloud.provider.safe.po.AttachmentLog;
 import com.cloud.provider.safe.po.AttachmentLogExample;
@@ -46,7 +44,7 @@ public class AttachmentLogServiceImpl implements IAttachmentLogService {
 		AttachmentLogExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 		}
-		
+
 		List<AttachmentLog> list = attachmentLogMapper.selectByExample(example);
 		return list;
 	}

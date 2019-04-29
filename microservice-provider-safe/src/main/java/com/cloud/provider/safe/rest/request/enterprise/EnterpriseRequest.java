@@ -60,8 +60,23 @@ public class EnterpriseRequest implements Serializable {
 	@ApiModelProperty(value = "企业地址")
     private String enterpriseAddr;
 
-	@ApiModelProperty(value = "企网网站")
+	@ApiModelProperty(value = "企业网站")
     private String enterpriseWebsite;
+
+	@ApiModelProperty(value = "省份")
+	private String province;
+
+	@ApiModelProperty(value = "城市")
+    private String city;
+
+	@ApiModelProperty(value = "企业大类")
+    private String enterpriseMainCategory;
+
+	@ApiModelProperty(value = "企业小类")
+    private String enterpriseSubCategory;
+
+	@ApiModelProperty(value = "企业规模")
+    private Integer enterpriseScale;
 
 	@ApiModelProperty(value = "企业备注")
     private String remark;

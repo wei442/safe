@@ -485,73 +485,133 @@ public class DangerExample {
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryIsNull() {
-            addCriterion("danger_category is null");
+        public Criteria andDangerTypeIsNull() {
+            addCriterion("danger_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryIsNotNull() {
-            addCriterion("danger_category is not null");
+        public Criteria andDangerTypeIsNotNull() {
+            addCriterion("danger_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryEqualTo(String value) {
-            addCriterion("danger_category =", value, "dangerCategory");
+        public Criteria andDangerTypeEqualTo(Integer value) {
+            addCriterion("danger_type =", value, "dangerType");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryNotEqualTo(String value) {
-            addCriterion("danger_category <>", value, "dangerCategory");
+        public Criteria andDangerTypeNotEqualTo(Integer value) {
+            addCriterion("danger_type <>", value, "dangerType");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryGreaterThan(String value) {
-            addCriterion("danger_category >", value, "dangerCategory");
+        public Criteria andDangerTypeGreaterThan(Integer value) {
+            addCriterion("danger_type >", value, "dangerType");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryGreaterThanOrEqualTo(String value) {
-            addCriterion("danger_category >=", value, "dangerCategory");
+        public Criteria andDangerTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("danger_type >=", value, "dangerType");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryLessThan(String value) {
-            addCriterion("danger_category <", value, "dangerCategory");
+        public Criteria andDangerTypeLessThan(Integer value) {
+            addCriterion("danger_type <", value, "dangerType");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryLessThanOrEqualTo(String value) {
-            addCriterion("danger_category <=", value, "dangerCategory");
+        public Criteria andDangerTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("danger_type <=", value, "dangerType");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryLike(String value) {
-            addCriterion("danger_category like", value, "dangerCategory");
+        public Criteria andDangerTypeIn(List<Integer> values) {
+            addCriterion("danger_type in", values, "dangerType");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryNotLike(String value) {
-            addCriterion("danger_category not like", value, "dangerCategory");
+        public Criteria andDangerTypeNotIn(List<Integer> values) {
+            addCriterion("danger_type not in", values, "dangerType");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryIn(List<String> values) {
-            addCriterion("danger_category in", values, "dangerCategory");
+        public Criteria andDangerTypeBetween(Integer value1, Integer value2) {
+            addCriterion("danger_type between", value1, value2, "dangerType");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryNotIn(List<String> values) {
-            addCriterion("danger_category not in", values, "dangerCategory");
+        public Criteria andDangerTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("danger_type not between", value1, value2, "dangerType");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryBetween(String value1, String value2) {
-            addCriterion("danger_category between", value1, value2, "dangerCategory");
+        public Criteria andDangerMainCategoryIsNull() {
+            addCriterion("danger_main_category is null");
             return (Criteria) this;
         }
 
-        public Criteria andDangerCategoryNotBetween(String value1, String value2) {
-            addCriterion("danger_category not between", value1, value2, "dangerCategory");
+        public Criteria andDangerMainCategoryIsNotNull() {
+            addCriterion("danger_main_category is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryEqualTo(String value) {
+            addCriterion("danger_main_category =", value, "dangerMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryNotEqualTo(String value) {
+            addCriterion("danger_main_category <>", value, "dangerMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryGreaterThan(String value) {
+            addCriterion("danger_main_category >", value, "dangerMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryGreaterThanOrEqualTo(String value) {
+            addCriterion("danger_main_category >=", value, "dangerMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryLessThan(String value) {
+            addCriterion("danger_main_category <", value, "dangerMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryLessThanOrEqualTo(String value) {
+            addCriterion("danger_main_category <=", value, "dangerMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryLike(String value) {
+            addCriterion("danger_main_category like", value, "dangerMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryNotLike(String value) {
+            addCriterion("danger_main_category not like", value, "dangerMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryIn(List<String> values) {
+            addCriterion("danger_main_category in", values, "dangerMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryNotIn(List<String> values) {
+            addCriterion("danger_main_category not in", values, "dangerMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryBetween(String value1, String value2) {
+            addCriterion("danger_main_category between", value1, value2, "dangerMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andDangerMainCategoryNotBetween(String value1, String value2) {
+            addCriterion("danger_main_category not between", value1, value2, "dangerMainCategory");
             return (Criteria) this;
         }
 

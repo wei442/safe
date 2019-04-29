@@ -15,7 +15,9 @@ public class Danger {
 
     private Integer dangerLevel;
 
-    private String dangerCategory;
+    private Integer dangerType;
+
+    private String dangerMainCategory;
 
     private String dangerSubCategory;
 
@@ -91,12 +93,20 @@ public class Danger {
         this.dangerLevel = dangerLevel;
     }
 
-    public String getDangerCategory() {
-        return dangerCategory;
+    public Integer getDangerType() {
+        return dangerType;
     }
 
-    public void setDangerCategory(String dangerCategory) {
-        this.dangerCategory = dangerCategory == null ? null : dangerCategory.trim();
+    public void setDangerType(Integer dangerType) {
+        this.dangerType = dangerType;
+    }
+
+    public String getDangerMainCategory() {
+        return dangerMainCategory;
+    }
+
+    public void setDangerMainCategory(String dangerMainCategory) {
+        this.dangerMainCategory = dangerMainCategory == null ? null : dangerMainCategory.trim();
     }
 
     public String getDangerSubCategory() {

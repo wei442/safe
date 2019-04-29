@@ -35,7 +35,9 @@ public class DangerVo implements Serializable {
 
     private Integer dangerLevel;
 
-    private String dangerCategory;
+    private Integer dangerType;
+
+    private String dangerMainCategory;
 
     private String dangerSubCategory;
 

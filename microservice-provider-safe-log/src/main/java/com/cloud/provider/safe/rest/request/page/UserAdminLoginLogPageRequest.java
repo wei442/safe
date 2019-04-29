@@ -1,10 +1,5 @@
 package com.cloud.provider.safe.rest.request.page;
 
-import java.util.Date;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import com.cloud.provider.safe.base.BaseRestRequest;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -37,8 +32,11 @@ public class UserAdminLoginLogPageRequest extends BaseRestRequest {
 
 	@ApiModelProperty(value = "日志类型")
     private Integer logType;
-	
+
 	@ApiModelProperty(value = "登录方式")
 	private String loginMode;
+
+	@ApiModelProperty(value = "登录ip")
+	private String loginIp;
 
 }

@@ -8,7 +8,8 @@
     <result column="org_name" jdbcType="VARCHAR" property="orgName" />
     <result column="danger_site" jdbcType="VARCHAR" property="dangerSite" />
     <result column="danger_level" jdbcType="INTEGER" property="dangerLevel" />
-    <result column="danger_category" jdbcType="VARCHAR" property="dangerCategory" />
+    <result column="danger_type" jdbcType="INTEGER" property="dangerType" />
+    <result column="danger_main_category" jdbcType="VARCHAR" property="dangerMainCategory" />
     <result column="danger_sub_category" jdbcType="VARCHAR" property="dangerSubCategory" />
     <result column="danger_time" jdbcType="TIMESTAMP" property="dangerTime" />
     <result column="danger_desc" jdbcType="VARCHAR" property="dangerDesc" />
@@ -82,7 +83,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, enterprise_id, org_id, org_name, danger_site, danger_level, danger_category, 
+    id, enterprise_id, org_id, org_name, danger_site, danger_level, danger_type, danger_main_category, 
     danger_sub_category, danger_time, danger_desc, danger_user_id, danger_user_account, 
     danger_user_name, is_delete, remark, sort, created, updated, create_time, update_time
   </sql>
@@ -119,18 +120,20 @@
   <insert id="insert" parameterType="com.cloud.provider.safe.po.Danger">
     insert into danger (id, enterprise_id, org_id, 
       org_name, danger_site, danger_level, 
-      danger_category, danger_sub_category, danger_time, 
-      danger_desc, danger_user_id, danger_user_account, 
-      danger_user_name, is_delete, remark, 
-      sort, created, updated, 
-      create_time, update_time)
+      danger_type, danger_main_category, danger_sub_category, 
+      danger_time, danger_desc, danger_user_id, 
+      danger_user_account, danger_user_name, is_delete, 
+      remark, sort, created, 
+      updated, create_time, update_time
+      )
     values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, 
       #{orgName,jdbcType=VARCHAR}, #{dangerSite,jdbcType=VARCHAR}, #{dangerLevel,jdbcType=INTEGER}, 
-      #{dangerCategory,jdbcType=VARCHAR}, #{dangerSubCategory,jdbcType=VARCHAR}, #{dangerTime,jdbcType=TIMESTAMP}, 
-      #{dangerDesc,jdbcType=VARCHAR}, #{dangerUserId,jdbcType=INTEGER}, #{dangerUserAccount,jdbcType=VARCHAR}, 
-      #{dangerUserName,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
-      #{sort,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{dangerType,jdbcType=INTEGER}, #{dangerMainCategory,jdbcType=VARCHAR}, #{dangerSubCategory,jdbcType=VARCHAR}, 
+      #{dangerTime,jdbcType=TIMESTAMP}, #{dangerDesc,jdbcType=VARCHAR}, #{dangerUserId,jdbcType=INTEGER}, 
+      #{dangerUserAccount,jdbcType=VARCHAR}, #{dangerUserName,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, 
+      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Danger">
     insert into danger
@@ -153,8 +156,11 @@
       <if test="dangerLevel != null">
         danger_level,
       </if>
-      <if test="dangerCategory != null">
-        danger_category,
+      <if test="dangerType != null">
+        danger_type,
+      </if>
+      <if test="dangerMainCategory != null">
+        danger_main_category,
       </if>
       <if test="dangerSubCategory != null">
         danger_sub_category,
@@ -215,8 +221,11 @@
       <if test="dangerLevel != null">
         #{dangerLevel,jdbcType=INTEGER},
       </if>
-      <if test="dangerCategory != null">
-        #{dangerCategory,jdbcType=VARCHAR},
+      <if test="dangerType != null">
+        #{dangerType,jdbcType=INTEGER},
+      </if>
+      <if test="dangerMainCategory != null">
+        #{dangerMainCategory,jdbcType=VARCHAR},
       </if>
       <if test="dangerSubCategory != null">
         #{dangerSubCategory,jdbcType=VARCHAR},
@@ -286,8 +295,11 @@
       <if test="record.dangerLevel != null">
         danger_level = #{record.dangerLevel,jdbcType=INTEGER},
       </if>
-      <if test="record.dangerCategory != null">
-        danger_category = #{record.dangerCategory,jdbcType=VARCHAR},
+      <if test="record.dangerType != null">
+        danger_type = #{record.dangerType,jdbcType=INTEGER},
+      </if>
+      <if test="record.dangerMainCategory != null">
+        danger_main_category = #{record.dangerMainCategory,jdbcType=VARCHAR},
       </if>
       <if test="record.dangerSubCategory != null">
         danger_sub_category = #{record.dangerSubCategory,jdbcType=VARCHAR},
@@ -341,7 +353,8 @@
       org_name = #{record.orgName,jdbcType=VARCHAR},
       danger_site = #{record.dangerSite,jdbcType=VARCHAR},
       danger_level = #{record.dangerLevel,jdbcType=INTEGER},
-      danger_category = #{record.dangerCategory,jdbcType=VARCHAR},
+      danger_type = #{record.dangerType,jdbcType=INTEGER},
+      danger_main_category = #{record.dangerMainCategory,jdbcType=VARCHAR},
       danger_sub_category = #{record.dangerSubCategory,jdbcType=VARCHAR},
       danger_time = #{record.dangerTime,jdbcType=TIMESTAMP},
       danger_desc = #{record.dangerDesc,jdbcType=VARCHAR},
@@ -377,8 +390,11 @@
       <if test="dangerLevel != null">
         danger_level = #{dangerLevel,jdbcType=INTEGER},
       </if>
-      <if test="dangerCategory != null">
-        danger_category = #{dangerCategory,jdbcType=VARCHAR},
+      <if test="dangerType != null">
+        danger_type = #{dangerType,jdbcType=INTEGER},
+      </if>
+      <if test="dangerMainCategory != null">
+        danger_main_category = #{dangerMainCategory,jdbcType=VARCHAR},
       </if>
       <if test="dangerSubCategory != null">
         danger_sub_category = #{dangerSubCategory,jdbcType=VARCHAR},
@@ -429,7 +445,8 @@
       org_name = #{orgName,jdbcType=VARCHAR},
       danger_site = #{dangerSite,jdbcType=VARCHAR},
       danger_level = #{dangerLevel,jdbcType=INTEGER},
-      danger_category = #{dangerCategory,jdbcType=VARCHAR},
+      danger_type = #{dangerType,jdbcType=INTEGER},
+      danger_main_category = #{dangerMainCategory,jdbcType=VARCHAR},
       danger_sub_category = #{dangerSubCategory,jdbcType=VARCHAR},
       danger_time = #{dangerTime,jdbcType=TIMESTAMP},
       danger_desc = #{dangerDesc,jdbcType=VARCHAR},

@@ -19,7 +19,6 @@ import com.cloud.provider.safe.dao.dao.UserOrgDao;
 import com.cloud.provider.safe.param.ActivityParam;
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.param.OrgQualityParam;
-import com.cloud.provider.safe.param.UserOrgParam;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.util.Assert;
@@ -272,10 +271,10 @@ public class OrgServiceImpl implements IOrgService {
     	Integer orgId = org.getId();
     	String orgName = org.getOrgName();
 
-        UserOrgParam userOrgParam = new UserOrgParam();
-        userOrgParam.setOrgId(orgId);
-        userOrgParam.setOrgName(orgName);
-        i =userOrgDao.updateOrgNameByOrgId(userOrgParam);
+//        UserOrgParam userOrgParam = new UserOrgParam();
+//        userOrgParam.setOrgId(orgId);
+//        userOrgParam.setOrgName(orgName);
+//        i =userOrgDao.updateOrgNameByOrgId(userOrgParam);
 
         OrgQualityParam orgQualityParam = new OrgQualityParam();
         orgQualityParam.setOrgId(orgId);

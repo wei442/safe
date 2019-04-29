@@ -89,4 +89,13 @@ public class SafeUrlConstants {
 	//隐患附件
 	public static final String danger_attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/danger/attachment";
 
+	//附件日志
+	public static final String attachment_log = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/attachment/log";
+	//用户管理登录日志
+	public static final String user_admin_login_log = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/admin/login/log";
+	//用户app登录日志
+	public static final String user_app_login_log = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/app/login/log";
+	//基础用户登录日志
+	public static final String base_user_login_log = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/base/user/login/log";
+
 }

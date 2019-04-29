@@ -188,7 +188,6 @@ public class SqlSafeConstants {
 	/**********************************规范文件常量**********************************/
 
 
-
 	/**********************************附件常量**********************************/
 	//附件类型 1-图片, 2-文件
 	public static final Integer SQL_ATTACHMENT_TYPE_PIC = 1;
@@ -201,8 +200,19 @@ public class SqlSafeConstants {
 	public static final Integer SQL_POST_ATTACHMENT_IS_DELETE_YES = 1;
 	/**********************************岗位附件常量**********************************/
 
+	/**********************************隐患常量**********************************/
+	//隐患级别 1-一般隐患, 1-重大隐患
+	public static final Integer SQL_DANGER_LEVLE_NORMAL = 1;
+	public static final Integer SQL_DANGER_LEVLE_GREAT = 2;
 
+	//'隐患类型 1-隐患快报, 2-隐患抽查
+	public static final Integer SQL_DANGER_TYPE_EXPRESS = 3;
+	public static final Integer SQL_DANGER_TYPE_CHECK = 2;
 
+	//删除标识 0-未删除，1-已删除
+	public static final Integer SQL_DANGER_IS_DELETE_NO = 0;
+	public static final Integer SQL_DANGER_IS_DELETE_YES = 1;
+	/**********************************隐患常量**********************************/
 
 
 

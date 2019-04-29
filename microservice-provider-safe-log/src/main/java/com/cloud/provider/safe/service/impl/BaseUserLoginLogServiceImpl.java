@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cloud.common.enums.safe.SafeResultEnum;
-import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.BaseUserLoginLogMapper;
 import com.cloud.provider.safe.po.BaseUserLoginLog;
 import com.cloud.provider.safe.po.BaseUserLoginLogExample;
@@ -37,6 +35,7 @@ public class BaseUserLoginLogServiceImpl implements IBaseUserLoginLogService {
 	 * @param param
 	 * @return List<BaseUserLoginLog>
 	 */
+	@Override
 	public List<BaseUserLoginLog> selectListByPage(Page<?> page, BaseUserLoginLogPageRequest param) {
 		logger.info("(BaseUserLoginLogService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
@@ -45,7 +44,7 @@ public class BaseUserLoginLogServiceImpl implements IBaseUserLoginLogService {
 		BaseUserLoginLogExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
 		}
-		
+
 		List<BaseUserLoginLog> list = baseUserLoginLogMapper.selectByExample(example);
 		return list;
 	}

@@ -2,9 +2,6 @@ package com.cloud.provider.safe.po;
 
 import java.util.Date;
 
-import lombok.Data;
-
-@Data
 public class Enterprise {
     private Integer id;
 
@@ -31,6 +28,16 @@ public class Enterprise {
     private String enterpriseAddr;
 
     private String enterpriseWebsite;
+
+    private String province;
+
+    private String city;
+
+    private String enterpriseMainCategory;
+
+    private String enterpriseSubCategory;
+
+    private Integer enterpriseScale;
 
     private Integer isDelete;
 
@@ -148,6 +155,46 @@ public class Enterprise {
 
     public void setEnterpriseWebsite(String enterpriseWebsite) {
         this.enterpriseWebsite = enterpriseWebsite == null ? null : enterpriseWebsite.trim();
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province == null ? null : province.trim();
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
+    }
+
+    public String getEnterpriseMainCategory() {
+        return enterpriseMainCategory;
+    }
+
+    public void setEnterpriseMainCategory(String enterpriseMainCategory) {
+        this.enterpriseMainCategory = enterpriseMainCategory == null ? null : enterpriseMainCategory.trim();
+    }
+
+    public String getEnterpriseSubCategory() {
+        return enterpriseSubCategory;
+    }
+
+    public void setEnterpriseSubCategory(String enterpriseSubCategory) {
+        this.enterpriseSubCategory = enterpriseSubCategory == null ? null : enterpriseSubCategory.trim();
+    }
+
+    public Integer getEnterpriseScale() {
+        return enterpriseScale;
+    }
+
+    public void setEnterpriseScale(Integer enterpriseScale) {
+        this.enterpriseScale = enterpriseScale;
     }
 
     public Integer getIsDelete() {

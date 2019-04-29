@@ -16,7 +16,6 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -30,7 +29,6 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import redis.clients.jedis.JedisSentinelPool;
 
 @SpringBootApplication
-@ComponentScan(basePackages={"com.cloud.queue.safe"})
 //服务发现
 @EnableEurekaClient
 public class StartBoot {

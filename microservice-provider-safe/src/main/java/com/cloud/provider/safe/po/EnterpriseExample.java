@@ -965,6 +965,346 @@ public class EnterpriseExample {
             return (Criteria) this;
         }
 
+        public Criteria andProvinceIsNull() {
+            addCriterion("province is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceIsNotNull() {
+            addCriterion("province is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceEqualTo(String value) {
+            addCriterion("province =", value, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceNotEqualTo(String value) {
+            addCriterion("province <>", value, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceGreaterThan(String value) {
+            addCriterion("province >", value, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceGreaterThanOrEqualTo(String value) {
+            addCriterion("province >=", value, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceLessThan(String value) {
+            addCriterion("province <", value, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceLessThanOrEqualTo(String value) {
+            addCriterion("province <=", value, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceLike(String value) {
+            addCriterion("province like", value, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceNotLike(String value) {
+            addCriterion("province not like", value, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceIn(List<String> values) {
+            addCriterion("province in", values, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceNotIn(List<String> values) {
+            addCriterion("province not in", values, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceBetween(String value1, String value2) {
+            addCriterion("province between", value1, value2, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceNotBetween(String value1, String value2) {
+            addCriterion("province not between", value1, value2, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityIsNull() {
+            addCriterion("city is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityIsNotNull() {
+            addCriterion("city is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityEqualTo(String value) {
+            addCriterion("city =", value, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityNotEqualTo(String value) {
+            addCriterion("city <>", value, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityGreaterThan(String value) {
+            addCriterion("city >", value, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityGreaterThanOrEqualTo(String value) {
+            addCriterion("city >=", value, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityLessThan(String value) {
+            addCriterion("city <", value, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityLessThanOrEqualTo(String value) {
+            addCriterion("city <=", value, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityLike(String value) {
+            addCriterion("city like", value, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityNotLike(String value) {
+            addCriterion("city not like", value, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityIn(List<String> values) {
+            addCriterion("city in", values, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityNotIn(List<String> values) {
+            addCriterion("city not in", values, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityBetween(String value1, String value2) {
+            addCriterion("city between", value1, value2, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityNotBetween(String value1, String value2) {
+            addCriterion("city not between", value1, value2, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryIsNull() {
+            addCriterion("enterprise_main_category is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryIsNotNull() {
+            addCriterion("enterprise_main_category is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryEqualTo(String value) {
+            addCriterion("enterprise_main_category =", value, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryNotEqualTo(String value) {
+            addCriterion("enterprise_main_category <>", value, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryGreaterThan(String value) {
+            addCriterion("enterprise_main_category >", value, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryGreaterThanOrEqualTo(String value) {
+            addCriterion("enterprise_main_category >=", value, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryLessThan(String value) {
+            addCriterion("enterprise_main_category <", value, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryLessThanOrEqualTo(String value) {
+            addCriterion("enterprise_main_category <=", value, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryLike(String value) {
+            addCriterion("enterprise_main_category like", value, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryNotLike(String value) {
+            addCriterion("enterprise_main_category not like", value, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryIn(List<String> values) {
+            addCriterion("enterprise_main_category in", values, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryNotIn(List<String> values) {
+            addCriterion("enterprise_main_category not in", values, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryBetween(String value1, String value2) {
+            addCriterion("enterprise_main_category between", value1, value2, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseMainCategoryNotBetween(String value1, String value2) {
+            addCriterion("enterprise_main_category not between", value1, value2, "enterpriseMainCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryIsNull() {
+            addCriterion("enterprise_sub_category is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryIsNotNull() {
+            addCriterion("enterprise_sub_category is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryEqualTo(String value) {
+            addCriterion("enterprise_sub_category =", value, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryNotEqualTo(String value) {
+            addCriterion("enterprise_sub_category <>", value, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryGreaterThan(String value) {
+            addCriterion("enterprise_sub_category >", value, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryGreaterThanOrEqualTo(String value) {
+            addCriterion("enterprise_sub_category >=", value, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryLessThan(String value) {
+            addCriterion("enterprise_sub_category <", value, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryLessThanOrEqualTo(String value) {
+            addCriterion("enterprise_sub_category <=", value, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryLike(String value) {
+            addCriterion("enterprise_sub_category like", value, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryNotLike(String value) {
+            addCriterion("enterprise_sub_category not like", value, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryIn(List<String> values) {
+            addCriterion("enterprise_sub_category in", values, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryNotIn(List<String> values) {
+            addCriterion("enterprise_sub_category not in", values, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryBetween(String value1, String value2) {
+            addCriterion("enterprise_sub_category between", value1, value2, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseSubCategoryNotBetween(String value1, String value2) {
+            addCriterion("enterprise_sub_category not between", value1, value2, "enterpriseSubCategory");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleIsNull() {
+            addCriterion("enterprise_scale is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleIsNotNull() {
+            addCriterion("enterprise_scale is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleEqualTo(Integer value) {
+            addCriterion("enterprise_scale =", value, "enterpriseScale");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleNotEqualTo(Integer value) {
+            addCriterion("enterprise_scale <>", value, "enterpriseScale");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleGreaterThan(Integer value) {
+            addCriterion("enterprise_scale >", value, "enterpriseScale");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleGreaterThanOrEqualTo(Integer value) {
+            addCriterion("enterprise_scale >=", value, "enterpriseScale");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleLessThan(Integer value) {
+            addCriterion("enterprise_scale <", value, "enterpriseScale");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleLessThanOrEqualTo(Integer value) {
+            addCriterion("enterprise_scale <=", value, "enterpriseScale");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleIn(List<Integer> values) {
+            addCriterion("enterprise_scale in", values, "enterpriseScale");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleNotIn(List<Integer> values) {
+            addCriterion("enterprise_scale not in", values, "enterpriseScale");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleBetween(Integer value1, Integer value2) {
+            addCriterion("enterprise_scale between", value1, value2, "enterpriseScale");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnterpriseScaleNotBetween(Integer value1, Integer value2) {
+            addCriterion("enterprise_scale not between", value1, value2, "enterpriseScale");
+            return (Criteria) this;
+        }
+
         public Criteria andIsDeleteIsNull() {
             addCriterion("is_delete is null");
             return (Criteria) this;

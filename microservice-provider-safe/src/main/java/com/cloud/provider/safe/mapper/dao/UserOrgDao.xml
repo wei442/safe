@@ -22,10 +22,12 @@
     </select>
 
 	<!-- 根据orgId更新机构名称 -->
+	<!--
 	<update id="updateOrgNameByOrgId" parameterType="com.cloud.provider.safe.param.UserOrgParam">
     	update user_org
     	set org_name = #{orgName,jdbcType=VARCHAR}
     	where org_id = #{orgId,jdbcType=INTEGER}
-  </update>
+  	</update>
+  	-->
 	  
 </mapper>

@@ -10,10 +10,8 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.redis.keys.RedisKeysUtil;
 import com.cloud.queue.safe.hook.ShutdownHandler;
-import com.cloud.queue.safe.service.IBootRedisService;
-import com.cloud.queue.safe.service.impl.DataBaseService;
-import com.cloud.queue.safe.vo.user.UserLoginLogVo;
-import com.ochain.common.exception.BootServiceException;
+import com.cloud.queue.safe.service.IAttachmentLogService;
+import com.cloud.queue.safe.service.IRedisService;
 
 /**
  * @ClassName: DataUserLoginLogThread
@@ -22,19 +20,23 @@ import com.ochain.common.exception.BootServiceException;
  * @date 2017年3月23日 下午15:37:58
  */
 @Component
-public class DataUserLoginLogThread implements Runnable {
+public class DataAttachmentLogThread implements Runnable {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private String queueKey = RedisKeysUtil.QN_OCHAIN_WHEEL_USER_LOGIN_LOG;
+	private String queueKey = RedisKeysUtil.QN_CLOUD_SAFE_USER_LOGIN_ATTACHMENT_LOG;
 
-	//数据 Service
-	@Autowired
-	private DataBaseService dataBaseService;
+//	//数据 Service
+//	@Autowired
+//	private DataBaseService dataBaseService;
 
 	//redis Service
 	@Autowired
-    private IBootRedisService redisService;
+    private IRedisService redisService;
+
+	//附件日志 Service
+	@Autowired
+	private IAttachmentLogService attachmentLogService;
 
 	@Override
 	public void run() {
@@ -45,7 +47,7 @@ public class DataUserLoginLogThread implements Runnable {
 			try {
 				value = redisService.brpop(queueKey);
 				logger.info("[DataUserLoginLogThread.run():用户登录日志数据队列-redis获取数据]: value={}", value);
-			} catch (BootServiceException e) {
+			} catch (Exception e) {
 				logger.error("[DataUserLoginLogThread.run():{} 线程-队列取值异常，进入下一循环] Exception = {}, message = {}", threadName, e, e.getMessage());
 				continue ;
 			}
@@ -53,18 +55,20 @@ public class DataUserLoginLogThread implements Runnable {
 	    		continue;
 		    }
 
-			UserLoginLogVo userLoginLogVo = null;
+//			UserLoginLogVo userLoginLogVo = null;
+			JSONObject params = null;
 			try {
-				userLoginLogVo = JSONObject.parseObject(value, UserLoginLogVo.class);
-				logger.info("[DataUserLoginLogThread.run():用户登录日志数据队列-json数据解析]: userLoginLogVo={}", userLoginLogVo);
+//				userLoginLogVo = JSONObject.parseObject(value, UserLoginLogVo.class);
+				params = JSONObject.parseObject(value);
+				logger.info("[DataUserLoginLogThread.run():用户登录日志数据队列-json数据解析]: params={}", params);
 			} catch (JSONException e) {
 				logger.error("[DataUserLoginLogThread.run():{} 线程-队列值解析异常，进入下一循环] Exception = {}, message = {}", threadName, e, e.getMessage());
 				continue ;
 			}
 
 			try {
-				boolean flag = dataBaseService.insertUserLoginLog(userLoginLogVo);
-				logger.info("[DataUserLoginLogThread.run():用户登录日志数据队列-返回信息, flag:{}", flag);
+				attachmentLogService.add(params);
+//				logger.info("[DataUserLoginLogThread.run():用户登录日志数据队列-返回信息, flag:{}", flag);
 			} catch (Exception e) {
 				logger.error("[DataUserLoginLogThread.run():用户登录日志数据队列{} 线程处理异常, 已结束] queueKey={}, Exception={}, message={}", threadName, queueKey, e, e.getMessage());
 				continue ;

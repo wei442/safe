@@ -14,12 +14,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.cloud.queue.safe.hook.ShutdownHandler;
-import com.cloud.queue.safe.queue.DataAccountDiamondBalanceThread;
-import com.cloud.queue.safe.queue.DataDiamondDrawQueueThread;
-import com.cloud.queue.safe.queue.DataDiamondRecordQueueThread;
-import com.cloud.queue.safe.queue.DataNewUserLoginThread;
-import com.cloud.queue.safe.queue.DataUserCalculateConfigThread;
-import com.cloud.queue.safe.queue.DataUserLoginLogThread;
+import com.cloud.queue.safe.queue.DataAttachmentLogThread;
 
 /**
  * 方向盘线程启动执行
@@ -33,29 +28,9 @@ public class DataCommandRunner implements CommandLineRunner {
 
 	protected ExecutorService executor = Executors.newCachedThreadPool();
 
-	//用户算力配置线程
+	//附件日志线程
 	@Autowired
-	private DataUserCalculateConfigThread dataUserCalculateConfigThread;
-
-	//能量线程
-	@Autowired
-	private DataDiamondRecordQueueThread dataDiamondRecordQueueThread;
-
-	//能量领取线程
-	@Autowired
-	private DataDiamondDrawQueueThread dataDiamondDrawQueueThread;
-
-	//新用户登录
-	@Autowired
-	private DataNewUserLoginThread dataNewUserLoginThread;
-
-	//用户登录日志
-	@Autowired
-	private DataUserLoginLogThread dataUserLoginLogThread;
-
-	//账户能量余额
-	@Autowired
-	private DataAccountDiamondBalanceThread dataAccountDiamondBalanceThread;
+	private DataAttachmentLogThread dataAttachmentLogThread;
 
 	/**
 	 * 在对象销毁的时候执行
@@ -87,66 +62,17 @@ public class DataCommandRunner implements CommandLineRunner {
 	 */
 	@Override
 	public void run(String... args) {
-		this.startUserCalculateConfigThread();
-		this.startDiamondRecordQueueThread();
-		this.startDiamondDrawQueueThread();
-		this.startNewUserLoginThread();
-		this.startUserLoginLogThread();
-		this.startAccountDiamondBalanceThread();
+		this.startAttachmentLogThread();
 	}
 
 	/**
-	 * 启动用户算力配置数据线程队列
+	 * 启动附件日志数据线程队列
 	 */
-	public void startUserCalculateConfigThread() {
+	public void startAttachmentLogThread() {
 		for (int i = 0; i < 2; i++) {
-			executor.execute(dataUserCalculateConfigThread);
+			executor.execute(dataAttachmentLogThread);
 		}
 	}
 
-	/**
-	 * 启动能量记录线程队列
-	 */
-	public void startDiamondRecordQueueThread() {
-		for (int i = 0; i < 2; i++) {
-			executor.execute(dataDiamondRecordQueueThread);
-		}
-	}
-
-	/**
-	 * 启动能量领取线程队列
-	 */
-	public void startDiamondDrawQueueThread() {
-		for (int i = 0; i < 2; i++) {
-			executor.execute(dataDiamondDrawQueueThread);
-		}
-	}
-
-	/**
-	 * 启动新用户登录线程队列
-	 */
-	public void startNewUserLoginThread() {
-		for (int i = 0; i < 2; i++) {
-			executor.execute(dataNewUserLoginThread);
-		}
-	}
-
-	/**
-	 * 启动用户登录日志线程队列
-	 */
-	public void startUserLoginLogThread() {
-		for (int i = 0; i < 2; i++) {
-			executor.execute(dataUserLoginLogThread);
-		}
-	}
-
-	/**
-	 * 启动用账户能量余额线程队列
-	 */
-	public void startAccountDiamondBalanceThread() {
-		for (int i = 0; i < 2; i++) {
-			executor.execute(dataAccountDiamondBalanceThread);
-		}
-	}
 
 }

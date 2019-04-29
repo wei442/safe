@@ -15,6 +15,11 @@
     <result column="enterprise_post_code" jdbcType="VARCHAR" property="enterprisePostCode" />
     <result column="enterprise_addr" jdbcType="VARCHAR" property="enterpriseAddr" />
     <result column="enterprise_website" jdbcType="VARCHAR" property="enterpriseWebsite" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="enterprise_main_category" jdbcType="VARCHAR" property="enterpriseMainCategory" />
+    <result column="enterprise_sub_category" jdbcType="VARCHAR" property="enterpriseSubCategory" />
+    <result column="enterprise_scale" jdbcType="INTEGER" property="enterpriseScale" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
@@ -84,8 +89,8 @@
   <sql id="Base_Column_List">
     id, enterprise_name, enterprise_type, enterprise_nature, enterprise_status, enterprise_alias, 
     enterprise_telphone, enterprise_level, enterprise_fax, enterprise_email, enterprise_post_code, 
-    enterprise_addr, enterprise_website, is_delete, remark, sort, created, updated, create_time, 
-    update_time
+    enterprise_addr, enterprise_website, province, city, enterprise_main_category, enterprise_sub_category, 
+    enterprise_scale, is_delete, remark, sort, created, updated, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.EnterpriseExample" resultMap="BaseResultMap">
     select
@@ -117,23 +122,27 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.Enterprise" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.Enterprise">
     insert into enterprise (id, enterprise_name, enterprise_type, 
       enterprise_nature, enterprise_status, enterprise_alias, 
       enterprise_telphone, enterprise_level, enterprise_fax, 
       enterprise_email, enterprise_post_code, enterprise_addr, 
-      enterprise_website, is_delete, remark, 
+      enterprise_website, province, city, 
+      enterprise_main_category, enterprise_sub_category, 
+      enterprise_scale, is_delete, remark, 
       sort, created, updated, 
       create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{enterpriseName,jdbcType=VARCHAR}, #{enterpriseType,jdbcType=INTEGER}, 
       #{enterpriseNature,jdbcType=INTEGER}, #{enterpriseStatus,jdbcType=INTEGER}, #{enterpriseAlias,jdbcType=VARCHAR}, 
       #{enterpriseTelphone,jdbcType=VARCHAR}, #{enterpriseLevel,jdbcType=INTEGER}, #{enterpriseFax,jdbcType=VARCHAR}, 
       #{enterpriseEmail,jdbcType=VARCHAR}, #{enterprisePostCode,jdbcType=VARCHAR}, #{enterpriseAddr,jdbcType=VARCHAR}, 
-      #{enterpriseWebsite,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{enterpriseWebsite,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{enterpriseMainCategory,jdbcType=VARCHAR}, #{enterpriseSubCategory,jdbcType=VARCHAR}, 
+      #{enterpriseScale,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
       #{sort,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Enterprise" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Enterprise">
     insert into enterprise
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -174,6 +183,21 @@
       </if>
       <if test="enterpriseWebsite != null">
         enterprise_website,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="enterpriseMainCategory != null">
+        enterprise_main_category,
+      </if>
+      <if test="enterpriseSubCategory != null">
+        enterprise_sub_category,
+      </if>
+      <if test="enterpriseScale != null">
+        enterprise_scale,
       </if>
       <if test="isDelete != null">
         is_delete,
@@ -236,6 +260,21 @@
       </if>
       <if test="enterpriseWebsite != null">
         #{enterpriseWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseMainCategory != null">
+        #{enterpriseMainCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseSubCategory != null">
+        #{enterpriseSubCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseScale != null">
+        #{enterpriseScale,jdbcType=INTEGER},
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=INTEGER},
@@ -308,6 +347,21 @@
       <if test="record.enterpriseWebsite != null">
         enterprise_website = #{record.enterpriseWebsite,jdbcType=VARCHAR},
       </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseMainCategory != null">
+        enterprise_main_category = #{record.enterpriseMainCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseSubCategory != null">
+        enterprise_sub_category = #{record.enterpriseSubCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseScale != null">
+        enterprise_scale = #{record.enterpriseScale,jdbcType=INTEGER},
+      </if>
       <if test="record.isDelete != null">
         is_delete = #{record.isDelete,jdbcType=INTEGER},
       </if>
@@ -349,6 +403,11 @@
       enterprise_post_code = #{record.enterprisePostCode,jdbcType=VARCHAR},
       enterprise_addr = #{record.enterpriseAddr,jdbcType=VARCHAR},
       enterprise_website = #{record.enterpriseWebsite,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      enterprise_main_category = #{record.enterpriseMainCategory,jdbcType=VARCHAR},
+      enterprise_sub_category = #{record.enterpriseSubCategory,jdbcType=VARCHAR},
+      enterprise_scale = #{record.enterpriseScale,jdbcType=INTEGER},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR},
       sort = #{record.sort,jdbcType=INTEGER},
@@ -399,6 +458,21 @@
       <if test="enterpriseWebsite != null">
         enterprise_website = #{enterpriseWebsite,jdbcType=VARCHAR},
       </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseMainCategory != null">
+        enterprise_main_category = #{enterpriseMainCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseSubCategory != null">
+        enterprise_sub_category = #{enterpriseSubCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseScale != null">
+        enterprise_scale = #{enterpriseScale,jdbcType=INTEGER},
+      </if>
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=INTEGER},
       </if>
@@ -437,6 +511,11 @@
       enterprise_post_code = #{enterprisePostCode,jdbcType=VARCHAR},
       enterprise_addr = #{enterpriseAddr,jdbcType=VARCHAR},
       enterprise_website = #{enterpriseWebsite,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      enterprise_main_category = #{enterpriseMainCategory,jdbcType=VARCHAR},
+      enterprise_sub_category = #{enterpriseSubCategory,jdbcType=VARCHAR},
+      enterprise_scale = #{enterpriseScale,jdbcType=INTEGER},
       is_delete = #{isDelete,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       sort = #{sort,jdbcType=INTEGER},
