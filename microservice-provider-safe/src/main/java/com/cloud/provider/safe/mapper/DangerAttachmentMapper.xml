@@ -102,7 +102,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.DangerAttachment">
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.DangerAttachment" useGeneratedKeys="true" keyProperty="id">
     insert into danger_attachment (id, danger_id, name, 
       url, created, updated, 
       create_time, update_time)
@@ -110,7 +110,7 @@
       #{url,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.DangerAttachment">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.DangerAttachment" useGeneratedKeys="true" keyProperty="id">
     insert into danger_attachment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

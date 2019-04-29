@@ -117,7 +117,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.Danger">
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.Danger" useGeneratedKeys="true" keyProperty="id">
     insert into danger (id, enterprise_id, org_id, 
       org_name, danger_site, danger_level, 
       danger_type, danger_main_category, danger_sub_category, 
@@ -135,7 +135,7 @@
       #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Danger">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Danger" useGeneratedKeys="true" keyProperty="id">
     insert into danger
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

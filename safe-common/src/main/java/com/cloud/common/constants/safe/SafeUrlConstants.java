@@ -67,6 +67,8 @@ public class SafeUrlConstants {
 	public static final String user_quality_attachment = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/quality/attachment";
 	//用户职务
 	public static final String user_title = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/title";
+	//用户菜单
+	public static final String user_menu = HttpUrlConstants.HTTP_MICROSERVICE_PROVIDER_SAFE + "/user/menu";
 
 
 	//基础用户

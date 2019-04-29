@@ -107,7 +107,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cloud.provider.safe.po.RiskAccept">
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.RiskAccept" useGeneratedKeys="true" keyProperty="id">
     insert into risk_accept (id, risk_id, risk_code, 
       effect, accept_user_id, accept_user_account, 
       accept_user_name, accept_time, created, 
@@ -119,7 +119,7 @@
       #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.RiskAccept">
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.RiskAccept" useGeneratedKeys="true" keyProperty="id">
     insert into risk_accept
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
