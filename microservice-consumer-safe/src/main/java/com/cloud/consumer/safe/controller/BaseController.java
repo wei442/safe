@@ -106,7 +106,7 @@ public class BaseController {
 	 */
 	protected String setToken(Integer enterpriseId,String enterpriseName,Integer userId,String userAccount,Integer orgId,String orgName) {
 		logger.info("(BaseController-setToken)-redis设置token-传入参数, enterpriseId:{}, enterpriseName:{}, userId:{}, userAccount:{}, orgId:{}, orgName:{}", enterpriseId, enterpriseName, userId, userAccount, orgId, orgName);
-		if(null == enterpriseId ||null == userId || StringUtils.isBlank(userAccount)) {
+		if(null == enterpriseId || null == userId || StringUtils.isBlank(userAccount)) {
 			return null;
 		}
 
@@ -148,6 +148,23 @@ public class BaseController {
 			long l = redisService.del(tokenkey);
 			logger.info("(BaseController-clearToken)-清除token-返回信息, tokenkey:{}, l:{}", tokenkey, l);
 		}
+	}
+
+	/**
+	 * 设置首次登录修改密码的accesstoken(10分钟有效)
+	 * @param userId
+	 * @return String
+	 */
+	protected String setFirstLoginAccessToken(Integer userId) {
+		logger.info("(BaseController-setFirstLoginAccessToken)-redis设置accesstoken-传入参数, userId:{}", userId);
+		if(null == userId) {
+			return null;
+		}
+
+		String accesstokenkey = RedisKeysUtil.CN_CLOUD_SAFE_ADMIN_FIRSTLOGIN_ACCESSTOKEN_USERID + userId;
+		String accesstokenResult = redisService.setex(accesstokenkey, CommConstants.TEN_MINUTE_SECONDS_TIME, Objects.toString(userId));
+		logger.info("(BaseController-setFirstLoginAccessToken)-redis设置accesstoken-返回信息, accesstokenkey:{}, accesstokenResult:{}", accesstokenkey, accesstokenResult);
+		return accesstokenResult;
 	}
 
 	/**

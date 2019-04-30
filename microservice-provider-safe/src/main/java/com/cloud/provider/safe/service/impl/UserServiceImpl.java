@@ -1,6 +1,7 @@
 package com.cloud.provider.safe.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.DateTime;
@@ -19,6 +20,8 @@ import com.cloud.provider.safe.dao.UserAdminMapper;
 import com.cloud.provider.safe.dao.UserAdminPasswordMapper;
 import com.cloud.provider.safe.dao.UserInfoMapper;
 import com.cloud.provider.safe.dao.UserOrgMapper;
+import com.cloud.provider.safe.dao.dao.DictDao;
+import com.cloud.provider.safe.po.Dict;
 import com.cloud.provider.safe.po.Enterprise;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.po.UserAdmin;
@@ -27,6 +30,7 @@ import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.service.IUserService;
+import com.cloud.provider.safe.util.DictUtil;
 
 /**
  * 用户 UserService
@@ -65,15 +69,19 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserOrgMapper userOrgMapper;
 
+    //字典 Dao
+    @Autowired
+    private DictDao dictDao;
+
     /**
-     * 插入用户
+     * 插入用户管理
      * @param userInfo
      * @param enterprise
      * @return Integer
      */
 	@Override
-	public Integer insertUser(UserInfo userInfo,Enterprise enterprise) {
-    	logger.info("(UserService-insertUser)-插入用户-传入参数, userInfo:{}, enterprise:{}", userInfo, enterprise);
+	public Integer insertAdminUser(UserInfo userInfo,Enterprise enterprise) {
+    	logger.info("(UserService-insertAdminUser)-插入用户-传入参数, userInfo:{}, enterprise:{}", userInfo, enterprise);
 
     	userInfo.setUserStatus(SqlSafeConstants.SQL_USER_STATUS_NORMAL);
     	userInfo.setIsDelete(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
@@ -133,6 +141,40 @@ public class UserServiceImpl implements IUserService {
     	userOrg.setCreateTime(new Date());
     	userOrg.setUpdateTime(new Date());
     	i = userOrgMapper.insertSelective(userOrg);
+
+    	List<Dict> dicList = DictUtil.INSTANCE.getInitDictList(enterpriseId);
+		i = dictDao.insertList(dicList);
+
+    	return i;
+    }
+
+	/**
+	 * 重设用户管理密码
+	 * @param userAdminLogin
+	 * @param userAdminPassword
+	 * @return Integer
+	 */
+	@Override
+	public Integer resetAdminUserPassword(UserAdminLogin userAdminLogin,UserAdminPassword userAdminPassword) {
+    	logger.info("(UserService-resetAdminUserPassword)-插入用户-传入参数, userAdminLogin:{}, userAdminPassword:{}", userAdminLogin, userAdminPassword);
+
+//    	UserAdminLogin userAdminLogin = new UserAdminLogin();
+//    	userAdminLogin.setUserId(userId);
+    	userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO);
+//    	userAdminLogin.setCreateTime(new Date());
+    	userAdminLogin.setUpdateTime(new Date());
+    	int i = userAdminLoginMapper.updateByPrimaryKey(userAdminLogin);
+
+    	//首次注册密码为空
+//    	UserAdminPassword userAdminPassword = new UserAdminPassword();
+//    	userAdminPassword.setUserId(userId);
+    	userAdminPassword.setPassword(DigestUtils.sha256Hex(Constants.PASSWORD_INIT));
+    	//过期时间暂为100年
+//    	Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
+//    	userAdminPassword.setLastPassTime(lastPassTime);
+//    	userAdminPassword.setCreateTime(new Date());
+    	userAdminPassword.setUpdateTime(new Date());
+    	i = userAdminPasswordMapper.updateByPrimaryKey(userAdminPassword);
 
     	return i;
     }

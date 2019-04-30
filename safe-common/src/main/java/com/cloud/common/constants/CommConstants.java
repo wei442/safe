@@ -33,6 +33,9 @@ public class CommConstants {
 	//300秒 5分钟(5*60)
 	public static final Integer FIVE_MINUTE_SECONDS_TIME = 300;
 
+	//600秒 10分钟(10*60)
+	public static final Integer TEN_MINUTE_SECONDS_TIME = 300;
+
 	//3600秒 1小时(1*60*60)
 	public static final Integer ONE_HOUR_SECONDS_TIME = 3600;
 	//7200秒 2小时(2*60*60)

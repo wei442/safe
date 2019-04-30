@@ -12,6 +12,7 @@ import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.DictItemMapper;
 import com.cloud.provider.safe.dao.DictMapper;
+import com.cloud.provider.safe.dao.dao.DictDao;
 import com.cloud.provider.safe.po.Dict;
 import com.cloud.provider.safe.po.DictExample;
 import com.cloud.provider.safe.po.DictItemExample;
@@ -33,6 +34,10 @@ public class DictServiceImpl implements IDictService {
     //字典 Mapper
     @Autowired
     private DictMapper dictMapper;
+
+    //字典 Dao
+    @Autowired
+    private DictDao dictDao;
 
     //字典子项 Mapper
     @Autowired
@@ -100,6 +105,7 @@ public class DictServiceImpl implements IDictService {
 	 * @param dictCode
 	 * @return Dict
 	 */
+	@Override
 	public Dict selectByEnterpriseIdDictCode(Integer enterpriseId,String dictCode) {
 		logger.info("(DictService-selectByDictCode)-根据enterpriseId和dictCode查询字典-传入参数, enterpriseId:{}, dictCode:{}", enterpriseId, dictCode);
 		DictExample example = new DictExample();
@@ -126,6 +132,18 @@ public class DictServiceImpl implements IDictService {
     	dict.setCreateTime(new Date());
     	dict.setUpdateTime(new Date());
     	int i = dictMapper.insertSelective(dict);
+    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    	return i;
+    }
+
+	/**
+	 * 批量插入
+	 * @param list
+	 * @return Integer
+	 */
+	public Integer insertList(List<Dict> list) {
+    	logger.info("(DictService-insertList)-批量插入字典-传入参数, list:{}", list);
+    	int i = dictDao.insertList(list);
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

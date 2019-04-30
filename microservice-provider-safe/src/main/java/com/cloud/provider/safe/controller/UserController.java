@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.po.Enterprise;
@@ -21,6 +22,7 @@ import com.cloud.provider.safe.po.UserAdminLogin;
 import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserOrg;
+import com.cloud.provider.safe.rest.request.user.login.UserAdminResetPasswordRequest;
 import com.cloud.provider.safe.rest.request.user.login.UserLoginFirstRequest;
 import com.cloud.provider.safe.rest.request.user.login.UserLoginSecondRequest;
 import com.cloud.provider.safe.rest.request.user.login.UserRequest;
@@ -86,22 +88,22 @@ public class UserController extends BaseController {
 	private IOrgService orgService;
 
 	/**
-	 * 添加用户
+	 * 添加用户管理
 	 * @param req
 	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "添加用户")
-	@RequestMapping(value="/insertUser",method={RequestMethod.POST})
+	@ApiOperation(value = "添加用户管理")
+	@RequestMapping(value="/admin/insert",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse insertUser(
+	public BaseRestMapResponse insertAdminUser(
 		@Validated @RequestBody UserRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【添加用户】(UserController-insertUser)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【添加用户管理】(UserController-insertAdminUser)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		String userAccount = req.getUserAccount();
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
-		logger.info("===step2:【添加用户】(UserController-insertUser)-根据userAccount查询用户信息, userInfo:{}", userInfo);
+		logger.info("===step2:【添加用户管理】(UserController-insertAdminUser)-根据userAccount查询用户信息, userInfo:{}", userInfo);
 
 		Integer userId = null;
 		if(userInfo != null) {
@@ -111,8 +113,18 @@ public class UserController extends BaseController {
 			}
 
 			UserAdmin userAdmin = userAdminService.selectByUserId(userId);
-			logger.info("===step3:【添加用户】(UserController-insertUser)-根据userId查询用户管理, userAdmin:{}", userAdmin);
+			logger.info("===step3:【添加用户管理】(UserController-insertAdminUser)-根据userId查询用户管理, userAdmin:{}", userAdmin);
 			if(userAdmin != null) {
+				Integer adminType = userAdmin.getAdminType();
+				Integer enterpriseId = userAdmin.getEnterpriseId();
+				Enterprise enterprise = enterpriseService.selectById(enterpriseId);
+				logger.info("===step3.1:【添加用户管理】(UserController-insertAdminUser)-根据enterpriseId查询企业, enterprise:{}", enterprise);
+				String enterpriseName = enterprise.getEnterpriseName();
+				if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER.equals(adminType)) {
+					return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_ENTERPRISE_MASTER_EXIST.getCode(), "此用户已经是"+enterpriseName+"的主管理员");
+				} else if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE.equals(adminType)) {
+					return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_ENTERPRISE_SLAVE_EXIST.getCode(), "此用户已经是"+enterpriseName+"的子管理员");
+				}
 				return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_EXIST);
 			}
 		}
@@ -123,13 +135,13 @@ public class UserController extends BaseController {
 
 		userInfo = new UserInfo();
 		userInfo.setUserAccount(userAccount);
-		int i = userService.insertUser(userInfo, enterprise);
-		logger.info("===step4:【添加用户】(UserController-insertUser)-添加用户, i:{}", i);
+		int i = userService.insertAdminUser(userInfo, enterprise);
+		logger.info("===step4:【添加用户管理】(UserController-insertAdminUser)-添加用户管理, i:{}", i);
 
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
 		userResponse.putAll((JSONObject) JSONObject.toJSON(enterprise));
 		userResponse.putAll((JSONObject) JSONObject.toJSON(userInfo));
-		logger.info("===step5:【添加用户】(UserController-insertUser)-返回信息, userResponse:{}", userResponse);
+		logger.info("===step5:【添加用户管理】(UserController-insertAdminUser)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
 
@@ -140,37 +152,37 @@ public class UserController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "用户登录第一步")
-	@RequestMapping(value="/login/first",method={RequestMethod.POST})
+	@RequestMapping(value="/admin/login/first",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse loginFirst(
+	public BaseRestMapResponse loginAdminFirst(
 		@Validated @RequestBody UserLoginFirstRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【用户登录第一步】(UserController-loginFirst)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【用户登录第一步】(UserController-loginAdminFirst)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		String userAccount =  req.getUserAccount();
 		String userPassword = req.getUserPassword();
 
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
-		logger.info("===step2:【用户登录第一步】(UserController-loginFirst)-根据userAccount查询用户信息, userInfo:{}", userInfo);
+		logger.info("===step2:【用户登录第一步】(UserController-loginAdminFirst)-根据userAccount查询用户信息, userInfo:{}", userInfo);
 		if(userInfo == null) {
 			return new BaseRestMapResponse(SafeResultEnum.USER_ACCOUNT_NOTEXIST);
 		}
 		Integer userId = userInfo.getId();
 
 		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
-		logger.info("===step3:【用户登录第一步】(UserController-loginFirst)-根据userId查询用户管理, userAdmin:{}", userAdmin);
+		logger.info("===step3:【用户登录第一步】(UserController-loginAdminFirst)-根据userId查询用户管理, userAdmin:{}", userAdmin);
 		if(userAdmin == null) {
 			return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_NOTEXIST);
 		}
 
 		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserIdPassword(userId, userPassword);
-		logger.info("===step4:【用户登录第一步】(UserController-loginFirst)-根据userId和userPassword查询用户管理登录, userAdminPassword:{}", userAdminPassword);
+		logger.info("===step4:【用户登录第一步】(UserController-loginAdminFirst)-根据userId和userPassword查询用户管理登录, userAdminPassword:{}", userAdminPassword);
 		if(userAdminPassword == null) {
 			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
 		}
 
 		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
-		logger.info("===step5:【用户登录第一步】(UserController-loginFirst)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+		logger.info("===step5:【用户登录第一步】(UserController-loginAdminFirst)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
 
 		UserAdminLoginVo userAdminLoginVo = new UserAdminLoginVo().convertToUserAdminLoginVo(userAdminLogin);
 		UserAdminVo userAdminVo = new UserAdminVo().convertToUserAdminVo(userAdmin);
@@ -179,7 +191,7 @@ public class UserController extends BaseController {
 		userResponse.putAll((JSONObject) JSONObject.toJSON(userAdminLoginVo));
 		userResponse.putAll((JSONObject) JSONObject.toJSON(userAdminVo));
 		userResponse.putAll((JSONObject) JSONObject.toJSON(userInfoVo));
-		logger.info("===step6:【用户登录第一步】(UserController-loginFirst)-返回信息, userResponse:{}", userResponse);
+		logger.info("===step6:【用户登录第一步】(UserController-loginAdminFirst)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
 
@@ -190,34 +202,34 @@ public class UserController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "用户登录第二步")
-	@RequestMapping(value="/login/second",method={RequestMethod.POST})
+	@RequestMapping(value="/admin/login/second",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse loginSecond(
+	public BaseRestMapResponse loginAdminSecond(
 		@Validated @RequestBody UserLoginSecondRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【用户登录】(UserController-loginSecond)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【用户登录第二步】(UserController-loginAdminSecond)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer enterpriseId = req.getEnterpriseId();
 		Integer userId = req.getUserId();
 
 		Enterprise enterprise = enterpriseService.selectById(enterpriseId);
-		logger.info("===step2:【用户登录第二步】(UserController-loginSecond)-根据enterpriseId查询企业, enterprise:{}", enterprise);
+		logger.info("===step2:【用户登录第二步】(UserController-loginAdminSecond)-根据enterpriseId查询企业, enterprise:{}", enterprise);
 
 		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
-		logger.info("===step3:【用户登录第二步】(UserController-loginSecond)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+		logger.info("===step3:【用户登录第二步】(UserController-loginAdminSecond)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
 
 		UserOrg userOrg = userOrgService.selectByEnterpriseIdUserId(enterpriseId, userId);
-		logger.info("===step4:【用户登录第二步】(UserController-loginSecond)-根据enterpriseId和userId查询用户机构, userOrg:{}", userOrg);
+		logger.info("===step4:【用户登录第二步】(UserController-loginAdminSecond)-根据enterpriseId和userId查询用户机构, userOrg:{}", userOrg);
 		Integer orgId = userOrg.getOrgId();
 
 		Org org = orgService.selectById(orgId);
-		logger.info("===step5:【用户登录第二步】(UserController-loginSecond)-根据orgId查询机构, org:{}", org);
+		logger.info("===step5:【用户登录第二步】(UserController-loginAdminSecond)-根据orgId查询机构, org:{}", org);
 		OrgVo orgVo = new OrgVo().convertToOrgVo(org);
 
 		Long loginCount = userAdminLogin.getLoginCount();
 		userAdminLogin.setLoginCount(loginCount+1);
 		int i = userAdminLoginService.modify(userAdminLogin);
-		logger.info("===step6:【用户登录第二步】(UserController-loginSecond)-修改用户管理登录登录次数, i:{}", i);
+		logger.info("===step6:【用户登录第二步】(UserController-loginAdminSecond)-修改用户管理登录登录次数, i:{}", i);
 
 		EnterpriseVo enterpriseVo = new EnterpriseVo().convertToEnterpriseVo(enterprise);
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
@@ -227,121 +239,45 @@ public class UserController extends BaseController {
 			userResponse.putAll((JSONObject) JSONObject.toJSON(userOrgVo));
 		}
 		userResponse.putAll((JSONObject) JSONObject.toJSON(orgVo));
-		logger.info("===step7:【用户登录第二步】(UserController-loginSecond)-返回信息, userResponse:{}", userResponse);
+		logger.info("===step7:【用户登录第二步】(UserController-loginAdminSecond)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
-	 * 用户登录第一步
+	 * 用户管理重置密码
 	 * @param req
+	 * @param bindingResult
 	 * @return BaseRestMapResponse
 	 */
-//	@ApiOperation(value = "用户登录第一步")
-//	@RequestMapping(value="/login/first",method={RequestMethod.POST})
-//	@ResponseBody
-//	public BaseRestMapResponse loginFirst(
-//		@RequestBody UserLoginRequest req) {
-//		logger.info("===step1:【用户登录第一步】(UserController-loginFirst)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-//
-//		String userAccount =  req.getUserAccount();
-//		if(StringUtils.isBlank(userAccount)) {
-//			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "用户账户不能为空");
-//		}
-//
-//		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
-//		logger.info("===step2:【用户登录第一步】(UserController-loginFirst)-根据userAccount查询用户信息, userInfo:{}", userInfo);
-//		if(userInfo == null) {
-//			return new BaseRestMapResponse(SafeResultEnum.USER_ACCOUNT_NOTEXIST);
-//		}
-//		Integer userId = userInfo.getId();
-//
-//		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
-//		logger.info("===step3:【用户登录第一步】(UserController-loginFirst)-根据userId查询用户管理, userAdmin:{}", userAdmin);
-//		Integer enterpriseId = null;
-//		if(userAdmin != null) {
-//			enterpriseId = userAdmin.getEnterpriseId();
-//			return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_EXIST);
-//		}
-//
-//		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
-//		logger.info("===step4:【用户登录第一步】(UserController-loginFirst)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
-//		Integer firstLogin = userAdminLogin.getFirstLogin();
-//		if(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO.equals(firstLogin)) {
-//			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_FIRST_LOGIN_CHANGE_PASSWORD);
-//		}
-//
-//		Enterprise enterprise = enterpriseService.selectById(enterpriseId);
-//		logger.info("===step5:【用户登录第一步】(UserController-loginFirst)-根据enterpriseId查询企业, enterprise:{}", enterprise);
-//
-//		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-//		userResponse.putAll((JSONObject) JSONObject.toJSON(userInfo));
-//		userResponse.putAll((JSONObject) JSONObject.toJSON(enterprise));
-//		logger.info("===step6:【用户登录第一步】(UserController-loginFirst)-返回信息, userResponse:{}", userResponse);
-//		return userResponse;
-//	}
+	@ApiOperation(value = "用户管理重置密码")
+	@RequestMapping(value="/admin/reset/password",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse resetAdminPassword(
+		@Validated @RequestBody UserAdminResetPasswordRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【用户管理重置密码】(UserController-resetAdminPassword)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-	/**
-	 * 用户登录第二步
-	 * @param req
-	 * @return BaseRestMapResponse
-	 */
-//	@ApiOperation(value = "用户登录第二步")
-//	@RequestMapping(value="/login/second",method={RequestMethod.POST})
-//	@ResponseBody
-//	public BaseRestMapResponse loginSecond(
-//		@RequestBody UserLoginRequest req) {
-//		logger.info("===step1:【用户登录第二步】(UserController-loginSecond)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-//
-//		String userPassword = req.getUserPassword();
-//		Integer userId = req.getUserId();
-//		if(StringUtils.isBlank(userPassword)) {
-//			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "用户密码不能为空");
-//		} else if(userId == null) {
-//			return new BaseRestMapResponse(SafeResultEnum.PARAMETER_EMPTY.getCode(), "用户id不能为空");
-//		}
-//		UserInfo userInfo = userInfoService.selectById(userId);
-//		logger.info("===step2:【用户登录第二步】(UserController-loginSecond)-根据userId查询用户信息, userInfo:{}", userInfo);
-//		if(userInfo == null) {
-//			return new BaseRestMapResponse(SafeResultEnum.USER_ACCOUNT_NOTEXIST);
-//		}
-//		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserIdPassword(userId, userPassword);
-//		logger.info("===step3:【用户登录第二步】(UserController-loginSecond)-根据userId和userPassword查询用户管理登录, userAdminPassword:{}", userAdminPassword);
-//		if(userAdminPassword == null) {
-//			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
-//		}
-//
-//		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
-//		logger.info("===step4:【用户登录第一步】(UserController-loginFirst)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
-//		Long loginCount = userAdminLogin.getLoginCount();
-//		userAdminLogin.setLoginCount(loginCount+1);
-//		int i = userAdminLoginService.modify(userAdminLogin);
-//		logger.info("===step5:【用户登录第一步】(UserController-loginFirst)-修改用户管理登录登录次数, i:{}", i);
-//
-//		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-//		logger.info("===step7:【用户登录第二步】(UserController-loginSecond)-返回信息, userResponse:{}", userResponse);
-//		return userResponse;
-//	}
+		Integer userId = req.getUserId();
+		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
+		logger.info("===step2:【用户管理重置密码】(UserController-resetAdminPassword)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+		if(userAdminLogin == null) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
+		}
+
+		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserId(userId);
+		logger.info("===step3:【用户管理重置密码】(UserController-resetAdminPassword)-根据userId查询用户管理密码, userAdminPassword:{}", userAdminPassword);
+		if(userAdminPassword == null) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
+		}
+
+		int i = userService.resetAdminUserPassword(userAdminLogin, userAdminPassword);
+		logger.info("===step4:【用户管理重置密码】(UserController-loginAdminFirst)-重置密码录, i:{}", i);
+
+		BaseRestMapResponse userResponse = new BaseRestMapResponse();
+		logger.info("===step5:【用户管理重置密码】(UserController-resetAdminPassword)-返回信息, userResponse:{}", userResponse);
+		return userResponse;
+	}
+
 
 
 }

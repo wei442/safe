@@ -22,6 +22,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserAdmin;
 import com.cloud.provider.safe.po.UserInfo;
+import com.cloud.provider.safe.po.UserMenu;
 import com.cloud.provider.safe.rest.request.enterprise.EnterpriseIdRequest;
 import com.cloud.provider.safe.rest.request.page.user.UserAdminPageRequest;
 import com.cloud.provider.safe.rest.request.user.UserAdminMasterRequest;
@@ -341,26 +342,30 @@ public class UserAdminController extends BaseController {
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加子管理员】(UserAdminController-insertSlave)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
-		Integer userAdminId = req.getUserAdminId();
+//		Integer userAdminId = req.getUserAdminId();
 		Integer enterpriseId = req.getEnterpriseId();
-		Integer userId = req.getUserId();
+//		Integer userId = req.getUserId();
+		List<UserAdmin> userAdminList = req.getUserAdminList();
+		List<UserMenu> userMenuList = req.getUserMenuList();
 
-		UserAdmin userAdmin = userAdminService.selectById(userAdminId);
-		logger.info("===step2:【添加子管理员】(UserAdminController-insertSlave)-根据userAdminId查询用户管理, userAdmin:{}", userAdmin);
-		Integer adminType = userAdmin.getAdminType();
-		if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER.equals(adminType)) {
-			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_MASTER_NOT_INSERT);
+		for (UserAdmin userAdmin : userAdminList) {
+			Integer userId = userAdmin.getUserId();
+			UserAdmin userAdmin2 = userAdminService.selectByUserId(userId);
+			logger.info("===step2:【添加子管理员】(UserAdminController-insertSlave)-根据userAdminId查询用户管理, userAdmin2:{}", userAdmin2);
+			Integer adminType = userAdmin2.getAdminType();
+			if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER.equals(adminType)) {
+				return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_MASTER_NOT_INSERT);
+			}
+
+			userAdmin = userAdminService.selectByEnterpriseIdUserId(enterpriseId, userId);
+			logger.info("===step3:【添加子管理员】(UserAdminController-insertSlave)-根据enterpriseId和userId查询用户管理, userAdmin:{}", userAdmin);
+			adminType = userAdmin.getAdminType();
+			if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE.equals(adminType)) {
+				return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_SLAVE_EXIST);
+			}
 		}
 
-		userAdmin = userAdminService.selectByEnterpriseIdUserId(enterpriseId, userId);
-		logger.info("===step3:【添加子管理员】(UserAdminController-insertSlave)-根据enterpriseId和userId查询用户管理, userAdmin:{}", userAdmin);
-		adminType = userAdmin.getAdminType();
-		if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE.equals(adminType)) {
-			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_SLAVE_EXIST);
-		}
-
-		userAdmin = req.convertToUserAdmin();
-		int i = userAdminService.insertAdminSlave(userAdmin);
+		int i = userAdminService.insertAdminSlave(userAdminList, userMenuList);
 		logger.info("===step4:【添加子管理员】(UserAdminController-insertSlave)-插入用户管理, i:{}", i);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
@@ -384,24 +389,28 @@ public class UserAdminController extends BaseController {
 
 		Integer userAdminId = req.getUserAdminId();
 		Integer enterpriseId = req.getEnterpriseId();
-		Integer userId = req.getUserId();
+//		Integer userId = req.getUserId();
+		List<UserAdmin> userAdminList = req.getUserAdminList();
+		List<UserMenu> userMenuList = req.getUserMenuList();
 
-		UserAdmin userAdmin = userAdminService.selectById(userAdminId);
-		logger.info("===step2:【添加子管理员】(UserAdminController-insertSlave)-根据userAdminId查询用户管理, userAdmin:{}", userAdmin);
-		Integer adminType = userAdmin.getAdminType();
-		if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER.equals(adminType)) {
-			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_MASTER_NOT_INSERT);
+		for (UserAdmin userAdmin : userAdminList) {
+			Integer userId = userAdmin.getUserId();
+			UserAdmin userAdmin2 = userAdminService.selectByUserId(userId);
+			logger.info("===step2:【添加子管理员】(UserAdminController-insertSlave)-根据userAdminId查询用户管理, userAdmin2:{}", userAdmin2);
+			Integer adminType = userAdmin2.getAdminType();
+			if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER.equals(adminType)) {
+				return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_MASTER_NOT_INSERT);
+			}
+
+			userAdmin = userAdminService.selectByEnterpriseIdUserId(enterpriseId, userId);
+			logger.info("===step3:【添加子管理员】(UserAdminController-insertSlave)-根据enterpriseId和userId查询用户管理, userAdmin:{}", userAdmin);
+			adminType = userAdmin.getAdminType();
+			if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE.equals(adminType)) {
+				return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_SLAVE_EXIST);
+			}
 		}
 
-		userAdmin = userAdminService.selectByEnterpriseIdUserId(enterpriseId, userId);
-		logger.info("===step3:【添加子管理员】(UserAdminController-insertSlave)-根据enterpriseId和userId查询用户管理, userAdmin:{}", userAdmin);
-		adminType = userAdmin.getAdminType();
-		if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE.equals(adminType)) {
-			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_SLAVE_EXIST);
-		}
-
-		userAdmin = req.convertToUserAdmin();
-		int i = userAdminService.insertAdminSlave(userAdmin);
+		int i = userAdminService.insertAdminSlave(userAdminList, userMenuList);
 		logger.info("===step4:【添加子管理员】(UserAdminController-insertSlave)-插入用户管理, i:{}", i);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();

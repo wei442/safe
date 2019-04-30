@@ -45,6 +45,13 @@ public interface IDictService {
      */
 	public Integer insert(Dict dict);
 
+	/**
+	 * 批量插入
+	 * @param list
+	 * @return Integer
+	 */
+	public Integer insertList(List<Dict> list);
+
  	/**
   	 * 根据id删除字典
   	 * @param id

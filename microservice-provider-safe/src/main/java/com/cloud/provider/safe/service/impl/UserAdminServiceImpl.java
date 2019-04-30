@@ -17,7 +17,9 @@ import com.cloud.provider.safe.constants.Constants;
 import com.cloud.provider.safe.dao.UserAdminLoginMapper;
 import com.cloud.provider.safe.dao.UserAdminMapper;
 import com.cloud.provider.safe.dao.UserAdminPasswordMapper;
+import com.cloud.provider.safe.dao.UserMenuMapper;
 import com.cloud.provider.safe.dao.dao.UserAdminDao;
+import com.cloud.provider.safe.dao.dao.UserMenuDao;
 import com.cloud.provider.safe.param.UserAdminParam;
 import com.cloud.provider.safe.po.UserAdmin;
 import com.cloud.provider.safe.po.UserAdminExample;
@@ -25,6 +27,7 @@ import com.cloud.provider.safe.po.UserAdminLogin;
 import com.cloud.provider.safe.po.UserAdminLoginExample;
 import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserAdminPasswordExample;
+import com.cloud.provider.safe.po.UserMenu;
 import com.cloud.provider.safe.rest.request.page.user.UserAdminPageRequest;
 import com.cloud.provider.safe.service.IUserAdminService;
 import com.cloud.provider.safe.util.Assert;
@@ -56,6 +59,14 @@ public class UserAdminServiceImpl implements IUserAdminService {
     //用户管理登录 Mapper
     @Autowired
     private UserAdminLoginMapper userAdminLoginMapper;
+
+    //用户菜单 Mapper
+    @Autowired
+    private UserMenuMapper userMenuMapper;
+
+    //用户菜单 Dao
+    @Autowired
+    private UserMenuDao userMenuDao;
 
     /**
 	 * 分页查询
@@ -176,6 +187,29 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		return userAdmin;
 	}
 
+	/**
+	 * 根据userId和adminType查询用户管理
+	 * @param userId
+	 * @param adminType
+	 * @return UserAdmin
+	 */
+	@Override
+	public UserAdmin selectByUserIdAdminType(Integer userId,Integer adminType) {
+		logger.info("(UserAdminService-selectByUserIdAdminType)-根据userId和adminType查询用户管理-传入参数, userId:{}, adminType:{}", userId, adminType);
+		UserAdminExample example = new UserAdminExample();
+		UserAdminExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
+		criteria.andUserIdEqualTo(userId);
+		criteria.andAdminTypeEqualTo(adminType);
+
+		List<UserAdmin> list = userAdminMapper.selectByExample(example);
+		UserAdmin userAdmin = null;
+		if(list != null && !list.isEmpty()) {
+			userAdmin = list.get(0);
+		}
+		return userAdmin;
+	}
+
     /**
      * 插入用户管理
      * @param userAdmin
@@ -264,37 +298,48 @@ public class UserAdminServiceImpl implements IUserAdminService {
 
     /**
      * 插入子管理员
-     * @param userAdmin
+     * @param userAdminList
+     * @param userMenuList
      * @return Integer
      */
-	@Override
-	public Integer insertAdminSlave(UserAdmin userAdmin) {
-    	logger.info("(UserAdminService-insert)-插入用户管理-传入参数, userAdmin:{}", userAdmin);
-    	userAdmin.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE);
-    	userAdmin.setIsDelete(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
-    	userAdmin.setCreateTime(new Date());
-    	userAdmin.setUpdateTime(new Date());
-    	int i = userAdminMapper.insertSelective(userAdmin);
-    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
-    	Integer userId = userAdmin.getUserId();
+	public Integer insertAdminSlave(List<UserAdmin> userAdminList,List<UserMenu> userMenuList) {
+    	logger.info("(UserAdminService-insertAdminSlave)-插入用户管理-传入参数, userAdminList:{}, userMenuList:{}", userAdminList, userMenuList);
 
-    	UserAdminLogin userAdminLogin = new UserAdminLogin();
-    	userAdminLogin.setUserId(userId);
-    	userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO);
-    	userAdminLogin.setCreateTime(new Date());
-    	userAdminLogin.setUpdateTime(new Date());
-    	i = userAdminLoginMapper.insertSelective(userAdminLogin);
+    	int i = 0;
+    	if(userAdminList != null && !userAdminList.isEmpty()) {
+    		for (UserAdmin userAdmin : userAdminList) {
+    			userAdmin.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE);
+    			userAdmin.setIsDelete(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
+    			userAdmin.setCreateTime(new Date());
+    			userAdmin.setUpdateTime(new Date());
+    			i = userAdminMapper.insertSelective(userAdmin);
+    			Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+    			Integer userId = userAdmin.getUserId();
 
-    	//首次注册密码为空
-    	UserAdminPassword userAdminPassword = new UserAdminPassword();
-    	userAdminPassword.setUserId(userId);
-    	userAdminPassword.setPassword(DigestUtils.sha256Hex(Constants.PASSWORD_INIT));
-    	//过期时间暂为100年
-    	Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
-    	userAdminPassword.setLastPassTime(lastPassTime);
-    	userAdminPassword.setCreateTime(new Date());
-    	userAdminPassword.setUpdateTime(new Date());
-    	i = userAdminPasswordMapper.insertSelective(userAdminPassword);
+    			UserAdminLogin userAdminLogin = new UserAdminLogin();
+    			userAdminLogin.setUserId(userId);
+    			userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO);
+    			userAdminLogin.setCreateTime(new Date());
+    			userAdminLogin.setUpdateTime(new Date());
+    			i = userAdminLoginMapper.insertSelective(userAdminLogin);
+
+    			//首次注册密码为空
+    			UserAdminPassword userAdminPassword = new UserAdminPassword();
+    			userAdminPassword.setUserId(userId);
+    			userAdminPassword.setPassword(DigestUtils.sha256Hex(Constants.PASSWORD_INIT));
+    			//过期时间暂为100年
+    			Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
+    			userAdminPassword.setLastPassTime(lastPassTime);
+    			userAdminPassword.setCreateTime(new Date());
+    			userAdminPassword.setUpdateTime(new Date());
+    			i = userAdminPasswordMapper.insertSelective(userAdminPassword);
+
+			}
+    		if(userMenuList != null && !userMenuList.isEmpty()) {
+    			i = userMenuDao.insertList(userMenuList);
+    		}
+    	}
+
     	return i;
     }
 

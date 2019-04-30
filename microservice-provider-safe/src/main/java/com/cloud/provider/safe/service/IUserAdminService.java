@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service;
 import java.util.List;
 
 import com.cloud.provider.safe.po.UserAdmin;
+import com.cloud.provider.safe.po.UserMenu;
 import com.cloud.provider.safe.rest.request.page.user.UserAdminPageRequest;
 import com.cloud.provider.safe.vo.user.UserAdminVo;
 import com.github.pagehelper.Page;
@@ -47,6 +48,14 @@ public interface IUserAdminService {
 	 */
 	public UserAdmin selectByEnterpriseIdAdminType(Integer enterpriseId,Integer adminType);
 
+	/**
+	 * 根据userId和adminType查询用户管理
+	 * @param userId
+	 * @param adminType
+	 * @return UserAdmin
+	 */
+	public UserAdmin selectByUserIdAdminType(Integer userId,Integer adminType);
+
     /**
      * 根据id查询用户管理
      * @param id
@@ -83,11 +92,12 @@ public interface IUserAdminService {
 	 */
 	public Integer changeAdminMaster(UserAdmin oldUserAdmin,UserAdmin newUserAdmin);
 
-	/**
+    /**
      * 插入子管理员
-     * @param userAdmin
+     * @param userAdminList
+     * @param userMenuList
      * @return Integer
      */
-	public Integer insertAdminSlave(UserAdmin userAdmin);
+	public Integer insertAdminSlave(List<UserAdmin> userAdminList,List<UserMenu> userMenuList);
 
 }

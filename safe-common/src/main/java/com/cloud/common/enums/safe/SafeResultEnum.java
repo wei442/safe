@@ -23,6 +23,8 @@ public enum SafeResultEnum implements ResultEnum {
 	USER_ADMIN_MASTER_NOT_EXIST("1010009", "主管理员不存在"),
 	USER_ADMIN_MASTER_NOT_INSERT("1010010", "不允许添加主管理员"),
 	USER_ADMIN_SLAVE_EXIST("1010011", "此子管理员已存在"),
+	USER_ADMIN_ENTERPRISE_MASTER_EXIST("1010012", "此用户已经是{}的主管理员"),
+	USER_ADMIN_ENTERPRISE_SLAVE_EXIST("1010013", "此用户已经是{}的子管理员"),
 
 	USER_ORG_EXIST("1010011", "此手机号码已存在"),
 	USER_ORG_LIST_EXIST("1010012", "请先删除该部门下的人员，再删除该部门!"),

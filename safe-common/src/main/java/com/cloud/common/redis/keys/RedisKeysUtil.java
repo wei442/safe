@@ -22,9 +22,14 @@ public final class RedisKeysUtil {
 	/*----------------------------------------- 安全管理平台 -----------------------------------------*/
 	/**
 	 * @Title   project：microservice-consumer-safe-admin
-	 * @Description keyName：安全（safe）admin 安全管理后台登录 token
+	 * @Description keyName：安全（safe）admin 安全管理后台-登录 token
 	 */
 	public static final String CN_CLOUD_SAFE_ADMIN_LOGIN_TOKEN = "cn:cloud:safe:admin:login:token:";
+	/**
+	 * @Title   project：microservice-consumer-safe-admin
+	 * @Description keyName：安全（safe）admin 安全管理后台-首次登录修改密码 accesstoken
+	 */
+	public static final String CN_CLOUD_SAFE_ADMIN_FIRSTLOGIN_ACCESSTOKEN_USERID = "cn:cloud:safe:admin:firstlogin:accesstoken:userId:";
 
 	/*----------------------------------------- 安全管理平台 -----------------------------------------*/
 
@@ -60,6 +65,13 @@ public final class RedisKeysUtil {
 	 */
 	public static final String QN_CLOUD_SAFE_USER_BASE_USER_LOGIN_LOG = "qn:cloud:safe:base:user:login:log";
 	////////////////////////////队列key END //////////////////////////////////////
+
+
+
+
+
+
+
 
 
     /*--------------------------- ochain平台  -----------------------------*/

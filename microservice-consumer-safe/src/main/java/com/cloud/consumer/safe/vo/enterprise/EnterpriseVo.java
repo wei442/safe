@@ -42,6 +42,16 @@ public class EnterpriseVo implements Serializable {
 
     private String enterpriseWebsite;
 
+    private String province;
+
+    private String city;
+
+    private String enterpriseMainCategory;
+
+    private String enterpriseSubCategory;
+
+    private Integer enterpriseScale;
+
     private Integer isDelete;
 
     private String remark;

@@ -57,6 +57,9 @@ public class DangerServiceImpl implements IDangerService {
 			if(param.getEnterpriseId() != null) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
+			if(param.getDangerType() != null) {
+				criteria.andDangerTypeEqualTo(param.getDangerType());
+			}
 		}
 		List<Danger> list = dangerMapper.selectByExample(example);
 		return list;
@@ -77,6 +80,9 @@ public class DangerServiceImpl implements IDangerService {
 		if(param != null) {
 			if(param.getEnterpriseId() != null) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
+			if(param.getDangerType() != null) {
+				criteria.andDangerTypeEqualTo(param.getDangerType());
 			}
 		}
 		List<Danger> list = dangerMapper.selectByExample(example);

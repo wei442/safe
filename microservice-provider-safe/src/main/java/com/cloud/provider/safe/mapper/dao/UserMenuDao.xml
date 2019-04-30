@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.provider.safe.dao.dao.UserMenuDao">
 
-	<!-- 批量插入,忽略数据库中已经存在的数据 -->
+	<!-- 批量插入,不忽略数据库中已经存在的数据 -->
 	<insert id="insertList" parameterType="java.util.List">
-		insert ignore into user_menu (id, enterprise_id, user_id, menu_code, created, updated, create_time, update_time) values 
+		insert into user_menu (id, enterprise_id, user_id, menu_code, created, updated, create_time, update_time) values 
        	<foreach collection="list" separator="," item="item" index="index">
 		 	(#{item.id,jdbcType=INTEGER}, #{item.enterpriseId,jdbcType=INTEGER}, #{item.userId,jdbcType=INTEGER}, 
 			#{item.menuCode,jdbcType=VARCHAR}, #{item.created,jdbcType=VARCHAR}, #{item.updated,jdbcType=VARCHAR}, 

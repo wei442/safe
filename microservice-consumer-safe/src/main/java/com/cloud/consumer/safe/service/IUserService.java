@@ -5,24 +5,31 @@ import com.alibaba.fastjson.JSONObject;
 public interface IUserService {
 
 	/**
-	 * 用户登录第一步
+	 * 新增用户管理
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject loginFirst(Object params);
+	public JSONObject addAdmin(Object params);
 
 	/**
-	 * 用户登录第二步
+	 * 用户管理登录第一步
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject loginSecond(Object params);
+	public JSONObject loginAdminFirst(Object params);
 
 	/**
-	 * 新增用户
+	 * 用户管理登录第二步
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addUser(Object params);
+	public JSONObject loginAdminSecond(Object params);
+
+	/**
+	 * 重置用户管理密码
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject resetAdminPassword(Object params);
 
 }

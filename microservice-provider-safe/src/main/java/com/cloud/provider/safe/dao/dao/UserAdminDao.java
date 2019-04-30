@@ -3,6 +3,7 @@ package com.cloud.provider.safe.dao.dao;
 import java.util.List;
 
 import com.cloud.provider.safe.param.UserAdminParam;
+import com.cloud.provider.safe.po.UserAdmin;
 import com.cloud.provider.safe.vo.user.UserAdminVo;
 
 public interface UserAdminDao {
@@ -14,4 +15,10 @@ public interface UserAdminDao {
      */
     public List<UserAdminVo> selectList(UserAdminParam param);
 
+    /**
+     * 批量插入
+     * @param list
+     * @return int
+     */
+    public int insertList(List<UserAdmin> list);
 }
