@@ -15,7 +15,6 @@ import com.cloud.provider.safe.dao.OrgMapper;
 import com.cloud.provider.safe.dao.dao.ActivityDao;
 import com.cloud.provider.safe.dao.dao.OrgDao;
 import com.cloud.provider.safe.dao.dao.OrgQualityDao;
-import com.cloud.provider.safe.dao.dao.UserOrgDao;
 import com.cloud.provider.safe.param.ActivityParam;
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.param.OrgQualityParam;
@@ -44,10 +43,6 @@ public class OrgServiceImpl implements IOrgService {
     //机构资质 Dao
     @Autowired
     private OrgQualityDao orgQualityDao;
-
-    //用户机构 Dao
-    @Autowired
-    private UserOrgDao userOrgDao;
 
     //安全活动 Dao
     @Autowired

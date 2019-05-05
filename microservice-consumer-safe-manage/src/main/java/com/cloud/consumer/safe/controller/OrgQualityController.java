@@ -68,6 +68,8 @@ public class OrgQualityController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody OrgQualityPageRequest req) {
 		logger.info("===step1:【分页查询】(OrgQualityController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonOrgQuality = orgQualityService.getListByPage(req);
 		logger.info("===step2:【分页查询】(OrgQualityController-getListByPage)-分页查询机构资质列表, jsonOrgQuality:{}", jsonOrgQuality);
@@ -95,6 +97,8 @@ public class OrgQualityController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody OrgQualityPageRequest req) {
 		logger.info("===step1:【不分页查询】(OrgQualityController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonOrgQuality = orgQualityService.getList(req);
 		logger.info("===step2:【不分页查询】(OrgQualityController-getList)-不分页查询机构资质列表, jsonOrgQuality:{}", jsonOrgQuality);
@@ -151,8 +155,6 @@ public class OrgQualityController extends BaseController {
 		logger.info("===step1:【新增机构资质】(OrgQualityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
-		//暂时
-		req.setOrgId(-1);
 
 		String qualityName = req.getQualityName();
 		if(StringUtils.isBlank(qualityName)) {
@@ -221,8 +223,6 @@ public class OrgQualityController extends BaseController {
 		OrgQualityRequest req, @RequestPart("fileList") MultipartFile[] multipartFiles,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改机构资质】(OrgQualityController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Integer enterpriseId = this.getTokenEnterpriseId();
-		req.setEnterpriseId(enterpriseId);
 
 		Integer orgQualityId = req.getOrgQualityId();
 		String qualityName = req.getQualityName();

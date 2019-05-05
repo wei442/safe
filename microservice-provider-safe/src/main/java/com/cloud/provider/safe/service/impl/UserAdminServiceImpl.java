@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ import com.cloud.provider.safe.po.UserAdminLoginExample;
 import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserAdminPasswordExample;
 import com.cloud.provider.safe.po.UserMenu;
+import com.cloud.provider.safe.po.UserMenuExample;
 import com.cloud.provider.safe.rest.request.page.user.UserAdminPageRequest;
 import com.cloud.provider.safe.service.IUserAdminService;
 import com.cloud.provider.safe.util.Assert;
@@ -79,10 +81,16 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		logger.info("(UserAdminService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserAdminParam userAdminParam = new UserAdminParam();
-//		userTitleParam.setOrderByClause("  ");
+//		userAdminParam.setOrderByClause("  ");
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userAdminParam.setEnterpriseId(param.getEnterpriseId());
+			}
+			if(param.getAdminType() != null) {
+				userAdminParam.setAdminType(param.getAdminType());
+			}
+			if(StringUtils.isNotBlank(param.getEnterpriseName())) {
+				userAdminParam.setEnterpriseName(param.getEnterpriseName()+"%");
 			}
 		}
 		List<UserAdminVo> list = userAdminDao.selectList(userAdminParam);
@@ -98,10 +106,16 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	public List<UserAdminVo> selectList(UserAdminPageRequest param) {
 		logger.info("(UserAdminService-selectList)-不分页查询-传入参数, param:{}", param);
 		UserAdminParam userAdminParam = new UserAdminParam();
-//		userTitleParam.setOrderByClause("  ");
+//		userAdminParam.setOrderByClause("  ");
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userAdminParam.setEnterpriseId(param.getEnterpriseId());
+			}
+			if(param.getAdminType() != null) {
+				userAdminParam.setAdminType(param.getAdminType());
+			}
+			if(StringUtils.isNotBlank(param.getEnterpriseName())) {
+				userAdminParam.setEnterpriseName(param.getEnterpriseName()+"%");
 			}
 		}
 		List<UserAdminVo> list = userAdminDao.selectList(userAdminParam);
@@ -213,15 +227,43 @@ public class UserAdminServiceImpl implements IUserAdminService {
     /**
      * 插入用户管理
      * @param userAdmin
+     * @param userMenuList
      * @return Integer
      */
 	@Override
-	public Integer insert(UserAdmin userAdmin) {
-    	logger.info("(UserAdminService-insert)-插入用户管理-传入参数, userAdmin:{}", userAdmin);
-    	userAdmin.setIsDelete(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
-    	userAdmin.setCreateTime(new Date());
-    	userAdmin.setUpdateTime(new Date());
-    	int i = userAdminMapper.insertSelective(userAdmin);
+	public Integer insert(UserAdmin userAdmin,List<UserMenu> userMenuList) {
+    	logger.info("(UserAdminService-insert)-插入用户管理-传入参数, userAdmin:{}, userMenuList:{}", userAdmin, userMenuList);
+
+		userAdmin.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE);
+		userAdmin.setIsDelete(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
+		userAdmin.setCreateTime(new Date());
+		userAdmin.setUpdateTime(new Date());
+		int i = userAdminMapper.insertSelective(userAdmin);
+		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+		Integer userId = userAdmin.getUserId();
+
+		UserAdminLogin userAdminLogin = new UserAdminLogin();
+		userAdminLogin.setUserId(userId);
+		userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO);
+		userAdminLogin.setCreateTime(new Date());
+		userAdminLogin.setUpdateTime(new Date());
+		i = userAdminLoginMapper.insertSelective(userAdminLogin);
+
+		//首次注册密码为空
+		UserAdminPassword userAdminPassword = new UserAdminPassword();
+		userAdminPassword.setUserId(userId);
+		userAdminPassword.setPassword(DigestUtils.sha256Hex(Constants.PASSWORD_INIT));
+		//过期时间暂为100年
+		Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
+		userAdminPassword.setLastPassTime(lastPassTime);
+		userAdminPassword.setCreateTime(new Date());
+		userAdminPassword.setUpdateTime(new Date());
+		i = userAdminPasswordMapper.insertSelective(userAdminPassword);
+
+		if(userMenuList != null && !userMenuList.isEmpty()) {
+			i = userMenuDao.insertList(userMenuList);
+		}
+
     	return i;
     }
 
@@ -234,6 +276,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	public Integer deleteById(Integer id) {
   		logger.info("(UserAdminService-deleteById)-根据id删除用户管理-传入参数, id:{}", id);
   		UserAdmin userAdmin = userAdminMapper.selectByPrimaryKey(id);
+  		Integer enterpriseId = userAdmin.getEnterpriseId();
   		Integer userId = userAdmin.getUserId();
 
   		int i = userAdminMapper.deleteByPrimaryKey(id);
@@ -248,20 +291,41 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		UserAdminLoginExample.Criteria criteria2 = userAdminLoginExample.createCriteria();
 		criteria2.andUserIdEqualTo(userId);
 		userAdminLoginMapper.deleteByExample(userAdminLoginExample);
+
+		UserMenuExample userMenuExample = new UserMenuExample();
+		UserMenuExample.Criteria criteria3 = userMenuExample.createCriteria();
+		criteria3.andEnterpriseIdEqualTo(enterpriseId);
+		criteria3.andUserIdEqualTo(userId);
+		i = userMenuMapper.deleteByExample(userMenuExample);
   		return i;
   	}
 
     /**
      * 修改用户管理
      * @param userAdmin
+     * @param userMenuList
      * @return Integer
      */
 	@Override
-	public Integer modify(UserAdmin userAdmin) {
-    	logger.info("(UserAdminService-modify)-修改用户管理-传入参数, userAdmin:{}", userAdmin);
-    	userAdmin.setUpdateTime(new Date());
-    	int i = userAdminMapper.updateByPrimaryKeySelective(userAdmin);
-    	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+	public Integer modify(UserAdmin userAdmin,List<UserMenu> userMenuList) {
+    	logger.info("(UserAdminService-modify)-修改用户管理-传入参数, userAdmin:{}, userMenuList:{}", userAdmin, userMenuList);
+
+		userAdmin.setUpdateTime(new Date());
+		int i = userAdminMapper.updateByPrimaryKey(userAdmin);
+		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+		Integer enterpriseId = userAdmin.getEnterpriseId();
+		Integer userId = userAdmin.getUserId();
+
+		UserMenuExample example = new UserMenuExample();
+		UserMenuExample.Criteria criteria = example.createCriteria();
+		criteria.andEnterpriseIdEqualTo(enterpriseId);
+		criteria.andUserIdEqualTo(userId);
+		i = userMenuMapper.deleteByExample(example);
+
+		if(userMenuList != null && !userMenuList.isEmpty()) {
+			i = userMenuDao.insertList(userMenuList);
+		}
+
     	return i;
     }
 
@@ -296,51 +360,76 @@ public class UserAdminServiceImpl implements IUserAdminService {
     	return i;
     }
 
-    /**
-     * 插入子管理员
-     * @param userAdminList
-     * @param userMenuList
-     * @return Integer
-     */
-	public Integer insertAdminSlave(List<UserAdmin> userAdminList,List<UserMenu> userMenuList) {
-    	logger.info("(UserAdminService-insertAdminSlave)-插入用户管理-传入参数, userAdminList:{}, userMenuList:{}", userAdminList, userMenuList);
+//    /**
+//     * 插入子管理员
+//     * @param userAdmin
+//     * @param userMenuList
+//     * @return Integer
+//     */
+//	@Override
+//	public Integer insertAdminSlave(UserAdmin userAdmin,List<UserMenu> userMenuList) {
+//    	logger.info("(UserAdminService-insertAdminSlave)-插入子管理员-传入参数, userAdmin:{}, userMenuList:{}", userAdmin, userMenuList);
+//
+//		userAdmin.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE);
+//		userAdmin.setIsDelete(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
+//		userAdmin.setCreateTime(new Date());
+//		userAdmin.setUpdateTime(new Date());
+//		int i = userAdminMapper.insertSelective(userAdmin);
+//		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+//		Integer userId = userAdmin.getUserId();
+//
+//		UserAdminLogin userAdminLogin = new UserAdminLogin();
+//		userAdminLogin.setUserId(userId);
+//		userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO);
+//		userAdminLogin.setCreateTime(new Date());
+//		userAdminLogin.setUpdateTime(new Date());
+//		i = userAdminLoginMapper.insertSelective(userAdminLogin);
+//
+//		//首次注册密码为空
+//		UserAdminPassword userAdminPassword = new UserAdminPassword();
+//		userAdminPassword.setUserId(userId);
+//		userAdminPassword.setPassword(DigestUtils.sha256Hex(Constants.PASSWORD_INIT));
+//		//过期时间暂为100年
+//		Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
+//		userAdminPassword.setLastPassTime(lastPassTime);
+//		userAdminPassword.setCreateTime(new Date());
+//		userAdminPassword.setUpdateTime(new Date());
+//		i = userAdminPasswordMapper.insertSelective(userAdminPassword);
+//
+//		if(userMenuList != null && !userMenuList.isEmpty()) {
+//			i = userMenuDao.insertList(userMenuList);
+//		}
+//
+//    	return i;
+//    }
 
-    	int i = 0;
-    	if(userAdminList != null && !userAdminList.isEmpty()) {
-    		for (UserAdmin userAdmin : userAdminList) {
-    			userAdmin.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE);
-    			userAdmin.setIsDelete(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
-    			userAdmin.setCreateTime(new Date());
-    			userAdmin.setUpdateTime(new Date());
-    			i = userAdminMapper.insertSelective(userAdmin);
-    			Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
-    			Integer userId = userAdmin.getUserId();
-
-    			UserAdminLogin userAdminLogin = new UserAdminLogin();
-    			userAdminLogin.setUserId(userId);
-    			userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO);
-    			userAdminLogin.setCreateTime(new Date());
-    			userAdminLogin.setUpdateTime(new Date());
-    			i = userAdminLoginMapper.insertSelective(userAdminLogin);
-
-    			//首次注册密码为空
-    			UserAdminPassword userAdminPassword = new UserAdminPassword();
-    			userAdminPassword.setUserId(userId);
-    			userAdminPassword.setPassword(DigestUtils.sha256Hex(Constants.PASSWORD_INIT));
-    			//过期时间暂为100年
-    			Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
-    			userAdminPassword.setLastPassTime(lastPassTime);
-    			userAdminPassword.setCreateTime(new Date());
-    			userAdminPassword.setUpdateTime(new Date());
-    			i = userAdminPasswordMapper.insertSelective(userAdminPassword);
-
-			}
-    		if(userMenuList != null && !userMenuList.isEmpty()) {
-    			i = userMenuDao.insertList(userMenuList);
-    		}
-    	}
-
-    	return i;
-    }
+//    /**
+//     * 修改子管理员
+//     * @param userAdmin
+//     * @param userMenuList
+//     * @return Integer
+//     */
+//	@Override
+//	public Integer modifyAdminSlave(UserAdmin userAdmin,List<UserMenu> userMenuList) {
+//    	logger.info("(UserAdminService-modifyAdminSlave)-修改子管理员-传入参数, userAdmin:{}, userMenuList:{}", userAdmin, userMenuList);
+//
+//		userAdmin.setUpdateTime(new Date());
+//		int i = userAdminMapper.updateByPrimaryKey(userAdmin);
+//		Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
+//		Integer enterpriseId = userAdmin.getEnterpriseId();
+//		Integer userId = userAdmin.getUserId();
+//
+//		UserMenuExample example = new UserMenuExample();
+//		UserMenuExample.Criteria criteria = example.createCriteria();
+//		criteria.andEnterpriseIdEqualTo(enterpriseId);
+//		criteria.andUserIdEqualTo(userId);
+//		i = userMenuMapper.deleteByExample(example);
+//
+//		if(userMenuList != null && !userMenuList.isEmpty()) {
+//			i = userMenuDao.insertList(userMenuList);
+//		}
+//
+//    	return i;
+//    }
 
 }

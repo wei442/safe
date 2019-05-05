@@ -23,9 +23,9 @@ public class UserServiceImpl extends BaseService implements IUserService {
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addAdmin(Object params) {
-		logger.info("(UserService-addAdmin)-新增用户管理-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/admin/insert", params, JSONObject.class);
+	public JSONObject addAdminUser(Object params) {
+		logger.info("(UserService-addAdminUser)-新增用户管理-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/admin/insertUser", params, JSONObject.class);
 		return response;
 	}
 

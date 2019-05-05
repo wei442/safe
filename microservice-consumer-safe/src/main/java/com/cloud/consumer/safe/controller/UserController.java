@@ -174,7 +174,7 @@ public class UserController extends BaseController {
 		String requestIp = this.getRequestIp();
 		logger.info("===step1:【用户注册】(UserController-register)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
 
-		JSONObject jsonUser = userService.addAdmin(req);
+		JSONObject jsonUser = userService.addAdminUser(req);
 		logger.info("===step2:【用户注册】(UserController-register)-用户注册, jsonUser:{}", jsonUser);
 
         //返回信息
@@ -264,119 +264,5 @@ public class UserController extends BaseController {
         logger.info("===step3:【用户首次登录修改密码】(UserController-resetPassword)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
-
-
-//	/**
-//	 * 添加用户管理密码
-//	 * @param req
-//	 * @param bindingResult
-//	 * @return BaseRestMapResponse
-//	 */
-//	@ApiOperation(value = "首次登录用户管理密码")
-//	@RequestMapping(value="/insert",method={RequestMethod.POST})
-//	@ResponseBody
-//	public BaseRestMapResponse insert(
-//		@Validated @RequestBody UserAdminPasswordRequest req,
-//		BindingResult bindingResult) {
-//		logger.info("===step1:【添加用户管理密码】(UserAdminPasswordController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-//
-//		String userAccount = req.getUserAccount();
-//		JSONObject jsonUserInfo = userInfoService.getByUserAccount(userAccount);
-//
-//
-//		Integer userId = req.getUserId();
-//		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserId(userId);
-//		userAdminPassword = req.convertToUserAdminPassword();
-//		if(userAdminPassword != null) {
-//			int i = userAdminPasswordService.modify(userAdminPassword);
-//			logger.info("===step2:【修改用户管理密码】(UserAdminPasswordController-modify)-修改用户管理密码, i:{}", i);
-//		} else {
-//			int i = userAdminPasswordService.insert(userAdminPassword);
-//			logger.info("===step2:【添加用户管理密码】(UserAdminPasswordController-insert)-插入用户管理密码, i:{}", i);
-//		}
-//
-//		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
-//		logger.info("===step3:【添加用户管理密码】(UserAdminPasswordController-insert)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
-//		return userAdminPasswordResponse;
-//	}
-
-
-//	/**
-//	 * 新增用户管理密码
-//	 * @param req
-//	 * @param bindingResult
-//	 * @return BaseRestMapResponse
-//	 */
-//	@ApiOperation(value = "新增用户管理密码")
-//	@RequestMapping(value="/addUserAdminPassword",method={RequestMethod.POST})
-//	@ResponseBody
-//	public BaseRestMapResponse addUserAdminPassword(
-//		@Validated @RequestBody UserAdminPasswordRequest req,
-//		BindingResult bindingResult) {
-//		logger.info("===step1:【新增用户管理密码】(UserAdminPasswordController-addUserAdminPassword)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-//
-//		JSONObject jsonUserAdminPassword = userAdminPasswordService.add(req);
-//		logger.info("===step2:【新增用户管理密码】(UserAdminPasswordController-addUserAdminPassword)-新增用户管理密码, jsonUserAdminPassword:{}", jsonUserAdminPassword);
-//		UserAdminPasswordVo userAdminPasswordVo = JSONObject.toJavaObject(jsonUserAdminPassword, UserAdminPasswordVo.class);
-//
-//		//返回信息
-//		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
-//		userAdminPasswordResponse.put(CommConstants.RESULT, userAdminPasswordVo);
-//	    logger.info("===step3:【新增用户管理密码】(UserAdminPasswordController-addUserAdminPassword)-返回信息, userAdminPasswordResponse:{}", userAdminPasswordResponse);
-//	    return userAdminPasswordResponse;
-//	}
-
-
-//	/**
-//	 * 用户登录
-//	 * @param req
-//	 * @param bindingResult
-//	 * @return BaseRestMapResponse
-//	 */
-//	@ApiOperation(value = "用户登录")
-//	@RequestMapping(value="/login1",method={RequestMethod.POST})
-//	@ResponseBody
-//	public BaseRestMapResponse login1(
-//		@Validated @RequestBody UserLoginRequest req,
-//		BindingResult bindingResult) {
-//		String requestIp = this.getRequestIp();
-//		logger.info("===step1:【用户登录】(UserController-login)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
-//
-//
-//		String userAccount = req.getUserAccount();
-//		String userPassword = req.getUserPassword();
-//
-//		JSONObject jsonUser = userService.loginFirst(req);
-//		UserInfoVo userInfoVo = JSONObject.toJavaObject(jsonUser, UserInfoVo.class);
-//		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonUser, EnterpriseVo.class);
-//		Integer userId = userInfoVo.getUserId();
-//		String userName = userInfoVo.getUserName();
-//		Integer enterpriseId = enterpriseVo.getEnterpriseId();
-//
-//
-//		Map<String, Object> params = new HashMap<String, Object>();
-//		params.put("userId", userId);
-//   		params.put("userPassword", userPassword);
-//		jsonUser = userService.loginSecond(params);
-////		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonUser, EnterpriseVo.class);
-////		Integer enterpriseId = enterpriseVo.getEnterpriseId();
-//
-//		//设置token
-//		String token = this.setToken(enterpriseId, userId, userAccount);
-//
-//		UserLoginVo userLoginVo = new UserLoginVo();
-//		userLoginVo.setToken(token);
-//		userLoginVo.setEnterpriseId(enterpriseId);
-//		userLoginVo.setUserId(userId);
-//		userLoginVo.setUserAccount(userAccount);
-//		userLoginVo.setUserName(userName);
-//
-//        //返回信息
-//		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-//		userResponse.put(RetWheelConstants.RESULT, userLoginVo);
-//        logger.info("===step3:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
-//		return userResponse;
-//	}
-
 
 }

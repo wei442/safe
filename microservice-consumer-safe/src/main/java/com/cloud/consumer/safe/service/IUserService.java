@@ -9,7 +9,7 @@ public interface IUserService {
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject addAdmin(Object params);
+	public JSONObject addAdminUser(Object params);
 
 	/**
 	 * 用户管理登录第一步

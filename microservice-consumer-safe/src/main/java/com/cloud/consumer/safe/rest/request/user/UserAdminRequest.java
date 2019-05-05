@@ -1,6 +1,7 @@
 package com.cloud.consumer.safe.rest.request.user;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -33,10 +34,10 @@ public class UserAdminRequest implements Serializable {
 	@ApiModelProperty(value = "管理类型")
     private Integer adminType;
 
-	@ApiModelProperty(value = "备注")
-    private String remark;
+	private String UserMenus;
 
-	@ApiModelProperty(value = "排序")
-    private Integer sort;
+//	@ApiModelProperty(value = "用户菜单列表")
+//	@NotEmpty(message = "用户菜单列表不能为空")
+	private List<UserMenuRequest> userMenuList;
 
 }

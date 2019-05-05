@@ -1,6 +1,8 @@
 package com.cloud.consumer.safe.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +20,11 @@ import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
+import com.cloud.consumer.safe.base.BaseRestRequest;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserAdminPageRequest;
 import com.cloud.consumer.safe.rest.request.user.UserAdminIdRequest;
+import com.cloud.consumer.safe.rest.request.user.UserAdminMasterRequest;
 import com.cloud.consumer.safe.rest.request.user.UserAdminRequest;
 import com.cloud.consumer.safe.service.IUserAdminService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
@@ -58,6 +62,8 @@ public class UserAdminController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody UserAdminPageRequest req) {
 		logger.info("===step1:【分页查询】(UserAdminController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserAdmin = userAdminService.getListByPage(req);
 		logger.info("===step2:【分页查询】(UserAdminController-getListByPage)-分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
@@ -85,6 +91,8 @@ public class UserAdminController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody UserAdminPageRequest req) {
 		logger.info("===step1:【不分页查询】(UserAdminController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserAdmin = userAdminService.getList(req);
 		logger.info("===step2:【不分页查询】(UserAdminController-getList)-不分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
@@ -116,6 +124,35 @@ public class UserAdminController extends BaseController {
 
 		Integer userAdminId = req.getUserAdminId();
 		JSONObject jsonUserAdmin = userAdminService.getById(userAdminId);
+		logger.info("===step2:【获取用户管理】(UserAdminController-getDetail)-根据userAdminId获取用户管理, jsonUserAdmin:{}", jsonUserAdmin);
+		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserAdmin, UserAdminVo.class);
+
+		//返回信息
+		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
+		userAdminResponse.put(CommConstants.RESULT, userAdminVo);
+	    logger.info("===step3:【获取用户管理】(UserAdminController-getDetail)-返回信息, userAdminResponse:{}", userAdminResponse);
+	    return userAdminResponse;
+	}
+
+	/**
+	 * 获取用户管理详情
+	 * @param req
+	 * @param request
+	 * @param response
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "获取用户主管理员")
+	@RequestMapping(value="/getMaster",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse getMaster(
+		@Validated @RequestBody BaseRestRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【获取用户管理】(UserAdminController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("enterpriseId", enterpriseId);
+		JSONObject jsonUserAdmin = userAdminService.getMaster(params);
 		logger.info("===step2:【获取用户管理】(UserAdminController-getDetail)-根据userAdminId获取用户管理, jsonUserAdmin:{}", jsonUserAdmin);
 		UserAdminVo userAdminVo = JSONObject.toJavaObject(jsonUserAdmin, UserAdminVo.class);
 
@@ -193,6 +230,31 @@ public class UserAdminController extends BaseController {
 		//返回信息
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
 		logger.info("===step3:【修改用户管理】(UserAdminController-update)-返回信息, userAdminResponse:{}", userAdminResponse);
+		return userAdminResponse;
+	}
+
+	/**
+	 * 更改用户主管理员
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "更改用户主管理员")
+	@RequestMapping(value="/changeMaster",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse changeMaster(
+		@Validated @RequestBody UserAdminMasterRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【更改用户主管理员】(UserAdminController-changeMaster)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
+
+		JSONObject jsonUserAdmin = userAdminService.changeMaster(req);
+		logger.info("===step2:【更改用户主管理员】(UserAdminController-changeMaster)-修改用户管理, jsonUserAdmin:{}", jsonUserAdmin);
+
+		//返回信息
+		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
+		logger.info("===step3:【更改用户主管理员】(UserAdminController-changeMaster)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 

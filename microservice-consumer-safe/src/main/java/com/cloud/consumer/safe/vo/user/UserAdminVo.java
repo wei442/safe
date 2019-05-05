@@ -48,4 +48,6 @@ public class UserAdminVo implements Serializable {
 
     private String newUserName;
 
+    private String enterpriseName;
+
 }

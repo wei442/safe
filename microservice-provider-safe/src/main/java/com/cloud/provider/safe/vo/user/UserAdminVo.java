@@ -53,6 +53,8 @@ public class UserAdminVo implements Serializable {
 
     private String userName;
 
+    private String enterpriseName;
+
     /**
      * 实体转换
      * @param userAdmin

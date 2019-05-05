@@ -66,9 +66,10 @@ public interface IUserAdminService {
     /**
      * 插入用户管理
      * @param userAdmin
+     * @param userMenuList
      * @return Integer
      */
-	public Integer insert(UserAdmin userAdmin);
+	public Integer insert(UserAdmin userAdmin,List<UserMenu> userMenuList);
 
  	/**
   	 * 根据id删除用户管理
@@ -80,9 +81,10 @@ public interface IUserAdminService {
     /**
      * 修改用户管理
      * @param userAdmin
+     * @param userMenuList
      * @return Integer
      */
-	public Integer modify(UserAdmin userAdmin);
+	public Integer modify(UserAdmin userAdmin,List<UserMenu> userMenuList);
 
 	/**
 	 * 更改主管理员
@@ -92,12 +94,20 @@ public interface IUserAdminService {
 	 */
 	public Integer changeAdminMaster(UserAdmin oldUserAdmin,UserAdmin newUserAdmin);
 
-    /**
-     * 插入子管理员
-     * @param userAdminList
-     * @param userMenuList
-     * @return Integer
-     */
-	public Integer insertAdminSlave(List<UserAdmin> userAdminList,List<UserMenu> userMenuList);
+//    /**
+//     * 插入子管理员
+//     * @param userAdmin
+//     * @param userMenuList
+//     * @return Integer
+//     */
+//	public Integer insertAdminSlave(UserAdmin userAdmin,List<UserMenu> userMenuList);
+//
+//    /**
+//     * 修改子管理员
+//     * @param userAdmin
+//     * @param userMenuList
+//     * @return Integer
+//     */
+//	public Integer modifyAdminSlave(UserAdmin userAdmin,List<UserMenu> userMenuList);
 
 }

@@ -18,38 +18,50 @@ public class UserServiceImpl extends BaseService implements IUserService {
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * 用户登录第一步
+	 * 新增用户管理
 	 * @param params
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject loginFirst(Object params) {
-		logger.info("(UserService-loginFirst)-用户登录第一步-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/login/first", params, JSONObject.class);
+	public JSONObject addAdminUser(Object params) {
+		logger.info("(UserService-addAdminUser)-新增用户管理-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/admin/insertUser", params, JSONObject.class);
 		return response;
 	}
 
 	/**
-	 * 用户登录第二步
+	 * 用户管理登录第一步
 	 * @param params
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject loginSecond(Object params) {
-		logger.info("(UserService-loginSecond)-用户登录第二步-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/login/second", params, JSONObject.class);
+	public JSONObject loginAdminFirst(Object params) {
+		logger.info("(UserService-loginAdminFirst)-用户管理登录第一步-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/admin/login/first", params, JSONObject.class);
 		return response;
 	}
 
 	/**
-	 * 新增用户
+	 * 用户管理登录第二步
 	 * @param params
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject addUser(Object params) {
-		logger.info("(UserService-addUser)-新增用户-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/insertUser", params, JSONObject.class);
+	public JSONObject loginAdminSecond(Object params) {
+		logger.info("(UserService-loginAdminSecond)-用户管理登录第二步-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/admin/login/second", params, JSONObject.class);
+		return response;
+	}
+
+	/**
+	 * 重置用户管理密码
+	 * @param params
+	 * @return JSONObject
+	 */
+	@Override
+	public JSONObject resetAdminPassword(Object params) {
+		logger.info("(UserService-resetAdminPassword)-重置用户管理密码-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/admin/reset/password", params, JSONObject.class);
 		return response;
 	}
 

@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,12 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		UserInfoExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
 		if(param != null) {
+			if(StringUtils.isNotBlank(param.getUserName())) {
+				criteria.andUserNameLike(param.getUserName()+"%");
+			}
+			if(StringUtils.isNotBlank(param.getUserAccount())) {
+				criteria.andUserAccountLike(param.getUserAccount()+"%");
+			}
 		}
 		List<UserInfo> list = userInfoMapper.selectByExample(example);
 		return list;
@@ -65,6 +72,12 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		UserInfoExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
 		if(param != null) {
+			if(StringUtils.isNotBlank(param.getUserName())) {
+				criteria.andUserNameLike(param.getUserName()+"%");
+			}
+			if(StringUtils.isNotBlank(param.getUserAccount())) {
+				criteria.andUserAccountLike(param.getUserAccount()+"%");
+			}
 		}
 		List<UserInfo> list = userInfoMapper.selectByExample(example);
 		return list;

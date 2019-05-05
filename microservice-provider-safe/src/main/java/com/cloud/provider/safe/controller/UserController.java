@@ -94,7 +94,7 @@ public class UserController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "添加用户管理")
-	@RequestMapping(value="/admin/insert",method={RequestMethod.POST})
+	@RequestMapping(value="/admin/insertUser",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insertAdminUser(
 		@Validated @RequestBody UserRequest req,
@@ -277,7 +277,6 @@ public class UserController extends BaseController {
 		logger.info("===step5:【用户管理重置密码】(UserController-resetAdminPassword)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
-
 
 
 }

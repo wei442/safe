@@ -42,13 +42,17 @@ public class UserAdminSlaveRequest implements Serializable {
 	@ApiModelProperty(value = "管理类型")
     private Integer adminType;
 
-	@ApiModelProperty(value = "用户管理列表")
-	@NotEmpty(message = "用户管理列表不能为空")
-    private List<UserAdmin> userAdminList;
+//	@ApiModelProperty(value = "用户管理列表")
+//	@NotEmpty(message = "用户管理列表不能为空")
+//    private List<UserAdmin> userAdminList;
 
 	@ApiModelProperty(value = "用户菜单列表")
 	@NotEmpty(message = "用户菜单列表不能为空")
 	private List<UserMenu> userMenuList;
+
+//	@ApiModelProperty(value = "用户菜单")
+//	@NotEmpty(message = "用户菜单不能为空")
+//	private String[] userMenus;
 
 	/**
 	 * 实体转换

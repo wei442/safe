@@ -7,13 +7,20 @@
         select 
     	t1.id as userAdminId, t1.enterprise_id as enterpriseId, t1.user_id as userId, t1.admin_name as adminName, 
     	t1.admin_type as adminType, t1.created as created, t1.updated as updated, t1.create_time as createTime, t1.update_time as updateTime,
-    	t2.user_account as userAccount, t2.user_name as userName  
-    	from user_admin t1, user_info t2
+    	t2.user_account as userAccount, t2.user_name as userName, 
+    	t3.enterprise_name as enterpriseName 
+    	from user_admin t1, user_info t2, enterprise t3
         where t1.user_id = t2.id
-        and t1.admin_type != 1 
+        and t1.enterprise_id = t3.id
   		and t1.is_delete = 0 
         <if test="enterpriseId != null and enterpriseId != ''">
             and t1.enterprise_id = #{enterpriseId,jdbcType=INTEGER}
+        </if>
+        <if test="enterpriseName != null and enterpriseName != ''">
+            and t3.enterprise_name like #{enterpriseName,jdbcType=VARCHAR}%
+        </if>
+        <if test="adminType != null and adminType != ''">
+            and t1.admin_type = #{adminType,jdbcType=INTEGER}
         </if>
         <if test="orderByClause != null and orderByClause != ''">
   			order by ${orderByClause}

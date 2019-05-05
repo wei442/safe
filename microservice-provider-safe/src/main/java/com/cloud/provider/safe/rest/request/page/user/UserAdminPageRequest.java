@@ -18,4 +18,10 @@ public class UserAdminPageRequest extends BaseRestRequest {
 	@ApiModelProperty(value = "企业id")
 	private Integer enterpriseId;
 
+	@ApiModelProperty(value = "企业名称")
+    private String enterpriseName;
+
+    @ApiModelProperty(value = "管理类型")
+    private Integer adminType;
+
 }

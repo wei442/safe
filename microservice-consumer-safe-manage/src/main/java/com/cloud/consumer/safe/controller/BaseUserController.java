@@ -63,8 +63,6 @@ public class BaseUserController extends BaseController {
 		JSONObject jsonBaseUser = baseUserService.login(req);
 		logger.info("===step2:【基础用户登录】(BaseUserController-login)-用户登录, jsonBaseUser:{}", jsonBaseUser);
 		BaseUserInfoVo baseUserInfoVo = JSONObject.toJavaObject(jsonBaseUser, BaseUserInfoVo.class);
-//		BaseUserPasswordVo baseUserPasswordVo = JSONObject.toJavaObject(jsonBaseUser, BaseUserPasswordVo.class);
-//		BaseUserLoginVo baseUserLoginVo = JSONObject.toJavaObject(jsonBaseUser, BaseUserLoginVo.class);
 		Integer baseUserId = baseUserInfoVo.getBaseUserId();
 		String userName = baseUserInfoVo.getUserName();
 

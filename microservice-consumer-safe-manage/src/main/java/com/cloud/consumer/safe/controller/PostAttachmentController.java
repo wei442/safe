@@ -58,8 +58,6 @@ public class PostAttachmentController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody PostAttachmentPageRequest req) {
 		logger.info("===step1:【分页查询】(PostAttachmentController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Integer enterpriseId = this.getTokenEnterpriseId();
-		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonPostAttachment = postAttachmentService.getListByPage(req);
 		logger.info("===step2:【分页查询】(PostAttachmentController-getListByPage)-分页查询岗位附件列表, jsonPostAttachment:{}", jsonPostAttachment);
@@ -87,8 +85,6 @@ public class PostAttachmentController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody PostAttachmentPageRequest req) {
 		logger.info("===step1:【不分页查询】(PostAttachmentController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-		Integer enterpriseId = this.getTokenEnterpriseId();
-		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonPostAttachment = postAttachmentService.getList(req);
 		logger.info("===step2:【不分页查询】(PostAttachmentController-getList)-不分页查询岗位附件列表, jsonPostAttachment:{}", jsonPostAttachment);

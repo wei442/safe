@@ -18,6 +18,10 @@ public class UserAdminParam implements Serializable {
 
     private Integer enterpriseId;
 
+    private Integer adminType;
+
+    private String enterpriseName;
+
     //排序
     private String orderByClause;
 
