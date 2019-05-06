@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,13 @@ import com.cloud.provider.safe.param.ActivityParam;
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.param.OrgQualityParam;
 import com.cloud.provider.safe.po.Org;
+import com.cloud.provider.safe.po.OrgExample;
+import com.cloud.provider.safe.rest.request.page.enterprise.OrgPageRequest;
 import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.vo.enterprise.OrgVo;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 组织机构 OrgService
@@ -132,83 +137,55 @@ public class OrgServiceImpl implements IOrgService {
     	return orgList;
     }
 
+    /**
+	 * 分页查询
+	 * @param page
+	 * @param param
+	 * @return List<Org>
+	 */
+	@Override
+	public List<Org> selectListByPage(Page<?> page, OrgPageRequest param) {
+		logger.info("(OrgService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
+		OrgExample example = new OrgExample();
+		example.setOrderByClause(" id desc ");
+		OrgExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
+		if(param != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
+			if(StringUtils.isNotBlank(param.getOrgName())) {
+				criteria.andOrgNameLike(param.getOrgName()+"%");
+			}
+		}
+		List<Org> list = orgMapper.selectByExample(example);
+		return list;
+	}
 
-
-//    /**
-//     * 查询组织机构树用户
-//     * @param param
-//     * @return List<OrgUserVo>
-//     */
-//	@Override
-//	public List<UserInfoOrgVo> selectTreeUserList(OrgParam param) {
-//		logger.info("(OrgService-selectTreeUserList)-查询组织机构树用户-传入参数, param:{}", param);
-//		Integer enterpriseId = null;
-//
-//		List<UserInfoOrgVo> orgUserVoList = null;
-//		UserInfoOrgVo orgUserVo = null;
-//		List<OrgVo> list = orgDao.selectListByParentOrgId(param);
-//		if(list != null && !list.isEmpty()) {
-//			ListIterator<OrgVo> it = list.listIterator();
-//			orgUserVoList = new ArrayList<UserInfoOrgVo>();
-//			while(it.hasNext()) {
-//				OrgVo orgVo = it.next();
-//				orgUserVo = new UserInfoOrgVo();
-//
-//				Integer orgId = orgVo.getOrgId();
-//				UserParam userParam = new UserParam();
-//				userParam.setOrgId(orgId);
-//				userParam.setEnterpriseId(enterpriseId);
-//				List<UserInfoOrgVo> userList = userInfoDao.selectListByOrgId(userParam);
-//				Integer size = userList == null ? 0 : userList.size();
-//
-//				BeanUtils.copyProperties(orgVo, orgUserVo);
-//				orgUserVoList.add(orgUserVo);
-//			}
-//		}
-//
-//		return orgUserVoList;
-//	}
-
-//    /**
-//	 * 分页查询
-//	 * @param page
-//	 * @param param
-//	 * @return List<Org>
-//	 */
-//	@Override
-//	public List<Org> selectOrgListByPage(Page<?> page, OrgPageRequest param) {
-//		logger.info("(OrgService-selectOrgListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
-//		PageHelper.startPage(page.getPageNum(), page.getPageSize());
-//		OrgExample example = new OrgExample();
-//		example.setOrderByClause(" id desc ");
-//		OrgExample.Criteria criteria = example.createCriteria();
-//		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
-//		if(param != null) {
-//			if(param.getEnterpriseId() != null) {
-//				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
-//			}
-//		}
-//		List<Org> list = orgMapper.selectByExample(example);
-//		return list;
-//	}
-//
-//	/**
-//	 * 不分页查询
-//	 * @param param
-//	 * @return List<Org>
-//	 */
-//	@Override
-//	public List<Org> selectOrgList(OrgPageRequest param) {
-//		logger.info("(OrgService-selectOrgList)-不分页查询-传入参数, param:{}", param);
-//		OrgExample example = new OrgExample();
-//		example.setOrderByClause(" id desc ");
-//		OrgExample.Criteria criteria = example.createCriteria();
-//		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
-//		if(param != null) {
-//		}
-//		List<Org> list = orgMapper.selectByExample(example);
-//		return list;
-//	}
+	/**
+	 * 不分页查询
+	 * @param param
+	 * @return List<Org>
+	 */
+	@Override
+	public List<Org> selectList(OrgPageRequest param) {
+		logger.info("(OrgService-selectList)-不分页查询-传入参数, param:{}", param);
+		OrgExample example = new OrgExample();
+		example.setOrderByClause(" id desc ");
+		OrgExample.Criteria criteria = example.createCriteria();
+		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_IS_DELETE_NO);
+		if(param != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
+				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
+			if(StringUtils.isNotBlank(param.getOrgName())) {
+				criteria.andOrgNameLike(param.getOrgName()+"%");
+			}
+		}
+		List<Org> list = orgMapper.selectByExample(example);
+		return list;
+	}
 
     /**
      * 根据id查询组织机构

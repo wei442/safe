@@ -15,13 +15,10 @@ public class OrgPageRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "机构id")
-	private Integer orgId;
-
 	@ApiModelProperty(value = "企业id")
     private Integer enterpriseId;
 
-    @ApiModelProperty(value = "机构父id")
-    private Integer parentOrgId;
+    @ApiModelProperty(value = "机构名称")
+    private String orgName;
 
 }

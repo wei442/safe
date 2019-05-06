@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.po.Org;
+import com.cloud.provider.safe.rest.request.page.enterprise.OrgPageRequest;
 import com.cloud.provider.safe.vo.enterprise.OrgVo;
+import com.github.pagehelper.Page;
 
 public interface IOrgService {
 
@@ -21,6 +23,21 @@ public interface IOrgService {
      * @return List<OrgVo>
      */
 	public List<OrgVo> selectParentTreeList(OrgParam param);
+
+    /**
+	 * 分页查询
+	 * @param page
+	 * @param param
+	 * @return List<Org>
+	 */
+	public List<Org> selectListByPage(Page<?> page, OrgPageRequest param);
+
+	/**
+	 * 不分页查询
+	 * @param param
+	 * @return List<Org>
+	 */
+	public List<Org> selectList(OrgPageRequest param);
 
     /**
      * 根据id查询组织机构

@@ -9,6 +9,15 @@ import java.util.Map;
  */
 public class SafeConstants {
 
+	//初始化密码，6个1，111111
+	public static final String PASSWORD_INIT = "111111";
+
+	//主管理员
+	public static final String ADMIN_NAME_MASTER = "主管理员";
+
+	//子管理员
+	public static final String ADMIN_NAME_SALVE = "子管理员";
+
 	//安全变量Map
 	public static Map<String, String> safeMap = new HashMap<String, String>();
 

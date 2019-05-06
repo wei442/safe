@@ -7,10 +7,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
+import com.cloud.common.exception.SafeException;
 import com.cloud.provider.safe.dao.UserInfoMapper;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserInfoExample;
@@ -128,7 +130,13 @@ public class UserInfoServiceImpl implements IUserInfoService {
     	userInfo.setIsDelete(SqlSafeConstants.SQL_USER_IS_DELETE_NO);
     	userInfo.setCreateTime(new Date());
     	userInfo.setUpdateTime(new Date());
-    	int i = userInfoMapper.insertSelective(userInfo);
+    	int i = 0;
+    	try {
+			i = userInfoMapper.insertSelective(userInfo);
+    	} catch (DataIntegrityViolationException e) {
+			logger.error("(UserInfoService-insert)-插入用户信息-事务性异常, Exception = {}, message = {}", e, e.getMessage());
+			throw new SafeException(SafeResultEnum.USER_MOBILE_EXIST);
+		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }
@@ -155,7 +163,14 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	public Integer modify(UserInfo userInfo) {
     	logger.info("(UserInfoService-modify)-修改用户信息-传入参数, userInfo:{}", userInfo);
     	userInfo.setUpdateTime(new Date());
-    	int i = userInfoMapper.updateByPrimaryKeySelective(userInfo);
+
+    	int i = 0;
+    	try {
+			i = userInfoMapper.updateByPrimaryKeySelective(userInfo);
+    	} catch (DataIntegrityViolationException e) {
+			logger.error("(UserInfoService-modify)-修改用户信息-事务性异常, Exception = {}, message = {}", e, e.getMessage());
+			throw new SafeException(SafeResultEnum.USER_MOBILE_EXIST);
+		}
     	Assert.thanOrEqualZreo(i, SafeResultEnum.DATABASE_ERROR);
     	return i;
     }

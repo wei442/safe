@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SafeConstants;
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
-import com.cloud.provider.safe.constants.Constants;
 import com.cloud.provider.safe.dao.UserAdminLoginMapper;
 import com.cloud.provider.safe.dao.UserAdminMapper;
 import com.cloud.provider.safe.dao.UserAdminPasswordMapper;
@@ -252,7 +252,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		//首次注册密码为空
 		UserAdminPassword userAdminPassword = new UserAdminPassword();
 		userAdminPassword.setUserId(userId);
-		userAdminPassword.setPassword(DigestUtils.sha256Hex(Constants.PASSWORD_INIT));
+		userAdminPassword.setPassword(DigestUtils.sha256Hex(SafeConstants.PASSWORD_INIT));
 		//过期时间暂为100年
 		Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
 		userAdminPassword.setLastPassTime(lastPassTime);
@@ -350,7 +350,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
 
     	newUserAdmin.setEnterpriseId(enterpriseId);
     	newUserAdmin.setUserId(userId);
-    	newUserAdmin.setAdminName(Constants.ADMIN_NAME_MASTER);
+    	newUserAdmin.setAdminName(SafeConstants.ADMIN_NAME_MASTER);
     	newUserAdmin.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER);
     	newUserAdmin.setIsDelete(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
     	newUserAdmin.setCreateTime(new Date());

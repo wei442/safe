@@ -3,7 +3,6 @@ package com.cloud.provider.safe.rest.request.user;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.BeanUtils;
@@ -43,7 +42,7 @@ public class UserAdminRequest implements Serializable {
     private Integer adminType;
 
 	@ApiModelProperty(value = "用户菜单列表")
-	@NotEmpty(message = "用户菜单列表不能为空")
+//	@NotEmpty(message = "用户菜单列表不能为空")
 	private List<UserMenu> userMenuList;
 
 

@@ -34,9 +34,32 @@ public class OrgServiceImpl extends BaseService implements IOrgService {
 	 * @param params
 	 * @return JSONObject
 	 */
+	@Override
 	public JSONObject getParentTreeList(Object params) {
 		logger.info("(OrgService-getParentTreeList)-获取父组织机构树列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/selectParentTreeList", params, JSONObject.class);
+		return response;
+	}
+
+	/**
+	 * 分页获取组织机构列表
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject getListByPage(Object params) {
+		logger.info("(OrgService-getListByPage)-分页获取组织机构列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/selectListByPage", params, JSONObject.class);
+		return response;
+	}
+
+	/**
+	 * 获取组织机构列表
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject getList(Object params) {
+		logger.info("(OrgService-getList)-获取组织机构列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.org+"/selectList", params, JSONObject.class);
 		return response;
 	}
 

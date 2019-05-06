@@ -20,11 +20,13 @@ import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
+import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.enterprise.OrgIdRequest;
 import com.cloud.consumer.safe.rest.request.enterprise.OrgRequest;
 import com.cloud.consumer.safe.rest.request.page.enterprise.OrgPageRequest;
 import com.cloud.consumer.safe.service.IOrgService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
+import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
 import com.cloud.consumer.safe.vo.enterprise.OrgVo;
 
@@ -110,32 +112,61 @@ public class OrgController extends BaseController {
 	    return orgResponse;
 	}
 
-//	/**
-//	 * 查询组织机构树用户列表
-//	 * @param req
-//	 * @return BaseRestMapResponse
-//	 */
-//	@ApiOperation(value = "查询组织机构树用户列表")
-//	@RequestMapping(value="/getTreeUserList",method={RequestMethod.POST})
-//	@ResponseBody
-//	public BaseRestMapResponse getTreeUserList(
-//		@RequestBody OrgPageRequest req) {
-//		logger.info("===step1:【查询组织机构树用户列表】(OrgController-getTreeUserList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-//		Integer enterpriseId = this.getTokenEnterpriseId();
-//		req.setEnterpriseId(enterpriseId);
-//
-//		JSONObject jsonOrg = orgService.getTreeUserList(req);
-//		logger.info("===step2:【查询组织机构树用户列表】(OrgController-getTreeUserList)-查询组织机构树用户列表, jsonOrg:{}", jsonOrg);
-//		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
-//		List<UserInfoOrgVo> userInfoOrgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserInfoOrgVo>>(){});
-//
-//		BaseResultVo result = new BaseResultVo(userInfoOrgVoList);
-//		//返回信息
-//		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-//		orgResponse.put(CommConstants.RESULT, result);
-//	    logger.info("===step3:【查询组织机构树用户列表】(OrgController-getTreeUserList)-返回信息, orgResponse:{}", orgResponse);
-//	    return orgResponse;
-//	}
+	/**
+	 * 分页查询
+	 * @param req
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "分页查询组织机构列表")
+	@RequestMapping(value="/getListByPage",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse getListByPage(
+		@RequestBody OrgPageRequest req) {
+		logger.info("===step1:【分页查询】(OrgController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
+
+		JSONObject jsonOrg = orgService.getListByPage(req);
+		logger.info("===step2:【分页查询】(OrgController-getListByPage)-分页查询组织机构列表, jsonOrg:{}", jsonOrg);
+		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
+		String pageStr = JSONObject.toJSONString(jsonOrg.getJSONObject(PageConstants.PAGE));
+		List<OrgVo> orgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgVo>>(){});
+		PageVo pageVo = JSONObject.parseObject(pageStr, PageVo.class);
+
+		BasePageResultVo result = new BasePageResultVo(pageVo, orgVoList);
+		//返回信息
+		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
+		orgResponse.put(CommConstants.RESULT, result);
+	    logger.info("===step3:【分页查询】(OrgController-getListByPage)-返回信息, orgResponse:{}", orgResponse);
+	    return orgResponse;
+	}
+
+	/**
+	 * 不分页查询
+	 * @param req
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "不分页查询组织机构列表")
+	@RequestMapping(value="/getList",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse getList(
+		@RequestBody OrgPageRequest req) {
+		logger.info("===step1:【不分页查询】(OrgController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
+
+		JSONObject jsonOrg = orgService.getList(req);
+		logger.info("===step2:【不分页查询】(OrgController-getList)-不分页查询组织机构列表, jsonOrg:{}", jsonOrg);
+		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
+		List<OrgVo> orgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgVo>>(){});
+
+		BaseResultVo result = new BaseResultVo(orgVoList);
+		//返回信息
+		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
+		orgResponse.put(CommConstants.RESULT, result);
+		logger.info("===step3:【不分页查询】(OrgController-getList)-返回信息, orgResponse:{}", orgResponse);
+		return orgResponse;
+	}
 
 	/**
 	 * 获取组织机构详情

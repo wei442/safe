@@ -18,15 +18,18 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.PageConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
+import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.param.OrgParam;
 import com.cloud.provider.safe.po.Org;
 import com.cloud.provider.safe.po.UserOrg;
 import com.cloud.provider.safe.rest.request.enterprise.OrgRequest;
+import com.cloud.provider.safe.rest.request.page.enterprise.OrgPageRequest;
 import com.cloud.provider.safe.rest.request.page.enterprise.OrgTreeRequest;
 import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.service.IUserOrgService;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.enterprise.OrgVo;
+import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -109,33 +112,54 @@ public class OrgController extends BaseController {
 		return orgResponse;
 	}
 
-//	/**
-//	 * 查询组织机构树用户列表
-//	 * @param req
-//	 * @return BaseRestMapResponse
-//	 */
-//	@ApiOperation(value = "查询组织机构树用户列表")
-//	@RequestMapping(value="/selectTreeUserList",method={RequestMethod.POST})
-//	@ResponseBody
-//	public BaseRestMapResponse selectTreeUserList(
-//		@RequestBody OrgTreeRequest req) {
-//		logger.info("===step1:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-//
-//		Integer orgId = req.getOrgId();
-//		Integer enterpriseId = req.getEnterpriseId();
-//
-//		UserParam param = new UserParam();
-//		param.setOrgId(orgId);
-//		param.setEnterpriseId(enterpriseId);
-//
-//		List<UserInfoOrgVo> list = userInfoService.selectListByOrgId(param);
-//		logger.info("===step2:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-查询组织机构树用户列表, list.size:{}", list == null ? null : list.size());
-//
-//		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-//		orgResponse.put(PageConstants.DATA_LIST, list);
-//		logger.info("===step3:【查询组织机构树用户列表】(OrgController-selectTreeUserList)-返回信息, orgResponse:{}", orgResponse);
-//		return orgResponse;
-//	}
+	/**
+	 * 分页查询组织机构列表
+	 * @param req
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "分页查询组织机构列表")
+	@RequestMapping(value="/selectListByPage",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectListByPage(
+		@RequestBody OrgPageRequest req) {
+		logger.info("===step1:【分页查询组织机构列表】(OrgController-selectListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer pageNum = req.getPageNum();
+		Integer pageSize = req.getPageSize();
+
+		Page<?> page = new Page<>(pageNum, pageSize);
+		List<Org> list = orgService.selectListByPage(page, req);
+		logger.info("===step2:【分页查询组织机构列表】(OrgController-selectListByPage)-分页查询组织机构列表, list.size:{}", list == null ? null : list.size());
+		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
+
+		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
+		orgResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(orgVoList));
+		logger.info("===step3:【分页查询组织机构列表】(OrgController-selectListByPage)-返回信息, orgResponse:{}", orgResponse);
+		return orgResponse;
+	}
+
+	/**
+	 * 不分页查询组织机构列表
+	 * @param req
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "不分页查询组织机构列表")
+	@RequestMapping(value="/selectList",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectList(
+		@RequestBody OrgPageRequest req) {
+		logger.info("===step1:【不分页查询组织机构列表】(OrgController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		List<Org> list = orgService.selectList(req);
+		logger.info("===step2:【不分页查询组织机构列表】(OrgController-selectList)-不分页查询组织机构列表, list.size:{}", list == null ? null : list.size());
+		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
+
+		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
+		orgResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(orgVoList));
+		logger.info("===step3:【不分页查询组织机构列表】(OrgController-selectList)-返回信息, orgResponse:{}", orgResponse);
+		return orgResponse;
+	}
+
 
 	/**
 	 * 据id查询组织机构

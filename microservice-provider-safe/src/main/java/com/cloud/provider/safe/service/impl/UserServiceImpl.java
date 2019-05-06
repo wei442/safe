@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.common.constants.safe.SafeConstants;
 import com.cloud.common.constants.safe.SqlSafeConstants;
-import com.cloud.provider.safe.constants.Constants;
 import com.cloud.provider.safe.dao.EnterpriseMapper;
 import com.cloud.provider.safe.dao.OrgMapper;
 import com.cloud.provider.safe.dao.UserAdminLoginMapper;
@@ -100,7 +100,7 @@ public class UserServiceImpl implements IUserService {
     	UserAdmin userAdmin = new UserAdmin();
     	userAdmin.setEnterpriseId(enterpriseId);
     	userAdmin.setUserId(userId);
-    	userAdmin.setAdminName(Constants.ADMIN_NAME_MASTER);
+    	userAdmin.setAdminName(SafeConstants.ADMIN_NAME_MASTER);
     	userAdmin.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER);
     	userAdmin.setCreateTime(new Date());
     	userAdmin.setUpdateTime(new Date());
@@ -116,7 +116,7 @@ public class UserServiceImpl implements IUserService {
     	//首次注册密码为空
     	UserAdminPassword userAdminPassword = new UserAdminPassword();
     	userAdminPassword.setUserId(userId);
-    	userAdminPassword.setPassword(DigestUtils.sha256Hex(Constants.PASSWORD_INIT));
+    	userAdminPassword.setPassword(DigestUtils.sha256Hex(SafeConstants.PASSWORD_INIT));
     	//过期时间暂为100年
     	Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
     	userAdminPassword.setLastPassTime(lastPassTime);
@@ -158,21 +158,13 @@ public class UserServiceImpl implements IUserService {
 	public Integer resetAdminUserPassword(UserAdminLogin userAdminLogin,UserAdminPassword userAdminPassword) {
     	logger.info("(UserService-resetAdminUserPassword)-插入用户-传入参数, userAdminLogin:{}, userAdminPassword:{}", userAdminLogin, userAdminPassword);
 
-//    	UserAdminLogin userAdminLogin = new UserAdminLogin();
-//    	userAdminLogin.setUserId(userId);
     	userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO);
-//    	userAdminLogin.setCreateTime(new Date());
     	userAdminLogin.setUpdateTime(new Date());
     	int i = userAdminLoginMapper.updateByPrimaryKey(userAdminLogin);
 
     	//首次注册密码为空
-//    	UserAdminPassword userAdminPassword = new UserAdminPassword();
-//    	userAdminPassword.setUserId(userId);
-    	userAdminPassword.setPassword(DigestUtils.sha256Hex(Constants.PASSWORD_INIT));
+    	userAdminPassword.setPassword(DigestUtils.sha256Hex(SafeConstants.PASSWORD_INIT));
     	//过期时间暂为100年
-//    	Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
-//    	userAdminPassword.setLastPassTime(lastPassTime);
-//    	userAdminPassword.setCreateTime(new Date());
     	userAdminPassword.setUpdateTime(new Date());
     	i = userAdminPasswordMapper.updateByPrimaryKey(userAdminPassword);
 

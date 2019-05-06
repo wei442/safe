@@ -14,6 +14,7 @@ public enum SafeResultEnum implements ResultEnum {
 
 	USER_ACCOUNT_NOTEXIST("1010001", "您的账号不存在"),
 	USER_ACCOUNT_EXIST("1010002", "您已经注册过"),
+	USER_MOBILE_EXIST("1010002", "手机号码已存在"),
 	USER_ADMIN_PASSWORD_ERROR("1010003", "您的管理密码错误"),
 	USER_ADMIN_PASSWORD_NOTEXIST("1010004", "您的管理密码不存在"),
 	USER_ADMIN_PASSWORD_EXIST("1010005", "您的管理密码已存在"),

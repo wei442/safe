@@ -19,6 +19,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
+import com.cloud.common.constants.safe.SafeConstants;
 import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.base.BaseRestRequest;
@@ -179,6 +180,9 @@ public class UserAdminController extends BaseController {
 		@Validated @RequestBody UserAdminRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户管理】(UserAdminController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
+		req.setAdminName(SafeConstants.ADMIN_NAME_SALVE);
 
 		JSONObject jsonUserAdmin = userAdminService.add(req);
 		logger.info("===step2:【新增用户管理】(UserAdminController-add)-分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
@@ -226,6 +230,8 @@ public class UserAdminController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody UserAdminRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理】(UserAdminController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserAdmin = userAdminService.update(req);
 		logger.info("===step2:【修改用户管理】(UserAdminController-update)-修改用户管理, jsonUserAdmin:{}", jsonUserAdmin);

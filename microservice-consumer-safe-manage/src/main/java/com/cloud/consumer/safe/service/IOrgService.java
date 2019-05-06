@@ -19,6 +19,20 @@ public interface IOrgService {
 	public JSONObject getParentTreeList(Object params);
 
 	/**
+	 * 分页获取组织机构列表
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject getListByPage(Object params);
+
+	/**
+	 * 获取组织机构列表
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject getList(Object params);
+
+	/**
 	 * 根据id获取组织机构
 	 * @param id
 	 * @return JSONObject

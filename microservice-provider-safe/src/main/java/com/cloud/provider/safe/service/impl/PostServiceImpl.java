@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,11 @@ public class PostServiceImpl implements IPostService {
 		PostExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_POST_IS_DELETE_NO);
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
+			if(StringUtils.isNotBlank(param.getPostName())) {
+				criteria.andPostNameLike(param.getPostName()+"%");
 			}
 		}
 		List<Post> list = postMapper.selectByExample(example);
@@ -68,8 +72,11 @@ public class PostServiceImpl implements IPostService {
 		PostExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_POST_IS_DELETE_NO);
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
+			if(StringUtils.isNotBlank(param.getPostName())) {
+				criteria.andPostNameLike(param.getPostName()+"%");
 			}
 		}
 		List<Post> list = postMapper.selectByExample(example);

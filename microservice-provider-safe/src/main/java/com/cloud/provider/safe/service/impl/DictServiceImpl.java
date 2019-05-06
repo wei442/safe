@@ -58,7 +58,7 @@ public class DictServiceImpl implements IDictService {
 		DictExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_IS_DELETE_NO);
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 		}
@@ -79,7 +79,7 @@ public class DictServiceImpl implements IDictService {
 		DictExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_IS_DELETE_NO);
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 		}
@@ -141,6 +141,7 @@ public class DictServiceImpl implements IDictService {
 	 * @param list
 	 * @return Integer
 	 */
+	@Override
 	public Integer insertList(List<Dict> list) {
     	logger.info("(DictService-insertList)-批量插入字典-传入参数, list:{}", list);
     	int i = dictDao.insertList(list);
