@@ -24,6 +24,8 @@ public class UserTitleVo implements Serializable {
 
     private Integer titleId;
 
+    private Integer sort;
+
     private String created;
 
     private String updated;

@@ -345,6 +345,136 @@ public class UserOrgExample {
             return (Criteria) this;
         }
 
+        public Criteria andEmployeeNoIsNull() {
+            addCriterion("employee_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoIsNotNull() {
+            addCriterion("employee_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoEqualTo(String value) {
+            addCriterion("employee_no =", value, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoNotEqualTo(String value) {
+            addCriterion("employee_no <>", value, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoGreaterThan(String value) {
+            addCriterion("employee_no >", value, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoGreaterThanOrEqualTo(String value) {
+            addCriterion("employee_no >=", value, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoLessThan(String value) {
+            addCriterion("employee_no <", value, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoLessThanOrEqualTo(String value) {
+            addCriterion("employee_no <=", value, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoLike(String value) {
+            addCriterion("employee_no like", value, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoNotLike(String value) {
+            addCriterion("employee_no not like", value, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoIn(List<String> values) {
+            addCriterion("employee_no in", values, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoNotIn(List<String> values) {
+            addCriterion("employee_no not in", values, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoBetween(String value1, String value2) {
+            addCriterion("employee_no between", value1, value2, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmployeeNoNotBetween(String value1, String value2) {
+            addCriterion("employee_no not between", value1, value2, "employeeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortIsNull() {
+            addCriterion("sort is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortIsNotNull() {
+            addCriterion("sort is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortEqualTo(Integer value) {
+            addCriterion("sort =", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotEqualTo(Integer value) {
+            addCriterion("sort <>", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortGreaterThan(Integer value) {
+            addCriterion("sort >", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortGreaterThanOrEqualTo(Integer value) {
+            addCriterion("sort >=", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortLessThan(Integer value) {
+            addCriterion("sort <", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortLessThanOrEqualTo(Integer value) {
+            addCriterion("sort <=", value, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortIn(List<Integer> values) {
+            addCriterion("sort in", values, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotIn(List<Integer> values) {
+            addCriterion("sort not in", values, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortBetween(Integer value1, Integer value2) {
+            addCriterion("sort between", value1, value2, "sort");
+            return (Criteria) this;
+        }
+
+        public Criteria andSortNotBetween(Integer value1, Integer value2) {
+            addCriterion("sort not between", value1, value2, "sort");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatedIsNull() {
             addCriterion("created is null");
             return (Criteria) this;

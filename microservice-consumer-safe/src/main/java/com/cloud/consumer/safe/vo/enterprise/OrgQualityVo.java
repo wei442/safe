@@ -40,4 +40,12 @@ public class OrgQualityVo implements Serializable {
     @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
 
+	private Integer orgQualityAttachmentId;
+
+    private String name;
+
+    private String url;
+
+    private Integer count;
+
 }

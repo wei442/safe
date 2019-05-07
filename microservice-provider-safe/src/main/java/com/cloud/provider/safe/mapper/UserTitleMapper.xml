@@ -6,6 +6,7 @@
     <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="title_id" jdbcType="INTEGER" property="titleId" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="created" jdbcType="VARCHAR" property="created" />
     <result column="updated" jdbcType="VARCHAR" property="updated" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, enterprise_id, user_id, title_id, created, updated, create_time, update_time
+    id, enterprise_id, user_id, title_id, sort, created, updated, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.UserTitleExample" resultMap="BaseResultMap">
     select
@@ -104,11 +105,13 @@
   </delete>
   <insert id="insert" parameterType="com.cloud.provider.safe.po.UserTitle" useGeneratedKeys="true" keyProperty="id">
     insert into user_title (id, enterprise_id, user_id, 
-      title_id, created, updated, 
-      create_time, update_time)
+      title_id, sort, created, 
+      updated, create_time, update_time
+      )
     values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{titleId,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{titleId,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{created,jdbcType=VARCHAR}, 
+      #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.UserTitle" useGeneratedKeys="true" keyProperty="id">
     insert into user_title
@@ -124,6 +127,9 @@
       </if>
       <if test="titleId != null">
         title_id,
+      </if>
+      <if test="sort != null">
+        sort,
       </if>
       <if test="created != null">
         created,
@@ -150,6 +156,9 @@
       </if>
       <if test="titleId != null">
         #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
       </if>
       <if test="created != null">
         #{created,jdbcType=VARCHAR},
@@ -186,6 +195,9 @@
       <if test="record.titleId != null">
         title_id = #{record.titleId,jdbcType=INTEGER},
       </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
       <if test="record.created != null">
         created = #{record.created,jdbcType=VARCHAR},
       </if>
@@ -209,6 +221,7 @@
       enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       title_id = #{record.titleId,jdbcType=INTEGER},
+      sort = #{record.sort,jdbcType=INTEGER},
       created = #{record.created,jdbcType=VARCHAR},
       updated = #{record.updated,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -228,6 +241,9 @@
       </if>
       <if test="titleId != null">
         title_id = #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
       </if>
       <if test="created != null">
         created = #{created,jdbcType=VARCHAR},
@@ -249,6 +265,7 @@
     set enterprise_id = #{enterpriseId,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
       title_id = #{titleId,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
       created = #{created,jdbcType=VARCHAR},
       updated = #{updated,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

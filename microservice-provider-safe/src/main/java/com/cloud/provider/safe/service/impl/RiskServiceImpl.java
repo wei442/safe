@@ -47,7 +47,7 @@ public class RiskServiceImpl implements IRiskService {
 		RiskExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_IS_DELETE_NO);
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 		}
@@ -68,7 +68,7 @@ public class RiskServiceImpl implements IRiskService {
 		RiskExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_DICT_IS_DELETE_NO);
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 		}

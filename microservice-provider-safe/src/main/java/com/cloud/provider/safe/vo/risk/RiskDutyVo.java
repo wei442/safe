@@ -23,15 +23,35 @@ public class RiskDutyVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer riskDutyId;
+	private Integer riskId;
 
-    private Integer riskId;
+    private Integer enterpriseId;
 
-    private Integer dutyUserId;
+    private String riskCode;
 
-    private String dutyUserAccount;
+    private String riskWorkPlace;
 
-    private String dutyUserName;
+    private String riskCategory;
+
+    private String riskReason;
+
+    private String riskLevel;
+
+    private String controlReason;
+
+    private String controlMethod;
+
+    private Integer riskStatus;
+
+    private Integer isDanger;
+
+    private String frequency;
+
+    private Integer isDelete;
+
+    private String remark;
+
+    private Integer sort;
 
     private String created;
 
@@ -42,6 +62,16 @@ public class RiskDutyVo implements Serializable {
 
     @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
+
+	private Integer riskDutyId;
+
+    private Integer dutyUserId;
+
+    private String dutyUserAccount;
+
+    private String dutyUserName;
+
+    private Integer count;
 
     /**
      * 实体转换

@@ -11,6 +11,8 @@ public class UserPost {
 
     private Integer postId;
 
+    private Integer sort;
+
     private String created;
 
     private String updated;
@@ -49,6 +51,14 @@ public class UserPost {
 
     public void setPostId(Integer postId) {
         this.postId = postId;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
     public String getCreated() {

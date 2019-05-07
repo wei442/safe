@@ -37,6 +37,9 @@ public class UserTitleRequest implements Serializable {
     @NotNull(message = "职务id不能为空")
 	private Integer titleId;
 
+	@ApiModelProperty(value = "排序号")
+    private Integer sort;
+
     /**
 	 * 实体转换
 	 * @return UserTitle

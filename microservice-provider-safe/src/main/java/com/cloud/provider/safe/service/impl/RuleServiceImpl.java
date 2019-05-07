@@ -55,7 +55,7 @@ public class RuleServiceImpl implements IRuleService {
 		RuleExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_RULE_IS_DELETE_NO);
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 			if(param.getRuleType() != null) {
@@ -82,7 +82,7 @@ public class RuleServiceImpl implements IRuleService {
 		RuleExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_RULE_IS_DELETE_NO);
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 			if(param.getRuleType() != null) {

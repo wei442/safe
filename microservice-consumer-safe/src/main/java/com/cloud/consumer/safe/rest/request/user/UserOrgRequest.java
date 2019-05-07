@@ -28,6 +28,12 @@ public class UserOrgRequest implements Serializable {
     @NotNull(message = "机构id不能为空")
     private Integer orgId;
 
+	@ApiModelProperty(value = "工号")
+	private String employeeNo;
+
+	@ApiModelProperty(value = "排序号")
+    private Integer sort;
+
 	@ApiModelProperty(value = "手机号码")
 	@NotBlank(message = "手机号码不能为空")
     private String userAccount;

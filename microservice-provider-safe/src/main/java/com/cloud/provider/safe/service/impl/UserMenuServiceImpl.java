@@ -50,7 +50,7 @@ public class UserMenuServiceImpl implements IUserMenuService {
 		example.setOrderByClause(" id desc ");
 		UserMenuExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 		}
@@ -70,7 +70,7 @@ public class UserMenuServiceImpl implements IUserMenuService {
 		example.setOrderByClause(" id desc ");
 		UserMenuExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 		}

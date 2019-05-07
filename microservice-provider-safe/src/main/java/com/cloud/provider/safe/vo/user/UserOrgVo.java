@@ -31,6 +31,10 @@ public class UserOrgVo implements Serializable {
 
     private Integer orgId;
 
+    private String employeeNo;
+
+    private Integer sort;
+
     private String created;
 
     private String updated;

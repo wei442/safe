@@ -37,6 +37,9 @@ public class UserPostRequest implements Serializable {
     @NotNull(message = "岗位id不能为空")
     private Integer postId;
 
+	@ApiModelProperty(value = "排序号")
+    private Integer sort;
+
     /**
 	 * 实体转换
 	 * @return UserPost

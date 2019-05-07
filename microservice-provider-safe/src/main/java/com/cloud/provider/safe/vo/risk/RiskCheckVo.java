@@ -23,9 +23,47 @@ public class RiskCheckVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer riskCheckId;
-
 	private Integer riskId;
+
+    private Integer enterpriseId;
+
+    private String riskCode;
+
+    private String riskWorkPlace;
+
+    private String riskCategory;
+
+    private String riskReason;
+
+    private String riskLevel;
+
+    private String controlReason;
+
+    private String controlMethod;
+
+    private Integer riskStatus;
+
+    private Integer isDanger;
+
+    private String frequency;
+
+    private Integer isDelete;
+
+    private String remark;
+
+    private Integer sort;
+
+    private String created;
+
+    private String updated;
+
+    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
+    private Date createTime;
+
+    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
+    private Date updateTime;
+
+	private Integer riskCheckId;
 
     private String effect;
 
@@ -37,15 +75,7 @@ public class RiskCheckVo implements Serializable {
 
     private Date checkTime;
 
-    private String created;
-
-    private String updated;
-
-    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
-    private Date createTime;
-
-    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
-    private Date updateTime;
+    private Integer count;
 
     /**
      * 实体转换

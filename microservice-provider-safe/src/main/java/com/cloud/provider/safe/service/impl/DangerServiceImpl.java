@@ -54,7 +54,7 @@ public class DangerServiceImpl implements IDangerService {
 		DangerExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_QUALITY_IS_DELETE_NO);
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 			if(param.getDangerType() != null) {
@@ -78,7 +78,7 @@ public class DangerServiceImpl implements IDangerService {
 		DangerExample.Criteria criteria = example.createCriteria();
 		criteria.andIsDeleteEqualTo(SqlSafeConstants.SQL_ORG_QUALITY_IS_DELETE_NO);
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 			if(param.getDangerType() != null) {

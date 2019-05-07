@@ -11,6 +11,8 @@ public class UserTitle {
 
     private Integer titleId;
 
+    private Integer sort;
+
     private String created;
 
     private String updated;
@@ -49,6 +51,14 @@ public class UserTitle {
 
     public void setTitleId(Integer titleId) {
         this.titleId = titleId;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
     public String getCreated() {

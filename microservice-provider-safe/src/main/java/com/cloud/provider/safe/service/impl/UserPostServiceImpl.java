@@ -51,7 +51,7 @@ public class UserPostServiceImpl implements IUserPostService {
 		UserPostParam userPostParam = new UserPostParam();
 //		userPostParam.setOrderByClause("  ");
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userPostParam.setEnterpriseId(param.getEnterpriseId());
 			}
 			if(param.getPostId() != null) {
@@ -74,7 +74,7 @@ public class UserPostServiceImpl implements IUserPostService {
 		UserPostParam userPostParam = new UserPostParam();
 //		userPostParam.setOrderByClause("  ");
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userPostParam.setEnterpriseId(param.getEnterpriseId());
 			}
 			if(param.getPostId() != null) {

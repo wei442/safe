@@ -40,6 +40,13 @@ public interface IUserTitleService {
 	public JSONObject add(Object params);
 
 	/**
+	 * 新增批量用户职务
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject addList(Object params);
+
+	/**
 	 * 根据id删除用户职务
 	 * @param id
 	 * @return JSONObject

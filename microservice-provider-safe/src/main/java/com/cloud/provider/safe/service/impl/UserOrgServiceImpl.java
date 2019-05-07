@@ -51,7 +51,7 @@ public class UserOrgServiceImpl implements IUserOrgService {
 		UserOrgParam userOrgParam = new UserOrgParam();
 //		userOrgParam.setOrderByClause("  ");
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userOrgParam.setEnterpriseId(param.getEnterpriseId());
 			}
 			if(param.getOrgId() != null) {
@@ -74,7 +74,7 @@ public class UserOrgServiceImpl implements IUserOrgService {
 		UserOrgParam userOrgParam = new UserOrgParam();
 //		userOrgParam.setOrderByClause("  ");
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userOrgParam.setEnterpriseId(param.getEnterpriseId());
 			}
 			if(param.getOrgId() != null) {

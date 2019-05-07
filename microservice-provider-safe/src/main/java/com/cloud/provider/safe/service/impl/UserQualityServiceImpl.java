@@ -52,7 +52,7 @@ public class UserQualityServiceImpl implements IUserQualityService {
 		example.setOrderByClause(" id asc ");
 		UserQualityExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 		}
@@ -72,7 +72,7 @@ public class UserQualityServiceImpl implements IUserQualityService {
 		example.setOrderByClause(" id asc ");
 		UserQualityExample.Criteria criteria = example.createCriteria();
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
 		}

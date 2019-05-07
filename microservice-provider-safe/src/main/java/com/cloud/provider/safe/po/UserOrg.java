@@ -11,6 +11,10 @@ public class UserOrg {
 
     private Integer orgId;
 
+    private String employeeNo;
+
+    private Integer sort;
+
     private String created;
 
     private String updated;
@@ -49,6 +53,22 @@ public class UserOrg {
 
     public void setOrgId(Integer orgId) {
         this.orgId = orgId;
+    }
+
+    public String getEmployeeNo() {
+        return employeeNo;
+    }
+
+    public void setEmployeeNo(String employeeNo) {
+        this.employeeNo = employeeNo == null ? null : employeeNo.trim();
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
     public String getCreated() {

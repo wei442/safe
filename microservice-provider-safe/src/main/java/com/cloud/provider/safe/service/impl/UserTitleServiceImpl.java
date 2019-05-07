@@ -51,7 +51,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
 		UserTitleParam userTitleParam = new UserTitleParam();
 //		userTitleParam.setOrderByClause("  ");
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userTitleParam.setEnterpriseId(param.getEnterpriseId());
 			}
 			if(param.getTitleId() != null) {
@@ -73,7 +73,7 @@ public class UserTitleServiceImpl implements IUserTitleService {
 		UserTitleParam userTitleParam = new UserTitleParam();
 //		userTitleParam.setOrderByClause("  ");
 		if(param != null) {
-			if(param.getEnterpriseId() != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userTitleParam.setEnterpriseId(param.getEnterpriseId());
 			}
 			if(param.getTitleId() != null) {

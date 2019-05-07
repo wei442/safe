@@ -22,6 +22,9 @@ public class UserQualityParam implements Serializable {
 
     private String userName;
 
+    //分组
+    private String groupByClause;
+
     //排序
     private String orderByClause;
 

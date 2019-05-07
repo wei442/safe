@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cloud.provider.safe.dao.dao.UserQualityDao">
+<mapper namespace="com.cloud.provider.safe.dao.dao.RiskCheckDao">
 
-	<!-- 查询用户资质列表 -->
-    <select id="selectList" parameterType="com.cloud.provider.safe.param.UserQualityParam" resultType="com.cloud.provider.safe.vo.user.UserQualityVo">
+	<!-- 查询风险验收列表 -->
+    <select id="selectList" parameterType="com.cloud.provider.safe.param.RiskCheckParam" resultType="com.cloud.provider.safe.vo.risk.RiskCheckVo">
         select 
-    	t1.id as userQualityId, t1.enterprise_id as enterpriseId, t1.user_id as userId, t1.user_name as userName, 
-    	t1.quality_name as qualityName, t1.is_delete as isDelete, t1.remark as remark, 
+    	t1.id as riskId, t1.enterprise_id as enterpriseId, t1.risk_code as riskCode, t1.risk_work_place as riskWorkPlace, t1.risk_category as riskCategory, 
+    	t1.risk_reason as riskReason, t1.risk_level as riskLevel, t1.control_reason as controlReason, t1.control_method as controlMethod, t1.risk_status as riskStatus, 
+    	t1.is_danger as isDanger, t1.frequency as frequency, 
+    	t1.is_delete as isDelete, t1.remark as remark, 
     	t1.created as created, t1.updated as updated, t1.create_time as createTime, t1.update_time as updateTime, 
-        t2.id as userQualityAttachmentId, t2.name as name, t2.url as url, 
-        count(t2.user_quality_id) as count 
-        from user_quality t1 left join user_quality_attachment t2 on t1.id = t2.user_quality_id
+        t2.id as riskCheckId, t2.effect as effect, t2.check_user_id as checkUserId, 
+        t2.check_user_account as checkUserAccount, t2.check_user_name as checkUserName, t2.check_time as checkTime, 
+        count(t2.risk_id) as count 
+        from risk t1 left join risk_check t2 on t1.id = t2.risk_id
         where t1.is_delete = 0 
         <if test="enterpriseId != null and enterpriseId != ''">
             and t1.enterprise_id = #{enterpriseId,jdbcType=INTEGER}

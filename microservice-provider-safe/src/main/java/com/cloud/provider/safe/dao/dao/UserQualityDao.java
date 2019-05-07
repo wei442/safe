@@ -1,14 +1,17 @@
 package com.cloud.provider.safe.dao.dao;
 
+import java.util.List;
+
 import com.cloud.provider.safe.param.UserQualityParam;
+import com.cloud.provider.safe.vo.user.UserQualityVo;
 
 public interface UserQualityDao {
 
     /**
-     * 根据userId更新用户名称
+     * 查询用户资质列表
      * @param param
-     * @return int
+     * @return List<UserQualityVo>
      */
-    public int updateUserNameByUserId(UserQualityParam param);
+    public List<UserQualityVo> selectList(UserQualityParam param);
 
 }

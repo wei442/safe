@@ -61,8 +61,9 @@ public class OrgServiceImpl implements IOrgService {
 	@Override
 	public List<OrgVo> selectTreeList(OrgParam param) {
     	logger.info("(OrgService-selectTreeList)-查询组织机构树-传入参数, param:{}", param);
-        List<OrgVo> orgList = new ArrayList<OrgVo>();
+    	param.setOrderByClause(" sort asc ");
     	List<OrgVo> list = orgDao.selectListByParentOrgId(param);
+    	List<OrgVo> orgList = new ArrayList<OrgVo>();
     	if(list != null && !list.isEmpty()) {
     		List<OrgVo> orgChildList = this.selectChildTreeList(list);
     		orgList.addAll(orgChildList);

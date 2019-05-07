@@ -23,12 +23,13 @@ public class SafeConstants {
 
 	static {
 		//风险
-		safeMap.put("101001", "风险类别");
-		safeMap.put("101002", "风险因素");
-		safeMap.put("101003", "风险级别");
-		safeMap.put("101004", "管控因素");
-		safeMap.put("101005", "管控措施");
-		safeMap.put("101006", "检查频次");
+		safeMap.put("101001", "作业场所");
+		safeMap.put("101002", "风险类别");
+		safeMap.put("101003", "风险因素");
+		safeMap.put("101004", "风险级别");
+		safeMap.put("101005", "管控因素");
+		safeMap.put("101006", "管控措施");
+		safeMap.put("101007", "检查频次");
 
 		//隐患
 		safeMap.put("102001", "隐患级别");

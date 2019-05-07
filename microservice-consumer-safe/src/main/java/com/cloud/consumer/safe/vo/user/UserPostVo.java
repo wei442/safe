@@ -24,6 +24,8 @@ public class UserPostVo implements Serializable {
 
     private Integer postId;
 
+    private Integer sort;
+
     private String created;
 
     private String updated;
