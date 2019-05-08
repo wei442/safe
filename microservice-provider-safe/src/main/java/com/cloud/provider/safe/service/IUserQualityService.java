@@ -9,7 +9,7 @@ import com.github.pagehelper.Page;
 
 public interface IUserQualityService {
 
-    /**
+  /**
 	 * 分页查询
 	 * @param page
 	 * @param param
@@ -23,6 +23,21 @@ public interface IUserQualityService {
 	 * @return List<UserQuality>
 	 */
 	public List<UserQuality> selectList(UserQualityPageRequest param);
+
+//    /**
+//	 * 分页查询
+//	 * @param page
+//	 * @param param
+//	 * @return List<UserQualityVo>
+//	 */
+//	public List<UserQualityVo> selectListByPage(Page<?> page, UserQualityPageRequest param);
+//
+//	/**
+//	 * 不分页查询
+//	 * @param param
+//	 * @return List<UserQualityVo>
+//	 */
+//	public List<UserQualityVo> selectList(UserQualityPageRequest param);
 
     /**
      * 根据id查询用户资质

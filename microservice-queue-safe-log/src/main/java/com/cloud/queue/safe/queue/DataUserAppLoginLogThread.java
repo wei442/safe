@@ -10,21 +10,21 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.redis.keys.RedisKeysUtil;
 import com.cloud.queue.safe.hook.ShutdownHandler;
-import com.cloud.queue.safe.service.IAttachmentLogService;
 import com.cloud.queue.safe.service.IRedisService;
+import com.cloud.queue.safe.service.IUserAppLoginLogService;
 
 /**
- * @ClassName: DataAttachmentLogThread
- * @Description: 附件日志队列监听类
+ * @ClassName: DataUserAppLoginLogThread
+ * @Description: 用户app日志队列监听类
  * @author wei.yong
  * @date 2017年3月23日 下午15:37:58
  */
 @Component
-public class DataAttachmentLogThread implements Runnable {
+public class DataUserAppLoginLogThread implements Runnable {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private String queueKey = RedisKeysUtil.QN_CLOUD_SAFE_USER_LOGIN_ATTACHMENT_LOG;
+	private String queueKey = RedisKeysUtil.QN_CLOUD_SAFE_USER_APP_LOGIN_LOG;
 
 //	//数据 Service
 //	@Autowired
@@ -34,21 +34,21 @@ public class DataAttachmentLogThread implements Runnable {
 	@Autowired
     private IRedisService redisService;
 
-	//附件日志 Service
+	//用户app日志 Service
 	@Autowired
-	private IAttachmentLogService attachmentLogService;
+	private IUserAppLoginLogService userAppLoginLogService;
 
 	@Override
 	public void run() {
 		String threadName = Thread.currentThread().getName();
-		logger.info("[DataAttachmentLogThread.run():附件日志数据队列-线程已启动:{}]: queueKey={}", threadName, queueKey);
+		logger.info("[DataUserAppLoginLogThread.run():用户app日志数据队列-线程已启动:{}]: queueKey={}", threadName, queueKey);
 		while(ShutdownHandler.INSTANCE.keepRunning()) {
 			String value = null;
 			try {
 				value = redisService.brpop(queueKey);
-				logger.info("[DataAttachmentLogThread.run():附件日志数据队列-redis获取数据]: value={}", value);
+				logger.info("[DataUserAppLoginLogThread.run():用户app日志数据队列-redis获取数据]: value={}", value);
 			} catch (Exception e) {
-				logger.error("[DataAttachmentLogThread.run():{} 线程-队列取值异常，进入下一循环] Exception = {}, message = {}", threadName, e, e.getMessage());
+				logger.error("[DataUserAppLoginLogThread.run():{} 线程-队列取值异常，进入下一循环] Exception = {}, message = {}", threadName, e, e.getMessage());
 				continue ;
 			}
 			if (StringUtils.isBlank(value)) {
@@ -58,17 +58,17 @@ public class DataAttachmentLogThread implements Runnable {
 			JSONObject params = null;
 			try {
 				params = JSONObject.parseObject(value);
-				logger.info("[DataAttachmentLogThread.run():附件日志数据队列-json数据解析]: params={}", params);
+				logger.info("[DataUserAppLoginLogThread.run():用户app日志数据队列-json数据解析]: params={}", params);
 			} catch (JSONException e) {
-				logger.error("[DataAttachmentLogThread.run():{} 线程-队列值解析异常，进入下一循环] Exception = {}, message = {}", threadName, e, e.getMessage());
+				logger.error("[DataUserAppLoginLogThread.run():{} 线程-队列值解析异常，进入下一循环] Exception = {}, message = {}", threadName, e, e.getMessage());
 				continue ;
 			}
 
 			try {
-				JSONObject jsoAttachmentLog = attachmentLogService.add(params);
-				logger.info("[DataAttachmentLogThread.run():附件日志数据队列-返回信息, jsoAttachmentLog:{}", jsoAttachmentLog);
+				JSONObject jsoUserAppLoginLog = userAppLoginLogService.add(params);
+				logger.info("[DataUserAppLoginLogThread.run():用户app日志数据队列-返回信息, jsoUserAppLoginLog:{}", jsoUserAppLoginLog);
 			} catch (Exception e) {
-				logger.error("[DataAttachmentLogThread.run():附件日志数据队列{} 线程处理异常, 已结束] queueKey={}, Exception={}, message={}", threadName, queueKey, e, e.getMessage());
+				logger.error("[DataUserAppLoginLogThread.run():用户app日志数据队列{} 线程处理异常, 已结束] queueKey={}, Exception={}, message={}", threadName, queueKey, e, e.getMessage());
 				continue ;
 			}
 		}

@@ -22,7 +22,7 @@ public class AttachmentLogRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "附件名称")
-	@NotBlank(message = "附件id不能为空")
+	@NotBlank(message = "附件名称不能为空")
 	private String attachmentName;
 
 	@ApiModelProperty(value = "附件rul")

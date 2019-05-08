@@ -156,8 +156,6 @@ public class UserQualityController extends BaseController {
 		logger.info("===step1:【新增用户资质】(UserQualityController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
-		//暂时
-		req.setUserId(-1);
 
 		String qualityName = req.getQualityName();
 		if(StringUtils.isBlank(qualityName)) {

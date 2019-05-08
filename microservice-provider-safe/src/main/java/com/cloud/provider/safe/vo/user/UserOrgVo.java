@@ -31,6 +31,8 @@ public class UserOrgVo implements Serializable {
 
     private Integer orgId;
 
+    private String userName;
+
     private String employeeNo;
 
     private Integer sort;
@@ -46,8 +48,6 @@ public class UserOrgVo implements Serializable {
     private Date updateTime;
 
     private String userAccount;
-
-    private String userName;
 
     /**
      * 实体转换

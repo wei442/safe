@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.OrgQualityAttachmentMapper;
 import com.cloud.provider.safe.dao.OrgQualityMapper;
+import com.cloud.provider.safe.dao.dao.OrgQualityDao;
 import com.cloud.provider.safe.po.OrgQuality;
 import com.cloud.provider.safe.po.OrgQualityAttachment;
 import com.cloud.provider.safe.po.OrgQualityAttachmentExample;
@@ -35,11 +37,15 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
     @Autowired
     private OrgQualityMapper orgQualityMapper;
 
+    //机构资质 Dao
+    @Autowired
+    private OrgQualityDao orgQualityDao;
+
     //机构资质附件 Mapper
     @Autowired
     private OrgQualityAttachmentMapper orgQualityAttachmentMapper;
 
-    /**
+  /**
 	 * 分页查询
 	 * @param page
 	 * @param param
@@ -56,6 +62,9 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
 		if(param != null) {
 			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
+			}
+			if(StringUtils.isNotBlank(param.getQualityName())) {
+				criteria.andQualityNameLike(param.getQualityName()+"%");
 			}
 		}
 		List<OrgQuality> list = orgQualityMapper.selectByExample(example);
@@ -78,10 +87,56 @@ public class OrgQualityServiceImpl implements IOrgQualityService {
 			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
+			if(StringUtils.isNotBlank(param.getQualityName())) {
+				criteria.andQualityNameLike(param.getQualityName()+"%");
+			}
 		}
 		List<OrgQuality> list = orgQualityMapper.selectByExample(example);
 		return list;
 	}
+
+//    /**
+//	 * 分页查询
+//	 * @param page
+//	 * @param param
+//	 * @return List<OrgQualityVo>
+//	 */
+//	@Override
+//	public List<OrgQualityVo> selectListByPage(Page<?> page, OrgQualityPageRequest param) {
+//		logger.info("(OrgQualityService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+//		PageHelper.startPage(page.getPageNum(), page.getPageSize());
+//		OrgQualityParam orgQualityParam = new OrgQualityParam();
+//		orgQualityParam.setGroupByClause(" t2.org_quality_id ");
+//		orgQualityParam.setOrderByClause(" t1.id desc ");
+//		if(param != null) {
+//			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
+//				orgQualityParam.setEnterpriseId(param.getEnterpriseId());
+//			}
+//		}
+//		List<OrgQualityVo> list = orgQualityDao.selectList(orgQualityParam);
+//		return list;
+//	}
+//
+//	/**
+//	 * 不分页查询
+//	 * @param param
+//	 * @return List<OrgQualityVo>
+//	 */
+//	@Override
+//	public List<OrgQualityVo> selectList(OrgQualityPageRequest param) {
+//		logger.info("(OrgQualityService-selectList)-不分页查询-传入参数, param:{}", param);
+//		OrgQualityParam orgQualityParam = new OrgQualityParam();
+//		orgQualityParam.setGroupByClause(" t2.org_quality_id ");
+//		orgQualityParam.setOrderByClause(" t1.id desc ");
+//		if(param != null) {
+//			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
+//				orgQualityParam.setEnterpriseId(param.getEnterpriseId());
+//			}
+//		}
+//		List<OrgQualityVo> list = orgQualityDao.selectList(orgQualityParam);
+//		return list;
+//	}
+
 
     /**
      * 根据id查询机构资质

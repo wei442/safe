@@ -18,4 +18,7 @@ public class UserQualityPageRequest extends BaseRestRequest {
 	@ApiModelProperty(value = "企业id")
     private Integer enterpriseId;
 
+    @ApiModelProperty(value = "资质名称")
+    private String qualityName;
+
 }

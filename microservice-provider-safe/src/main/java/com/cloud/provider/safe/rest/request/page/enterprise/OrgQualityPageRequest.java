@@ -21,4 +21,7 @@ public class OrgQualityPageRequest extends BaseRestRequest {
     @NotNull(message = "企业id不能为空")
     private Integer enterpriseId;
 
+    @ApiModelProperty(value = "资质名称")
+    private String qualityName;
+
 }

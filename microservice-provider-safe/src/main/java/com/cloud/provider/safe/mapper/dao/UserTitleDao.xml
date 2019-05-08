@@ -6,14 +6,11 @@
         select 
     	t1.id as userTitleId, t1.enterprise_id as enterpriseId, t1.user_id as userId, t1.title_id as titleId, 
     	t1.sort as sort, t1.created as created, t1.updated as updated, t1.create_time as createTime, t1.update_time as updateTime, 
-    	t2.user_account as userAccount, t2.user_name as userName, 
-    	t3.org_id as orgId, 
-    	t4.org_name as orgName 
-    	from user_title t1, user_info t2, user_org t3, org t4
-    	where t1.user_id = t2.id
-        and t2.id = t3.user_id 
-        and t3.org_id = t4.id 
-  		and t2.is_delete = 0 
+    	t2.org_id as orgId, t2.user_name as userName,  
+    	t3.org_name as orgName 
+    	from user_title t1, user_org t2, org t3
+        where t2.org_id = t3.id 
+  		and t3.is_delete = 0 
         <if test="enterpriseId != null and enterpriseId != ''">
             and t1.enterprise_id = #{enterpriseId,jdbcType=INTEGER}
         </if>

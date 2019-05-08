@@ -11,6 +11,8 @@ public class UserOrg {
 
     private Integer orgId;
 
+    private String userName;
+
     private String employeeNo;
 
     private Integer sort;
@@ -53,6 +55,14 @@ public class UserOrg {
 
     public void setOrgId(Integer orgId) {
         this.orgId = orgId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public String getEmployeeNo() {

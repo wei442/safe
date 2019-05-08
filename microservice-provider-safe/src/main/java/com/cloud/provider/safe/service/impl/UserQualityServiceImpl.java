@@ -3,6 +3,7 @@ package com.cloud.provider.safe.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.provider.safe.dao.UserQualityAttachmentMapper;
 import com.cloud.provider.safe.dao.UserQualityMapper;
+import com.cloud.provider.safe.dao.dao.UserQualityDao;
 import com.cloud.provider.safe.po.UserQuality;
 import com.cloud.provider.safe.po.UserQualityAttachment;
 import com.cloud.provider.safe.po.UserQualityAttachmentExample;
@@ -34,6 +36,10 @@ public class UserQualityServiceImpl implements IUserQualityService {
     @Autowired
     private UserQualityMapper userQualityMapper;
 
+    //用户资质 Dao
+    @Autowired
+    private UserQualityDao userQualityDao;
+
     //用户资质附件 Mapper
     @Autowired
     private UserQualityAttachmentMapper userQualityAttachmentMapper;
@@ -55,6 +61,9 @@ public class UserQualityServiceImpl implements IUserQualityService {
 			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
+			if(StringUtils.isNotBlank(param.getQualityName())) {
+				criteria.andQualityNameLike(param.getQualityName()+"%");
+			}
 		}
 		List<UserQuality> list = userQualityMapper.selectByExample(example);
 		return list;
@@ -75,10 +84,53 @@ public class UserQualityServiceImpl implements IUserQualityService {
 			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				criteria.andEnterpriseIdEqualTo(param.getEnterpriseId());
 			}
+			if(StringUtils.isNotBlank(param.getQualityName())) {
+				criteria.andQualityNameLike(param.getQualityName()+"%");
+			}
 		}
 		List<UserQuality> list = userQualityMapper.selectByExample(example);
 		return list;
 	}
+
+//    /**
+//	 * 分页查询
+//	 * @param page
+//	 * @param param
+//	 * @return List<UserQualityVo>
+//	 */
+//	@Override
+//	public List<UserQualityVo> selectListByPage(Page<?> page, UserQualityPageRequest param) {
+//		logger.info("(UserQualityService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+//		PageHelper.startPage(page.getPageNum(), page.getPageSize());
+//		UserQualityParam userQualityParam = new UserQualityParam();
+//		userQualityParam.setOrderByClause(" t1.id desc ");
+//		if(param != null) {
+//			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
+//				userQualityParam.setEnterpriseId(param.getEnterpriseId());
+//			}
+//		}
+//		List<UserQualityVo> list = userQualityDao.selectList(userQualityParam);
+//		return list;
+//	}
+
+//	/**
+//	 * 不分页查询
+//	 * @param param
+//	 * @return List<UserQualityVo>
+//	 */
+//	@Override
+//	public List<UserQualityVo> selectList(UserQualityPageRequest param) {
+//		logger.info("(UserQualityService-selectList)-不分页查询-传入参数, param:{}", param);
+//		UserQualityParam userQualityParam = new UserQualityParam();
+//		userQualityParam.setOrderByClause(" t1.id desc ");
+//		if(param != null) {
+//			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
+//				userQualityParam.setEnterpriseId(param.getEnterpriseId());
+//			}
+//		}
+//		List<UserQualityVo> list = userQualityDao.selectList(userQualityParam);
+//		return list;
+//	}
 
     /**
      * 根据id查询用户资质

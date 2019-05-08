@@ -53,17 +53,17 @@ public final class RedisKeysUtil {
 	 * @Title   project：microservice-consumer-safe-admin
 	 * @Description keyName：用户管理日志队列-队列key
 	 */
-	public static final String QN_CLOUD_SAFE_USER_LOGIN_USER_ADMIN_LOGIN_LOG = "qn:cloud:safe:user:admin:login:log";
+	public static final String QN_CLOUD_SAFE_USER_ADMIN_LOGIN_LOG = "qn:cloud:safe:user:admin:login:log";
 	/**
 	 * @Title   project：microservice-consumer-safe-admin
 	 * @Description keyName：用户app日志队列-队列key
 	 */
-	public static final String QN_CLOUD_SAFE_USER_LOGIN_USER_APP_LOGIN_LOG = "qn:cloud:safe:user:app:login:log";
+	public static final String QN_CLOUD_SAFE_USER_APP_LOGIN_LOG = "qn:cloud:safe:user:app:login:log";
 	/**
 	 * @Title   project：microservice-consumer-safe-admin
 	 * @Description keyName：基础用户登录日志队列-队列key
 	 */
-	public static final String QN_CLOUD_SAFE_USER_BASE_USER_LOGIN_LOG = "qn:cloud:safe:base:user:login:log";
+	public static final String QN_CLOUD_SAFE_BASE_USER_LOGIN_LOG = "qn:cloud:safe:base:user:login:log";
 	////////////////////////////队列key END //////////////////////////////////////
 
 

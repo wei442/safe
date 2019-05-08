@@ -166,14 +166,14 @@ public class UserOrgController extends BaseController {
 		logger.info("===step1:【添加用户机构】(UserOrgController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		String userAccount = req.getUserAccount();
-		String userName = req.getUserName();
+//		String userName = req.getUserName();
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
 		logger.info("===step2:【添加用户机构】(UserOrgController-insert)-根据userAccount查询用户信息, userInfo:{}", userInfo);
 		Integer userId = null;
 		if(userInfo == null) {
 			userInfo = new UserInfo();
 			userInfo.setUserAccount(userAccount);
-			userInfo.setUserName(userName);
+//			userInfo.setUserName(userName);
 			int i = userInfoService.insert(userInfo);
 			logger.info("===step2.1:【添加用户机构】(UserOrgController-insert)-插入用户信息, i:{}", i);
 		}

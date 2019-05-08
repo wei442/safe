@@ -34,6 +34,10 @@ public class UserOrgRequest implements Serializable {
     @NotNull(message = "机构id不能为空")
     private Integer orgId;
 
+	@ApiModelProperty(value = "用户名称")
+	@NotBlank(message = "用户名称不能为空")
+	private String userName;
+
 	@ApiModelProperty(value = "工号")
 	private String employeeNo;
 
@@ -43,11 +47,6 @@ public class UserOrgRequest implements Serializable {
 	@ApiModelProperty(value = "手机号码")
 	@NotBlank(message = "手机号码不能为空")
     private String userAccount;
-
-    @ApiModelProperty(value = "用户名称")
-	@NotBlank(message = "用户名称不能为空")
-    private String userName;
-
 
     /**
 	 * 实体转换

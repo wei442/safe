@@ -24,6 +24,21 @@ public interface IOrgQualityService {
 	 */
 	public List<OrgQuality> selectList(OrgQualityPageRequest param);
 
+//    /**
+//	 * 分页查询
+//	 * @param page
+//	 * @param param
+//	 * @return List<OrgQualityVo>
+//	 */
+//	public List<OrgQualityVo> selectListByPage(Page<?> page, OrgQualityPageRequest param);
+//
+//	/**
+//	 * 不分页查询
+//	 * @param param
+//	 * @return List<OrgQualityVo>
+//	 */
+//	public List<OrgQualityVo> selectList(OrgQualityPageRequest param);
+
     /**
      * 根据id查询机构资质
      * @param id

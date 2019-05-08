@@ -43,11 +43,11 @@ public class UserTitleVo implements Serializable {
     @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date updateTime;
 
-    private String userName;
-
     private Integer orgId;
 
     private String orgName;
+
+    private String userName;
 
     /**
      * 实体转换
