@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserQualityService;
 
 /**
- * 用户资质 Service (microservice-provider-safe)
+ * 用户资质 UserQualityService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -92,14 +90,14 @@ public class UserQualityServiceImpl extends BaseService implements IUserQualityS
 	}
 
 	/**
-	 * 根据ids删除用户资质
+	 * 批量删除用户资质
 	 * @param ids
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteByIds(List<Integer> ids) {
-		logger.info("(UserQualityService-deleteByIds)-根据ids获取用户资质-传入参数, ids:{}", ids);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_quality+"/deleteByIds/"+ids, null, JSONObject.class);
+	public JSONObject batchDelete(Object params) {
+		logger.info("(UserQualityService-batchDelete)-批量删除用户资质-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_quality+"/batchDelete", params, JSONObject.class);
 		return response;
 	}
 

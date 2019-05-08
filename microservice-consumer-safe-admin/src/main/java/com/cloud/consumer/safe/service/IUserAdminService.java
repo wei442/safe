@@ -26,6 +26,13 @@ public interface IUserAdminService {
 	public JSONObject getById(Integer id);
 
 	/**
+	 * 获取用户主管理员
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject getMaster(Object params);
+
+	/**
 	 * 新增用户管理
 	 * @param params
 	 * @return JSONObject
@@ -45,5 +52,12 @@ public interface IUserAdminService {
 	 * @return JSONObject
 	 */
 	public JSONObject update(Object params);
+
+	/**
+	 * 更改用户主管理员
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject changeMaster(Object params);
 
 }

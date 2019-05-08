@@ -241,17 +241,6 @@ public class BaseController {
 	}
 
 	/**
-	 * 校验参数
-	 * @param bindingResult
-	 */
-//	protected void bindingResult(BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//        	logger.info(">>>>>> {}.{}() valid params is error msg = {}", this.getClass().getSimpleName(), this.getRequestMethodName(), bindingResult.getFieldError().getDefaultMessage());
-//        	throw new SafeException(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), bindingResult.getFieldError().getDefaultMessage());
-//        }
-//    }
-
-	/**
 	 * 获取请求加点URI参数为空，如：user.register.parameter.empty
 	 * @return String
 	 */

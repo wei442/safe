@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IBaseUserLoginService;
 
 /**
- * 基础用户登录 Service (microservice-provider-safe)
+ * 基础用户登录 BaseUserLoginService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service

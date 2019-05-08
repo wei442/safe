@@ -21,7 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.ZuulConstants;
 import com.cloud.common.enums.ResultEnum;
-import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
+import com.cloud.common.enums.safe.RetSafeResultEnum;
 import com.cloud.common.jjwt.JJWTUtil;
 import com.cloud.common.redis.keys.RedisKeysUtil;
 import com.cloud.common.security.KeyFactoryUtil;
@@ -65,10 +65,10 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		String ip = IpUtil.getIpAddr(request);
 		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-请求url, 请求ip:{}, requestUrl:{}", ip, requestUrl);
 
-		String apiGatewayWheel = request.getHeader(ZuulConstants.API_GATEWAY);
-		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-请求网关, 请求网关:{}", apiGatewayWheel);
-		if(!StringUtils.equals(apiGatewayWheel, ZuulConstants.API_GATEWAY_SAFE_ADMIN)) {
-			String respStr = this.addRetMsg(RetSafeAdminResultEnum.NETWORK_ERROR);
+		String apiGateway = request.getHeader(ZuulConstants.API_GATEWAY);
+		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-请求网关, 请求网关:{}", apiGateway);
+		if(!StringUtils.equals(apiGateway, ZuulConstants.API_GATEWAY_SAFE_ADMIN)) {
+			String respStr = this.addRetMsg(RetSafeResultEnum.NETWORK_ERROR);
 			logger.info("【Token拦截器】(TokenInterceptor-preHandle)-非法请求, respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);
 			return false;
@@ -77,7 +77,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		String token = request.getHeader(CommConstants.TOKEN);
 		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-获取header(token)数据, token:{}", token);
 		if(StringUtils.isBlank(token)) {
-			String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_NULL_ERROR);
+			String respStr = this.addRetMsg(RetSafeResultEnum.TOKEN_NULL_ERROR);
 			logger.info("【Token拦截器】(TokenInterceptor-preHandle)-token为空, respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);
 			return false;
@@ -89,14 +89,14 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		} catch (MalformedJwtException e) {
 			//not a valid JWS
 			logger.error("【Token拦截器】(TokenInterceptor-preHandle)-token格式错误, Exception = {}, message = {}", e, e.getMessage());
-        	String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_JWT_ERROR);
+        	String respStr = this.addRetMsg(RetSafeResultEnum.TOKEN_JWT_ERROR);
 	    	logger.info("【Token拦截器】(TokenInterceptor-preHandle)-token格式错误, respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);
 			return false;
         } catch (SignatureException e) {
         	//JWT signature validation fails
         	logger.error("【Token拦截器】(TokenInterceptor-preHandle)-token签名错误, Exception = {}, message = {}", e, e.getMessage());
-        	String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_VERIFY_FAIL_ERROR);
+        	String respStr = this.addRetMsg(RetSafeResultEnum.TOKEN_VERIFY_FAIL_ERROR);
 	    	logger.info("【Token拦截器】(TokenInterceptor-preHandle)-token签名错误, respStr:{}", respStr);
 	    	AjaxUtil.printByWriter(response, respStr);
 			return false;
@@ -106,7 +106,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 
 		//校验失败
 		if(!StringUtils.equals(issuer, CommConstants.CLOUD)) {
-			String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_ERROR);
+			String respStr = this.addRetMsg(RetSafeResultEnum.TOKEN_ERROR);
 	    	logger.info("【Token拦截器】(TokenInterceptor-preHandle)-发行者(issuer)错误, respStr:{}", respStr);
 	    	AjaxUtil.printByWriter(response, respStr);
 			return false;
@@ -116,12 +116,12 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 		String redisToken = redisService.get(tokenkey);
 		logger.info("【Token拦截器】(TokenInterceptor-preHandle)-获取redis里token, tokenkey:{}, redisToken:{}", tokenkey, redisToken);
 		if(StringUtils.isBlank(redisToken)) {
-			String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_EXPIRE);
+			String respStr = this.addRetMsg(RetSafeResultEnum.TOKEN_EXPIRE);
 			logger.info("【Token拦截器】(TokenInterceptor-preHandle)-token已过期 , respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);
 			return false;
 		} else if(!StringUtils.equals(token, redisToken)) {
-			String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_ERROR);
+			String respStr = this.addRetMsg(RetSafeResultEnum.TOKEN_ERROR);
 			logger.info("【Token拦截器】(TokenInterceptor-preHandle)-token错误, respStr:{}", respStr);
 			AjaxUtil.printByWriter(response, respStr);
 			return false;

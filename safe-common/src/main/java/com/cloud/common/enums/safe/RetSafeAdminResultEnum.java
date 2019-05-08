@@ -30,26 +30,6 @@ public enum RetSafeAdminResultEnum implements ResultEnum {
 	FASTDFS_DOWNLOAD_ERROR("0000008", "文件下载失败"),
 
 
-//	/**
-//	 * 错误编码-token错误
-//	 */
-//	public static final String TOKEN_ERROR = "0000005";
-//	public static final String TOKEN_ERROR_MSG = "token错误";
-//	public static final String TOKEN_FAIL = "token.error";
-//	public static final String TOKEN_FAIL_MSG = "token失败";
-//	public static final String TOKEN_VERIFY_FAIL = "token.verify.error";
-//	public static final String TOKEN_VERIFY_FAIL_MSG = "token失败";
-//
-//	public static final String TOKEN_NULL_ERROR = "token.null";
-//	public static final String TOKEN_NULL_ERROR_MSG = "token为空";
-//	public static final String TOKEN_EXPIRE = "token.expire";
-//	public static final String TOKEN_EXPIRE_MSG = "token已过期";
-//	public static final String TOKEN_JWT_ERROR = "token.jwt.error";
-//	public static final String TOKEN_JWT_ERROR_MSG = "token格式错误";
-
-
-
-
 	;
 
 	private String code;

@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IOrgQualityService;
 
 /**
- * 机构资质 Service (microservice-provider-safe)
+ * 机构资质 OrgQualityService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -24,7 +24,7 @@ public class OrgQualityServiceImpl extends BaseService implements IOrgQualitySer
 	 */
 	@Override
 	public JSONObject getListByPage(Object params) {
-		logger.info("(EnterpriseQualityService-getListByPage)-分页获取机构资质列表-传入参数, params:{}", params);
+		logger.info("(OrgQualityService-getListByPage)-分页获取机构资质列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.org_quality+"/selectListByPage", params, JSONObject.class);
 		return response;
 	}
@@ -36,7 +36,7 @@ public class OrgQualityServiceImpl extends BaseService implements IOrgQualitySer
 	 */
 	@Override
 	public JSONObject getList(Object params) {
-		logger.info("(EnterpriseQualityService-getList)-获取机构资质列表-传入参数, params:{}", params);
+		logger.info("(OrgQualityService-getList)-获取机构资质列表-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.org_quality+"/selectList", params, JSONObject.class);
 		return response;
 	}
@@ -48,7 +48,7 @@ public class OrgQualityServiceImpl extends BaseService implements IOrgQualitySer
 	 */
 	@Override
 	public JSONObject getById(Integer id) {
-		logger.info("(EnterpriseQualityService-getById)-根据id获取机构资质-传入参数, id:{}", id);
+		logger.info("(OrgQualityService-getById)-根据id获取机构资质-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.org_quality+"/selectById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -60,7 +60,7 @@ public class OrgQualityServiceImpl extends BaseService implements IOrgQualitySer
 	 */
 	@Override
 	public JSONObject add(Object params) {
-		logger.info("(EnterpriseQualityService-add)-新增机构资质-传入参数, params:{}", params);
+		logger.info("(OrgQualityService-add)-新增机构资质-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.org_quality+"/insert", params, JSONObject.class);
 		return response;
 	}
@@ -72,7 +72,7 @@ public class OrgQualityServiceImpl extends BaseService implements IOrgQualitySer
 	 */
 	@Override
 	public JSONObject deleteById(Integer id) {
-		logger.info("(EnterpriseQualityService-deleteById)-根据id获取机构资质-传入参数, id:{}", id);
+		logger.info("(OrgQualityService-deleteById)-根据id获取机构资质-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.org_quality+"/deleteById/"+id, null, JSONObject.class);
 		return response;
 	}
@@ -84,7 +84,7 @@ public class OrgQualityServiceImpl extends BaseService implements IOrgQualitySer
 	 */
 	@Override
 	public JSONObject update(Object params) {
-		logger.info("(EnterpriseQualityService-update)-修改机构资质-传入参数, params:{}", params);
+		logger.info("(OrgQualityService-update)-修改机构资质-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.org_quality+"/modify", params, JSONObject.class);
 		return response;
 	}

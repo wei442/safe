@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
-import com.cloud.consumer.safe.rest.request.EnterpriseIdRequest;
-import com.cloud.consumer.safe.rest.request.EnterpriseRequest;
-import com.cloud.consumer.safe.rest.request.page.EnterprisePageRequest;
+import com.cloud.consumer.safe.rest.request.enterprise.EnterpriseIdRequest;
+import com.cloud.consumer.safe.rest.request.enterprise.EnterpriseRequest;
+import com.cloud.consumer.safe.rest.request.page.enterprise.EnterprisePageRequest;
 import com.cloud.consumer.safe.service.IEnterpriseService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.EnterpriseVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
+import com.cloud.consumer.safe.vo.enterprise.EnterpriseVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -58,6 +58,8 @@ public class EnterpriseController extends BaseController {
 	public BaseRestMapResponse getListByPage(
 		@RequestBody EnterprisePageRequest req) {
 		logger.info("===step1:【分页查询】(EnterpriseController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonEnterprise = enterpriseService.getListByPage(req);
 		logger.info("===step2:【分页查询】(EnterpriseController-getListByPage)-分页查询企业列表, jsonEnterprise:{}", jsonEnterprise);
@@ -69,7 +71,7 @@ public class EnterpriseController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, enterpriseVoList);
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, result);
+		enterpriseResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(EnterpriseController-getListByPage)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 	    return enterpriseResponse;
 	}
@@ -85,8 +87,10 @@ public class EnterpriseController extends BaseController {
 	public BaseRestMapResponse getList(
 		@RequestBody EnterprisePageRequest req) {
 		logger.info("===step1:【不分页查询】(EnterpriseController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonEnterprise = enterpriseService.getListByPage(req);
+		JSONObject jsonEnterprise = enterpriseService.getList(req);
 		logger.info("===step2:【不分页查询】(EnterpriseController-getList)-不分页查询企业列表, jsonEnterprise:{}", jsonEnterprise);
 		String dataListStr = JSONObject.toJSONString(jsonEnterprise.getJSONArray(PageConstants.DATA_LIST));
 		List<EnterpriseVo> enterpriseVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<EnterpriseVo>>(){});
@@ -94,7 +98,7 @@ public class EnterpriseController extends BaseController {
 		BaseResultVo result = new BaseResultVo(enterpriseVoList);
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, result);
+		enterpriseResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(EnterpriseController-getList)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
@@ -109,20 +113,20 @@ public class EnterpriseController extends BaseController {
 	@ApiOperation(value = "获取企业详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody EnterpriseIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取企业】(EnterpriseController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取企业】(EnterpriseController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer enterpriseId = req.getEnterpriseId();
 		JSONObject jsonEnterprise = enterpriseService.getById(enterpriseId);
-		logger.info("===step2:【获取企业】(EnterpriseController-get)-根据enterpriseId获取企业, jsonEnterprise:{}", jsonEnterprise);
+		logger.info("===step2:【获取企业】(EnterpriseController-getDetail)-根据enterpriseId获取企业, jsonEnterprise:{}", jsonEnterprise);
 		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonEnterprise, EnterpriseVo.class);
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, enterpriseVo);
-	    logger.info("===step3:【获取企业】(EnterpriseController-get)-返回信息, enterpriseResponse:{}", enterpriseResponse);
+		enterpriseResponse.put(CommConstants.RESULT, enterpriseVo);
+	    logger.info("===step3:【获取企业】(EnterpriseController-getDetail)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 	    return enterpriseResponse;
 	}
 
@@ -142,11 +146,9 @@ public class EnterpriseController extends BaseController {
 
 		JSONObject jsonEnterprise = enterpriseService.add(req);
 		logger.info("===step2:【新增企业】(EnterpriseController-add)-分页查询企业列表, jsonEnterprise:{}", jsonEnterprise);
-		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonEnterprise, EnterpriseVo.class);
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, enterpriseVo);
 	    logger.info("===step3:【新增企业】(EnterpriseController-add)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 	    return enterpriseResponse;
 	}
@@ -168,11 +170,9 @@ public class EnterpriseController extends BaseController {
 		Integer enterpriseId = req.getEnterpriseId();
 		JSONObject jsonEnterprise = enterpriseService.deleteById(enterpriseId);
 		logger.info("===step2:【删除企业】(EnterpriseController-delete)-根据enterpriseId删除企业, jsonEnterprise:{}", jsonEnterprise);
-		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonEnterprise, EnterpriseVo.class);
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, enterpriseVo);
 		logger.info("===step3:【删除企业】(EnterpriseController-delete)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
@@ -193,11 +193,9 @@ public class EnterpriseController extends BaseController {
 
 		JSONObject jsonEnterprise = enterpriseService.update(req);
 		logger.info("===step2:【修改企业】(EnterpriseController-update)-修改企业, jsonEnterprise:{}", jsonEnterprise);
-		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonEnterprise, EnterpriseVo.class);
 
 		//返回信息
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(RetSafeConstants.RESULT, enterpriseVo);
 		logger.info("===step3:【修改企业】(EnterpriseController-update)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}

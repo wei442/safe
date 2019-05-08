@@ -1,5 +1,6 @@
 package com.cloud.consumer.safe.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,8 +21,10 @@ import com.cloud.common.constants.PageConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.page.user.UserTitlePageRequest;
+import com.cloud.consumer.safe.rest.request.user.UserInfoIdRequest;
 import com.cloud.consumer.safe.rest.request.user.UserTitleIdRequest;
 import com.cloud.consumer.safe.rest.request.user.UserTitleIdsRequest;
+import com.cloud.consumer.safe.rest.request.user.UserTitleListRequest;
 import com.cloud.consumer.safe.rest.request.user.UserTitleRequest;
 import com.cloud.consumer.safe.service.IUserTitleService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
@@ -153,6 +156,46 @@ public class UserTitleController extends BaseController {
 		//返回信息
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
 	    logger.info("===step3:【新增用户职务】(UserTitleController-add)-返回信息, userTitleResponse:{}", userTitleResponse);
+	    return userTitleResponse;
+	}
+
+	/**
+	 * 批量新增用户职务
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "批量新增用户职务")
+	@RequestMapping(value="/addList",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse addList(
+		@Validated @RequestBody UserTitleListRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【批量新增用户职务】(UserTitleController-addList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		Integer postId = req.getTitleId();
+
+		List<UserTitleRequest> userTitleList = null;
+		List<UserInfoIdRequest> userList = req.getUserList();
+		if(userList != null && !userList.isEmpty()) {
+			userTitleList = new ArrayList<UserTitleRequest>();
+			UserTitleRequest userTitleRequest = null;
+			for (UserInfoIdRequest userInfoIdRequest : userList) {
+				userTitleRequest = new UserTitleRequest();
+				userTitleRequest.setEnterpriseId(enterpriseId);
+				userTitleRequest.setUserId(userInfoIdRequest.getUserId());
+				userTitleRequest.setTitleId(postId);
+				userTitleList.add(userTitleRequest);
+			}
+		}
+		req.setUserTitleList(userTitleList);
+
+		JSONObject jsonUserTitle = userTitleService.addList(req);
+		logger.info("===step2:【批量新增用户职务】(UserTitleController-addList)-批量新增用户职务列表, jsonUserTitle:{}", jsonUserTitle);
+
+		//返回信息
+		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
+	    logger.info("===step3:【批量新增用户职务】(UserTitleController-addList)-返回信息, userTitleResponse:{}", userTitleResponse);
 	    return userTitleResponse;
 	}
 

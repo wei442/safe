@@ -92,13 +92,16 @@ public class BaseController {
 	/**
 	 * 设置token,过期时间为7*24小时
 	 * @param enterpriseId
+	 * @param enterpriseName
 	 * @param userId
 	 * @param userAccount
+	 * @param orgId
+	 * @param orgName
 	 * @return String
 	 */
-	protected String setToken(Integer enterpriseId,Integer userId,String userAccount) {
-		logger.info("(BaseController-setToken)-redis设置token-传入参数, enterpriseId:{}, userId:{}, userAccount:{}", enterpriseId, userId, userAccount);
-		if(null == enterpriseId ||null == userId || StringUtils.isBlank(userAccount)) {
+	protected String setToken(Integer enterpriseId,String enterpriseName,Integer userId,String userAccount,Integer orgId,String orgName) {
+		logger.info("(BaseController-setToken)-redis设置token-传入参数, enterpriseId:{}, enterpriseName:{}, userId:{}, userAccount:{}, orgId:{}, orgName:{}", enterpriseId, enterpriseName, userId, userAccount, orgId, orgName);
+		if(null == enterpriseId || null == userId || StringUtils.isBlank(userAccount)) {
 			return null;
 		}
 
@@ -111,8 +114,12 @@ public class BaseController {
 		String audience = CommConstants.CLOUD;
 		Map<String, Object> claims = new HashMap<String, Object>();
 		claims.put(CommConstants.ENTERPRISE_ID, enterpriseId);
+		claims.put(CommConstants.ENTERPRISE_NAME, enterpriseName);
 		claims.put(CommConstants.USER_ID, userId);
 		claims.put(CommConstants.USER_ACCOUNT, userAccount);
+		claims.put(CommConstants.ORG_ID, orgId);
+		claims.put(CommConstants.ORG_NAME, orgName);
+
 		logger.info("(BaseController-setToken)-声明(claims), claims:{}", claims);
 
 		String token = TokenUtil.INSTANCE.createJWT(privateKey, signatureAlgorithm, claims, issuer, audience);
@@ -136,6 +143,23 @@ public class BaseController {
 			long l = redisService.del(tokenkey);
 			logger.info("(BaseController-clearToken)-清除token-返回信息, tokenkey:{}, l:{}", tokenkey, l);
 		}
+	}
+
+	/**
+	 * 设置首次登录修改密码的accesstoken(10分钟有效)
+	 * @param userId
+	 * @return String
+	 */
+	protected String setFirstLoginAccessToken(Integer userId) {
+		logger.info("(BaseController-setFirstLoginAccessToken)-redis设置accesstoken-传入参数, userId:{}", userId);
+		if(null == userId) {
+			return null;
+		}
+
+		String accesstokenkey = RedisKeysUtil.CN_CLOUD_SAFE_ADMIN_FIRSTLOGIN_ACCESSTOKEN_USERID + userId;
+		String accesstokenResult = redisService.setex(accesstokenkey, CommConstants.TEN_MINUTE_SECONDS_TIME, Objects.toString(userId));
+		logger.info("(BaseController-setFirstLoginAccessToken)-redis设置accesstoken-返回信息, accesstokenkey:{}, accesstokenResult:{}", accesstokenkey, accesstokenResult);
+		return accesstokenResult;
 	}
 
 	/**
@@ -211,6 +235,17 @@ public class BaseController {
 	}
 
 	/**
+	 * 获取token(enterpriseName)
+	 * @return Integer
+	 */
+	protected String getTokenEnterpriseName() {
+		JSONObject payloadJSON = this.getTokenPayload();
+		String enterpriseName = Objects.toString(payloadJSON.get(CommConstants.ENTERPRISE_NAME));
+		logger.info("(BaseController-getTokenEnterpriseName)-返回信息, enterpriseName:{}", enterpriseName);
+		return enterpriseName;
+	}
+
+	/**
 	 * 获取token(userId)
 	 * @return Integer
 	 */
@@ -233,15 +268,26 @@ public class BaseController {
 	}
 
 	/**
-	 * 校验参数
-	 * @param bindingResult
+	 * 获取token(orgId)
+	 * @return Integer
 	 */
-//	protected void bindingResult(BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//        	logger.info(">>>>>> {}.{}() valid params is error msg = {}", this.getClass().getSimpleName(), this.getRequestMethodName(), bindingResult.getFieldError().getDefaultMessage());
-//        	throw new SafeException(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), bindingResult.getFieldError().getDefaultMessage());
-//        }
-//    }
+	protected Integer getTokenOrgId() {
+		JSONObject payloadJSON = this.getTokenPayload();
+		Integer orgId = new Integer(Objects.toString(payloadJSON.get(CommConstants.ORG_ID)));
+		logger.info("(BaseController-getTokenOrgId)-返回信息, orgId:{}", orgId);
+		return orgId;
+	}
+
+	/**
+	 * 获取token(orgName)
+	 * @return String
+	 */
+	protected String getTokenOrgName() {
+		JSONObject payloadJSON = this.getTokenPayload();
+		String orgName = Objects.toString(payloadJSON.get(CommConstants.ORG_NAME));
+		logger.info("(BaseController-getTokenOrgName)-返回信息, orgName:{}", orgName);
+		return orgName;
+	}
 
 	/**
 	 * 获取请求加点URI参数为空，如：user.register.parameter.empty

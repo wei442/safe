@@ -27,7 +27,6 @@ import com.cloud.common.util.IpUtil;
 import com.cloud.consumer.safe.service.IRedisLockService;
 import com.cloud.consumer.safe.service.IRedisService;
 import com.cloud.consumer.safe.util.TokenUtil;
-import com.github.tobato.fastdfs.service.FastFileStorageClient;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -53,10 +52,6 @@ public class BaseController {
 	//redis lock Service
 	@Autowired
 	protected IRedisLockService redisLockService;
-
-	//文件操作存储客户端
-	@Autowired
-	protected FastFileStorageClient fastFileStorageClient;
 
 	//开发和线上环境配置
 	@Value("${spring.profiles.active}")
@@ -293,17 +288,6 @@ public class BaseController {
 		logger.info("(BaseController-getTokenOrgName)-返回信息, orgName:{}", orgName);
 		return orgName;
 	}
-
-	/**
-	 * 校验参数
-	 * @param bindingResult
-	 */
-//	protected void bindingResult(BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//        	logger.info(">>>>>> {}.{}() valid params is error msg = {}", this.getClass().getSimpleName(), this.getRequestMethodName(), bindingResult.getFieldError().getDefaultMessage());
-//        	throw new SafeException(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), bindingResult.getFieldError().getDefaultMessage());
-//        }
-//    }
 
 	/**
 	 * 获取请求加点URI参数为空，如：user.register.parameter.empty

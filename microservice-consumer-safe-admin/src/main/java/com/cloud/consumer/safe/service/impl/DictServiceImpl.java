@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IDictService;
 
 /**
- * 字典 Service (microservice-provider-safe)
+ * 字典 DictService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -37,10 +37,7 @@ public class DictServiceImpl extends BaseService implements IDictService {
 	@Override
 	public JSONObject getList(Object params) {
 		logger.info("(DictService-getList)-获取字典列表-传入参数, params:{}", params);
-
-
 		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectList", params, JSONObject.class);
-
 		return response;
 	}
 
@@ -53,6 +50,17 @@ public class DictServiceImpl extends BaseService implements IDictService {
 	public JSONObject getById(Integer id) {
 		logger.info("(DictService-getById)-根据id获取字典-传入参数, id:{}", id);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectById/"+id, null, JSONObject.class);
+		return response;
+	}
+
+	/**
+	 * 根据enterpriseId和dictCode查询字典
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject getByEnterpriseIdDictCode(Object params) {
+		logger.info("(DictService-getByEnterpriseIdDictCode)-根据enterpriseId和dictCode查询字典获取字典-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.dict+"/selectByEnterpriseIdDictCode", params, JSONObject.class);
 		return response;
 	}
 

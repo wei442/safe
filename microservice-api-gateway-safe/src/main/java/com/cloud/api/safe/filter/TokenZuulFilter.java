@@ -1,13 +1,10 @@
 package com.cloud.api.safe.filter;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -20,7 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.ZuulConstants;
 import com.cloud.common.enums.ResultEnum;
-import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
+import com.cloud.common.enums.safe.RetSafeResultEnum;
 import com.cloud.common.util.IpUtil;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -87,18 +84,12 @@ public class TokenZuulFilter extends ZuulFilter {
 		String token = request.getHeader(CommConstants.TOKEN);
 //		logger.info("【tokenZuul请求过滤】(TokenZuulFilter-run)-token请求过滤-请求URI, token:{}", token);
 		if(StringUtils.isBlank(token)) {
-	    	String respStr = this.addRetMsg(RetSafeAdminResultEnum.TOKEN_NULL_ERROR);
+	    	String respStr = this.addRetMsg(RetSafeResultEnum.TOKEN_NULL_ERROR);
 	    	logger.info("【tokenZuul请求过滤】(TokenZuulFilter-run)-header的token为空, respStr:{}", respStr);
 	    	context.setResponseBody(respStr);
 	    	context.setSendZuulResponse(false);
 	    	return null;
 	    }
-
-		Integer enterpriseId = this.getTokenEnterpriseId(request);
-		if(enterpriseId  != null) {
-			request.setAttribute(CommConstants.ENTERPRISE_ID, enterpriseId);
-			context.setRequest(request);
-		}
 
 		return null;
     }
@@ -138,40 +129,6 @@ public class TokenZuulFilter extends ZuulFilter {
 				}
 			}
 		}
-	}
-
-	/**
-	 * 获取token(enterpriseId)
-	 * @return Integer
-	 */
-	protected Integer getTokenEnterpriseId(HttpServletRequest request) {
-		String token = request.getHeader(CommConstants.TOKEN);
-		if(StringUtils.isBlank(token)) {
-			return null;
-		}
-
-		String[] datas = StringUtils.split(token, ".");
-		String payload = null;
-		try {
-			payload = datas[1];
-		} catch (Exception e) {
-			logger.error("【tokenZuul请求过滤】(TokenZuulFilter-getTokenEnterpriseId)-jwt(token)数组转换异常, Exception = {}, message = {}", e, e.getMessage());
-		}
-
-		Integer enterpriseId = null;
-		try {
-			String payloadStr = new String(Base64.decodeBase64(payload), StandardCharsets.UTF_8);
-			JSONObject payloadJSON = JSONObject.parseObject(payloadStr);
-			String claimsStr = Objects.toString(payloadJSON.get(CommConstants.CLAIMS));
-
-			JSONObject claimsJSON = JSONObject.parseObject(claimsStr);
-			enterpriseId = new Integer(Objects.toString(claimsJSON.get(CommConstants.ENTERPRISE_ID)));
-		} catch (Exception e) {
-			logger.error("【tokenZuul请求过滤】(TokenZuulFilter-getTokenEnterpriseId)-获取企业id异常, Exception = {}, message = {}", e, e.getMessage());
-		}
-
-		logger.info("【tokenZuul请求过滤】(TokenInterceptor-getTokenEnterpriseId)-返回信息, enterpriseId:{}", enterpriseId);
-		return enterpriseId;
 	}
 
 }

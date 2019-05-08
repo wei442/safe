@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.constants.safe.RetSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
-import com.cloud.consumer.safe.rest.request.PostIdRequest;
-import com.cloud.consumer.safe.rest.request.PostRequest;
-import com.cloud.consumer.safe.rest.request.page.PostPageRequest;
+import com.cloud.consumer.safe.rest.request.page.post.PostPageRequest;
+import com.cloud.consumer.safe.rest.request.post.PostIdRequest;
+import com.cloud.consumer.safe.rest.request.post.PostRequest;
 import com.cloud.consumer.safe.service.IPostService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
-import com.cloud.consumer.safe.vo.PostVo;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
 import com.cloud.consumer.safe.vo.base.BaseResultVo;
+import com.cloud.consumer.safe.vo.post.PostVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -71,7 +71,7 @@ public class PostController extends BaseController {
 		BasePageResultVo result = new BasePageResultVo(pageVo, postVoList);
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, result);
+		postResponse.put(CommConstants.RESULT, result);
 	    logger.info("===step3:【分页查询】(PostController-getListByPage)-返回信息, postResponse:{}", postResponse);
 	    return postResponse;
 	}
@@ -90,7 +90,7 @@ public class PostController extends BaseController {
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonPost = postService.getListByPage(req);
+		JSONObject jsonPost = postService.getList(req);
 		logger.info("===step2:【不分页查询】(PostController-getList)-不分页查询岗位列表, jsonPost:{}", jsonPost);
 		String dataListStr = JSONObject.toJSONString(jsonPost.getJSONArray(PageConstants.DATA_LIST));
 		List<PostVo> postVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<PostVo>>(){});
@@ -98,7 +98,7 @@ public class PostController extends BaseController {
 		BaseResultVo result = new BaseResultVo(postVoList);
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, result);
+		postResponse.put(CommConstants.RESULT, result);
 		logger.info("===step3:【不分页查询】(PostController-getList)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}
@@ -113,20 +113,20 @@ public class PostController extends BaseController {
 	@ApiOperation(value = "获取岗位详情")
 	@RequestMapping(value="/getDetail",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse get(
+	public BaseRestMapResponse getDetail(
 		@Validated @RequestBody PostIdRequest req,
 		BindingResult bindingResult) {
-		logger.info("===step1:【获取岗位】(PostController-get)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		logger.info("===step1:【获取岗位】(PostController-getDetail)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		Integer postId = req.getPostId();
 		JSONObject jsonPost = postService.getById(postId);
-		logger.info("===step2:【获取岗位】(PostController-get)-根据postId获取岗位, jsonPost:{}", jsonPost);
+		logger.info("===step2:【获取岗位】(PostController-getDetail)-根据postId获取岗位, jsonPost:{}", jsonPost);
 		PostVo postVo = JSONObject.toJavaObject(jsonPost, PostVo.class);
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, postVo);
-	    logger.info("===step3:【获取岗位】(PostController-get)-返回信息, postResponse:{}", postResponse);
+		postResponse.put(CommConstants.RESULT, postVo);
+	    logger.info("===step3:【获取岗位】(PostController-getDetail)-返回信息, postResponse:{}", postResponse);
 	    return postResponse;
 	}
 
@@ -148,11 +148,9 @@ public class PostController extends BaseController {
 
 		JSONObject jsonPost = postService.add(req);
 		logger.info("===step2:【新增岗位】(PostController-add)-分页查询岗位列表, jsonPost:{}", jsonPost);
-		PostVo postVo = JSONObject.toJavaObject(jsonPost, PostVo.class);
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, postVo);
 	    logger.info("===step3:【新增岗位】(PostController-add)-返回信息, postResponse:{}", postResponse);
 	    return postResponse;
 	}
@@ -174,11 +172,9 @@ public class PostController extends BaseController {
 		Integer postId = req.getPostId();
 		JSONObject jsonPost = postService.deleteById(postId);
 		logger.info("===step2:【删除岗位】(PostController-delete)-根据postId删除岗位, jsonPost:{}", jsonPost);
-		PostVo postVo = JSONObject.toJavaObject(jsonPost, PostVo.class);
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, postVo);
 		logger.info("===step3:【删除岗位】(PostController-delete)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}
@@ -201,11 +197,9 @@ public class PostController extends BaseController {
 
 		JSONObject jsonPost = postService.update(req);
 		logger.info("===step2:【修改岗位】(PostController-update)-修改岗位, jsonPost:{}", jsonPost);
-		PostVo postVo = JSONObject.toJavaObject(jsonPost, PostVo.class);
 
 		//返回信息
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(RetSafeConstants.RESULT, postVo);
 		logger.info("===step3:【修改岗位】(PostController-update)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}

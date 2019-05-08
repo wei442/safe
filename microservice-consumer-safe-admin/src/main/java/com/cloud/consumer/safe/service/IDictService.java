@@ -26,6 +26,13 @@ public interface IDictService {
 	public JSONObject getById(Integer id);
 
 	/**
+	 * 根据enterpriseId和dictCode查询字典
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject getByEnterpriseIdDictCode(Object params);
+
+	/**
 	 * 新增字典
 	 * @param params
 	 * @return JSONObject

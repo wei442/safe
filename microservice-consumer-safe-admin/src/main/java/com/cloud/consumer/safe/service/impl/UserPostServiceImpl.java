@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserPostService;
 
 /**
- * 用户岗位 Service (microservice-provider-safe)
+ * 用户岗位 UserPostService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -80,6 +78,18 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 	}
 
 	/**
+	 * 新增批量用户岗位
+	 * @param params
+	 * @return JSONObject
+	 */
+	@Override
+	public JSONObject addList(Object params) {
+		logger.info("(UserPostService-addList)-新增批量用户岗位-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/insertList", params, JSONObject.class);
+		return response;
+	}
+
+	/**
 	 * 根据id删除用户岗位
 	 * @param id
 	 * @return JSONObject
@@ -92,14 +102,14 @@ public class UserPostServiceImpl extends BaseService implements IUserPostService
 	}
 
 	/**
-	 * 根据ids删除用户岗位
+	 * 批量删除用户岗位
 	 * @param ids
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteByIds(List<Integer> ids) {
-		logger.info("(UserPostService-deleteByIds)-根据ids获取用户岗位-传入参数, ids:{}", ids);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/deleteByIds/"+ids, null, JSONObject.class);
+	public JSONObject batchDelete(Object params) {
+		logger.info("(UserPostService-batchDelete)-批量删除用户岗位-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_post+"/batchDelete", params, JSONObject.class);
 		return response;
 	}
 

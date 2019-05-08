@@ -1,7 +1,5 @@
 package com.cloud.consumer.safe.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserOrgService;
 
 /**
- * 用户机构 Service (microservice-provider-safe)
+ * 用户机构 UserOrgService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -92,14 +90,14 @@ public class UserOrgServiceImpl extends BaseService implements IUserOrgService {
 	}
 
 	/**
-	 * 根据ids删除用户机构
+	 * 批量删除用户机构
 	 * @param ids
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject deleteByIds(List<Integer> ids) {
-		logger.info("(UserOrgService-deleteByIds)-根据ids获取用户机构-传入参数, ids:{}", ids);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_org+"/deleteByIds/"+ids, null, JSONObject.class);
+	public JSONObject batchDelete(Object params) {
+		logger.info("(UserOrgService-batchDelete)-批量删除用户机构-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_org+"/batchDelete", params, JSONObject.class);
 		return response;
 	}
 

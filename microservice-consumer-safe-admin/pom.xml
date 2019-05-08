@@ -111,6 +111,11 @@
 		    <artifactId>jjwt</artifactId>
 		    <version>0.9.1</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.github.tobato</groupId>
+		    <artifactId>fastdfs-client</artifactId>
+		    <version>1.26.5</version>
+		</dependency>
 		
          <!-- 通用工具类 -->
         <dependency>

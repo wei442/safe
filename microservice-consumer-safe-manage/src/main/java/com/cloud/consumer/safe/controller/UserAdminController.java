@@ -19,6 +19,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
+import com.cloud.common.constants.safe.SafeConstants;
+import com.cloud.common.constants.safe.SqlSafeConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.base.BaseRestRequest;
 import com.cloud.consumer.safe.page.PageVo;
@@ -64,6 +66,7 @@ public class UserAdminController extends BaseController {
 		logger.info("===step1:【分页查询】(UserAdminController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
+		req.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE);
 
 		JSONObject jsonUserAdmin = userAdminService.getListByPage(req);
 		logger.info("===step2:【分页查询】(UserAdminController-getListByPage)-分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
@@ -93,6 +96,7 @@ public class UserAdminController extends BaseController {
 		logger.info("===step1:【不分页查询】(UserAdminController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
+		req.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE);
 
 		JSONObject jsonUserAdmin = userAdminService.getList(req);
 		logger.info("===step2:【不分页查询】(UserAdminController-getList)-不分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
@@ -176,6 +180,9 @@ public class UserAdminController extends BaseController {
 		@Validated @RequestBody UserAdminRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【新增用户管理】(UserAdminController-add)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
+		req.setAdminName(SafeConstants.ADMIN_NAME_SALVE);
 
 		JSONObject jsonUserAdmin = userAdminService.add(req);
 		logger.info("===step2:【新增用户管理】(UserAdminController-add)-分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
@@ -223,6 +230,8 @@ public class UserAdminController extends BaseController {
 		@Validated({ UpdateGroup.class }) @RequestBody UserAdminRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户管理】(UserAdminController-update)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		Integer enterpriseId = this.getTokenEnterpriseId();
+		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonUserAdmin = userAdminService.update(req);
 		logger.info("===step2:【修改用户管理】(UserAdminController-update)-修改用户管理, jsonUserAdmin:{}", jsonUserAdmin);

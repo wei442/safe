@@ -78,6 +78,17 @@ public class UserTitleServiceImpl extends BaseService implements IUserTitleServi
 	}
 
 	/**
+	 * 新增批量用户职务
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject addList(Object params) {
+		logger.info("(UserTitleService-addList)-新增批量用户职务-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_title+"/insertList", params, JSONObject.class);
+		return response;
+	}
+
+	/**
 	 * 根据id删除用户职务
 	 * @param id
 	 * @return JSONObject

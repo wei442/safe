@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserAdminService;
 
 /**
- * 用户管理 Service (microservice-provider-safe)
+ * 用户管理 serAdminService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -65,6 +65,18 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	}
 
 	/**
+	 * 获取用户主管理员
+	 * @param params
+	 * @return JSONObject
+	 */
+	@Override
+	public JSONObject getMaster(Object params) {
+		logger.info("(UserAdminService-getMaster)-获取用户主管理员-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectMaster", params, JSONObject.class);
+		return response;
+	}
+
+	/**
 	 * 新增用户管理
 	 * @param params
 	 * @return JSONObject
@@ -97,6 +109,17 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	public JSONObject update(Object params) {
 		logger.info("(UserAdminService-update)-修改用户管理-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/modify", params, JSONObject.class);
+		return response;
+	}
+
+	/**
+	 * 更改用户主管理员
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject changeMaster(Object params) {
+		logger.info("(UserAdminService-changeMaster)-更改用户主管理员-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/changeMaster", params, JSONObject.class);
 		return response;
 	}
 

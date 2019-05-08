@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
 	public BaseRestMapResponse exceptionHandler(Exception e) {
 		if (e instanceof SafeException) {
 			SafeException ex = (SafeException) e;
-			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-自定义异常, Exception = {}, message = {}", ex, ex.getMessage());
+			logger.error("【全局异常处理】(GlobalExceptionHandler-exceptionHandler)-自定义异常, Exception = {}, message = {}", e, e.getMessage());
 			return new BaseRestMapResponse(ex.getErrorCode(), ex.getMessage());
 		}
 
