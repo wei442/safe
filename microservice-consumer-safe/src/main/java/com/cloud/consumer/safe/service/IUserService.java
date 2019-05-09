@@ -26,6 +26,13 @@ public interface IUserService {
 	public JSONObject loginAdminSecond(Object params);
 
 	/**
+	 * 修改用户管理密码
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject updateAdminPassword(Object params);
+
+	/**
 	 * 重置用户管理密码
 	 * @param params
 	 * @return JSONObject

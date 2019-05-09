@@ -1,4 +1,4 @@
-package com.cloud.consumer.safe.rest.request.user.login;
+package com.cloud.consumer.safe.rest.request.base.user.login;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import lombok.Data;
  * @author wei.yong
  */
 @Data
-public class UserLoginPasswordRequest implements Serializable {
+public class BaseUserLoginRequest implements Serializable {
 
 	/**
 	 *

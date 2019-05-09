@@ -24,10 +24,10 @@
 	    
 	<!-- 批量插入,忽略数据库中已经存在的数据 -->
 	<insert id="insertList" parameterType="java.util.List">
-		insert ignore into user_title (id, enterprise_id, user_id, title_id, created, updated, create_time, update_time) values 
+		insert ignore into user_title (id, enterprise_id, user_id, title_id, create_time, update_time) values 
        	<foreach collection="list" separator="," item="item" index="index">
 		 	(#{item.id,jdbcType=INTEGER}, #{item.enterpriseId,jdbcType=INTEGER}, #{item.userId,jdbcType=INTEGER}, 
-		  	#{item.titleId,jdbcType=INTEGER}, #{item.created,jdbcType=VARCHAR}, #{item.updated,jdbcType=VARCHAR}, 
+		  	#{item.titleId,jdbcType=INTEGER}, 
 		    now(), now())
        	</foreach>
    </insert>

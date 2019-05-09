@@ -17,7 +17,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.po.BaseUserInfo;
 import com.cloud.provider.safe.po.BaseUserLogin;
 import com.cloud.provider.safe.po.BaseUserPassword;
-import com.cloud.provider.safe.rest.request.user.login.UserLoginFirstRequest;
+import com.cloud.provider.safe.rest.request.user.login.AdminLoginFirstRequest;
 import com.cloud.provider.safe.service.IBaseUserInfoService;
 import com.cloud.provider.safe.service.IBaseUserLoginService;
 import com.cloud.provider.safe.service.IBaseUserPasswordService;
@@ -61,7 +61,7 @@ public class BaseUserController extends BaseController {
 	@RequestMapping(value="/login",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse login(
-		@Validated @RequestBody UserLoginFirstRequest req,
+		@Validated @RequestBody AdminLoginFirstRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【基础用户登录】(BaseUserController-loginFirst)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 

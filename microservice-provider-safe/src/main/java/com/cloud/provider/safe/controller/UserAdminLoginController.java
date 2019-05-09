@@ -221,31 +221,4 @@ public class UserAdminLoginController extends BaseController {
 		return userAdminLoginResponse;
 	}
 
-	/**
-	 * 根据userId修改用户管理登录
-	 * @param req
-	 * @param bindingResult
-	 * @return BaseRestMapResponse
-	 */
-	@ApiOperation(value = "根据userId修改用户管理登录")
-	@RequestMapping(value="/modifyByUserId",method={RequestMethod.POST})
-	@ResponseBody
-	public BaseRestMapResponse modifyByUserId(
-		@Validated @RequestBody UserAdminLoginRequest req,
-		BindingResult bindingResult) {
-		logger.info("===step1:【根据userId修改用户管理登录】(UserAdminLoginController-modifyByUserId)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-		Integer userId = req.getUserId();
-		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
-		logger.info("===step2:【根据userId修改用户管理登录】(UserAdminLoginController-modifyByUserId)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
-
-		userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_YES);
-		int i = userAdminLoginService.modify(userAdminLogin);
-		logger.info("===step3:【根据userId修改用户管理登录】(UserAdminLoginController-modifyByUserId)-修改用户管理登录, i:{}", i);
-
-		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		logger.info("===step4:【根据userId修改用户管理登录】(UserAdminLoginController-modifyByUserId)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
-		return userAdminLoginResponse;
-	}
-
 }

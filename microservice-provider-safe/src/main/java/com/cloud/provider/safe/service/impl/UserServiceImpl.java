@@ -89,6 +89,7 @@ public class UserServiceImpl implements IUserService {
     	userInfo.setUpdateTime(new Date());
     	int i = userInfoMapper.insertSelective(userInfo);
     	Integer userId = userInfo.getId();
+    	String userName = userInfo.getUserName();
 
     	enterprise.setEnterpriseStatus(SqlSafeConstants.SQL_ENTERPRISE_STATUS_NORMAL);
     	enterprise.setCreateTime(new Date());
@@ -137,6 +138,7 @@ public class UserServiceImpl implements IUserService {
     	UserOrg userOrg = new UserOrg();
     	userOrg.setEnterpriseId(enterpriseId);
     	userOrg.setUserId(userId);
+    	userOrg.setUserName(userName);
     	userOrg.setOrgId(orgId);
     	userOrg.setCreateTime(new Date());
     	userOrg.setUpdateTime(new Date());
@@ -149,6 +151,25 @@ public class UserServiceImpl implements IUserService {
     }
 
 	/**
+	 * 修改用户管理密码
+	 * @param userAdminLogin
+	 * @param userAdminPassword
+	 * @return Integer
+	 */
+	@Override
+	public Integer modifyAdminUserPassword(UserAdminLogin userAdminLogin,UserAdminPassword userAdminPassword) {
+    	logger.info("(UserService-modifyAdminUserPassword)-修改用户管理密码-传入参数, userAdminLogin:{}, userAdminPassword:{}", userAdminLogin, userAdminPassword);
+
+    	userAdminLogin.setUpdateTime(new Date());
+    	int i = userAdminLoginMapper.updateByPrimaryKeySelective(userAdminLogin);
+
+    	userAdminPassword.setUpdateTime(new Date());
+		i = userAdminPasswordMapper.updateByPrimaryKeySelective(userAdminPassword);
+
+    	return i;
+    }
+
+	/**
 	 * 重设用户管理密码
 	 * @param userAdminLogin
 	 * @param userAdminPassword
@@ -156,9 +177,8 @@ public class UserServiceImpl implements IUserService {
 	 */
 	@Override
 	public Integer resetAdminUserPassword(UserAdminLogin userAdminLogin,UserAdminPassword userAdminPassword) {
-    	logger.info("(UserService-resetAdminUserPassword)-插入用户-传入参数, userAdminLogin:{}, userAdminPassword:{}", userAdminLogin, userAdminPassword);
+    	logger.info("(UserService-resetAdminUserPassword)-重设用户管理密码-传入参数, userAdminLogin:{}, userAdminPassword:{}", userAdminLogin, userAdminPassword);
 
-    	userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO);
     	userAdminLogin.setUpdateTime(new Date());
     	int i = userAdminLoginMapper.updateByPrimaryKey(userAdminLogin);
 

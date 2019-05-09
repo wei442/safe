@@ -4,11 +4,10 @@
 
 	<!-- 批量插入,数据库中已经存在的数据 -->
 	<insert id="insertList" parameterType="java.util.List">
-	 	insert into dict (id, enterprise_id, dict_code, dict_name, created, updated, create_time, update_time) values 
+	 	insert into dict (id, enterprise_id, dict_code, dict_name, create_time, update_time) values 
        	<foreach collection="list" separator="," item="item" index="index">
-    		values 
 			(#{item.id,jdbcType=INTEGER}, #{item.enterpriseId,jdbcType=INTEGER}, #{item.dictCode,jdbcType=VARCHAR}, #{item.dictName,jdbcType=VARCHAR},
-		 	#{item.created,jdbcType=VARCHAR}, #{item.updated,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP})
+		 	now(), now())
        	</foreach>
    </insert>
   

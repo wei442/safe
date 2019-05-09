@@ -81,7 +81,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
 		logger.info("(UserAdminService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserAdminParam userAdminParam = new UserAdminParam();
-//		userAdminParam.setOrderByClause("  ");
+		userAdminParam.setOrderByClause(" t1.id desc ");
 		if(param != null) {
 			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userAdminParam.setEnterpriseId(param.getEnterpriseId());
@@ -106,7 +106,7 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	public List<UserAdminVo> selectList(UserAdminPageRequest param) {
 		logger.info("(UserAdminService-selectList)-不分页查询-传入参数, param:{}", param);
 		UserAdminParam userAdminParam = new UserAdminParam();
-//		userAdminParam.setOrderByClause("  ");
+		userAdminParam.setOrderByClause(" t1.id desc ");
 		if(param != null) {
 			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userAdminParam.setEnterpriseId(param.getEnterpriseId());

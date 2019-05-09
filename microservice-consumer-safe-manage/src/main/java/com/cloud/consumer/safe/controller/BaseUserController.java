@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
-import com.cloud.consumer.safe.rest.request.user.login.UserLoginRequest;
+import com.cloud.consumer.safe.rest.request.base.user.login.BaseUserLoginRequest;
 import com.cloud.consumer.safe.service.IBaseUserService;
 import com.cloud.consumer.safe.vo.base.user.BaseUserInfoVo;
 import com.cloud.consumer.safe.vo.base.user.login.UserLoginVo;
@@ -51,7 +51,7 @@ public class BaseUserController extends BaseController {
 	@RequestMapping(value="/login",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse login(
-		@Validated @RequestBody UserLoginRequest req,
+		@Validated @RequestBody BaseUserLoginRequest req,
 		BindingResult bindingResult) {
 		String requestIp = this.getRequestIp();
 		logger.info("===step1:【基础用户登录】(BaseUserController-login)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
@@ -91,7 +91,7 @@ public class BaseUserController extends BaseController {
 	@RequestMapping(value="/logout",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse logOut(
-		@RequestBody UserLoginRequest req) {
+		@RequestBody BaseUserLoginRequest req) {
 		String requestIp = this.getRequestIp();
 		logger.info("===step1:【基础用户退出】(BaseUserController-logout)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
 

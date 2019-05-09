@@ -12,7 +12,7 @@ import lombok.Data;
  * @author wei.yong
  */
 @Data
-public class UserLoginFirstRequest implements Serializable {
+public class AdminLoginFirstRequest implements Serializable {
 
     /**
 	 *

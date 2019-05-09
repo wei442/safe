@@ -22,6 +22,8 @@ public class UserOrgVo implements Serializable {
 
     private Integer userId;
 
+    private String userName;
+
     private Integer orgId;
 
     private String employeeNo;
@@ -40,6 +42,6 @@ public class UserOrgVo implements Serializable {
 
     private String userAccount;
 
-    private String userName;
+    private String orgName;
 
 }

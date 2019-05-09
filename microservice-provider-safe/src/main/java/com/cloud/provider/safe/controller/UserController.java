@@ -22,10 +22,11 @@ import com.cloud.provider.safe.po.UserAdminLogin;
 import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.po.UserInfo;
 import com.cloud.provider.safe.po.UserOrg;
-import com.cloud.provider.safe.rest.request.user.login.UserAdminResetPasswordRequest;
-import com.cloud.provider.safe.rest.request.user.login.UserLoginFirstRequest;
-import com.cloud.provider.safe.rest.request.user.login.UserLoginSecondRequest;
-import com.cloud.provider.safe.rest.request.user.login.UserRequest;
+import com.cloud.provider.safe.rest.request.user.login.AdminLoginFirstRequest;
+import com.cloud.provider.safe.rest.request.user.login.AdminLoginSecondRequest;
+import com.cloud.provider.safe.rest.request.user.login.AdminModifyPasswordRequest;
+import com.cloud.provider.safe.rest.request.user.login.AdminRequest;
+import com.cloud.provider.safe.rest.request.user.login.AdminResetPasswordRequest;
 import com.cloud.provider.safe.service.IEnterpriseService;
 import com.cloud.provider.safe.service.IOrgService;
 import com.cloud.provider.safe.service.IUserAdminLoginService;
@@ -97,7 +98,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value="/admin/insertUser",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse insertAdminUser(
-		@Validated @RequestBody UserRequest req,
+		@Validated @RequestBody AdminRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加用户管理】(UserController-insertAdminUser)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -108,9 +109,9 @@ public class UserController extends BaseController {
 		Integer userId = null;
 		if(userInfo != null) {
 			userId = userInfo.getId();
-			if(userId != null) {
-				return new BaseRestMapResponse(SafeResultEnum.USER_ACCOUNT_EXIST);
-			}
+//			if(userId != null) {
+//				return new BaseRestMapResponse(SafeResultEnum.USER_ACCOUNT_EXIST);
+//			}
 
 			UserAdmin userAdmin = userAdminService.selectByUserId(userId);
 			logger.info("===step3:【添加用户管理】(UserController-insertAdminUser)-根据userId查询用户管理, userAdmin:{}", userAdmin);
@@ -121,9 +122,9 @@ public class UserController extends BaseController {
 				logger.info("===step3.1:【添加用户管理】(UserController-insertAdminUser)-根据enterpriseId查询企业, enterprise:{}", enterprise);
 				String enterpriseName = enterprise.getEnterpriseName();
 				if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER.equals(adminType)) {
-					return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_ENTERPRISE_MASTER_EXIST.getCode(), "此用户已经是"+enterpriseName+"的主管理员");
+					return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_ENTERPRISE_MASTER_EXIST.getCode(), "此用户已经是 \""+enterpriseName+"\" 的主管理员");
 				} else if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE.equals(adminType)) {
-					return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_ENTERPRISE_SLAVE_EXIST.getCode(), "此用户已经是"+enterpriseName+"的子管理员");
+					return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_ENTERPRISE_SLAVE_EXIST.getCode(), "此用户已经是 \""+enterpriseName+"\" 的子管理员");
 				}
 				return new BaseRestMapResponse(SafeResultEnum.ENTERPRISE_EXIST);
 			}
@@ -155,7 +156,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value="/admin/login/first",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse loginAdminFirst(
-		@Validated @RequestBody UserLoginFirstRequest req,
+		@Validated @RequestBody AdminLoginFirstRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【用户登录第一步】(UserController-loginAdminFirst)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -205,7 +206,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value="/admin/login/second",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse loginAdminSecond(
-		@Validated @RequestBody UserLoginSecondRequest req,
+		@Validated @RequestBody AdminLoginSecondRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【用户登录第二步】(UserController-loginAdminSecond)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -244,6 +245,38 @@ public class UserController extends BaseController {
 	}
 
 	/**
+	 * 用户管理修改密码
+	 * @param req
+	 * @param bindingResult
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "用户管理修改密码")
+	@RequestMapping(value="/admin/modify/password",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse modifyAdminPassword(
+		@Validated @RequestBody AdminModifyPasswordRequest req,
+		BindingResult bindingResult) {
+		logger.info("===step1:【用户管理修改密码】(UserController-modifyAdminPassword)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer userId = req.getUserId();
+		String password = req.getPassword();
+		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserId(userId);
+		logger.info("===step2:【用户管理修改密码】(UserAdminPasswordController-modifyAdminPassword)-根据userId查询用户管理密码, userAdminPassword:{}", userAdminPassword);
+
+		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
+		logger.info("===step3:【用户管理修改密码】(UserAdminLoginController-modifyAdminPassword)-根据userId查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+
+		userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_YES);
+		userAdminPassword.setPassword(password);
+		int i =userService.modifyAdminUserPassword(userAdminLogin, userAdminPassword);
+		logger.info("===step4:【用户管理修改密码】(UserAdminLoginController-modifyAdminPassword)-修改用户管理登录, i:{}", i);
+
+		BaseRestMapResponse userResponse = new BaseRestMapResponse();
+		logger.info("===step5:【用户管理修改密码】(UserController-modifyAdminPassword)-返回信息, userResponse:{}", userResponse);
+		return userResponse;
+	}
+
+	/**
 	 * 用户管理重置密码
 	 * @param req
 	 * @param bindingResult
@@ -253,7 +286,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value="/admin/reset/password",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse resetAdminPassword(
-		@Validated @RequestBody UserAdminResetPasswordRequest req,
+		@Validated @RequestBody AdminResetPasswordRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【用户管理重置密码】(UserController-resetAdminPassword)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
@@ -270,6 +303,7 @@ public class UserController extends BaseController {
 			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_PASSWORD_ERROR);
 		}
 
+		userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO);
 		int i = userService.resetAdminUserPassword(userAdminLogin, userAdminPassword);
 		logger.info("===step4:【用户管理重置密码】(UserController-loginAdminFirst)-重置密码录, i:{}", i);
 
@@ -277,6 +311,5 @@ public class UserController extends BaseController {
 		logger.info("===step5:【用户管理重置密码】(UserController-resetAdminPassword)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
-
 
 }

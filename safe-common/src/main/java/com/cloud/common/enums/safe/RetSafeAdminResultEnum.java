@@ -20,7 +20,7 @@ public enum RetSafeAdminResultEnum implements ResultEnum {
 	TOKEN_EXPIRE("0000007", "token已过期"),
 
 	USER_FIRST_LOGIN_CHANGE_PASSWORD("0000008", "您好，这是你第一次登录该企业的管理后台，请先设置管理密码"),
-	USER_FIRST_LOGIN_CHANGE_PASSWORD_EXPIRE("0000009", "管理密码修改已过期"),
+	USER_FIRST_LOGIN_CHANGE_PASSWORD_EXPIRE("0000009", "设置管理密码已过期"),
 	USER_FIRST_LOGIN_CHANGE_PASSWORD_ILLEGAL("0000010", "管理密码非法法修改"),
 
 	FASTDFS_FILE_INFO_ERROR("0000010", "文件信息失败"),

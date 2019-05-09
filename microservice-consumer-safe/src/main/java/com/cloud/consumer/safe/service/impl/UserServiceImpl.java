@@ -54,6 +54,17 @@ public class UserServiceImpl extends BaseService implements IUserService {
 	}
 
 	/**
+	 * 修改用户管理密码
+	 * @param params
+	 * @return JSONObject
+	 */
+	public JSONObject updateAdminPassword(Object params) {
+		logger.info("(UserService-updateAdminPassword)-修改用户管理密码-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user+"/admin/modify/password", params, JSONObject.class);
+		return response;
+	}
+
+	/**
 	 * 重置用户管理密码
 	 * @param params
 	 * @return JSONObject

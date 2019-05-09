@@ -211,58 +211,51 @@ public class UserController extends BaseController {
 		}
 
 		String accesstokenkey = RedisKeysUtil.CN_CLOUD_SAFE_ADMIN_FIRSTLOGIN_ACCESSTOKEN_USERID + userId;
-		String redisAccessToken = redisService.get(accesstokenkey);
-		logger.info("===step2:【用户首次登录修改密码】(UserController-updatePassword)-获取accesstoken信息, accesstokenkey:{}, redisAccessToken:{}", accesstokenkey, redisAccessToken);
-		if(StringUtils.isBlank(accesstokenkey)) {
-			new BaseRestMapResponse(RetSafeAdminResultEnum.USER_FIRST_LOGIN_CHANGE_PASSWORD_EXPIRE);
+		String accesstoken = redisService.get(accesstokenkey);
+		logger.info("===step2:【用户首次登录修改密码】(UserController-updatePassword)-获取accesstoken信息, accesstokenkey:{}, accesstoken:{}", accesstokenkey, accesstoken);
+		if(StringUtils.isBlank(accesstoken)) {
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.USER_FIRST_LOGIN_CHANGE_PASSWORD_EXPIRE);
 		}
-		if(!userId.equals(new Integer(redisAccessToken))) {
-			new BaseRestMapResponse(RetSafeAdminResultEnum.USER_FIRST_LOGIN_CHANGE_PASSWORD_ILLEGAL);
+		if(!userId.equals(new Integer(accesstoken))) {
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.USER_FIRST_LOGIN_CHANGE_PASSWORD_ILLEGAL);
 		}
 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("userId", userId);
-		params.put("password", DigestUtils.sha256Hex(password));
-		JSONObject jsonUserAdminPassword = userAdminPasswordService.updateByUserId(params);
-		logger.info("===step3:【用户首次登录修改密码】(UserController-updatePassword)-根据userId修改用户管理密码, jsonUserAdminPassword:{}", jsonUserAdminPassword);
-
-		params = new HashMap<String, Object>();
-		params.put("userId", userId);
-		JSONObject jsonUserAdminLogin = userAdminLoginService.updateByUserId(params);
-		logger.info("===step4:【用户首次登录修改密码】(UserController-updatePassword)-根据userId修改获取用户登录, jsonUserAdminLogin:{}", jsonUserAdminLogin);
+		req.setPassword(DigestUtils.sha256Hex(password));
+		JSONObject jsonAdminPassword = userService.updateAdminPassword(req);
+		logger.info("===step3:【用户首次登录修改密码】(UserController-updatePassword)-修改用户管理密码, jsonAdminPassword:{}", jsonAdminPassword);
 
         //返回信息
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-        logger.info("===step5:【用户首次登录修改密码】(UserController-updatePassword)-返回信息, userResponse:{}", userResponse);
+        logger.info("===step4:【用户首次登录修改密码】(UserController-updatePassword)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
 
-	/**
-	 * 重置用户管理密码
-	 * @param req
-	 * @param bindingResult
-	 * @return BaseRestMapResponse
-	 */
-	@ApiOperation(value = "重置用户管理密码")
-	@RequestMapping(value="/reset/password",method={RequestMethod.POST})
-	@ResponseBody
-	public BaseRestMapResponse resetPassword(
-		@Validated @RequestBody UserLoginFirstPasswordRequest req,
-		BindingResult bindingResult) {
-		String requestIp = this.getRequestIp();
-		logger.info("===step1:【重置用户管理密码】(UserController-resetPassword)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
-
-		Integer userId = req.getUserId();
-
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("userId", userId);
-		JSONObject jsonResetAdminPassword = userService.resetAdminPassword(params);
-		logger.info("===step2:【重置用户管理密码】(UserController-resetPassword)-重置密码, jsonResetAdminPassword:{}", jsonResetAdminPassword);
-
-        //返回信息
-		BaseRestMapResponse userResponse = new BaseRestMapResponse();
-        logger.info("===step3:【用户首次登录修改密码】(UserController-resetPassword)-返回信息, userResponse:{}", userResponse);
-		return userResponse;
-	}
+//	/**
+//	 * 重置用户管理密码
+//	 * @param req
+//	 * @param bindingResult
+//	 * @return BaseRestMapResponse
+//	 */
+//	@ApiOperation(value = "重置用户管理密码")
+//	@RequestMapping(value="/reset/password",method={RequestMethod.POST})
+//	@ResponseBody
+//	public BaseRestMapResponse resetPassword(
+//		@Validated @RequestBody UserLoginFirstPasswordRequest req,
+//		BindingResult bindingResult) {
+//		String requestIp = this.getRequestIp();
+//		logger.info("===step1:【重置用户管理密码】(UserController-resetPassword)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
+//
+//		Integer userId = req.getUserId();
+//
+//		Map<String, Object> params = new HashMap<String, Object>();
+//		params.put("userId", userId);
+//		JSONObject jsonResetAdminPassword = userService.resetAdminPassword(params);
+//		logger.info("===step2:【重置用户管理密码】(UserController-resetPassword)-重置密码, jsonResetAdminPassword:{}", jsonResetAdminPassword);
+//
+//        //返回信息
+//		BaseRestMapResponse userResponse = new BaseRestMapResponse();
+//        logger.info("===step3:【重置用户管理密码】(UserController-resetPassword)-返回信息, userResponse:{}", userResponse);
+//		return userResponse;
+//	}
 
 }

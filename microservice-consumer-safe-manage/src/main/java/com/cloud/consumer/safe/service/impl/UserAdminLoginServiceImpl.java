@@ -101,16 +101,4 @@ public class UserAdminLoginServiceImpl extends BaseService implements IUserAdmin
 		return response;
 	}
 
-	/**
-	 * 根据userId修改用户管理登录
-	 * @param params
-	 * @return JSONObject
-	 */
-	@Override
-	public JSONObject updateByUserId(Object params) {
-		logger.info("(UserAdminLoginService-updateByUserId)-根据userId修改用户管理登录-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin_login+"/modifyByUserId", params, JSONObject.class);
-		return response;
-	}
-
 }

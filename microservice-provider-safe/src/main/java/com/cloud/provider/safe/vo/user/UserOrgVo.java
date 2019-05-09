@@ -49,6 +49,8 @@ public class UserOrgVo implements Serializable {
 
     private String userAccount;
 
+    private String orgName;
+
     /**
      * 实体转换
      * @param userOrg

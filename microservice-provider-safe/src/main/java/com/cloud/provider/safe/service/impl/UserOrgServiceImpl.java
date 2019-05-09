@@ -49,7 +49,7 @@ public class UserOrgServiceImpl implements IUserOrgService {
 		logger.info("(UserOrgService-selectListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
 		UserOrgParam userOrgParam = new UserOrgParam();
-//		userOrgParam.setOrderByClause("  ");
+		userOrgParam.setOrderByClause(" t1.id desc ");
 		if(param != null) {
 			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userOrgParam.setEnterpriseId(param.getEnterpriseId());
@@ -72,7 +72,7 @@ public class UserOrgServiceImpl implements IUserOrgService {
 	public List<UserOrgVo> selectList(UserOrgPageRequest param) {
 		logger.info("(UserOrgService-selectList)-不分页查询-传入参数, param:{}", param);
 		UserOrgParam userOrgParam = new UserOrgParam();
-//		userOrgParam.setOrderByClause("  ");
+		userOrgParam.setOrderByClause(" t1.id desc ");
 		if(param != null) {
 			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
 				userOrgParam.setEnterpriseId(param.getEnterpriseId());

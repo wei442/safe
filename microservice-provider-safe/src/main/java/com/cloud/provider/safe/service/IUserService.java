@@ -16,6 +16,14 @@ public interface IUserService {
 	public Integer insertAdminUser(UserInfo userInfo,Enterprise enterprise);
 
 	/**
+	 * 修改用户管理密码
+	 * @param userAdminLogin
+	 * @param userAdminPassword
+	 * @return Integer
+	 */
+	public Integer modifyAdminUserPassword(UserAdminLogin userAdminLogin,UserAdminPassword userAdminPassword);
+
+	/**
 	 * 重设用户管理密码
 	 * @param userAdminLogin
 	 * @param userAdminPassword
