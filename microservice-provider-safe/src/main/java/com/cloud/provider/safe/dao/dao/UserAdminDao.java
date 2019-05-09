@@ -16,6 +16,13 @@ public interface UserAdminDao {
     public List<UserAdminVo> selectList(UserAdminParam param);
 
     /**
+     * 查询用户管理用户
+     * @param param
+     * @return List<UserAdminVo>
+     */
+    public List<UserAdminVo> selectManageList(UserAdminParam param);
+
+    /**
      * 批量插入
      * @param list
      * @return int

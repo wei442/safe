@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cloud.provider.safe.dao.dao.UserOrgDao">
+
 	<!-- 查询当前用户组织机构下的所有人员列表 -->
     <select id="selectList" parameterType="com.cloud.provider.safe.param.UserOrgParam" resultType="com.cloud.provider.safe.vo.user.UserOrgVo">
         select 

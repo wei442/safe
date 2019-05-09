@@ -25,6 +25,14 @@ public interface IUserAdminService {
 	 */
 	public List<UserAdminVo> selectList(UserAdminPageRequest param);
 
+    /**
+	 * 分页查询
+	 * @param page
+	 * @param param
+	 * @return List<UserAdmin>
+	 */
+	public List<UserAdminVo> selectManageListByPage(Page<?> page, UserAdminPageRequest param);
+
 	/**
 	 * 根据userId查询用户管理
 	 * @param userId

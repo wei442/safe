@@ -123,6 +123,32 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	}
 
     /**
+	 * 分页查询
+	 * @param page
+	 * @param param
+	 * @return List<UserAdmin>
+	 */
+	public List<UserAdminVo> selectManageListByPage(Page<?> page, UserAdminPageRequest param) {
+		logger.info("(UserAdminService-selectManageListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
+		PageHelper.startPage(page.getPageNum(), page.getPageSize());
+		UserAdminParam userAdminParam = new UserAdminParam();
+		userAdminParam.setOrderByClause(" t1.id desc ");
+		if(param != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
+				userAdminParam.setEnterpriseId(param.getEnterpriseId());
+			}
+			if(param.getAdminType() != null) {
+				userAdminParam.setAdminType(param.getAdminType());
+			}
+			if(StringUtils.isNotBlank(param.getEnterpriseName())) {
+				userAdminParam.setEnterpriseName(param.getEnterpriseName()+"%");
+			}
+		}
+		List<UserAdminVo> list = userAdminDao.selectManageList(userAdminParam);
+		return list;
+	}
+
+    /**
      * 根据id查询用户管理
      * @param id
      * @return UserAdmin
