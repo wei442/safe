@@ -67,7 +67,8 @@ public class OrgQualityController extends BaseController {
 		List<OrgQualityVo> orgQualityVoList = new OrgQualityVo().convertToOrgQualityVoList(list);
 
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(orgQualityVoList));
+		orgQualityResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		orgQualityResponse.put(PageConstants.DATA_LIST, orgQualityVoList);
 		logger.info("===step3:【分页查询机构资质列表】(OrgQualityController-selectListByPage)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 		return orgQualityResponse;
 	}

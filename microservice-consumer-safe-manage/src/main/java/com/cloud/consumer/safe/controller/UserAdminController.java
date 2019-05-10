@@ -58,15 +58,15 @@ public class UserAdminController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "分页查询用户管理列表")
-	@RequestMapping(value="/getListByPage",method={RequestMethod.POST})
+	@RequestMapping(value="/getManageListByPage",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getListByPage(
+	public BaseRestMapResponse getManageListByPage(
 		@RequestBody UserAdminPageRequest req) {
 		logger.info("===step1:【分页查询】(UserAdminController-getListByPage)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonUserAdmin = userAdminService.getListByPage(req);
+		JSONObject jsonUserAdmin = userAdminService.getManageListByPage(req);
 		logger.info("===step2:【分页查询】(UserAdminController-getListByPage)-分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
 		String dataListStr = JSONObject.toJSONString(jsonUserAdmin.getJSONArray(PageConstants.DATA_LIST));
 		String pageStr = JSONObject.toJSONString(jsonUserAdmin.getJSONObject(PageConstants.PAGE));
@@ -87,15 +87,15 @@ public class UserAdminController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "不分页查询用户管理列表")
-	@RequestMapping(value="/getList",method={RequestMethod.POST})
+	@RequestMapping(value="/getManageList",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse getList(
+	public BaseRestMapResponse getManageList(
 		@RequestBody UserAdminPageRequest req) {
 		logger.info("===step1:【不分页查询】(UserAdminController-getList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
-		JSONObject jsonUserAdmin = userAdminService.getList(req);
+		JSONObject jsonUserAdmin = userAdminService.getManageList(req);
 		logger.info("===step2:【不分页查询】(UserAdminController-getList)-不分页查询用户管理列表, jsonUserAdmin:{}", jsonUserAdmin);
 		String dataListStr = JSONObject.toJSONString(jsonUserAdmin.getJSONArray(PageConstants.DATA_LIST));
 		List<UserAdminVo> userAdminVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<UserAdminVo>>(){});

@@ -66,7 +66,8 @@ public class OrgQualityAttachmentController extends BaseController {
 		List<OrgQualityAttachmentVo> orgQualityAttachmentVoList = new OrgQualityAttachmentVo().convertToOrgQualityAttachmentVoList(list);
 
 		BaseRestMapResponse orgQualityAttachmentResponse = new BaseRestMapResponse();
-		orgQualityAttachmentResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(orgQualityAttachmentVoList));
+		orgQualityAttachmentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		orgQualityAttachmentResponse.put(PageConstants.DATA_LIST, orgQualityAttachmentVoList);
 		logger.info("===step3:【分页查询机构资质附件列表】(OrgQualityAttachmentController-selectListByPage)-返回信息, orgQualityAttachmentResponse:{}", orgQualityAttachmentResponse);
 		return orgQualityAttachmentResponse;
 	}

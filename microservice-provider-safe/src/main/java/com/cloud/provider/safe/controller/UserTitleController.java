@@ -69,7 +69,8 @@ public class UserTitleController extends BaseController {
 		logger.info("===step2:【分页查询用户职务列表】(UserTitleController-selectListByPage)-分页查询用户职务列表, list.size:{}", list == null ? null : list.size());
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
-		userTitleResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(list));
+		userTitleResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		userTitleResponse.put(PageConstants.DATA_LIST, list);
 		logger.info("===step3:【分页查询用户职务列表】(UserTitleController-selectListByPage)-返回信息, userTitleResponse:{}", userTitleResponse);
 		return userTitleResponse;
 	}

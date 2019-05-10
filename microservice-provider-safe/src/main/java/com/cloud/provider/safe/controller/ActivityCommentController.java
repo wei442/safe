@@ -66,7 +66,8 @@ public class ActivityCommentController extends BaseController {
 		List<ActivityCommentVo> activityCommentVoList = new ActivityCommentVo().convertToActivityCommentVoList(list);
 
 		BaseRestMapResponse activityCommentResponse = new BaseRestMapResponse();
-		activityCommentResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(activityCommentVoList));
+		activityCommentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		activityCommentResponse.put(PageConstants.DATA_LIST, activityCommentVoList);
 		logger.info("===step3:【分页查询活动评论列表】(ActivityCommentController-selectListByPage)-返回信息, activityCommentResponse:{}", activityCommentResponse);
 		return activityCommentResponse;
 	}

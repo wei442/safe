@@ -66,7 +66,8 @@ public class DangerAttachmentController extends BaseController {
 		List<DangerAttachmentVo> dangerAttachmentVoList = new DangerAttachmentVo().convertToDangerAttachmentVoList(list);
 
 		BaseRestMapResponse dangerAttachmentResponse = new BaseRestMapResponse();
-		dangerAttachmentResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(dangerAttachmentVoList));
+		dangerAttachmentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		dangerAttachmentResponse.put(PageConstants.DATA_LIST, dangerAttachmentVoList);
 		logger.info("===step3:【分页查询隐患附件列表】(DangerAttachmentController-selectListByPage)-返回信息, dangerAttachmentResponse:{}", dangerAttachmentResponse);
 		return dangerAttachmentResponse;
 	}

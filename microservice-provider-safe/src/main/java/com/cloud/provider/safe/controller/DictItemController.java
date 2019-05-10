@@ -66,7 +66,8 @@ public class DictItemController extends BaseController {
 		List<DictItemVo> dictItemVoList = new DictItemVo().convertToDictItemVoList(list);
 
 		BaseRestMapResponse dictItemResponse = new BaseRestMapResponse();
-		dictItemResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(dictItemVoList));
+		dictItemResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		dictItemResponse.put(PageConstants.DATA_LIST, dictItemVoList);
 		logger.info("===step3:【分页查询字典子项列表】(DictItemController-selectListByPage)-返回信息, dictItemResponse:{}", dictItemResponse);
 		return dictItemResponse;
 	}

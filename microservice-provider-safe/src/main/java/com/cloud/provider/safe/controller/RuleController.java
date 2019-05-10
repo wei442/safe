@@ -67,7 +67,8 @@ public class RuleController extends BaseController {
 		List<RuleVo> ruleVoList = new RuleVo().convertToRuleVoList(list);
 
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
-		ruleResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(ruleVoList));
+		ruleResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		ruleResponse.put(PageConstants.DATA_LIST, ruleVoList);
 		logger.info("===step3:【分页查询规范文件列表】(RuleController-selectListByPage)-返回信息, ruleResponse:{}", ruleResponse);
 		return ruleResponse;
 	}

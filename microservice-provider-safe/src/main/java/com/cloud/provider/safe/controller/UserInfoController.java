@@ -67,7 +67,8 @@ public class UserInfoController extends BaseController {
 		List<UserInfoVo> userInfoVoList = new UserInfoVo().convertToUserInfoVoList(list);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userInfoVoList));
+		userInfoResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		userInfoResponse.put(PageConstants.DATA_LIST, userInfoVoList);
 		logger.info("===step3:【分页查询用户信息列表】(UserInfoController-selectListByPage)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}

@@ -17,11 +17,11 @@ public class OrgTreeRequest extends BaseRestRequest {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "机构id")
-	private Integer orgId;
-
 	@ApiModelProperty(value = "企业id")
 	@NotNull(message = "企业id")
-    private Integer enterpriseId;
+	private Integer enterpriseId;
+
+	@ApiModelProperty(value = "机构id")
+	private Integer orgId;
 
 }

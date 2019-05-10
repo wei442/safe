@@ -32,9 +32,6 @@ public class UserAdminMasterRequest implements Serializable {
     @NotNull(message = "用户id不能为空")
     private Integer userId;
 
-	@ApiModelProperty(value = "管理名称")
-    private String adminName;
-
 	/**
 	 * 实体转换
 	 * @return UserAdmin

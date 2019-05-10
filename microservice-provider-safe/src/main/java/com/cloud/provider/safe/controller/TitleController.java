@@ -72,7 +72,8 @@ public class TitleController extends BaseController {
 		List<TitleVo> titleVoList = new TitleVo().convertToTitleVoList(list);
 
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
-		titleResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(titleVoList));
+		titleResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		titleResponse.put(PageConstants.DATA_LIST, titleVoList);
 		logger.info("===step3:【分页查询职务列表】(TitleController-selectListByPage)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}

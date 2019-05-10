@@ -66,7 +66,8 @@ public class ActivityAttachmentController extends BaseController {
 		List<ActivityAttachmentVo> activityAttachmentVoList = new ActivityAttachmentVo().convertToActivityAttachmentVoList(list);
 
 		BaseRestMapResponse activityAttachmentResponse = new BaseRestMapResponse();
-		activityAttachmentResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(activityAttachmentVoList));
+		activityAttachmentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		activityAttachmentResponse.put(PageConstants.DATA_LIST, activityAttachmentVoList);
 		logger.info("===step3:【分页查询活动附件列表】(ActivityAttachmentController-selectListByPage)-返回信息, activityAttachmentResponse:{}", activityAttachmentResponse);
 		return activityAttachmentResponse;
 	}

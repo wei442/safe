@@ -33,6 +33,13 @@ public interface IUserAdminService {
 	 */
 	public List<UserAdminVo> selectManageListByPage(Page<?> page, UserAdminPageRequest param);
 
+    /**
+	 * 不分页查询
+	 * @param param
+	 * @return List<UserAdmin>
+	 */
+	public List<UserAdminVo> selectManageList(UserAdminPageRequest param);
+
 	/**
 	 * 根据userId查询用户管理
 	 * @param userId

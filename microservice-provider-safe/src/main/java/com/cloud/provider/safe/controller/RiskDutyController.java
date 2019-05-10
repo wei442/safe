@@ -68,7 +68,8 @@ public class RiskDutyController extends BaseController {
 		List<RiskDutyVo> riskDutyVoList = new RiskDutyVo().convertToRiskDutyVoList(list);
 
 		BaseRestMapResponse riskDutyResponse = new BaseRestMapResponse();
-		riskDutyResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(riskDutyVoList));
+		riskDutyResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		riskDutyResponse.put(PageConstants.DATA_LIST, riskDutyVoList);
 		logger.info("===step3:【分页查询风险责任列表】(RiskDutyController-selectListByPage)-返回信息, riskDutyResponse:{}", riskDutyResponse);
 		return riskDutyResponse;
 	}

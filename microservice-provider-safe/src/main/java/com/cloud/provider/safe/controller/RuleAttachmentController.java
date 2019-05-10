@@ -66,7 +66,8 @@ public class RuleAttachmentController extends BaseController {
 		List<RuleAttachmentVo> ruleAttachmentVoList = new RuleAttachmentVo().convertToRuleAttachmentVoList(list);
 
 		BaseRestMapResponse ruleAttachmentResponse = new BaseRestMapResponse();
-		ruleAttachmentResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(ruleAttachmentVoList));
+		ruleAttachmentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		ruleAttachmentResponse.put(PageConstants.DATA_LIST, ruleAttachmentVoList);
 		logger.info("===step3:【分页查询规范文件附件列表】(RuleAttachmentController-selectListByPage)-返回信息, ruleAttachmentResponse:{}", ruleAttachmentResponse);
 		return ruleAttachmentResponse;
 	}

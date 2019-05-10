@@ -68,7 +68,8 @@ public class DangerCheckController extends BaseController {
 		List<DangerCheckVo> dangerCheckVoList = new DangerCheckVo().convertToDangerCheckVoList(list);
 
 		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
-		dangerCheckResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(dangerCheckVoList));
+		dangerCheckResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		dangerCheckResponse.put(PageConstants.DATA_LIST, dangerCheckVoList);
 		logger.info("===step3:【分页查询隐患排查列表】(DangerCheckController-selectListByPage)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
 		return dangerCheckResponse;
 	}

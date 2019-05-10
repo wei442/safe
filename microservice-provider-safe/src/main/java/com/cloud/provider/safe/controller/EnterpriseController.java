@@ -67,7 +67,8 @@ public class EnterpriseController extends BaseController {
 		List<EnterpriseVo> enterpriseVoList = new EnterpriseVo().convertToEnterpriseVoList(list);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(enterpriseVoList));
+		enterpriseResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		enterpriseResponse.put(PageConstants.DATA_LIST, enterpriseVoList);
 		logger.info("===step3:【分页查询企业列表】(EnterpriseController-selectListByPage)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}

@@ -73,7 +73,8 @@ public class UserOrgController extends BaseController {
 		logger.info("===step2:【分页查询用户机构列表】(UserOrgController-selectListByPage)-分页查询用户机构列表, list.size:{}", list == null ? null : list.size());
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
-		userOrgResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(list));
+		userOrgResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		userOrgResponse.put(PageConstants.DATA_LIST, list);
 		logger.info("===step3:【分页查询用户机构列表】(UserOrgController-selectListByPage)-返回信息, userOrgResponse:{}", userOrgResponse);
 		return userOrgResponse;
 	}
@@ -166,14 +167,14 @@ public class UserOrgController extends BaseController {
 		logger.info("===step1:【添加用户机构】(UserOrgController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		String userAccount = req.getUserAccount();
-//		String userName = req.getUserName();
+		String userName = req.getUserName();
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
 		logger.info("===step2:【添加用户机构】(UserOrgController-insert)-根据userAccount查询用户信息, userInfo:{}", userInfo);
 		Integer userId = null;
 		if(userInfo == null) {
 			userInfo = new UserInfo();
 			userInfo.setUserAccount(userAccount);
-//			userInfo.setUserName(userName);
+			userInfo.setUserName(userName);
 			int i = userInfoService.insert(userInfo);
 			logger.info("===step2.1:【添加用户机构】(UserOrgController-insert)-插入用户信息, i:{}", i);
 		}

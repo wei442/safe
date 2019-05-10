@@ -68,7 +68,8 @@ public class UserPostController extends BaseController {
 		logger.info("===step2:【分页查询用户岗位列表】(UserPostController-selectListByPage)-分页查询用户岗位列表, list.size:{}", list == null ? null : list.size());
 
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
-		userPostResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(list));
+		userPostResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		userPostResponse.put(PageConstants.DATA_LIST, list);
 		logger.info("===step3:【分页查询用户岗位列表】(UserPostController-selectListByPage)-返回信息, userPostResponse:{}", userPostResponse);
 		return userPostResponse;
 	}

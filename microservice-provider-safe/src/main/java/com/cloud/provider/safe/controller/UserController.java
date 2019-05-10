@@ -103,6 +103,7 @@ public class UserController extends BaseController {
 		logger.info("===step1:【添加用户管理】(UserController-insertAdminUser)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 
 		String userAccount = req.getUserAccount();
+		String userName = req.getUserName();
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
 		logger.info("===step2:【添加用户管理】(UserController-insertAdminUser)-根据userAccount查询用户信息, userInfo:{}", userInfo);
 
@@ -136,6 +137,7 @@ public class UserController extends BaseController {
 
 		userInfo = new UserInfo();
 		userInfo.setUserAccount(userAccount);
+		userInfo.setUserName(userName);
 		int i = userService.insertAdminUser(userInfo, enterprise);
 		logger.info("===step4:【添加用户管理】(UserController-insertAdminUser)-添加用户管理, i:{}", i);
 

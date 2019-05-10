@@ -66,7 +66,8 @@ public class PostAttachmentController extends BaseController {
 		List<PostAttachmentVo> postAttachmentVoList = new PostAttachmentVo().convertToPostAttachmentVoList(list);
 
 		BaseRestMapResponse postAttachmentResponse = new BaseRestMapResponse();
-		postAttachmentResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(postAttachmentVoList));
+		postAttachmentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		postAttachmentResponse.put(PageConstants.DATA_LIST, postAttachmentVoList);
 		logger.info("===step3:【分页查询岗位附件列表】(PostAttachmentController-selectListByPage)-返回信息, postAttachmentResponse:{}", postAttachmentResponse);
 		return postAttachmentResponse;
 	}

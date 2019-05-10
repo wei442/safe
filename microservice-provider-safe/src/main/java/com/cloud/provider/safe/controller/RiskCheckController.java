@@ -68,7 +68,8 @@ public class RiskCheckController extends BaseController {
 		List<RiskCheckVo> riskCheckVoList = new RiskCheckVo().convertToRiskCheckVoList(list);
 
 		BaseRestMapResponse riskCheckResponse = new BaseRestMapResponse();
-		riskCheckResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(riskCheckVoList));
+		riskCheckResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		riskCheckResponse.put(PageConstants.DATA_LIST, riskCheckVoList);
 		logger.info("===step3:【分页查询风险排查列表】(RiskCheckController-selectListByPage)-返回信息, riskCheckResponse:{}", riskCheckResponse);
 		return riskCheckResponse;
 	}

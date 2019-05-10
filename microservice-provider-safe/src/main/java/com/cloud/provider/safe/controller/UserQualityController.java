@@ -68,7 +68,8 @@ public class UserQualityController extends BaseController {
 		List<UserQualityVo> userQualityVoList = new UserQualityVo().convertToUserQualityVoList(list);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
-		userQualityResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userQualityVoList));
+		userQualityResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		userQualityResponse.put(PageConstants.DATA_LIST, userQualityVoList);
 		logger.info("===step3:【分页查询用户资质列表】(UserQualityController-selectListByPage)-返回信息, userQualityResponse:{}", userQualityResponse);
 		return userQualityResponse;
 	}

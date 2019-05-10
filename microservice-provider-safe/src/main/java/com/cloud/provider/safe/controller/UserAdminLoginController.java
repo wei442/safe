@@ -67,7 +67,8 @@ public class UserAdminLoginController extends BaseController {
 		List<UserAdminLoginVo> userAdminLoginVoList = new UserAdminLoginVo().convertToUserAdminLoginVoList(list);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userAdminLoginVoList));
+		userAdminLoginResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		userAdminLoginResponse.put(PageConstants.DATA_LIST, userAdminLoginVoList);
 		logger.info("===step3:【分页查询用户管理登录列表】(UserAdminLoginController-selectListByPage)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}

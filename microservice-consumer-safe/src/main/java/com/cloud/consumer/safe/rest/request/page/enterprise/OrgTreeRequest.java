@@ -8,16 +8,16 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OrgPageRequest extends BaseRestRequest {
+public class OrgTreeRequest extends BaseRestRequest {
 
     /**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-    private Integer enterpriseId;
+	private Integer enterpriseId;
 
-    @ApiModelProperty(value = "机构名称")
-    private String orgName;
+	@ApiModelProperty(value = "机构id")
+	private Integer orgId;
 
 }

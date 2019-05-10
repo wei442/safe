@@ -9,14 +9,14 @@ public interface IUserAdminService {
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getListByPage(Object params);
+	public JSONObject getManageListByPage(Object params);
 
 	/**
 	 * 获取用户管理列表
 	 * @param params
 	 * @return JSONObject
 	 */
-	public JSONObject getList(Object params);
+	public JSONObject getManageList(Object params);
 
 	/**
 	 * 根据id获取用户管理

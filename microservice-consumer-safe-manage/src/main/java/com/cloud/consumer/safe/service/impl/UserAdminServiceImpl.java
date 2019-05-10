@@ -9,7 +9,7 @@ import com.cloud.common.constants.safe.SafeUrlConstants;
 import com.cloud.consumer.safe.service.IUserAdminService;
 
 /**
- * 用户管理 serAdminService (microservice-provider-safe)
+ * 用户管理 UserAdminService (microservice-provider-safe)
  * @author wei.yong
  */
 @Service
@@ -23,9 +23,9 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getListByPage(Object params) {
-		logger.info("(UserAdminService-getListByPage)-分页获取用户管理列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectListByPage", params, JSONObject.class);
+	public JSONObject getManageListByPage(Object params) {
+		logger.info("(UserAdminService-getManageListByPage)-分页获取用户管理列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectManageListByPage", params, JSONObject.class);
 		return response;
 	}
 
@@ -35,9 +35,9 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	 * @return JSONObject
 	 */
 	@Override
-	public JSONObject getList(Object params) {
-		logger.info("(UserAdminService-getList)-获取用户管理列表-传入参数, params:{}", params);
-		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectList", params, JSONObject.class);
+	public JSONObject getManageList(Object params) {
+		logger.info("(UserAdminService-getManageList)-获取用户管理列表-传入参数, params:{}", params);
+		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/selectManageList", params, JSONObject.class);
 		return response;
 	}
 
@@ -117,6 +117,7 @@ public class UserAdminServiceImpl extends BaseService implements IUserAdminServi
 	 * @param params
 	 * @return JSONObject
 	 */
+	@Override
 	public JSONObject changeMaster(Object params) {
 		logger.info("(UserAdminService-changeMaster)-更改用户主管理员-传入参数, params:{}", params);
 		JSONObject response = this.safePostForObject(SafeUrlConstants.user_admin+"/changeMaster", params, JSONObject.class);

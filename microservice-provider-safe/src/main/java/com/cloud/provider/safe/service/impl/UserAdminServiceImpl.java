@@ -128,9 +128,35 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	 * @param param
 	 * @return List<UserAdmin>
 	 */
+	@Override
 	public List<UserAdminVo> selectManageListByPage(Page<?> page, UserAdminPageRequest param) {
 		logger.info("(UserAdminService-selectManageListByPage)-分页查询-传入参数, page:{}, param:{}", page, param);
 		PageHelper.startPage(page.getPageNum(), page.getPageSize());
+		UserAdminParam userAdminParam = new UserAdminParam();
+		userAdminParam.setOrderByClause(" t1.id desc ");
+		if(param != null) {
+			if(param.getEnterpriseId() != null && param.getEnterpriseId() != -2) {
+				userAdminParam.setEnterpriseId(param.getEnterpriseId());
+			}
+			if(param.getAdminType() != null) {
+				userAdminParam.setAdminType(param.getAdminType());
+			}
+			if(StringUtils.isNotBlank(param.getEnterpriseName())) {
+				userAdminParam.setEnterpriseName(param.getEnterpriseName()+"%");
+			}
+		}
+		List<UserAdminVo> list = userAdminDao.selectManageList(userAdminParam);
+		return list;
+	}
+
+    /**
+	 * 不分页查询
+	 * @param param
+	 * @return List<UserAdmin>
+	 */
+	@Override
+	public List<UserAdminVo> selectManageList(UserAdminPageRequest param) {
+		logger.info("(UserAdminService-selectManageList)-不分页查询-传入参数, param:{}", param);
 		UserAdminParam userAdminParam = new UserAdminParam();
 		userAdminParam.setOrderByClause(" t1.id desc ");
 		if(param != null) {
@@ -365,23 +391,40 @@ public class UserAdminServiceImpl implements IUserAdminService {
 	public Integer changeAdminMaster(UserAdmin oldUserAdmin,UserAdmin newUserAdmin) {
     	logger.info("(UserAdminService-changeAdminMaster)-更改主管理员-传入参数, oldUserAdmin:{}, newUserAdmin:{}", oldUserAdmin, newUserAdmin);
     	Integer oldUserAdminId = oldUserAdmin.getId();
-    	Integer userId = oldUserAdmin.getUserId();
+    	Integer oldUserId = oldUserAdmin.getUserId();
     	Integer enterpriseId = oldUserAdmin.getEnterpriseId();
     	int i = userAdminMapper.deleteByPrimaryKey(oldUserAdminId);
 
     	UserAdminPasswordExample example = new UserAdminPasswordExample();
 		UserAdminPasswordExample.Criteria criteria = example.createCriteria();
-		criteria.andUserIdEqualTo(userId);
+		criteria.andUserIdEqualTo(oldUserId);
 		i = userAdminPasswordMapper.deleteByExample(example);
 
     	newUserAdmin.setEnterpriseId(enterpriseId);
-    	newUserAdmin.setUserId(userId);
     	newUserAdmin.setAdminName(SafeConstants.ADMIN_NAME_MASTER);
     	newUserAdmin.setAdminType(SqlSafeConstants.SQL_USER_ADMIN_TYPE_MASTER);
     	newUserAdmin.setIsDelete(SqlSafeConstants.SQL_USER_ADMIN_IS_DELETE_NO);
     	newUserAdmin.setCreateTime(new Date());
     	newUserAdmin.setUpdateTime(new Date());
     	i = userAdminMapper.insertSelective(newUserAdmin);
+    	Integer userId = newUserAdmin.getUserId();
+
+    	UserAdminLogin userAdminLogin = new UserAdminLogin();
+		userAdminLogin.setUserId(userId);
+		userAdminLogin.setFirstLogin(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_FIRST_LOGIN_NO);
+		userAdminLogin.setCreateTime(new Date());
+		userAdminLogin.setUpdateTime(new Date());
+		i = userAdminLoginMapper.insertSelective(userAdminLogin);
+
+		UserAdminPassword userAdminPassword = new UserAdminPassword();
+		userAdminPassword.setUserId(userId);
+		userAdminPassword.setPassword(DigestUtils.sha256Hex(SafeConstants.PASSWORD_INIT));
+		//过期时间暂为100年
+		Date lastPassTime = new DateTime().plus(Period.years(100)).toDate();
+		userAdminPassword.setLastPassTime(lastPassTime);
+		userAdminPassword.setCreateTime(new Date());
+		userAdminPassword.setUpdateTime(new Date());
+		i = userAdminPasswordMapper.insertSelective(userAdminPassword);
 
     	return i;
     }

@@ -67,7 +67,8 @@ public class ActivityController extends BaseController {
 		List<ActivityVo> activityVoList = new ActivityVo().convertToActivityVoList(list);
 
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
-		activityResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(activityVoList));
+		activityResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		activityResponse.put(PageConstants.DATA_LIST, activityVoList);
 		logger.info("===step3:【分页查询活动列表】(ActivityController-selectListByPage)-返回信息, activityResponse:{}", activityResponse);
 		return activityResponse;
 	}

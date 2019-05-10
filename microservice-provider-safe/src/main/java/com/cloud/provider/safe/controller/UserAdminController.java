@@ -76,7 +76,8 @@ public class UserAdminController extends BaseController {
 		logger.info("===step2:【分页查询用户管理列表】(UserAdminController-selectListByPage)-分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		userAdminResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(list));
+		userAdminResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		userAdminResponse.put(PageConstants.DATA_LIST, list);
 		logger.info("===step3:【分页查询用户管理列表】(UserAdminController-selectListByPage)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
@@ -98,6 +99,52 @@ public class UserAdminController extends BaseController {
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
 		userAdminResponse.put(PageConstants.DATA_LIST, list);
 		logger.info("===step3:【不分页查询用户管理列表】(UserAdminController-selectList)-返回信息, userAdminResponse:{}", userAdminResponse);
+		return userAdminResponse;
+	}
+
+	/**
+	 * 分页查询
+	 * @param req
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "分页查询用户管理列表")
+	@RequestMapping(value="/selectManageListByPage",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectManageListByPage(
+		@RequestBody UserAdminPageRequest req) {
+		logger.info("===step1:【分页查询用户管理列表】(UserAdminController-selectManageListByPage)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+
+		Integer pageNum = req.getPageNum();
+		Integer pageSize = req.getPageSize();
+
+		Page<?> page = new Page<>(pageNum, pageSize);
+		List<UserAdminVo> list = userAdminService.selectManageListByPage(page, req);
+		logger.info("===step2:【分页查询用户管理列表】(UserAdminController-selectManageListByPage)-分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
+
+		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
+		userAdminResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		userAdminResponse.put(PageConstants.DATA_LIST, list);
+		logger.info("===step3:【分页查询用户管理列表】(UserAdminController-selectManageListByPage)-返回信息, userAdminResponse:{}", userAdminResponse);
+		return userAdminResponse;
+	}
+
+	/**
+	 * 不分页查询
+	 * @param req
+	 * @return BaseRestMapResponse
+	 */
+	@ApiOperation(value = "不分页查询用户管理列表")
+	@RequestMapping(value="/selectManageList",method={RequestMethod.POST})
+	@ResponseBody
+	public BaseRestMapResponse selectManageList(
+		@RequestBody UserAdminPageRequest req) {
+		logger.info("===step1:【不分页查询用户管理列表】(UserAdminController-selectManageList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		List<UserAdminVo> list = userAdminService.selectManageList(req);
+		logger.info("===step2:【不分页查询用户管理列表】(UserAdminController-selectManageList)-不分页查询用户管理列表, list.size:{}", list == null ? null : list.size());
+
+		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
+		userAdminResponse.put(PageConstants.DATA_LIST, list);
+		logger.info("===step3:【不分页查询用户管理列表】(UserAdminController-selectManageList)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 
@@ -264,10 +311,10 @@ public class UserAdminController extends BaseController {
 		userAdmin = req.convertToUserAdmin();
 		userAdmin.setAdminName(SafeConstants.ADMIN_NAME_SALVE);
 		int i = userAdminService.insert(userAdmin, userMenuList);
-		logger.info("===step4:【添加用户管理】(UserAdminController-insert)-插入添加用户管理, i:{}", i);
+		logger.info("===step3:【添加用户管理】(UserAdminController-insert)-插入添加用户管理, i:{}", i);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
-		logger.info("===step5:【添加用户管理】(UserAdminController-insert)-返回信息, userAdminResponse:{}", userAdminResponse);
+		logger.info("===step4:【添加用户管理】(UserAdminController-insert)-返回信息, userAdminResponse:{}", userAdminResponse);
 		return userAdminResponse;
 	}
 
@@ -356,12 +403,19 @@ public class UserAdminController extends BaseController {
 
 		UserAdmin userAdmin = userAdminService.selectByEnterpriseIdUserId(enterpriseId, userId);
 		logger.info("===step2:【更改主管理员】(UserAdminController-changeMaster)-根据enterpriseId和userId查询用户管理, userAdmin:{}", userAdmin);
-		Integer adminType = userAdmin.getAdminType();
-		if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE.equals(adminType)) {
-			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_SLAVE_EXIST);
+		if(userAdmin != null) {
+			Integer adminType = userAdmin.getAdminType();
+			if(SqlSafeConstants.SQL_USER_ADMIN_TYPE_SLAVE.equals(adminType)) {
+				return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_SLAVE_EXIST);
+			}
 		}
 
 		UserAdmin oldUserAdmin = userAdminService.selectById(userAdminId);
+		Integer oldUserId = oldUserAdmin.getUserId();
+		if(userId.equals(oldUserId)) {
+			return new BaseRestMapResponse(SafeResultEnum.USER_ADMIN_MASTER_NOT_INSERT);
+		}
+
 		UserAdmin newUserAdmin = req.convertToUserAdmin();
 		int i = userAdminService.changeAdminMaster(oldUserAdmin, newUserAdmin);
 		logger.info("===step3:【更改主管理员】(UserAdminController-changeMaster)-更改主管理员, i:{}", i);

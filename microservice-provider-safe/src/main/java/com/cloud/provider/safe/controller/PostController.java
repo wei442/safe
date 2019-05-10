@@ -72,7 +72,8 @@ public class PostController extends BaseController {
 		List<PostVo> postVoList = new PostVo().convertToPostVoList(list);
 
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(postVoList));
+		postResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		postResponse.put(PageConstants.DATA_LIST, postVoList);
 		logger.info("===step3:【分页查询岗位列表】(PostController-selectListByPage)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}

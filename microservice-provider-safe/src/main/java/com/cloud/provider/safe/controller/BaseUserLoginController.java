@@ -66,7 +66,8 @@ public class BaseUserLoginController extends BaseController {
 		List<BaseUserLoginVo> baseUserLoginVoList = new BaseUserLoginVo().convertToBaseUserLoginVoList(list);
 
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(baseUserLoginVoList));
+		baseUserLoginResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		baseUserLoginResponse.put(PageConstants.DATA_LIST, baseUserLoginVoList);
 		logger.info("===step3:【分页查询基础用户登录列表】(BaseUserLoginController-selectListByPage)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}

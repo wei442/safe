@@ -133,7 +133,8 @@ public class OrgController extends BaseController {
 		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(orgVoList));
+		orgResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		orgResponse.put(PageConstants.DATA_LIST, orgVoList);
 		logger.info("===step3:【分页查询组织机构列表】(OrgController-selectListByPage)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}
@@ -155,7 +156,7 @@ public class OrgController extends BaseController {
 		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(orgVoList));
+		orgResponse.put(PageConstants.DATA_LIST, orgVoList);
 		logger.info("===step3:【不分页查询组织机构列表】(OrgController-selectList)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}

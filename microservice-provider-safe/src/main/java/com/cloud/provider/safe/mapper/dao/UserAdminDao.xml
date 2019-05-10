@@ -28,10 +28,12 @@
     	t1.id as userAdminId, t1.enterprise_id as enterpriseId, t1.user_id as userId, t1.admin_name as adminName, 
     	t1.admin_type as adminType, t1.created as created, t1.updated as updated, t1.create_time as createTime, t1.update_time as updateTime,
     	t2.user_name as userName, 
-    	t3.enterprise_name as enterpriseName 
-    	from user_admin t1, user_org t2, enterprise t3
-        where t1.user_id = t2.user_id  
+    	t3.enterprise_name as enterpriseName, 
+    	t4.user_account as userAccount 
+    	from user_admin t1, user_org t2, enterprise t3, user_info t4
+        where t1.user_id = t2.user_id 
         and t1.enterprise_id = t3.id
+        and t1.user_id = t4.id
   		and t1.is_delete = 0 
   		and t3.is_delete = 0 
         <if test="enterpriseId != null and enterpriseId != ''">

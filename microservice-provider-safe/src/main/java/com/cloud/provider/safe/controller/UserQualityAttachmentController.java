@@ -66,7 +66,8 @@ public class UserQualityAttachmentController extends BaseController {
 		List<UserQualityAttachmentVo> userQualityAttachmentVoList = new UserQualityAttachmentVo().convertToUserQualityAttachmentVoList(list);
 
 		BaseRestMapResponse userQualityAttachmentResponse = new BaseRestMapResponse();
-		userQualityAttachmentResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userQualityAttachmentVoList));
+		userQualityAttachmentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		userQualityAttachmentResponse.put(PageConstants.DATA_LIST, userQualityAttachmentVoList);
 		logger.info("===step3:【分页查询用户资质附件列表】(UserQualityAttachmentController-selectListByPage)-返回信息, userQualityAttachmentResponse:{}", userQualityAttachmentResponse);
 		return userQualityAttachmentResponse;
 	}
