@@ -64,11 +64,11 @@ public class RuleController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<Rule> list = ruleService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询规范文件列表】(RuleController-selectListByPage)-分页查询规范文件列表, list.size:{}", list == null ? null : list.size());
-		List<RuleVo> ruleVoList = new RuleVo().convertToRuleVoList(list);
+		List<RuleVo> dataList = new RuleVo().convertToRuleVoList(list);
 
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
 		ruleResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		ruleResponse.put(PageConstants.DATA_LIST, ruleVoList);
+		ruleResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询规范文件列表】(RuleController-selectListByPage)-返回信息, ruleResponse:{}", ruleResponse);
 		return ruleResponse;
 	}
@@ -86,10 +86,10 @@ public class RuleController extends BaseController {
 		logger.info("===step1:【不分页查询规范文件列表】(RuleController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<Rule> list = ruleService.selectList(req);
 		logger.info("===step2:【不分页查询规范文件列表】(RuleController-selectList)-不分页查询规范文件列表, list.size:{}", list == null ? null : list.size());
-		List<RuleVo> ruleVoList = new RuleVo().convertToRuleVoList(list);
+		List<RuleVo> dataList = new RuleVo().convertToRuleVoList(list);
 
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();
-		ruleResponse.put(PageConstants.DATA_LIST, ruleVoList);
+		ruleResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询规范文件列表】(RuleController-selectList)-返回信息, ruleResponse:{}", ruleResponse);
 		return ruleResponse;
 	}

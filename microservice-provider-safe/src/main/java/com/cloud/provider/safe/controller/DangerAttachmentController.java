@@ -63,11 +63,11 @@ public class DangerAttachmentController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<DangerAttachment> list = dangerAttachmentService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询隐患附件列表】(DangerAttachmentController-selectListByPage)-分页查询隐患附件列表, list.size:{}", list == null ? null : list.size());
-		List<DangerAttachmentVo> dangerAttachmentVoList = new DangerAttachmentVo().convertToDangerAttachmentVoList(list);
+		List<DangerAttachmentVo> dataList = new DangerAttachmentVo().convertToDangerAttachmentVoList(list);
 
 		BaseRestMapResponse dangerAttachmentResponse = new BaseRestMapResponse();
 		dangerAttachmentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		dangerAttachmentResponse.put(PageConstants.DATA_LIST, dangerAttachmentVoList);
+		dangerAttachmentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询隐患附件列表】(DangerAttachmentController-selectListByPage)-返回信息, dangerAttachmentResponse:{}", dangerAttachmentResponse);
 		return dangerAttachmentResponse;
 	}
@@ -85,10 +85,10 @@ public class DangerAttachmentController extends BaseController {
 		logger.info("===step1:【不分页查询隐患附件列表】(DangerAttachmentController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<DangerAttachment> list = dangerAttachmentService.selectList(req);
 		logger.info("===step2:【不分页查询隐患附件列表】(DangerAttachmentController-selectList)-不分页查询隐患附件列表, list.size:{}", list == null ? null : list.size());
-		List<DangerAttachmentVo> dangerAttachmentVoList = new DangerAttachmentVo().convertToDangerAttachmentVoList(list);
+		List<DangerAttachmentVo> dataList = new DangerAttachmentVo().convertToDangerAttachmentVoList(list);
 
 		BaseRestMapResponse dangerAttachmentResponse = new BaseRestMapResponse();
-		dangerAttachmentResponse.put(PageConstants.DATA_LIST, dangerAttachmentVoList);
+		dangerAttachmentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询隐患附件列表】(DangerAttachmentController-selectList)-返回信息, dangerAttachmentResponse:{}", dangerAttachmentResponse);
 		return dangerAttachmentResponse;
 	}

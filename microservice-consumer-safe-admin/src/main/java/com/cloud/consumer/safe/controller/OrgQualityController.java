@@ -21,7 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
-import com.cloud.common.enums.safe.RetSafeResultEnum;
+import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.enterprise.OrgQualityAttachmentRequest;
@@ -158,7 +158,7 @@ public class OrgQualityController extends BaseController {
 
 		String qualityName = req.getQualityName();
 		if(StringUtils.isBlank(qualityName)) {
-			return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "资质名称不能为空");
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "资质名称不能为空");
 		}
 
 		List<OrgQualityAttachmentRequest> orgQualityAttachmentList = null;
@@ -227,9 +227,9 @@ public class OrgQualityController extends BaseController {
 		Integer orgQualityId = req.getOrgQualityId();
 		String qualityName = req.getQualityName();
 		if(orgQualityId == null) {
-			return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "机构资质id不能为空");
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "机构资质id不能为空");
 		} else if(StringUtils.isBlank(qualityName)) {
-			return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "资质名称不能为空");
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "资质名称不能为空");
 		}
 
 		List<OrgQualityAttachmentRequest> orgQualityAttachmentList = null;

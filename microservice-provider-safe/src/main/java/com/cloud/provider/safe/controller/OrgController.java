@@ -130,11 +130,11 @@ public class OrgController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<Org> list = orgService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询组织机构列表】(OrgController-selectListByPage)-分页查询组织机构列表, list.size:{}", list == null ? null : list.size());
-		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
+		List<OrgVo> dataList = new OrgVo().convertToOrgVoList(list);
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
 		orgResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		orgResponse.put(PageConstants.DATA_LIST, orgVoList);
+		orgResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询组织机构列表】(OrgController-selectListByPage)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}
@@ -153,10 +153,10 @@ public class OrgController extends BaseController {
 
 		List<Org> list = orgService.selectList(req);
 		logger.info("===step2:【不分页查询组织机构列表】(OrgController-selectList)-不分页查询组织机构列表, list.size:{}", list == null ? null : list.size());
-		List<OrgVo> orgVoList = new OrgVo().convertToOrgVoList(list);
+		List<OrgVo> dataList = new OrgVo().convertToOrgVoList(list);
 
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
-		orgResponse.put(PageConstants.DATA_LIST, orgVoList);
+		orgResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询组织机构列表】(OrgController-selectList)-返回信息, orgResponse:{}", orgResponse);
 		return orgResponse;
 	}

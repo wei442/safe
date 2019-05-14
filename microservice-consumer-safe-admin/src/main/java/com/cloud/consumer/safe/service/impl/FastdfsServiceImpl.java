@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cloud.common.enums.safe.RetSafeResultEnum;
+import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
 import com.cloud.common.exception.SafeException;
 import com.cloud.consumer.safe.service.IFastdfsService;
 import com.github.tobato.fastdfs.domain.conn.FdfsWebServer;
@@ -46,7 +46,7 @@ public class FastdfsServiceImpl extends BaseService implements IFastdfsService {
         	fileInfo = fastFileStorageClient.queryFileInfo(storePath.getGroup(), storePath.getPath());
         } catch (Exception e) {
 			logger.error("(FastdfsService-queryFileInfo)-查询文件异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(RetSafeResultEnum.FASTDFS_FILE_INFO_ERROR);
+			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_FILE_INFO_ERROR);
         }
         return fileInfo;
     }
@@ -67,7 +67,7 @@ public class FastdfsServiceImpl extends BaseService implements IFastdfsService {
             storePath = fastFileStorageClient.uploadFile(inputStream, fileSize, fileExtName, metaDataSet);
         } catch (Exception e) {
 			logger.error("(FastdfsService-uploadFile)-上传文件异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(RetSafeResultEnum.FASTDFS_UPLOAD_FILE_ERROR);
+			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_UPLOAD_FILE_ERROR);
         }
         return storePath;
     }
@@ -85,7 +85,7 @@ public class FastdfsServiceImpl extends BaseService implements IFastdfsService {
             storePath = fastFileStorageClient.uploadFile(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
         } catch (Exception e) {
 			logger.error("(FastdfsService-uploadFile)-上传文件异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(RetSafeResultEnum.FASTDFS_UPLOAD_FILE_ERROR);
+			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_UPLOAD_FILE_ERROR);
         }
         return getAccessUrl(storePath);
     }
@@ -106,7 +106,7 @@ public class FastdfsServiceImpl extends BaseService implements IFastdfsService {
     		storePath = fastFileStorageClient.uploadImageAndCrtThumbImage(inputStream, fileSize, fileExtName, metaDataSet);
         } catch (Exception e) {
 			logger.error("(FastdfsService-uploadImage)-删除文件异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(RetSafeResultEnum.FASTDFS_UPLOAD_IMAGE_ERROR);
+			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_UPLOAD_IMAGE_ERROR);
         }
 
     	return storePath;
@@ -125,7 +125,7 @@ public class FastdfsServiceImpl extends BaseService implements IFastdfsService {
     		storePath = fastFileStorageClient.uploadImageAndCrtThumbImage(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
         } catch (Exception e) {
 			logger.error("(FastdfsService-deleteFile)-删除文件异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(RetSafeResultEnum.FASTDFS_UPLOAD_IMAGE_ERROR);
+			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_UPLOAD_IMAGE_ERROR);
         }
 
     	return getAccessUrl(storePath);
@@ -143,7 +143,7 @@ public class FastdfsServiceImpl extends BaseService implements IFastdfsService {
             fastFileStorageClient.deleteFile(storePath.getGroup(), storePath.getPath());
         } catch (Exception e) {
 			logger.error("(FastdfsService-deleteFile)-删除文件异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(RetSafeResultEnum.FASTDFS_DELETE_FILE_ERROR);
+			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_DELETE_FILE_ERROR);
         }
     }
 
@@ -162,7 +162,7 @@ public class FastdfsServiceImpl extends BaseService implements IFastdfsService {
 			t = fastFileStorageClient.downloadFile(storePath.getGroup(), storePath.getPath(), null);
         } catch (Exception e) {
 			logger.error("(FastdfsService-downloadFile)-下载文件异常, Exception = {}, message = {}", e, e.getMessage());
-			throw new SafeException(RetSafeResultEnum.FASTDFS_DOWNLOAD_ERROR);
+			throw new SafeException(RetSafeAdminResultEnum.FASTDFS_DOWNLOAD_ERROR);
         }
     	return t;
     }

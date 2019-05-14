@@ -63,11 +63,11 @@ public class ActivityAttachmentController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<ActivityAttachment> list = activityAttachmentService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询活动附件列表】(ActivityAttachmentController-selectListByPage)-分页查询活动附件列表, list.size:{}", list == null ? null : list.size());
-		List<ActivityAttachmentVo> activityAttachmentVoList = new ActivityAttachmentVo().convertToActivityAttachmentVoList(list);
+		List<ActivityAttachmentVo> dataList = new ActivityAttachmentVo().convertToActivityAttachmentVoList(list);
 
 		BaseRestMapResponse activityAttachmentResponse = new BaseRestMapResponse();
 		activityAttachmentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		activityAttachmentResponse.put(PageConstants.DATA_LIST, activityAttachmentVoList);
+		activityAttachmentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询活动附件列表】(ActivityAttachmentController-selectListByPage)-返回信息, activityAttachmentResponse:{}", activityAttachmentResponse);
 		return activityAttachmentResponse;
 	}
@@ -85,10 +85,10 @@ public class ActivityAttachmentController extends BaseController {
 		logger.info("===step1:【不分页查询活动附件列表】(ActivityAttachmentController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<ActivityAttachment> list = activityAttachmentService.selectList(req);
 		logger.info("===step2:【不分页查询活动附件列表】(ActivityAttachmentController-selectList)-不分页查询活动附件列表, list.size:{}", list == null ? null : list.size());
-		List<ActivityAttachmentVo> activityAttachmentVoList = new ActivityAttachmentVo().convertToActivityAttachmentVoList(list);
+		List<ActivityAttachmentVo> dataList = new ActivityAttachmentVo().convertToActivityAttachmentVoList(list);
 
 		BaseRestMapResponse activityAttachmentResponse = new BaseRestMapResponse();
-		activityAttachmentResponse.put(PageConstants.DATA_LIST, activityAttachmentVoList);
+		activityAttachmentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询活动附件列表】(ActivityAttachmentController-selectList)-返回信息, activityAttachmentResponse:{}", activityAttachmentResponse);
 		return activityAttachmentResponse;
 	}

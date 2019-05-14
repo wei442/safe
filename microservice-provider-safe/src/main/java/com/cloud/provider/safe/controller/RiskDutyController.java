@@ -65,11 +65,11 @@ public class RiskDutyController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<RiskDuty> list = riskDutyService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询风险责任列表】(RiskDutyController-selectListByPage)-分页查询风险责任列表, list.size:{}", list == null ? null : list.size());
-		List<RiskDutyVo> riskDutyVoList = new RiskDutyVo().convertToRiskDutyVoList(list);
+		List<RiskDutyVo> dataList = new RiskDutyVo().convertToRiskDutyVoList(list);
 
 		BaseRestMapResponse riskDutyResponse = new BaseRestMapResponse();
 		riskDutyResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		riskDutyResponse.put(PageConstants.DATA_LIST, riskDutyVoList);
+		riskDutyResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询风险责任列表】(RiskDutyController-selectListByPage)-返回信息, riskDutyResponse:{}", riskDutyResponse);
 		return riskDutyResponse;
 	}

@@ -64,11 +64,11 @@ public class UserInfoController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<UserInfo> list = userInfoService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询用户信息列表】(UserInfoController-selectListByPage)-分页查询用户信息列表, list.size:{}", list == null ? null : list.size());
-		List<UserInfoVo> userInfoVoList = new UserInfoVo().convertToUserInfoVoList(list);
+		List<UserInfoVo> dataList = new UserInfoVo().convertToUserInfoVoList(list);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
 		userInfoResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		userInfoResponse.put(PageConstants.DATA_LIST, userInfoVoList);
+		userInfoResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询用户信息列表】(UserInfoController-selectListByPage)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}
@@ -86,10 +86,10 @@ public class UserInfoController extends BaseController {
 		logger.info("===step1:【不分页查询用户信息列表】(UserInfoController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<UserInfo> list = userInfoService.selectList(req);
 		logger.info("===step2:【不分页查询用户信息列表】(UserInfoController-selectList)-不分页查询用户信息列表, list.size:{}", list == null ? null : list.size());
-		List<UserInfoVo> userInfoVoList = new UserInfoVo().convertToUserInfoVoList(list);
+		List<UserInfoVo> dataList = new UserInfoVo().convertToUserInfoVoList(list);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
-		userInfoResponse.put(PageConstants.DATA_LIST, userInfoVoList);
+		userInfoResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询用户信息列表】(UserInfoController-selectList)-返回信息, userInfoResponse:{}", userInfoResponse);
 		return userInfoResponse;
 	}

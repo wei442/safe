@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.PageConstants;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.AttachmentLog;
@@ -59,10 +60,11 @@ public class AttachmentLogController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<AttachmentLog> list = attachmentLogService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询附件日志列表】(AttachmentLogController-selectListByPage)-分页查询附件日志列表, list.size:{}", list == null ? null : list.size());
-		List<AttachmentLogVo> attachmentLogVoList = new AttachmentLogVo().convertToAttachmentLogVoList(list);
+		List<AttachmentLogVo> dataList = new AttachmentLogVo().convertToAttachmentLogVoList(list);
 
 		BaseRestMapResponse attachmentLogResponse = new BaseRestMapResponse();
-		attachmentLogResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(attachmentLogVoList));
+		attachmentLogResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		attachmentLogResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询附件日志列表】(AttachmentLogController-selectListByPage)-返回信息, attachmentLogResponse:{}", attachmentLogResponse);
 		return attachmentLogResponse;
 	}

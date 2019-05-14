@@ -1,8 +1,6 @@
 package com.cloud.consumer.safe.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +22,7 @@ import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.enterprise.OrgIdRequest;
 import com.cloud.consumer.safe.rest.request.enterprise.OrgRequest;
 import com.cloud.consumer.safe.rest.request.page.enterprise.OrgPageRequest;
+import com.cloud.consumer.safe.rest.request.page.enterprise.OrgTreeRequest;
 import com.cloud.consumer.safe.service.IOrgService;
 import com.cloud.consumer.safe.validator.group.UpdateGroup;
 import com.cloud.consumer.safe.vo.base.BasePageResultVo;
@@ -58,7 +57,7 @@ public class OrgController extends BaseController {
 	@RequestMapping(value="/getTreeList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getTreeList(
-		@RequestBody OrgPageRequest req) {
+		@RequestBody OrgTreeRequest req) {
 		logger.info("===step1:【查询组织机构树列表】(OrgController-getTreeList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
@@ -67,15 +66,15 @@ public class OrgController extends BaseController {
 		logger.info("===step2:【查询组织机构树列表】(OrgController-getTreeList)-查询组织机构树列表, jsonOrg:{}", jsonOrg);
 		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
 		List<OrgVo> orgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgVo>>(){});
-		Integer orgId = null;
-		if(orgVoList != null && !orgVoList.isEmpty()) {
-			orgId = orgVoList.get(0).getOrgId();
-		}
+//		Integer orgId = null;
+//		if(orgVoList != null && !orgVoList.isEmpty()) {
+//			orgId = orgVoList.get(0).getOrgId();
+//		}
 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("orgId", orgId);
-		JSONObject jsonParentOrg = orgService.getParentTreeList(params);
-		logger.info("===step2:【查询组织机构树列表】(OrgController-getTreeList)-查询组织机构树列表, jsonParentOrg:{}", jsonParentOrg);
+//		Map<String, Object> params = new HashMap<String, Object>();
+//		params.put("orgId", orgId);
+//		JSONObject jsonParentOrg = orgService.getParentTreeList(params);
+//		logger.info("===step2:【查询组织机构树列表】(OrgController-getTreeList)-查询组织机构树列表, jsonParentOrg:{}", jsonParentOrg);
 
 		BaseResultVo result = new BaseResultVo(orgVoList);
 		//返回信息
@@ -86,21 +85,21 @@ public class OrgController extends BaseController {
 	}
 
 	/**
-	 * 查询组织机构树列表
+	 * 查询父组织机构树列表
 	 * @param req
 	 * @return BaseRestMapResponse
 	 */
-	@ApiOperation(value = "查询组织机构树列表")
+	@ApiOperation(value = "查询父组织机构树列表")
 	@RequestMapping(value="/getParentTreeList",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse getParentTreeList(
-		@RequestBody OrgPageRequest req) {
-		logger.info("===step1:【查询组织机构树列表】(OrgController-getTreeList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
+		@RequestBody OrgTreeRequest req) {
+		logger.info("===step1:【查询父组织机构树列表】(OrgController-getParentTreeList)-请求参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		Integer enterpriseId = this.getTokenEnterpriseId();
 		req.setEnterpriseId(enterpriseId);
 
 		JSONObject jsonOrg = orgService.getParentTreeList(req);
-		logger.info("===step2:【查询组织机构树列表】(OrgController-getTreeList)-查询组织机构树列表, jsonOrg:{}", jsonOrg);
+		logger.info("===step2:【查询父组织机构树列表】(OrgController-getParentTreeList)-查询父组织机构树列表, jsonOrg:{}", jsonOrg);
 		String dataListStr = JSONObject.toJSONString(jsonOrg.getJSONArray(PageConstants.DATA_LIST));
 		List<OrgVo> orgVoList  = JSONObject.parseObject(dataListStr, new TypeReference<List<OrgVo>>(){});
 
@@ -108,7 +107,7 @@ public class OrgController extends BaseController {
 		//返回信息
 		BaseRestMapResponse orgResponse = new BaseRestMapResponse();
 		orgResponse.put(CommConstants.RESULT, result);
-	    logger.info("===step3:【查询组织机构树列表】(OrgController-getTreeList)-返回信息, orgResponse:{}", orgResponse);
+	    logger.info("===step3:【查询父组织机构树列表】(OrgController-getParentTreeList)-返回信息, orgResponse:{}", orgResponse);
 	    return orgResponse;
 	}
 

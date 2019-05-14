@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cloud.common.constants.PageConstants;
 import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.page.PageHelperUtil;
 import com.cloud.provider.safe.po.UserAppLoginLog;
@@ -59,10 +60,11 @@ public class UserAppLoginLogController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<UserAppLoginLog> list = userAppLoginLogService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询用户应用登录日志列表】(UserAppLoginLogController-selectListByPage)-分页查询用户应用登录日志列表, list.size:{}", list == null ? null : list.size());
-		List<UserAppLoginLogVo> userAppLoginLogVoList = new UserAppLoginLogVo().convertToUserAppLoginLogVoList(list);
+		List<UserAppLoginLogVo> dataList = new UserAppLoginLogVo().convertToUserAppLoginLogVoList(list);
 
 		BaseRestMapResponse userAppLoginLogResponse = new BaseRestMapResponse();
-		userAppLoginLogResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(userAppLoginLogVoList));
+		userAppLoginLogResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
+		userAppLoginLogResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询用户应用登录日志列表】(UserAppLoginLogController-selectListByPage)-返回信息, userAppLoginLogResponse:{}", userAppLoginLogResponse);
 		return userAppLoginLogResponse;
 	}

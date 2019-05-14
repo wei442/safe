@@ -65,11 +65,11 @@ public class RiskAcceptController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<RiskAccept> list = riskAcceptService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询风险验收列表】(RiskAcceptController-selectListByPage)-分页查询风险验收列表, list.size:{}", list == null ? null : list.size());
-		List<RiskAcceptVo> riskAcceptVoList = new RiskAcceptVo().convertToRiskAcceptVoList(list);
+		List<RiskAcceptVo> dataList = new RiskAcceptVo().convertToRiskAcceptVoList(list);
 
 		BaseRestMapResponse riskAcceptResponse = new BaseRestMapResponse();
 		riskAcceptResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		riskAcceptResponse.put(PageConstants.DATA_LIST, riskAcceptVoList);
+		riskAcceptResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询风险验收列表】(RiskAcceptController-selectListByPage)-返回信息, riskAcceptResponse:{}", riskAcceptResponse);
 		return riskAcceptResponse;
 	}

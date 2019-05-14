@@ -26,17 +26,13 @@ public class DataUserAdminLoginLogThread implements Runnable {
 
 	private String queueKey = RedisKeysUtil.QN_CLOUD_SAFE_USER_ADMIN_LOGIN_LOG;
 
-//	//数据 Service
-//	@Autowired
-//	private DataBaseService dataBaseService;
+	//用户管理日志 Service
+	@Autowired
+	private IUserAdminLoginLogService userAdminLoginLogService;
 
 	//redis Service
 	@Autowired
     private IRedisService redisService;
-
-	//用户管理日志 Service
-	@Autowired
-	private IUserAdminLoginLogService userAdminLoginLogService;
 
 	@Override
 	public void run() {

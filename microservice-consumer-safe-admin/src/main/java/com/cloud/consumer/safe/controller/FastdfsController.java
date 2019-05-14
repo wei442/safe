@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.CommConstants;
-import com.cloud.common.enums.safe.RetSafeResultEnum;
+import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.rest.request.fastdfs.FastdfsRequest;
 import com.cloud.consumer.safe.vo.fastdfs.FastdfsVo;
@@ -71,7 +71,7 @@ public class FastdfsController extends BaseController {
             logger.info("===step2:【上传文件】(FastdfsController-uploadFile)-上传文件, storePath:{}", storePath);
         } catch (Exception e) {
 			logger.error("===step2.1:【上传文件】(FastdfsController-uploadFile)-上传文件异常, Exception = {}, message = {}", e, e.getMessage());
-			return new BaseRestMapResponse(RetSafeResultEnum.FASTDFS_UPLOAD_FILE_ERROR);
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.FASTDFS_UPLOAD_FILE_ERROR);
         }
 
 		String fileUrl = fdfsWebServer.getWebServerUrl() + storePath.getFullPath();
@@ -106,7 +106,7 @@ public class FastdfsController extends BaseController {
             logger.info("===step2:【上传图片】(FastdfsController-uploadImage)-上传文件, storePath:{}", storePath);
         } catch (Exception e) {
 			logger.error("===step2.1:【上传图片】(FastdfsController-uploadImage)-上传文件异常, Exception = {}, message = {}", e, e.getMessage());
-			return new BaseRestMapResponse(RetSafeResultEnum.FASTDFS_UPLOAD_FILE_ERROR);
+			return new BaseRestMapResponse(RetSafeAdminResultEnum.FASTDFS_UPLOAD_FILE_ERROR);
         }
 
 		String fileUrl = fdfsWebServer.getWebServerUrl() + storePath.getFullPath();

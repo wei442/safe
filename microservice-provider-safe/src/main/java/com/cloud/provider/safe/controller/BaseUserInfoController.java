@@ -63,11 +63,11 @@ public class BaseUserInfoController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<BaseUserInfo> list = baseUserInfoService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询基础用户信息列表】(BaseUserInfoController-selectListByPage)-分页查询基础用户信息列表, list.size:{}", list == null ? null : list.size());
-		List<BaseUserInfoVo> baseUserInfoVoList = new BaseUserInfoVo().convertToBaseUserInfoVoList(list);
+		List<BaseUserInfoVo> dataList = new BaseUserInfoVo().convertToBaseUserInfoVoList(list);
 
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
 		baseUserInfoResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		baseUserInfoResponse.put(PageConstants.DATA_LIST, baseUserInfoVoList);
+		baseUserInfoResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询基础用户信息列表】(BaseUserInfoController-selectListByPage)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
 		return baseUserInfoResponse;
 	}
@@ -85,10 +85,10 @@ public class BaseUserInfoController extends BaseController {
 		logger.info("===step1:【不分页查询基础用户信息列表】(BaseUserInfoController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<BaseUserInfo> list = baseUserInfoService.selectList(req);
 		logger.info("===step2:【不分页查询基础用户信息列表】(BaseUserInfoController-selectList)-不分页查询基础用户信息列表, list.size:{}", list == null ? null : list.size());
-		List<BaseUserInfoVo> baseUserInfoVoList = new BaseUserInfoVo().convertToBaseUserInfoVoList(list);
+		List<BaseUserInfoVo> dataList = new BaseUserInfoVo().convertToBaseUserInfoVoList(list);
 
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();
-		baseUserInfoResponse.put(PageConstants.DATA_LIST, baseUserInfoVoList);
+		baseUserInfoResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询基础用户信息列表】(BaseUserInfoController-selectList)-返回信息, baseUserInfoResponse:{}", baseUserInfoResponse);
 		return baseUserInfoResponse;
 	}

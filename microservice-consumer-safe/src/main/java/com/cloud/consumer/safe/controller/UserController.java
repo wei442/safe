@@ -26,8 +26,6 @@ import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.rest.request.user.login.UserLoginFirstPasswordRequest;
 import com.cloud.consumer.safe.rest.request.user.login.UserLoginRequest;
 import com.cloud.consumer.safe.rest.request.user.login.UserRegisterRequest;
-import com.cloud.consumer.safe.service.IUserAdminLoginService;
-import com.cloud.consumer.safe.service.IUserAdminPasswordService;
 import com.cloud.consumer.safe.service.IUserService;
 import com.cloud.consumer.safe.util.PatternUtil;
 import com.cloud.consumer.safe.vo.enterprise.EnterpriseVo;
@@ -59,14 +57,6 @@ public class UserController extends BaseController {
 	//用户 Service
 	@Autowired
 	private IUserService userService;
-
-	//用户管理密码 Service
-	@Autowired
-	private IUserAdminPasswordService userAdminPasswordService;
-
-	//用户管理登录 Service
-	@Autowired
-	private IUserAdminLoginService userAdminLoginService;
 
 	/**
 	 * 用户登录

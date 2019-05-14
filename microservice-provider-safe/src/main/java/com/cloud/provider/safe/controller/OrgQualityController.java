@@ -64,11 +64,11 @@ public class OrgQualityController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<OrgQuality> list = orgQualityService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询机构资质列表】(OrgQualityController-selectListByPage)-分页查询机构资质列表, list.size:{}", list == null ? null : list.size());
-		List<OrgQualityVo> orgQualityVoList = new OrgQualityVo().convertToOrgQualityVoList(list);
+		List<OrgQualityVo> dataList = new OrgQualityVo().convertToOrgQualityVoList(list);
 
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
 		orgQualityResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		orgQualityResponse.put(PageConstants.DATA_LIST, orgQualityVoList);
+		orgQualityResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询机构资质列表】(OrgQualityController-selectListByPage)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 		return orgQualityResponse;
 	}
@@ -86,10 +86,10 @@ public class OrgQualityController extends BaseController {
 		logger.info("===step1:【不分页查询机构资质列表】(OrgQualityController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<OrgQuality> list = orgQualityService.selectList(req);
 		logger.info("===step2:【不分页查询机构资质列表】(OrgQualityController-selectList)-不分页查询机构资质列表, list.size:{}", list == null ? null : list.size());
-		List<OrgQualityVo> orgQualityVoList = new OrgQualityVo().convertToOrgQualityVoList(list);
+		List<OrgQualityVo> dataList = new OrgQualityVo().convertToOrgQualityVoList(list);
 
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();
-		orgQualityResponse.put(PageConstants.DATA_LIST, orgQualityVoList);
+		orgQualityResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询机构资质列表】(OrgQualityController-selectList)-返回信息, orgQualityResponse:{}", orgQualityResponse);
 		return orgQualityResponse;
 	}

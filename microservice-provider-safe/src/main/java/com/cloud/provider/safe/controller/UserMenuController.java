@@ -64,11 +64,11 @@ public class UserMenuController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<UserMenu> list = userMenuService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询用户菜单列表】(UserMenuController-selectListByPage)-分页查询用户菜单列表, list.size:{}", list == null ? null : list.size());
-		List<UserMenuVo> userMenuVoList = new UserMenuVo().convertToUserMenuVoList(list);
+		List<UserMenuVo> dataList = new UserMenuVo().convertToUserMenuVoList(list);
 
 		BaseRestMapResponse userMenuResponse = new BaseRestMapResponse();
 		userMenuResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		userMenuResponse.put(PageConstants.DATA_LIST, userMenuVoList);
+		userMenuResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询用户菜单列表】(UserMenuController-selectListByPage)-返回信息, userMenuResponse:{}", userMenuResponse);
 		return userMenuResponse;
 	}
@@ -86,10 +86,10 @@ public class UserMenuController extends BaseController {
 		logger.info("===step1:【不分页查询用户菜单列表】(UserMenuController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<UserMenu> list = userMenuService.selectList(req);
 		logger.info("===step2:【不分页查询用户菜单列表】(UserMenuController-selectList)-不分页查询用户菜单列表, list.size:{}", list == null ? null : list.size());
-		List<UserMenuVo> userMenuVoList = new UserMenuVo().convertToUserMenuVoList(list);
+		List<UserMenuVo> dataList = new UserMenuVo().convertToUserMenuVoList(list);
 
 		BaseRestMapResponse userMenuResponse = new BaseRestMapResponse();
-		userMenuResponse.put(PageConstants.DATA_LIST, userMenuVoList);
+		userMenuResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询用户菜单列表】(UserMenuController-selectList)-返回信息, userMenuResponse:{}", userMenuResponse);
 		return userMenuResponse;
 	}

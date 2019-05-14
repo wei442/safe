@@ -23,7 +23,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.cloud.common.constants.CommConstants;
 import com.cloud.common.constants.PageConstants;
 import com.cloud.common.constants.safe.SqlSafeConstants;
-import com.cloud.common.enums.safe.RetSafeResultEnum;
+import com.cloud.common.enums.safe.RetSafeAdminResultEnum;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.page.PageVo;
 import com.cloud.consumer.safe.rest.request.activity.RuleAttachmentRequest;
@@ -173,45 +173,45 @@ public class RuleController extends BaseController {
 	    String keyWord = req.getKeyWord();
 	    Integer ruleType = req.getRuleType();
 	    if(ruleType == null) {
-	    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "规范类型不能为空");
+	    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "规范类型不能为空");
 	    }
 	    if(SqlSafeConstants.SQL_RULE_TYPE_LAW_RULE.equals(ruleType)) {
 	    	if(StringUtils.isBlank(ruleName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "名称不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "名称不能为空");
 	    	} else if(ruleCategory == null) {
-	    		return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "类别不能为空");
+	    		return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "类别不能为空");
 	    	} else if(StringUtils.isBlank(ruleNo)) {
-	    		return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "法规标号不能为空");
+	    		return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "法规标号不能为空");
 	    	} else if(orgId == null) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "所属公司或大区id不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "所属公司或大区id不能为空");
 		    } else if(StringUtils.isBlank(orgName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "所属公司或大区不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "所属公司或大区不能为空");
 		    } else if(StringUtils.isBlank(keyWord)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
 		    }
 	    } else if(SqlSafeConstants.SQL_RULE_TYPE_SAFET_PRODUCTION.equals(ruleType)) {
 	    	if(StringUtils.isBlank(ruleName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "制度名称不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "制度名称不能为空");
 	    	} else if(StringUtils.isBlank(ruleNo)) {
-	    		return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "制度标号不能为空");
+	    		return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "制度标号不能为空");
 	    	} else if(orgId == null) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "适用范围id不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "适用范围id不能为空");
 		    } else if(StringUtils.isBlank(orgName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "适用范围不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "适用范围不能为空");
 		    } else if(StringUtils.isBlank(keyWord)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
 		    }
 	    } else if(SqlSafeConstants.SQL_RULE_TYPE_SAFET_OPERATION.equals(ruleType)) {
 	    	if(StringUtils.isBlank(ruleName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "名称不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "名称不能为空");
 	    	} else if(StringUtils.isBlank(ruleNo)) {
-	    		return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "文件标号不能为空");
+	    		return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "文件标号不能为空");
 	    	} else if(orgId == null) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "适用范围id不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "适用范围id不能为空");
 		    } else if(StringUtils.isBlank(orgName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "适用范围不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "适用范围不能为空");
 		    } else if(StringUtils.isBlank(keyWord)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
 		    }
 	    }
 
@@ -292,47 +292,47 @@ public class RuleController extends BaseController {
 	    String keyWord = req.getKeyWord();
 	    Integer ruleType = req.getRuleType();
 	    if(ruleId == null) {
-	    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "规范id不能为空");
+	    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "规范id不能为空");
 	    } else if(ruleType == null) {
-	    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "规范类型不能为空");
+	    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "规范类型不能为空");
 	    }
 	    if(SqlSafeConstants.SQL_RULE_TYPE_LAW_RULE.equals(ruleType)) {
 	    	if(StringUtils.isBlank(ruleName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "名称不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "名称不能为空");
 	    	} else if(ruleCategory == null) {
-	    		return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "类别不能为空");
+	    		return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "类别不能为空");
 	    	} else if(StringUtils.isBlank(ruleNo)) {
-	    		return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "法规标号不能为空");
+	    		return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "法规标号不能为空");
 	    	} else if(orgId == null) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "所属公司或大区id不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "所属公司或大区id不能为空");
 		    } else if(StringUtils.isBlank(orgName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "所属公司或大区不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "所属公司或大区不能为空");
 		    } else if(StringUtils.isBlank(keyWord)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
 		    }
 	    } else if(SqlSafeConstants.SQL_RULE_TYPE_SAFET_PRODUCTION.equals(ruleType)) {
 	    	if(StringUtils.isBlank(ruleName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "制度名称不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "制度名称不能为空");
 	    	} else if(StringUtils.isBlank(ruleNo)) {
-	    		return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "制度标号不能为空");
+	    		return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "制度标号不能为空");
 	    	} else if(orgId == null) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "适用范围id不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "适用范围id不能为空");
 		    } else if(StringUtils.isBlank(orgName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "适用范围不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "适用范围不能为空");
 		    } else if(StringUtils.isBlank(keyWord)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
 		    }
 	    } else if(SqlSafeConstants.SQL_RULE_TYPE_SAFET_OPERATION.equals(ruleType)) {
 	    	if(StringUtils.isBlank(ruleName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "名称不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "名称不能为空");
 	    	} else if(StringUtils.isBlank(ruleNo)) {
-	    		return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "文件标号不能为空");
+	    		return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "文件标号不能为空");
 	    	} else if(orgId == null) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "适用范围id不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "适用范围id不能为空");
 		    } else if(StringUtils.isBlank(orgName)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "适用范围不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "适用范围不能为空");
 		    } else if(StringUtils.isBlank(keyWord)) {
-		    	return new BaseRestMapResponse(RetSafeResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
+		    	return new BaseRestMapResponse(RetSafeAdminResultEnum.PARAMETER_NULL.getCode(), "关键字不能为空");
 		    }
 	    }
 

@@ -21,4 +21,8 @@ public class UserAdminMasterRequest implements Serializable {
 
     private Integer enterpriseId;
 
+	@ApiModelProperty(value = "用户id")
+    @NotNull(message = "用户id不能为空")
+    private Integer userId;
+
 }

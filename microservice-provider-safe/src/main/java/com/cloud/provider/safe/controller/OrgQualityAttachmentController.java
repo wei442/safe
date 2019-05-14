@@ -63,11 +63,11 @@ public class OrgQualityAttachmentController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<OrgQualityAttachment> list = orgQualityAttachmentService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询机构资质附件列表】(OrgQualityAttachmentController-selectListByPage)-分页查询机构资质附件列表, list.size:{}", list == null ? null : list.size());
-		List<OrgQualityAttachmentVo> orgQualityAttachmentVoList = new OrgQualityAttachmentVo().convertToOrgQualityAttachmentVoList(list);
+		List<OrgQualityAttachmentVo> dataList = new OrgQualityAttachmentVo().convertToOrgQualityAttachmentVoList(list);
 
 		BaseRestMapResponse orgQualityAttachmentResponse = new BaseRestMapResponse();
 		orgQualityAttachmentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		orgQualityAttachmentResponse.put(PageConstants.DATA_LIST, orgQualityAttachmentVoList);
+		orgQualityAttachmentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询机构资质附件列表】(OrgQualityAttachmentController-selectListByPage)-返回信息, orgQualityAttachmentResponse:{}", orgQualityAttachmentResponse);
 		return orgQualityAttachmentResponse;
 	}
@@ -85,10 +85,10 @@ public class OrgQualityAttachmentController extends BaseController {
 		logger.info("===step1:【不分页查询机构资质附件列表】(OrgQualityAttachmentController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<OrgQualityAttachment> list = orgQualityAttachmentService.selectList(req);
 		logger.info("===step2:【不分页查询机构资质附件列表】(OrgQualityAttachmentController-selectList)-不分页查询机构资质附件列表, list.size:{}", list == null ? null : list.size());
-		List<OrgQualityAttachmentVo> orgQualityAttachmentVoList = new OrgQualityAttachmentVo().convertToOrgQualityAttachmentVoList(list);
+		List<OrgQualityAttachmentVo> dataList = new OrgQualityAttachmentVo().convertToOrgQualityAttachmentVoList(list);
 
 		BaseRestMapResponse orgQualityAttachmentResponse = new BaseRestMapResponse();
-		orgQualityAttachmentResponse.put(PageConstants.DATA_LIST, orgQualityAttachmentVoList);
+		orgQualityAttachmentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询机构资质附件列表】(OrgQualityAttachmentController-selectList)-返回信息, orgQualityAttachmentResponse:{}", orgQualityAttachmentResponse);
 		return orgQualityAttachmentResponse;
 	}

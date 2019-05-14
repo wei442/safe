@@ -63,11 +63,11 @@ public class PostAttachmentController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<PostAttachment> list = postAttachmentService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询岗位附件列表】(PostAttachmentController-selectListByPage)-分页查询岗位附件列表, list.size:{}", list == null ? null : list.size());
-		List<PostAttachmentVo> postAttachmentVoList = new PostAttachmentVo().convertToPostAttachmentVoList(list);
+		List<PostAttachmentVo> dataList = new PostAttachmentVo().convertToPostAttachmentVoList(list);
 
 		BaseRestMapResponse postAttachmentResponse = new BaseRestMapResponse();
 		postAttachmentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		postAttachmentResponse.put(PageConstants.DATA_LIST, postAttachmentVoList);
+		postAttachmentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询岗位附件列表】(PostAttachmentController-selectListByPage)-返回信息, postAttachmentResponse:{}", postAttachmentResponse);
 		return postAttachmentResponse;
 	}
@@ -85,10 +85,10 @@ public class PostAttachmentController extends BaseController {
 		logger.info("===step1:【不分页查询岗位附件列表】(PostAttachmentController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<PostAttachment> list = postAttachmentService.selectList(req);
 		logger.info("===step2:【不分页查询岗位附件列表】(PostAttachmentController-selectList)-不分页查询岗位附件列表, list.size:{}", list == null ? null : list.size());
-		List<PostAttachmentVo> postAttachmentVoList = new PostAttachmentVo().convertToPostAttachmentVoList(list);
+		List<PostAttachmentVo> dataList = new PostAttachmentVo().convertToPostAttachmentVoList(list);
 
 		BaseRestMapResponse postAttachmentResponse = new BaseRestMapResponse();
-		postAttachmentResponse.put(PageConstants.DATA_LIST, postAttachmentVoList);
+		postAttachmentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询岗位附件列表】(PostAttachmentController-selectList)-返回信息, postAttachmentResponse:{}", postAttachmentResponse);
 		return postAttachmentResponse;
 	}

@@ -63,11 +63,11 @@ public class ActivityCommentController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<ActivityComment> list = activityCommentService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询活动评论列表】(ActivityCommentController-selectListByPage)-分页查询活动评论列表, list.size:{}", list == null ? null : list.size());
-		List<ActivityCommentVo> activityCommentVoList = new ActivityCommentVo().convertToActivityCommentVoList(list);
+		List<ActivityCommentVo> dataList = new ActivityCommentVo().convertToActivityCommentVoList(list);
 
 		BaseRestMapResponse activityCommentResponse = new BaseRestMapResponse();
 		activityCommentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		activityCommentResponse.put(PageConstants.DATA_LIST, activityCommentVoList);
+		activityCommentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询活动评论列表】(ActivityCommentController-selectListByPage)-返回信息, activityCommentResponse:{}", activityCommentResponse);
 		return activityCommentResponse;
 	}
@@ -85,10 +85,10 @@ public class ActivityCommentController extends BaseController {
 		logger.info("===step1:【不分页查询活动评论列表】(ActivityCommentController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<ActivityComment> list = activityCommentService.selectList(req);
 		logger.info("===step2:【不分页查询活动评论列表】(ActivityCommentController-selectList)-不分页查询活动评论列表, list.size:{}", list == null ? null : list.size());
-		List<ActivityCommentVo> activityCommentVoList = new ActivityCommentVo().convertToActivityCommentVoList(list);
+		List<ActivityCommentVo> dataList = new ActivityCommentVo().convertToActivityCommentVoList(list);
 
 		BaseRestMapResponse activityCommentResponse = new BaseRestMapResponse();
-		activityCommentResponse.put(PageConstants.DATA_LIST, activityCommentVoList);
+		activityCommentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询活动评论列表】(ActivityCommentController-selectList)-返回信息, activityCommentResponse:{}", activityCommentResponse);
 		return activityCommentResponse;
 	}

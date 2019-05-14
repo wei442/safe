@@ -63,11 +63,11 @@ public class UserQualityAttachmentController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<UserQualityAttachment> list = userQualityAttachmentService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询用户资质附件列表】(UserQualityAttachmentController-selectListByPage)-分页查询用户资质附件列表, list.size:{}", list == null ? null : list.size());
-		List<UserQualityAttachmentVo> userQualityAttachmentVoList = new UserQualityAttachmentVo().convertToUserQualityAttachmentVoList(list);
+		List<UserQualityAttachmentVo> dataList = new UserQualityAttachmentVo().convertToUserQualityAttachmentVoList(list);
 
 		BaseRestMapResponse userQualityAttachmentResponse = new BaseRestMapResponse();
 		userQualityAttachmentResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		userQualityAttachmentResponse.put(PageConstants.DATA_LIST, userQualityAttachmentVoList);
+		userQualityAttachmentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询用户资质附件列表】(UserQualityAttachmentController-selectListByPage)-返回信息, userQualityAttachmentResponse:{}", userQualityAttachmentResponse);
 		return userQualityAttachmentResponse;
 	}
@@ -85,10 +85,10 @@ public class UserQualityAttachmentController extends BaseController {
 		logger.info("===step1:【不分页查询用户资质附件列表】(UserQualityAttachmentController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<UserQualityAttachment> list = userQualityAttachmentService.selectList(req);
 		logger.info("===step2:【不分页查询用户资质附件列表】(UserQualityAttachmentController-selectList)-不分页查询用户资质附件列表, list.size:{}", list == null ? null : list.size());
-		List<UserQualityAttachmentVo> userQualityAttachmentVoList = new UserQualityAttachmentVo().convertToUserQualityAttachmentVoList(list);
+		List<UserQualityAttachmentVo> dataList = new UserQualityAttachmentVo().convertToUserQualityAttachmentVoList(list);
 
 		BaseRestMapResponse userQualityAttachmentResponse = new BaseRestMapResponse();
-		userQualityAttachmentResponse.put(PageConstants.DATA_LIST, userQualityAttachmentVoList);
+		userQualityAttachmentResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询用户资质附件列表】(UserQualityAttachmentController-selectList)-返回信息, userQualityAttachmentResponse:{}", userQualityAttachmentResponse);
 		return userQualityAttachmentResponse;
 	}

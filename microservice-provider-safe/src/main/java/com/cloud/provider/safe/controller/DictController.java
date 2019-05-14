@@ -64,12 +64,11 @@ public class DictController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<Dict> list = dictService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询字典列表】(DictController-selectListByPage)-分页查询字典列表, list.size:{}", list == null ? null : list.size());
-		List<DictVo> dictVoList = new DictVo().convertToDictVoList(list);
+		List<DictVo> dataList = new DictVo().convertToDictVoList(list);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-//		dictResponse.putAll(PageHelperUtil.INSTANCE.getPageListMap(list, dictVoList));
 		dictResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		dictResponse.put(PageConstants.DATA_LIST, dictVoList);
+		dictResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询字典列表】(DictController-selectListByPage)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}
@@ -87,10 +86,10 @@ public class DictController extends BaseController {
 		logger.info("===step1:【不分页查询字典列表】(DictController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<Dict> list = dictService.selectList(req);
 		logger.info("===step2:【不分页查询字典列表】(DictController-selectList)-不分页查询字典列表, list.size:{}", list == null ? null : list.size());
-		List<DictVo> dictVoList = new DictVo().convertToDictVoList(list);
+		List<DictVo> dataList = new DictVo().convertToDictVoList(list);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
-		dictResponse.put(PageConstants.DATA_LIST, dictVoList);
+		dictResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询字典列表】(DictController-selectList)-返回信息, dictResponse:{}", dictResponse);
 		return dictResponse;
 	}

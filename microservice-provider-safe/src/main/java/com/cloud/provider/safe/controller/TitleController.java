@@ -69,11 +69,11 @@ public class TitleController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<Title> list = TitleService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询职务列表】(TitleController-selectListByPage)-分页查询职务列表, list.size:{}", list == null ? null : list.size());
-		List<TitleVo> titleVoList = new TitleVo().convertToTitleVoList(list);
+		List<TitleVo> dataList = new TitleVo().convertToTitleVoList(list);
 
 		BaseRestMapResponse titleResponse = new BaseRestMapResponse();
 		titleResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		titleResponse.put(PageConstants.DATA_LIST, titleVoList);
+		titleResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询职务列表】(TitleController-selectListByPage)-返回信息, titleResponse:{}", titleResponse);
 		return titleResponse;
 	}
@@ -91,10 +91,10 @@ public class TitleController extends BaseController {
 		logger.info("===step1:【不分页查询职务列表】(TitleController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<Title> list = TitleService.selectList(req);
 		logger.info("===step2:【不分页查询职务列表】(TitleController-selectList)-不分页查询职务列表, list.size:{}", list == null ? null : list.size());
-		List<TitleVo> titleVoList = new TitleVo().convertToTitleVoList(list);
+		List<TitleVo> dataList = new TitleVo().convertToTitleVoList(list);
 
 		BaseRestMapResponse TitleResponse = new BaseRestMapResponse();
-		TitleResponse.put(PageConstants.DATA_LIST, titleVoList);
+		TitleResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询职务列表】(TitleController-selectList)-返回信息, TitleResponse:{}", TitleResponse);
 		return TitleResponse;
 	}

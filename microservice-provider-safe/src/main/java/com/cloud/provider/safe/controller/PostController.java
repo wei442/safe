@@ -69,11 +69,11 @@ public class PostController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<Post> list = postService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询岗位列表】(PostController-selectListByPage)-分页查询岗位列表, list.size:{}", list == null ? null : list.size());
-		List<PostVo> postVoList = new PostVo().convertToPostVoList(list);
+		List<PostVo> dataList = new PostVo().convertToPostVoList(list);
 
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
 		postResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		postResponse.put(PageConstants.DATA_LIST, postVoList);
+		postResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询岗位列表】(PostController-selectListByPage)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}
@@ -91,10 +91,10 @@ public class PostController extends BaseController {
 		logger.info("===step1:【不分页查询岗位列表】(PostController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<Post> list = postService.selectList(req);
 		logger.info("===step2:【不分页查询岗位列表】(PostController-selectList)-不分页查询岗位列表, list.size:{}", list == null ? null : list.size());
-		List<PostVo> postVoList = new PostVo().convertToPostVoList(list);
+		List<PostVo> dataList = new PostVo().convertToPostVoList(list);
 
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();
-		postResponse.put(PageConstants.DATA_LIST, postVoList);
+		postResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询岗位列表】(PostController-selectList)-返回信息, postResponse:{}", postResponse);
 		return postResponse;
 	}

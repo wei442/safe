@@ -26,17 +26,13 @@ public class DataAttachmentLogThread implements Runnable {
 
 	private String queueKey = RedisKeysUtil.QN_CLOUD_SAFE_USER_LOGIN_ATTACHMENT_LOG;
 
-//	//数据 Service
-//	@Autowired
-//	private DataBaseService dataBaseService;
+	//附件日志 Service
+	@Autowired
+	private IAttachmentLogService attachmentLogService;
 
 	//redis Service
 	@Autowired
     private IRedisService redisService;
-
-	//附件日志 Service
-	@Autowired
-	private IAttachmentLogService attachmentLogService;
 
 	@Override
 	public void run() {

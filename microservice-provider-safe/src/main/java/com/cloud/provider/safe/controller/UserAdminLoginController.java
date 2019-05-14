@@ -64,11 +64,11 @@ public class UserAdminLoginController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<UserAdminLogin> list = userAdminLoginService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询用户管理登录列表】(UserAdminLoginController-selectListByPage)-分页查询用户管理登录列表, list.size:{}", list == null ? null : list.size());
-		List<UserAdminLoginVo> userAdminLoginVoList = new UserAdminLoginVo().convertToUserAdminLoginVoList(list);
+		List<UserAdminLoginVo> dataList = new UserAdminLoginVo().convertToUserAdminLoginVoList(list);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
 		userAdminLoginResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		userAdminLoginResponse.put(PageConstants.DATA_LIST, userAdminLoginVoList);
+		userAdminLoginResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询用户管理登录列表】(UserAdminLoginController-selectListByPage)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}
@@ -86,10 +86,10 @@ public class UserAdminLoginController extends BaseController {
 		logger.info("===step1:【不分页查询用户管理登录列表】(UserAdminLoginController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<UserAdminLogin> list = userAdminLoginService.selectList(req);
 		logger.info("===step2:【不分页查询用户管理登录列表】(UserAdminLoginController-selectList)-不分页查询用户管理登录列表, list.size:{}", list == null ? null : list.size());
-		List<UserAdminLoginVo> userAdminLoginVoList = new UserAdminLoginVo().convertToUserAdminLoginVoList(list);
+		List<UserAdminLoginVo> dataList = new UserAdminLoginVo().convertToUserAdminLoginVoList(list);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
-		userAdminLoginResponse.put(PageConstants.DATA_LIST, userAdminLoginVoList);
+		userAdminLoginResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询用户管理登录列表】(UserAdminLoginController-selectList)-返回信息, userAdminLoginResponse:{}", userAdminLoginResponse);
 		return userAdminLoginResponse;
 	}

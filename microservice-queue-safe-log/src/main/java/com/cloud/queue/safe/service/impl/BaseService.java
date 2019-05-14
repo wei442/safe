@@ -28,11 +28,6 @@ public class BaseService extends BaseUrlService {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	//Basic加密中间有空格
-	private static final String BASIC = "Basic";
-
-	private static final String AUTHORIZATION = "Authorization";
-
 	//rest模板
 	@Autowired
 	protected RestTemplate restTemplate;

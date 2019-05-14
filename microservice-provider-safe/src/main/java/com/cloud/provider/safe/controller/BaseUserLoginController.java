@@ -63,11 +63,11 @@ public class BaseUserLoginController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<BaseUserLogin> list = baseUserLoginService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询基础用户登录列表】(BaseUserLoginController-selectListByPage)-分页查询基础用户登录列表, list.size:{}", list == null ? null : list.size());
-		List<BaseUserLoginVo> baseUserLoginVoList = new BaseUserLoginVo().convertToBaseUserLoginVoList(list);
+		List<BaseUserLoginVo> dataList = new BaseUserLoginVo().convertToBaseUserLoginVoList(list);
 
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
 		baseUserLoginResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		baseUserLoginResponse.put(PageConstants.DATA_LIST, baseUserLoginVoList);
+		baseUserLoginResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询基础用户登录列表】(BaseUserLoginController-selectListByPage)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}
@@ -85,10 +85,10 @@ public class BaseUserLoginController extends BaseController {
 		logger.info("===step1:【不分页查询基础用户登录列表】(BaseUserLoginController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<BaseUserLogin> list = baseUserLoginService.selectList(req);
 		logger.info("===step2:【不分页查询基础用户登录列表】(BaseUserLoginController-selectList)-不分页查询基础用户登录列表, list.size:{}", list == null ? null : list.size());
-		List<BaseUserLoginVo> baseUserLoginVoList = new BaseUserLoginVo().convertToBaseUserLoginVoList(list);
+		List<BaseUserLoginVo> dataList = new BaseUserLoginVo().convertToBaseUserLoginVoList(list);
 
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
-		baseUserLoginResponse.put(PageConstants.DATA_LIST, baseUserLoginVoList);
+		baseUserLoginResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询基础用户登录列表】(BaseUserLoginController-selectList)-返回信息, baseUserLoginResponse:{}", baseUserLoginResponse);
 		return baseUserLoginResponse;
 	}

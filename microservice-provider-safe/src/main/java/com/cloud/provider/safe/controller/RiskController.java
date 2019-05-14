@@ -65,11 +65,11 @@ public class RiskController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<Risk> list = riskService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询风险列表】(RiskController-selectListByPage)-分页查询风险列表, list.size:{}", list == null ? null : list.size());
-		List<RiskVo> riskVoList = new RiskVo().convertToRiskVoList(list);
+		List<RiskVo> dataList = new RiskVo().convertToRiskVoList(list);
 
 		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
 		riskResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		riskResponse.put(PageConstants.DATA_LIST, riskVoList);
+		riskResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询风险列表】(RiskController-selectListByPage)-返回信息, riskResponse:{}", riskResponse);
 		return riskResponse;
 	}
@@ -87,10 +87,10 @@ public class RiskController extends BaseController {
 		logger.info("===step1:【不分页查询风险列表】(RiskController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<Risk> list = riskService.selectList(req);
 		logger.info("===step2:【不分页查询风险列表】(RiskController-selectList)-不分页查询风险列表, list.size:{}", list == null ? null : list.size());
-		List<RiskVo> riskVoList = new RiskVo().convertToRiskVoList(list);
+		List<RiskVo> dataList = new RiskVo().convertToRiskVoList(list);
 
 		BaseRestMapResponse riskResponse = new BaseRestMapResponse();
-		riskResponse.put(PageConstants.DATA_LIST, riskVoList);
+		riskResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询风险列表】(RiskController-selectList)-返回信息, riskResponse:{}", riskResponse);
 		return riskResponse;
 	}

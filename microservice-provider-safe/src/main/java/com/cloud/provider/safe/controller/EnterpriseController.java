@@ -64,11 +64,11 @@ public class EnterpriseController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<Enterprise> list = enterpriseService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询企业列表】(EnterpriseController-selectListByPage)-分页查询企业列表, list.size:{}", list == null ? null : list.size());
-		List<EnterpriseVo> enterpriseVoList = new EnterpriseVo().convertToEnterpriseVoList(list);
+		List<EnterpriseVo> dataList = new EnterpriseVo().convertToEnterpriseVoList(list);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
 		enterpriseResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		enterpriseResponse.put(PageConstants.DATA_LIST, enterpriseVoList);
+		enterpriseResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询企业列表】(EnterpriseController-selectListByPage)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}
@@ -86,10 +86,10 @@ public class EnterpriseController extends BaseController {
 		logger.info("===step1:【不分页查询企业列表】(EnterpriseController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<Enterprise> list = enterpriseService.selectList(req);
 		logger.info("===step2:【不分页查询企业列表】(EnterpriseController-selectList)-不分页查询企业列表, list.size:{}", list == null ? null : list.size());
-		List<EnterpriseVo> enterpriseVoList = new EnterpriseVo().convertToEnterpriseVoList(list);
+		List<EnterpriseVo> dataList = new EnterpriseVo().convertToEnterpriseVoList(list);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
-		enterpriseResponse.put(PageConstants.DATA_LIST, enterpriseVoList);
+		enterpriseResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询企业列表】(EnterpriseController-selectList)-返回信息, enterpriseResponse:{}", enterpriseResponse);
 		return enterpriseResponse;
 	}

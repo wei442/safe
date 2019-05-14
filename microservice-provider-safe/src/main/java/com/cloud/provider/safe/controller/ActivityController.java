@@ -64,11 +64,11 @@ public class ActivityController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<Activity> list = activityService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询活动列表】(ActivityController-selectListByPage)-分页查询活动列表, list.size:{}", list == null ? null : list.size());
-		List<ActivityVo> activityVoList = new ActivityVo().convertToActivityVoList(list);
+		List<ActivityVo> dataList = new ActivityVo().convertToActivityVoList(list);
 
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
 		activityResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		activityResponse.put(PageConstants.DATA_LIST, activityVoList);
+		activityResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询活动列表】(ActivityController-selectListByPage)-返回信息, activityResponse:{}", activityResponse);
 		return activityResponse;
 	}
@@ -86,10 +86,10 @@ public class ActivityController extends BaseController {
 		logger.info("===step1:【不分页查询活动列表】(ActivityController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<Activity> list = activityService.selectList(req);
 		logger.info("===step2:【不分页查询活动列表】(ActivityController-selectList)-不分页查询活动列表, list.size:{}", list == null ? null : list.size());
-		List<ActivityVo> activityVoList = new ActivityVo().convertToActivityVoList(list);
+		List<ActivityVo> dataList = new ActivityVo().convertToActivityVoList(list);
 
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();
-		activityResponse.put(PageConstants.DATA_LIST, activityVoList);
+		activityResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询活动列表】(ActivityController-selectList)-返回信息, activityResponse:{}", activityResponse);
 		return activityResponse;
 	}

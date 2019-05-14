@@ -65,11 +65,11 @@ public class DangerCheckController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<DangerCheck> list = dangerCheckService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询隐患排查列表】(DangerCheckController-selectListByPage)-分页查询隐患排查列表, list.size:{}", list == null ? null : list.size());
-		List<DangerCheckVo> dangerCheckVoList = new DangerCheckVo().convertToDangerCheckVoList(list);
+		List<DangerCheckVo> dataList = new DangerCheckVo().convertToDangerCheckVoList(list);
 
 		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
 		dangerCheckResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		dangerCheckResponse.put(PageConstants.DATA_LIST, dangerCheckVoList);
+		dangerCheckResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询隐患排查列表】(DangerCheckController-selectListByPage)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
 		return dangerCheckResponse;
 	}
@@ -87,10 +87,10 @@ public class DangerCheckController extends BaseController {
 		logger.info("===step1:【不分页查询隐患排查列表】(DangerCheckController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<DangerCheck> list = dangerCheckService.selectList(req);
 		logger.info("===step2:【不分页查询隐患排查列表】(DangerCheckController-selectList)-不分页查询隐患排查列表, list.size:{}", list == null ? null : list.size());
-		List<DangerCheckVo> dangerCheckVoList = new DangerCheckVo().convertToDangerCheckVoList(list);
+		List<DangerCheckVo> dataList = new DangerCheckVo().convertToDangerCheckVoList(list);
 
 		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
-		dangerCheckResponse.put(PageConstants.DATA_LIST, dangerCheckVoList);
+		dangerCheckResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询隐患排查列表】(DangerCheckController-selectList)-返回信息, dangerCheckResponse:{}", dangerCheckResponse);
 		return dangerCheckResponse;
 	}

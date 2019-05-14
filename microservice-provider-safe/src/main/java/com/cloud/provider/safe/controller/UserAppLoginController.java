@@ -63,11 +63,11 @@ public class UserAppLoginController extends BaseController {
 		Page<?> page = new Page<>(pageNum, pageSize);
 		List<UserAppLogin> list = userAppLoginService.selectListByPage(page, req);
 		logger.info("===step2:【分页查询用户应用登录列表】(UserAppLoginController-selectListByPage)-分页查询用户应用登录列表, list.size:{}", list == null ? null : list.size());
-		List<UserAppLoginVo> userAppLoginVoList = new UserAppLoginVo().convertToUserAppLoginVoList(list);
+		List<UserAppLoginVo> dataList = new UserAppLoginVo().convertToUserAppLoginVoList(list);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
 		userAppLoginResponse.put(PageConstants.PAGE, PageHelperUtil.INSTANCE.getPageVo(list));
-		userAppLoginResponse.put(PageConstants.DATA_LIST, userAppLoginVoList);
+		userAppLoginResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【分页查询用户应用登录列表】(UserAppLoginController-selectListByPage)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}
@@ -85,10 +85,10 @@ public class UserAppLoginController extends BaseController {
 		logger.info("===step1:【不分页查询用户应用登录列表】(UserAppLoginController-selectList)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
 		List<UserAppLogin> list = userAppLoginService.selectList(req);
 		logger.info("===step2:【不分页查询用户应用登录列表】(UserAppLoginController-selectList)-不分页查询用户应用登录列表, list.size:{}", list == null ? null : list.size());
-		List<UserAppLoginVo> userAppLoginVoList = new UserAppLoginVo().convertToUserAppLoginVoList(list);
+		List<UserAppLoginVo> dataList = new UserAppLoginVo().convertToUserAppLoginVoList(list);
 
 		BaseRestMapResponse userAppLoginResponse = new BaseRestMapResponse();
-		userAppLoginResponse.put(PageConstants.DATA_LIST, userAppLoginVoList);
+		userAppLoginResponse.put(PageConstants.DATA_LIST, dataList);
 		logger.info("===step3:【不分页查询用户应用登录列表】(UserAppLoginController-selectList)-返回信息, userAppLoginResponse:{}", userAppLoginResponse);
 		return userAppLoginResponse;
 	}
