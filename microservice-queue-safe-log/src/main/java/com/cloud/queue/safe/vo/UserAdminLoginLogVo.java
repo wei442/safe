@@ -13,13 +13,13 @@ public class UserAdminLoginLogVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private Long userAdminLoginLogId;
+
 	private Integer userId;
 
     private String userAccount;
 
     private String userName;
-
-    private String userNameEn;
 
     private Integer loginType;
 

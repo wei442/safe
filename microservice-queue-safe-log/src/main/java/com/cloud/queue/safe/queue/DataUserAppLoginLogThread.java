@@ -15,18 +15,18 @@ import com.cloud.queue.safe.service.IUserAppLoginLogService;
 
 /**
  * @ClassName: DataUserAppLoginLogThread
- * @Description: 用户app日志队列监听类
+ * @Description: 用户app登录日志队列监听类
  * @author wei.yong
  * @date 2017年3月23日 下午15:37:58
  */
 @Component
-public class DataUserAppLoginLogThread implements Runnable {
+public class DataUserAppLoginLogThread extends Thread {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private String queueKey = RedisKeysUtil.QN_CLOUD_SAFE_USER_APP_LOGIN_LOG;
 
-	//用户app日志 Service
+	//用户app登录日志 Service
 	@Autowired
 	private IUserAppLoginLogService userAppLoginLogService;
 
@@ -37,12 +37,12 @@ public class DataUserAppLoginLogThread implements Runnable {
 	@Override
 	public void run() {
 		String threadName = Thread.currentThread().getName();
-		logger.info("[DataUserAppLoginLogThread.run():用户app日志数据队列-线程已启动:{}]: queueKey={}", threadName, queueKey);
+		logger.info("[DataUserAppLoginLogThread.run():用户app登录日志数据队列-线程已启动:{}]: queueKey={}", threadName, queueKey);
 		while(ShutdownHandler.INSTANCE.keepRunning()) {
 			String value = null;
 			try {
 				value = redisService.brpop(queueKey);
-				logger.info("[DataUserAppLoginLogThread.run():用户app日志数据队列-redis获取数据]: value={}", value);
+				logger.info("[DataUserAppLoginLogThread.run():用户app登录日志数据队列-redis获取数据]: value={}", value);
 			} catch (Exception e) {
 				logger.error("[DataUserAppLoginLogThread.run():{} 线程-队列取值异常，进入下一循环] Exception = {}, message = {}", threadName, e, e.getMessage());
 				continue ;
@@ -54,7 +54,7 @@ public class DataUserAppLoginLogThread implements Runnable {
 			JSONObject params = null;
 			try {
 				params = JSONObject.parseObject(value);
-				logger.info("[DataUserAppLoginLogThread.run():用户app日志数据队列-json数据解析]: params={}", params);
+				logger.info("[DataUserAppLoginLogThread.run():用户app登录日志数据队列-json数据解析]: params={}", params);
 			} catch (JSONException e) {
 				logger.error("[DataUserAppLoginLogThread.run():{} 线程-队列值解析异常，进入下一循环] Exception = {}, message = {}", threadName, e, e.getMessage());
 				continue ;
@@ -62,9 +62,9 @@ public class DataUserAppLoginLogThread implements Runnable {
 
 			try {
 				JSONObject jsoUserAppLoginLog = userAppLoginLogService.add(params);
-				logger.info("[DataUserAppLoginLogThread.run():用户app日志数据队列-返回信息, jsoUserAppLoginLog:{}", jsoUserAppLoginLog);
+				logger.info("[DataUserAppLoginLogThread.run():用户app登录日志数据队列-返回信息, jsoUserAppLoginLog:{}", jsoUserAppLoginLog);
 			} catch (Exception e) {
-				logger.error("[DataUserAppLoginLogThread.run():用户app日志数据队列{} 线程处理异常, 已结束] queueKey={}, Exception={}, message={}", threadName, queueKey, e, e.getMessage());
+				logger.error("[DataUserAppLoginLogThread.run():用户app登录日志数据队列{} 线程处理异常, 已结束] queueKey={}, Exception={}, message={}", threadName, queueKey, e, e.getMessage());
 				continue ;
 			}
 		}

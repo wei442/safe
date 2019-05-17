@@ -1,12 +1,28 @@
 package com.cloud.queue.safe;
 
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.net.ssl.SSLContext;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.apache.http.config.RegistryBuilder;
+import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.socket.PlainConnectionSocketFactory;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.ssl.SSLContextBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -164,11 +180,45 @@ public class StartBoot {
 	 * 实例化RestTemplate，不开启均衡负载
 	 * @return RestTemplate
 	 */
-	@Bean
+	@Bean(name = "simpleRestTemplate")
 	public RestTemplate simpleRestTemplate(HttpComponentsClientHttpRequestFactory clientHttpRequestFactory) {
 		RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
         return restTemplate;
 	}
+
+	/**
+	 * 设置https和http访问
+	 * @return HttpComponentsClientHttpRequestFactory
+	 * @throws KeyStoreException
+	 * @throws NoSuchAlgorithmException
+	 * @throws KeyManagementException
+	 */
+	@Bean
+	public HttpComponentsClientHttpRequestFactory clientHttpRequestFactory() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+        SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
+			@Override
+			public boolean isTrusted(X509Certificate[] chain, String authType)
+				throws CertificateException {
+					return true;
+			}
+        }).build();
+
+        SSLConnectionSocketFactory sslSocketFactory = new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
+        RegistryBuilder<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create();
+        socketFactoryRegistry.register("http", PlainConnectionSocketFactory.getSocketFactory());
+        socketFactoryRegistry.register("https", sslSocketFactory);
+
+        PoolingHttpClientConnectionManager connMgr = new PoolingHttpClientConnectionManager(socketFactoryRegistry.build());
+        connMgr.setMaxTotal(500);
+        connMgr.setDefaultMaxPerRoute(200);
+
+        HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
+        httpClientBuilder.setSSLContext(sslContext);
+        httpClientBuilder.setConnectionManager(connMgr);
+
+        HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpClientBuilder.build());
+        return clientHttpRequestFactory;
+    }
 
 	public static void main(String[] args) {
 		SpringApplication.run(StartBoot.class, args);

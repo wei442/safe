@@ -29,11 +29,9 @@ import com.cloud.consumer.safe.rest.request.user.login.UserRegisterRequest;
 import com.cloud.consumer.safe.service.IUserService;
 import com.cloud.consumer.safe.util.PatternUtil;
 import com.cloud.consumer.safe.vo.enterprise.EnterpriseVo;
-import com.cloud.consumer.safe.vo.enterprise.OrgVo;
 import com.cloud.consumer.safe.vo.user.UserAdminLoginVo;
 import com.cloud.consumer.safe.vo.user.UserAdminVo;
 import com.cloud.consumer.safe.vo.user.UserInfoVo;
-import com.cloud.consumer.safe.vo.user.UserOrgVo;
 import com.cloud.consumer.safe.vo.user.login.UserLoginErrorVo;
 import com.cloud.consumer.safe.vo.user.login.UserLoginVo;
 
@@ -103,14 +101,14 @@ public class UserController extends BaseController {
 		JSONObject jsonUserSecond = userService.loginAdminSecond(params);
 		logger.info("===step3:【用户登录】(UserController-login)-用户登录第二步, jsonUserSecond:{}", jsonUserSecond);
 		EnterpriseVo enterpriseVo = JSONObject.toJavaObject(jsonUserSecond, EnterpriseVo.class);
-		UserOrgVo userOrgVo = JSONObject.toJavaObject(jsonUserSecond, UserOrgVo.class);
-		OrgVo orgVo = JSONObject.toJavaObject(jsonUserSecond, OrgVo.class);
+//		UserOrgVo userOrgVo = JSONObject.toJavaObject(jsonUserSecond, UserOrgVo.class);
+//		OrgVo orgVo = JSONObject.toJavaObject(jsonUserSecond, OrgVo.class);
 		String enterpriseName = enterpriseVo.getEnterpriseName();
-	    Integer orgId = userOrgVo.getOrgId();
-	    String orgName = orgVo.getOrgName();
+//	    Integer orgId = userOrgVo.getOrgId();
+//	    String orgName = orgVo.getOrgName();
 
 		//设置token
-		String token = this.setToken(enterpriseId, enterpriseName, userId, userAccount, orgId, orgName);
+		String token = this.setToken(enterpriseId, userId, userAccount, userName);
 
 		UserLoginVo userLoginVo = new UserLoginVo();
 		userLoginVo.setToken(token);

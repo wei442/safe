@@ -22,16 +22,17 @@ public class BaseUserLoginLogRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "基础用户id")
+	@NotNull(message = "基础用户id不能为空")
+	private Integer baseUserId;
+
 	@ApiModelProperty(value = "基础用户账户")
     @NotBlank(message = "基础用户账户不能为空")
-    private String baseUserAccount;
+    private String userAccount;
 
 	@ApiModelProperty(value = "基础用户名称")
     @NotBlank(message = "基础用户名称")
-    private String baseUserName;
-
-    @ApiModelProperty(value = "基础用户英文名称")
-    private String baseUserNameEn;
+    private String userName;
 
 	@ApiModelProperty(value = "登录类型")
 	@NotNull(message = "登录类型不能为空")
@@ -40,10 +41,6 @@ public class BaseUserLoginLogRequest implements Serializable {
 	@ApiModelProperty(value = "登录时间")
 	@NotNull(message = "登录时间不能为空")
     private Date loginTime;
-
-	@ApiModelProperty(value = "日志类型")
-	@NotNull(message = "日志类型不能为空")
-    private Integer logType;
 
 	@ApiModelProperty(value = "登录方式")
 	@NotNull(message = "登录方式不能为空")

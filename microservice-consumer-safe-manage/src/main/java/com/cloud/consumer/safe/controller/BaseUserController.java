@@ -1,5 +1,8 @@
 package com.cloud.consumer.safe.controller;
 
+import java.util.Date;
+import java.util.Objects;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cloud.common.constants.CommConstants;
+import com.cloud.common.constants.safe.SqlSafeConstants;
+import com.cloud.common.redis.keys.RedisKeysUtil;
 import com.cloud.consumer.safe.base.BaseRestMapResponse;
 import com.cloud.consumer.safe.rest.request.base.user.login.BaseUserLoginRequest;
 import com.cloud.consumer.safe.service.IBaseUserService;
 import com.cloud.consumer.safe.vo.base.user.BaseUserInfoVo;
+import com.cloud.consumer.safe.vo.base.user.BaseUserLoginLogVo;
 import com.cloud.consumer.safe.vo.base.user.login.UserLoginVo;
 
 import io.swagger.annotations.Api;
@@ -67,7 +73,22 @@ public class BaseUserController extends BaseController {
 		String userName = baseUserInfoVo.getUserName();
 
 		//设置token
-		String token = this.setToken(baseUserId, userAccount);
+		String token = this.setToken(baseUserId, userAccount, userName);
+
+		BaseUserLoginLogVo baseUserLoginLogVo = new BaseUserLoginLogVo();
+		baseUserLoginLogVo.setBaseUserId(baseUserId);
+		baseUserLoginLogVo.setUserAccount(userAccount);
+		baseUserLoginLogVo.setUserName(userName);
+		baseUserLoginLogVo.setLoginType(SqlSafeConstants.SQL_BASE_USER_LOGIN_LOG_LOGIN);
+		baseUserLoginLogVo.setLoginTime(new Date());
+		baseUserLoginLogVo.setLoginMode("PC");
+		baseUserLoginLogVo.setLoginIp(requestIp);
+		/** push数据推送(基础用户登录日志)队列-左进右出  **/
+		String queueKey = RedisKeysUtil.QN_CLOUD_SAFE_BASE_USER_LOGIN_LOG;
+		String value = JSONObject.toJSONString(baseUserLoginLogVo);
+		logger.info("===step3:【基础用户登录】(BaseUserController-login)-push数据推送(基础用户登录日志)-传入参数, queueKey:{}, value", queueKey, value);
+		long l = redisService.lpush(queueKey, value);
+		logger.info("===step3.1:【基础用户登录】(BaseUserController-login)-push数据推送(基础用户登录日志)-返回信息, l:{}", l);
 
 		UserLoginVo userLoginVo = new UserLoginVo();
 		userLoginVo.setToken(token);
@@ -78,7 +99,7 @@ public class BaseUserController extends BaseController {
         //返回信息
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
 		userResponse.put(CommConstants.RESULT, userLoginVo);
-        logger.info("===step3:【基础用户登录】(BaseUserController-login)-返回信息, userResponse:{}", userResponse);
+        logger.info("===step4:【基础用户登录】(BaseUserController-login)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
 
@@ -90,13 +111,31 @@ public class BaseUserController extends BaseController {
 	@ApiOperation(value = "基础用户退出")
 	@RequestMapping(value="/logout",method={RequestMethod.POST})
 	@ResponseBody
-	public BaseRestMapResponse logOut(
+	public BaseRestMapResponse logout(
 		@RequestBody BaseUserLoginRequest req) {
 		String requestIp = this.getRequestIp();
 		logger.info("===step1:【基础用户退出】(BaseUserController-logout)-请求参数, requestIp:{}, req:{}, json:{}", requestIp, req, JSONObject.toJSONString(req));
 
-		Integer baseUserId = this.getTokenBaseUserId();
+		JSONObject payloadJSON = this.getTokenPayload();
+		Integer baseUserId = new Integer(Objects.toString(payloadJSON.get(CommConstants.BASE_USER_ID)));
+		String userAccount = Objects.toString(payloadJSON.get(CommConstants.USER_ACCOUNT));
+		String userName = Objects.toString(payloadJSON.get(CommConstants.USER_NAME));
 		this.clearToken(baseUserId);
+
+		BaseUserLoginLogVo baseUserLoginLogVo = new BaseUserLoginLogVo();
+		baseUserLoginLogVo.setBaseUserId(baseUserId);
+		baseUserLoginLogVo.setUserAccount(userAccount);
+		baseUserLoginLogVo.setUserName(userName);
+		baseUserLoginLogVo.setLoginType(SqlSafeConstants.SQL_BASE_USER_LOGIN_LOG_LOGOUT);
+		baseUserLoginLogVo.setLoginTime(new Date());
+		baseUserLoginLogVo.setLoginMode("PC");
+		baseUserLoginLogVo.setLoginIp(requestIp);
+		/** push数据推送(基础用户登录日志)队列-左进右出  **/
+		String queueKey = RedisKeysUtil.QN_CLOUD_SAFE_BASE_USER_LOGIN_LOG;
+		String value = JSONObject.toJSONString(baseUserLoginLogVo);
+		logger.info("===step3:【基础用户登录】(BaseUserController-login)-push数据推送(基础用户登录日志)-传入参数, queueKey:{}, value", queueKey, value);
+		long l = redisService.lpush(queueKey, value);
+		logger.info("===step3.1:【基础用户登录】(BaseUserController-login)-push数据推送(基础用户登录日志)-返回信息, l:{}", l);
 
         //返回信息
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();

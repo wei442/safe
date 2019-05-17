@@ -11,8 +11,6 @@ public class UserAppLoginLog {
 
     private String userName;
 
-    private String userNameEn;
-
     private Integer loginType;
 
     private Date loginTime;
@@ -57,14 +55,6 @@ public class UserAppLoginLog {
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getUserNameEn() {
-        return userNameEn;
-    }
-
-    public void setUserNameEn(String userNameEn) {
-        this.userNameEn = userNameEn == null ? null : userNameEn.trim();
     }
 
     public Integer getLoginType() {

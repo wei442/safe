@@ -131,8 +131,8 @@ public class DataBaseService extends BaseService {
 	 */
 	public boolean insertBaseUserLoginLog(BaseUserLoginLogVo baseUserLoginLogVo) {
 		Integer baseUserId = baseUserLoginLogVo.getBaseUserId();
-		String baseUserAccount = baseUserLoginLogVo.getBaseUserAccount();
-		String baseUserName = baseUserLoginLogVo.getBaseUserName();
+		String userAccount = baseUserLoginLogVo.getUserAccount();
+		String userName = baseUserLoginLogVo.getUserName();
 		Integer loginType = baseUserLoginLogVo.getLoginType();
 		Date loginTime = baseUserLoginLogVo.getLoginTime();
 		String loginMode = baseUserLoginLogVo.getLoginMode();
@@ -140,8 +140,8 @@ public class DataBaseService extends BaseService {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("baseUserId", baseUserId);
-		params.put("baseUserAccount", baseUserAccount);
-		params.put("baseUserName", baseUserName);
+		params.put("userAccount", userAccount);
+		params.put("userName", userName);
 		params.put("loginType", loginType);
 		params.put("loginTime", loginTime);
 		params.put("loginMode", loginMode);
@@ -150,8 +150,5 @@ public class DataBaseService extends BaseService {
 		logger.info("(DataBaseService-jsonBaseUserLoginLog)-插入基础用户登录日志-返回信息, jsonBaseUserLoginLog:{}", jsonBaseUserLoginLog);
        	return true;
 	}
-
-
-
 
 }

@@ -13,13 +13,13 @@ public class UserAppLoginLogVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private Long userAppLoginLogId;
+
 	private Integer userId;
 
     private String userAccount;
 
     private String userName;
-
-    private String userNameEn;
 
     private Integer loginType;
 

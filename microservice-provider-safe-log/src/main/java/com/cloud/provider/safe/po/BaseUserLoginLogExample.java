@@ -225,213 +225,143 @@ public class BaseUserLoginLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountIsNull() {
-            addCriterion("base_user_account is null");
+        public Criteria andUserAccountIsNull() {
+            addCriterion("user_account is null");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountIsNotNull() {
-            addCriterion("base_user_account is not null");
+        public Criteria andUserAccountIsNotNull() {
+            addCriterion("user_account is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountEqualTo(String value) {
-            addCriterion("base_user_account =", value, "baseUserAccount");
+        public Criteria andUserAccountEqualTo(String value) {
+            addCriterion("user_account =", value, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountNotEqualTo(String value) {
-            addCriterion("base_user_account <>", value, "baseUserAccount");
+        public Criteria andUserAccountNotEqualTo(String value) {
+            addCriterion("user_account <>", value, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountGreaterThan(String value) {
-            addCriterion("base_user_account >", value, "baseUserAccount");
+        public Criteria andUserAccountGreaterThan(String value) {
+            addCriterion("user_account >", value, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountGreaterThanOrEqualTo(String value) {
-            addCriterion("base_user_account >=", value, "baseUserAccount");
+        public Criteria andUserAccountGreaterThanOrEqualTo(String value) {
+            addCriterion("user_account >=", value, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountLessThan(String value) {
-            addCriterion("base_user_account <", value, "baseUserAccount");
+        public Criteria andUserAccountLessThan(String value) {
+            addCriterion("user_account <", value, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountLessThanOrEqualTo(String value) {
-            addCriterion("base_user_account <=", value, "baseUserAccount");
+        public Criteria andUserAccountLessThanOrEqualTo(String value) {
+            addCriterion("user_account <=", value, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountLike(String value) {
-            addCriterion("base_user_account like", value, "baseUserAccount");
+        public Criteria andUserAccountLike(String value) {
+            addCriterion("user_account like", value, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountNotLike(String value) {
-            addCriterion("base_user_account not like", value, "baseUserAccount");
+        public Criteria andUserAccountNotLike(String value) {
+            addCriterion("user_account not like", value, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountIn(List<String> values) {
-            addCriterion("base_user_account in", values, "baseUserAccount");
+        public Criteria andUserAccountIn(List<String> values) {
+            addCriterion("user_account in", values, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountNotIn(List<String> values) {
-            addCriterion("base_user_account not in", values, "baseUserAccount");
+        public Criteria andUserAccountNotIn(List<String> values) {
+            addCriterion("user_account not in", values, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountBetween(String value1, String value2) {
-            addCriterion("base_user_account between", value1, value2, "baseUserAccount");
+        public Criteria andUserAccountBetween(String value1, String value2) {
+            addCriterion("user_account between", value1, value2, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserAccountNotBetween(String value1, String value2) {
-            addCriterion("base_user_account not between", value1, value2, "baseUserAccount");
+        public Criteria andUserAccountNotBetween(String value1, String value2) {
+            addCriterion("user_account not between", value1, value2, "userAccount");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameIsNull() {
-            addCriterion("base_user_name is null");
+        public Criteria andUserNameIsNull() {
+            addCriterion("user_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameIsNotNull() {
-            addCriterion("base_user_name is not null");
+        public Criteria andUserNameIsNotNull() {
+            addCriterion("user_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameEqualTo(String value) {
-            addCriterion("base_user_name =", value, "baseUserName");
+        public Criteria andUserNameEqualTo(String value) {
+            addCriterion("user_name =", value, "userName");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameNotEqualTo(String value) {
-            addCriterion("base_user_name <>", value, "baseUserName");
+        public Criteria andUserNameNotEqualTo(String value) {
+            addCriterion("user_name <>", value, "userName");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameGreaterThan(String value) {
-            addCriterion("base_user_name >", value, "baseUserName");
+        public Criteria andUserNameGreaterThan(String value) {
+            addCriterion("user_name >", value, "userName");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameGreaterThanOrEqualTo(String value) {
-            addCriterion("base_user_name >=", value, "baseUserName");
+        public Criteria andUserNameGreaterThanOrEqualTo(String value) {
+            addCriterion("user_name >=", value, "userName");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameLessThan(String value) {
-            addCriterion("base_user_name <", value, "baseUserName");
+        public Criteria andUserNameLessThan(String value) {
+            addCriterion("user_name <", value, "userName");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameLessThanOrEqualTo(String value) {
-            addCriterion("base_user_name <=", value, "baseUserName");
+        public Criteria andUserNameLessThanOrEqualTo(String value) {
+            addCriterion("user_name <=", value, "userName");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameLike(String value) {
-            addCriterion("base_user_name like", value, "baseUserName");
+        public Criteria andUserNameLike(String value) {
+            addCriterion("user_name like", value, "userName");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameNotLike(String value) {
-            addCriterion("base_user_name not like", value, "baseUserName");
+        public Criteria andUserNameNotLike(String value) {
+            addCriterion("user_name not like", value, "userName");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameIn(List<String> values) {
-            addCriterion("base_user_name in", values, "baseUserName");
+        public Criteria andUserNameIn(List<String> values) {
+            addCriterion("user_name in", values, "userName");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameNotIn(List<String> values) {
-            addCriterion("base_user_name not in", values, "baseUserName");
+        public Criteria andUserNameNotIn(List<String> values) {
+            addCriterion("user_name not in", values, "userName");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameBetween(String value1, String value2) {
-            addCriterion("base_user_name between", value1, value2, "baseUserName");
+        public Criteria andUserNameBetween(String value1, String value2) {
+            addCriterion("user_name between", value1, value2, "userName");
             return (Criteria) this;
         }
 
-        public Criteria andBaseUserNameNotBetween(String value1, String value2) {
-            addCriterion("base_user_name not between", value1, value2, "baseUserName");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnIsNull() {
-            addCriterion("base_user_name_en is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnIsNotNull() {
-            addCriterion("base_user_name_en is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnEqualTo(String value) {
-            addCriterion("base_user_name_en =", value, "baseUserNameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnNotEqualTo(String value) {
-            addCriterion("base_user_name_en <>", value, "baseUserNameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnGreaterThan(String value) {
-            addCriterion("base_user_name_en >", value, "baseUserNameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnGreaterThanOrEqualTo(String value) {
-            addCriterion("base_user_name_en >=", value, "baseUserNameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnLessThan(String value) {
-            addCriterion("base_user_name_en <", value, "baseUserNameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnLessThanOrEqualTo(String value) {
-            addCriterion("base_user_name_en <=", value, "baseUserNameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnLike(String value) {
-            addCriterion("base_user_name_en like", value, "baseUserNameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnNotLike(String value) {
-            addCriterion("base_user_name_en not like", value, "baseUserNameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnIn(List<String> values) {
-            addCriterion("base_user_name_en in", values, "baseUserNameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnNotIn(List<String> values) {
-            addCriterion("base_user_name_en not in", values, "baseUserNameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnBetween(String value1, String value2) {
-            addCriterion("base_user_name_en between", value1, value2, "baseUserNameEn");
-            return (Criteria) this;
-        }
-
-        public Criteria andBaseUserNameEnNotBetween(String value1, String value2) {
-            addCriterion("base_user_name_en not between", value1, value2, "baseUserNameEn");
+        public Criteria andUserNameNotBetween(String value1, String value2) {
+            addCriterion("user_name not between", value1, value2, "userName");
             return (Criteria) this;
         }
 

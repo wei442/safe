@@ -12,6 +12,8 @@ public class AttachmentLogVo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private Long attachmentLogId;
+
 	private String attachmentName;
 
     private String attachmentUrl;

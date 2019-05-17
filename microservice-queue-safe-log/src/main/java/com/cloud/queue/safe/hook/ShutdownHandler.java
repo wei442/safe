@@ -15,7 +15,7 @@ public enum ShutdownHandler {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private boolean keepRunning = true;
+	private volatile boolean keepRunning = true;
 
 	/**
 	 * @Title: keepRunning

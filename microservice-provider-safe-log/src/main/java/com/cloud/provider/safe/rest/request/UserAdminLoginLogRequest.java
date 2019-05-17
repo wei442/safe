@@ -22,6 +22,10 @@ public class UserAdminLoginLogRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "用户id")
+	@NotNull(message = "用户id不能为空")
+	private Integer userId;
+
 	@ApiModelProperty(value = "用户账户")
     @NotBlank(message = "用户账户不能为空")
     private String userAccount;

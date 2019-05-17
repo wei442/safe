@@ -4,9 +4,8 @@
   <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.BaseUserLoginLog">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="base_user_id" jdbcType="INTEGER" property="baseUserId" />
-    <result column="base_user_account" jdbcType="VARCHAR" property="baseUserAccount" />
-    <result column="base_user_name" jdbcType="VARCHAR" property="baseUserName" />
-    <result column="base_user_name_en" jdbcType="VARCHAR" property="baseUserNameEn" />
+    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="login_type" jdbcType="INTEGER" property="loginType" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
     <result column="login_mode" jdbcType="VARCHAR" property="loginMode" />
@@ -73,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, base_user_id, base_user_account, base_user_name, base_user_name_en, login_type, 
-    login_time, login_mode, login_ip, create_time, update_time
+    id, base_user_id, user_account, user_name, login_type, login_time, login_mode, login_ip, 
+    create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.cloud.provider.safe.po.BaseUserLoginLogExample" resultMap="BaseResultMap">
     select
@@ -107,14 +106,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cloud.provider.safe.po.BaseUserLoginLog" useGeneratedKeys="true" keyProperty="id">
-    insert into base_user_login_log (id, base_user_id, base_user_account, 
-      base_user_name, base_user_name_en, login_type, 
-      login_time, login_mode, login_ip, 
-      create_time, update_time)
-    values (#{id,jdbcType=BIGINT}, #{baseUserId,jdbcType=INTEGER}, #{baseUserAccount,jdbcType=VARCHAR}, 
-      #{baseUserName,jdbcType=VARCHAR}, #{baseUserNameEn,jdbcType=VARCHAR}, #{loginType,jdbcType=INTEGER}, 
-      #{loginTime,jdbcType=TIMESTAMP}, #{loginMode,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    insert into base_user_login_log (id, base_user_id, user_account, 
+      user_name, login_type, login_time, 
+      login_mode, login_ip, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{baseUserId,jdbcType=INTEGER}, #{userAccount,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{loginType,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{loginMode,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.BaseUserLoginLog" useGeneratedKeys="true" keyProperty="id">
     insert into base_user_login_log
@@ -125,14 +124,11 @@
       <if test="baseUserId != null">
         base_user_id,
       </if>
-      <if test="baseUserAccount != null">
-        base_user_account,
+      <if test="userAccount != null">
+        user_account,
       </if>
-      <if test="baseUserName != null">
-        base_user_name,
-      </if>
-      <if test="baseUserNameEn != null">
-        base_user_name_en,
+      <if test="userName != null">
+        user_name,
       </if>
       <if test="loginType != null">
         login_type,
@@ -160,14 +156,11 @@
       <if test="baseUserId != null">
         #{baseUserId,jdbcType=INTEGER},
       </if>
-      <if test="baseUserAccount != null">
-        #{baseUserAccount,jdbcType=VARCHAR},
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
       </if>
-      <if test="baseUserName != null">
-        #{baseUserName,jdbcType=VARCHAR},
-      </if>
-      <if test="baseUserNameEn != null">
-        #{baseUserNameEn,jdbcType=VARCHAR},
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
       <if test="loginType != null">
         #{loginType,jdbcType=INTEGER},
@@ -204,14 +197,11 @@
       <if test="record.baseUserId != null">
         base_user_id = #{record.baseUserId,jdbcType=INTEGER},
       </if>
-      <if test="record.baseUserAccount != null">
-        base_user_account = #{record.baseUserAccount,jdbcType=VARCHAR},
+      <if test="record.userAccount != null">
+        user_account = #{record.userAccount,jdbcType=VARCHAR},
       </if>
-      <if test="record.baseUserName != null">
-        base_user_name = #{record.baseUserName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.baseUserNameEn != null">
-        base_user_name_en = #{record.baseUserNameEn,jdbcType=VARCHAR},
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
       <if test="record.loginType != null">
         login_type = #{record.loginType,jdbcType=INTEGER},
@@ -240,9 +230,8 @@
     update base_user_login_log
     set id = #{record.id,jdbcType=BIGINT},
       base_user_id = #{record.baseUserId,jdbcType=INTEGER},
-      base_user_account = #{record.baseUserAccount,jdbcType=VARCHAR},
-      base_user_name = #{record.baseUserName,jdbcType=VARCHAR},
-      base_user_name_en = #{record.baseUserNameEn,jdbcType=VARCHAR},
+      user_account = #{record.userAccount,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
       login_type = #{record.loginType,jdbcType=INTEGER},
       login_time = #{record.loginTime,jdbcType=TIMESTAMP},
       login_mode = #{record.loginMode,jdbcType=VARCHAR},
@@ -259,14 +248,11 @@
       <if test="baseUserId != null">
         base_user_id = #{baseUserId,jdbcType=INTEGER},
       </if>
-      <if test="baseUserAccount != null">
-        base_user_account = #{baseUserAccount,jdbcType=VARCHAR},
+      <if test="userAccount != null">
+        user_account = #{userAccount,jdbcType=VARCHAR},
       </if>
-      <if test="baseUserName != null">
-        base_user_name = #{baseUserName,jdbcType=VARCHAR},
-      </if>
-      <if test="baseUserNameEn != null">
-        base_user_name_en = #{baseUserNameEn,jdbcType=VARCHAR},
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="loginType != null">
         login_type = #{loginType,jdbcType=INTEGER},
@@ -292,9 +278,8 @@
   <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.BaseUserLoginLog">
     update base_user_login_log
     set base_user_id = #{baseUserId,jdbcType=INTEGER},
-      base_user_account = #{baseUserAccount,jdbcType=VARCHAR},
-      base_user_name = #{baseUserName,jdbcType=VARCHAR},
-      base_user_name_en = #{baseUserNameEn,jdbcType=VARCHAR},
+      user_account = #{userAccount,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
       login_type = #{loginType,jdbcType=INTEGER},
       login_time = #{loginTime,jdbcType=TIMESTAMP},
       login_mode = #{loginMode,jdbcType=VARCHAR},

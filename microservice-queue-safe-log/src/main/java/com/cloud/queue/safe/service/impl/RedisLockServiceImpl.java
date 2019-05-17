@@ -57,14 +57,14 @@ public class RedisLockServiceImpl implements IRedisLockService {
         		long i = redisService.setnx(key, LOCKED);
                 if (i == 1) {
                 	redisService.expire(key, EXPIRE_TIME);
-                    logger.info("[BootRedisLockService.lock():获得锁成功], key:{}, expire:{}", key, EXPIRE_TIME);
+                    logger.info("[RedisLockService.lock():获得锁成功], key:{}, expire:{}", key, EXPIRE_TIME);
 
                     this.locked = true;
                     return this.locked;
                 } else {
                 	// 存在锁（会一直执行（在最大等待时间范围内）等待该锁释放）
                     String result = redisService.get(key);
-                    logger.info("[BootRedisLockService.lock():获得锁成功], key:{}, result:{}", key, result);
+                    logger.info("[RedisLockService.lock():获得锁成功], key:{}, result:{}", key, result);
                 }
 
                 //ttl小于0 表示key上没有设置生存时间（key是不会不存在的，因为前面setnx会自动创建）
@@ -79,7 +79,7 @@ public class RedisLockServiceImpl implements IRedisLockService {
                 Thread.sleep(3, r.nextInt(500));
             }
         } catch (Exception e) {
-            logger.error("[BootRedisLockService.lock():获得锁-异常], Exception={}, message={}", e, e.getMessage());
+            logger.error("[RedisLockService.lock():获得锁-异常], Exception={}, message={}", e, e.getMessage());
             throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		}
         return false;
@@ -99,9 +99,9 @@ public class RedisLockServiceImpl implements IRedisLockService {
         		locked = false;
         		unlocked = true;
         	}
-         	logger.info("[BootRedisLockService.unlock():释放锁成功], key:{}", key);
+         	logger.info("[RedisLockService.unlock():释放锁成功], key:{}", key);
         } catch (Exception e) {
-        	logger.error("[BootRedisLockService.unlock():释放锁-异常], Exception={}, message={}", e, e.getMessage());
+        	logger.error("[RedisLockService.unlock():释放锁-异常], Exception={}, message={}", e, e.getMessage());
         	throw new RedisException(RedisResultEnum.REDIS_ERROR);
         }
 		return unlocked;

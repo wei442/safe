@@ -57,6 +57,7 @@ public class CommConstants {
 	public static final String ENTERPRISE_NAME = "enterpriseName";
 	public static final String USER_ID = "userId";
 	public static final String USER_ACCOUNT = "userAccount";
+	public static final String USER_NAME = "userName";
 	public static final String ORG_ID = "orgId";
 	public static final String ORG_NAME = "orgName";
 	public static final String BASE_USER_ID = "baseUserId";

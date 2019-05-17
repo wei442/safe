@@ -20,6 +20,8 @@ public class HttpUrlConstants {
 	/*--------------------------- 安全信息服务 -----------------------------*/
 	//安全 提供者url
 	public static final String HTTP_MICROSERVICE_PROVIDER_SAFE = "http://microservice-provider-safe";
+	//安全日志 提供者url
+	public static final String HTTP_MICROSERVICE_PROVIDER_SAFE_LOG = "http://microservice-provider-safe-log";
 	/*--------------------------- 安全信息服务 -----------------------------*/
 	/*--------------------------- provider(提供者) http url  -----------------------------*/
 

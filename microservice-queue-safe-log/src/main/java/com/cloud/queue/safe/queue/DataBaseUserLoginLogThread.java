@@ -20,7 +20,7 @@ import com.cloud.queue.safe.service.IRedisService;
  * @date 2017年3月23日 下午15:37:58
  */
 @Component
-public class DataBaseUserLoginLogThread implements Runnable {
+public class DataBaseUserLoginLogThread extends Thread {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 

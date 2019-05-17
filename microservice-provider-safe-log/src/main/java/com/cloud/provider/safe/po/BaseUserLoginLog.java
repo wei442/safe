@@ -7,11 +7,9 @@ public class BaseUserLoginLog {
 
     private Integer baseUserId;
 
-    private String baseUserAccount;
+    private String userAccount;
 
-    private String baseUserName;
-
-    private String baseUserNameEn;
+    private String userName;
 
     private Integer loginType;
 
@@ -41,28 +39,20 @@ public class BaseUserLoginLog {
         this.baseUserId = baseUserId;
     }
 
-    public String getBaseUserAccount() {
-        return baseUserAccount;
+    public String getUserAccount() {
+        return userAccount;
     }
 
-    public void setBaseUserAccount(String baseUserAccount) {
-        this.baseUserAccount = baseUserAccount == null ? null : baseUserAccount.trim();
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount == null ? null : userAccount.trim();
     }
 
-    public String getBaseUserName() {
-        return baseUserName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setBaseUserName(String baseUserName) {
-        this.baseUserName = baseUserName == null ? null : baseUserName.trim();
-    }
-
-    public String getBaseUserNameEn() {
-        return baseUserNameEn;
-    }
-
-    public void setBaseUserNameEn(String baseUserNameEn) {
-        this.baseUserNameEn = baseUserNameEn == null ? null : baseUserNameEn.trim();
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public Integer getLoginType() {

@@ -31,8 +31,6 @@ public class UserAppLoginLogVo implements Serializable {
 
     private String userName;
 
-    private String userNameEn;
-
     private Integer loginType;
 
     private Date loginTime;

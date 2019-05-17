@@ -92,15 +92,13 @@ public class BaseController {
 	/**
 	 * 设置token,过期时间为7*24小时
 	 * @param enterpriseId
-	 * @param enterpriseName
 	 * @param userId
 	 * @param userAccount
-	 * @param orgId
-	 * @param orgName
+	 * @param userName
 	 * @return String
 	 */
-	protected String setToken(Integer enterpriseId,String enterpriseName,Integer userId,String userAccount,Integer orgId,String orgName) {
-		logger.info("(BaseController-setToken)-redis设置token-传入参数, enterpriseId:{}, enterpriseName:{}, userId:{}, userAccount:{}, orgId:{}, orgName:{}", enterpriseId, enterpriseName, userId, userAccount, orgId, orgName);
+	protected String setToken(Integer enterpriseId,Integer userId,String userAccount,String userName) {
+		logger.info("(BaseController-setToken)-redis设置token-传入参数, enterpriseId:{}, userId:{}, userAccount:{}, userName:{}", enterpriseId, userId, userAccount, userName);
 		if(null == enterpriseId || null == userId || StringUtils.isBlank(userAccount)) {
 			return null;
 		}
@@ -114,11 +112,9 @@ public class BaseController {
 		String audience = CommConstants.CLOUD;
 		Map<String, Object> claims = new HashMap<String, Object>();
 		claims.put(CommConstants.ENTERPRISE_ID, enterpriseId);
-		claims.put(CommConstants.ENTERPRISE_NAME, enterpriseName);
 		claims.put(CommConstants.USER_ID, userId);
 		claims.put(CommConstants.USER_ACCOUNT, userAccount);
-		claims.put(CommConstants.ORG_ID, orgId);
-		claims.put(CommConstants.ORG_NAME, orgName);
+		claims.put(CommConstants.USER_NAME, userName);
 
 		logger.info("(BaseController-setToken)-声明(claims), claims:{}", claims);
 
@@ -235,17 +231,6 @@ public class BaseController {
 	}
 
 	/**
-	 * 获取token(enterpriseName)
-	 * @return Integer
-	 */
-	protected String getTokenEnterpriseName() {
-		JSONObject payloadJSON = this.getTokenPayload();
-		String enterpriseName = Objects.toString(payloadJSON.get(CommConstants.ENTERPRISE_NAME));
-		logger.info("(BaseController-getTokenEnterpriseName)-返回信息, enterpriseName:{}", enterpriseName);
-		return enterpriseName;
-	}
-
-	/**
 	 * 获取token(userId)
 	 * @return Integer
 	 */
@@ -268,25 +253,14 @@ public class BaseController {
 	}
 
 	/**
-	 * 获取token(orgId)
-	 * @return Integer
-	 */
-	protected Integer getTokenOrgId() {
-		JSONObject payloadJSON = this.getTokenPayload();
-		Integer orgId = new Integer(Objects.toString(payloadJSON.get(CommConstants.ORG_ID)));
-		logger.info("(BaseController-getTokenOrgId)-返回信息, orgId:{}", orgId);
-		return orgId;
-	}
-
-	/**
-	 * 获取token(orgName)
+	 * 获取token(userName)
 	 * @return String
 	 */
-	protected String getTokenOrgName() {
+	protected String getTokenUserName() {
 		JSONObject payloadJSON = this.getTokenPayload();
-		String orgName = Objects.toString(payloadJSON.get(CommConstants.ORG_NAME));
-		logger.info("(BaseController-getTokenOrgName)-返回信息, orgName:{}", orgName);
-		return orgName;
+		String userName = Objects.toString(payloadJSON.get(CommConstants.USER_NAME));
+		logger.info("(BaseController-getTokenUserName)-返回信息, userName:{}", userName);
+		return userName;
 	}
 
 	/**

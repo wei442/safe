@@ -37,33 +37,4 @@ public class SafeConstants {
 		safeMap.put("102003", "隐患小类");
 	}
 
-//	//风险类别
-//	public static final String DICT_CODE_RISK_CATEGORY = "101001";
-//	public static final String DICT_NAME_RISK_CATEGORY = "风险类别";
-//	//风险因素
-//	public static final String DICT_CODE_RISK_REASON = "101002";
-//	public static final String DICT_NAME_RISK_REASON = "风险因素";
-//	//风险级别
-//	public static final String DICT_CODE_RISK_LEVEL = "101003";
-//	public static final String DICT_NAME_RISK_LEVEL = "风险级别";
-//	//管控因素
-//	public static final String DICT_CODE_CONTROL_REASON = "101004";
-//	public static final String DICT_NAME_CONTROL_REASON = "管控因素";
-//	//管控措施
-//	public static final String DICT_CODE_CONTROL_METHOD = "101005";
-//	public static final String DICT_NAME_CONTROL_METHOD = "管控措施";
-//	//检查频次
-//	public static final String DICT_CODE_FREQUENCY = "101006";
-//	public static final String DICT_NAME_FREQUENCY = "检查频次";
-//
-//	//隐患级别
-//	public static final String DICT_CODE_DANGER_LEVEL = "102001";
-//	public static final String DICT_NAME_DANGER_LEVEL = "隐患级别";
-//	//隐患大类
-//	public static final String DICT_CODE_DANGER_MAIN_CATEGORY = "102002";
-//	public static final String DICT_NAME_DANGER_MAIN_CATEGORY = "隐患大类";
-//	//隐患小类
-//	public static final String DICT_CODE_DANGER_SUB_CATEGORY = "102003";
-//	public static final String DICT_NAME_DANGER_SUB_CATEGORY = "隐患小类";
-
 }

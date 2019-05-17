@@ -43,38 +43,18 @@ public class BaseService extends BaseUrlService {
 	@Value("${provider.safe.log.spring.security.user.password}")
 	private String providerSafeLogUserPassword;
 
-	//redis-访问用户名
-	@Value("${provider.redis.spring.security.user.name}")
-	private String providerRedisUserName;
-	//redis-访问用户密码
-	@Value("${provider.redis.spring.security.user.password}")
-	private String providerRedisUserPassword;
-
 	/**
 	 * 获取方向盘提供者用户名密码，并进行HTTP Basic Base64 加密，放入入HttpHeaders里面
      * Add HTTP Authorization header, using Basic-Authentication to send user-credentials.
 	 * @return HttpHeaders
 	 */
-	protected HttpHeaders getProviderSafeHeaders() {
+	protected HttpHeaders getProviderSafeLogHeaders() {
     	HttpHeaders headers = new HttpHeaders();
     	//Basic Authentication
     	headers.setBasicAuth(providerSafeLogUserName, providerSafeLogUserPassword, StandardCharsets.UTF_8);
 		headers.setContentType(MediaType.parseMediaType(MediaType.APPLICATION_JSON_UTF8_VALUE));
 		return headers;
     }
-
-	/**
-	 * redis提供者用户名密码，并进行HTTP Basic Base64 加密，放入入HttpHeaders里面
-	 * Add HTTP Authorization header, using Basic-Authentication to send user-credentials.
-	 * @return HttpHeaders
-	 */
-	protected HttpHeaders getProviderRedisHeaders() {
-		HttpHeaders headers = new HttpHeaders();
-		//Basic Authentication
-		headers.setBasicAuth(providerRedisUserName, providerRedisUserPassword, StandardCharsets.UTF_8);
-		headers.setContentType(MediaType.parseMediaType(MediaType.APPLICATION_JSON_UTF8_VALUE));
-		return headers;
-	}
 
 	/**
 	 * 参数校验
@@ -109,7 +89,7 @@ public class BaseService extends BaseUrlService {
 	 * @return T
 	 */
 	protected <T> T safeLogPostForObject(String url, Object request, Class<T> responseType, Object... uriVariables) {
-		HttpHeaders headers = this.getProviderSafeHeaders();
+		HttpHeaders headers = this.getProviderSafeLogHeaders();
 		HttpEntity<Object> httpEntity = new HttpEntity<>(request, headers);
 		T t = this.restTemplate.postForObject(url, httpEntity, responseType, uriVariables);
 		this.verifyResponse(t);

@@ -27,11 +27,9 @@ public class BaseUserLoginLogVo implements Serializable {
 
 	private Integer baseUserId;
 
-    private String baseUserAccount;
+    private String userAccount;
 
-    private String baseUserName;
-
-    private String baseUserNameEn;
+    private String userName;
 
     private Integer loginType;
 

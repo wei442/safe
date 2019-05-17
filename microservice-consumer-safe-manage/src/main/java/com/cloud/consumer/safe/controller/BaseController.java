@@ -100,13 +100,12 @@ public class BaseController {
 	/**
 	 * 设置token,过期时间为7*24小时
 	 * @param baseUserId
-	 * @param enterpriseName
-	 * @param userId
-	 * @param userAccount
+	 * @param userName
+	 * @param userName
 	 * @return String
 	 */
-	protected String setToken(Integer baseUserId,String userAccount) {
-		logger.info("(BaseController-setToken)-redis设置token-传入参数, userId:{}, userAccount:{}", baseUserId, userAccount);
+	protected String setToken(Integer baseUserId,String userAccount,String userName) {
+		logger.info("(BaseController-setToken)-redis设置token-传入参数, userId:{}, userAccount:{}, userName:{}", baseUserId, userAccount, userName);
 		if(null == baseUserId || StringUtils.isBlank(userAccount)) {
 			return null;
 		}
@@ -121,6 +120,7 @@ public class BaseController {
 		Map<String, Object> claims = new HashMap<String, Object>();
 		claims.put(CommConstants.BASE_USER_ID, baseUserId);
 		claims.put(CommConstants.USER_ACCOUNT, userAccount);
+		claims.put(CommConstants.USER_NAME, userName);
 		logger.info("(BaseController-setToken)-声明(claims), claims:{}", claims);
 
 		String token = TokenUtil.INSTANCE.createJWT(privateKey, signatureAlgorithm, claims, issuer, audience);
@@ -207,7 +207,6 @@ public class BaseController {
 		return payloadJSON;
 	}
 
-
 	/**
 	 * 获取token(baseUserId)
 	 * @return Integer
@@ -228,6 +227,17 @@ public class BaseController {
 		String userAccount = Objects.toString(payloadJSON.get(CommConstants.USER_ACCOUNT));
 		logger.info("(BaseController-getTokenUserAccount)-返回信息, userAccount:{}", userAccount);
 		return userAccount;
+	}
+
+	/**
+	 * 获取token(userName)
+	 * @return String
+	 */
+	protected String getTokenUserName() {
+		JSONObject payloadJSON = this.getTokenPayload();
+		String userName = Objects.toString(payloadJSON.get(CommConstants.USER_NAME));
+		logger.info("(BaseController-getTokenUserName)-返回信息, userName:{}", userName);
+		return userName;
 	}
 
 	/**

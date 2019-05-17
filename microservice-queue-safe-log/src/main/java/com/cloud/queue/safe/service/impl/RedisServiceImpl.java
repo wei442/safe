@@ -53,14 +53,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long del(String... keys) throws RedisException {
-		logger.info("(BootRedisService-del)-删除key-传入参数, keys:{}", Arrays.toString(keys));
+		logger.info("(RedisService-del)-删除key-传入参数, keys:{}", Arrays.toString(keys));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.del(keys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.del:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.del:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -77,17 +77,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public byte[] dump(String key) throws RedisException {
-		logger.info("(BootRedisService-del)-序列化key-传入参数, key:{}", key);
+		logger.info("(RedisService-del)-序列化key-传入参数, key:{}", key);
 		byte[] bytes = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			bytes = jedis.dump(key);
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.dump:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.dump:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.dump:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.dump:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -104,14 +104,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public boolean exists(String key) throws RedisException {
-		logger.info("(BootRedisService-exists)-检查key是否存在-传入参数, key:{}", key);
+		logger.info("(RedisService-exists)-检查key是否存在-传入参数, key:{}", key);
 		boolean bool = false;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			bool = jedis.exists(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.exists:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.exists:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -128,14 +128,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long exists(String... keys) throws RedisException {
-		logger.info("(BootRedisService-exists)-检查多个key是否存在-传入参数, keys:{}", Arrays.toString(keys));
+		logger.info("(RedisService-exists)-检查多个key是否存在-传入参数, keys:{}", Arrays.toString(keys));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.exists(keys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.exists:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.exists:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -152,14 +152,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long expire(String key, int seconds) throws RedisException {
-		logger.info("(BootRedisService-expire)-设置 key过期时间-传入参数, key:{}, seconds:{}", key, seconds);
+		logger.info("(RedisService-expire)-设置 key过期时间-传入参数, key:{}, seconds:{}", key, seconds);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.expire(key, seconds);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.expire:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.expire:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -177,14 +177,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long expireAt(String key, long unixTime) throws RedisException {
-		logger.info("(BootRedisService-expireAt)-设置key的UNIX过期时间-传入参数, key:{}, unixTime:{}", key, unixTime);
+		logger.info("(RedisService-expireAt)-设置key的UNIX过期时间-传入参数, key:{}, unixTime:{}", key, unixTime);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.expireAt(key, unixTime);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.expireAt:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.expireAt:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -200,14 +200,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> keys(String pattern) throws RedisException {
-		logger.info("(BootRedisService-keys)-查找符合给定模式的 key-传入参数, pattern:{}", pattern);
+		logger.info("(RedisService-keys)-查找符合给定模式的 key-传入参数, pattern:{}", pattern);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.keys(pattern);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.keys:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.keys:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -228,14 +228,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String migrate(String host, int port, String key, int destinationDb, int timeout) throws RedisException {
-		logger.info("(BootRedisService-migrate)将key原子性地从当前实例传送到目标实例的指定数据库上-传入参数, host:{}, port:{}, key:{}, destinationDb:{}, timeout:{}", host, port, key, destinationDb, timeout);
+		logger.info("(RedisService-migrate)将key原子性地从当前实例传送到目标实例的指定数据库上-传入参数, host:{}, port:{}, key:{}, destinationDb:{}, timeout:{}", host, port, key, destinationDb, timeout);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.migrate(host, port, key, destinationDb, timeout);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.migrate:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.migrate:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -253,14 +253,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long move(String key,int dbIndex) throws RedisException {
-		logger.info("(BootRedisService-move)-将当前数据库的key移动到给定的数据库db当中-传入参数, key:{}, dbIndex:{}", key, dbIndex);
+		logger.info("(RedisService-move)-将当前数据库的key移动到给定的数据库db当中-传入参数, key:{}, dbIndex:{}", key, dbIndex);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.move(key, dbIndex);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.move:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.move:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -276,14 +276,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long persist(String key) throws RedisException {
-		logger.info("(BootRedisService-persist)-移除给定key生存时间-传入参数, key:{}", key);
+		logger.info("(RedisService-persist)-移除给定key生存时间-传入参数, key:{}", key);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.persist(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.persist:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.persist:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -300,14 +300,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long pexpire(String key, long milliseconds) throws RedisException {
-		logger.info("(BootRedisService-pexpire)-设置key的过期时间-传入参数, key:{}, milliseconds:{}", key, milliseconds);
+		logger.info("(RedisService-pexpire)-设置key的过期时间-传入参数, key:{}, milliseconds:{}", key, milliseconds);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.pexpire(key, milliseconds);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.pexpire:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.pexpire:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -324,14 +324,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long pexpireAt(String key, long millisecondsTimestamp) throws RedisException {
-		logger.info("(BootRedisService-pexpireAt)-设置key的UNIX过期时间-传入参数, key:{}, millisecondsTimestamp:{}", key, millisecondsTimestamp);
+		logger.info("(RedisService-pexpireAt)-设置key的UNIX过期时间-传入参数, key:{}, millisecondsTimestamp:{}", key, millisecondsTimestamp);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.pexpireAt(key, millisecondsTimestamp);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.pexpireAt:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.pexpireAt:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -347,14 +347,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long pttl(String key) throws RedisException {
-		logger.info("(BootRedisService-pttl)-毫秒为单位key的剩余生存时间-传入参数, key:{}", key);
+		logger.info("(RedisService-pttl)-毫秒为单位key的剩余生存时间-传入参数, key:{}", key);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.pttl(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.pttl:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.pttl:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -369,17 +369,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String randomKey() throws RedisException {
-		logger.info("(BootRedisService-randomKey)-当前数据库中随机返回(不删除)一个 key-传入参数");
+		logger.info("(RedisService-randomKey)-当前数据库中随机返回(不删除)一个 key-传入参数");
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.randomKey();
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.randomKey:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.randomKey:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.randomKey:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.randomKey:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -398,14 +398,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String rename(String oldkey, String newkey) throws RedisException {
-		logger.info("(BootRedisService-rename)-修改key的名称-传入参数, oldkey:{}, newkey:{}", oldkey, newkey);
+		logger.info("(RedisService-rename)-修改key的名称-传入参数, oldkey:{}, newkey:{}", oldkey, newkey);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.rename(oldkey, newkey);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.rename:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.rename:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -422,17 +422,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long renamenx(String oldkey, String newkey) throws RedisException {
-		logger.info("(BootRedisService-renamenx)-新的key不存在时修改key的名称-传入参数, oldkey:{}, newkey:{}", oldkey, newkey);
+		logger.info("(RedisService-renamenx)-新的key不存在时修改key的名称-传入参数, oldkey:{}, newkey:{}", oldkey, newkey);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.renamenx(oldkey, newkey);
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.renamenx:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.renamenx:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.renamenx:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.renamenx:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -452,14 +452,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String restore(String key, int ttl, byte[] serializedValue) throws RedisException {
-		logger.info("(BootRedisService-restore)-反序列化给定的序列化值-传入参数, key:{}, ttl:{}, serializedValue:{}", key, ttl, serializedValue);
+		logger.info("(RedisService-restore)-反序列化给定的序列化值-传入参数, key:{}, ttl:{}, serializedValue:{}", key, ttl, serializedValue);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.restore(key, ttl, serializedValue);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.restore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.restore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -477,14 +477,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long sort(String key, SortingParams sortingParameters, String dstkey) throws RedisException {
-		logger.info("(BootRedisService-sort)-排序-传入参数, key:{}, sortingParameters:{}, dstkey:{}", key, sortingParameters, dstkey);
+		logger.info("(RedisService-sort)-排序-传入参数, key:{}, sortingParameters:{}, dstkey:{}", key, sortingParameters, dstkey);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.sort(key, sortingParameters, dstkey);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sort:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sort:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -500,14 +500,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long ttl(String key) throws RedisException {
-		logger.info("(BootRedisService-ttl)-秒为单位返回key的剩余过期时间-传入参数, key:{}", key);
+		logger.info("(RedisService-ttl)-秒为单位返回key的剩余过期时间-传入参数, key:{}", key);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.ttl(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.ttl:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.ttl:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -523,14 +523,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String type(String key) throws RedisException {
-		logger.info("(BootRedisService-type)-返回key所储存的值的类型-传入参数, key:{}", key);
+		logger.info("(RedisService-type)-返回key所储存的值的类型-传入参数, key:{}", key);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.type(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.type:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.type:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -547,14 +547,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public ScanResult<String> scan(String cursor) throws RedisException {
-		logger.info("(BootRedisService-scan)-用于迭代当前数据库中的数据库键-传入参数, cursor:{}", cursor);
+		logger.info("(RedisService-scan)-用于迭代当前数据库中的数据库键-传入参数, cursor:{}", cursor);
 		ScanResult<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.scan(cursor);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.scan:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.scan:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -572,14 +572,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public ScanResult<String> scan(String cursor,ScanParams params) throws RedisException {
-		logger.info("(BootRedisService-scan)-用于迭代当前数据库中的数据库键-传入参数, cursor:{}, params:{}", cursor, params);
+		logger.info("(RedisService-scan)-用于迭代当前数据库中的数据库键-传入参数, cursor:{}, params:{}", cursor, params);
 		ScanResult<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.scan(cursor, params);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.scan:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.scan:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -602,14 +602,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long append(String key, String value) throws RedisException {
-		logger.info("(BootRedisService-append)-为指定的 key追加值-传入参数, key:{}, value:{}", key, value);
+		logger.info("(RedisService-append)-为指定的 key追加值-传入参数, key:{}, value:{}", key, value);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.append(key, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.append:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.append:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -626,14 +626,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long bitcount(String key) throws RedisException {
-		logger.info("(BootRedisService-bitcount)-计算给定字符串中设置为1的比特位的数量-传入参数, key:{}", key);
+		logger.info("(RedisService-bitcount)-计算给定字符串中设置为1的比特位的数量-传入参数, key:{}", key);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.bitcount(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.bitcount:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.bitcount:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -652,14 +652,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long bitcount(String key, long start, long end) throws RedisException {
-		logger.info("(BootRedisService-bitcount)-计算给定字符串中设置为1的比特位的数量-传入参数, key:{}, start:{}, end:{}", key, start, end);
+		logger.info("(RedisService-bitcount)-计算给定字符串中设置为1的比特位的数量-传入参数, key:{}, start:{}, end:{}", key, start, end);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.bitcount(key, start, end);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.bitcount:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.bitcount:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -678,14 +678,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long bitop(BitOP op, String destKey, String... srcKeys) throws RedisException {
-		logger.info("(BootRedisService-bitop)-对一个或多个保存二进制位的字符串key进行位元操作-传入参数, op:{}, destKey:{}, srcKeys:{}", op, destKey, Arrays.toString(srcKeys));
+		logger.info("(RedisService-bitop)-对一个或多个保存二进制位的字符串key进行位元操作-传入参数, op:{}, destKey:{}, srcKeys:{}", op, destKey, Arrays.toString(srcKeys));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.bitop(op, destKey, srcKeys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.bitop:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.bitop:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -703,14 +703,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<Long> bitfield(String key, String... arguments) throws RedisException {
-		logger.info("(BootRedisService-bitfield)-将一个Redis字符串看作是一个由二进制位组成的数组-传入参数, key:{}, arguments:{}", key, Arrays.toString(arguments));
+		logger.info("(RedisService-bitfield)-将一个Redis字符串看作是一个由二进制位组成的数组-传入参数, key:{}, arguments:{}", key, Arrays.toString(arguments));
 		List<Long> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.bitfield(key, arguments);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.bitfield:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.bitfield:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -727,14 +727,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long decr(String key) throws RedisException {
-		logger.info("(BootRedisService-decr)-为将 key 中储存的数字值减一-传入参数, key:{}", key);
+		logger.info("(RedisService-decr)-为将 key 中储存的数字值减一-传入参数, key:{}", key);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.decr(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.decr:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.decr:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -752,14 +752,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long decrBy(String key, int value) throws RedisException {
-		logger.info("(BootRedisService-decrBy)-将key所储存的值减去指定的减量值-传入参数, key:{}, value:{}", key, value);
+		logger.info("(RedisService-decrBy)-将key所储存的值减去指定的减量值-传入参数, key:{}, value:{}", key, value);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.decrBy(key, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.decrBy:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.decrBy:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -775,14 +775,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String get(String key) throws RedisException {
-		logger.info("(BootRedisService-get)-用于获取指定key的值-传入参数, key:{}", key);
+		logger.info("(RedisService-get)-用于获取指定key的值-传入参数, key:{}", key);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.get(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.get:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.get:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -800,14 +800,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Boolean getbit(String key, long offset) throws RedisException {
-		logger.info("(BootRedisService-getbit)-获取指定偏移量上的位-传入参数, key:{}", key);
+		logger.info("(RedisService-getbit)-获取指定偏移量上的位-传入参数, key:{}", key);
 		Boolean result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.getbit(key, offset);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.getbit:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.getbit:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -826,14 +826,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String getrange(String key, long startOffset, long endOffset) throws RedisException {
-		logger.info("(BootRedisService-getrange)-用于获取存储在指定 key 中字符串的子字符串-传入参数, key:{}, startOffset:{}, endOffset:{}", key, startOffset, endOffset);
+		logger.info("(RedisService-getrange)-用于获取存储在指定 key 中字符串的子字符串-传入参数, key:{}, startOffset:{}, endOffset:{}", key, startOffset, endOffset);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.getrange(key, startOffset, endOffset);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.getrange:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.getrange:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -850,14 +850,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String getSet(String key, String value) throws RedisException {
-		logger.info("(BootRedisService-getSet)-用于设置指定 key的值，并返回 key旧的值-传入参数, key:{}, value:{}", key, value);
+		logger.info("(RedisService-getSet)-用于设置指定 key的值，并返回 key旧的值-传入参数, key:{}, value:{}", key, value);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.getSet(key, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.getSet:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.getSet:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -874,14 +874,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long incr(String key) throws RedisException {
-		logger.info("(BootRedisService-incr)-将 key中储存的数字值增一-传入参数, key:{}", key);
+		logger.info("(RedisService-incr)-将 key中储存的数字值增一-传入参数, key:{}", key);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.incr(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.incr:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.incr:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -899,14 +899,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long incrBy(String key, int value) throws RedisException {
-		logger.info("(BootRedisService-incrBy)-将 key中储存的数字加上指定的增量值-传入参数, key:{}, value:{}", key, value);
+		logger.info("(RedisService-incrBy)-将 key中储存的数字加上指定的增量值-传入参数, key:{}, value:{}", key, value);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.incrBy(key, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.incrBy:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.incrBy:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -923,20 +923,20 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public double incrByFloat(String key, double value) throws RedisException {
-		logger.info("(BootRedisService-incrByFloat)-为 key中所储存的值加上指定的浮点数增量值-传入参数, key:{}, value:{}", key, value);
+		logger.info("(RedisService-incrByFloat)-为 key中所储存的值加上指定的浮点数增量值-传入参数, key:{}, value:{}", key, value);
 		double len = 0d;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.incrByFloat(key, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.incrByFloat:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.incrByFloat:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
 			close(jedis);
 		}
-		logger.info("(BootRedisService-incrByFloat)-为 key中所储存的值加上指定的浮点数增量值-返回结果, len:{}", len);
+		logger.info("(RedisService-incrByFloat)-为 key中所储存的值加上指定的浮点数增量值-返回结果, len:{}", len);
 		return len;
 	}
 
@@ -947,14 +947,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<String> mget(String... key) throws RedisException {
-		logger.info("(BootRedisService-mget)-返回所有(一个或多个)给定 key的值-传入参数, key:{}", Arrays.toString(key));
+		logger.info("(RedisService-mget)-返回所有(一个或多个)给定 key的值-传入参数, key:{}", Arrays.toString(key));
 		List<String> len = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.mget(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.mget:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.mget:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -972,14 +972,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String mset(String... keysvalues) throws RedisException {
-		logger.info("(BootRedisService-mset)-用于同时设置一个或多个 key-value-传入参数, keysvalues:{}", Arrays.toString(keysvalues));
+		logger.info("(RedisService-mset)-用于同时设置一个或多个 key-value-传入参数, keysvalues:{}", Arrays.toString(keysvalues));
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.mset(keysvalues);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.mset:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.mset:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -996,14 +996,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long msetnx(String... keysvalues) throws RedisException {
-		logger.info("(BootRedisService-msetnx)-所有给定 key 都不存在时,用于同时设置一个或多个 key-value-传入参数, keysvalues:{}", Arrays.toString(keysvalues));
+		logger.info("(RedisService-msetnx)-所有给定 key 都不存在时,用于同时设置一个或多个 key-value-传入参数, keysvalues:{}", Arrays.toString(keysvalues));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.msetnx(keysvalues);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.msetnx:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.msetnx:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1021,14 +1021,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String psetex(String key, long milliseconds, String value) throws RedisException {
-		logger.info("(BootRedisService-psetex)-以毫秒为单位设置 key的生存时间-传入参数, key:{}, milliseconds:{}, value:{}", key, milliseconds, value);
+		logger.info("(RedisService-psetex)-以毫秒为单位设置 key的生存时间-传入参数, key:{}, milliseconds:{}, value:{}", key, milliseconds, value);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.psetex(key, milliseconds, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.psetex:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.psetex:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1047,14 +1047,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String set(String key, String value) throws RedisException {
-		logger.info("(BootRedisService-set)-用于设置给定 key的值-传入参数, key:{}, value:{}", key, value);
+		logger.info("(RedisService-set)-用于设置给定 key的值-传入参数, key:{}, value:{}", key, value);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.set(key, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.set:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.set:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1079,14 +1079,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String set(String key, String value, String nxxx) throws RedisException {
-		logger.info("(BootRedisService-set)-用于设置给定 key的值-传入参数, key:{}, value:{}, nxxx:{}", key, value, nxxx);
+		logger.info("(RedisService-set)-用于设置给定 key的值-传入参数, key:{}, value:{}, nxxx:{}", key, value, nxxx);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.set(key, value, nxxx);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.set:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.set:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1113,14 +1113,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String set(String key, String value, String nxxx, String expx, long time) throws RedisException {
-		logger.info("(BootRedisService-set)-用于设置给定 key的值-传入参数, key:{}, value:{}, nxxx:{}, expx:{}, time:{}", key, value, nxxx, expx, time);
+		logger.info("(RedisService-set)-用于设置给定 key的值-传入参数, key:{}, value:{}, nxxx:{}, expx:{}, time:{}", key, value, nxxx, expx, time);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.set(key, value, nxxx, expx, time);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.set:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.set:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1139,14 +1139,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Boolean setbit(String key, long offset, String value) throws RedisException {
-		logger.info("(BootRedisService-setbit)-设置或清除指定偏移量上的位-传入参数, key:{}, value:{}", key, value);
+		logger.info("(RedisService-setbit)-设置或清除指定偏移量上的位-传入参数, key:{}, value:{}", key, value);
 		Boolean result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.setbit(key, offset, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.setbit:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.setbit:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1165,14 +1165,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Boolean setbit(String key, long offset, boolean value) throws RedisException {
-		logger.info("(BootRedisService-setbit)-设置或清除指定偏移量上的位-传入参数, key:{}, value:{}", key, value);
+		logger.info("(RedisService-setbit)-设置或清除指定偏移量上的位-传入参数, key:{}, value:{}", key, value);
 		Boolean result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.setbit(key, offset, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.setbit:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.setbit:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1190,14 +1190,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String setex(String key, int seconds, String value) throws RedisException {
-		logger.info("(BootRedisService-setex)-为指定的 key设置值及其过期时间-传入参数, key:{}, seconds:{}, value:{}", key, seconds, value);
+		logger.info("(RedisService-setex)-为指定的 key设置值及其过期时间-传入参数, key:{}, seconds:{}, value:{}", key, seconds, value);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.setex(key, seconds, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.setex:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.setex:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1214,14 +1214,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long setnx(String key, String value) throws RedisException {
-		logger.info("(BootRedisService-setnx)-在指定的 key不存在时，为 key设置指定的值-传入参数, key:{}, value:{}", key, value);
+		logger.info("(RedisService-setnx)-在指定的 key不存在时，为 key设置指定的值-传入参数, key:{}, value:{}", key, value);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.setnx(key, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.setnx:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.setnx:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1240,14 +1240,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long setrange(String key, long offset, String value) throws RedisException {
-		logger.info("(BootRedisService-setrange)-用指定的字符串覆盖给定 key 所储存的字符串值-传入参数, key:{}, offset:{}, value:{}", key, offset, value);
+		logger.info("(RedisService-setrange)-用指定的字符串覆盖给定 key 所储存的字符串值-传入参数, key:{}, offset:{}, value:{}", key, offset, value);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.setrange(key, offset, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.setrange:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.setrange:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1263,14 +1263,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long strlen(String key) throws RedisException {
-		logger.info("(BootRedisService-strlen)-用于获取指定 key所储存的字符串值的长度-传入参数, key:{}", key);
+		logger.info("(RedisService-strlen)-用于获取指定 key所储存的字符串值的长度-传入参数, key:{}", key);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.strlen(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.strlen:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.strlen:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1291,14 +1291,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long hdel(String key, String... fields) throws RedisException {
-		logger.info("(BootRedisService-hdel)-用于删除哈希表 key中的一个或多个指定字段-传入参数, key:{}, fields:{}", key, Arrays.toString(fields));
+		logger.info("(RedisService-hdel)-用于删除哈希表 key中的一个或多个指定字段-传入参数, key:{}, fields:{}", key, Arrays.toString(fields));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.hdel(key, fields);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hdel:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hdel:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1315,14 +1315,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public boolean hexists(String key, String field) throws RedisException {
-		logger.info("(BootRedisService-hexists)-查看哈希表的指定字段是否存在-传入参数, key:{}, field:{}", key, field);
+		logger.info("(RedisService-hexists)-查看哈希表的指定字段是否存在-传入参数, key:{}, field:{}", key, field);
 		boolean bool = false;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			bool = jedis.hexists(key, field);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hexists:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hexists:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1339,14 +1339,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String hget(String key, String field) throws RedisException {
-		logger.info("(BootRedisService-hget)-用于返回哈希表中指定字段的值值-传入参数, key:{}, field:{}", key, field);
+		logger.info("(RedisService-hget)-用于返回哈希表中指定字段的值值-传入参数, key:{}, field:{}", key, field);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.hget(key, field);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hget:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hget:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1362,14 +1362,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Map<String, String> hgetAll(String key) throws RedisException {
-		logger.info("(BootRedisService-hgetAll)-用于返回哈希表中，所有的字段和值-传入参数, key:{}", key);
+		logger.info("(RedisService-hgetAll)-用于返回哈希表中，所有的字段和值-传入参数, key:{}", key);
 		Map<String, String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.hgetAll(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hgetAll:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hgetAll:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1388,14 +1388,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long hincrBy(String key, String field, long value) throws RedisException {
-		logger.info("(BootRedisService-hincrBy)-为哈希表中的字段值加上指定增量值-传入参数, key:{}, field:{}, value:{}", key, field, value);
+		logger.info("(RedisService-hincrBy)-为哈希表中的字段值加上指定增量值-传入参数, key:{}, field:{}, value:{}", key, field, value);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.hincrBy(key, field, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hincrBy:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hincrBy:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1413,14 +1413,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public double hincrByFloat(String key, String field, double value) throws RedisException {
-		logger.info("(BootRedisService-hincrByFloat)-为哈希表中的字段值加上指定浮点数增量值-传入参数, key:{}, field:{}, value:{}", key, field, value);
+		logger.info("(RedisService-hincrByFloat)-为哈希表中的字段值加上指定浮点数增量值-传入参数, key:{}, field:{}, value:{}", key, field, value);
 		double len = 0d;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.hincrByFloat(key, field, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hincrByFloat:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hincrByFloat:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1436,14 +1436,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> hkeys(String key) throws RedisException {
-		logger.info("(BootRedisService-hkeys)-用于获取哈希表中的所有字段名-传入参数, key:{}", key);
+		logger.info("(RedisService-hkeys)-用于获取哈希表中的所有字段名-传入参数, key:{}", key);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.hkeys(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hkeys:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hkeys:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1459,14 +1459,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long hlen(String key) throws RedisException {
-		logger.info("(BootRedisService-hlen)-获取哈希表中字段的数量-传入参数, key:{}", key);
+		logger.info("(RedisService-hlen)-获取哈希表中字段的数量-传入参数, key:{}", key);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.hlen(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hlen:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hlen:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1483,14 +1483,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<String> hmget(String key, String... fields) throws RedisException {
-		logger.info("(BootRedisService-hmget)-用于返回哈希表中，一个或多个给定字段的值-传入参数, key:{}, fields:{}", key, Arrays.toString(fields));
+		logger.info("(RedisService-hmget)-用于返回哈希表中，一个或多个给定字段的值-传入参数, key:{}, fields:{}", key, Arrays.toString(fields));
 		List<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.hmget(key, fields);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hmget:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hmget:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1507,14 +1507,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String hmset(String key, Map<String, String> hash) throws RedisException {
-		logger.info("(BootRedisService-hmset)-用于同时将多个字段-值对设置到哈希表中-传入参数, key:{}, hash:{}", key, hash);
+		logger.info("(RedisService-hmset)-用于同时将多个字段-值对设置到哈希表中-传入参数, key:{}, hash:{}", key, hash);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.hmset(key, hash);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hmset:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hmset:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1532,14 +1532,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long hset(String key, String field, String value) throws RedisException {
-		logger.info("(BootRedisService-hset)-为哈希表中的字段赋值-传入参数, key:{}, field:{}, value:{}", key, field, value);
+		logger.info("(RedisService-hset)-为哈希表中的字段赋值-传入参数, key:{}, field:{}, value:{}", key, field, value);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.hset(key, field, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hset:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hset:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1558,14 +1558,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long hsetnx(String key, String field, String value) throws RedisException {
-		logger.info("(BootRedisService-hsetnx)-用于为哈希表中不存在的的字段赋值-传入参数, key:{}, field:{}, value:{}", key, field, value);
+		logger.info("(RedisService-hsetnx)-用于为哈希表中不存在的的字段赋值-传入参数, key:{}, field:{}, value:{}", key, field, value);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.hsetnx(key, field, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hsetnx:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hsetnx:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1581,14 +1581,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<String> hvals(String key) throws RedisException {
-		logger.info("(BootRedisService-hvals)-返回哈希表所有字段的值-传入参数, key:{}", key);
+		logger.info("(RedisService-hvals)-返回哈希表所有字段的值-传入参数, key:{}", key);
 		List<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.hvals(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hvals:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hvals:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1606,14 +1606,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public ScanResult<Map.Entry<String, String>> hscan(String key, String cursor) throws RedisException {
-		logger.info("(BootRedisService-hscan)-用于为哈希表中不存在的的字段赋值-传入参数, key:{}, cursor:{}", key, cursor);
+		logger.info("(RedisService-hscan)-用于为哈希表中不存在的的字段赋值-传入参数, key:{}, cursor:{}", key, cursor);
 		ScanResult<Map.Entry<String, String>> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.hscan(key, cursor);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hscan:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hscan:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1632,14 +1632,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public ScanResult<Map.Entry<String, String>> hscan(String key, String cursor, ScanParams params) throws RedisException {
-		logger.info("(BootRedisService-hscan)-用于为哈希表中不存在的的字段赋值-传入参数, key:{}, cursor:{}, params:{}", key, cursor, params);
+		logger.info("(RedisService-hscan)-用于为哈希表中不存在的的字段赋值-传入参数, key:{}, cursor:{}, params:{}", key, cursor, params);
 		ScanResult<Map.Entry<String, String>> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.hscan(key, cursor, params);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.hscan:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.hscan:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1659,7 +1659,7 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String blpop(String... key) throws RedisException {
-		logger.info("(BootRedisService-blpop)-不超时移除并返回列表的第一个元素-传入参数, key:{}", Arrays.toString(key));
+		logger.info("(RedisService-blpop)-不超时移除并返回列表的第一个元素-传入参数, key:{}", Arrays.toString(key));
 		String result = null;
 		Jedis jedis = null;
 		try {
@@ -1669,7 +1669,7 @@ public class RedisServiceImpl implements IRedisService {
 				result = list.get(1);
 			}
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.blpop:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.blpop:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1686,7 +1686,7 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String blpop(int timeout, String... key) throws RedisException {
-		logger.info("(BootRedisService-blpop)-根据超时时间 移除并返回列表的第一个元素-传入参数, timeout:{}, key:{}", timeout, Arrays.toString(key));
+		logger.info("(RedisService-blpop)-根据超时时间 移除并返回列表的第一个元素-传入参数, timeout:{}, key:{}", timeout, Arrays.toString(key));
 		String result = null;
 		Jedis jedis = null;
 		try {
@@ -1696,7 +1696,7 @@ public class RedisServiceImpl implements IRedisService {
 				result = list.get(1);
 			}
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.blpop:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.blpop:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1712,7 +1712,7 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String brpop(String... key) throws RedisException {
-		logger.info("(BootRedisService-brpop)-不超时移出并获取列表的最后一个元素-传入参数, key:{}", Arrays.toString(key));
+		logger.info("(RedisService-brpop)-不超时移出并获取列表的最后一个元素-传入参数, key:{}", Arrays.toString(key));
 		String result = null;
 		Jedis jedis = null;
 		try {
@@ -1722,7 +1722,7 @@ public class RedisServiceImpl implements IRedisService {
 				result = list.get(1);
 			}
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.brpop:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.brpop:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1739,7 +1739,7 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String brpop(int timeout, String... key) throws RedisException {
-		logger.info("(BootRedisService-brpop)-根据超时时间 移出并获取列表的最后一个元素-传入参数, timeout:{}, key:{}", timeout, Arrays.toString(key));
+		logger.info("(RedisService-brpop)-根据超时时间 移出并获取列表的最后一个元素-传入参数, timeout:{}, key:{}", timeout, Arrays.toString(key));
 		String result = null;
 		Jedis jedis = null;
 		try {
@@ -1749,7 +1749,7 @@ public class RedisServiceImpl implements IRedisService {
 				result = list.get(1);
 			}
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.brpop:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.brpop:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1768,14 +1768,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String brpoplpush(String source, String destination, int timeout) throws RedisException {
-		logger.info("(BootRedisService-brpoplpush)-列表中弹出一个值-传入参数, source:{}, destination:{}, timeout:{}", source, destination, timeout);
+		logger.info("(RedisService-brpoplpush)-列表中弹出一个值-传入参数, source:{}, destination:{}, timeout:{}", source, destination, timeout);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.brpoplpush(source, destination, timeout);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.brpoplpush:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.brpoplpush:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1792,14 +1792,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String lindex(String key, long index) throws RedisException {
-		logger.info("(BootRedisService-lindex)-通过索引获取列表中的元素-传入参数, key:{}, index:{}", key, index);
+		logger.info("(RedisService-lindex)-通过索引获取列表中的元素-传入参数, key:{}, index:{}", key, index);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.lindex(key, index);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.lindex:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.lindex:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1818,14 +1818,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long linsert(String key, LIST_POSITION where, String pivot, String value) throws RedisException {
-		logger.info("(BootRedisService-linsert)-列表的元素前或者后插入元素-传入参数, key:{}, where:{}, pivot:{}, value:{}", key, where, pivot, value);
+		logger.info("(RedisService-linsert)-列表的元素前或者后插入元素-传入参数, key:{}, where:{}, pivot:{}, value:{}", key, where, pivot, value);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.linsert(key, where, pivot, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.linsert:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.linsert:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1841,14 +1841,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long llen(String key) throws RedisException {
-		logger.info("(BootRedisService-llen)-返回列表的长度-传入参数 key:{}", key);
+		logger.info("(RedisService-llen)-返回列表的长度-传入参数 key:{}", key);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.llen(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.llen:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.llen:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1864,14 +1864,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String lpop(String key) throws RedisException {
-		logger.info("(BootRedisService-lpop)-移除并返回列表 key 的头元素-传入参数 key:{}", key);
+		logger.info("(RedisService-lpop)-移除并返回列表 key 的头元素-传入参数 key:{}", key);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.lpop(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.lpop:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.lpop:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1891,14 +1891,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long lpush(String key, String... values) throws RedisException {
-		logger.info("(BootRedisService-lpush)-将一个或多个值插入到列表头部-传入参数, key:{}, values:{}", key, Arrays.toString(values));
+		logger.info("(RedisService-lpush)-将一个或多个值插入到列表头部-传入参数, key:{}, values:{}", key, Arrays.toString(values));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.lpush(key, values);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.lpush:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.lpush:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1916,14 +1916,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long lpushx(String key, String... values) throws RedisException {
-		logger.info("(BootRedisService-lpushx)-将值 value 插入到列表 key 的表头-传入参数, key:{}, values:{}", key, Arrays.toString(values));
+		logger.info("(RedisService-lpushx)-将值 value 插入到列表 key 的表头-传入参数, key:{}, values:{}", key, Arrays.toString(values));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.lpushx(key, values);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.lpushx:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.lpushx:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1942,14 +1942,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<String> lrange(String key, long from, long to) throws RedisException {
-		logger.info("(BootRedisService-lrange)-返回列表中指定区间内的元素-传入参数, key:{}, from:{}, to:{}", key, from, to);
+		logger.info("(RedisService-lrange)-返回列表中指定区间内的元素-传入参数, key:{}, from:{}, to:{}", key, from, to);
 		List<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.lrange(key, from, to);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.lrange:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.lrange:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1971,14 +1971,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long lrem(String key, long count, String value) throws RedisException {
-		logger.info("(BootRedisService-lrem)-根据参数 count 的值，移除列表中与参数 value 相等的元素-传入参数, key:{}, count:{}, value:{}", key, count, value);
+		logger.info("(RedisService-lrem)-根据参数 count 的值，移除列表中与参数 value 相等的元素-传入参数, key:{}, count:{}, value:{}", key, count, value);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.lrem(key, count, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.lrem:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.lrem:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -1996,14 +1996,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String lset(String key, long index, String value) throws RedisException {
-		logger.info("(BootRedisService-lset)-通过索引来设置元素的值-传入参数, key:{}, index:{}, value:{}", key, index, value);
+		logger.info("(RedisService-lset)-通过索引来设置元素的值-传入参数, key:{}, index:{}, value:{}", key, index, value);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.lset(key, index, value);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.lset:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.lset:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2025,14 +2025,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String ltrim(String key, long start, long end) throws RedisException {
-		logger.info("(BootRedisService-ltrim)-对一个列表进行修剪-传入参数, key:{}, start:{}, end:{}", key, start, end);
+		logger.info("(RedisService-ltrim)-对一个列表进行修剪-传入参数, key:{}, start:{}, end:{}", key, start, end);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.ltrim(key, start, end);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.ltrim:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.ltrim:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2048,14 +2048,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String rpop(String key) throws RedisException {
-		logger.info("(BootRedisService-rpop)-移除并返回列表的最后一个元素-传入参数 key:{}", key);
+		logger.info("(RedisService-rpop)-移除并返回列表的最后一个元素-传入参数 key:{}", key);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.rpop(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.rpop:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.rpop:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2072,14 +2072,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String rpoplpush(String srckey, String dstkey) throws RedisException {
-		logger.info("(BootRedisService-rpoplpush)-将列表 source 中的最后一个元素(尾元素)弹出-传入参数, srckey:{}, dstkey:{}", srckey, dstkey);
+		logger.info("(RedisService-rpoplpush)-将列表 source 中的最后一个元素(尾元素)弹出-传入参数, srckey:{}, dstkey:{}", srckey, dstkey);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.rpoplpush(srckey, dstkey);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.rpoplpush:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.rpoplpush:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2097,14 +2097,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long rpush(String key, String... values) throws RedisException {
-		logger.info("(BootRedisService-rpush)-将一个或多个值插入到列表的尾部-传入参数, key:{}, values:{}", key, Arrays.toString(values));
+		logger.info("(RedisService-rpush)-将一个或多个值插入到列表的尾部-传入参数, key:{}, values:{}", key, Arrays.toString(values));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.rpush(key, values);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.rpush:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.rpush:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2122,14 +2122,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long rpushx(String key, String... values) throws RedisException {
-		logger.info("(BootRedisService-rpushx)- 将值 value 插入到列表 key 的表尾-传入参数, key:{}, values:{}", key, Arrays.toString(values));
+		logger.info("(RedisService-rpushx)- 将值 value 插入到列表 key 的表尾-传入参数, key:{}, values:{}", key, Arrays.toString(values));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.rpushx(key, values);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.rpushx:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.rpushx:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2152,14 +2152,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long sadd(String key, String... members) throws RedisException {
-		logger.info("(BootRedisService-sadd)-将一个或多个成员元素加入到集合中-传入参数, key:{}, members:{}", key, Arrays.toString(members));
+		logger.info("(RedisService-sadd)-将一个或多个成员元素加入到集合中-传入参数, key:{}, members:{}", key, Arrays.toString(members));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.sadd(key, members);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sadd:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sadd:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2175,14 +2175,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long scard(String key) throws RedisException {
-		logger.info("(BootRedisService-scard)-返回集合中元素的数量-传入参数, key:{}", key);
+		logger.info("(RedisService-scard)-返回集合中元素的数量-传入参数, key:{}", key);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.scard(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.scard:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.scard:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2198,14 +2198,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> sdiff(String... keys) throws RedisException {
-		logger.info("(BootRedisService-sdiff)-给定集合之间的差集-传入参数, keys:{}", Arrays.toString(keys));
+		logger.info("(RedisService-sdiff)-给定集合之间的差集-传入参数, keys:{}", Arrays.toString(keys));
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.sdiff(keys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sdiff:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sdiff:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2222,14 +2222,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long sdiffstore(String dstkey, String... keys) throws RedisException {
-		logger.info("(BootRedisService-sdiffstore)-将给定集合之间的差集存储在指定的集合中-传入参数, dstkey:{}, keys:{}", dstkey, Arrays.toString(keys));
+		logger.info("(RedisService-sdiffstore)-将给定集合之间的差集存储在指定的集合中-传入参数, dstkey:{}, keys:{}", dstkey, Arrays.toString(keys));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.sdiffstore(dstkey, keys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sdiffstore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sdiffstore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2246,14 +2246,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> sinter(String... keys) throws RedisException {
-		logger.info("(BootRedisService-sinter)-给定所有给定集合的交集-传入参数, keys:{}", Arrays.toString(keys));
+		logger.info("(RedisService-sinter)-给定所有给定集合的交集-传入参数, keys:{}", Arrays.toString(keys));
 		Set<String> set = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			set = jedis.sinter(keys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sinter:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sinter:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2270,14 +2270,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long sinterstore(String dstkey, String... keys) throws RedisException {
-		logger.info("(BootRedisService-sinterstore)-给定集合之间的交集存储在指定的集合中-传入参数, dstkey:{}, keys:{}", dstkey, Arrays.toString(keys));
+		logger.info("(RedisService-sinterstore)-给定集合之间的交集存储在指定的集合中-传入参数, dstkey:{}, keys:{}", dstkey, Arrays.toString(keys));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.sinterstore(dstkey, keys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sinterstore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sinterstore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2294,14 +2294,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public boolean sismember(String key, String member) throws RedisException {
-		logger.info("(BootRedisService-sismember)-判断成员元素是否是集合的成员-传入参数, key:{}, member:{}", key, member);
+		logger.info("(RedisService-sismember)-判断成员元素是否是集合的成员-传入参数, key:{}, member:{}", key, member);
 		boolean flag = false;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			flag = jedis.sismember(key, member);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sismember:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sismember:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2317,14 +2317,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> smembers(String key) throws RedisException {
-		logger.info("(BootRedisService-smembers)-集合中的所有的成员-传入参数, key:{}", key);
+		logger.info("(RedisService-smembers)-集合中的所有的成员-传入参数, key:{}", key);
 		Set<String> set = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			set = jedis.smembers(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.smembers:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.smembers:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2346,14 +2346,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long smove(String srckey, String dstkey, String member) throws RedisException {
-		logger.info("(BootRedisService-smove)-将指定成员 member 元素从 source 集合移动到 destination 集合-传入参数, srckey:{}, dstkey:{}, member:{}", srckey, dstkey, member);
+		logger.info("(RedisService-smove)-将指定成员 member 元素从 source 集合移动到 destination 集合-传入参数, srckey:{}, dstkey:{}, member:{}", srckey, dstkey, member);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.smove(srckey, dstkey, member);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.smove:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.smove:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2369,14 +2369,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String spop(String key) throws RedisException {
-		logger.info("(BootRedisService-spop)-移除并返回集合中的一个随机元素-传入参数, key:{}", key);
+		logger.info("(RedisService-spop)-移除并返回集合中的一个随机元素-传入参数, key:{}", key);
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.spop(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.spop:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.spop:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2393,14 +2393,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> spop(String key, long count) throws RedisException {
-		logger.info("(BootRedisService-spop)-移除并返回集合中的多个随机元素-传入参数, key:{}, count:{}", key, count);
+		logger.info("(RedisService-spop)-移除并返回集合中的多个随机元素-传入参数, key:{}, count:{}", key, count);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.spop(key, count);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.spop:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.spop:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2417,14 +2417,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String srandmember(String key) throws RedisException {
-		logger.info("(BootRedisService-srandmember)-返回集合中的一个随机元素-传入参数, key:{}", key);
+		logger.info("(RedisService-srandmember)-返回集合中的一个随机元素-传入参数, key:{}", key);
 		String member = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			member = jedis.srandmember(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.srandmember:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.srandmember:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2445,14 +2445,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<String> srandmember(String key, int count) throws RedisException {
-		logger.info("(BootRedisService-srandmember)-返回集合中的一个随机元素-传入参数, key:{}, count:{}", key, count);
+		logger.info("(RedisService-srandmember)-返回集合中的一个随机元素-传入参数, key:{}, count:{}", key, count);
 		List<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.srandmember(key, count);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.srandmember:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.srandmember:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2471,14 +2471,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long srem(String key, String... members) throws RedisException {
-		logger.info("(BootRedisService-srem)-移除集合中的一个或多个成员元素-传入参数, key:{}, members:{}", key, Arrays.toString(members));
+		logger.info("(RedisService-srem)-移除集合中的一个或多个成员元素-传入参数, key:{}, members:{}", key, Arrays.toString(members));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.srem(key, members);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.srem:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.srem:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2494,14 +2494,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> sunion(String... keys) throws RedisException {
-		logger.info("(BootRedisService-sunion)-返回给定集合的并集-传入参数, keys:{}", Arrays.toString(keys));
+		logger.info("(RedisService-sunion)-返回给定集合的并集-传入参数, keys:{}", Arrays.toString(keys));
 		Set<String> set = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			set = jedis.sunion(keys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sunion:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sunion:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2518,14 +2518,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long sunionstore(String dstkey, String... keys) throws RedisException {
-		logger.info("(BootRedisService-sunionstore)-将给定集合的并集存储在指定的集合中-传入参数, dstkey:{}, keys:{}", dstkey, Arrays.toString(keys));
+		logger.info("(RedisService-sunionstore)-将给定集合的并集存储在指定的集合中-传入参数, dstkey:{}, keys:{}", dstkey, Arrays.toString(keys));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.sunionstore(dstkey, keys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sunionstore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sunionstore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2542,14 +2542,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public ScanResult<String> sscan(String key, String cursor) throws RedisException {
-		logger.info("(BootRedisService-sscan)-迭代集合键中的元素-传入参数, key:{}, cursor:{}", key, cursor);
+		logger.info("(RedisService-sscan)-迭代集合键中的元素-传入参数, key:{}, cursor:{}", key, cursor);
 		ScanResult<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.sscan(key, cursor);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sscan:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sscan:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2567,14 +2567,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public ScanResult<String> sscan(String key, String cursor, ScanParams params) throws RedisException {
-		logger.info("(BootRedisService-sscan)-迭代集合键中的元素-传入参数, key:{}, cursor:{}, params:{}", key, cursor, params);
+		logger.info("(RedisService-sscan)-迭代集合键中的元素-传入参数, key:{}, cursor:{}, params:{}", key, cursor, params);
 		ScanResult<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.sscan(key, cursor, params);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sscan:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sscan:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2596,14 +2596,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zadd(String key, double score, String member) throws RedisException {
-		logger.info("(BootRedisService-zadd)-将一个或多个 member 元素及其 score 值加入到有序集 key 当中-传入参数, key:{}, score:{}, member:{}", key, score, member);
+		logger.info("(RedisService-zadd)-将一个或多个 member 元素及其 score 值加入到有序集 key 当中-传入参数, key:{}, score:{}, member:{}", key, score, member);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zadd(key, score, member);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zadd:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zadd:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2623,14 +2623,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zadd(String key, double score, String member, ZAddParams params) throws RedisException {
-		logger.info("(BootRedisService-zadd)-将一个或多个 member 元素及其 score 值加入到有序集 key 当中-传入参数, key:{}, score:{}, member:{}, params:{}", key, score, member, params);
+		logger.info("(RedisService-zadd)-将一个或多个 member 元素及其 score 值加入到有序集 key 当中-传入参数, key:{}, score:{}, member:{}, params:{}", key, score, member, params);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zadd(key, score, member, params);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zadd:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zadd:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2648,14 +2648,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zadd(String key, Map<String, Double> scoreMembers) throws RedisException {
-		logger.info("(BootRedisService-zadd)-将多个member元素及其 score 值加入到有序集 key 当中-传入参数, key:{}, scoreMembers:{}", key, scoreMembers);
+		logger.info("(RedisService-zadd)-将多个member元素及其 score 值加入到有序集 key 当中-传入参数, key:{}, scoreMembers:{}", key, scoreMembers);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zadd(key, scoreMembers);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zadd:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zadd:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2674,14 +2674,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zadd(String key, Map<String, Double> scoreMembers, ZAddParams params) throws RedisException {
-		logger.info("(BootRedisService-zadd)-将多个member元素及其 score 值加入到有序集 key 当中-传入参数, key:{}, scoreMembers:{}, params:{}", key, scoreMembers, params);
+		logger.info("(RedisService-zadd)-将多个member元素及其 score 值加入到有序集 key 当中-传入参数, key:{}, scoreMembers:{}, params:{}", key, scoreMembers, params);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zadd(key, scoreMembers, params);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zadd:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zadd:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2699,14 +2699,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zcard(String key) throws RedisException {
-		logger.info("(BootRedisService-zcard)-返回有序集key的基数-传入参数, key:{}", key);
+		logger.info("(RedisService-zcard)-返回有序集key的基数-传入参数, key:{}", key);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zcard(key);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zcard:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zcard:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2725,14 +2725,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zcount(String key, double min, double max) throws RedisException {
-		logger.info("(BootRedisService-zcount)- score 值在 min 和 max 之间的成员的数量-传入参数, key:{}, min:{}, max:{}", key, min, max);
+		logger.info("(RedisService-zcount)- score 值在 min 和 max 之间的成员的数量-传入参数, key:{}, min:{}, max:{}", key, min, max);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zcount(key, min, max);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zcount:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zcount:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2751,14 +2751,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public double zincrby(String key, double score, String member) throws RedisException {
-		logger.info("(BootRedisService-zincrby)-为有序集 key 的成员 member 的 score 值加上增量-传入参数, key:{}, score:{}, member:{}", key, score, member);
+		logger.info("(RedisService-zincrby)-为有序集 key 的成员 member 的 score 值加上增量-传入参数, key:{}, score:{}, member:{}", key, score, member);
 		double newScore = 0d;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			newScore = jedis.zincrby(key, score, member);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zincrby:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zincrby:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2777,14 +2777,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public double zincrby(String key, double score, String member, ZIncrByParams params) throws RedisException {
-		logger.info("(BootRedisService-zincrby)-为有序集 key 的成员 member 的 score 值加上增量-传入参数, key:{}, score:{}, member:{}, params:{}", key, score, member, params);
+		logger.info("(RedisService-zincrby)-为有序集 key 的成员 member 的 score 值加上增量-传入参数, key:{}, score:{}, member:{}, params:{}", key, score, member, params);
 		double newScore = 0d;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			newScore = jedis.zincrby(key, newScore, member, params);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zincrby:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zincrby:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2803,14 +2803,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> zrange(String key, long start, long end) throws RedisException {
-		logger.info("(BootRedisService-zrange)-返回有序集 key 中，指定区间内的成员-传入参数, key:{}, start:{}, end:{}", key, start, end);
+		logger.info("(RedisService-zrange)-返回有序集 key 中，指定区间内的成员-传入参数, key:{}, start:{}, end:{}", key, start, end);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrange(key, start, end);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrange:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrange:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2829,14 +2829,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<Tuple> zrangeWithScores(String key, long start, long end) throws RedisException {
-		logger.info("(BootRedisService-zrangeWithScores)-返回有序集 key 中，指定区间内的成员-传入参数, key:{}, start:{}, end:{}", key, start, end);
+		logger.info("(RedisService-zrangeWithScores)-返回有序集 key 中，指定区间内的成员-传入参数, key:{}, start:{}, end:{}", key, start, end);
 		Set<Tuple> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrangeWithScores(key, start, end);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrangeWithScores:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrangeWithScores:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2854,14 +2854,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> zrangeByScore(String key, double min, double max) throws RedisException {
-		logger.info("(BootRedisService-zrangeByScore)-所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员-传入参数, key:{}, min:{}, max:{}", key, min, max);
+		logger.info("(RedisService-zrangeByScore)-所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员-传入参数, key:{}, min:{}, max:{}", key, min, max);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrangeByScore(key, min, max);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2883,14 +2883,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> zrangeByScore(String key, double min, double max, int offset, int count) throws RedisException {
-		logger.info("(BootRedisService-zrangeByScore)-所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员-传入参数, key:{}, min:{}, max:{}, offset:{}, count:{}", key, min, max, offset, count);
+		logger.info("(RedisService-zrangeByScore)-所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员-传入参数, key:{}, min:{}, max:{}, offset:{}, count:{}", key, min, max, offset, count);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrangeByScore(key, min, max, offset, count);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2908,14 +2908,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<Tuple> zrangeByScoreWithScores(String key, double min, double max) throws RedisException {
-		logger.info("(BootRedisService-zrangeByScoreWithScores)-返回有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员-传入参数, key:{}, min:{}, max:{}", key, min, max);
+		logger.info("(RedisService-zrangeByScoreWithScores)-返回有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员-传入参数, key:{}, min:{}, max:{}", key, min, max);
 		Set<Tuple> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrangeByScoreWithScores(key, min, max);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrangeByScoreWithScores:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrangeByScoreWithScores:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2933,14 +2933,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<Tuple> zrangeByScoreWithScores(String key, double min, double max, int offset, int count) throws RedisException {
-		logger.info("(BootRedisService-zrangeByScoreWithScores)-返回有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员-传入参数, key:{}, min:{}, max:{}, offset:{}, count:{}", key, min, max, offset, count);
+		logger.info("(RedisService-zrangeByScoreWithScores)-返回有序集 key 中，所有 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员-传入参数, key:{}, min:{}, max:{}, offset:{}, count:{}", key, min, max, offset, count);
 		Set<Tuple> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrangeByScoreWithScores(key, min, max, offset, count);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrangeByScoreWithScores:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrangeByScoreWithScores:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2958,14 +2958,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zrank(String key, String member) throws RedisException {
-		logger.info("(BootRedisService-zrank)-有序集 key 中成员 member 的排名-传入参数, key:{}, member:{}", key, member);
+		logger.info("(RedisService-zrank)-有序集 key 中成员 member 的排名-传入参数, key:{}, member:{}", key, member);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zrank(key, member);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrank:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrank:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -2984,14 +2984,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zrem(String key, String... members) throws RedisException {
-		logger.info("(BootRedisService-zrem)-移除有序集 key 中的一个或多个成员-传入参数, key:{}, members:{}", key, Arrays.toString(members));
+		logger.info("(RedisService-zrem)-移除有序集 key 中的一个或多个成员-传入参数, key:{}, members:{}", key, Arrays.toString(members));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zrem(key, members);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrem:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrem:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3010,14 +3010,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zremrangeByRank(String key, long start, long end) throws RedisException {
-		logger.info("(BootRedisService-zremrangeByRank)-移除有序集 key 中，指定排名(rank)区间内的所有成员-传入参数, key:{}, start:{}, end:{}", key, start, end);
+		logger.info("(RedisService-zremrangeByRank)-移除有序集 key 中，指定排名(rank)区间内的所有成员-传入参数, key:{}, start:{}, end:{}", key, start, end);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zremrangeByRank(key, start, end);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zremrangeByRank:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zremrangeByRank:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3035,14 +3035,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zremrangeByScore(String key, double min, double max) throws RedisException {
-		logger.info("(BootRedisService-zremrangeByScore)-移除有序集 key 中，所有 score 值介于 min 和 max 之间的成员-传入参数, key:{}, min:{} max:{}", key, min, max);
+		logger.info("(RedisService-zremrangeByScore)-移除有序集 key 中，所有 score 值介于 min 和 max 之间的成员-传入参数, key:{}, min:{} max:{}", key, min, max);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zremrangeByScore(key, min, max);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zremrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zremrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3061,14 +3061,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> zrevrange(String key, long start, long end) throws RedisException {
-		logger.info("(BootRedisService-zrevrange)-返回有序集 key 中，指定区间内的成员-传入参数, key:{}, start:{}, end:{}", key, start, end);
+		logger.info("(RedisService-zrevrange)-返回有序集 key 中，指定区间内的成员-传入参数, key:{}, start:{}, end:{}", key, start, end);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrevrange(key, start, end);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrevrange:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrevrange:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3087,14 +3087,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<Tuple> zrevrangeWithScores(String key, long start, long end) throws RedisException {
-		logger.info("(BootRedisService-zrevrangeWithScores)-返回有序集 key 中，指定区间内的成员-传入参数, key:{}, start:{}, end:{}", key, start, end);
+		logger.info("(RedisService-zrevrangeWithScores)-返回有序集 key 中，指定区间内的成员-传入参数, key:{}, start:{}, end:{}", key, start, end);
 		Set<Tuple> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrevrangeWithScores(key, start, end);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrevrangeWithScores:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrevrangeWithScores:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3113,14 +3113,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> zrevrangeByScore(String key, double max, double min) throws RedisException {
-		logger.info("(BootRedisService-zrevrangeWithScores)-返回有序集 key 中，score 值介于 max 和 min 之间的所有的成员-传入参数, key:{}, max:{}, min:{}", key, max, min);
+		logger.info("(RedisService-zrevrangeWithScores)-返回有序集 key 中，score 值介于 max 和 min 之间的所有的成员-传入参数, key:{}, max:{}, min:{}", key, max, min);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrevrangeByScore(key, max, min);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrevrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrevrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3139,14 +3139,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> zrevrangeByScore(String key, double max, double min, int offset, int count) throws RedisException {
-		logger.info("(BootRedisService-zrevrangeByScore)-返回有序集 key 中，score 值介于 max 和 min 之间的所有的成员-传入参数, key:{}, max:{}, min:{}, offset:{}, count:{}", key, max, min, offset, count);
+		logger.info("(RedisService-zrevrangeByScore)-返回有序集 key 中，score 值介于 max 和 min 之间的所有的成员-传入参数, key:{}, max:{}, min:{}, offset:{}, count:{}", key, max, min, offset, count);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrevrangeByScore(key, max, min, offset, count);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrevrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrevrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3165,14 +3165,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<Tuple> zrevrangeByScoreWithScores(String key, double max, double min) throws RedisException {
-		logger.info("(BootRedisService-zrevrangeByScoreWithScores)-返回有序集 key 中，score 值介于 max 和 min 之间的所有的成员-传入参数, key:{}, max:{}, min:{}", key, max, min);
+		logger.info("(RedisService-zrevrangeByScoreWithScores)-返回有序集 key 中，score 值介于 max 和 min 之间的所有的成员-传入参数, key:{}, max:{}, min:{}", key, max, min);
 		Set<Tuple> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrevrangeByScoreWithScores(key, max, min);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrevrangeByScoreWithScores:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrevrangeByScoreWithScores:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3191,14 +3191,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<Tuple> zrevrangeByScoreWithScores(String key, double max, double min, int offset, int count) throws RedisException {
-		logger.info("(BootRedisService-zrevrangeByScoreWithScores)-返回有序集 key 中，score 值介于 max 和 min 之间的所有的成员-传入参数, key:{}, max:{}, min:{}", key, max, min);
+		logger.info("(RedisService-zrevrangeByScoreWithScores)-返回有序集 key 中，score 值介于 max 和 min 之间的所有的成员-传入参数, key:{}, max:{}, min:{}", key, max, min);
 		Set<Tuple> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrevrangeByScoreWithScores(key, max, min, offset, count);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrevrangeByScoreWithScores:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrevrangeByScoreWithScores:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3218,14 +3218,14 @@ public class RedisServiceImpl implements IRedisService {
 	 * @throws RedisException
 	 */
 	public Set<String> zrevrangeByScore(String key, double max, long min, int offset, int count) throws RedisException {
-		logger.info("(BootRedisService-zrevrangeByScore)-回有序集 key 中，score 值介于 max 和 min 之间的所有的成员-传入参数, key:{}, max:{}, min:{}, offset:{}, count:{}", key, max, min, offset, count);
+		logger.info("(RedisService-zrevrangeByScore)-回有序集 key 中，score 值介于 max 和 min 之间的所有的成员-传入参数, key:{}, max:{}, min:{}, offset:{}, count:{}", key, max, min, offset, count);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrevrangeByScore(key, max, min, offset, count);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrevrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrevrangeByScore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3243,17 +3243,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zrevrank(String key, String member) throws RedisException {
-		logger.info("(BootRedisService-zrevrank)-返回有序集 key 中成员 member 的排名-传入参数, key:{}, member:{}", key, member);
+		logger.info("(RedisService-zrevrank)-返回有序集 key 中成员 member 的排名-传入参数, key:{}, member:{}", key, member);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zrevrank(key, member);
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.zrevrank:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrevrank:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrevrank:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrevrank:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3272,17 +3272,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public double zscore(String key, String member) throws RedisException {
-		logger.info("(BootRedisService-zscore)-返回有序集 key 中，成员 member 的 score 值-传入参数, key:{}, member:{}", key, member);
+		logger.info("(RedisService-zscore)-返回有序集 key 中，成员 member 的 score 值-传入参数, key:{}, member:{}", key, member);
 		double score = 0d;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			score = jedis.zscore(key, member);
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.zscore:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zscore:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zscore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zscore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3301,14 +3301,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zunionstore(String dstkey, String... sets) throws RedisException {
-		logger.info("(BootRedisService-zunionstore)-计算给定的一个或多个有序集的并集-传入参数, dstkey:{}, sets:{}", dstkey, Arrays.toString(sets));
+		logger.info("(RedisService-zunionstore)-计算给定的一个或多个有序集的并集-传入参数, dstkey:{}, sets:{}", dstkey, Arrays.toString(sets));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zunionstore(dstkey, sets);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zunionstore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zunionstore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3328,14 +3328,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zunionstore(String dstkey, ZParams params, String... sets) throws RedisException {
-		logger.info("(BootRedisService-zunionstore)-计算给定的一个或多个有序集的并集-传入参数, dstkey:{}, sets:{}, params:{}", dstkey, Arrays.toString(sets), params);
+		logger.info("(RedisService-zunionstore)-计算给定的一个或多个有序集的并集-传入参数, dstkey:{}, sets:{}, params:{}", dstkey, Arrays.toString(sets), params);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zunionstore(dstkey, params, sets);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zunionstore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zunionstore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3354,14 +3354,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zinterstore(String dstkey, String... sets) throws RedisException {
-		logger.info("(BootRedisService-zinterstore)-计算给定的一个或多个有序集的交集-传入参数, dstkey:{}, sets:{}", dstkey, Arrays.toString(sets));
+		logger.info("(RedisService-zinterstore)-计算给定的一个或多个有序集的交集-传入参数, dstkey:{}, sets:{}", dstkey, Arrays.toString(sets));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zinterstore(dstkey, sets);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zinterstore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zinterstore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3381,14 +3381,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zinterstore(String dstkey, ZParams params, String... sets) throws RedisException {
-		logger.info("(BootRedisService-zinterstore)-计算给定的一个或多个有序集的交集-传入参数, dstkey:{}, sets:{}, params:{}", dstkey, Arrays.toString(sets), params);
+		logger.info("(RedisService-zinterstore)-计算给定的一个或多个有序集的交集-传入参数, dstkey:{}, sets:{}, params:{}", dstkey, Arrays.toString(sets), params);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zinterstore(dstkey, params, sets);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zinterstore:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zinterstore:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3406,14 +3406,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public ScanResult<Tuple> zscan(String key, String cursor) throws RedisException {
-		logger.info("(BootRedisService-zscan)-迭代有序集合中的元素-传入参数, key:{}, cursor:{}", key, cursor);
+		logger.info("(RedisService-zscan)-迭代有序集合中的元素-传入参数, key:{}, cursor:{}", key, cursor);
 		ScanResult<Tuple> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zscan(key, cursor);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zscan:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zscan:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3432,14 +3432,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> zrangeByLex(String key, String min, String max) throws RedisException {
-		logger.info("(BootRedisService-zrangeByLex)-有序集合的元素会根据成员的字典序进行排序-传入参数, key:{}, min:{}, max:{}", key, min, max);
+		logger.info("(RedisService-zrangeByLex)-有序集合的元素会根据成员的字典序进行排序-传入参数, key:{}, min:{}, max:{}", key, min, max);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrangeByLex(key, min, max);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrangeByLex:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrangeByLex:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3459,14 +3459,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public Set<String> zrangeByLex(String key, String min, String max, int offset, int count) throws RedisException {
-		logger.info("(BootRedisService-zrangeByLex)-有序集合的元素会根据成员的字典序进行排序-传入参数, key:{}, min:{}, max:{}, offset:{}, max:{}", key, min, count, offset, count);
+		logger.info("(RedisService-zrangeByLex)-有序集合的元素会根据成员的字典序进行排序-传入参数, key:{}, min:{}, max:{}, offset:{}, max:{}", key, min, count, offset, count);
 		Set<String> result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.zrangeByLex(key, min, max, offset, count);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zrangeByLex:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zrangeByLex:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3485,14 +3485,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zlexcount(String key, String min, String max) throws RedisException {
-		logger.info("(BootRedisService-zlexcount)-返回该集合中，成员介于 min 和 max 范围内的元素数量-传入参数, key:{}, min:{}, max:{}", key, min, max);
+		logger.info("(RedisService-zlexcount)-返回该集合中，成员介于 min 和 max 范围内的元素数量-传入参数, key:{}, min:{}, max:{}", key, min, max);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zlexcount(key, min, max);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zlexcount:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zlexcount:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3511,14 +3511,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long zremrangeByLex(String key, String min, String max) throws RedisException {
-		logger.info("(BootRedisService-zremrangeByLex)-移除该集合中，成员介于 min 和 max 范围内的所有元素-传入参数, key:{}, min:{}, max:{}", key, min, max);
+		logger.info("(RedisService-zremrangeByLex)-移除该集合中，成员介于 min 和 max 范围内的所有元素-传入参数, key:{}, min:{}, max:{}", key, min, max);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.zremrangeByLex(key, min, max);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.zremrangeByLex:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.zremrangeByLex:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3539,14 +3539,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long pfadd(String key, String... elements) throws RedisException {
-		logger.info("(BootRedisService-pfadd)-将任意数量的元素添加到指定的 HyperLogLog 里面-传入参数, key:{}, elements:{}", key, Arrays.toString(elements));
+		logger.info("(RedisService-pfadd)-将任意数量的元素添加到指定的 HyperLogLog 里面-传入参数, key:{}, elements:{}", key, Arrays.toString(elements));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.pfadd(key, elements);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.pfadd:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.pfadd:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3563,14 +3563,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long pfcount(String... keys) throws RedisException {
-		logger.info("(BootRedisService-pfcount)-返回储存在给定键的 HyperLogLog 的近似基数-传入参数, keys:{}", Arrays.toString(keys));
+		logger.info("(RedisService-pfcount)-返回储存在给定键的 HyperLogLog 的近似基数-传入参数, keys:{}", Arrays.toString(keys));
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.pfcount(keys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.pfcount:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.pfcount:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3589,14 +3589,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public String pfmerge(String destkey, String... sourcekeys) throws RedisException {
-		logger.info("(BootRedisService-pfmerge)-将多个 HyperLogLog 合并（merge）为一个 HyperLogLog-传入参数, destkey:{}, sourcekeys:{}", destkey, Arrays.toString(sourcekeys));
+		logger.info("(RedisService-pfmerge)-将多个 HyperLogLog 合并（merge）为一个 HyperLogLog-传入参数, destkey:{}, sourcekeys:{}", destkey, Arrays.toString(sourcekeys));
 		String result = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.pfmerge(destkey, sourcekeys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.pfmerge:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.pfmerge:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3620,14 +3620,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long geoadd(String key, double longitude, double latitude, String member) throws RedisException {
-		logger.info("(BootRedisService-geoadd)-将给定的空间元素（纬度、经度、名字）添加到指定的键里面-传入参数, key:{}, longitude:{}, latitude:{}, member:{}", key, longitude, latitude, member);
+		logger.info("(RedisService-geoadd)-将给定的空间元素（纬度、经度、名字）添加到指定的键里面-传入参数, key:{}, longitude:{}, latitude:{}, member:{}", key, longitude, latitude, member);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.geoadd(key, longitude, latitude, member);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.geoadd:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.geoadd:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3645,14 +3645,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public long geoadd(String key, Map<String, GeoCoordinate> memberCoordinateMap) throws RedisException {
-		logger.info("(BootRedisService-geoadd)-将给定的空间元素（纬度、经度、名字）添加到指定的键里面-传入参数, key:{}, memberCoordinateMap:{}", key, memberCoordinateMap);
+		logger.info("(RedisService-geoadd)-将给定的空间元素（纬度、经度、名字）添加到指定的键里面-传入参数, key:{}, memberCoordinateMap:{}", key, memberCoordinateMap);
 		long len = 0l;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.geoadd(key, memberCoordinateMap);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.geoadd:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.geoadd:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3670,17 +3670,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<GeoCoordinate> geopos(String key, String... members) throws RedisException {
-		logger.info("(BootRedisService-geopos)-从键里面返回所有给定位置元素的位置（经度和纬度）-传入参数, key:{}, members:{}", key, Arrays.toString(members));
+		logger.info("(RedisService-geopos)-从键里面返回所有给定位置元素的位置（经度和纬度）-传入参数, key:{}, members:{}", key, Arrays.toString(members));
 		List<GeoCoordinate> list = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			list = jedis.geopos(key, members);
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.geopos:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.geopos:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.geopos:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.geopos:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3700,17 +3700,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public double geodist(String key, String member1, String member2) throws RedisException {
-		logger.info("(BootRedisService-geodist)-将一个或多个成员元素加入到集合中-传入参数, key:{}, member1:{}, member2:{}", key, member1, member2);
+		logger.info("(RedisService-geodist)-将一个或多个成员元素加入到集合中-传入参数, key:{}, member1:{}, member2:{}", key, member1, member2);
 		double dist = 0d;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			dist = jedis.geodist(key, member1, member2);
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.geodist:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.geodist:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.geodist:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.geodist:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3731,17 +3731,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public double geodist(String key, String member1, String member2, GeoUnit unit) throws RedisException {
-		logger.info("(BootRedisService-geodist)-返回两个给定位置之间的距离-传入参数, key:{}, member1:{}, member2:{}, unit:{}", key, member1, member2, unit);
+		logger.info("(RedisService-geodist)-返回两个给定位置之间的距离-传入参数, key:{}, member1:{}, member2:{}, unit:{}", key, member1, member2, unit);
 		double dist = 0d;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			dist = jedis.geodist(key, member1, member2, unit);
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.geodist:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.geodist:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.geodist:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.geodist:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3763,17 +3763,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<GeoRadiusResponse> georadius(String key, double longitude, double latitude, double radius, GeoUnit unit) throws RedisException {
-		logger.info("(BootRedisService-georadius)-以给定的经纬度为中心返回与中心的距离不超过给定最大距离的所有位置元素-传入参数, key:{}, longitude:{}, latitude:{}, radius:{}, unit:{}", key, longitude, latitude, radius, unit);
+		logger.info("(RedisService-georadius)-以给定的经纬度为中心返回与中心的距离不超过给定最大距离的所有位置元素-传入参数, key:{}, longitude:{}, latitude:{}, radius:{}, unit:{}", key, longitude, latitude, radius, unit);
 		List<GeoRadiusResponse> list = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			list = jedis.georadius(key, longitude, latitude, radius, unit);
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.geodist:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.geodist:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.geodist:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.geodist:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3796,17 +3796,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<GeoRadiusResponse> georadius(String key, double longitude, double latitude, double radius, GeoUnit unit, GeoRadiusParam param) throws RedisException {
-		logger.info("(BootRedisService-georadius)-以给定的经纬度为中心返回与中心的距离不超过给定最大距离的所有位置元素-传入参数, key:{}, longitude:{}, latitude:{}, radius:{}, unit:{}, param:{}", key, longitude, latitude, radius, unit, param);
+		logger.info("(RedisService-georadius)-以给定的经纬度为中心返回与中心的距离不超过给定最大距离的所有位置元素-传入参数, key:{}, longitude:{}, latitude:{}, radius:{}, unit:{}, param:{}", key, longitude, latitude, radius, unit, param);
 		List<GeoRadiusResponse> list = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			list = jedis.georadius(key, longitude, latitude, radius, unit, param);
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.georadius:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.georadius:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.georadius:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.georadius:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3826,17 +3826,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<GeoRadiusResponse> georadiusByMember(String key, String member, double radius, GeoUnit unit) throws RedisException {
-		logger.info("(BootRedisService-georadiusByMember)-找出位于指定范围内的元素-传入参数, key:{}, member:{}, radius:{}, unit:{}", key, member, radius, unit);
+		logger.info("(RedisService-georadiusByMember)-找出位于指定范围内的元素-传入参数, key:{}, member:{}, radius:{}, unit:{}", key, member, radius, unit);
 		List<GeoRadiusResponse> list = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			list = jedis.georadiusByMember(key, member, radius, unit);
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.georadiusByMember:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.georadiusByMember:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.georadiusByMember:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.georadiusByMember:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3857,17 +3857,17 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<GeoRadiusResponse> georadiusByMember(String key, String member, double radius, GeoUnit unit, GeoRadiusParam param) throws RedisException {
-		logger.info("(BootRedisService-georadiusByMember)-找出位于指定范围内的元素-传入参数, key:{}, member:{}, radius:{}, unit:{}, param:{}", key, member, radius, unit, param);
+		logger.info("(RedisService-georadiusByMember)-找出位于指定范围内的元素-传入参数, key:{}, member:{}, radius:{}, unit:{}, param:{}", key, member, radius, unit, param);
 		List<GeoRadiusResponse> list = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			list = jedis.georadiusByMember(key, member, radius, unit, param);
 		} catch (NullPointerException e) {
-			logger.error("[BootRedisService.georadiusByMember:空信息失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.georadiusByMember:空信息失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_NULL_ERROR);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.georadiusByMember:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.georadiusByMember:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3885,14 +3885,14 @@ public class RedisServiceImpl implements IRedisService {
 	 */
 	@Override
 	public List<String> geohash(String key, String... members) throws RedisException {
-		logger.info("(BootRedisService-sadd)-将一个或多个成员元素加入到集合中-传入参数, key:{}, members:{}", key, Arrays.toString(members));
+		logger.info("(RedisService-sadd)-将一个或多个成员元素加入到集合中-传入参数, key:{}, members:{}", key, Arrays.toString(members));
 		List<String> list = null;
 		Jedis jedis = null;
 		try {
 			jedis = jedisSentinelPool.getResource();
 			list = jedis.geohash(key, members);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.geohash:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.geohash:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3918,7 +3918,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			jedis.psubscribe(jedisPubSub, patterns);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.psubscribe:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.psubscribe:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3940,7 +3940,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.publish(channel, message);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.publish:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.publish:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3962,7 +3962,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			jedis.subscribe(jedisPubSub, channels);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.subscribe:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.subscribe:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -3988,7 +3988,7 @@ public class RedisServiceImpl implements IRedisService {
 			transaction = jedis.multi();
 			result = transaction.discard();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.discard:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.discard:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			closeTransaction(transaction);
@@ -4013,7 +4013,7 @@ public class RedisServiceImpl implements IRedisService {
 			transaction = jedis.multi();
 			result = transaction.exec();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.exec:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.exec:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			closeTransaction(transaction);
@@ -4037,7 +4037,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			transaction = jedis.multi();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.multi:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.multi:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4061,7 +4061,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.watch(keys);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.watch:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.watch:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4083,7 +4083,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.unwatch();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.unwatch:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.unwatch:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4113,7 +4113,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.auth(password);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.auth:失败], message={}", e, e.getMessage());
+			logger.error("[RedisService.auth:失败], message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4135,7 +4135,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.echo(string);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.echo:失败], message={}", e, e.getMessage());
+			logger.error("[RedisService.echo:失败], message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4157,7 +4157,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.ping();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.ping:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.ping:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4178,7 +4178,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.quit();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.quit:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.quit:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4201,7 +4201,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.select(index);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.select:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.select:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4227,7 +4227,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.bgrewriteaof();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.bgrewriteaof:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.bgrewriteaof:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4249,7 +4249,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.bgsave();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.bgsave:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.bgsave:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4271,7 +4271,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.clientGetname();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.clientGetname:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.clientGetname:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4293,7 +4293,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.clientKill(client);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.bgsave:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.bgsave:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4315,7 +4315,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.clientList();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.clientList:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.clientList:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4337,7 +4337,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.clientSetname(name);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.clientSetname:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.clientSetname:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4359,7 +4359,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			len = jedis.dbSize();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.dbSize:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.dbSize:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4381,7 +4381,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.info();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.info:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.info:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4404,7 +4404,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.save();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.save:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.save:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4426,7 +4426,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.shutdown();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.shutdown:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.shutdown:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4450,7 +4450,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.slaveof(host, port);
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.slaveof:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.slaveof:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4470,7 +4470,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			jedis.sync();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.sync:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.sync:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4491,7 +4491,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			result = jedis.time();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.time:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.time:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4510,7 +4510,7 @@ public class RedisServiceImpl implements IRedisService {
 			jedis = jedisSentinelPool.getResource();
 			jedis.flushAll();
 		} catch (JedisException e) {
-			logger.error("[BootRedisService.flush:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.flush:失败], Exception={}, message={}", e, e.getMessage());
 			throw new RedisException(RedisResultEnum.REDIS_ERROR);
 		} finally {
 			//返还到连接池
@@ -4533,7 +4533,7 @@ public class RedisServiceImpl implements IRedisService {
 				jedis.quit();
 				jedis.disconnect();
 			}
-			logger.error("[BootRedisService.close:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.close:失败], Exception={}, message={}", e, e.getMessage());
 		}
 	}
 
@@ -4548,7 +4548,7 @@ public class RedisServiceImpl implements IRedisService {
 				transaction.close();
 			}
 		} catch (IOException e) {
-			logger.error("[BootRedisService.close:失败], Exception={}, message={}", e, e.getMessage());
+			logger.error("[RedisService.close:失败], Exception={}, message={}", e, e.getMessage());
 		}
 	}
 
