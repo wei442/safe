@@ -18,20 +18,19 @@ public class UserAdminLoginLogVo implements Serializable {
 
 	private Long userAdminLoginLogId;
 
-    private Integer userId;
+	private Integer userId;
 
     private String userAccount;
 
     private String userName;
 
-    private String userNameEn;
-
     private Integer loginType;
 
-    @JSONField(format=DateFormatConstants.DF_YYYY_MM_DD_HH_MM_SS)
     private Date loginTime;
 
     private Integer logType;
+
+    private String loginMode;
 
     private String loginIp;
 

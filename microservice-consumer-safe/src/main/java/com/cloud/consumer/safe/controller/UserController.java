@@ -1,5 +1,6 @@
 package com.cloud.consumer.safe.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ import com.cloud.consumer.safe.rest.request.user.login.UserRegisterRequest;
 import com.cloud.consumer.safe.service.IUserService;
 import com.cloud.consumer.safe.util.PatternUtil;
 import com.cloud.consumer.safe.vo.enterprise.EnterpriseVo;
+import com.cloud.consumer.safe.vo.user.UserAdminLoginLogVo;
 import com.cloud.consumer.safe.vo.user.UserAdminLoginVo;
 import com.cloud.consumer.safe.vo.user.UserAdminVo;
 import com.cloud.consumer.safe.vo.user.UserInfoVo;
@@ -110,6 +112,22 @@ public class UserController extends BaseController {
 		//设置token
 		String token = this.setToken(enterpriseId, userId, userAccount, userName);
 
+		UserAdminLoginLogVo userAdminLoginLogVo = new UserAdminLoginLogVo();
+		userAdminLoginLogVo.setUserId(userId);
+		userAdminLoginLogVo.setUserAccount(userAccount);
+		userAdminLoginLogVo.setUserName(userName);
+		userAdminLoginLogVo.setLoginType(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_LOG_LOGIN_TYPE_LOGIN);
+		userAdminLoginLogVo.setLoginTime(new Date());
+		userAdminLoginLogVo.setLoginMode("PC");
+		userAdminLoginLogVo.setLogType(SqlSafeConstants.SQL_USER_ADMIN_LOGIN_LOG_LOG_TYPE_PC);
+		userAdminLoginLogVo.setLoginIp(requestIp);
+		/** push数据推送(用户管理登录日志)队列-左进右出  **/
+		String queueKey = RedisKeysUtil.QN_CLOUD_SAFE_USER_ADMIN_LOGIN_LOG;
+		String value = JSONObject.toJSONString(userAdminLoginLogVo);
+		logger.info("===step4:【用户登录】(BaseUserController-login)-push数据推送(用户管理登录日志)-传入参数, queueKey:{}, value", queueKey, value);
+		long l = redisService.lpush(queueKey, value);
+		logger.info("===step4.1:【用户登录】(BaseUserController-login)-push数据推送(用户管理登录日志)-返回信息, l:{}", l);
+
 		UserLoginVo userLoginVo = new UserLoginVo();
 		userLoginVo.setToken(token);
 		userLoginVo.setEnterpriseId(enterpriseId);
@@ -121,7 +139,7 @@ public class UserController extends BaseController {
         //返回信息
 		BaseRestMapResponse userResponse = new BaseRestMapResponse();
 		userResponse.put(CommConstants.RESULT, userLoginVo);
-        logger.info("===step4:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
+        logger.info("===ste54:【用户登录】(UserController-login)-返回信息, userResponse:{}", userResponse);
 		return userResponse;
 	}
 
