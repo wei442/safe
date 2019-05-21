@@ -81,12 +81,9 @@ public class StartBoot {
 	 * 读写请求超时时间设置为600,000毫秒(600秒,10分钟)
 	 * @return RestTemplate
 	 */
-	@Bean
+	@Bean(name = "simpleRestTemplate")
 	public RestTemplate simpleRestTemplate(HttpComponentsClientHttpRequestFactory clientHttpRequestFactory) {
 		RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
-		clientHttpRequestFactory.setConnectionRequestTimeout(600000);
-		clientHttpRequestFactory.setConnectTimeout(600000);
-		clientHttpRequestFactory.setReadTimeout(600000);
         return restTemplate;
 	}
 
