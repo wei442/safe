@@ -2,7 +2,7 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="myProcess" name="My process" isExecutable="true">
     <startEvent id="startevent2" name="start"></startEvent>
-    <userTask id="usertask1" name="隐患快报申请" ></userTask>
+    <userTask id="usertask1" name="隐患快报申请"></userTask>
     <sequenceFlow id="flow8" name="启动" sourceRef="startevent2" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask2" name="隐患快报审批"></userTask>
     <sequenceFlow id="flow9" name="提交" sourceRef="usertask1" targetRef="usertask2"></sequenceFlow>
@@ -38,14 +38,14 @@
         <omgdi:waypoint x="95.0" y="187.0"></omgdi:waypoint>
         <omgdi:waypoint x="180.0" y="188.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="16.0" width="100.0" x="110.0" y="187.0"></omgdc:Bounds>
+          <omgdc:Bounds height="16.0" width="22.0" x="110.0" y="187.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
         <omgdi:waypoint x="285.0" y="188.0"></omgdi:waypoint>
         <omgdi:waypoint x="361.0" y="188.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="16.0" width="100.0" x="301.0" y="187.0"></omgdc:Bounds>
+          <omgdc:Bounds height="16.0" width="22.0" x="301.0" y="187.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
