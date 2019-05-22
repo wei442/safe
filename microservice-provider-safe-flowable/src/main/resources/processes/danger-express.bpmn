@@ -2,7 +2,7 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="myProcess" name="My process" isExecutable="true">
     <startEvent id="startevent2" name="start"></startEvent>
-    <userTask id="usertask1" name="隐患快报申请"></userTask>
+    <userTask id="usertask1" name="隐患快报申请" activiti:assignee="${inputUser}"></userTask>
     <sequenceFlow id="flow8" name="启动" sourceRef="startevent2" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask2" name="隐患快报审批"></userTask>
     <sequenceFlow id="flow9" name="提交" sourceRef="usertask1" targetRef="usertask2"></sequenceFlow>

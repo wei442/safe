@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Boot的BootBaseController
+ * Boot的BaseController
  * @author wang.tongmeng
  * @date 2017-11-16
  */

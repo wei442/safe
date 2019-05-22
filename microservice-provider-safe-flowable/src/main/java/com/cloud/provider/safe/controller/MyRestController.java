@@ -68,7 +68,6 @@ public class MyRestController extends BaseController {
         public void setName(String name) {
             this.name = name;
         }
-
     }
 
 }
