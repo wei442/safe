@@ -57,6 +57,9 @@ public class UserAppPasswordController extends BaseController {
 
 		UserAppPassword userAppPassword = userAppPasswordService.selectById(userAppPasswordId);
 		logger.info("===step2:【据id查询用户应用密码】(UserAppPasswordController-selectById)-根据id查询用户应用密码, userAppPassword:{}", userAppPassword);
+		if(userAppPassword == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserAppPasswordVo userAppPasswordVo = new UserAppPasswordVo().convertToUserAppPasswordVo(userAppPassword);
 
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();
@@ -84,6 +87,9 @@ public class UserAppPasswordController extends BaseController {
 
 		UserAppPassword userAppPassword = userAppPasswordService.selectByUserIdPassword(userId, password);
 		logger.info("===step2:【根据userId和password查询用户应用密码】(UserAppPasswordController-selectByUserIdPassword)-根据userId和password查询用户应用密码, userAppPassword:{}", userAppPassword);
+		if(userAppPassword == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserAppPasswordVo userAppPasswordVo = new UserAppPasswordVo().convertToUserAppPasswordVo(userAppPassword);
 
 		BaseRestMapResponse userAppPasswordResponse = new BaseRestMapResponse();

@@ -18,7 +18,6 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
 import com.cloud.provider.safe.po.UserAdminPassword;
 import com.cloud.provider.safe.rest.request.user.UserAdminPasswordRequest;
 import com.cloud.provider.safe.service.IUserAdminPasswordService;
-import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.user.UserAdminPasswordVo;
 
@@ -58,7 +57,9 @@ public class UserAdminPasswordController extends BaseController {
 
 		UserAdminPassword userAdminPassword = userAdminPasswordService.selectById(userAdminPasswordId);
 		logger.info("===step2:【据id查询用户管理密码】(UserAdminPasswordController-selectById)-根据id查询用户管理密码, userAdminPassword:{}", userAdminPassword);
-		Assert.thanOrEqualZreo(userAdminPassword, SafeResultEnum.DATABASE_NOTEXIST);
+		if(userAdminPassword == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserAdminPasswordVo userAdminPasswordVo = new UserAdminPasswordVo().convertToUserAdminPasswordVo(userAdminPassword);
 
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();
@@ -85,6 +86,9 @@ public class UserAdminPasswordController extends BaseController {
 
 		UserAdminPassword userAdminPassword = userAdminPasswordService.selectByUserIdPassword(userId, password);
 		logger.info("===step2:【根据userId和password查询用户管理密码】(UserAdminPasswordController-selectByUserIdPassword)-根据userId和password查询用户管理密码, userAdminPassword:{}", userAdminPassword);
+		if(userAdminPassword == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserAdminPasswordVo userAdminPasswordVo = new UserAdminPasswordVo().convertToUserAdminPasswordVo(userAdminPassword);
 
 		BaseRestMapResponse userAdminPasswordResponse = new BaseRestMapResponse();

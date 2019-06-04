@@ -111,6 +111,9 @@ public class UserQualityAttachmentController extends BaseController {
 
 		UserQualityAttachment userQualityAttachment = userQualityAttachmentService.selectById(userQualityAttachmentId);
 		logger.info("===step2:【据id查询用户资质附件】(UserQualityAttachmentController-selectById)-根据id查询用户资质附件, userQualityAttachment:{}", userQualityAttachment);
+		if(userQualityAttachment == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserQualityAttachmentVo userQualityAttachmentVo = new UserQualityAttachmentVo().convertToUserQualityAttachmentVo(userQualityAttachment);
 
 		BaseRestMapResponse userQualityAttachmentResponse = new BaseRestMapResponse();

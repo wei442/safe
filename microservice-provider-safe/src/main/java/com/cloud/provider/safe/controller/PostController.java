@@ -117,6 +117,9 @@ public class PostController extends BaseController {
 
 		Post post = postService.selectById(postId);
 		logger.info("===step2:【据id查询岗位】(PostController-selectById)-根据id查询岗位, post:{}", post);
+		if(post == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		PostVo postVo = new PostVo().convertToPostVo(post);
 
 		BaseRestMapResponse postResponse = new BaseRestMapResponse();

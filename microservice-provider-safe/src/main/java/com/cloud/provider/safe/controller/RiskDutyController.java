@@ -24,7 +24,6 @@ import com.cloud.provider.safe.rest.request.page.risk.RiskDutyPageRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskDutyIdsRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskDutyRequest;
 import com.cloud.provider.safe.service.IRiskDutyService;
-import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.risk.RiskDutyVo;
 import com.github.pagehelper.Page;
@@ -112,8 +111,10 @@ public class RiskDutyController extends BaseController {
 		}
 
 		RiskDuty riskDuty = riskDutyService.selectById(riskDutyId);
-		Assert.thanOrEqualZreo(riskDuty, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据id查询风险责任】(RiskDutyController-selectById)-根据id查询风险责任, riskDuty:{}", riskDuty);
+		if(riskDuty == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		RiskDutyVo riskDutyVo = new RiskDutyVo().convertToRiskDutyVo(riskDuty);
 
 		BaseRestMapResponse riskDutyResponse = new BaseRestMapResponse();

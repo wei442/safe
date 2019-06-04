@@ -112,6 +112,9 @@ public class RuleController extends BaseController {
 
 		Rule rule = ruleService.selectById(ruleId);
 		logger.info("===step2:【据id查询规范文件】(RuleController-selectById)-根据id查询规范文件, rule:{}", rule);
+		if(rule == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		RuleVo ruleVo = new RuleVo().convertToRuleVo(rule);
 
 		BaseRestMapResponse ruleResponse = new BaseRestMapResponse();

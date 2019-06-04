@@ -26,11 +26,11 @@ public class UserInfoRequest implements Serializable {
     @NotNull(message = "用户id不能为空", groups = {ModifyGroup.class})
 	private Integer userId;
 
-    @ApiModelProperty(value = "用户账户")
+    @ApiModelProperty(value = "用户账户", required = true)
 	@NotBlank(message = "用户账户不能为空", groups = {ModifyGroup.class})
     private String userAccount;
 
-    @ApiModelProperty(value = "用户名称")
+    @ApiModelProperty(value = "用户名称", required = true)
 	@NotBlank(message = "用户名称不能为空")
     private String userName;
 

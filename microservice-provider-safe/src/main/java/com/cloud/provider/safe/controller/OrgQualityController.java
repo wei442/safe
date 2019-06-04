@@ -112,6 +112,9 @@ public class OrgQualityController extends BaseController {
 
 		OrgQuality orgQuality = orgQualityService.selectById(orgQualityId);
 		logger.info("===step2:【据id查询机构资质】(OrgQualityController-selectById)-根据id查询机构资质, orgQuality:{}", orgQuality);
+		if(orgQuality == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		OrgQualityVo orgQualityVo = new OrgQualityVo().convertToOrgQualityVo(orgQuality);
 
 		BaseRestMapResponse orgQualityResponse = new BaseRestMapResponse();

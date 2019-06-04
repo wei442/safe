@@ -111,6 +111,9 @@ public class ActivityCommentController extends BaseController {
 
 		ActivityComment activityComment = activityCommentService.selectById(activityCommentId);
 		logger.info("===step2:【据id查询活动评论】(ActivityCommentController-selectById)-根据id查询活动评论, activityComment:{}", activityComment);
+		if(activityComment == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		ActivityCommentVo activityCommentVo = new ActivityCommentVo().convertToActivityCommentVo(activityComment);
 
 		BaseRestMapResponse activityCommentResponse = new BaseRestMapResponse();

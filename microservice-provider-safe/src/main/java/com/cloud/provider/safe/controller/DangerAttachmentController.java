@@ -111,6 +111,9 @@ public class DangerAttachmentController extends BaseController {
 
 		DangerAttachment dangerAttachment = dangerAttachmentService.selectById(dangerAttachmentId);
 		logger.info("===step2:【据id查询隐患附件】(DangerAttachmentController-selectById)-根据id查询隐患附件, dangerAttachment:{}", dangerAttachment);
+		if(dangerAttachment == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		DangerAttachmentVo dangerAttachmentVo = new DangerAttachmentVo().convertToDangerAttachmentVo(dangerAttachment);
 
 		BaseRestMapResponse dangerAttachmentResponse = new BaseRestMapResponse();

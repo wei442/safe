@@ -112,6 +112,9 @@ public class UserInfoController extends BaseController {
 
 		UserInfo userInfo = userInfoService.selectById(userInfoId);
 		logger.info("===step2:【据id查询用户信息】(UserInfoController-selectById)-根据id查询用户信息, userInfo:{}", userInfo);
+		if(userInfo == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserInfoVo userInfoVo = new UserInfoVo().convertToUserInfoVo(userInfo);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
@@ -122,7 +125,7 @@ public class UserInfoController extends BaseController {
 
 	/**
 	 * 据userAccount查询用户信息
-	 * @param userInfoId
+	 * @param userAccount
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据userAccount查询用户信息")
@@ -138,6 +141,9 @@ public class UserInfoController extends BaseController {
 
 		UserInfo userInfo = userInfoService.selectByUserAccount(userAccount);
 		logger.info("===step2:【据userAccount查询用户信息】(UserInfoController-selectByUserAccount)-根据id查询用户信息, userInfo:{}", userInfo);
+		if(userInfo == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserInfoVo userInfoVo = new UserInfoVo().convertToUserInfoVo(userInfo);
 
 		BaseRestMapResponse userInfoResponse = new BaseRestMapResponse();
@@ -206,8 +212,6 @@ public class UserInfoController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody UserInfoRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【修改用户信息】(UserInfoController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-
 
 		Integer userInfoId = req.getUserId();
 		UserInfo userInfo = req.convertToUserInfo();

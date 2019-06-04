@@ -10,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Boot的BootBaseController
- * @author wang.tongmeng
- * @date 2017-11-16
+ * 基础控制类BaseController
+ * @author wei.yong
  */
 @RestController
 public class BaseController {
@@ -26,17 +25,6 @@ public class BaseController {
 	protected HttpServletResponse response;
 
 	/**
-	 * 校验参数
-	 * @param bindingResult
-	 */
-//	protected void bindingResult(BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//        	logger.info(">>>>>> {}.{}() valid params is error msg = {}", this.getClass().getSimpleName(), this.getRequestMethodName(), bindingResult.getFieldError().getDefaultMessage());
-//            throw new SafeException("1050000", bindingResult.getFieldError().getDefaultMessage());
-//        }
-//    }
-
-	/**
 	 * 获取请求加点URI参数不能为空，如：user.register.parameter.empty
 	 * @return String
 	 */
@@ -44,20 +32,7 @@ public class BaseController {
 		String requestURI = request.getRequestURI();
 		requestURI = StringUtils.substringAfter(requestURI, "/");
 		requestURI = StringUtils.replace(requestURI, "/", ".");
-//		requestURI = Objects.toString(requestURI, "");
 		return requestURI;
 	}
-
-//	/**
-//	 * 获取请求加点URI参数错误，如：user.register.parameter.error
-//	 * @return String
-//	 */
-//	protected String getRequestParameterError() {
-//		String requestURI = request.getRequestURI();
-//		requestURI = StringUtils.substringAfter(requestURI, "/");
-//		requestURI = StringUtils.replace(requestURI, "/", ".");
-//		requestURI = Objects.toString(requestURI, "") + ".parameter.error";
-//		return requestURI;
-//	}
 
 }

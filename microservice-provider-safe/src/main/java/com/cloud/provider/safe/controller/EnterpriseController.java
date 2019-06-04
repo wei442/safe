@@ -29,7 +29,6 @@ import com.github.pagehelper.Page;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 /**
  * 企业 EnterpriseController
@@ -100,7 +99,6 @@ public class EnterpriseController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id查询企业")
-	@ApiParam(name="id", value="企业id", required=true)
 	@RequestMapping(value="/selectById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse selectById(
@@ -113,6 +111,9 @@ public class EnterpriseController extends BaseController {
 
 		Enterprise enterprise = enterpriseService.selectById(enterpriseId);
 		logger.info("===step2:【据id查询企业】(EnterpriseController-selectById)-根据id查询企业, enterprise:{}", enterprise);
+		if(enterprise == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		EnterpriseVo enterpriseVo = new EnterpriseVo().convertToEnterpriseVo(enterprise);
 
 		BaseRestMapResponse enterpriseResponse = new BaseRestMapResponse();
@@ -150,7 +151,6 @@ public class EnterpriseController extends BaseController {
 	 * @return BaseRestMapResponse
 	 */
 	@ApiOperation(value = "根据id删除企业")
-	@ApiParam(name="id", value="企业id", required=true)
 	@RequestMapping(value="/deleteById/{id}",method={RequestMethod.POST})
 	@ResponseBody
 	public BaseRestMapResponse deleteById(

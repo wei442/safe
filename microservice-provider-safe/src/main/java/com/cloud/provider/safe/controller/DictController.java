@@ -112,6 +112,9 @@ public class DictController extends BaseController {
 
 		Dict dict = dictService.selectById(dictId);
 		logger.info("===step2:【据id查询字典】(DictController-selectById)-根据id查询字典, dict:{}", dict);
+		if(dict == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		DictVo dictVo = new DictVo().convertToDictVo(dict);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();
@@ -139,6 +142,9 @@ public class DictController extends BaseController {
 
 		Dict dict = dictService.selectByEnterpriseIdDictCode(enterpriseId, dictCode);
 		logger.info("===step2:【根据enterpriseId和dictCode查询字典】(DictController-selectByEnterpriseIdDictCode)-根据enterpriseId和dictCode查询字典, dict:{}", dict);
+		if(dict == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		DictVo dictVo = new DictVo().convertToDictVo(dict);
 
 		BaseRestMapResponse dictResponse = new BaseRestMapResponse();

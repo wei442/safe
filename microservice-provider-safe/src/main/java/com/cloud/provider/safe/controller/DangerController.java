@@ -113,6 +113,9 @@ public class DangerController extends BaseController {
 
 		Danger danger = dangerService.selectById(dangerId);
 		logger.info("===step2:【据id查询隐患】(DangerController-selectById)-根据id查询隐患, danger:{}", danger);
+		if(danger == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		DangerVo dangerVo = new DangerVo().convertToDangerVo(danger);
 
 		BaseRestMapResponse dangerResponse = new BaseRestMapResponse();

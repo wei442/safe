@@ -111,6 +111,9 @@ public class OrgQualityAttachmentController extends BaseController {
 
 		OrgQualityAttachment orgQualityAttachment = orgQualityAttachmentService.selectById(orgQualityAttachmentId);
 		logger.info("===step2:【据id查询机构资质附件】(OrgQualityAttachmentController-selectById)-根据id查询机构资质附件, orgQualityAttachment:{}", orgQualityAttachment);
+		if(orgQualityAttachment == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		OrgQualityAttachmentVo orgQualityAttachmentVo = new OrgQualityAttachmentVo().convertToOrgQualityAttachmentVo(orgQualityAttachment);
 
 		BaseRestMapResponse orgQualityAttachmentResponse = new BaseRestMapResponse();

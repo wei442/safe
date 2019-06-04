@@ -117,6 +117,9 @@ public class TitleController extends BaseController {
 
 		Title Title = TitleService.selectById(TitleId);
 		logger.info("===step2:【据id查询职务】(TitleController-selectById)-根据id查询职务, Title:{}", Title);
+		if(Title == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		TitleVo TitleVo = new TitleVo().convertToTitleVo(Title);
 
 		BaseRestMapResponse TitleResponse = new BaseRestMapResponse();

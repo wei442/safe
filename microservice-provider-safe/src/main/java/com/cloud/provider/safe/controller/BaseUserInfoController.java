@@ -111,6 +111,9 @@ public class BaseUserInfoController extends BaseController {
 
 		BaseUserInfo baseUserInfo = baseUserInfoService.selectById(baseUserId);
 		logger.info("===step2:【据id查询基础用户信息】(BaseUserInfoController-selectById)-根据id查询基础用户信息, baseUserInfo:{}", baseUserInfo);
+		if(baseUserInfo == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		BaseUserInfoVo baseUserInfoVo = new BaseUserInfoVo().convertToBaseUserInfoVo(baseUserInfo);
 
 		BaseRestMapResponse baseUserInfoResponse = new BaseRestMapResponse();

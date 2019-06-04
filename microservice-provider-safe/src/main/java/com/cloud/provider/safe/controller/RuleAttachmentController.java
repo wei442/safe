@@ -111,6 +111,9 @@ public class RuleAttachmentController extends BaseController {
 
 		RuleAttachment ruleAttachment = ruleAttachmentService.selectById(ruleAttachmentId);
 		logger.info("===step2:【据id查询规范文件附件】(RuleAttachmentController-selectById)-根据id查询规范文件附件, ruleAttachment:{}", ruleAttachment);
+		if(ruleAttachment == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		RuleAttachmentVo ruleAttachmentVo = new RuleAttachmentVo().convertToRuleAttachmentVo(ruleAttachment);
 
 		BaseRestMapResponse ruleAttachmentResponse = new BaseRestMapResponse();

@@ -24,7 +24,6 @@ import com.cloud.provider.safe.rest.request.page.risk.RiskAcceptPageRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskAcceptIdsRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskAcceptRequest;
 import com.cloud.provider.safe.service.IRiskAcceptService;
-import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.risk.RiskAcceptVo;
 import com.github.pagehelper.Page;
@@ -112,8 +111,10 @@ public class RiskAcceptController extends BaseController {
 		}
 
 		RiskAccept riskAccept = riskAcceptService.selectById(riskAcceptId);
-		Assert.thanOrEqualZreo(riskAccept, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据id查询风险验收】(RiskAcceptController-selectById)-根据id查询风险验收, riskAccept:{}", riskAccept);
+		if(riskAccept == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		RiskAcceptVo riskAcceptVo = new RiskAcceptVo().convertToRiskAcceptVo(riskAccept);
 
 		BaseRestMapResponse riskAcceptResponse = new BaseRestMapResponse();

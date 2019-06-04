@@ -113,6 +113,9 @@ public class UserQualityController extends BaseController {
 
 		UserQuality userQuality = userQualityService.selectById(userQualityId);
 		logger.info("===step2:【据id查询用户资质】(UserQualityController-selectById)-根据id查询用户资质, userQuality:{}", userQuality);
+		if(userQuality == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserQualityVo userQualityVo = new UserQualityVo().convertToUserQualityVo(userQuality);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();
@@ -139,6 +142,9 @@ public class UserQualityController extends BaseController {
 
 		UserQuality userQuality = userQualityService.selectByUserId(userId);
 		logger.info("===step2:【据userId查询用户资质】(UserQualityController-selectByUserId)-根据userId查询用户资质, userQuality:{}", userQuality);
+		if(userQuality == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserQualityVo userQualityVo = new UserQualityVo().convertToUserQualityVo(userQuality);
 
 		BaseRestMapResponse userQualityResponse = new BaseRestMapResponse();

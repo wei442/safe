@@ -3,10 +3,10 @@ package com.cloud.common.exception;
 import com.cloud.common.enums.ResultEnum;
 
 /**
- * 安全异常 SafeException
+ * rocketmq异常 RocketmqException
  * @author wei.yong
  */
-public class SafeException extends RuntimeException {
+public class RocketmqException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,29 +14,29 @@ public class SafeException extends RuntimeException {
 
 	private String errorMessage;
 
-	public SafeException() {
+	public RocketmqException() {
 	}
 
-	public SafeException(Throwable e) {
+	public RocketmqException(Throwable e) {
 		super(e);
 	}
 
-	public SafeException(String errorCode) {
+	public RocketmqException(String errorCode) {
 		this.errorCode = errorCode;
 	}
 
-	public SafeException(String errorCode, String errorMessage) {
+	public RocketmqException(String errorCode, String errorMessage) {
 	 	super(errorMessage);
 	    this.errorCode = errorCode;
 	    this.errorMessage = errorMessage;
 	}
 
-	public SafeException(String errorCode, Throwable e) {
+	public RocketmqException(String errorCode, Throwable e) {
 		super(e);
 	    this.errorCode = errorCode;
 	}
 
-	public SafeException(ResultEnum result) {
+	public RocketmqException(ResultEnum result) {
 		super(result.getMsg());
 		this.errorCode = result.getCode();
 	}

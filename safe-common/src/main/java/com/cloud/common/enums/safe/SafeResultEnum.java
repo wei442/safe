@@ -32,34 +32,12 @@ public enum SafeResultEnum implements ResultEnum {
 	USER_POST_LIST_EXIST("1010013", "当前岗位有人员，无法删除!"),
 	USER_TITLE_LIST_EXIST("1010014", "当前职务有人员，无法删除!"),
 
-
 	ENTERPRISE_NOTEXIST("1020001", "您没有注册企业"),
 	ENTERPRISE_EXIST("1020002", "您已经注册企业"),
 	ORG_CHILD_LIST_EXIST("1020003", "请先删除改部门下的子部门，再删除该部门!"),
 	BASE_USER_ACCOUNT_NOTEXIST("1020004", "您的账号不存在"),
 	BASE_USER_PASSWORD_ERROR("1020005", "您的密码错误"),
 
-
-
-//	ORDER_LIST_NOTEXIST("1031001", "订单列表不存在"),
-//	ORDER_LIST_EXIST("1031002", "订单列表已存在"),
-//	ORDER_ENTITY_NOTEXIST("1031003", "订单不存在"),
-//	ORDER_ENTITY_EXIST("1031004", "订单已存在"),
-//
-//	ORDER_SETTING_ENTITY_NOTEXIST("1035001", "订单设置不存在"),
-//	ORDER_SETTING_ENTITY_EXIST("1035002", "订单设置已存在"),
-//
-//	USER_ENTITY_NOTEXIST("1011001", "用户不存在"),
-//	USER_ENTITY_EXIST("1011002", "用户已存在"),
-//	ENTERPRISE_ENTITY_NOTEXIST("1012001", "企业不存在"),
-//	ENTERPRISE_ENTITY_EXIST("1012002", "企业已存在"),
-//
-//	ORG_ENTITY_NOTEXIST("1031001", "组织机构不存在"),
-//	ORG_ENTITY_EXIST("1031002", "组织机构已存在"),
-//	DICT_ENTITY_NOTEXIST("1032001", "字典不存在"),
-//	DICT_ENTITY_EXIST("1032002", "字典已存在"),
-//	DICT_ITEM_ENTITY_NOTEXIST("1033001", "字典子项不存在"),
-//	DICT_ITEM_ENTITY_EXIST("1033002", "字典子项已存在"),
 	;
 
 	private String code;

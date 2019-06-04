@@ -112,6 +112,9 @@ public class UserAdminLoginController extends BaseController {
 
 		UserAdminLogin userAdminLogin = userAdminLoginService.selectById(userAdminLoginId);
 		logger.info("===step2:【据id查询用户管理登录】(UserAdminLoginController-selectById)-根据id查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+		if(userAdminLogin == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserAdminLoginVo userAdminLoginVo = new UserAdminLoginVo().convertToUserAdminLoginVo(userAdminLogin);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();
@@ -138,6 +141,9 @@ public class UserAdminLoginController extends BaseController {
 
 		UserAdminLogin userAdminLogin = userAdminLoginService.selectByUserId(userId);
 		logger.info("===step2:【据userId查询用户管理登录】(UserAdminLoginController-selectByUserId)-根据id查询用户管理登录, userAdminLogin:{}", userAdminLogin);
+		if(userAdminLogin == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserAdminLoginVo userAdminLoginVo = new UserAdminLoginVo().convertToUserAdminLoginVo(userAdminLogin);
 
 		BaseRestMapResponse userAdminLoginResponse = new BaseRestMapResponse();

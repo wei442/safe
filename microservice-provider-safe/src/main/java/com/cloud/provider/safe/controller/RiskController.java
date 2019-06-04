@@ -24,7 +24,6 @@ import com.cloud.provider.safe.rest.request.page.risk.RiskPageRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskIdsRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskRequest;
 import com.cloud.provider.safe.service.IRiskService;
-import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.risk.RiskVo;
 import com.github.pagehelper.Page;
@@ -112,8 +111,10 @@ public class RiskController extends BaseController {
 		}
 
 		Risk risk = riskService.selectById(riskId);
-		Assert.thanOrEqualZreo(risk, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据id查询风险】(RiskController-selectById)-根据id查询风险, risk:{}", risk);
+		if(risk == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		RiskVo riskVo = new RiskVo().convertToRiskVo(risk);
 
 		BaseRestMapResponse riskResponse = new BaseRestMapResponse();

@@ -166,6 +166,9 @@ public class UserAdminController extends BaseController {
 
 		UserAdmin userAdmin = userAdminService.selectById(userAdminId);
 		logger.info("===step2:【据id查询用户管理】(UserAdminController-selectById)-根据id查询用户管理, userAdmin:{}", userAdmin);
+		if(userAdmin == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserAdminVo userAdminVo = new UserAdminVo().convertToUserAdminVo(userAdmin);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();
@@ -192,6 +195,9 @@ public class UserAdminController extends BaseController {
 
 		UserAdmin userAdmin = userAdminService.selectByUserId(userId);
 		logger.info("===step2:【据userId查询用户管理】(UserAdminController-selectByUserId)-根据userId查询用户管理, userAdmin:{}", userAdmin);
+		if(userAdmin == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserAdminVo userAdminVo = new UserAdminVo().convertToUserAdminVo(userAdmin);
 
 		BaseRestMapResponse userAdminResponse = new BaseRestMapResponse();

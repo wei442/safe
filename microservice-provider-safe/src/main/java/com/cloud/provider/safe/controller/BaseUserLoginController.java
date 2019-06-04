@@ -111,6 +111,9 @@ public class BaseUserLoginController extends BaseController {
 
 		BaseUserLogin baseUserLogin = baseUserLoginService.selectById(baseUserLoginId);
 		logger.info("===step2:【据id查询基础用户登录】(BaseUserLoginController-selectById)-根据id查询基础用户登录, baseUserLogin:{}", baseUserLogin);
+		if(baseUserLogin == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		BaseUserLoginVo baseUserLoginVo = new BaseUserLoginVo().convertToBaseUserLoginVo(baseUserLogin);
 
 		BaseRestMapResponse baseUserLoginResponse = new BaseRestMapResponse();
@@ -132,8 +135,6 @@ public class BaseUserLoginController extends BaseController {
 		@Validated @RequestBody BaseUserLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【添加基础用户登录】(BaseUserLoginController-insert)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
-
 
 		BaseUserLogin baseUserLogin = req.convertToBaseUserLogin();
 		int i = baseUserLoginService.insert(baseUserLogin);
@@ -181,7 +182,6 @@ public class BaseUserLoginController extends BaseController {
 		@Validated({ ModifyGroup.class }) @RequestBody BaseUserLoginRequest req,
 		BindingResult bindingResult) {
 		logger.info("===step1:【基础用户登录】(BaseUserLoginController-modify)-传入参数, req:{}, json:{}", req, JSONObject.toJSONString(req));
-
 
 		Integer baseUserLoginId = req.getBaseUserLoginId();
 		BaseUserLogin baseUserLogin = req.convertToBaseUserLogin();

@@ -118,6 +118,9 @@ public class UserOrgController extends BaseController {
 
 		UserOrg userOrg = userOrgService.selectById(userOrgId);
 		logger.info("===step2:【据id查询用户机构】(UserOrgController-selectById)-根据id查询用户机构, userOrg:{}", userOrg);
+		if(userOrg == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserOrgVo userOrgVo = new UserOrgVo().convertToUserOrgVo(userOrg);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();
@@ -144,6 +147,9 @@ public class UserOrgController extends BaseController {
 
 		UserOrg userOrg = userOrgService.selectByUserId(userId);
 		logger.info("===step2:【据userId查询用户机构】(UserOrgController-selectByUserId)-根据userId查询用户机构, userOrg:{}", userOrg);
+		if(userOrg == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserOrgVo userOrgVo = new UserOrgVo().convertToUserOrgVo(userOrg);
 
 		BaseRestMapResponse userOrgResponse = new BaseRestMapResponse();

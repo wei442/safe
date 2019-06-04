@@ -83,6 +83,9 @@ public class BaseUserPasswordController extends BaseController {
 
 		BaseUserPassword baseUserPassword = baseUserPasswordService.selectByBaseUserId(baseUserId);
 		logger.info("===step2:【据baseUserId查询基础用户密码】(BaseUserPasswordController-selectById)-根据baseUserId查询基础用户密码, baseUserPassword:{}", baseUserPassword);
+		if(baseUserPassword == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		BaseUserPasswordVo baseUserPasswordVo = new BaseUserPasswordVo().convertToBaseUserPasswordVo(baseUserPassword);
 
 		BaseRestMapResponse baseUserPasswordResponse = new BaseRestMapResponse();

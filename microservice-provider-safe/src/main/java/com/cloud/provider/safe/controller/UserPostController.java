@@ -113,6 +113,9 @@ public class UserPostController extends BaseController {
 
 		UserPost userPost = userPostService.selectById(userPostId);
 		logger.info("===step2:【据id查询用户岗位】(UserPostController-selectById)-根据id查询用户岗位, userPost:{}", userPost);
+		if(userPost == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserPostVo userPostVo = new UserPostVo().convertToUserPostVo(userPost);
 
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();
@@ -139,6 +142,9 @@ public class UserPostController extends BaseController {
 
 		UserPost userPost = userPostService.selectByUserId(userId);
 		logger.info("===step2:【据userId查询用户岗位】(UserPostController-selectByUserId)-根据userId查询用户岗位, userPost:{}", userPost);
+		if(userPost == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserPostVo userPostVo = new UserPostVo().convertToUserPostVo(userPost);
 
 		BaseRestMapResponse userPostResponse = new BaseRestMapResponse();

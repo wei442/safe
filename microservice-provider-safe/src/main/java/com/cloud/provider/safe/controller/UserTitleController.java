@@ -25,7 +25,6 @@ import com.cloud.provider.safe.rest.request.user.UserTitleIdsRequest;
 import com.cloud.provider.safe.rest.request.user.UserTitleListRequest;
 import com.cloud.provider.safe.rest.request.user.UserTitleRequest;
 import com.cloud.provider.safe.service.IUserTitleService;
-import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.user.UserTitleVo;
 import com.github.pagehelper.Page;
@@ -113,8 +112,10 @@ public class UserTitleController extends BaseController {
 		}
 
 		UserTitle userTitle = userTitleService.selectById(userTitleId);
-		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据id查询用户职务】(UserTitleController-selectById)-根据id查询用户职务, userTitle:{}", userTitle);
+		if(userTitle == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserTitleVo userTitleVo = new UserTitleVo().convertToUserTitleVo(userTitle);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();
@@ -140,8 +141,10 @@ public class UserTitleController extends BaseController {
 		}
 
 		UserTitle userTitle = userTitleService.selectByUserId(userId);
-		Assert.thanOrEqualZreo(userTitle, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据userId查询用户职务】(UserTitleController-selectByUserId)-根据userId查询用户职务, userTitle:{}", userTitle);
+		if(userTitle == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserTitleVo userTitleVo = new UserTitleVo().convertToUserTitleVo(userTitle);
 
 		BaseRestMapResponse userTitleResponse = new BaseRestMapResponse();

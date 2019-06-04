@@ -24,7 +24,6 @@ import com.cloud.provider.safe.rest.request.danger.DangerCheckIdsRequest;
 import com.cloud.provider.safe.rest.request.danger.DangerCheckRequest;
 import com.cloud.provider.safe.rest.request.page.danger.DangerCheckPageRequest;
 import com.cloud.provider.safe.service.IDangerCheckService;
-import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.danger.DangerCheckVo;
 import com.github.pagehelper.Page;
@@ -112,8 +111,10 @@ public class DangerCheckController extends BaseController {
 		}
 
 		DangerCheck dangerCheck = dangerCheckService.selectById(dangerCheckId);
-		Assert.thanOrEqualZreo(dangerCheck, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据id查询隐患排查】(DangerCheckController-selectById)-根据id查询隐患排查, dangerCheck:{}", dangerCheck);
+		if(dangerCheck == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		DangerCheckVo dangerCheckVo = new DangerCheckVo().convertToDangerCheckVo(dangerCheck);
 
 		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();
@@ -139,8 +140,10 @@ public class DangerCheckController extends BaseController {
 		}
 
 		DangerCheck dangerCheck = dangerCheckService.selectByUserId(userId);
-		Assert.thanOrEqualZreo(dangerCheck, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据userId查询隐患排查】(DangerCheckController-selectByUserId)-根据userId查询隐患排查, dangerCheck:{}", dangerCheck);
+		if(dangerCheck == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		DangerCheckVo dangerCheckVo = new DangerCheckVo().convertToDangerCheckVo(dangerCheck);
 
 		BaseRestMapResponse dangerCheckResponse = new BaseRestMapResponse();

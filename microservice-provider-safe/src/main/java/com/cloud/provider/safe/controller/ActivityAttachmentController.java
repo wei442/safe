@@ -111,6 +111,9 @@ public class ActivityAttachmentController extends BaseController {
 
 		ActivityAttachment activityAttachment = activityAttachmentService.selectById(activityAttachmentId);
 		logger.info("===step2:【据id查询活动附件】(ActivityAttachmentController-selectById)-根据id查询活动附件, activityAttachment:{}", activityAttachment);
+		if(activityAttachment == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		ActivityAttachmentVo activityAttachmentVo = new ActivityAttachmentVo().convertToActivityAttachmentVo(activityAttachment);
 
 		BaseRestMapResponse activityAttachmentResponse = new BaseRestMapResponse();

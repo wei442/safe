@@ -112,6 +112,9 @@ public class ActivityController extends BaseController {
 
 		Activity activity = activityService.selectById(activityId);
 		logger.info("===step2:【据id查询活动】(ActivityController-selectById)-根据id查询活动, activity:{}", activity);
+		if(activity == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		ActivityVo activityVo = new ActivityVo().convertToActivityVo(activity);
 
 		BaseRestMapResponse activityResponse = new BaseRestMapResponse();

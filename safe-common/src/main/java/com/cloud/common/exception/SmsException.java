@@ -3,10 +3,10 @@ package com.cloud.common.exception;
 import com.cloud.common.enums.ResultEnum;
 
 /**
- * 安全异常 SafeException
+ * 短信异常 SmsException
  * @author wei.yong
  */
-public class SafeException extends RuntimeException {
+public class SmsException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,29 +14,29 @@ public class SafeException extends RuntimeException {
 
 	private String errorMessage;
 
-	public SafeException() {
+	public SmsException() {
 	}
 
-	public SafeException(Throwable e) {
+	public SmsException(Throwable e) {
 		super(e);
 	}
 
-	public SafeException(String errorCode) {
+	public SmsException(String errorCode) {
 		this.errorCode = errorCode;
 	}
 
-	public SafeException(String errorCode, String errorMessage) {
+	public SmsException(String errorCode, String errorMessage) {
 	 	super(errorMessage);
 	    this.errorCode = errorCode;
 	    this.errorMessage = errorMessage;
 	}
 
-	public SafeException(String errorCode, Throwable e) {
+	public SmsException(String errorCode, Throwable e) {
 		super(e);
 	    this.errorCode = errorCode;
 	}
 
-	public SafeException(ResultEnum result) {
+	public SmsException(ResultEnum result) {
 		super(result.getMsg());
 		this.errorCode = result.getCode();
 	}

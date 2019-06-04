@@ -112,6 +112,9 @@ public class UserMenuController extends BaseController {
 
 		UserMenu userMenu = userMenuService.selectById(userMenuId);
 		logger.info("===step2:【据id查询用户菜单】(UserMenuController-selectById)-根据id查询用户菜单, userMenu:{}", userMenu);
+		if(userMenu == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		UserMenuVo userMenuVo = new UserMenuVo().convertToUserMenuVo(userMenu);
 
 		BaseRestMapResponse userMenuResponse = new BaseRestMapResponse();

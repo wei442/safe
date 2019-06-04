@@ -24,7 +24,6 @@ import com.cloud.provider.safe.rest.request.page.risk.RiskCheckPageRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskCheckIdsRequest;
 import com.cloud.provider.safe.rest.request.risk.RiskCheckRequest;
 import com.cloud.provider.safe.service.IRiskCheckService;
-import com.cloud.provider.safe.util.Assert;
 import com.cloud.provider.safe.validator.group.ModifyGroup;
 import com.cloud.provider.safe.vo.risk.RiskCheckVo;
 import com.github.pagehelper.Page;
@@ -112,8 +111,10 @@ public class RiskCheckController extends BaseController {
 		}
 
 		RiskCheck riskCheck = riskCheckService.selectById(riskCheckId);
-		Assert.thanOrEqualZreo(riskCheck, SafeResultEnum.DATABASE_NOTEXIST);
 		logger.info("===step2:【据id查询风险排查】(RiskCheckController-selectById)-根据id查询风险排查, riskCheck:{}", riskCheck);
+		if(riskCheck == null) {
+			return new BaseRestMapResponse(SafeResultEnum.DATABASE_NOTEXIST);
+		}
 		RiskCheckVo riskCheckVo = new RiskCheckVo().convertToRiskCheckVo(riskCheck);
 
 		BaseRestMapResponse riskCheckResponse = new BaseRestMapResponse();
