@@ -27,6 +27,11 @@
 	      	<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
 		</dependency>
 		<!-- spring cloud end -->
+		<dependency>
+			<groupId>org.apache.rocketmq</groupId>
+		    <artifactId>rocketmq-spring-boot-starter</artifactId>
+		    <version>2.0.2</version>
+		</dependency>
 		
 		<!-- commons start -->
         <dependency>
@@ -77,6 +82,11 @@
 		</dependency>
 		
          <!-- 通用工具类 -->
+        <dependency>
+            <groupId>com.cloud</groupId>
+            <artifactId>base-common</artifactId>
+            <version>0.0.1-RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>com.cloud</groupId>
             <artifactId>safe-common</artifactId>

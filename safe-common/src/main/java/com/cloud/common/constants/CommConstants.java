@@ -70,7 +70,8 @@ public class CommConstants {
     /**
      * 错误描述-系统错误
      */
-    public static final String SYSTEM_ERROR_MSG = "当前系统繁忙，请稍后再试";
+//    public static final String SYSTEM_ERROR_MSG = "当前系统繁忙，请稍后再试";
+    public static final String SYSTEM_ERROR_MSG = "服务竟然出错了，请刷新页面";
 
     /**
      * 错误编码-数据操作失败(数据不存在)
