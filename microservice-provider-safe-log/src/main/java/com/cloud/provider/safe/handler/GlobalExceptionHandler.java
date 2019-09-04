@@ -4,10 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cloud.common.enums.safe.SafeResultEnum;
 import com.cloud.common.exception.SafeException;
@@ -17,7 +16,7 @@ import com.cloud.provider.safe.base.BaseRestMapResponse;
  * @author S.J.
  * @date 2018/06/28
  */
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -31,7 +30,6 @@ public class GlobalExceptionHandler {
 	 * @param e
 	 * @return BootRestMapResponse
 	 */
-	@ResponseBody
 	@ExceptionHandler(value = Exception.class)
 	public BaseRestMapResponse exceptionHandler(Exception e) {
 		if (e instanceof SafeException) {
