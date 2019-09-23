@@ -5,13 +5,12 @@
 	<parent>
 		<groupId>com.cloud</groupId>
 		<artifactId>safe</artifactId>
-		<version>${revision}</version>
+		<version>0.0.1-SNAPSHOT</version>
+		<!-- 正式版本 
+		<version>0.0.1-RELEASE</version>
+		-->
 	</parent>
 	<artifactId>microservice-api-gateway-safe</artifactId>
-	<!-- 开发版本 -->
-	<!-- 正式版本 
-	<version>0.0.1-RELEASE</version>
-	-->
 	<name>microservice-api-gateway-safe</name>
 
     <dependencies>
@@ -26,7 +25,7 @@
         <dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-collections4</artifactId>
-		    <version>4.3</version>
+		    <version>4.4</version>
 		</dependency>
 		<!-- commons end -->
 		

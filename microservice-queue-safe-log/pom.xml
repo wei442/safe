@@ -5,13 +5,12 @@
 	<parent>
 		<groupId>com.cloud</groupId>
 		<artifactId>safe</artifactId>
-		<version>${revision}</version>
+		<version>0.0.1-SNAPSHOT</version>
+		<!-- 正式版本 
+		<version>0.0.1-RELEASE</version>
+		-->
 	</parent>
 	<artifactId>microservice-queue-safe-log</artifactId>
-	<!-- 开发版本 -->
-	<!-- 正式版本 
-	<version>0.0.1-RELEASE</version>
-	-->
 	<name>microservice-queue-safe-log</name>
 
     <dependencies>
@@ -28,12 +27,11 @@
 		</dependency>
 		<!-- spring cloud end -->
 		
-		
 		<!-- commons start -->
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
+            <version>1.9.4</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
@@ -42,7 +40,7 @@
         <dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-collections4</artifactId>
-		    <version>4.3</version>
+		    <version>4.4</version>
 		</dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -56,7 +54,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>1.6</version>
+            <version>1.8</version>
         </dependency>
         <!-- commons end -->
 

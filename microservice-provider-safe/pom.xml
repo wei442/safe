@@ -5,13 +5,12 @@
 	<parent>
 		<groupId>com.cloud</groupId>
 		<artifactId>safe</artifactId>
-		<version>${revision}</version>
+		<version>0.0.1-SNAPSHOT</version>
+		<!-- 正式版本 
+		<version>0.0.1-RELEASE</version>
+		-->
 	</parent>
 	<artifactId>microservice-provider-safe</artifactId>
-	<!-- 开发版本 -->
-	<!-- 正式版本 
-	<version>0.0.1-RELEASE</version>
-	-->
 	<name>microservice-provider-safe</name>
 
     <dependencies>
@@ -28,12 +27,12 @@
    		<dependency>
 			<groupId>com.alibaba</groupId>
 		   	<artifactId>druid-spring-boot-starter</artifactId>
-		   	<version>1.1.17</version>
+		   	<version>1.1.20</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
-			<version>1.2.11</version>
+			<version>1.2.12</version>
 		</dependency>
    		<!-- spring boot end -->
 	    
@@ -41,7 +40,7 @@
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
+            <version>1.9.4</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
@@ -50,7 +49,7 @@
         <dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-collections4</artifactId>
-		    <version>4.3</version>
+		    <version>4.4</version>
 		</dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -64,7 +63,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>1.6</version>
+            <version>1.8</version>
         </dependency>
         <!-- commons end -->
 		
