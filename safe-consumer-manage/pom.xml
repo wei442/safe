@@ -10,8 +10,8 @@
 		<version>0.0.1-RELEASE</version>
 		-->
 	</parent>
-	<artifactId>safe-consumer-admin</artifactId>
-	<name>safe-consumer-admin</name>
+	<artifactId>safe-consumer-manage</artifactId>
+	<name>safe-consumer-manage</name>
 
     <dependencies>
 		<!-- spring cloud start -->
