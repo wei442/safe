@@ -140,9 +140,10 @@
 		<module>microservice-provider-safe-log</module>
 		<module>microservice-queue-safe-log</module>
 		
-		<module>safe-gateway-manage</module>
-		<module>safe-gateway-admin</module>
 		<module>safe-gateway</module>
+		<module>safe-gateway-admin</module>
+		<module>safe-gateway-manage</module>
+		<module>safe-consumer</module>
 		<module>safe-consumer-admin</module>
 		<module>safe-consumer-manage</module>
 		<module>safe-provider</module>
