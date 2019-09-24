@@ -139,6 +139,16 @@
 		<module>microservice-provider-safe-flowable</module>
 		<module>microservice-provider-safe-log</module>
 		<module>microservice-queue-safe-log</module>
+		
+		<module>safe-gateway-manage</module>
+		<module>safe-gateway-admin</module>
+		<module>safe-gateway</module>
+		<module>safe-consumer-admin</module>
+		<module>safe-consumer-manage</module>
+		<module>safe-provider</module>
+		<module>safe-provider-flowable</module>
+		<module>safe-provider-log</module>
+		<module>safe-queue-log</module>
 		<module>safe-common</module>
 	</modules>
 </project>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.cloud</groupId>
+		<artifactId>safe</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<!-- 正式版本 
+		<version>0.0.1-RELEASE</version>
+		-->
+	</parent>
+	<artifactId>safe-provider-flowable</artifactId>
+	<name>safe-provider-flowable</name>
+
+    <dependencies>
+        <!-- 安全 -->
+   		<dependency>  
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-security</artifactId>
+   		</dependency>
+   		<dependency>
+		    <groupId>org.mybatis.spring.boot</groupId>
+		    <artifactId>mybatis-spring-boot-starter</artifactId>
+		    <version>2.0.1</version>
+		</dependency>
+   		<dependency>
+			<groupId>com.alibaba</groupId>
+		   	<artifactId>druid-spring-boot-starter</artifactId>
+		   	<version>1.1.20</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.12</version>
+		</dependency>
+   		<!-- spring boot end -->
+		<!-- https://mvnrepository.com/artifact/org.flowable/flowable-spring-boot-starter -->
+		<dependency>
+			<groupId>org.flowable</groupId>
+		    <artifactId>flowable-spring-boot-starter</artifactId>
+		    <version>6.4.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.flowable</groupId>
+		    <artifactId>flowable-spring-boot-starter-rest</artifactId>
+		    <version>6.4.2</version>
+		</dependency>
+
+		
+	    <!-- commons start -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-collections4</artifactId>
+		    <version>4.4</version>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.19</version>
+        </dependency>
+        <dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-configuration2</artifactId>
+		    <version>2.6</version>
+		</dependency>
+        <dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-dbcp2</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.6</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <!-- commons end -->
+		
+        <dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpcore</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>joda-time</groupId>
+		    <artifactId>joda-time</artifactId>
+		</dependency>
+		
+		
+        <!-- 通用工具类 -->
+        <dependency>
+            <groupId>com.cloud</groupId>
+            <artifactId>safe-common</artifactId>
+            <version>0.0.1-RELEASE</version>
+        </dependency>
+    </dependencies>
+
+</project>

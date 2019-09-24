@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.provider.safe.dao.RiskMapper">
+  <resultMap id="BaseResultMap" type="com.cloud.provider.safe.po.Risk">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="enterprise_id" jdbcType="INTEGER" property="enterpriseId" />
+    <result column="risk_code" jdbcType="VARCHAR" property="riskCode" />
+    <result column="risk_work_place" jdbcType="VARCHAR" property="riskWorkPlace" />
+    <result column="risk_category" jdbcType="VARCHAR" property="riskCategory" />
+    <result column="risk_reason" jdbcType="VARCHAR" property="riskReason" />
+    <result column="risk_level" jdbcType="VARCHAR" property="riskLevel" />
+    <result column="control_reason" jdbcType="VARCHAR" property="controlReason" />
+    <result column="control_method" jdbcType="VARCHAR" property="controlMethod" />
+    <result column="risk_status" jdbcType="INTEGER" property="riskStatus" />
+    <result column="is_danger" jdbcType="INTEGER" property="isDanger" />
+    <result column="frequency" jdbcType="VARCHAR" property="frequency" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="created" jdbcType="VARCHAR" property="created" />
+    <result column="updated" jdbcType="VARCHAR" property="updated" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, enterprise_id, risk_code, risk_work_place, risk_category, risk_reason, risk_level, 
+    control_reason, control_method, risk_status, is_danger, frequency, is_delete, remark, 
+    sort, created, updated, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.cloud.provider.safe.po.RiskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from risk
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from risk
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from risk
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cloud.provider.safe.po.RiskExample">
+    delete from risk
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cloud.provider.safe.po.Risk" useGeneratedKeys="true" keyProperty="id">
+    insert into risk (id, enterprise_id, risk_code, 
+      risk_work_place, risk_category, risk_reason, 
+      risk_level, control_reason, control_method, 
+      risk_status, is_danger, frequency, 
+      is_delete, remark, sort, 
+      created, updated, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=INTEGER}, #{riskCode,jdbcType=VARCHAR}, 
+      #{riskWorkPlace,jdbcType=VARCHAR}, #{riskCategory,jdbcType=VARCHAR}, #{riskReason,jdbcType=VARCHAR}, 
+      #{riskLevel,jdbcType=VARCHAR}, #{controlReason,jdbcType=VARCHAR}, #{controlMethod,jdbcType=VARCHAR}, 
+      #{riskStatus,jdbcType=INTEGER}, #{isDanger,jdbcType=INTEGER}, #{frequency,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{created,jdbcType=VARCHAR}, #{updated,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cloud.provider.safe.po.Risk" useGeneratedKeys="true" keyProperty="id">
+    insert into risk
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id,
+      </if>
+      <if test="riskCode != null">
+        risk_code,
+      </if>
+      <if test="riskWorkPlace != null">
+        risk_work_place,
+      </if>
+      <if test="riskCategory != null">
+        risk_category,
+      </if>
+      <if test="riskReason != null">
+        risk_reason,
+      </if>
+      <if test="riskLevel != null">
+        risk_level,
+      </if>
+      <if test="controlReason != null">
+        control_reason,
+      </if>
+      <if test="controlMethod != null">
+        control_method,
+      </if>
+      <if test="riskStatus != null">
+        risk_status,
+      </if>
+      <if test="isDanger != null">
+        is_danger,
+      </if>
+      <if test="frequency != null">
+        frequency,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=INTEGER},
+      </if>
+      <if test="riskCode != null">
+        #{riskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="riskWorkPlace != null">
+        #{riskWorkPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="riskCategory != null">
+        #{riskCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="riskReason != null">
+        #{riskReason,jdbcType=VARCHAR},
+      </if>
+      <if test="riskLevel != null">
+        #{riskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="controlReason != null">
+        #{controlReason,jdbcType=VARCHAR},
+      </if>
+      <if test="controlMethod != null">
+        #{controlMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="riskStatus != null">
+        #{riskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isDanger != null">
+        #{isDanger,jdbcType=INTEGER},
+      </if>
+      <if test="frequency != null">
+        #{frequency,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cloud.provider.safe.po.RiskExample" resultType="java.lang.Long">
+    select count(*) from risk
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update risk
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.enterpriseId != null">
+        enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.riskCode != null">
+        risk_code = #{record.riskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskWorkPlace != null">
+        risk_work_place = #{record.riskWorkPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskCategory != null">
+        risk_category = #{record.riskCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskReason != null">
+        risk_reason = #{record.riskReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskLevel != null">
+        risk_level = #{record.riskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlReason != null">
+        control_reason = #{record.controlReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlMethod != null">
+        control_method = #{record.controlMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskStatus != null">
+        risk_status = #{record.riskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDanger != null">
+        is_danger = #{record.isDanger,jdbcType=INTEGER},
+      </if>
+      <if test="record.frequency != null">
+        frequency = #{record.frequency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.created != null">
+        created = #{record.created,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updated != null">
+        updated = #{record.updated,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update risk
+    set id = #{record.id,jdbcType=INTEGER},
+      enterprise_id = #{record.enterpriseId,jdbcType=INTEGER},
+      risk_code = #{record.riskCode,jdbcType=VARCHAR},
+      risk_work_place = #{record.riskWorkPlace,jdbcType=VARCHAR},
+      risk_category = #{record.riskCategory,jdbcType=VARCHAR},
+      risk_reason = #{record.riskReason,jdbcType=VARCHAR},
+      risk_level = #{record.riskLevel,jdbcType=VARCHAR},
+      control_reason = #{record.controlReason,jdbcType=VARCHAR},
+      control_method = #{record.controlMethod,jdbcType=VARCHAR},
+      risk_status = #{record.riskStatus,jdbcType=INTEGER},
+      is_danger = #{record.isDanger,jdbcType=INTEGER},
+      frequency = #{record.frequency,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=VARCHAR},
+      updated = #{record.updated,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cloud.provider.safe.po.Risk">
+    update risk
+    <set>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=INTEGER},
+      </if>
+      <if test="riskCode != null">
+        risk_code = #{riskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="riskWorkPlace != null">
+        risk_work_place = #{riskWorkPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="riskCategory != null">
+        risk_category = #{riskCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="riskReason != null">
+        risk_reason = #{riskReason,jdbcType=VARCHAR},
+      </if>
+      <if test="riskLevel != null">
+        risk_level = #{riskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="controlReason != null">
+        control_reason = #{controlReason,jdbcType=VARCHAR},
+      </if>
+      <if test="controlMethod != null">
+        control_method = #{controlMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="riskStatus != null">
+        risk_status = #{riskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isDanger != null">
+        is_danger = #{isDanger,jdbcType=INTEGER},
+      </if>
+      <if test="frequency != null">
+        frequency = #{frequency,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cloud.provider.safe.po.Risk">
+    update risk
+    set enterprise_id = #{enterpriseId,jdbcType=INTEGER},
+      risk_code = #{riskCode,jdbcType=VARCHAR},
+      risk_work_place = #{riskWorkPlace,jdbcType=VARCHAR},
+      risk_category = #{riskCategory,jdbcType=VARCHAR},
+      risk_reason = #{riskReason,jdbcType=VARCHAR},
+      risk_level = #{riskLevel,jdbcType=VARCHAR},
+      control_reason = #{controlReason,jdbcType=VARCHAR},
+      control_method = #{controlMethod,jdbcType=VARCHAR},
+      risk_status = #{riskStatus,jdbcType=INTEGER},
+      is_danger = #{isDanger,jdbcType=INTEGER},
+      frequency = #{frequency,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      created = #{created,jdbcType=VARCHAR},
+      updated = #{updated,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
