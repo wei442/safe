@@ -117,29 +117,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<dependencies>
-					<dependency>
-						<groupId>org.springframework</groupId>
-						<artifactId>springloaded</artifactId>
-						<version>1.2.8.RELEASE</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
 
 	<modules>
-		<module>microservice-api-gateway-safe</module>
-		<module>microservice-api-gateway-safe-admin</module>
-		<module>microservice-api-gateway-safe-manage</module>
-		<module>microservice-consumer-safe</module>
-		<module>microservice-consumer-safe-admin</module>
-		<module>microservice-consumer-safe-manage</module>
-		<module>microservice-provider-safe</module>
-		<module>microservice-provider-safe-flowable</module>
-		<module>microservice-provider-safe-log</module>
-		<module>microservice-queue-safe-log</module>
-		
 		<module>safe-gateway</module>
 		<module>safe-gateway-admin</module>
 		<module>safe-gateway-manage</module>
