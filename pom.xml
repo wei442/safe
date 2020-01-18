@@ -98,21 +98,7 @@
 		</dependency>
 	</dependencies>
 
-	<!-- 项目发布至版本仓库中 -->
-	<distributionManagement>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>Nexus-snapshots</name>
-			<url>http://10.10.2.104:8082/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-		<repository>
-			<id>releases</id>
-			<name>Nexus-releases</name>
-			<url>http://10.10.2.104:8082/nexus/content/repositories/releases/</url>
-		</repository>
-	</distributionManagement>
-
-	<build>
+	 <build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
